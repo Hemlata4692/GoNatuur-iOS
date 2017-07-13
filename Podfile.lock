@@ -14,13 +14,16 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - SCLAlertView-Objective-C (1.1.2)
 
 DEPENDENCIES:
   - AFNetworking
+  - SCLAlertView-Objective-C
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  SCLAlertView-Objective-C: 0e54351fa4f98a5c7c6ad3727e6dbb46784534e5
 
-PODFILE CHECKSUM: 9d5442f67ab97da7563642ed0bced8d0964f45be
+PODFILE CHECKSUM: 07758e65ba1917f9f4f183fb0567ce04656fd1a3
 
 COCOAPODS: 1.2.1

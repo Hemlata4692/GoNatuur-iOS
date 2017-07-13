@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3207616E1F162820001F1790 /* NullValueChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3207616D1F162820001F1790 /* NullValueChecker.m */; };
+		320761721F162834001F1790 /* UserDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761711F162834001F1790 /* UserDefaultManager.m */; };
+		320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761751F163AB2001F1790 /* MMMaterialDesignSpinner.m */; };
+		3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = 3207617A1F163B12001F1790 /* UITextField+Validations.m */; };
+		3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */ = {isa = PBXBuildFile; fileRef = 3207617E1F163B2A001F1790 /* UITextField+Padding.m */; };
+		320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761821F163B3E001F1790 /* UIView+RoundedCorner.m */; };
+		320761871F164986001F1790 /* Webservice.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761861F164986001F1790 /* Webservice.m */; };
+		3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3207618A1F164BE1001F1790 /* UncaughtExceptionHandler.m */; };
+		329F7D521F1730DD008E0E15 /* GlobalIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 329F7D511F1730DD008E0E15 /* GlobalIndicatorView.m */; };
 		32BAA6091F1360280015E355 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BAA6081F1360280015E355 /* main.m */; };
 		32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BAA60B1F1360280015E355 /* AppDelegate.m */; };
 		32BAA60F1F1360290015E355 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BAA60E1F1360290015E355 /* ViewController.m */; };
@@ -17,6 +26,25 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3207616C1F162820001F1790 /* NullValueChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullValueChecker.h; sourceTree = "<group>"; };
+		3207616D1F162820001F1790 /* NullValueChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullValueChecker.m; sourceTree = "<group>"; };
+		320761701F162834001F1790 /* UserDefaultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultManager.h; sourceTree = "<group>"; };
+		320761711F162834001F1790 /* UserDefaultManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultManager.m; sourceTree = "<group>"; };
+		320761741F163AB2001F1790 /* MMMaterialDesignSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMaterialDesignSpinner.h; sourceTree = "<group>"; };
+		320761751F163AB2001F1790 /* MMMaterialDesignSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMaterialDesignSpinner.m; sourceTree = "<group>"; };
+		320761791F163B12001F1790 /* UITextField+Validations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Validations.h"; sourceTree = "<group>"; };
+		3207617A1F163B12001F1790 /* UITextField+Validations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Validations.m"; sourceTree = "<group>"; };
+		3207617D1F163B2A001F1790 /* UITextField+Padding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Padding.h"; sourceTree = "<group>"; };
+		3207617E1F163B2A001F1790 /* UITextField+Padding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Padding.m"; sourceTree = "<group>"; };
+		320761811F163B3E001F1790 /* UIView+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RoundedCorner.h"; sourceTree = "<group>"; };
+		320761821F163B3E001F1790 /* UIView+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RoundedCorner.m"; sourceTree = "<group>"; };
+		320761841F16483A001F1790 /* GoNatuur-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GoNatuur-Prefix.pch"; sourceTree = "<group>"; };
+		320761851F164986001F1790 /* Webservice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Webservice.h; sourceTree = "<group>"; };
+		320761861F164986001F1790 /* Webservice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Webservice.m; sourceTree = "<group>"; };
+		320761891F164BE1001F1790 /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
+		3207618A1F164BE1001F1790 /* UncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UncaughtExceptionHandler.m; sourceTree = "<group>"; };
+		329F7D501F1730DD008E0E15 /* GlobalIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalIndicatorView.h; sourceTree = "<group>"; };
+		329F7D511F1730DD008E0E15 /* GlobalIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalIndicatorView.m; sourceTree = "<group>"; };
 		32BAA6041F1360280015E355 /* GoNatuur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoNatuur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32BAA6081F1360280015E355 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32BAA60A1F1360280015E355 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -44,6 +72,185 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3207615F1F1626E2001F1790 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				32BAA60D1F1360280015E355 /* ViewController.h */,
+				32BAA60E1F1360290015E355 /* ViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		320761601F1626F2001F1790 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		320761611F1626FB001F1790 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				320761661F162789001F1790 /* CategoryClasses */,
+				320761651F162733001F1790 /* HelperClasses */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		320761621F162706001F1790 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				32BAA60A1F1360280015E355 /* AppDelegate.h */,
+				32BAA60B1F1360280015E355 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		320761631F162712001F1790 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				320761601F1626F2001F1790 /* Models */,
+				320761671F162799001F1790 /* ServerCommunication */,
+				320761611F1626FB001F1790 /* Views */,
+				3207615F1F1626E2001F1790 /* Controllers */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		320761641F162724001F1790 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		320761651F162733001F1790 /* HelperClasses */ = {
+			isa = PBXGroup;
+			children = (
+				329F7D4F1F172AD9008E0E15 /* AlertView */,
+				320761881F164BD2001F1790 /* Crashlytics */,
+				320761731F163A9D001F1790 /* MMMaterialDesignSpinner */,
+				3207616F1F162829001F1790 /* DefaultManager */,
+				3207616B1F162816001F1790 /* NullHandler */,
+			);
+			name = HelperClasses;
+			sourceTree = "<group>";
+		};
+		320761661F162789001F1790 /* CategoryClasses */ = {
+			isa = PBXGroup;
+			children = (
+				320761801F163B2F001F1790 /* CornerRadius */,
+				3207617C1F163B1D001F1790 /* PaddingCategory */,
+				320761781F163B06001F1790 /* ValidationCategory */,
+			);
+			name = CategoryClasses;
+			sourceTree = "<group>";
+		};
+		320761671F162799001F1790 /* ServerCommunication */ = {
+			isa = PBXGroup;
+			children = (
+				320761681F1627AE001F1790 /* GlobalService */,
+			);
+			name = ServerCommunication;
+			sourceTree = "<group>";
+		};
+		320761681F1627AE001F1790 /* GlobalService */ = {
+			isa = PBXGroup;
+			children = (
+				3207616A1F1627D5001F1790 /* BaseService */,
+				320761691F1627CD001F1790 /* ConnectionManager */,
+			);
+			name = GlobalService;
+			sourceTree = "<group>";
+		};
+		320761691F1627CD001F1790 /* ConnectionManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ConnectionManager;
+			sourceTree = "<group>";
+		};
+		3207616A1F1627D5001F1790 /* BaseService */ = {
+			isa = PBXGroup;
+			children = (
+				320761851F164986001F1790 /* Webservice.h */,
+				320761861F164986001F1790 /* Webservice.m */,
+			);
+			name = BaseService;
+			sourceTree = "<group>";
+		};
+		3207616B1F162816001F1790 /* NullHandler */ = {
+			isa = PBXGroup;
+			children = (
+				3207616C1F162820001F1790 /* NullValueChecker.h */,
+				3207616D1F162820001F1790 /* NullValueChecker.m */,
+			);
+			name = NullHandler;
+			sourceTree = "<group>";
+		};
+		3207616F1F162829001F1790 /* DefaultManager */ = {
+			isa = PBXGroup;
+			children = (
+				320761701F162834001F1790 /* UserDefaultManager.h */,
+				320761711F162834001F1790 /* UserDefaultManager.m */,
+			);
+			name = DefaultManager;
+			sourceTree = "<group>";
+		};
+		320761731F163A9D001F1790 /* MMMaterialDesignSpinner */ = {
+			isa = PBXGroup;
+			children = (
+				320761741F163AB2001F1790 /* MMMaterialDesignSpinner.h */,
+				320761751F163AB2001F1790 /* MMMaterialDesignSpinner.m */,
+				329F7D501F1730DD008E0E15 /* GlobalIndicatorView.h */,
+				329F7D511F1730DD008E0E15 /* GlobalIndicatorView.m */,
+			);
+			name = MMMaterialDesignSpinner;
+			sourceTree = "<group>";
+		};
+		320761781F163B06001F1790 /* ValidationCategory */ = {
+			isa = PBXGroup;
+			children = (
+				320761791F163B12001F1790 /* UITextField+Validations.h */,
+				3207617A1F163B12001F1790 /* UITextField+Validations.m */,
+			);
+			name = ValidationCategory;
+			sourceTree = "<group>";
+		};
+		3207617C1F163B1D001F1790 /* PaddingCategory */ = {
+			isa = PBXGroup;
+			children = (
+				3207617D1F163B2A001F1790 /* UITextField+Padding.h */,
+				3207617E1F163B2A001F1790 /* UITextField+Padding.m */,
+			);
+			name = PaddingCategory;
+			sourceTree = "<group>";
+		};
+		320761801F163B2F001F1790 /* CornerRadius */ = {
+			isa = PBXGroup;
+			children = (
+				320761811F163B3E001F1790 /* UIView+RoundedCorner.h */,
+				320761821F163B3E001F1790 /* UIView+RoundedCorner.m */,
+			);
+			name = CornerRadius;
+			sourceTree = "<group>";
+		};
+		320761881F164BD2001F1790 /* Crashlytics */ = {
+			isa = PBXGroup;
+			children = (
+				320761891F164BE1001F1790 /* UncaughtExceptionHandler.h */,
+				3207618A1F164BE1001F1790 /* UncaughtExceptionHandler.m */,
+			);
+			name = Crashlytics;
+			sourceTree = "<group>";
+		};
+		329F7D4F1F172AD9008E0E15 /* AlertView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = AlertView;
+			sourceTree = "<group>";
+		};
 		32BAA5FB1F1360280015E355 = {
 			isa = PBXGroup;
 			children = (
@@ -65,10 +272,8 @@
 		32BAA6061F1360280015E355 /* GoNatuur */ = {
 			isa = PBXGroup;
 			children = (
-				32BAA60A1F1360280015E355 /* AppDelegate.h */,
-				32BAA60B1F1360280015E355 /* AppDelegate.m */,
-				32BAA60D1F1360280015E355 /* ViewController.h */,
-				32BAA60E1F1360290015E355 /* ViewController.m */,
+				320761621F162706001F1790 /* AppDelegate */,
+				320761631F162712001F1790 /* Classes */,
 				32BAA6101F1360290015E355 /* Main.storyboard */,
 				32BAA6131F1360290015E355 /* Assets.xcassets */,
 				32BAA6151F1360290015E355 /* LaunchScreen.storyboard */,
@@ -81,7 +286,9 @@
 		32BAA6071F1360280015E355 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				320761641F162724001F1790 /* Resources */,
 				32BAA6081F1360280015E355 /* main.m */,
+				320761841F16483A001F1790 /* GoNatuur-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -137,7 +344,7 @@
 				TargetAttributes = {
 					32BAA6031F1360280015E355 = {
 						CreatedOnToolsVersion = 8.3.2;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -225,9 +432,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
+				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
 				32BAA60F1F1360290015E355 /* ViewController.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
+				320761871F164986001F1790 /* Webservice.m in Sources */,
+				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
+				3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */,
+				320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */,
 				32BAA6091F1360280015E355 /* main.m in Sources */,
+				329F7D521F1730DD008E0E15 /* GlobalIndicatorView.m in Sources */,
+				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,
+				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +500,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "GoNatuur/GoNatuur-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -330,6 +547,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "GoNatuur/GoNatuur-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -348,11 +566,14 @@
 			baseConfigurationReference = B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
+				GCC_PREFIX_HEADER = "GoNatuur/GoNatuur-Prefix.pch";
 				INFOPLIST_FILE = GoNatuur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Ranosys.GoNatuur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -361,11 +582,14 @@
 			baseConfigurationReference = B83EEE6EC30D7C8806561F9A /* Pods-GoNatuur.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
+				GCC_PREFIX_HEADER = "GoNatuur/GoNatuur-Prefix.pch";
 				INFOPLIST_FILE = GoNatuur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Ranosys.GoNatuur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

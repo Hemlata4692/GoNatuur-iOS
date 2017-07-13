@@ -3,4 +3,5 @@
 
 target 'GoNatuur' do
   pod 'AFNetworking'
+  pod 'SCLAlertView-Objective-C'
 end

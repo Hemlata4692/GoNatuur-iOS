@@ -1,0 +1,23 @@
+//
+//  GoNatuur-Prefix.pch
+//  GoNatuur
+//
+//  Created by Hemlata Khajanchi on 12/07/17.
+//  Copyright © 2017 Hemlata Khajanchi. All rights reserved.
+//
+
+#ifndef GoNatuur_Prefix_pch
+#define GoNatuur_Prefix_pch
+
+#import "AppDelegate.h"
+#import "SCLAlertView.h"
+#import "UserDefaultManager.h"
+#import <UIImageView+AFNetworking.h>
+#import "GlobalIndicatorView.h"
+
+#define myDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* GoNatuur_Prefix_pch */
