@@ -15,15 +15,38 @@
 		320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761821F163B3E001F1790 /* UIView+RoundedCorner.m */; };
 		320761871F164986001F1790 /* Webservice.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761861F164986001F1790 /* Webservice.m */; };
 		3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3207618A1F164BE1001F1790 /* UncaughtExceptionHandler.m */; };
-		329F7D521F1730DD008E0E15 /* GlobalIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 329F7D511F1730DD008E0E15 /* GlobalIndicatorView.m */; };
+		32A3D6B81F1CBADB00062B86 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A3D6B71F1CBADB00062B86 /* LoginViewController.m */; };
+		32A3D6FF1F1CD2B800062B86 /* FacebookConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A3D6FE1F1CD2B800062B86 /* FacebookConnect.m */; };
+		32A3D7041F1CD2E100062B86 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A3D7011F1CD2E100062B86 /* Bolts.framework */; };
+		32A3D7051F1CD2E100062B86 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A3D7021F1CD2E100062B86 /* FBSDKCoreKit.framework */; };
+		32A3D7061F1CD2E100062B86 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A3D7031F1CD2E100062B86 /* FBSDKLoginKit.framework */; };
+		32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A3D7091F1CE3AA00062B86 /* GmailSignInConnect.m */; };
+		32A3D7101F1CE3BB00062B86 /* GoogleSignInDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A3D70B1F1CE3BB00062B86 /* GoogleSignInDependencies.framework */; };
+		32A3D7111F1CE3BB00062B86 /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A3D70C1F1CE3BB00062B86 /* GoogleSymbolUtilities.framework */; };
+		32A3D7121F1CE3BB00062B86 /* GoogleAppUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A3D70D1F1CE3BB00062B86 /* GoogleAppUtilities.framework */; };
+		32A3D7131F1CE3BB00062B86 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 32A3D70E1F1CE3BB00062B86 /* GoogleSignIn.bundle */; };
+		32A3D7141F1CE3BB00062B86 /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A3D70F1F1CE3BB00062B86 /* GoogleSignIn.framework */; };
+		32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32A3D7151F1CE4A500062B86 /* GoogleService-Info.plist */; };
 		32BAA6091F1360280015E355 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BAA6081F1360280015E355 /* main.m */; };
 		32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BAA60B1F1360280015E355 /* AppDelegate.m */; };
-		32BAA60F1F1360290015E355 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BAA60E1F1360290015E355 /* ViewController.m */; };
 		32BAA6121F1360290015E355 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32BAA6101F1360290015E355 /* Main.storyboard */; };
 		32BAA6141F1360290015E355 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32BAA6131F1360290015E355 /* Assets.xcassets */; };
 		32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32BAA6151F1360290015E355 /* LaunchScreen.storyboard */; };
 		E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		32A3D6F21F1CCF1400062B86 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3207616C1F162820001F1790 /* NullValueChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullValueChecker.h; sourceTree = "<group>"; };
@@ -43,14 +66,25 @@
 		320761861F164986001F1790 /* Webservice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Webservice.m; sourceTree = "<group>"; };
 		320761891F164BE1001F1790 /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
 		3207618A1F164BE1001F1790 /* UncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UncaughtExceptionHandler.m; sourceTree = "<group>"; };
-		329F7D501F1730DD008E0E15 /* GlobalIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalIndicatorView.h; sourceTree = "<group>"; };
-		329F7D511F1730DD008E0E15 /* GlobalIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalIndicatorView.m; sourceTree = "<group>"; };
+		32A3D6B61F1CBADB00062B86 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		32A3D6B71F1CBADB00062B86 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		32A3D6FD1F1CD2B800062B86 /* FacebookConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookConnect.h; sourceTree = "<group>"; };
+		32A3D6FE1F1CD2B800062B86 /* FacebookConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookConnect.m; sourceTree = "<group>"; };
+		32A3D7011F1CD2E100062B86 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		32A3D7021F1CD2E100062B86 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		32A3D7031F1CD2E100062B86 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		32A3D7081F1CE3AA00062B86 /* GmailSignInConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GmailSignInConnect.h; sourceTree = "<group>"; };
+		32A3D7091F1CE3AA00062B86 /* GmailSignInConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GmailSignInConnect.m; sourceTree = "<group>"; };
+		32A3D70B1F1CE3BB00062B86 /* GoogleSignInDependencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSignInDependencies.framework; sourceTree = "<group>"; };
+		32A3D70C1F1CE3BB00062B86 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
+		32A3D70D1F1CE3BB00062B86 /* GoogleAppUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleAppUtilities.framework; sourceTree = "<group>"; };
+		32A3D70E1F1CE3BB00062B86 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleSignIn.bundle; sourceTree = "<group>"; };
+		32A3D70F1F1CE3BB00062B86 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSignIn.framework; sourceTree = "<group>"; };
+		32A3D7151F1CE4A500062B86 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		32BAA6041F1360280015E355 /* GoNatuur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoNatuur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32BAA6081F1360280015E355 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32BAA60A1F1360280015E355 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		32BAA60B1F1360280015E355 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		32BAA60D1F1360280015E355 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		32BAA60E1F1360290015E355 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		32BAA6111F1360290015E355 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		32BAA6131F1360290015E355 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32BAA6161F1360290015E355 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -65,7 +99,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32A3D7111F1CE3BB00062B86 /* GoogleSymbolUtilities.framework in Frameworks */,
 				E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */,
+				32A3D7051F1CD2E100062B86 /* FBSDKCoreKit.framework in Frameworks */,
+				32A3D7061F1CD2E100062B86 /* FBSDKLoginKit.framework in Frameworks */,
+				32A3D7121F1CE3BB00062B86 /* GoogleAppUtilities.framework in Frameworks */,
+				32A3D7101F1CE3BB00062B86 /* GoogleSignInDependencies.framework in Frameworks */,
+				32A3D7041F1CD2E100062B86 /* Bolts.framework in Frameworks */,
+				32A3D7141F1CE3BB00062B86 /* GoogleSignIn.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,8 +116,7 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				32BAA60D1F1360280015E355 /* ViewController.h */,
-				32BAA60E1F1360290015E355 /* ViewController.m */,
+				32A3D6B51F1CBABA00062B86 /* LoginModule */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -127,9 +167,10 @@
 		320761651F162733001F1790 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				32A3D6C01F1CBDE200062B86 /* SocialLogin */,
 				329F7D4F1F172AD9008E0E15 /* AlertView */,
 				320761881F164BD2001F1790 /* Crashlytics */,
-				320761731F163A9D001F1790 /* MMMaterialDesignSpinner */,
+				320761731F163A9D001F1790 /* MMMaterialDesignerSpinner */,
 				3207616F1F162829001F1790 /* DefaultManager */,
 				3207616B1F162816001F1790 /* NullHandler */,
 			);
@@ -197,15 +238,13 @@
 			name = DefaultManager;
 			sourceTree = "<group>";
 		};
-		320761731F163A9D001F1790 /* MMMaterialDesignSpinner */ = {
+		320761731F163A9D001F1790 /* MMMaterialDesignerSpinner */ = {
 			isa = PBXGroup;
 			children = (
 				320761741F163AB2001F1790 /* MMMaterialDesignSpinner.h */,
 				320761751F163AB2001F1790 /* MMMaterialDesignSpinner.m */,
-				329F7D501F1730DD008E0E15 /* GlobalIndicatorView.h */,
-				329F7D511F1730DD008E0E15 /* GlobalIndicatorView.m */,
 			);
-			name = MMMaterialDesignSpinner;
+			name = MMMaterialDesignerSpinner;
 			sourceTree = "<group>";
 		};
 		320761781F163B06001F1790 /* ValidationCategory */ = {
@@ -251,6 +290,57 @@
 			name = AlertView;
 			sourceTree = "<group>";
 		};
+		32A3D6B51F1CBABA00062B86 /* LoginModule */ = {
+			isa = PBXGroup;
+			children = (
+				32A3D6B61F1CBADB00062B86 /* LoginViewController.h */,
+				32A3D6B71F1CBADB00062B86 /* LoginViewController.m */,
+			);
+			name = LoginModule;
+			sourceTree = "<group>";
+		};
+		32A3D6C01F1CBDE200062B86 /* SocialLogin */ = {
+			isa = PBXGroup;
+			children = (
+				32A3D7071F1CD4B500062B86 /* GoogleLogin */,
+				32A3D6C11F1CBDF500062B86 /* FacebookLogin */,
+			);
+			name = SocialLogin;
+			sourceTree = "<group>";
+		};
+		32A3D6C11F1CBDF500062B86 /* FacebookLogin */ = {
+			isa = PBXGroup;
+			children = (
+				32A3D6FD1F1CD2B800062B86 /* FacebookConnect.h */,
+				32A3D6FE1F1CD2B800062B86 /* FacebookConnect.m */,
+			);
+			name = FacebookLogin;
+			sourceTree = "<group>";
+		};
+		32A3D7001F1CD2CD00062B86 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				32A3D70B1F1CE3BB00062B86 /* GoogleSignInDependencies.framework */,
+				32A3D70C1F1CE3BB00062B86 /* GoogleSymbolUtilities.framework */,
+				32A3D70D1F1CE3BB00062B86 /* GoogleAppUtilities.framework */,
+				32A3D70E1F1CE3BB00062B86 /* GoogleSignIn.bundle */,
+				32A3D70F1F1CE3BB00062B86 /* GoogleSignIn.framework */,
+				32A3D7011F1CD2E100062B86 /* Bolts.framework */,
+				32A3D7021F1CD2E100062B86 /* FBSDKCoreKit.framework */,
+				32A3D7031F1CD2E100062B86 /* FBSDKLoginKit.framework */,
+			);
+			name = Framework;
+			sourceTree = "<group>";
+		};
+		32A3D7071F1CD4B500062B86 /* GoogleLogin */ = {
+			isa = PBXGroup;
+			children = (
+				32A3D7081F1CE3AA00062B86 /* GmailSignInConnect.h */,
+				32A3D7091F1CE3AA00062B86 /* GmailSignInConnect.m */,
+			);
+			name = GoogleLogin;
+			sourceTree = "<group>";
+		};
 		32BAA5FB1F1360280015E355 = {
 			isa = PBXGroup;
 			children = (
@@ -286,6 +376,8 @@
 		32BAA6071F1360280015E355 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				32A3D7151F1CE4A500062B86 /* GoogleService-Info.plist */,
+				32A3D7001F1CD2CD00062B86 /* Framework */,
 				320761641F162724001F1790 /* Resources */,
 				32BAA6081F1360280015E355 /* main.m */,
 				320761841F16483A001F1790 /* GoNatuur-Prefix.pch */,
@@ -323,6 +415,7 @@
 				32BAA6021F1360280015E355 /* Resources */,
 				955133EA1640291478880A0B /* [CP] Embed Pods Frameworks */,
 				0EB5D517FA7488F5BE99C49E /* [CP] Copy Pods Resources */,
+				32A3D6F21F1CCF1400062B86 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -371,7 +464,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32A3D7131F1CE3BB00062B86 /* GoogleSignIn.bundle in Resources */,
 				32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */,
+				32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
 				32BAA6121F1360290015E355 /* Main.storyboard in Resources */,
 			);
@@ -432,16 +527,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32A3D6FF1F1CD2B800062B86 /* FacebookConnect.m in Sources */,
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
+				32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */,
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
-				32BAA60F1F1360290015E355 /* ViewController.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
 				3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */,
 				320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */,
+				32A3D6B81F1CBADB00062B86 /* LoginViewController.m in Sources */,
 				32BAA6091F1360280015E355 /* main.m in Sources */,
-				329F7D521F1730DD008E0E15 /* GlobalIndicatorView.m in Sources */,
 				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
 			);
@@ -567,11 +663,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GoNatuur",
+				);
 				GCC_PREFIX_HEADER = "GoNatuur/GoNatuur-Prefix.pch";
 				INFOPLIST_FILE = GoNatuur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Ranosys.GoNatuur;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.LoginLibrary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -583,11 +683,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GoNatuur",
+				);
 				GCC_PREFIX_HEADER = "GoNatuur/GoNatuur-Prefix.pch";
 				INFOPLIST_FILE = GoNatuur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Ranosys.GoNatuur;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.LoginLibrary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
