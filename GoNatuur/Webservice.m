@@ -8,6 +8,7 @@
 
 
 #import "Webservice.h"
+#import "NullValueChecker.h"
 
 @implementation Webservice
 @synthesize manager;
@@ -39,11 +40,13 @@
     [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
     [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//    if ([UserDefaultManager getValue:@"AuthenticationToken"] != NULL) {
-//        [manager.requestSerializer setValue:[UserDefaultManager getValue:@"AuthenticationToken"] forHTTPHeaderField:@"AuthenticationToken"];
-//    }
+    if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
+        //[UserDefaultManager getValue:@"Authorization"]
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
+    }
     manager.securityPolicy.allowInvalidCertificates = YES;
     [manager POST:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        responseObject=(NSMutableDictionary *)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     } failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
         NSLog(@"error.localizedDescription %@",error.localizedDescription);
@@ -68,14 +71,14 @@
     [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
     [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//    if ([UserDefaultManager getValue:@"AuthenticationToken"] != NULL) {
-//        [manager.requestSerializer setValue:[UserDefaultManager getValue:@"AuthenticationToken"] forHTTPHeaderField:@"AuthenticationToken"];
-//    }
+    if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
+        //[UserDefaultManager getValue:@"Authorization"]
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
+    }
     manager.securityPolicy.allowInvalidCertificates = YES;
     NSData *imageData = UIImageJPEGRepresentation(image, 0.3);
     [manager POST:path parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imageData name:@"Images" fileName:@"files.jpg" mimeType:@"image/jpeg"];
-        //        [formData appendPartWithFormData:imageData name:@"Images"];
     } progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         success(responseObject);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -88,36 +91,31 @@
     }];
 }
 
-//Request with image array (multiple images)
-- (void)postImage:(NSString *)path parameters:(NSDictionary *)parameters imageArray:(NSMutableArray *)imageArray success:(void (^)(id))success failure:(void (^)(NSError *))failure {
-    path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//Get method for other services
+- (void)get:(NSString *)path parameters:(NSDictionary *)parameters onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//    [self.manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json",@"application/x-www-form-urlencoded", nil]];
     [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
     [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//    if ([UserDefaultManager getValue:@"AuthenticationToken"] != NULL) {
-//        [manager.requestSerializer setValue:[UserDefaultManager getValue:@"AuthenticationToken"] forHTTPHeaderField:@"AuthenticationToken"];
-//    }
-    manager.securityPolicy.allowInvalidCertificates = YES;
-    [manager POST:path parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        int i=0;
-        for(UIImage *image in imageArray)
-        {
-            NSData *imageData = UIImageJPEGRepresentation(image, 0.3);
-            [formData appendPartWithFileData:imageData name:[NSString stringWithFormat:@"files%d",i] fileName:[NSString stringWithFormat:@"image%d.jpg",i] mimeType:@"image/jpeg"];
-            i++;
-        }
-    } progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//    [manager.requestSerializer setValue:@"Bearer tgor6q6vhpcxyrtbjl6051igq0vk8k8h" forHTTPHeaderField:@"Authorization"];
+    path = @"http://gonatuur.local/rest/default/V1/store/storeViews";
+    [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [myDelegate stopIndicator];
         success(responseObject);
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        [myDelegate stopIndicator];
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
-                                                             options:kNilOptions error:&error];
-        NSLog(@"json %@",json);
-        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:@"Alert" subTitle:[json objectForKey:@"message"] closeButtonTitle:@"Ok" duration:0.0f];
-   }];
+    }
+        failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
+            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
+                                                                 options:kNilOptions error:&error];
+            NSLog(@"json %@",json);
+            NSLog(@"error %ld",(long)error.code);
+            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+            NSInteger statusCode = [response statusCode];
+            NSLog(@"error %ld",(long)statusCode);
+            failure(error);
+        }];
 }
 
 //Check response success

@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "FacebookConnect.h"
 #import "GmailSignInConnect.h"
+#import "LoginModel.h"
 
 @interface LoginViewController ()<FacebookDelegate,GIDSignInDelegate,GIDSignInUIDelegate>
 
@@ -20,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self authenticationToken];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,5 +91,53 @@
     DLog(@"gmail auth token is %@", gmailResult.authentication.idToken);
 }
 #pragma mark - end
+
+#pragma mark - Webservice
+//community code webservice called
+- (void)authenticationToken {
+    [myDelegate showIndicator];
+    LoginModel *authToken = [LoginModel sharedUser];
+    authToken.username=@"";
+    authToken.password=@"";
+    [authToken accessToken:^(LoginModel *userData) {
+//        [self userLogin];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+//user login webservice called
+- (void)userLogin {
+//    LoginModel *userLogin = [LoginModel sharedUser];
+//    userLogin.userName = self.usernameTextField.text;
+//    userLogin.password = self.passwordTextField.text;
+//    [userLogin loginUserOnSuccess:^(LoginModel *userData) {
+//        if (nil==[UserDefaultManager getValue:@"deviceToken"]||NULL==[UserDefaultManager getValue:@"deviceToken"]) {
+//            [myDelegate stopIndicator];
+//        }
+//        else{
+//            [self saveDeviceToken];
+//        }
+        //land user to dashboard
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//        MainSideBarViewController * homeView = [storyboard instantiateViewControllerWithIdentifier:@"MainSideBarViewController"];
+//        [myDelegate.window setRootViewController:homeView];
+//        [myDelegate.window makeKeyAndVisible];
+//    } onfailure:^(NSError *error) {
+//        
+//    }];
+}
+
+//save device token for push notifications
+- (void)saveDeviceToken {
+    LoginModel *saveDeviceToken = [LoginModel sharedUser];
+    [saveDeviceToken saveDeviceToken:^(LoginModel *deviceToken) {
+        [myDelegate stopIndicator];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
+
 
 @end
