@@ -16,7 +16,6 @@
         id value = [dict allValues][i];
         if ([value isKindOfClass:[NSNull class]] || value == (id)[NSNull null] || value == NULL || [value isEqual:@"<null>"]){
             [dict setObject:@"" forKey:[dict allKeys][i]];
-            
         }
         else if ([value isKindOfClass:[NSDictionary class]]) {
             [dict setObject:[NullValueChecker checkDictionaryForNullValue:[NSMutableDictionary dictionaryWithDictionary:(NSDictionary *)value]] forKey:[dict allKeys][i]];

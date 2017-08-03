@@ -10,8 +10,9 @@
 #import "AFNetworking.h"
 
 //testing link
-#define BASE_URL                          @""
-
+#define BASE_URL                          @"http://gonatuur.local/rest/default/V1/"
+//http://gonatuur.local/rest/default/V1/integration/admin/token
+//http://gonatuur.local/rest/default/V1/ranosys/customer/customer-login
 @interface Webservice : NSObject
 
 @property(nonatomic,retain) AFHTTPSessionManager *manager;
@@ -28,9 +29,7 @@
 - (void)postImage:(NSString *)path parameters:(NSDictionary *)parameters image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure;
 //end
 
-//Request with image array (multiple images)
-- (void)postImage:(NSString *)path parameters:(NSDictionary *)parameters imageArray:(NSMutableArray *)imageArray success:(void (^)(id))success failure:(void (^)(NSError *))failure;
-//end
+- (void)get:(NSString *)path parameters:(NSDictionary *)parameters onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 
 //Check response success
 - (BOOL)isStatusOK:(id)responseObject;
