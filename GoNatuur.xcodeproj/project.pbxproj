@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F31F32E09800430842 /* GoNatuurViewController.m */; };
+		18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */; };
+		18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8FB1F32F46800430842 /* SearchViewController.m */; };
+		18F7A9031F33044100430842 /* BottomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A9011F33044100430842 /* BottomTabViewController.m */; };
+		18F7A9041F33044100430842 /* BottomTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F7A9021F33044100430842 /* BottomTabViewController.xib */; };
 		3207616E1F162820001F1790 /* NullValueChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3207616D1F162820001F1790 /* NullValueChecker.m */; };
 		320761721F162834001F1790 /* UserDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761711F162834001F1790 /* UserDefaultManager.m */; };
 		320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761751F163AB2001F1790 /* MMMaterialDesignSpinner.m */; };
@@ -52,6 +57,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		18F7A8F21F32E09800430842 /* GoNatuurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurViewController.h; sourceTree = "<group>"; };
+		18F7A8F31F32E09800430842 /* GoNatuurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoNatuurViewController.m; sourceTree = "<group>"; };
+		18F7A8F61F32E2EA00430842 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		18F7A8FA1F32F46800430842 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		18F7A8FB1F32F46800430842 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		18F7A9001F33044100430842 /* BottomTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomTabViewController.h; sourceTree = "<group>"; };
+		18F7A9011F33044100430842 /* BottomTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomTabViewController.m; sourceTree = "<group>"; };
+		18F7A9021F33044100430842 /* BottomTabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomTabViewController.xib; sourceTree = "<group>"; };
 		3207616C1F162820001F1790 /* NullValueChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullValueChecker.h; sourceTree = "<group>"; };
 		3207616D1F162820001F1790 /* NullValueChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullValueChecker.m; sourceTree = "<group>"; };
 		320761701F162834001F1790 /* UserDefaultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultManager.h; sourceTree = "<group>"; };
@@ -122,9 +136,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18F7A8F11F32E06C00430842 /* GlobalViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18F7A8F21F32E09800430842 /* GoNatuurViewController.h */,
+				18F7A8F31F32E09800430842 /* GoNatuurViewController.m */,
+			);
+			name = GlobalViewController;
+			sourceTree = "<group>";
+		};
+		18F7A8F51F32E2B800430842 /* SWRevealView */ = {
+			isa = PBXGroup;
+			children = (
+				18F7A8F61F32E2EA00430842 /* SWRevealViewController.h */,
+				18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */,
+			);
+			name = SWRevealView;
+			sourceTree = "<group>";
+		};
+		18F7A8F91F32F44800430842 /* SearchViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18F7A8FA1F32F46800430842 /* SearchViewController.h */,
+				18F7A8FB1F32F46800430842 /* SearchViewController.m */,
+			);
+			name = SearchViewController;
+			sourceTree = "<group>";
+		};
+		18F7A8FF1F33042500430842 /* BottomTabBarView */ = {
+			isa = PBXGroup;
+			children = (
+				18F7A9001F33044100430842 /* BottomTabViewController.h */,
+				18F7A9011F33044100430842 /* BottomTabViewController.m */,
+				18F7A9021F33044100430842 /* BottomTabViewController.xib */,
+			);
+			name = BottomTabBarView;
+			sourceTree = "<group>";
+		};
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				18F7A8FF1F33042500430842 /* BottomTabBarView */,
+				18F7A8F11F32E06C00430842 /* GlobalViewController */,
+				18F7A8F91F32F44800430842 /* SearchViewController */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
 			);
 			name = Controllers;
@@ -177,6 +231,7 @@
 		320761651F162733001F1790 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				18F7A8F51F32E2B800430842 /* SWRevealView */,
 				32A3D6C01F1CBDE200062B86 /* SocialLogin */,
 				329F7D4F1F172AD9008E0E15 /* AlertView */,
 				320761881F164BD2001F1790 /* Crashlytics */,
@@ -506,6 +561,7 @@
 				32A3D7131F1CE3BB00062B86 /* GoogleSignIn.bundle in Resources */,
 				32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */,
 				32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */,
+				18F7A9041F33044100430842 /* BottomTabViewController.xib in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
 				32BAA6121F1360290015E355 /* Main.storyboard in Resources */,
 			);
@@ -570,6 +626,10 @@
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
 				32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */,
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
+				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
+				18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */,
+				18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */,
+				18F7A9031F33044100430842 /* BottomTabViewController.m in Sources */,
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,

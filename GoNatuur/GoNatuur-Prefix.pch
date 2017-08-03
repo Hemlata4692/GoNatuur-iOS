@@ -13,6 +13,7 @@
 #import "SCLAlertView.h"
 #import "UserDefaultManager.h"
 #import <UIImageView+AFNetworking.h>
+#import "GoNatuurViewController.h"
 
 #define myDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 

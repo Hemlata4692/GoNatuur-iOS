@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self authenticationToken];
+//    [self authenticationToken];
 }
 
 - (void)didReceiveMemoryWarning {

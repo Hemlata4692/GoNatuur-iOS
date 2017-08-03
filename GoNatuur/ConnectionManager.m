@@ -28,8 +28,8 @@
     LoginService *authToken = [[LoginService alloc] init];
     //parse data from server response and store in datamodel
     [authToken getAccessToken:userData onSuccess:^(id response) {
-        NSMutableArray *dataArray=[response mutableCopy];
-        NSString *code=[[dataArray objectAtIndex:0] objectForKey:@"code"];
+//        NSMutableArray *dataArray=[response mutableCopy];
+//        NSString *code=[[dataArray objectAtIndex:0] objectForKey:@"code"];
 //        userData.code = response[@"code"];
 //        userData.baseUrl = response[@"url"];
 //        [UserDefaultManager setValue:userData.baseUrl key:@"baseUrl"];
