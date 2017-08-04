@@ -11,7 +11,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BottomTabViewController">
             <connections>
+                <outlet property="bottomTabView" destination="i5M-Pr-FkT" id="GSh-oe-tXr"/>
+                <outlet property="homeTab" destination="UiP-2z-ES6" id="a7h-OR-aTu"/>
+                <outlet property="myCartTab" destination="p3F-nQ-Ebh" id="xgS-wL-Vic"/>
+                <outlet property="profileTab" destination="vJs-Kz-0j0" id="iFw-9e-ePM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="wishlistTab" destination="IKE-Y2-wMo" id="U2u-0N-RKi"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -19,35 +24,101 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UiP-2z-ES6">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UiP-2z-ES6">
                     <rect key="frame" x="16" y="0.0" width="60" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <state key="normal" title="Button"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Home">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="homeTabAction:" destination="-1" eventType="touchUpInside" id="QFo-LO-jjx"/>
+                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKE-Y2-wMo">
-                    <rect key="frame" x="168" y="0.0" width="60" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <state key="normal" title="Button"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJs-Kz-0j0">
-                    <rect key="frame" x="244" y="0.0" width="60" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <state key="normal" title="Button"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3F-nQ-Ebh">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3F-nQ-Ebh">
                     <rect key="frame" x="92" y="0.0" width="60" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <state key="normal" title="Button"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="My Cart">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="myCartTabAction:" destination="-1" eventType="touchUpInside" id="vOp-4a-tcn"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKE-Y2-wMo">
+                    <rect key="frame" x="168" y="0.0" width="60" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Wishlist">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="wishlistTabAction:" destination="-1" eventType="touchUpInside" id="mny-M7-ReR"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJs-Kz-0j0">
+                    <rect key="frame" x="244" y="0.0" width="60" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Profile">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="profileTabAction:" destination="-1" eventType="touchUpInside" id="WUO-bK-0b8"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="UiP-2z-ES6" secondAttribute="bottom" id="2zi-hL-TYX"/>
+                <constraint firstItem="vJs-Kz-0j0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="79T-Mw-QBa"/>
+                <constraint firstItem="UiP-2z-ES6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="8Xb-I4-18k"/>
+                <constraint firstAttribute="trailing" secondItem="vJs-Kz-0j0" secondAttribute="trailing" constant="16" id="E8e-UR-1VC"/>
+                <constraint firstItem="p3F-nQ-Ebh" firstAttribute="leading" secondItem="UiP-2z-ES6" secondAttribute="trailing" constant="16" id="EZD-nk-E9y"/>
+                <constraint firstItem="vJs-Kz-0j0" firstAttribute="width" secondItem="IKE-Y2-wMo" secondAttribute="width" id="EeN-pJ-eXs"/>
+                <constraint firstItem="IKE-Y2-wMo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="IsK-gf-4IH"/>
+                <constraint firstAttribute="bottom" secondItem="p3F-nQ-Ebh" secondAttribute="bottom" id="KJc-5Q-MsZ"/>
+                <constraint firstAttribute="bottom" secondItem="IKE-Y2-wMo" secondAttribute="bottom" id="RDC-ZR-mqh"/>
+                <constraint firstItem="UiP-2z-ES6" firstAttribute="width" secondItem="p3F-nQ-Ebh" secondAttribute="width" id="SvY-rQ-vrb"/>
+                <constraint firstItem="vJs-Kz-0j0" firstAttribute="leading" secondItem="IKE-Y2-wMo" secondAttribute="trailing" constant="16" id="UZD-PA-9jt"/>
+                <constraint firstItem="IKE-Y2-wMo" firstAttribute="leading" secondItem="p3F-nQ-Ebh" secondAttribute="trailing" constant="16" id="Ya9-Ud-ZUZ"/>
+                <constraint firstItem="UiP-2z-ES6" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Zqp-4J-Xw9"/>
+                <constraint firstAttribute="bottom" secondItem="vJs-Kz-0j0" secondAttribute="bottom" id="bO3-kf-4HF"/>
+                <constraint firstItem="p3F-nQ-Ebh" firstAttribute="width" secondItem="IKE-Y2-wMo" secondAttribute="width" id="dBu-pa-wY2"/>
+                <constraint firstItem="p3F-nQ-Ebh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="wUE-Qe-7Gi"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-139" y="44"/>
+            <point key="canvasLocation" x="-136" y="-80"/>
         </view>
     </objects>
 </document>

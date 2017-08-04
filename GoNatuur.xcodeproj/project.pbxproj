@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */; };
+		18E5D5891F34443B00829292 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18E5D5871F34443B00829292 /* Lato-Light.ttf */; };
+		18E5D58A1F34443B00829292 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18E5D5881F34443B00829292 /* Lato-Regular.ttf */; };
+		18E5D58C1F34645E00829292 /* bg640-960.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E5D58B1F34645E00829292 /* bg640-960.png */; };
 		18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F31F32E09800430842 /* GoNatuurViewController.m */; };
 		18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */; };
 		18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8FB1F32F46800430842 /* SearchViewController.m */; };
@@ -57,6 +61,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		18E5D5831F342DE500829292 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
+		18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
+		18E5D5871F34443B00829292 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
+		18E5D5881F34443B00829292 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		18E5D58B1F34645E00829292 /* bg640-960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg640-960.png"; sourceTree = "<group>"; };
 		18F7A8F21F32E09800430842 /* GoNatuurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurViewController.h; sourceTree = "<group>"; };
 		18F7A8F31F32E09800430842 /* GoNatuurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoNatuurViewController.m; sourceTree = "<group>"; };
 		18F7A8F61F32E2EA00430842 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
@@ -136,6 +145,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18E5D5821F342DAF00829292 /* ForgotPasswordViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18E5D5831F342DE500829292 /* ForgotPasswordViewController.h */,
+				18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */,
+			);
+			name = ForgotPasswordViewController;
+			sourceTree = "<group>";
+		};
+		18E5D5861F34440000829292 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				18E5D5871F34443B00829292 /* Lato-Light.ttf */,
+				18E5D5881F34443B00829292 /* Lato-Regular.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		18F7A8F11F32E06C00430842 /* GlobalViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +388,7 @@
 		32A3D6B51F1CBABA00062B86 /* LoginModule */ = {
 			isa = PBXGroup;
 			children = (
+				18E5D5821F342DAF00829292 /* ForgotPasswordViewController */,
 				32CC209A1F25C4F60054C344 /* LoginViewController */,
 			);
 			name = LoginModule;
@@ -429,6 +457,7 @@
 		32BAA6061F1360280015E355 /* GoNatuur */ = {
 			isa = PBXGroup;
 			children = (
+				18E5D58B1F34645E00829292 /* bg640-960.png */,
 				320761621F162706001F1790 /* AppDelegate */,
 				320761631F162712001F1790 /* Classes */,
 				32BAA6101F1360290015E355 /* Main.storyboard */,
@@ -443,9 +472,10 @@
 		32BAA6071F1360280015E355 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				32A3D7151F1CE4A500062B86 /* GoogleService-Info.plist */,
+				18E5D5861F34440000829292 /* Fonts */,
 				32A3D7001F1CD2CD00062B86 /* Framework */,
 				320761641F162724001F1790 /* Resources */,
+				32A3D7151F1CE4A500062B86 /* GoogleService-Info.plist */,
 				32BAA6081F1360280015E355 /* main.m */,
 				320761841F16483A001F1790 /* GoNatuur-Prefix.pch */,
 			);
@@ -561,9 +591,12 @@
 				32A3D7131F1CE3BB00062B86 /* GoogleSignIn.bundle in Resources */,
 				32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */,
 				32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */,
+				18E5D58A1F34443B00829292 /* Lato-Regular.ttf in Resources */,
 				18F7A9041F33044100430842 /* BottomTabViewController.xib in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
+				18E5D58C1F34645E00829292 /* bg640-960.png in Resources */,
 				32BAA6121F1360290015E355 /* Main.storyboard in Resources */,
+				18E5D5891F34443B00829292 /* Lato-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,6 +673,7 @@
 				32A3D6B81F1CBADB00062B86 /* LoginViewController.m in Sources */,
 				32BAA6091F1360280015E355 /* main.m in Sources */,
 				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,
+				18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */,
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
 				32CC20951F25B1D90054C344 /* LoginModel.m in Sources */,
 			);
