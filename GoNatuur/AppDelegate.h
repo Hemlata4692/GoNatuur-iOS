@@ -13,6 +13,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property(nonatomic,assign)ConstantType selectedLoginType;
 @property (nonatomic,strong) NSString *deviceToken;
 @property (nonatomic,assign) int selectedCategoryIndex;
 
