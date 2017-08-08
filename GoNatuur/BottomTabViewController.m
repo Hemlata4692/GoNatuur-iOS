@@ -81,7 +81,6 @@
     else {
         _wishlistTab.backgroundColor=[UIColor blackColor];
     }
-
 }
 - (IBAction)profileTabAction:(id)sender {
     [_homeTab setSelected:NO];
