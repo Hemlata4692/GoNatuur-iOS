@@ -34,10 +34,10 @@
      }];
 }
 
-- (void)fetchFBDataWithReadPermission
-{
+- (void)fetchFBDataWithReadPermission {
+    
     NSString *fbAccessToken = [[FBSDKAccessToken currentAccessToken] tokenString];
-    NSLog(@"fbAccessToken is %@", fbAccessToken);
+    DLog(@"fbAccessToken is %@", fbAccessToken);
     [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
                                        parameters:@{@"fields": @"picture.type(large), name, first_name, last_name, age_range, gender, birthday, email, friends"}]
      startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
@@ -47,7 +47,7 @@
          }
          else{
               [_delegate facebookLoginWithReadPermissionResponse:result status:2];
-             NSLog(@"%@", [error localizedDescription]);
+             DLog(@"%@", [error localizedDescription]);
          }
      }];
 }

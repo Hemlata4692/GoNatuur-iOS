@@ -11,10 +11,12 @@
 @implementation UITextField (Validations)
 
 - (BOOL)isEmpty {
+    
     return ([self.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) ? YES : NO;
 }
 
 - (BOOL)isValidEmail {
+    
     NSString *emailRegEx = @"(?:[A-Za-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[A-Za-z0-9!#$%\\&'*+/=?\\^_`{|}"
     @"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
     @"x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[A-Za-z0-9](?:[A-Za-"
@@ -27,6 +29,7 @@
 }
 
 - (BOOL)isValidURL {
+    
     NSString *urlRegEx =
     @"((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?";
     NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", urlRegEx];
@@ -42,8 +45,17 @@
      ];
 }
 
-
-
-
+- (void)addTextFieldLeftRightPadding: (UITextField *)textfield {
+    
+    UIView *leftPadding;
+    leftPadding = [[UIView alloc] initWithFrame:CGRectMake(0, 0,10, 20)];
+    textfield.leftView = leftPadding;
+    textfield.leftViewMode = UITextFieldViewModeAlways;
+    
+    UIView *rightPadding;
+    rightPadding = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    textfield.rightView = rightPadding;
+    textfield.rightViewMode = UITextFieldViewModeAlways;
+}
 
 @end

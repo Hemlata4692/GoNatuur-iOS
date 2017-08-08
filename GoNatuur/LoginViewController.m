@@ -52,7 +52,7 @@
     
     //storyBoard navigation
     UIViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SignUpViewController"];
-    [self.navigationController pushViewController:obj animated:YES];
+    [self.navigationController pushViewController:obj animated:true];
 }
 
 //login with gmail button action

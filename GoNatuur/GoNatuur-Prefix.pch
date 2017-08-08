@@ -14,6 +14,8 @@
 #import "UserDefaultManager.h"
 #import <UIImageView+AFNetworking.h>
 #import "GoNatuurViewController.h"
+#import "ConstantCode.h"
+#import "UIFont+CustomFont.h"
 
 #define myDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
