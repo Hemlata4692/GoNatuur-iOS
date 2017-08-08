@@ -10,7 +10,11 @@
 
 @interface LoginModel : NSObject
 @property (strong, nonatomic) NSString *username;
+@property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *password;
+@property (strong, nonatomic) NSNumber *isSocialLogin;
+@property (strong, nonatomic) NSString *countryCode;
+@property (strong, nonatomic) NSString *userId;
 
 + (instancetype)sharedUser;
 //login user

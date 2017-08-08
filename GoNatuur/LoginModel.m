@@ -25,6 +25,7 @@
 
 #pragma mark - Get authorization token
 - (void)accessToken:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
+    
     [[ConnectionManager sharedManager] getAccessToken:self onSuccess:^(LoginModel *userData) {
         if (success) {
             success (userData);

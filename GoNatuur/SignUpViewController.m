@@ -30,7 +30,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
 @property (strong, nonatomic) IBOutlet UILabel *privacyPolicyLoginLabel;
-@property (strong, nonatomic) IBOutlet UIView *socialLoginButtonBackView;
 
 //Declare BSKeyboard variable
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
@@ -83,11 +82,9 @@
 #pragma mark - View initialization
 - (void)integrateSocialLoginView {
 
-    float scaleFactor = 230.0 / ([[UIScreen mainScreen]bounds].size.width-90);
-    float difference = 230.0-(scaleFactor*230.0);
     SocialLoginViewController *obj = [[SocialLoginViewController alloc] initWithNibName:@"SocialLoginViewController" bundle:nil];
     obj.view.translatesAutoresizingMaskIntoConstraints=YES;
-    obj.view.frame=CGRectMake(60, 259.0+difference-1.0, [[UIScreen mainScreen] bounds].size.width-120, 174);
+    obj.view.frame=CGRectMake(60, 259.0+screenHeightScaleFactorDifference-1.0, [[UIScreen mainScreen] bounds].size.width-120, 174);
     obj.delegate=self;
     [self addChildViewController:obj];
     [self.mainView addSubview:obj.view];
@@ -280,7 +277,6 @@
             [self logIn];
         }
     }
-    DLog("%f, %f",position.x,position.y);
 }
 
 //Privacy policy, termCondition and login click action
@@ -298,7 +294,8 @@
 
 - (void)logIn {
     
-//    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [self.navigationController popViewControllerAnimated:true];
     DLog("logIn");
 }
 #pragma mark - end

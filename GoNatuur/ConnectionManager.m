@@ -42,18 +42,14 @@
 
 #pragma mark - Login user
 - (void)loginUser:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
-//    LoginService *loginService = [[LoginService alloc] init];
-//    [loginService loginUser:userData onSuccess:^(id response) {
-        //parse data from server response and store in datamodel
-//        userData.apiKey=response[@"ApiKey"];
-//        userData.userId=response[@"UserID"];
-//        userData.userName=response[@"Username"];
-//        userData.userImage=response[@"UserAvatar"];
-//        userData.userThumbnailImage=response[@"UserAvatarThumb"];
-//        success(userData);
-//    } onFailure:^(NSError *error) {
-//        failure(error);
-//    }] ;
+    
+    LoginService *loginService = [[LoginService alloc] init];
+    [loginService loginUser:userData onSuccess:^(id response) {
+//Parse data from server response and store in datamodel
+        success(userData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
 }
 #pragma mark - end
 
