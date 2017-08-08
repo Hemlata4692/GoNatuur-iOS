@@ -14,6 +14,7 @@
     int pageCounter;
     NSArray *swipeImageArray;
     int currentSelectedImage;
+    NSRange termConditionTextRange, policyTextRange, logInTextRange;
 }
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -40,8 +41,9 @@
     [super viewWillAppear:YES];
     
     self.navigationController.navigationBarHidden=true;
-    [self integrateSocialLoginView];
+    
     [self initializedView];
+    [self integrateSocialLoginView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,7 +67,8 @@
 }
 
 - (void)initializedView {
-    swipeImageArray=@[@"SwipeImage.png",@"SwipeImage.png",@"SwipeImage.png",@"SwipeImage.png"];
+    
+    swipeImageArray = @[@"SwipeImage.png", @"SwipeImage.png", @"SwipeImage.png", @"SwipeImage.png"];
     self.pageControl.numberOfPages = [swipeImageArray count];
     pageCounter = currentSelectedImage;
     self.pageControl.currentPage = pageCounter;
@@ -101,14 +104,19 @@
     NSString *str=@"By signing up, you agree to our terms & conditions and privacy policy. If you already have an account, Log In here";
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
     
-    NSRange redTextRange = [str rangeOfString:@"terms & conditions"];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
-    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]} range:redTextRange];
-    NSRange redTextRange1 = [str rangeOfString:@"privacy policy"];
-    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]} range:redTextRange1];
+    termConditionTextRange = [str rangeOfString:@"terms & conditions"];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
+    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]} range:termConditionTextRange];
     
-    NSRange redTextRange2 = [str rangeOfString:@"Log In"];
-    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:11], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:redTextRange2];
+    policyTextRange = [str rangeOfString:@"privacy policy"];
+    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]} range:policyTextRange];
+    
+    logInTextRange = [str rangeOfString:@"Log In"];
+    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:11], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:logInTextRange];
     self.privacyPolicyLoginLabel.attributedText=string;
+    
+    self.privacyPolicyLoginLabel.userInteractionEnabled = YES;
+    [self.privacyPolicyLoginLabel addGestureRecognizer: [[UITapGestureRecognizer alloc] initWithTarget:self
+                                             action:@selector(handleTapOnLabel:)]];
 }
 
 #pragma mark - IBActions
@@ -117,6 +125,39 @@
 }
 
 - (IBAction)skipAndContinue:(UIButton *)sender {
+    
+}
+
+//Privacy policy, term & condition and login tap gesture handler
+- (void)handleTapOnLabel:(UITapGestureRecognizer *)recognizer {
+//    BOOL didTapLink = [tapGesture didTapAttributedTextInLabel:myLabel
+//                                                      inRange:targetRange];
+//    NSLog(@"didTapLink: %d", didTapLink);
+    
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        
+        CGPoint location = [recognizer locationInView:self.privacyPolicyLoginLabel];
+        
+        NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:self.privacyPolicyLoginLabel.attributedText];
+        NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+        [textStorage addLayoutManager:layoutManager];
+        NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:self.privacyPolicyLoginLabel.bounds.size];
+        [layoutManager addTextContainer:textContainer];
+        
+        textContainer.maximumNumberOfLines = self.privacyPolicyLoginLabel.numberOfLines;
+        textContainer.lineBreakMode = self.privacyPolicyLoginLabel.lineBreakMode;
+        
+        
+        NSUInteger characterIndex = [layoutManager characterIndexForPoint:location
+                                                          inTextContainer:textContainer
+                                 fractionOfDistanceBetweenInsertionPoints:NULL];
+        
+        if (characterIndex < textStorage.length) {
+            NSRange range = NSMakeRange(characterIndex, 1);
+            NSString *value = [self.privacyPolicyLoginLabel.text substringWithRange:range];
+            NSLog(@"%@, %zd, %zd", value, range.location, range.length);
+        }
+    }
     
 }
 #pragma mark - end
