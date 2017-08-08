@@ -401,6 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				18E5D5821F342DAF00829292 /* ForgotPasswordViewController */,
+				B77A8A751F34386400233782 /* SignUpViewController */,
 				32CC209A1F25C4F60054C344 /* LoginViewController */,
 			);
 			name = LoginModule;
@@ -485,7 +486,8 @@
 		32BAA6071F1360280015E355 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				18E5D5861F34440000829292 /* Fonts */,
+				B77A8A7F1F347D1200233782 /* Images */,
+				32A3D7151F1CE4A500062B86 /* GoogleService-Info.plist */,
 				32A3D7001F1CD2CD00062B86 /* Framework */,
 				320761641F162724001F1790 /* Resources */,
 				32A3D7151F1CE4A500062B86 /* GoogleService-Info.plist */,
@@ -639,6 +641,7 @@
 				B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
 				18E5D58C1F34645E00829292 /* bg640-960.png in Resources */,
+				B77A8A811F347D2B00233782 /* SwipeImage.png in Resources */,
 				32BAA6121F1360290015E355 /* Main.storyboard in Resources */,
 				18E5D5891F34443B00829292 /* Lato-Light.ttf in Resources */,
 			);

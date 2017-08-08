@@ -11,6 +11,7 @@
 #import "GmailSignInConnect.h"
 #import "LoginModel.h"
 #import "BottomTabViewController.h"
+#import "SignUpViewController.h"
 
 @interface LoginViewController ()<FacebookDelegate,GIDSignInDelegate,GIDSignInUIDelegate>
 @property (weak, nonatomic) IBOutlet UIView *bottomTabView;
