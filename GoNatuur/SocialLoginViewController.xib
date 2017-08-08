@@ -23,58 +23,13 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="174"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ex-eF-Bsm">
-                    <rect key="frame" x="20" y="99" width="280" height="35"/>
-                    <color key="backgroundColor" red="0.90196078431372551" green="0.086274509803921567" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="35" id="1QG-M6-xNk"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
-                    <inset key="titleEdgeInsets" minX="42" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Log in with Wiebo">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="loginWithWiebo:" destination="-1" eventType="touchUpInside" id="PAE-eM-6l7"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PIY-b6-7xn">
-                    <rect key="frame" x="20" y="59" width="280" height="35"/>
-                    <color key="backgroundColor" red="0.1803921568627451" green="0.75686274509803919" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="35" id="yjb-Rc-ob2"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
-                    <inset key="titleEdgeInsets" minX="42" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Log in with WeChat account">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="loginWithWeChat:" destination="-1" eventType="touchUpInside" id="7wz-pq-hJQ"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZ7-B5-RrR">
-                    <rect key="frame" x="20" y="139" width="280" height="35"/>
-                    <color key="backgroundColor" red="0.87058823529411766" green="0.29411764705882354" blue="0.22352941176470587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="35" id="QWF-8m-tdz"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
-                    <inset key="titleEdgeInsets" minX="42" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Log in with google plus">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="loginWithGoogle:" destination="-1" eventType="touchUpInside" id="pdb-i6-758"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Me6-jg-Wy5">
                     <rect key="frame" x="20" y="19" width="280" height="35"/>
                     <color key="backgroundColor" red="0.25882352941176467" green="0.40392156862745099" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="9at-9W-nNf"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="9"/>
                     <inset key="titleEdgeInsets" minX="42" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="Log in with Facebook">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -83,24 +38,115 @@
                         <action selector="loginWithFaceBook:" destination="-1" eventType="touchUpInside" id="Tbu-wW-xzM"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook" translatesAutoresizingMaskIntoConstraints="NO" id="oO5-Mi-F5I">
+                    <rect key="frame" x="28" y="26" width="22" height="22"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="ZoN-7c-4WT"/>
+                        <constraint firstAttribute="width" constant="22" id="bH3-oj-F4Y"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PIY-b6-7xn">
+                    <rect key="frame" x="20" y="59" width="280" height="35"/>
+                    <color key="backgroundColor" red="0.1803921568627451" green="0.75686274509803919" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="yjb-Rc-ob2"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="9"/>
+                    <inset key="titleEdgeInsets" minX="42" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Log in with WeChat account">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="loginWithWeChat:" destination="-1" eventType="touchUpInside" id="7wz-pq-hJQ"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wechat" translatesAutoresizingMaskIntoConstraints="NO" id="miz-8G-7DX">
+                    <rect key="frame" x="28" y="66" width="22" height="22"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="22" id="4d2-ho-CXo"/>
+                        <constraint firstAttribute="height" constant="22" id="Rxc-DF-uRX"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ex-eF-Bsm">
+                    <rect key="frame" x="20" y="99" width="280" height="35"/>
+                    <color key="backgroundColor" red="0.90196078431372551" green="0.086274509803921567" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="1QG-M6-xNk"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="9"/>
+                    <inset key="titleEdgeInsets" minX="42" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Log in with Wiebo">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="loginWithWiebo:" destination="-1" eventType="touchUpInside" id="PAE-eM-6l7"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weibo" translatesAutoresizingMaskIntoConstraints="NO" id="fSp-i6-E2T">
+                    <rect key="frame" x="28" y="106" width="22" height="22"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="22" id="S02-tI-rUi"/>
+                        <constraint firstAttribute="height" constant="22" id="kwI-CZ-uYu"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZ7-B5-RrR">
+                    <rect key="frame" x="20" y="139" width="280" height="35"/>
+                    <color key="backgroundColor" red="0.87058823529411766" green="0.29411764705882354" blue="0.22352941176470587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="QWF-8m-tdz"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="9"/>
+                    <inset key="titleEdgeInsets" minX="42" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Log in with google plus">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="loginWithGoogle:" destination="-1" eventType="touchUpInside" id="pdb-i6-758"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="google_plus" translatesAutoresizingMaskIntoConstraints="NO" id="wgW-Zf-OQX">
+                    <rect key="frame" x="28" y="146" width="22" height="22"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="LEL-WM-DhB"/>
+                        <constraint firstAttribute="width" constant="22" id="Qbe-59-CjS"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="Me6-jg-Wy5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="19" id="2jb-0S-e4H"/>
+                <constraint firstItem="fSp-i6-E2T" firstAttribute="centerY" secondItem="4ex-eF-Bsm" secondAttribute="centerY" id="4dW-0b-Ihv"/>
                 <constraint firstItem="nZ7-B5-RrR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="6dD-Oc-LKQ"/>
                 <constraint firstAttribute="trailing" secondItem="Me6-jg-Wy5" secondAttribute="trailing" constant="20" id="GKa-a9-otx"/>
                 <constraint firstItem="Me6-jg-Wy5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="KME-SA-0CG"/>
                 <constraint firstItem="PIY-b6-7xn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="Klm-N2-Tv7"/>
                 <constraint firstAttribute="trailing" secondItem="nZ7-B5-RrR" secondAttribute="trailing" constant="20" id="NQg-IO-SN1"/>
                 <constraint firstAttribute="trailing" secondItem="4ex-eF-Bsm" secondAttribute="trailing" constant="20" id="PgD-wc-E6N"/>
+                <constraint firstItem="wgW-Zf-OQX" firstAttribute="centerY" secondItem="nZ7-B5-RrR" secondAttribute="centerY" id="YWo-oV-9Pj"/>
+                <constraint firstItem="oO5-Mi-F5I" firstAttribute="leading" secondItem="Me6-jg-Wy5" secondAttribute="leading" constant="8" id="YiQ-xv-Vmg"/>
+                <constraint firstItem="oO5-Mi-F5I" firstAttribute="centerY" secondItem="Me6-jg-Wy5" secondAttribute="centerY" id="bLf-AH-yjX"/>
                 <constraint firstAttribute="trailing" secondItem="PIY-b6-7xn" secondAttribute="trailing" constant="20" id="eEN-2g-Egw"/>
                 <constraint firstItem="PIY-b6-7xn" firstAttribute="top" secondItem="Me6-jg-Wy5" secondAttribute="bottom" constant="5" id="iXh-Rw-Sle"/>
                 <constraint firstItem="4ex-eF-Bsm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="lR1-OQ-v7Z"/>
+                <constraint firstItem="fSp-i6-E2T" firstAttribute="leading" secondItem="4ex-eF-Bsm" secondAttribute="leading" constant="8" id="lr6-RN-Zcz"/>
                 <constraint firstItem="4ex-eF-Bsm" firstAttribute="top" secondItem="PIY-b6-7xn" secondAttribute="bottom" constant="5" id="nZP-IO-oKR"/>
                 <constraint firstItem="nZ7-B5-RrR" firstAttribute="top" secondItem="4ex-eF-Bsm" secondAttribute="bottom" constant="5" id="pES-9m-vNQ"/>
+                <constraint firstItem="miz-8G-7DX" firstAttribute="centerY" secondItem="PIY-b6-7xn" secondAttribute="centerY" id="rKQ-52-Yu4"/>
+                <constraint firstItem="miz-8G-7DX" firstAttribute="leading" secondItem="PIY-b6-7xn" secondAttribute="leading" constant="8" id="t2K-tn-ZQK"/>
+                <constraint firstItem="wgW-Zf-OQX" firstAttribute="leading" secondItem="nZ7-B5-RrR" secondAttribute="leading" constant="8" id="zNb-oW-0VD"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-20" y="62"/>
+            <point key="canvasLocation" x="-50" y="66"/>
         </view>
     </objects>
+    <resources>
+        <image name="facebook" width="22" height="22"/>
+        <image name="google_plus" width="22" height="22"/>
+        <image name="wechat" width="22" height="22"/>
+        <image name="weibo" width="22" height="22"/>
+    </resources>
 </document>

@@ -13,12 +13,8 @@
 
 @interface LoginService : Webservice
 
-//get authorization token
+//Get authorization token
 - (void)getAccessToken:(LoginModel *)accessToken onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
-////login user
-//- (void)loginUser:(LoginModel *)userLogin onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
-////save device token
-//- (void)saveDeviceToken:(LoginModel *)deviceToken onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
-
-
+//Login user
+- (void)loginUser:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 @end

@@ -12,7 +12,7 @@
 
 - (void)gmailLoginWithPermission:(UIViewController *)selfVC NSString:(NSString *)clientId {
     [GIDSignIn sharedInstance].clientID =clientId;
-    [GIDSignIn sharedInstance].shouldFetchBasicProfile = YES;
+    [GIDSignIn sharedInstance].shouldFetchBasicProfile = true;
     [[GIDSignIn sharedInstance] signIn];
 }
 
