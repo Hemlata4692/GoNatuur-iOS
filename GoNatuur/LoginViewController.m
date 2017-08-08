@@ -154,5 +154,13 @@
     }];
 }
 #pragma mark - end
+- (IBAction)sdashboardAction:(id)sender {
+    UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+    [myDelegate.window setRootViewController:objReveal];
+    [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+    [myDelegate.window makeKeyAndVisible];
+
+}
+
 
 @end
