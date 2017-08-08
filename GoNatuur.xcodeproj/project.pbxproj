@@ -7,9 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1886058F1F39AF320005D1E2 /* UserNotifications.framework */; };
+		188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605941F39BC430005D1E2 /* DashboardViewController.m */; };
+		1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605991F39C0FC0005D1E2 /* CategorySliderViewController.m */; };
+		1886059C1F39C0FC0005D1E2 /* CategorySliderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1886059A1F39C0FC0005D1E2 /* CategorySliderViewController.xib */; };
+		188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1886059E1F39C1FA0005D1E2 /* CategorySliderCell.m */; };
+		188605A11F39C1FA0005D1E2 /* CategorySliderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1886059F1F39C1FA0005D1E2 /* CategorySliderCell.xib */; };
+		188605A51F39C6890005D1E2 /* DynamicHeightWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605A41F39C6890005D1E2 /* DynamicHeightWidth.m */; };
+		188605A81F39C8220005D1E2 /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 188605A71F39C8220005D1E2 /* Montserrat-SemiBold.otf */; };
+		188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188605A91F39D7230005D1E2 /* Montserrat-Regular.ttf */; };
+		188605AD1F39D7620005D1E2 /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 188605AB1F39D7620005D1E2 /* Montserrat-Light.otf */; };
+		188605AE1F39D7620005D1E2 /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 188605AC1F39D7620005D1E2 /* Montserrat-Medium.otf */; };
+		188605B01F39E4B70005D1E2 /* navigation.png in Resources */ = {isa = PBXBuildFile; fileRef = 188605AF1F39E4B70005D1E2 /* navigation.png */; };
 		18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */; };
-		18E5D5891F34443B00829292 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18E5D5871F34443B00829292 /* Lato-Light.ttf */; };
-		18E5D58A1F34443B00829292 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18E5D5881F34443B00829292 /* Lato-Regular.ttf */; };
 		18E5D58C1F34645E00829292 /* bg640-960.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E5D58B1F34645E00829292 /* bg640-960.png */; };
 		18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F31F32E09800430842 /* GoNatuurViewController.m */; };
 		18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */; };
@@ -66,10 +76,24 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1886058F1F39AF320005D1E2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		188605931F39BC430005D1E2 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
+		188605941F39BC430005D1E2 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
+		188605981F39C0FC0005D1E2 /* CategorySliderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategorySliderViewController.h; sourceTree = "<group>"; };
+		188605991F39C0FC0005D1E2 /* CategorySliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategorySliderViewController.m; sourceTree = "<group>"; };
+		1886059A1F39C0FC0005D1E2 /* CategorySliderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategorySliderViewController.xib; sourceTree = "<group>"; };
+		1886059D1F39C1FA0005D1E2 /* CategorySliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategorySliderCell.h; sourceTree = "<group>"; };
+		1886059E1F39C1FA0005D1E2 /* CategorySliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategorySliderCell.m; sourceTree = "<group>"; };
+		1886059F1F39C1FA0005D1E2 /* CategorySliderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategorySliderCell.xib; sourceTree = "<group>"; };
+		188605A31F39C6890005D1E2 /* DynamicHeightWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicHeightWidth.h; sourceTree = "<group>"; };
+		188605A41F39C6890005D1E2 /* DynamicHeightWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicHeightWidth.m; sourceTree = "<group>"; };
+		188605A71F39C8220005D1E2 /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
+		188605A91F39D7230005D1E2 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		188605AB1F39D7620005D1E2 /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
+		188605AC1F39D7620005D1E2 /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
+		188605AF1F39E4B70005D1E2 /* navigation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigation.png; sourceTree = "<group>"; };
 		18E5D5831F342DE500829292 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
 		18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
-		18E5D5871F34443B00829292 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
-		18E5D5881F34443B00829292 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		18E5D58B1F34645E00829292 /* bg640-960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg640-960.png"; sourceTree = "<group>"; };
 		18F7A8F21F32E09800430842 /* GoNatuurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurViewController.h; sourceTree = "<group>"; };
 		18F7A8F31F32E09800430842 /* GoNatuurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoNatuurViewController.m; sourceTree = "<group>"; };
@@ -143,6 +167,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */,
 				32A3D7111F1CE3BB00062B86 /* GoogleSymbolUtilities.framework in Frameworks */,
 				E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */,
 				32A3D7051F1CD2E100062B86 /* FBSDKCoreKit.framework in Frameworks */,
@@ -157,6 +182,67 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		188605911F39BB720005D1E2 /* DashboardModule */ = {
+			isa = PBXGroup;
+			children = (
+				188605921F39BB840005D1E2 /* DashboardViewController */,
+			);
+			name = DashboardModule;
+			sourceTree = "<group>";
+		};
+		188605921F39BB840005D1E2 /* DashboardViewController */ = {
+			isa = PBXGroup;
+			children = (
+				188605931F39BC430005D1E2 /* DashboardViewController.h */,
+				188605941F39BC430005D1E2 /* DashboardViewController.m */,
+			);
+			name = DashboardViewController;
+			sourceTree = "<group>";
+		};
+		188605961F39C05A0005D1E2 /* GlobalViewModule */ = {
+			isa = PBXGroup;
+			children = (
+				188605971F39C0900005D1E2 /* CategorySliderView */,
+				18F7A8F91F32F44800430842 /* SearchViewController */,
+				18F7A8FF1F33042500430842 /* BottomTabBarView */,
+				18F7A8F11F32E06C00430842 /* GlobalViewController */,
+			);
+			name = GlobalViewModule;
+			sourceTree = "<group>";
+		};
+		188605971F39C0900005D1E2 /* CategorySliderView */ = {
+			isa = PBXGroup;
+			children = (
+				188605981F39C0FC0005D1E2 /* CategorySliderViewController.h */,
+				188605991F39C0FC0005D1E2 /* CategorySliderViewController.m */,
+				1886059A1F39C0FC0005D1E2 /* CategorySliderViewController.xib */,
+				1886059D1F39C1FA0005D1E2 /* CategorySliderCell.h */,
+				1886059E1F39C1FA0005D1E2 /* CategorySliderCell.m */,
+				1886059F1F39C1FA0005D1E2 /* CategorySliderCell.xib */,
+			);
+			name = CategorySliderView;
+			sourceTree = "<group>";
+		};
+		188605A21F39C4400005D1E2 /* DynamicHeightWidth */ = {
+			isa = PBXGroup;
+			children = (
+				188605A31F39C6890005D1E2 /* DynamicHeightWidth.h */,
+				188605A41F39C6890005D1E2 /* DynamicHeightWidth.m */,
+			);
+			name = DynamicHeightWidth;
+			sourceTree = "<group>";
+		};
+		188605A61F39C8090005D1E2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				188605A71F39C8220005D1E2 /* Montserrat-SemiBold.otf */,
+				188605A91F39D7230005D1E2 /* Montserrat-Regular.ttf */,
+				188605AB1F39D7620005D1E2 /* Montserrat-Light.otf */,
+				188605AC1F39D7620005D1E2 /* Montserrat-Medium.otf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		18E5D5821F342DAF00829292 /* ForgotPasswordViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,15 +250,6 @@
 				18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */,
 			);
 			name = ForgotPasswordViewController;
-			sourceTree = "<group>";
-		};
-		18E5D5861F34440000829292 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				18E5D5871F34443B00829292 /* Lato-Light.ttf */,
-				18E5D5881F34443B00829292 /* Lato-Regular.ttf */,
-			);
-			name = Fonts;
 			sourceTree = "<group>";
 		};
 		18F7A8F11F32E06C00430842 /* GlobalViewController */ = {
@@ -215,9 +292,8 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				18F7A8FF1F33042500430842 /* BottomTabBarView */,
-				18F7A8F11F32E06C00430842 /* GlobalViewController */,
-				18F7A8F91F32F44800430842 /* SearchViewController */,
+				188605961F39C05A0005D1E2 /* GlobalViewModule */,
+				188605911F39BB720005D1E2 /* DashboardModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
 			);
 			name = Controllers;
@@ -263,6 +339,7 @@
 		320761641F162724001F1790 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				188605AF1F39E4B70005D1E2 /* navigation.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -270,6 +347,7 @@
 		320761651F162733001F1790 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				188605A21F39C4400005D1E2 /* DynamicHeightWidth */,
 				18F7A8F51F32E2B800430842 /* SWRevealView */,
 				32A3D6C01F1CBDE200062B86 /* SocialLogin */,
 				329F7D4F1F172AD9008E0E15 /* AlertView */,
@@ -486,8 +564,8 @@
 		32BAA6071F1360280015E355 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				188605A61F39C8090005D1E2 /* Fonts */,
 				B77A8A7F1F347D1200233782 /* Images */,
-				32A3D7151F1CE4A500062B86 /* GoogleService-Info.plist */,
 				32A3D7001F1CD2CD00062B86 /* Framework */,
 				320761641F162724001F1790 /* Resources */,
 				32A3D7151F1CE4A500062B86 /* GoogleService-Info.plist */,
@@ -527,6 +605,7 @@
 		3C0B4A3E4E995FBB10C57627 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1886058F1F39AF320005D1E2 /* UserNotifications.framework */,
 				BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */,
 			);
 			name = Frameworks;
@@ -632,18 +711,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188605A11F39C1FA0005D1E2 /* CategorySliderCell.xib in Resources */,
 				B77A8A831F34824C00233782 /* Weibo.png in Resources */,
 				32A3D7131F1CE3BB00062B86 /* GoogleSignIn.bundle in Resources */,
 				32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */,
 				32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */,
-				18E5D58A1F34443B00829292 /* Lato-Regular.ttf in Resources */,
+				188605AD1F39D7620005D1E2 /* Montserrat-Light.otf in Resources */,
 				18F7A9041F33044100430842 /* BottomTabViewController.xib in Resources */,
+				188605B01F39E4B70005D1E2 /* navigation.png in Resources */,
+				188605A81F39C8220005D1E2 /* Montserrat-SemiBold.otf in Resources */,
+				1886059C1F39C0FC0005D1E2 /* CategorySliderViewController.xib in Resources */,
+				188605AE1F39D7620005D1E2 /* Montserrat-Medium.otf in Resources */,
 				B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
 				18E5D58C1F34645E00829292 /* bg640-960.png in Resources */,
+				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
 				B77A8A811F347D2B00233782 /* SwipeImage.png in Resources */,
 				32BAA6121F1360290015E355 /* Main.storyboard in Resources */,
-				18E5D5891F34443B00829292 /* Lato-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,15 +798,19 @@
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
 				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,
+				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
 				3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */,
 				320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */,
 				32A3D6B81F1CBADB00062B86 /* LoginViewController.m in Sources */,
+				188605A51F39C6890005D1E2 /* DynamicHeightWidth.m in Sources */,
 				32BAA6091F1360280015E355 /* main.m in Sources */,
+				188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */,
 				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,
 				18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */,
+				1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */,
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
 				32CC20951F25B1D90054C344 /* LoginModel.m in Sources */,
 			);

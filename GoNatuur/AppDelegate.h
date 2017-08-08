@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic,strong) NSString *deviceToken;
+@property (nonatomic,assign) int selectedCategoryIndex;
 
 - (void)showIndicator;
 - (void)stopIndicator;

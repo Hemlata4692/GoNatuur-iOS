@@ -10,6 +10,6 @@
 
 @interface GoNatuurViewController : UIViewController
 
-- (void)addLeftBarButtonWithImage:(UIImage *)leftButtonImage isBackButton:(BOOL)isBackButton;
+- (void)addLeftBarButtonWithImage:(BOOL)isBackButton;
 - (void)addSerachButtonWithImage:(UIImage *)searchButtonImage;
 @end

@@ -14,7 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *myCartTab;
 @property (weak, nonatomic) IBOutlet UIButton *wishlistTab;
 @property (weak, nonatomic) IBOutlet UIButton *profileTab;
-
 @end
 
 @implementation BottomTabViewController
@@ -35,7 +34,7 @@
 }
 #pragma mark - end
 
-#pragma mark - IBAction
+#pragma mark - Tab bar IBAction
 - (IBAction)homeTabAction:(id)sender {
     [_homeTab setSelected:YES];
     [_myCartTab setSelected:NO];
@@ -49,7 +48,7 @@
     }
     else {
         _homeTab.backgroundColor=[UIColor blackColor];
-       
+        
     }
 }
 - (IBAction)myCartTabAction:(id)sender {
@@ -97,8 +96,6 @@
         _profileTab.backgroundColor=[UIColor blackColor];
     }
 }
-
-
 #pragma mark - end
 
 @end

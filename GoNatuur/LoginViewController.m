@@ -10,7 +10,6 @@
 #import "FacebookConnect.h"
 #import "GmailSignInConnect.h"
 #import "LoginModel.h"
-#import "BottomTabViewController.h"
 #import "SignUpViewController.h"
 
 @interface LoginViewController ()<FacebookDelegate,GIDSignInDelegate,GIDSignInUIDelegate>
@@ -25,11 +24,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 //    [self authenticationToken];
-    BottomTabViewController *controller = [[BottomTabViewController alloc] initWithNibName:@"BottomTabViewController" bundle:nil];
-     [self addChildViewController:controller];
-    [controller.view setFrame:CGRectMake(0, 0, _bottomTabView.frame.size.width, 50)];
-    [_bottomTabView addSubview:controller.view];
-    [controller didMoveToParentViewController:self];
+//    BottomTabViewController *controller = [[BottomTabViewController alloc] initWithNibName:@"BottomTabViewController" bundle:nil];
+//     [self addChildViewController:controller];
+//    [controller.view setFrame:CGRectMake(0, 0, _bottomTabView.frame.size.width, 50)];
+//    [_bottomTabView addSubview:controller.view];
+//    [controller didMoveToParentViewController:self];
 
 }
 
@@ -155,6 +154,5 @@
     }];
 }
 #pragma mark - end
-
 
 @end
