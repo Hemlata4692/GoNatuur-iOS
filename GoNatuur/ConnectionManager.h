@@ -12,12 +12,12 @@
 
 @interface ConnectionManager : NSObject
 
-//singleton method
+//Singleton method
 + (instancetype)sharedManager;
-//authentication token
+//Authentication token
 - (void)getAccessToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure;
-//login user
+//Login user
 - (void)loginUser:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure;
-//save device token
+//Save device token
 - (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure;
 @end

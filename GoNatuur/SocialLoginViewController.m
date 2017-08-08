@@ -31,7 +31,6 @@
 }
 
 - (IBAction)loginWithFaceBook:(id)sender {
-    
     myDelegate.selectedLoginType=FacebookLogin;
     //Need to login with FB
     FacebookConnect *fbConnectObject = [[FacebookConnect alloc]init];
@@ -46,7 +45,6 @@
 }
 
 - (IBAction)loginWithGoogle:(id)sender {
-    
     myDelegate.selectedLoginType=GoogleLogin;
     //Need to login with google plus
     GmailSignInConnect *gmailConnect = [[GmailSignInConnect alloc]init];
@@ -58,7 +56,6 @@
 #pragma mark - Login with facebook delegate method
 //Facebook delegate method to fetch user data
 - (void) facebookLoginWithReadPermissionResponse:(id)fbResult status:(int)status {
-    
     if (status == 1) {
         //        [myDelegate stopIndicator];
         //fetched data from facebook login
@@ -81,11 +78,9 @@
 }
 #pragma mark - end
 
-
 #pragma mark - Login with gmail delegate method
 //Google sign in delegate to fetch user data
 - (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)gmailResult withError:(NSError *)error {
-    
     //Logout user from gmail
     [[GIDSignIn sharedInstance] signOut];
     //Fetch user data

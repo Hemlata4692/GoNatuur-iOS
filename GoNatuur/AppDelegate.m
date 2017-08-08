@@ -22,7 +22,7 @@
 @synthesize selectedLoginType;
 
 #pragma mark - Global indicator
-//show indicator
+//Show indicator
 - (void)showIndicator {
     spinnerBackground=[[UIImageView alloc]initWithFrame:CGRectMake(3, 3, 50, 50)];
     spinnerBackground.backgroundColor=[UIColor whiteColor];
@@ -41,7 +41,7 @@
     [self.spinnerView startAnimating];
 }
 
-//stop indicator
+//Stop indicator
 - (void)stopIndicator {
     [loaderView removeFromSuperview];
     [self.spinnerView removeFromSuperview];

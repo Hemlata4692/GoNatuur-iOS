@@ -485,7 +485,6 @@
 		32BAA6071F1360280015E355 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B74581171F39B9EC00A164D6 /* Fonts */,
 				B77A8A7F1F347D1200233782 /* ImageCollection */,
 				32A3D7001F1CD2CD00062B86 /* Framework */,
 				320761641F162724001F1790 /* Resources */,
@@ -529,13 +528,6 @@
 				BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		B74581171F39B9EC00A164D6 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Fonts;
 			sourceTree = "<group>";
 		};
 		B745811A1F39BEC100A164D6 /* BSKeyboardControls */ = {

@@ -11,6 +11,7 @@
 #import "BSKeyboardControls.h"
 #import "UIView+RoundedCorner.h"
 #import "UITextField+Validations.h"
+#import "UITextField+Padding.h"
 
 @interface SignUpViewController ()<UIGestureRecognizerDelegate, SocialLoginDelegate, BSKeyboardControlsDelegate> {
     
@@ -45,7 +46,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    
     self.navigationController.navigationBarHidden=true;
     //Allocate keyboard notification
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -54,7 +54,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
-    
     //View initialized
     [self initializedView];
     //Add social login xib
@@ -63,7 +62,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
-    
     //Deallocate keyboard notification
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillShowNotification
@@ -81,7 +79,6 @@
 
 #pragma mark - View initialization
 - (void)integrateSocialLoginView {
-
     SocialLoginViewController *obj = [[SocialLoginViewController alloc] initWithNibName:@"SocialLoginViewController" bundle:nil];
     obj.view.translatesAutoresizingMaskIntoConstraints=YES;
     obj.view.frame=CGRectMake(60, 259.0+screenHeightScaleFactorDifference-1.0, [[UIScreen mainScreen] bounds].size.width-120, 174);
@@ -92,7 +89,6 @@
 }
 
 - (void)initializedView {
-    
     swipeImageArray = @[@"SwipeImage.png", @"SwipeImage.png", @"SwipeImage.png", @"SwipeImage.png"];
     self.pageControl.numberOfPages = [swipeImageArray count];
     pageCounter = currentSelectedImage;
@@ -124,7 +120,6 @@
 }
 
 - (void)setAttributString {
-
     NSString *str=@"By signing up, you agree to our terms & conditions and privacy policy. If you already have an account, Log In here";
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
     
@@ -145,7 +140,6 @@
 }
 
 - (void)customizedTextField {
-
     //Adding textfield to keyboard controls array
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[self.emailTextField, self.passwordTextField, self.confirmPasswordTextField]]];
     [self.keyboardControls setDelegate:self];
@@ -162,13 +156,11 @@
 
 #pragma mark - Keyboard control delegate
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction {
-    
     UIView *view;
     view = field.superview.superview.superview;
 }
 
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls {
-    
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [keyboardControls.activeField resignFirstResponder];
 }
@@ -176,20 +168,17 @@
 
 #pragma mark - Textfield delegates
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    
     [self.keyboardControls setActiveField:textField];
     currentSelectedTextField=textField;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [textField resignFirstResponder];
     return YES;
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    
     //Set field position after show keyboard
     NSDictionary* info = [notification userInfo];
     NSValue *aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
@@ -211,7 +200,6 @@
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    
     self.scrollView.contentSize = CGSizeMake(0,self.mainView.frame.size.height);
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 }
@@ -219,7 +207,6 @@
 
 #pragma mark - IBActions
 - (IBAction)createAccount:(UIButton *)sender {
-    
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     [self.keyboardControls.activeField resignFirstResponder];
     
@@ -231,18 +218,15 @@
 }
 
 - (IBAction)skipAndContinue:(UIButton *)sender {
-    
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
 }
 
 //Privacy policy, terms & condition and login tap gesture handler
 - (void)handleTapOnLabel:(UITapGestureRecognizer *)recognizer {
-    
     CGPoint location = [recognizer locationInView:self.privacyPolicyLoginLabel];
     CGPoint position = CGPointMake(location.x, location.y);
     
     if ([ConstantCode checkDeviceType] == Device5s) {
-        
         if ((position.y<11.0 && position.x>125.0 && position.x<155.0)||(position.y>12.0 && position.y<22.0 && position.x>8 && position.x<53.0)) {
             [self termsNCondition];
         }
@@ -254,7 +238,6 @@
         }
     }
     else if ([ConstantCode checkDeviceType] == Device6) {
-        
         if (position.y<12.0 && position.x>123.0 && position.x<194.0) {
             [self termsNCondition];
         }
@@ -266,7 +249,6 @@
         }
     }
     else {
-        
         if (position.y>4.0 && position.y<16.0 && position.x>128.0 && position.x<198.0) {
             [self termsNCondition];
         }
@@ -281,19 +263,16 @@
 
 //Privacy policy, termCondition and login click action
 - (void)privacyPolicy {
-
 //    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("Privacy");
 }
 
 - (void)termsNCondition {
-    
 //    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("termsNCondition");
 }
 
 - (void)logIn {
-    
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     [self.navigationController popViewControllerAnimated:true];
     DLog("logIn");
@@ -302,21 +281,17 @@
 
 #pragma mark - SignUp validation
 - (BOOL)performValidationsForSignUp {
-    
     if ([self.emailTextField isEmpty] || [self.passwordTextField isEmpty] || [self.confirmPasswordTextField isEmpty]) {
-        
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:@"Alert" subTitle:@"Please fill in all the required fields." closeButtonTitle:@"Ok" duration:0.0f];
         return NO;
     }
     else if (![self.emailTextField isValidEmail]) {
-        
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:@"Alert" subTitle:@"Please enter a valid email address." closeButtonTitle:@"Ok" duration:0.0f];
         return NO;
     }
     else if ([self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text]) {
-        
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:@"Alert" subTitle:@"Password does't match." closeButtonTitle:@"Ok" duration:0.0f];
         return NO;
@@ -330,7 +305,6 @@
 #pragma mark - Swipe Images
 //Adding left animation to banner images
 - (void)addLeftAnimationPresentToView:(UIView *)viewTobeAnimatedLeft {
-    
     CATransition *transition = [CATransition animation];
     transition.duration = 0.2;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
@@ -343,7 +317,6 @@
 
 //Adding right animation to banner images
 - (void)addRightAnimationPresentToView:(UIView *)viewTobeAnimatedRight {
-    
     CATransition *transition = [CATransition animation];
     transition.duration = 0.2;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
@@ -356,34 +329,28 @@
 
 //Swipe images in left direction
 - (void)swipeIntroImageLeft {
-    
     pageCounter++;
     if (pageCounter < swipeImageArray.count) {
-        
         self.pageControl.currentPage = pageCounter;
         self.swipeImageView.image=[UIImage imageNamed:[swipeImageArray objectAtIndex:pageCounter]];
         UIImageView *moveIMageView = self.swipeImageView;
         [self addLeftAnimationPresentToView:moveIMageView];
     }
     else {
-        
         pageCounter = (int)swipeImageArray.count - 1;
     }
 }
 
 //Swipe images in right direction
 - (void)swipeIntroImageRight {
-    
     pageCounter--;
     if (pageCounter>=0) {
-        
         self.pageControl.currentPage = pageCounter;
         self.swipeImageView.image=[UIImage imageNamed:[swipeImageArray objectAtIndex:pageCounter]];
         UIImageView *moveIMageView = self.swipeImageView;
         [self addRightAnimationPresentToView:moveIMageView];
     }
     else {
-        
         pageCounter = 0;
     }
 }
@@ -391,15 +358,12 @@
 
 #pragma mark - Social login xib delegate method
 - (void)socialLoginResponse:(ConstantType)option result:(NSDictionary *)result {
-    
     DLog(@"email:%@  userId:%@", [result objectForKey:@"email"],[result objectForKey:@"id"]);
 }
 #pragma mark - end
 
 #pragma mark - Webservice
-- (void)userSignUp {
-
-}
+- (void)userSignUp {}
 #pragma mark - end
 /*
 #pragma mark - Navigation

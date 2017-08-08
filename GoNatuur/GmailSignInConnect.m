@@ -11,24 +11,20 @@
 @implementation GmailSignInConnect
 
 - (void)gmailLoginWithPermission:(UIViewController *)selfVC NSString:(NSString *)clientId {
-    
     [GIDSignIn sharedInstance].clientID =clientId;
     [GIDSignIn sharedInstance].shouldFetchBasicProfile = true;
     [[GIDSignIn sharedInstance] signIn];
 }
 
 - (void)signInWillDispatch:(GIDSignIn *)signIn error:(NSError *)error {
-    
     //[myActivityIndicator stopAnimating];
 }
 
 - (void)signIn:(GIDSignIn *)signIn presentViewController:(UIViewController *)viewController {
-    
     [viewController presentViewController:viewController animated:YES completion:nil];
 }
 
 - (void)signIn:(GIDSignIn *)signIn dismissViewController:(UIViewController *)viewController {
-    
     [viewController dismissViewControllerAnimated:YES completion:nil];
 }
 @end

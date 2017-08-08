@@ -14,9 +14,9 @@
 #import "BSKeyboardControls.h"
 #import "UIView+RoundedCorner.h"
 #import "UITextField+Validations.h"
+#import "UITextField+Padding.h"
 
 @interface LoginViewController ()<UIGestureRecognizerDelegate, SocialLoginDelegate, BSKeyboardControlsDelegate> {
-
     UITextField *currentSelectedTextField;
     float loginBackViewY;
     int isSocialLogin;
@@ -44,7 +44,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    
     self.navigationController.navigationBarHidden=true;
     //Allocate keyboard notification
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -61,7 +60,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
-    
     //Deallocate keyboard notification
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillShowNotification
@@ -79,7 +77,6 @@
 
 #pragma mark - View initialization
 - (void)integrateSocialLoginView {
-    
     SocialLoginViewController *obj = [[SocialLoginViewController alloc] initWithNibName:@"SocialLoginViewController" bundle:nil];
     obj.view.translatesAutoresizingMaskIntoConstraints=YES;
     obj.view.frame=CGRectMake(60, loginBackViewY, [[UIScreen mainScreen] bounds].size.width-120, 174);
@@ -90,7 +87,6 @@
 }
 
 - (void)initializedView {
-    
     isSocialLogin=0;
     loginBackViewY=(([[UIScreen mainScreen] bounds].size.height/2.0)-(417.0/2.0))+65.0;
     self.mainView.translatesAutoresizingMaskIntoConstraints=true;
@@ -102,7 +98,6 @@
 }
 
 - (void)setAttributString {
-    
     NSString *str=@"If you are a new uesr, you can Register an account with us and start shopping with GoPurpose.";
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
     
@@ -116,7 +111,6 @@
 }
 
 - (void)customizedTextField {
-    
     //Adding textfield to keyboard controls array
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[self.emailTextField, self.passwordTextField]]];
     [self.keyboardControls setDelegate:self];
@@ -131,13 +125,11 @@
 
 #pragma mark - Keyboard control delegate
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction {
-    
     UIView *view;
     view = field.superview.superview.superview;
 }
 
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls {
-    
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [keyboardControls.activeField resignFirstResponder];
 }
@@ -145,20 +137,17 @@
 
 #pragma mark - Textfield delegates
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    
     [self.keyboardControls setActiveField:textField];
     currentSelectedTextField=textField;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [textField resignFirstResponder];
     return YES;
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    
     //Set field position after show keyboard
     NSDictionary* info = [notification userInfo];
     NSValue *aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
@@ -180,7 +169,6 @@
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    
     self.scrollView.contentSize = CGSizeMake(0,self.mainView.frame.size.height);
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 }
@@ -188,7 +176,6 @@
 
 #pragma mark - IBActions
 - (IBAction)login:(id)sender {
-
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     [self.keyboardControls.activeField resignFirstResponder];
     
@@ -202,47 +189,36 @@
 }
 
 - (IBAction)forgotPassword:(UIButton *)sender {
-    
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
 }
 
 - (IBAction)skipAndContinue:(UIButton *)sender {
-    
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
 }
 
 //Privacy policy, terms & condition and login tap gesture handler
 - (void)handleTapOnLabel:(UITapGestureRecognizer *)recognizer {
-    
     CGPoint location = [recognizer locationInView:self.registerLabel];
     CGPoint position = CGPointMake(location.x, location.y);
     
     if ([ConstantCode checkDeviceType] == Device5s) {
-        
         if (position.y<15.0 && position.x>115.0 && position.x<158.0) {
-            
             [self signUp];
         }
     }
     else if ([ConstantCode checkDeviceType] == Device6) {
-        
         if (position.y<12.0 && position.x>123.0 && position.x<194.0) {
-            
             [self signUp];
         }
     }
     else {
-        
         if (position.y>4.0 && position.y<16.0 && position.x>128.0 && position.x<198.0) {
-            
             [self signUp];
         }
     }
-    DLog("%f, %f",position.x,position.y);
 }
 
 - (void)signUp {
-    
     DLog("signUp");
     //StoryBoard navigation
     UIViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SignUpViewController"];
@@ -252,15 +228,12 @@
 
 #pragma mark - SignUp validation
 - (BOOL)performValidationsForLogin {
-    
     if ([self.emailTextField isEmpty] || [self.passwordTextField isEmpty] ) {
-        
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:@"Alert" subTitle:@"Please fill in all the required fields." closeButtonTitle:@"Ok" duration:0.0f];
         return NO;
     }
     else if (![self.emailTextField isValidEmail]) {
-        
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:@"Alert" subTitle:@"Please enter a valid email address." closeButtonTitle:@"Ok" duration:0.0f];
         return NO;
@@ -287,25 +260,19 @@
 
 //User login webservice called
 - (void)userLogin {
-    
     LoginModel *userLogin = [LoginModel sharedUser];
     userLogin.email = self.emailTextField.text;
     userLogin.password = self.passwordTextField.text;
     userLogin.isSocialLogin=[NSNumber numberWithInt:isSocialLogin];
     userLogin.countryCode=@"";
     [userLogin loginUserOnSuccess:^(LoginModel *userData) {
-        
         if (nil==[UserDefaultManager getValue:@"deviceToken"]||NULL==[UserDefaultManager getValue:@"deviceToken"]) {
             [myDelegate stopIndicator];
         }
         else{
             [self saveDeviceToken];
         }
-//        Land user to dashboard
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        MainSideBarViewController * homeView = [storyboard instantiateViewControllerWithIdentifier:@"MainSideBarViewController"];
-//        [myDelegate.window setRootViewController:homeView];
-//        [myDelegate.window makeKeyAndVisible];
+//        Navigate user to dashboard
     } onfailure:^(NSError *error) {
         
     }];
@@ -313,7 +280,6 @@
 
 //Save device token for push notifications
 - (void)saveDeviceToken {
-    
     LoginModel *saveDeviceToken = [LoginModel sharedUser];
     [saveDeviceToken saveDeviceToken:^(LoginModel *deviceToken) {
         [myDelegate stopIndicator];
@@ -325,7 +291,6 @@
 
 #pragma mark - Social login xib delegate method
 - (void)socialLoginResponse:(ConstantType)option result:(NSDictionary *)result {
-    
     isSocialLogin=1;
     DLog(@"email:%@  userId:%@", [result objectForKey:@"email"],[result objectForKey:@"id"]);
 }

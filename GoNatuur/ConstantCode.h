@@ -14,7 +14,6 @@ typedef NS_ENUM (NSInteger, ConstantType){
     WeChatLogin,
     WeiboLogin,
     GoogleLogin,
-    
     Device5s,
     Device6,
     Device7Plus

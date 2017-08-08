@@ -9,23 +9,20 @@
 
 @implementation UserDefaultManager
 
-+ (void)setValue:(id)value key:(NSString *)key
-{
++ (void)setValue:(id)value key:(NSString *)key {
     [[NSUserDefaults standardUserDefaults]setObject:value forKey:key];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
-+ (id)getValue:(NSString *)key
-{
++ (id)getValue:(NSString *)key {
     return [[NSUserDefaults standardUserDefaults]objectForKey:key];
 }
 
-+ (void)removeValue:(NSString *)key
-{
++ (void)removeValue:(NSString *)key {
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:key];
 }
 
-//set progress dict for every question
+//Set progress dict for every question
 + (void)setDictValue:(int)progressStep totalCount:(int)totalCount {
     NSMutableDictionary * progressDict;
     if (nil==[UserDefaultManager getValue:@"progressDict"])
@@ -41,7 +38,7 @@
 
 }
 
-//set instruction value in popup
+//Set instruction value in popup
 + (void)setInstruction:(id)value key:(NSString *)key {
     NSMutableDictionary * instructionDict;
     if (nil==[UserDefaultManager getValue:@"InstructionPopUp"])
@@ -56,7 +53,7 @@
     [UserDefaultManager setValue:instructionDict key:@"InstructionPopUp"];
 }
 
-//save file size for every answer
+//Save file size for every answer
 + (void)setAnswerFileSize:(double )size {
     NSMutableDictionary * fileSizeDict;
     if (nil==[UserDefaultManager getValue:@"fileSizeDict"]) {
@@ -70,7 +67,7 @@
     [UserDefaultManager setValue:fileSizeDict key:@"fileSizeDict"];
 }
 
-//save screen for mission
+//Save screen for mission
 + (void)setScreenSubmission:(NSString *)isAnsweredAllQuestion {
     NSMutableDictionary * screenSubmissionDict;
     if (nil==[UserDefaultManager getValue:@"screenSubmissionDict"]) {

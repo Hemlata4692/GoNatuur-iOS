@@ -9,7 +9,6 @@
 
 #pragma mark - Facebook login with read permission
 - (void)facebookLoginWithReadPermission:(UIViewController *)selfVC {
-
     [FBSDKAccessToken setCurrentAccessToken:nil];
     [FBSDKProfile setCurrentProfile:nil];
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
@@ -35,7 +34,6 @@
 }
 
 - (void)fetchFBDataWithReadPermission {
-    
     NSString *fbAccessToken = [[FBSDKAccessToken currentAccessToken] tokenString];
     DLog(@"fbAccessToken is %@", fbAccessToken);
     [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
