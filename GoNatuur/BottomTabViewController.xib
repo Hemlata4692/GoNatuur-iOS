@@ -8,6 +8,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Medium.otf">
+            <string>Montserrat-Medium</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BottomTabViewController">
             <connections>
@@ -26,99 +31,141 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UiP-2z-ES6">
                     <rect key="frame" x="16" y="0.0" width="60" height="50"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-3"/>
                     <state key="normal" title="Home">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <state key="selected">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="0.89411764705882346" green="0.65490196078431373" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <state key="highlighted">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="0.89411764709999997" green="0.65490196079999996" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="homeTabAction:" destination="-1" eventType="touchUpInside" id="QFo-LO-jjx"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home" translatesAutoresizingMaskIntoConstraints="NO" id="ep2-H9-qD3">
+                    <rect key="frame" x="32" y="7" width="24" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="24" id="gne-Z3-ehy"/>
+                        <constraint firstAttribute="height" constant="24" id="zuo-O7-Pfb"/>
+                    </constraints>
+                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3F-nQ-Ebh">
                     <rect key="frame" x="92" y="0.0" width="60" height="50"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-3"/>
                     <state key="normal" title="My Cart">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <state key="selected">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="0.89411764705882346" green="0.65490196078431373" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <state key="highlighted">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="0.89411764709999997" green="0.65490196079999996" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="myCartTabAction:" destination="-1" eventType="touchUpInside" id="vOp-4a-tcn"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="my- cart" translatesAutoresizingMaskIntoConstraints="NO" id="YsB-Mn-QBT">
+                    <rect key="frame" x="109" y="7" width="24" height="24"/>
+                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKE-Y2-wMo">
                     <rect key="frame" x="168" y="0.0" width="60" height="50"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-3"/>
                     <state key="normal" title="Wishlist">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <state key="selected">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="0.89411764705882346" green="0.65490196078431373" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <state key="highlighted">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="0.89411764709999997" green="0.65490196079999996" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="wishlistTabAction:" destination="-1" eventType="touchUpInside" id="mny-M7-ReR"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wishlist" translatesAutoresizingMaskIntoConstraints="NO" id="OY7-AS-R7r">
+                    <rect key="frame" x="184" y="7" width="24" height="24"/>
+                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJs-Kz-0j0">
                     <rect key="frame" x="244" y="0.0" width="60" height="50"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-3"/>
                     <state key="normal" title="Profile">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <state key="selected">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="0.89411764705882346" green="0.65490196078431373" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <state key="highlighted">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="0.89411764709999997" green="0.65490196079999996" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="profileTabAction:" destination="-1" eventType="touchUpInside" id="WUO-bK-0b8"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="DOF-bQ-yM5">
+                    <rect key="frame" x="260" y="6" width="24" height="24"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="UiP-2z-ES6" secondAttribute="bottom" id="2zi-hL-TYX"/>
+                <constraint firstAttribute="bottom" secondItem="ep2-H9-qD3" secondAttribute="bottom" constant="19" id="4XV-af-onS"/>
+                <constraint firstItem="ep2-H9-qD3" firstAttribute="top" secondItem="OY7-AS-R7r" secondAttribute="top" id="70g-nu-vhB"/>
                 <constraint firstItem="vJs-Kz-0j0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="79T-Mw-QBa"/>
                 <constraint firstItem="UiP-2z-ES6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="8Xb-I4-18k"/>
+                <constraint firstAttribute="bottom" secondItem="DOF-bQ-yM5" secondAttribute="bottom" constant="20" id="9A1-rg-jT3"/>
+                <constraint firstItem="OY7-AS-R7r" firstAttribute="leading" secondItem="p3F-nQ-Ebh" secondAttribute="trailing" constant="32" id="ClR-0i-YjZ"/>
                 <constraint firstAttribute="trailing" secondItem="vJs-Kz-0j0" secondAttribute="trailing" constant="16" id="E8e-UR-1VC"/>
                 <constraint firstItem="p3F-nQ-Ebh" firstAttribute="leading" secondItem="UiP-2z-ES6" secondAttribute="trailing" constant="16" id="EZD-nk-E9y"/>
                 <constraint firstItem="vJs-Kz-0j0" firstAttribute="width" secondItem="IKE-Y2-wMo" secondAttribute="width" id="EeN-pJ-eXs"/>
+                <constraint firstItem="p3F-nQ-Ebh" firstAttribute="leading" secondItem="ep2-H9-qD3" secondAttribute="trailing" constant="36" id="Ga8-Ey-hOY"/>
+                <constraint firstItem="ep2-H9-qD3" firstAttribute="bottom" secondItem="OY7-AS-R7r" secondAttribute="bottom" id="IbG-NP-TaV"/>
                 <constraint firstItem="IKE-Y2-wMo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="IsK-gf-4IH"/>
                 <constraint firstAttribute="bottom" secondItem="p3F-nQ-Ebh" secondAttribute="bottom" id="KJc-5Q-MsZ"/>
+                <constraint firstItem="YsB-Mn-QBT" firstAttribute="leading" secondItem="UiP-2z-ES6" secondAttribute="trailing" constant="33" id="PUK-lC-ouV"/>
                 <constraint firstAttribute="bottom" secondItem="IKE-Y2-wMo" secondAttribute="bottom" id="RDC-ZR-mqh"/>
                 <constraint firstItem="UiP-2z-ES6" firstAttribute="width" secondItem="p3F-nQ-Ebh" secondAttribute="width" id="SvY-rQ-vrb"/>
                 <constraint firstItem="vJs-Kz-0j0" firstAttribute="leading" secondItem="IKE-Y2-wMo" secondAttribute="trailing" constant="16" id="UZD-PA-9jt"/>
+                <constraint firstItem="IKE-Y2-wMo" firstAttribute="leading" secondItem="YsB-Mn-QBT" secondAttribute="trailing" constant="35" id="YWA-9C-Tre"/>
                 <constraint firstItem="IKE-Y2-wMo" firstAttribute="leading" secondItem="p3F-nQ-Ebh" secondAttribute="trailing" constant="16" id="Ya9-Ud-ZUZ"/>
+                <constraint firstItem="ep2-H9-qD3" firstAttribute="centerX" secondItem="UiP-2z-ES6" secondAttribute="centerX" constant="-2" id="Z90-DL-St0"/>
                 <constraint firstItem="UiP-2z-ES6" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Zqp-4J-Xw9"/>
+                <constraint firstItem="DOF-bQ-yM5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="6" id="aKy-UJ-FAC"/>
                 <constraint firstAttribute="bottom" secondItem="vJs-Kz-0j0" secondAttribute="bottom" id="bO3-kf-4HF"/>
+                <constraint firstItem="ep2-H9-qD3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="7" id="cPk-qt-0JV"/>
+                <constraint firstItem="DOF-bQ-yM5" firstAttribute="leading" secondItem="IKE-Y2-wMo" secondAttribute="trailing" constant="32" id="coV-Ez-J9a"/>
                 <constraint firstItem="p3F-nQ-Ebh" firstAttribute="width" secondItem="IKE-Y2-wMo" secondAttribute="width" id="dBu-pa-wY2"/>
+                <constraint firstItem="ep2-H9-qD3" firstAttribute="top" secondItem="YsB-Mn-QBT" secondAttribute="top" id="sa3-Wz-Cpm"/>
+                <constraint firstItem="OY7-AS-R7r" firstAttribute="centerX" secondItem="IKE-Y2-wMo" secondAttribute="centerX" constant="-2" id="tfS-80-iCo"/>
+                <constraint firstAttribute="trailing" secondItem="DOF-bQ-yM5" secondAttribute="trailing" constant="36" id="wQ8-oV-xpy"/>
                 <constraint firstItem="p3F-nQ-Ebh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="wUE-Qe-7Gi"/>
+                <constraint firstItem="ep2-H9-qD3" firstAttribute="bottom" secondItem="YsB-Mn-QBT" secondAttribute="bottom" id="x2g-66-tN9"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-136" y="-80"/>
         </view>
     </objects>
+    <resources>
+        <image name="home" width="28" height="28"/>
+        <image name="my- cart" width="28" height="28"/>
+        <image name="profile" width="28" height="28"/>
+        <image name="wishlist" width="28" height="28"/>
+    </resources>
 </document>

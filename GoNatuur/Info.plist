@@ -64,5 +64,12 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Montserrat-SemiBold.otf</string>
+		<string>Montserrat-Regular.ttf</string>
+		<string>Montserrat-Light.otf</string>
+		<string>Montserrat-Medium.otf</string>
+	</array>
 </dict>
 </plist>

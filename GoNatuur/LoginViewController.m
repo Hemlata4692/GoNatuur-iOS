@@ -8,7 +8,6 @@
 
 #import "LoginViewController.h"
 #import "LoginModel.h"
-#import "BottomTabViewController.h"
 #import "SignUpViewController.h"
 #import "SocialLoginViewController.h"
 #import "BSKeyboardControls.h"
@@ -28,8 +27,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UILabel *registerLabel;
-
-//Declare BSKeyboard variable
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
 @end
 
@@ -91,7 +88,6 @@
     loginBackViewY=(([[UIScreen mainScreen] bounds].size.height/2.0)-(417.0/2.0))+65.0;
     self.mainView.translatesAutoresizingMaskIntoConstraints=true;
     self.mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
-    
     //Set privacy policy attributed text
     [self setAttributString];
     [self customizedTextField];
@@ -100,24 +96,21 @@
 - (void)setAttributString {
     NSString *str=@"If you are a new uesr, you can Register an account with us and start shopping with GoPurpose.";
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
-    
     NSRange registerTextRange = [str rangeOfString:@"Register"];
     [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont helveticaNeueMediumWithSize:11], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:registerTextRange];
     self.registerLabel.attributedText=string;
-    
-    //Add tap gesture at UiLabel
+    //Add tap gesture at label
     self.registerLabel.userInteractionEnabled = YES;
     [self.registerLabel addGestureRecognizer: [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnLabel:)]];
 }
 
 - (void)customizedTextField {
-    //Adding textfield to keyboard controls array
+    //Add textfield to keyboard controls array
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[self.emailTextField, self.passwordTextField]]];
     [self.keyboardControls setDelegate:self];
-    
+    //Add text field border and padding
     [self.emailTextField setTextBorder:self.emailTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [self.passwordTextField setTextBorder:self.passwordTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
-    
     [self.emailTextField addTextFieldLeftRightPadding:self.emailTextField];
     [self.passwordTextField addTextFieldLeftRightPadding:self.passwordTextField];
 }
@@ -151,7 +144,6 @@
     //Set field position after show keyboard
     NSDictionary* info = [notification userInfo];
     NSValue *aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
-    
     loginBackViewY=(([[UIScreen mainScreen] bounds].size.height/2.0)-(417.0/2.0))+65.0;
     //Set condition according to check if current selected textfield is behind keyboard
     if (loginBackViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height<([UIScreen mainScreen].bounds.size.height)-[aValue CGRectValue].size.height) {
@@ -160,7 +152,6 @@
     else {
         [self.scrollView setContentOffset:CGPointMake(0, ((loginBackViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height)- ([UIScreen mainScreen].bounds.size.height-[aValue CGRectValue].size.height))+10) animated:NO];
     }
-    
     //Change content size of scroll view if current selected textfield is behind keyboard
     if ([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(loginBackViewY+self.passwordTextField.frame.origin.y+self.passwordTextField.frame.size.height))>0) {
         
@@ -178,14 +169,16 @@
 - (IBAction)login:(id)sender {
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     [self.keyboardControls.activeField resignFirstResponder];
-    
+    UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+    [myDelegate.window setRootViewController:objReveal];
+    [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+    [myDelegate.window makeKeyAndVisible];
     //Perform signUp validations
-    if([self performValidationsForLogin]) {
-        
-        isSocialLogin=0;
-        [myDelegate showIndicator];
-        [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
-    }
+//    if([self performValidationsForLogin]) {
+//        isSocialLogin=0;
+////        [myDelegate showIndicator];
+////        [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
+//    }
 }
 
 - (IBAction)forgotPassword:(UIButton *)sender {
@@ -247,7 +240,7 @@
 #pragma mark - Webservice
 //Community code webservice called
 - (void)authenticationToken {
-    [myDelegate showIndicator];
+//    [myDelegate showIndicator];
     LoginModel *authToken = [LoginModel sharedUser];
     authToken.username=@"";
     authToken.password=@"";

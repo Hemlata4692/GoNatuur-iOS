@@ -10,8 +10,12 @@
 #import "MMMaterialDesignSpinner.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <GoogleSignIn/GoogleSignIn.h>
+#import <UserNotifications/UserNotifications.h>
 
-@interface AppDelegate () {
+
+#define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
+@interface AppDelegate () <UNUserNotificationCenterDelegate>{
     UIView *loaderView;
     UIImageView *spinnerBackground;
 }
@@ -20,6 +24,8 @@
 
 @implementation AppDelegate
 @synthesize selectedLoginType;
+@synthesize deviceToken;
+@synthesize selectedCategoryIndex;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -52,12 +58,18 @@
 #pragma mark - Application life cycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //Set navigation bar color
+//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+//    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.0/255.0 green:58.0/255.0 blue:78.0/255.0 alpha:1.0]];
+   [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Montserrat-Medium" size:20.0], NSFontAttributeName, nil]];
     
     selectedLoginType=FacebookLogin;
     
     //Connect appdelegate to facebook delegate
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
+    
+    //[self registerForRemoteNotification];
     return YES;
 }
 
@@ -81,6 +93,65 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+#pragma mark - end
+
+#pragma mark - Notification Registration
+- (void)registerForRemoteNotification {
+    if(SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0")) {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        center.delegate = self;
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
+            if( !error ){
+                [[UIApplication sharedApplication] registerForRemoteNotifications];
+            }
+        }];
+    }
+    else {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+}
+#pragma mark - end
+
+#pragma mark - UNUserNotificationCenter Delegate // >= iOS 10
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler{
+    NSLog(@"User Info = %@",response.notification.request.content.userInfo);
+    //    [self notifcationResponseDict:response.notification.request.content.userInfo];
+}
+#pragma mark - end
+
+#pragma mark - PushNotification delegate
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)token {
+    NSString *tokenString = [[token description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    tokenString = [tokenString stringByReplacingOccurrencesOfString:@" " withString:@""];
+    deviceToken = tokenString;
+    NSLog(@"My device token is: %@", deviceToken);
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error {
+    NSLog(@"Failed to get token, error: %@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void(^)(UIBackgroundFetchResult))completionHandler
+{
+    NSLog(@"Received notification: %@", userInfo);
+    //    [self notifcationResponseDict:userInfo];
+}
+
+- (void)notifcationResponseDict:(NSDictionary *)userInfo {
+    [UIApplication sharedApplication].applicationIconBadgeNumber=0;
+    NSDictionary *dict = [userInfo objectForKey:@"aps"] ;
+    NSLog(@"notification response === %@",dict);
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+        //if app is in active state
+    } else {
+        //if app is not active
+    }
+}
+- (void)showNotificationAlert:(NSString *)message {
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alert show];
 }
 #pragma mark - end
 

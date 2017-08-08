@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "ConstantCode.h"
 
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property(nonatomic,assign)ConstantType selectedLoginType;
+@property (nonatomic,strong) NSString *deviceToken;
+@property (nonatomic,assign) int selectedCategoryIndex;
 
 - (void)showIndicator;
 - (void)stopIndicator;
