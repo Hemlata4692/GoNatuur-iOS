@@ -54,11 +54,14 @@
 		32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20901F25B1760054C344 /* ConnectionManager.m */; };
 		32CC20951F25B1D90054C344 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20941F25B1D90054C344 /* LoginModel.m */; };
 		32CC20991F25B1F80054C344 /* LoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20981F25B1F80054C344 /* LoginService.m */; };
+		B74581191F39BCE100A164D6 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = B74581181F39BCE100A164D6 /* bg.png */; };
+		B745811D1F39BECC00A164D6 /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = B745811C1F39BECC00A164D6 /* BSKeyboardControls.m */; };
+		B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = B74581201F39C8EA00A164D6 /* UIFont+CustomFont.m */; };
 		B77A8A781F34388800233782 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A771F34388800233782 /* SignUpViewController.m */; };
 		B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */; };
 		B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */; };
 		B77A8A811F347D2B00233782 /* SwipeImage.png in Resources */ = {isa = PBXBuildFile; fileRef = B77A8A801F347D2B00233782 /* SwipeImage.png */; };
-		B77A8A831F34824C00233782 /* Weibo.png in Resources */ = {isa = PBXBuildFile; fileRef = B77A8A821F34824C00233782 /* Weibo.png */; };
+		B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */ = {isa = PBXBuildFile; fileRef = B7DDB1AD1F399D14009BB8A5 /* ConstantCode.m */; };
 		E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */; };
 /* End PBXBuildFile section */
 
@@ -151,13 +154,19 @@
 		32CC20971F25B1F80054C344 /* LoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginService.h; sourceTree = "<group>"; };
 		32CC20981F25B1F80054C344 /* LoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginService.m; sourceTree = "<group>"; };
 		B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.debug.xcconfig"; sourceTree = "<group>"; };
+		B74581181F39BCE100A164D6 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		B745811B1F39BECC00A164D6 /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
+		B745811C1F39BECC00A164D6 /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
+		B745811F1F39C8EA00A164D6 /* UIFont+CustomFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CustomFont.h"; sourceTree = "<group>"; };
+		B74581201F39C8EA00A164D6 /* UIFont+CustomFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CustomFont.m"; sourceTree = "<group>"; };
 		B77A8A761F34388800233782 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		B77A8A771F34388800233782 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		B77A8A7A1F346C1200233782 /* SocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
 		B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialLoginViewController.m; sourceTree = "<group>"; };
 		B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLoginViewController.xib; sourceTree = "<group>"; };
 		B77A8A801F347D2B00233782 /* SwipeImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SwipeImage.png; sourceTree = "<group>"; };
-		B77A8A821F34824C00233782 /* Weibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Weibo.png; sourceTree = "<group>"; };
+		B7DDB1AC1F399D14009BB8A5 /* ConstantCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantCode.h; sourceTree = "<group>"; };
+		B7DDB1AD1F399D14009BB8A5 /* ConstantCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstantCode.m; sourceTree = "<group>"; };
 		B83EEE6EC30D7C8806561F9A /* Pods-GoNatuur.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.release.xcconfig"; sourceTree = "<group>"; };
 		BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoNatuur.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -362,6 +371,7 @@
 		320761661F162789001F1790 /* CategoryClasses */ = {
 			isa = PBXGroup;
 			children = (
+				B745811E1F39C8E100A164D6 /* CustomFont */,
 				320761801F163B2F001F1790 /* CornerRadius */,
 				3207617C1F163B1D001F1790 /* PaddingCategory */,
 				320761781F163B06001F1790 /* ValidationCategory */,
@@ -611,6 +621,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B745811A1F39BEC100A164D6 /* BSKeyboardControls */ = {
+			isa = PBXGroup;
+			children = (
+				B745811B1F39BECC00A164D6 /* BSKeyboardControls.h */,
+				B745811C1F39BECC00A164D6 /* BSKeyboardControls.m */,
+			);
+			name = BSKeyboardControls;
+			sourceTree = "<group>";
+		};
+		B745811E1F39C8E100A164D6 /* CustomFont */ = {
+			isa = PBXGroup;
+			children = (
+				B745811F1F39C8EA00A164D6 /* UIFont+CustomFont.h */,
+				B74581201F39C8EA00A164D6 /* UIFont+CustomFont.m */,
+			);
+			name = CustomFont;
+			sourceTree = "<group>";
+		};
 		B77A8A751F34386400233782 /* SignUpViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -630,13 +658,22 @@
 			name = SocialLoginButttonView;
 			sourceTree = "<group>";
 		};
-		B77A8A7F1F347D1200233782 /* Images */ = {
+		B77A8A7F1F347D1200233782 /* ImageCollection */ = {
 			isa = PBXGroup;
 			children = (
-				B77A8A821F34824C00233782 /* Weibo.png */,
+				B74581181F39BCE100A164D6 /* bg.png */,
 				B77A8A801F347D2B00233782 /* SwipeImage.png */,
 			);
-			name = Images;
+			name = ImageCollection;
+			sourceTree = "<group>";
+		};
+		B7DDB1AB1F399D02009BB8A5 /* ConstantCode */ = {
+			isa = PBXGroup;
+			children = (
+				B7DDB1AC1F399D14009BB8A5 /* ConstantCode.h */,
+				B7DDB1AD1F399D14009BB8A5 /* ConstantCode.m */,
+			);
+			name = ConstantCode;
 			sourceTree = "<group>";
 		};
 		E2BA2CD89648C4DC2D21544A /* Pods */ = {
@@ -793,6 +830,7 @@
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
 				B77A8A781F34388800233782 /* SignUpViewController.m in Sources */,
 				18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */,
+				B745811D1F39BECC00A164D6 /* BSKeyboardControls.m in Sources */,
 				18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */,
 				18F7A9031F33044100430842 /* BottomTabViewController.m in Sources */,
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
@@ -801,6 +839,7 @@
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
+				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
 				3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */,
 				320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */,
@@ -812,6 +851,7 @@
 				18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */,
 				1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */,
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
+				B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */,
 				32CC20951F25B1D90054C344 /* LoginModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

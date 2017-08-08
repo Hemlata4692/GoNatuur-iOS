@@ -10,14 +10,18 @@
 
 @interface LoginModel : NSObject
 @property (strong, nonatomic) NSString *username;
+@property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *password;
+@property (strong, nonatomic) NSNumber *isSocialLogin;
+@property (strong, nonatomic) NSString *countryCode;
+@property (strong, nonatomic) NSString *userId;
 
 + (instancetype)sharedUser;
-//login user
+//Login user
 - (void)loginUserOnSuccess:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
-//get community code
+//Get community code
 - (void)accessToken:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
-//save devcie token
+//Save devcie token
 - (void)saveDeviceToken:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
 
 @end

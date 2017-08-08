@@ -7,15 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "ConstantCode.h"
 
-//@protocol SocialLoginDelegate <NSObject>
-//@optional
-//- (void)socialLoginResponse:(ConstantType)option result:(NSDictionary *)result;
-//@end
+@protocol SocialLoginDelegate <NSObject>
+@optional
+- (void)socialLoginResponse:(ConstantType)option result:(NSDictionary *)result;
+@end
 @interface SocialLoginViewController : UIViewController {
     
-//    id <SocialLoginDelegate> _delegate;
+    id <SocialLoginDelegate> _delegate;
 }
-//@property (nonatomic,strong) id <SocialLoginDelegate>delegate;
+@property (nonatomic,strong) id <SocialLoginDelegate>delegate;
 @end
