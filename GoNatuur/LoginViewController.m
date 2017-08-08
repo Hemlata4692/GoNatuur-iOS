@@ -47,8 +47,16 @@
     [fbConnectObject facebookLoginWithReadPermission:self];
 }
 
+- (IBAction)signUp:(UIButton *)sender {
+    
+    //storyBoard navigation
+    UIViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SignUpViewController"];
+    [self.navigationController pushViewController:obj animated:YES];
+}
+
 //login with gmail button action
 - (IBAction)loginWithGoogleAction:(id)sender {
+    
     GmailSignInConnect *gmailConnect = [[GmailSignInConnect alloc]init];
     [GIDSignIn sharedInstance].delegate=self;
     [GIDSignIn sharedInstance].uiDelegate = self;

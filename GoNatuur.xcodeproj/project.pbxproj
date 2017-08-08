@@ -44,6 +44,11 @@
 		32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20901F25B1760054C344 /* ConnectionManager.m */; };
 		32CC20951F25B1D90054C344 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20941F25B1D90054C344 /* LoginModel.m */; };
 		32CC20991F25B1F80054C344 /* LoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20981F25B1F80054C344 /* LoginService.m */; };
+		B77A8A781F34388800233782 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A771F34388800233782 /* SignUpViewController.m */; };
+		B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */; };
+		B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */; };
+		B77A8A811F347D2B00233782 /* SwipeImage.png in Resources */ = {isa = PBXBuildFile; fileRef = B77A8A801F347D2B00233782 /* SwipeImage.png */; };
+		B77A8A831F34824C00233782 /* Weibo.png in Resources */ = {isa = PBXBuildFile; fileRef = B77A8A821F34824C00233782 /* Weibo.png */; };
 		E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +127,13 @@
 		32CC20971F25B1F80054C344 /* LoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginService.h; sourceTree = "<group>"; };
 		32CC20981F25B1F80054C344 /* LoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginService.m; sourceTree = "<group>"; };
 		B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.debug.xcconfig"; sourceTree = "<group>"; };
+		B77A8A761F34388800233782 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		B77A8A771F34388800233782 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		B77A8A7A1F346C1200233782 /* SocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
+		B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialLoginViewController.m; sourceTree = "<group>"; };
+		B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLoginViewController.xib; sourceTree = "<group>"; };
+		B77A8A801F347D2B00233782 /* SwipeImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SwipeImage.png; sourceTree = "<group>"; };
+		B77A8A821F34824C00233782 /* Weibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Weibo.png; sourceTree = "<group>"; };
 		B83EEE6EC30D7C8806561F9A /* Pods-GoNatuur.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.release.xcconfig"; sourceTree = "<group>"; };
 		BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoNatuur.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -397,6 +409,7 @@
 		32A3D6C01F1CBDE200062B86 /* SocialLogin */ = {
 			isa = PBXGroup;
 			children = (
+				B77A8A791F346BE900233782 /* SocialLoginButttonView */,
 				32A3D7071F1CD4B500062B86 /* GoogleLogin */,
 				32A3D6C11F1CBDF500062B86 /* FacebookLogin */,
 			);
@@ -517,6 +530,34 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B77A8A751F34386400233782 /* SignUpViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B77A8A761F34388800233782 /* SignUpViewController.h */,
+				B77A8A771F34388800233782 /* SignUpViewController.m */,
+			);
+			name = SignUpViewController;
+			sourceTree = "<group>";
+		};
+		B77A8A791F346BE900233782 /* SocialLoginButttonView */ = {
+			isa = PBXGroup;
+			children = (
+				B77A8A7A1F346C1200233782 /* SocialLoginViewController.h */,
+				B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */,
+				B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */,
+			);
+			name = SocialLoginButttonView;
+			sourceTree = "<group>";
+		};
+		B77A8A7F1F347D1200233782 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				B77A8A821F34824C00233782 /* Weibo.png */,
+				B77A8A801F347D2B00233782 /* SwipeImage.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		E2BA2CD89648C4DC2D21544A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -561,6 +602,7 @@
 				TargetAttributes = {
 					32BAA6031F1360280015E355 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = M8A7BYS443;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -588,11 +630,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B77A8A831F34824C00233782 /* Weibo.png in Resources */,
 				32A3D7131F1CE3BB00062B86 /* GoogleSignIn.bundle in Resources */,
 				32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */,
 				32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */,
 				18E5D58A1F34443B00829292 /* Lato-Regular.ttf in Resources */,
 				18F7A9041F33044100430842 /* BottomTabViewController.xib in Resources */,
+				B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
 				18E5D58C1F34645E00829292 /* bg640-960.png in Resources */,
 				32BAA6121F1360290015E355 /* Main.storyboard in Resources */,
@@ -660,11 +704,13 @@
 				32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */,
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
+				B77A8A781F34388800233782 /* SignUpViewController.m in Sources */,
 				18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */,
 				18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */,
 				18F7A9031F33044100430842 /* BottomTabViewController.m in Sources */,
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
+				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
@@ -798,7 +844,8 @@
 			baseConfigurationReference = B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = M8A7BYS443;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoNatuur",
@@ -809,7 +856,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.LoginLibrary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "5d36d161-4eab-49e9-b4bd-cc5088e93d30";
+				PROVISIONING_PROFILE_SPECIFIER = RanosysWildcard;
 			};
 			name = Debug;
 		};
@@ -818,7 +866,8 @@
 			baseConfigurationReference = B83EEE6EC30D7C8806561F9A /* Pods-GoNatuur.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = M8A7BYS443;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoNatuur",
@@ -829,7 +878,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.LoginLibrary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "5d36d161-4eab-49e9-b4bd-cc5088e93d30";
+				PROVISIONING_PROFILE_SPECIFIER = RanosysWildcard;
 			};
 			name = Release;
 		};
