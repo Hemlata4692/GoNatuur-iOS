@@ -22,4 +22,5 @@ typedef NS_ENUM (NSInteger, ConstantType){
 @interface ConstantCode : NSObject
 
 + (ConstantType)checkDeviceType;
++ (NSString *)localeCountryCode;
 @end

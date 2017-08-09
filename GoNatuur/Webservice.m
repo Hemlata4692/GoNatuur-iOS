@@ -50,7 +50,7 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
         NSLog(@"error.localizedDescription %@",error.localizedDescription);
-//        [myDelegate stopIndicator];
+        [myDelegate stopIndicator];
         if (error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] != nil) {
             NSDictionary* json = [NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
                                                                  options:kNilOptions error:&error];
@@ -82,7 +82,7 @@
     } progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         success(responseObject);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        [myDelegate stopIndicator];
+        [myDelegate stopIndicator];
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
                                                              options:kNilOptions error:&error];
         NSLog(@"json %@",json);
@@ -104,6 +104,7 @@
         success(responseObject);
     }
         failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
+             [myDelegate stopIndicator];
             NSDictionary* json = [NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
                                                                  options:kNilOptions error:&error];
             NSLog(@"json %@",json);

@@ -27,8 +27,14 @@ static NSString *kLogin=@"ranosys/customer/customerLogin";
     NSDictionary *parameters = @{@"email" : loginData.email,
                                      @"password" : loginData.password,
                                      @"isSocialLogin" : loginData.isSocialLogin,
-                                     @"countryCode" : loginData.countryCode};
-    
+                                     @"countryCode" : [ConstantCode localeCountryCode]};
+    [super post:kLogin parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Login as guest user service
+- (void)loginGuestUser:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"countryCode" : [ConstantCode localeCountryCode]};
     [super post:kLogin parameters:parameters success:success failure:failure];
 }
 #pragma mark - end

@@ -24,4 +24,10 @@
             return Device7Plus;
     }
 }
+
++ (NSString *)localeCountryCode {
+
+    NSLocale *countryLocale = [NSLocale currentLocale];
+    return [countryLocale objectForKey:NSLocaleCountryCode];
+}
 @end

@@ -20,4 +20,6 @@
 - (void)loginUser:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure;
 //Save device token
 - (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure;
+//Login as guest user
+- (void)loginGuestUser:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure;
 @end
