@@ -12,7 +12,6 @@
 #import <GoogleSignIn/GoogleSignIn.h>
 #import <UserNotifications/UserNotifications.h>
 
-
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>{
@@ -61,7 +60,7 @@
     //Set navigation bar color
 //    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 //    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.0/255.0 green:58.0/255.0 blue:78.0/255.0 alpha:1.0]];
-   [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Montserrat-Medium" size:20.0], NSFontAttributeName, nil]];
+   [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont montserratMediumWithSize:20], NSFontAttributeName, nil]];
     
     selectedLoginType=FacebookLogin;
     
@@ -98,7 +97,7 @@
 
 #pragma mark - Notification Registration
 - (void)registerForRemoteNotification {
-    if(SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0")) {
+    if(SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(iOS_Version)) {
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         center.delegate = self;
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
@@ -150,7 +149,7 @@
     }
 }
 - (void)showNotificationAlert:(NSString *)message {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:alertTitle message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:alertOk, nil];
     [alert show];
 }
 #pragma mark - end

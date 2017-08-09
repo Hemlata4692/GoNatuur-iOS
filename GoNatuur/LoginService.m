@@ -6,13 +6,11 @@
 //  Copyright © 2017 Hemlata Khajanchi. All rights reserved.
 //
 
-
-static NSString *kAuthorizationToken=@"integration/admin/token";
-static NSString *kLogin=@"ranosys/customer/customerLogin";
-
-
 #import "LoginService.h"
 #import "LoginModel.h"
+
+static NSString *kAuthorizationToken=@"integration/admin/token";
+static NSString *kLogin=@"ranosys/customer/customer-login";
 
 @implementation LoginService
 

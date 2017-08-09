@@ -121,7 +121,7 @@
 }
 
 - (void)setAttributString {
-    NSString *str=@"By signing up, you agree to our terms & conditions and privacy policy. If you already have an account, Log In here";
+    NSString *str=privacyPolicyText;
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
     
     NSRange termConditionTextRange = [str rangeOfString:@"terms & conditions"];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
@@ -288,17 +288,17 @@
 - (BOOL)performValidationsForSignUp {
     if ([self.emailTextField isEmpty] || [self.passwordTextField isEmpty] || [self.confirmPasswordTextField isEmpty]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:@"Alert" subTitle:@"Please fill in all the required fields." closeButtonTitle:@"Ok" duration:0.0f];
+        [alert showWarning:nil title:alertTitle subTitle:emptyFieldMessage closeButtonTitle:alertOk duration:0.0f];
         return NO;
     }
     else if (![self.emailTextField isValidEmail]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:@"Alert" subTitle:@"Please enter a valid email address." closeButtonTitle:@"Ok" duration:0.0f];
+        [alert showWarning:nil title:alertTitle subTitle:validEmailMessage closeButtonTitle:alertOk duration:0.0f];
         return NO;
     }
     else if ([self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:@"Alert" subTitle:@"Password does't match." closeButtonTitle:@"Ok" duration:0.0f];
+        [alert showWarning:nil title:alertTitle subTitle:passwordMatchMessage closeButtonTitle:alertOk duration:0.0f];
         return NO;
     }
     else {

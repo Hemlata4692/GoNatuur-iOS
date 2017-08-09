@@ -15,4 +15,5 @@
 + (UIFont*)helveticaNeueWithSize:(int)size;
 + (UIFont*)helveticaNeueThinWithSize:(int)size;
 + (UIFont*)helveticaNeueMediumWithSize:(int)size;
++ (UIFont*)montserratMediumWithSize:(int)size;
 @end

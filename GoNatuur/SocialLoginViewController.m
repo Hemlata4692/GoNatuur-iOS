@@ -73,7 +73,7 @@
     }
     else {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:@"Alert" subTitle:@"Some thing went wrong, Please try again later." closeButtonTitle:@"Ok" duration:0.0f];
+        [alert showWarning:nil title:alertTitle subTitle:somethingWrondMessage closeButtonTitle:alertOk duration:0.0f];
     }
 }
 #pragma mark - end
