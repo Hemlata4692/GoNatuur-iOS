@@ -13,6 +13,7 @@
 #import "UITextField+Validations.h"
 #import "UITextField+Padding.h"
 #import "LoginModel.h"
+#import "CMSPageViewController.h"
 
 @interface SignUpViewController ()<UIGestureRecognizerDelegate, SocialLoginDelegate, BSKeyboardControlsDelegate> {
     
@@ -268,13 +269,19 @@
 
 //Privacy policy, termCondition and login click action
 - (void)privacyPolicy {
-//    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("Privacy");
+    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
+    obj.isPrivacyPolicy=true;
+    [self.navigationController pushViewController:obj animated:true];
 }
 
 - (void)termsNCondition {
-//    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("termsNCondition");
+    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
+    obj.isPrivacyPolicy=false;
+    [self.navigationController pushViewController:obj animated:true];
 }
 
 - (void)logIn {
