@@ -21,6 +21,7 @@
 		188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188605A91F39D7230005D1E2 /* Montserrat-Regular.ttf */; };
 		188605AD1F39D7620005D1E2 /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 188605AB1F39D7620005D1E2 /* Montserrat-Light.otf */; };
 		188605AE1F39D7620005D1E2 /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 188605AC1F39D7620005D1E2 /* Montserrat-Medium.otf */; };
+		18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */; };
 		18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */; };
 		18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F31F32E09800430842 /* GoNatuurViewController.m */; };
 		18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */; };
@@ -100,6 +101,8 @@
 		188605A91F39D7230005D1E2 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		188605AB1F39D7620005D1E2 /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		188605AC1F39D7620005D1E2 /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
+		18C1DF7C1F3CAE96000D9431 /* DasboardDataCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasboardDataCollectionViewCell.h; sourceTree = "<group>"; };
+		18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DasboardDataCollectionViewCell.m; sourceTree = "<group>"; };
 		18E5D5831F342DE500829292 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
 		18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		18F7A8F21F32E09800430842 /* GoNatuurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurViewController.h; sourceTree = "<group>"; };
@@ -234,6 +237,7 @@
 		188605911F39BB720005D1E2 /* DashboardModule */ = {
 			isa = PBXGroup;
 			children = (
+				18C1DF7B1F3CAE51000D9431 /* DashboardDataCell */,
 				188605921F39BB840005D1E2 /* DashboardViewController */,
 			);
 			name = DashboardModule;
@@ -291,6 +295,15 @@
 				188605AC1F39D7620005D1E2 /* Montserrat-Medium.otf */,
 			);
 			name = Fonts;
+			sourceTree = "<group>";
+		};
+		18C1DF7B1F3CAE51000D9431 /* DashboardDataCell */ = {
+			isa = PBXGroup;
+			children = (
+				18C1DF7C1F3CAE96000D9431 /* DasboardDataCollectionViewCell.h */,
+				18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */,
+			);
+			name = DashboardDataCell;
 			sourceTree = "<group>";
 		};
 		18E5D5821F342DAF00829292 /* ForgotPasswordViewController */ = {
@@ -888,6 +901,7 @@
 				320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */,
 				32A3D6B81F1CBADB00062B86 /* LoginViewController.m in Sources */,
 				188605A51F39C6890005D1E2 /* DynamicHeightWidth.m in Sources */,
+				18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */,
 				32BAA6091F1360280015E355 /* main.m in Sources */,
 				188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */,
 				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,
