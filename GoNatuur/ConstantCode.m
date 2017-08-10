@@ -11,6 +11,7 @@
 
 @implementation ConstantCode
 
+
 //Check device type
 + (ConstantType)checkDeviceType {
     switch ((int)[[UIScreen mainScreen] bounds].size.height) {

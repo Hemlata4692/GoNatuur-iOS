@@ -11,7 +11,6 @@
 #import "SignUpViewController.h"
 #import "SocialLoginViewController.h"
 #import "BSKeyboardControls.h"
-#import "UIView+RoundedCorner.h"
 #import "UITextField+Validations.h"
 #import "UITextField+Padding.h"
 

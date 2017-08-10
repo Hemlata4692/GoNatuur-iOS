@@ -17,7 +17,7 @@
 #import "BottomTabViewController.h"
 #import "ConstantCode.h"
 #import "UIFont+CustomFont.h"
-
+#import "UIView+RoundedCorner.h"
 
 #define myDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 

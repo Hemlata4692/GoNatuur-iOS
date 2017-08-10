@@ -26,6 +26,7 @@
 @synthesize selectedLoginType;
 @synthesize deviceToken;
 @synthesize selectedCategoryIndex;
+@synthesize navigationController;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -111,6 +112,10 @@
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
+}
+
+- (void)unregisterForRemoteNotifications {
+    [[UIApplication sharedApplication] unregisterForRemoteNotifications];
 }
 #pragma mark - end
 
