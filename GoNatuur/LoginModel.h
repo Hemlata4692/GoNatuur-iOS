@@ -13,7 +13,6 @@
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *password;
 @property (strong, nonatomic) NSNumber *isSocialLogin;
-@property (strong, nonatomic) NSString *countryCode;
 @property (strong, nonatomic) NSString *userId;
 
 + (instancetype)sharedUser;
@@ -23,5 +22,6 @@
 - (void)accessToken:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
 //Save devcie token
 - (void)saveDeviceToken:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
-
+//Login as guest user
+- (void)loginGuestUserOnSuccess:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
 @end

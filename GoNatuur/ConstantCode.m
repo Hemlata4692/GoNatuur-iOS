@@ -8,7 +8,6 @@
 
 #import "ConstantCode.h"
 
-
 @implementation ConstantCode
 
 
@@ -24,5 +23,12 @@
         default:
             return Device7Plus;
     }
+}
+
+//Get country code
++ (NSString *)localeCountryCode {
+
+    NSLocale *countryLocale = [NSLocale currentLocale];
+    return [countryLocale objectForKey:NSLocaleCountryCode];
 }
 @end

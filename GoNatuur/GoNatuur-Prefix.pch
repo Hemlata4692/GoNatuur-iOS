@@ -21,7 +21,7 @@
 
 #define myDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
-//google client id
+//Google client id
 #define kClientID    @"203484340022-n7i72bu9h19efaspim5cqb1fc18uvtlc.apps.googleusercontent.com"
 
 #ifdef DEBUG

@@ -17,17 +17,16 @@
      fromViewController:selfVC
      handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
          if (error) {
-             [_delegate facebookLoginWithReadPermissionResponse:result status:2];
-             [self fetchFBDataWithReadPermission];
+             [myDelegate showIndicator];
+             [self performSelector:@selector(fetchFBDataWithReadPermission) withObject:nil afterDelay:.1];
              //process error
          } else if (result.isCancelled) {
-             [_delegate facebookLoginWithReadPermissionResponse:result status:3];
-             [self fetchFBDataWithReadPermission];
-             //cancelled
+             //Cancelled
          } else {
-            //logged in
-            if ([FBSDKAccessToken currentAccessToken]) {
-                 [self fetchFBDataWithReadPermission];
+             //logged in
+             if ([FBSDKAccessToken currentAccessToken]) {
+                 [myDelegate showIndicator];
+                 [self performSelector:@selector(fetchFBDataWithReadPermission) withObject:nil afterDelay:.1];
              }
          }
      }];
@@ -39,12 +38,13 @@
     [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
                                        parameters:@{@"fields": @"picture.type(large), name, first_name, last_name, age_range, gender, birthday, email, friends"}]
      startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+         [myDelegate stopIndicator];
          if (!error) {
              //fetch result from facebook login
              [_delegate facebookLoginWithReadPermissionResponse:result status:1];
          }
          else{
-              [_delegate facebookLoginWithReadPermissionResponse:result status:2];
+             [_delegate facebookLoginWithReadPermissionResponse:result status:2];
              DLog(@"%@", [error localizedDescription]);
          }
      }];
