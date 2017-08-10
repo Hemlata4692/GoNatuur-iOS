@@ -532,7 +532,7 @@
 		32A3D6B51F1CBABA00062B86 /* LoginModule */ = {
 			isa = PBXGroup;
 			children = (
-				B7A86ECA1F3B3D5A004DA530 /* CMSPageModule */,
+				B7A86ECA1F3B3D5A004DA530 /* CMSPageViewController */,
 				18E5D5821F342DAF00829292 /* ForgotPasswordViewController */,
 				B77A8A751F34386400233782 /* SignUpViewController */,
 				32CC209A1F25C4F60054C344 /* LoginViewController */,
@@ -701,13 +701,13 @@
 			name = SocialLoginButttonView;
 			sourceTree = "<group>";
 		};
-		B7A86ECA1F3B3D5A004DA530 /* CMSPageModule */ = {
+		B7A86ECA1F3B3D5A004DA530 /* CMSPageViewController */ = {
 			isa = PBXGroup;
 			children = (
 				B7A86ECB1F3B3D85004DA530 /* CMSPageViewController.h */,
 				B7A86ECC1F3B3D85004DA530 /* CMSPageViewController.m */,
 			);
-			name = CMSPageModule;
+			name = CMSPageViewController;
 			sourceTree = "<group>";
 		};
 		B7DDB1AB1F399D02009BB8A5 /* ConstantCode */ = {

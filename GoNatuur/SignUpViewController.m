@@ -123,17 +123,13 @@
 - (void)setAttributString {
     NSString *str=privacyPolicyText;
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
-    
     NSRange termConditionTextRange = [str rangeOfString:@"terms & conditions"];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
     [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]} range:termConditionTextRange];
-    
     NSRange policyTextRange = [str rangeOfString:@"privacy policy"];
     [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]} range:policyTextRange];
-    
     NSRange logInTextRange = [str rangeOfString:@"Log In"];
     [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont helveticaNeueMediumWithSize:11], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:logInTextRange];
     self.privacyPolicyLoginLabel.attributedText=string;
-    
     //Add tap gesture at UiLabel
     self.privacyPolicyLoginLabel.userInteractionEnabled = YES;
     [self.privacyPolicyLoginLabel addGestureRecognizer: [[UITapGestureRecognizer alloc] initWithTarget:self
@@ -144,12 +140,10 @@
     //Adding textfield to keyboard controls array
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[self.emailTextField, self.passwordTextField, self.confirmPasswordTextField]]];
     [self.keyboardControls setDelegate:self];
-    
     [self.emailTextField setTextBorder:self.emailTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [self.passwordTextField setTextBorder:self.passwordTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [self.confirmPasswordTextField setTextBorder:self.confirmPasswordTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
-    
-     [self.emailTextField addTextFieldLeftRightPadding:self.emailTextField];
+    [self.emailTextField addTextFieldLeftRightPadding:self.emailTextField];
     [self.passwordTextField addTextFieldLeftRightPadding:self.passwordTextField];
     [self.confirmPasswordTextField addTextFieldLeftRightPadding:self.confirmPasswordTextField];
 }
@@ -396,14 +390,5 @@
     [myDelegate.window makeKeyAndVisible];
 }
 #pragma mark - end
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
