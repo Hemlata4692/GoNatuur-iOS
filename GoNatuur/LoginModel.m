@@ -63,4 +63,17 @@
 }
 #pragma mark - end
 
+#pragma mark - Login as guest user
+- (void)loginGuestUserOnSuccess:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
+    
+    [[ConnectionManager sharedManager] loginGuestUser:^(LoginModel *userData) {
+        if (success) {
+            
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
 @end

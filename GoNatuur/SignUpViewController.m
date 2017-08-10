@@ -12,6 +12,8 @@
 #import "UIView+RoundedCorner.h"
 #import "UITextField+Validations.h"
 #import "UITextField+Padding.h"
+#import "LoginModel.h"
+#import "CMSPageViewController.h"
 
 @interface SignUpViewController ()<UIGestureRecognizerDelegate, SocialLoginDelegate, BSKeyboardControlsDelegate> {
     
@@ -112,7 +114,7 @@
     float scaleFactor = 230.0 / ([[UIScreen mainScreen]bounds].size.width-90);
     screenHeightScaleFactorDifference = 230.0-(scaleFactor*230.0);
     self.mainView.translatesAutoresizingMaskIntoConstraints=true;
-    self.mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, 688+screenHeightScaleFactorDifference+10);
+    self.mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, 256.5+screenHeightScaleFactorDifference+508.0);
     
     //Set privacy policy attributed text
     [self setAttributString];
@@ -120,7 +122,7 @@
 }
 
 - (void)setAttributString {
-    NSString *str=@"By signing up, you agree to our terms & conditions and privacy policy. If you already have an account, Log In here";
+    NSString *str=privacyPolicyText;
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
     
     NSRange termConditionTextRange = [str rangeOfString:@"terms & conditions"];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
@@ -183,7 +185,7 @@
     NSDictionary* info = [notification userInfo];
     NSValue *aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
     
-    float loginBackViewY=screenHeightScaleFactorDifference+259.0;
+    float loginBackViewY=screenHeightScaleFactorDifference+256.5;
     //Set condition according to check if current selected textfield is behind keyboard
     if (loginBackViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height<([UIScreen mainScreen].bounds.size.height)-[aValue CGRectValue].size.height) {
         [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
@@ -212,13 +214,16 @@
     
     //Perform signUp validations
     if([self performValidationsForSignUp]) {
-       
+        [myDelegate showIndicator];
         [self performSelector:@selector(userSignUp) withObject:nil afterDelay:.1];
     }
 }
 
 - (IBAction)skipAndContinue:(UIButton *)sender {
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [self.keyboardControls.activeField resignFirstResponder];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(userLoginAsGuest) withObject:nil afterDelay:.1];
 }
 
 //Privacy policy, terms & condition and login tap gesture handler
@@ -227,49 +232,56 @@
     CGPoint position = CGPointMake(location.x, location.y);
     
     if ([ConstantCode checkDeviceType] == Device5s) {
-        if ((position.y<11.0 && position.x>125.0 && position.x<155.0)||(position.y>12.0 && position.y<22.0 && position.x>8 && position.x<53.0)) {
+        if ((position.y<11.0 && position.x>118.0 && position.x<153.0)||(position.y>12.0 && position.y<22.0 && position.x<40.0)) {
             [self termsNCondition];
         }
-        else if (position.y>12.0 && position.y<22.0 && position.x>70.0 && position.x<127.0) {
+        else if (position.y>12.0 && position.y<22.0 && position.x>57.0 && position.x<110.0) {
             [self privacyPolicy];
         }
-        else if (position.y>23.0 && position.y<35.0 && position.x>101.0 && position.x<137.0) {
+        else if (position.y>23.0 && position.y<35.0 && position.x>93.0 && position.x<131.0) {
             [self logIn];
         }
     }
     else if ([ConstantCode checkDeviceType] == Device6) {
-        if (position.y<12.0 && position.x>123.0 && position.x<194.0) {
+        if (position.y<11.0 && position.x>117.0 && position.x<189.0) {
             [self termsNCondition];
         }
-        else if (position.y>13.0 && position.y<24.0 && position.x>1.5 && position.x<57.0) {
+        else if (position.y>13.0 && position.y<25.0 && position.x<51.0) {
             [self privacyPolicy];
         }
-        else if (position.y>12.0 && position.y<25.0 && position.x>176.0 && position.x<212.0) {
+        else if (position.y>12.0 && position.y<25.0 && position.x>170.0 && position.x<208.0) {
             [self logIn];
         }
     }
     else {
-        if (position.y>4.0 && position.y<16.0 && position.x>128.0 && position.x<198.0) {
+        if (position.y>6.0 && position.y<16.0 && position.x>118.0 && position.x<189.0) {
             [self termsNCondition];
         }
-        else if ((position.y>4.0 && position.y<16.0 && position.x>216.0 && position.x<245.0)||(position.y>18.0 && position.y<30.0 && position.x>25.0 && position.x<51.0)) {
+        else if ((position.y>6.0 && position.y<16.0 && position.x>206.0 && position.x<237.0)||(position.y>18.0 && position.y<30.0 && position.x>0.0 && position.x<24.0)) {
             [self privacyPolicy];
         }
-        else if (position.y>17.0 && position.y<30.0 && position.x>173.0 && position.x<207.0) {
+        else if (position.y>17.0 && position.y<30.0 && position.x>142.0 && position.x<180.0) {
             [self logIn];
         }
     }
+    DLog(@"%f, %f", position.x, position.y);
 }
 
 //Privacy policy, termCondition and login click action
 - (void)privacyPolicy {
-//    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("Privacy");
+    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
+    obj.isPrivacyPolicy=true;
+    [self.navigationController pushViewController:obj animated:true];
 }
 
 - (void)termsNCondition {
-//    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("termsNCondition");
+    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
+    obj.isPrivacyPolicy=false;
+    [self.navigationController pushViewController:obj animated:true];
 }
 
 - (void)logIn {
@@ -283,17 +295,17 @@
 - (BOOL)performValidationsForSignUp {
     if ([self.emailTextField isEmpty] || [self.passwordTextField isEmpty] || [self.confirmPasswordTextField isEmpty]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:@"Alert" subTitle:@"Please fill in all the required fields." closeButtonTitle:@"Ok" duration:0.0f];
+        [alert showWarning:nil title:alertTitle subTitle:emptyFieldMessage closeButtonTitle:alertOk duration:0.0f];
         return NO;
     }
     else if (![self.emailTextField isValidEmail]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:@"Alert" subTitle:@"Please enter a valid email address." closeButtonTitle:@"Ok" duration:0.0f];
+        [alert showWarning:nil title:alertTitle subTitle:validEmailMessage closeButtonTitle:alertOk duration:0.0f];
         return NO;
     }
     else if ([self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:@"Alert" subTitle:@"Password does't match." closeButtonTitle:@"Ok" duration:0.0f];
+        [alert showWarning:nil title:alertTitle subTitle:passwordMatchMessage closeButtonTitle:alertOk duration:0.0f];
         return NO;
     }
     else {
@@ -364,6 +376,26 @@
 
 #pragma mark - Webservice
 - (void)userSignUp {}
+
+- (void)userLoginAsGuest {
+    LoginModel *userLogin = [LoginModel sharedUser];
+    [userLogin loginGuestUserOnSuccess:^(LoginModel *userData) {
+        [myDelegate stopIndicator];
+        //Navigate user to dashboard
+        [self navigateToDashboard];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Navigate to dashboard
+- (void)navigateToDashboard {
+    UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+    [myDelegate.window setRootViewController:objReveal];
+    [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+    [myDelegate.window makeKeyAndVisible];
+}
 #pragma mark - end
 /*
 #pragma mark - Navigation

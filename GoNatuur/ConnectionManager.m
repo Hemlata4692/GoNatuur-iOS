@@ -48,6 +48,18 @@
 }
 #pragma mark - end
 
+#pragma mark - Login as guest user
+- (void)loginGuestUser:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
+    LoginService *loginService = [[LoginService alloc] init];
+    [loginService loginGuestUser:^(id response) {
+        //Parse data from server response and store in datamodel
+        success(response);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
 #pragma mark - Send device token
 - (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
 
