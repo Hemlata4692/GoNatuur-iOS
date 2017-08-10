@@ -188,8 +188,8 @@
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     [self.keyboardControls.activeField resignFirstResponder];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(userLoginAsGuest) withObject:nil afterDelay:.1];
+//    [myDelegate showIndicator];
+//    [self performSelector:@selector(userLoginAsGuest) withObject:nil afterDelay:.1];
 }
 
 //Privacy policy, terms & condition and login tap gesture handler

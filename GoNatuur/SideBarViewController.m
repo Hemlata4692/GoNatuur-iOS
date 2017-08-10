@@ -42,7 +42,6 @@
     [super viewWillDisappear:animated];
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:YES];
 }
-
 #pragma mark - end
 
 #pragma mark - Table view data source and delgate methods
@@ -88,12 +87,24 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==7) {
-        //Logout user
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        myDelegate.navigationController = [storyboard instantiateViewControllerWithIdentifier:@"mainNavController"];
-        myDelegate.window.rootViewController = myDelegate.navigationController;
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert addButton:@"Ok" actionBlock:^(void) {
+            //logou user
+            [self logoutUser];
+        }];
+        [alert showWarning:nil title:@"Alert" subTitle:@"Are you sure you want to Signout?" closeButtonTitle:@"Cancel" duration:0.0f];
+        
+        
     }
 }
+#pragma mark - end
 
-
+#pragma mark - Logout user
+- (void)logoutUser {
+    //Logout user
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    myDelegate.navigationController = [storyboard instantiateViewControllerWithIdentifier:@"mainNavController"];
+    myDelegate.window.rootViewController = myDelegate.navigationController;
+}
+#pragma mark - end
 @end
