@@ -59,7 +59,7 @@
 
 #pragma mark - Back button and side bar button
 - (void)addLeftBarButtonWithImage {
-    CGRect sideBarButtonFrame = CGRectMake(0, 0, 26, 26);
+    CGRect sideBarButtonFrame = CGRectMake(0, 0, 22, 22);
     UIButton *leftButton = [[UIButton alloc] initWithFrame:sideBarButtonFrame];
     UIBarButtonItem *leftBarButton =[[UIBarButtonItem alloc] initWithCustomView:leftButton];
     self.navigationItem.leftBarButtonItems=[NSArray arrayWithObjects:leftBarButton, nil];
@@ -92,14 +92,4 @@
     [myDelegate stopIndicator];
 }
 #pragma mark - end
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

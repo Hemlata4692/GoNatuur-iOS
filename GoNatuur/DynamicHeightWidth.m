@@ -19,4 +19,14 @@
                      context:nil];
     return textRect.size.width;
 }
+
++ (float)getDynamicLabelHeight:(NSString *)text font:(UIFont *)font widthValue:(float)widthValue {
+    CGSize size = CGSizeMake(widthValue,1000);
+    CGRect textRect=[text
+                     boundingRectWithSize:size
+                     options:NSStringDrawingUsesLineFragmentOrigin
+                     attributes:@{NSFontAttributeName:font}
+                     context:nil];
+    return textRect.size.height;
+}
 @end

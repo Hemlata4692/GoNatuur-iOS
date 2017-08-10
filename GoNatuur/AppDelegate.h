@@ -16,8 +16,13 @@
 @property(nonatomic,assign)ConstantType selectedLoginType;
 @property (nonatomic,strong) NSString *deviceToken;
 @property (nonatomic,assign) int selectedCategoryIndex;
+@property (retain, nonatomic) UINavigationController *navigationController;
 
 - (void)showIndicator;
 - (void)stopIndicator;
+
+- (void)registerForRemoteNotification;
+- (void)unregisterForRemoteNotifications;
+
 @end
 

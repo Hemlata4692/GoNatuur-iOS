@@ -11,7 +11,6 @@
 #import "SignUpViewController.h"
 #import "SocialLoginViewController.h"
 #import "BSKeyboardControls.h"
-#import "UIView+RoundedCorner.h"
 #import "UITextField+Validations.h"
 #import "UITextField+Padding.h"
 
@@ -149,7 +148,6 @@
     //Set field position after show keyboard
     NSDictionary* info = [notification userInfo];
     NSValue *aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
-//    loginBackViewY=(([[UIScreen mainScreen] bounds].size.height/2.0)-(417.0/2.0))+65.0;
     //Set condition according to check if current selected textfield is behind keyboard
     if (loginBackViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height<([UIScreen mainScreen].bounds.size.height)-[aValue CGRectValue].size.height) {
         [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
@@ -174,11 +172,12 @@
 - (IBAction)login:(id)sender {
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     [self.keyboardControls.activeField resignFirstResponder];
-    //Perform signUp validations
-    if([self performValidationsForLogin]) {
-        [myDelegate showIndicator];
-        [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
-    }
+    [self navigateToDashboard];
+//    //Perform signUp validations
+//    if([self performValidationsForLogin]) {
+//        [myDelegate showIndicator];
+//        [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
+//    }
 }
 
 - (IBAction)forgotPassword:(UIButton *)sender {

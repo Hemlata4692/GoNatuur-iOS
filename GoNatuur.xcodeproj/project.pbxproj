@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C385B1F3B0911008B8291 /* SideBarViewController.m */; };
+		184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C38641F3B328A008B8291 /* EnableNotificationViewController.m */; };
+		184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */; };
 		188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1886058F1F39AF320005D1E2 /* UserNotifications.framework */; };
 		188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605941F39BC430005D1E2 /* DashboardViewController.m */; };
 		1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605991F39C0FC0005D1E2 /* CategorySliderViewController.m */; };
@@ -18,7 +21,6 @@
 		188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188605A91F39D7230005D1E2 /* Montserrat-Regular.ttf */; };
 		188605AD1F39D7620005D1E2 /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 188605AB1F39D7620005D1E2 /* Montserrat-Light.otf */; };
 		188605AE1F39D7620005D1E2 /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 188605AC1F39D7620005D1E2 /* Montserrat-Medium.otf */; };
-		188605B01F39E4B70005D1E2 /* navigation.png in Resources */ = {isa = PBXBuildFile; fileRef = 188605AF1F39E4B70005D1E2 /* navigation.png */; };
 		18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */; };
 		18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F31F32E09800430842 /* GoNatuurViewController.m */; };
 		18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */; };
@@ -53,7 +55,6 @@
 		32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20901F25B1760054C344 /* ConnectionManager.m */; };
 		32CC20951F25B1D90054C344 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20941F25B1D90054C344 /* LoginModel.m */; };
 		32CC20991F25B1F80054C344 /* LoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20981F25B1F80054C344 /* LoginService.m */; };
-		B74581191F39BCE100A164D6 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = B74581181F39BCE100A164D6 /* bg.png */; };
 		B745811D1F39BECC00A164D6 /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = B745811C1F39BECC00A164D6 /* BSKeyboardControls.m */; };
 		B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = B74581201F39C8EA00A164D6 /* UIFont+CustomFont.m */; };
 		B77A8A781F34388800233782 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A771F34388800233782 /* SignUpViewController.m */; };
@@ -79,6 +80,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		184C385A1F3B0911008B8291 /* SideBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideBarViewController.h; sourceTree = "<group>"; };
+		184C385B1F3B0911008B8291 /* SideBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideBarViewController.m; sourceTree = "<group>"; };
+		184C38631F3B328A008B8291 /* EnableNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableNotificationViewController.h; sourceTree = "<group>"; };
+		184C38641F3B328A008B8291 /* EnableNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnableNotificationViewController.m; sourceTree = "<group>"; };
+		184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Regular.otf"; sourceTree = "<group>"; };
 		1886058F1F39AF320005D1E2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		188605931F39BC430005D1E2 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		188605941F39BC430005D1E2 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
@@ -94,7 +100,6 @@
 		188605A91F39D7230005D1E2 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		188605AB1F39D7620005D1E2 /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		188605AC1F39D7620005D1E2 /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
-		188605AF1F39E4B70005D1E2 /* navigation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigation.png; sourceTree = "<group>"; };
 		18E5D5831F342DE500829292 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
 		18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		18F7A8F21F32E09800430842 /* GoNatuurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurViewController.h; sourceTree = "<group>"; };
@@ -153,7 +158,6 @@
 		32CC20971F25B1F80054C344 /* LoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginService.h; sourceTree = "<group>"; };
 		32CC20981F25B1F80054C344 /* LoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginService.m; sourceTree = "<group>"; };
 		B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.debug.xcconfig"; sourceTree = "<group>"; };
-		B74581181F39BCE100A164D6 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		B745811B1F39BECC00A164D6 /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
 		B745811C1F39BECC00A164D6 /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
 		B745811F1F39C8EA00A164D6 /* UIFont+CustomFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CustomFont.h"; sourceTree = "<group>"; };
@@ -192,6 +196,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		184C38581F3B08DE008B8291 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18F7A8F61F32E2EA00430842 /* SWRevealViewController.h */,
+				18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */,
+			);
+			name = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		184C38591F3B08F2008B8291 /* SideBarViewController */ = {
+			isa = PBXGroup;
+			children = (
+				184C385A1F3B0911008B8291 /* SideBarViewController.h */,
+				184C385B1F3B0911008B8291 /* SideBarViewController.m */,
+			);
+			name = SideBarViewController;
+			sourceTree = "<group>";
+		};
+		184C38611F3B3254008B8291 /* NotificationModule */ = {
+			isa = PBXGroup;
+			children = (
+				184C38621F3B326C008B8291 /* EnableNotificationView */,
+			);
+			name = NotificationModule;
+			sourceTree = "<group>";
+		};
+		184C38621F3B326C008B8291 /* EnableNotificationView */ = {
+			isa = PBXGroup;
+			children = (
+				184C38631F3B328A008B8291 /* EnableNotificationViewController.h */,
+				184C38641F3B328A008B8291 /* EnableNotificationViewController.m */,
+			);
+			name = EnableNotificationView;
+			sourceTree = "<group>";
+		};
 		188605911F39BB720005D1E2 /* DashboardModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +284,7 @@
 		188605A61F39C8090005D1E2 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */,
 				188605A71F39C8220005D1E2 /* Montserrat-SemiBold.otf */,
 				188605A91F39D7230005D1E2 /* Montserrat-Regular.ttf */,
 				188605AB1F39D7620005D1E2 /* Montserrat-Light.otf */,
@@ -274,8 +314,8 @@
 		18F7A8F51F32E2B800430842 /* SWRevealView */ = {
 			isa = PBXGroup;
 			children = (
-				18F7A8F61F32E2EA00430842 /* SWRevealViewController.h */,
-				18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */,
+				184C38591F3B08F2008B8291 /* SideBarViewController */,
+				184C38581F3B08DE008B8291 /* SWRevealViewController */,
 			);
 			name = SWRevealView;
 			sourceTree = "<group>";
@@ -303,8 +343,9 @@
 			isa = PBXGroup;
 			children = (
 				188605961F39C05A0005D1E2 /* GlobalViewModule */,
-				188605911F39BB720005D1E2 /* DashboardModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
+				188605911F39BB720005D1E2 /* DashboardModule */,
+				184C38611F3B3254008B8291 /* NotificationModule */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -349,9 +390,7 @@
 		320761641F162724001F1790 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B74581181F39BCE100A164D6 /* bg.png */,
 				B77A8A801F347D2B00233782 /* SwipeImage.png */,
-				188605AF1F39E4B70005D1E2 /* navigation.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -493,7 +532,7 @@
 		32A3D6B51F1CBABA00062B86 /* LoginModule */ = {
 			isa = PBXGroup;
 			children = (
-				B7A86ECA1F3B3D5A004DA530 /* CMSPageModule */,
+				B7A86ECA1F3B3D5A004DA530 /* CMSPageViewController */,
 				18E5D5821F342DAF00829292 /* ForgotPasswordViewController */,
 				B77A8A751F34386400233782 /* SignUpViewController */,
 				32CC209A1F25C4F60054C344 /* LoginViewController */,
@@ -662,13 +701,13 @@
 			name = SocialLoginButttonView;
 			sourceTree = "<group>";
 		};
-		B7A86ECA1F3B3D5A004DA530 /* CMSPageModule */ = {
+		B7A86ECA1F3B3D5A004DA530 /* CMSPageViewController */ = {
 			isa = PBXGroup;
 			children = (
 				B7A86ECB1F3B3D85004DA530 /* CMSPageViewController.h */,
 				B7A86ECC1F3B3D85004DA530 /* CMSPageViewController.m */,
 			);
-			name = CMSPageModule;
+			name = CMSPageViewController;
 			sourceTree = "<group>";
 		};
 		B7DDB1AB1F399D02009BB8A5 /* ConstantCode */ = {
@@ -753,13 +792,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				188605A11F39C1FA0005D1E2 /* CategorySliderCell.xib in Resources */,
-				B74581191F39BCE100A164D6 /* bg.png in Resources */,
 				32A3D7131F1CE3BB00062B86 /* GoogleSignIn.bundle in Resources */,
+				184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */,
 				32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */,
 				32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */,
 				188605AD1F39D7620005D1E2 /* Montserrat-Light.otf in Resources */,
 				18F7A9041F33044100430842 /* BottomTabViewController.xib in Resources */,
-				188605B01F39E4B70005D1E2 /* navigation.png in Resources */,
 				188605A81F39C8220005D1E2 /* Montserrat-SemiBold.otf in Resources */,
 				1886059C1F39C0FC0005D1E2 /* CategorySliderViewController.xib in Resources */,
 				188605AE1F39D7620005D1E2 /* Montserrat-Medium.otf in Resources */,
@@ -845,6 +883,7 @@
 				320761871F164986001F1790 /* Webservice.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
+				184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */,
 				3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */,
 				320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */,
 				32A3D6B81F1CBADB00062B86 /* LoginViewController.m in Sources */,
@@ -855,6 +894,7 @@
 				18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */,
 				1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */,
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
+				184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */,
 				B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */,
 				32CC20951F25B1D90054C344 /* LoginModel.m in Sources */,
 			);

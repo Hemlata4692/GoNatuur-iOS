@@ -36,8 +36,7 @@ NSString * const somethingWrondMessage = @"Some thing went wrong, Please try aga
 
 //Get country code
 + (NSString *)localeCountryCode {
-
+    
     NSLocale *countryLocale = [NSLocale currentLocale];
     return [countryLocale objectForKey:NSLocaleCountryCode];
-}
-@end
+}@end

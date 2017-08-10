@@ -24,15 +24,10 @@
     textView.layer.borderWidth = 1.0f;
     textView.layer.borderColor = color.CGColor;
 }
-//set view border
-- (void)setViewBorder: (UIView *)view  color:(UIColor *)color {
-    view.layer.borderColor =color.CGColor;
-    view.layer.borderWidth = 1.5f;
-}
 //set label border
-- (void)setBorder: (UIView *)view  color:(UIColor *)color {
+- (void)setBorder:(UIView *)view  color:(UIColor *)color borderWidth:(CGFloat)borderWidth{
     view.layer.borderColor =color.CGColor;
-    view.layer.borderWidth = 1.0f;
+    view.layer.borderWidth = borderWidth;
 }
 //set bottom border only
 - (void)setBottomBorder: (UIView *)view color:(UIColor *)color {
