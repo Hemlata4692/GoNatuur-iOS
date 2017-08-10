@@ -10,7 +10,8 @@
 #import "LoginModel.h"
 
 static NSString *kAuthorizationToken=@"integration/admin/token";
-static NSString *kLogin=@"ranosys/customer/customer-login";
+static NSString *kLogin=@"ranosys/customer/customerLogin";
+static NSString *kLoginAsGuest=@"ranosys/customer/guestLogin";
 
 @implementation LoginService
 
@@ -33,7 +34,7 @@ static NSString *kLogin=@"ranosys/customer/customer-login";
 #pragma mark - Login as guest user service
 - (void)loginGuestUser:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{@"countryCode" : [ConstantCode localeCountryCode]};
-    [super post:kLogin parameters:parameters success:success failure:failure];
+    [super post:kLoginAsGuest parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 @end

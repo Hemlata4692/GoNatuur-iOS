@@ -13,7 +13,13 @@
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *password;
 @property (strong, nonatomic) NSNumber *isSocialLogin;
-@property (strong, nonatomic) NSString *userId;
+@property (strong, nonatomic) NSString *accessToken;
+@property (strong, nonatomic) NSNumber *userId;
+@property (strong, nonatomic) NSNumber *followCount;
+@property (strong, nonatomic) NSNumber *notificationsCount;
+@property (strong, nonatomic) NSNumber *quoteCount;
+@property (strong, nonatomic) NSNumber *quoteId;
+@property (strong, nonatomic) NSNumber *wishlistCount;
 
 + (instancetype)sharedUser;
 //Login user

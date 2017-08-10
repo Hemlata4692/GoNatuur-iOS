@@ -76,7 +76,11 @@
 - (void)integrateSocialLoginView {
     SocialLoginViewController *obj = [[SocialLoginViewController alloc] initWithNibName:@"SocialLoginViewController" bundle:nil];
     obj.view.translatesAutoresizingMaskIntoConstraints=YES;
-    obj.view.frame=CGRectMake(60, loginBackViewY, [[UIScreen mainScreen] bounds].size.width-120, 220);
+    obj.view.frame=CGRectMake(13, loginBackViewY, [[UIScreen mainScreen] bounds].size.width-26, 212);
+    obj.fbText=@"Log in with Facebook";
+    obj.weChatText=@"Log in with WeChat account";
+    obj.wieboText=@"Log in with Wiebo";
+    obj.googlPlusText=@"Log in with google plus";
     obj.delegate=self;
     [self addChildViewController:obj];
     [self.mainView addSubview:obj.view];
@@ -85,10 +89,14 @@
 
 - (void)initializedView {
     isSocialLogin=0;
-    loginBackViewY=(([[UIScreen mainScreen] bounds].size.height/2.0)-(500.0/2.0))+58.0;
-    mainViewHeight=loginBackViewY+560;
+    float scaleFactor = [[UIScreen mainScreen]bounds].size.height/568.0;
+    loginBackViewY=100*scaleFactor;
+    mainViewHeight=loginBackViewY+540.0;
+    if (mainViewHeight<=[[UIScreen mainScreen]bounds].size.height) {
+        mainViewHeight=[[UIScreen mainScreen]bounds].size.height;
+    }
     self.loginBackView.translatesAutoresizingMaskIntoConstraints=true;
-    self.loginBackView.frame=CGRectMake(60, loginBackViewY, [[UIScreen mainScreen] bounds].size.width-120, 500);
+    self.loginBackView.frame=CGRectMake(13, loginBackViewY, [[UIScreen mainScreen] bounds].size.width-26, 500);
     self.mainView.translatesAutoresizingMaskIntoConstraints=true;
     self.mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, mainViewHeight);
     self.scrollView.contentSize = CGSizeMake(0,self.mainView.frame.size.height);
@@ -101,7 +109,7 @@
     NSString *str=loginNewUserText;
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
     NSRange registerTextRange = [str rangeOfString:@"Register"];
-    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont helveticaNeueMediumWithSize:11], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:registerTextRange];
+    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:registerTextRange];
     self.registerLabel.attributedText=string;
     //Add tap gesture at label
     self.registerLabel.userInteractionEnabled = YES;
@@ -172,12 +180,11 @@
 - (IBAction)login:(id)sender {
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     [self.keyboardControls.activeField resignFirstResponder];
-    [self navigateToDashboard];
-//    //Perform signUp validations
-//    if([self performValidationsForLogin]) {
-//        [myDelegate showIndicator];
-//        [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
-//    }
+    //Perform signUp validations
+    if([self performValidationsForLogin]) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
+    }
 }
 
 - (IBAction)forgotPassword:(UIButton *)sender {
@@ -198,17 +205,17 @@
     CGPoint position = CGPointMake(location.x, location.y);
     
     if ([ConstantCode checkDeviceType] == Device5s) {
-        if (position.y<17.0 && position.x>112.0 && position.x<158.0) {
+        if (position.y>6.5 && position.y<22.0 && position.x>184.0 && position.x<242.0) {
             [self signUp];
         }
     }
     else if ([ConstantCode checkDeviceType] == Device6) {
-        if (position.y>7.5 && position.y<21.0 && position.x>114.0 && position.x<161.0) {
+        if (position.y>11 && position.y<32.0 && position.x>187.0 && position.x<245.0) {
             [self signUp];
         }
     }
     else {
-        if (position.y>8.0 && position.y<21.0 && position.x>113.0 && position.x<158.0) {
+        if (position.y>12.0 && position.y<30.0 && position.x>210.0 && position.x<278.0) {
             [self signUp];
         }
     }

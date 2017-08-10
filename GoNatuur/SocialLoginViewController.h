@@ -17,4 +17,9 @@
     id <SocialLoginDelegate> _delegate;
 }
 @property (nonatomic,strong) id <SocialLoginDelegate>delegate;
+
+@property (strong, nonatomic) NSString *fbText;
+@property (strong, nonatomic) NSString *weChatText;
+@property (strong, nonatomic) NSString *wieboText;
+@property (strong, nonatomic) NSString *googlPlusText;
 @end

@@ -19,17 +19,31 @@
 @end
 
 @implementation SocialLoginViewController
+@synthesize fbText, wieboText, weChatText, googlPlusText;
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+  
+    [self.loginWithFaceBookButton setTitle:fbText forState:UIControlStateNormal];
+    [self.loginWithWeChatButton setTitle:weChatText forState:UIControlStateNormal];
+    [self.loginWithWieboButton setTitle:wieboText forState:UIControlStateNormal];
+    [self.loginWithGoogleButton setTitle:googlPlusText forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - end
 
+#pragma mark - IBActions
 - (IBAction)loginWithFaceBook:(id)sender {
     myDelegate.selectedLoginType=FacebookLogin;
     //Need to login with FB
@@ -52,6 +66,7 @@
     [GIDSignIn sharedInstance].uiDelegate = self;
     [gmailConnect gmailLoginWithPermission:self NSString:kClientID];
 }
+#pragma mark - end
 
 #pragma mark - Login with facebook delegate method
 //Facebook delegate method to fetch user data

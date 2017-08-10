@@ -49,17 +49,29 @@
 //        responseObject=(NSMutableDictionary *)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     } failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
-        NSLog(@"error.localizedDescription %@",error.localizedDescription);
+        NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
         [myDelegate stopIndicator];
-        if (error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] != nil) {
-            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
-                                                                 options:kNilOptions error:&error];
-            NSLog(@"json %@",json);
-            [self isStatusOK:json];
-        } else {
-            SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-            [alert showWarning:nil title:@"Alert" subTitle:error.localizedDescription closeButtonTitle:@"Ok" duration:0.0f];
+        if (error.code == -1009) {
+            
+            
+            //            NSLocalizedText(@"Internet connection")
         }
+        else if (error.code == -1001) {
+            
+            
+            //            NSLocalizedText(@"Internet connection")
+        }
+        else {
+            NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:kNilOptions error:&error] mutableCopy];
+            NSLog(@"json %@",json);
+            NSLog(@"error %ld",(long)error.code);
+            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+            NSInteger statusCode = [response statusCode];
+            [json setObject:[NSNumber numberWithInteger:statusCode] forKey:@"status"];
+            [self isStatusOK:json];
+            NSLog(@"error %ld",(long)statusCode);
+        }
+        failure(error);
     }];
 }
 
