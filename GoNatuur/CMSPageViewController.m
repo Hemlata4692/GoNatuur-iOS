@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    [self initializedView];
     // Do any additional setup after loading the view.
 }
 
