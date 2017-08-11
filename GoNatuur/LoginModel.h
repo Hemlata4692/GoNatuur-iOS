@@ -20,6 +20,9 @@
 @property (strong, nonatomic) NSNumber *quoteCount;
 @property (strong, nonatomic) NSNumber *quoteId;
 @property (strong, nonatomic) NSNumber *wishlistCount;
+@property (strong, nonatomic) NSNumber *cmsPageType;//Terms & Conditions:6 and Privacy policy:4
+@property (strong, nonatomic) NSString *cmsTitle;
+@property (strong, nonatomic) NSString *cmsContent;
 
 + (instancetype)sharedUser;
 //Login user
@@ -30,4 +33,6 @@
 - (void)saveDeviceToken:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
 //Login as guest user
 - (void)loginGuestUserOnSuccess:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
+//CMS page service
+- (void)CMSPageService:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
 @end

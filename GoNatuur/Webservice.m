@@ -107,23 +107,33 @@
 - (void)get:(NSString *)path parameters:(NSDictionary *)parameters onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
-    [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    path = @"http://gonatuur.local/rest/default/V1/store/storeViews";
+    [self.manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json",@"application/x-www-form-urlencoded", nil]];
+    if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
+    }
+    path = [NSString stringWithFormat:@"%@%@",BASE_URL,path];
     [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [myDelegate stopIndicator];
         success(responseObject);
     }
         failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
              [myDelegate stopIndicator];
-            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
-                                                                 options:kNilOptions error:&error];
-            NSLog(@"json %@",json);
-            NSLog(@"error %ld",(long)error.code);
-            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-            NSInteger statusCode = [response statusCode];
-            NSLog(@"error %ld",(long)statusCode);
+            if (error.code == -1009) {
+                //      NSLocalizedText(@"Internet connection")
+            }
+            else if (error.code == -1001) {
+                //            NSLocalizedText(@"Tiemout")
+            }
+            else {
+                NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:kNilOptions error:&error] mutableCopy];
+                NSLog(@"json %@",json);
+                NSLog(@"error %ld",(long)error.code);
+                NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+                NSInteger statusCode = [response statusCode];
+                [json setObject:[NSNumber numberWithInteger:statusCode] forKey:@"status"];
+                [self isStatusOK:json];
+                NSLog(@"error %ld",(long)statusCode);
+            }
             failure(error);
         }];
 }
