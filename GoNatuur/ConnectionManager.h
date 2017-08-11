@@ -21,5 +21,7 @@
 //Save device token
 - (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure;
 //Login as guest user
-- (void)loginGuestUser:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure;
+- (void)loginGuestUser:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure;
+//CMS page service
+- (void)CMSPageService:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure;
 @end

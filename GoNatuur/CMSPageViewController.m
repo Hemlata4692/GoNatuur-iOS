@@ -7,6 +7,7 @@
 //
 
 #import "CMSPageViewController.h"
+#import "LoginModel.h"
 
 @interface CMSPageViewController ()
 
@@ -43,17 +44,12 @@
     //Set navigation back button
     [self addLeftBarButtonWithImage];
     [myDelegate showIndicator];
-    
-    NSString *htmlString;
     if (isPrivacyPolicy) {
-        self.navigationItem.title=@"Privacy Policy";
-        htmlString = @"<html><head></head><body><p>1. You agree that you will be the technician servicing this work order?.<br>2. You are comfortable with the scope of work on this work order?.<br>3. You understand that if you go to site and fail to do quality repair for  any reason, you will not be paid?.<br>4. You must dress business casual when going on the work order.</p></body></html>";
+        [self performSelector:@selector(CMSPageService:) withObject:[NSNumber numberWithInt:4] afterDelay:.1];
     }
     else {
-        self.navigationItem.title=@"Terms & Conditions";
-        htmlString = @"<html><head></head><body><p>1. You agree that you will be the technician servicing this work order?.<br>2. You are comfortable with the scope of work on this work order?.<br>3. You understand that if you go to site and fail to do quality repair for  any reason, you will not be paid?.<br>4. You must dress business casual when going on the work order.</p></body></html>";
+        [self performSelector:@selector(CMSPageService:) withObject:[NSNumber numberWithInt:6] afterDelay:.1];
     }
-    [self.webView loadHTMLString: htmlString baseURL: nil];
 }
 #pragma mark - end
 
@@ -77,19 +73,27 @@
 
 #pragma mark - Webview delegates
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    
-    DLog(@"start value: %@",request.URL);
     return YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    
     [myDelegate stopIndicator];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    
     [myDelegate stopIndicator];
+}
+#pragma mark - end
+
+#pragma mark - Webservices
+- (void)CMSPageService:(NSNumber *)cmsPageType {
+    LoginModel *userLogin = [LoginModel sharedUser];
+    userLogin.cmsPageType=cmsPageType;
+    [userLogin CMSPageService:^(LoginModel *userData) {
+        self.navigationItem.title=userData.cmsTitle;
+        [self.webView loadHTMLString:userData.cmsContent baseURL: nil];
+    } onfailure:^(NSError *error) {
+    }];
 }
 #pragma mark - end
 @end
