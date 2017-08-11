@@ -163,7 +163,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9u2-2q-ecu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1372" y="36"/>
+            <point key="canvasLocation" x="1538" y="91"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="iy4-46-5Iv">
@@ -204,7 +204,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="957" y="36"/>
+            <point key="canvasLocation" x="699" y="36"/>
         </scene>
         <!--Reveal View Controller-->
         <scene sceneID="Ow4-Mg-ODf">
@@ -228,7 +228,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ygF-c5-iJU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="906" y="701"/>
+            <point key="canvasLocation" x="2" y="698"/>
         </scene>
         <!--Side Bar View Controller-->
         <scene sceneID="iot-jq-9Wh">
@@ -575,7 +575,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bia-yP-TKx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1372" y="701"/>
+            <point key="canvasLocation" x="698" y="699"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tYQ-1J-VEX">
@@ -593,7 +593,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zsj-Y7-NBL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="906" y="1385"/>
+            <point key="canvasLocation" x="2" y="1407"/>
         </scene>
         <!--Dashboard View Controller-->
         <scene sceneID="Tms-ji-8sJ">
@@ -611,7 +611,7 @@
                                 <rect key="frame" x="0.0" y="104" width="320" height="464"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4GQ-rt-mqC">
-                                        <rect key="frame" x="0.0" y="-64" width="320" height="810"/>
+                                        <rect key="frame" x="0.0" y="-64" width="320" height="820"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rfj-YW-5mr">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
@@ -852,34 +852,34 @@
                                                 </constraints>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G6x-WF-Tas">
-                                                <rect key="frame" x="0.0" y="582" width="320" height="227"/>
+                                                <rect key="frame" x="0.0" y="582" width="320" height="238"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qzV-Wz-yYc">
-                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="122"/>
                                                         <color key="backgroundColor" red="0.0" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="110" id="6g0-8j-5B1"/>
+                                                            <constraint firstAttribute="height" constant="122" id="6g0-8j-5B1"/>
                                                         </constraints>
                                                     </imageView>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jB2-oU-0N3">
-                                                        <rect key="frame" x="0.0" y="120" width="320" height="106"/>
+                                                        <rect key="frame" x="0.0" y="127" width="320" height="109"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="Tfo-ux-iCI">
-                                                            <size key="itemSize" width="106" height="106"/>
+                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="0.0" id="Tfo-ux-iCI">
+                                                            <size key="itemSize" width="106" height="109"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="footerImageCell" id="CjK-ad-EcC" customClass="DasboardDataCollectionViewCell">
-                                                                <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="106" height="109"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="106" height="109"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4qs-YE-joJ">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="106" height="50"/>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4qs-YE-joJ">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="106" height="109"/>
                                                                             <color key="backgroundColor" red="0.52156862749999999" green="0.75686274509999996" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </imageView>
                                                                     </subviews>
@@ -903,13 +903,13 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.98431372549999996" green="0.94509803920000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstItem="jB2-oU-0N3" firstAttribute="top" secondItem="qzV-Wz-yYc" secondAttribute="bottom" constant="10" id="Her-0N-fE2"/>
+                                                    <constraint firstItem="jB2-oU-0N3" firstAttribute="top" secondItem="qzV-Wz-yYc" secondAttribute="bottom" constant="5" id="Her-0N-fE2"/>
                                                     <constraint firstItem="qzV-Wz-yYc" firstAttribute="leading" secondItem="G6x-WF-Tas" secondAttribute="leading" id="NTH-ef-hel"/>
-                                                    <constraint firstAttribute="height" constant="227" id="VVU-Fg-09m"/>
+                                                    <constraint firstAttribute="height" constant="238" id="VVU-Fg-09m"/>
                                                     <constraint firstAttribute="trailing" secondItem="jB2-oU-0N3" secondAttribute="trailing" id="YIr-35-Sqn"/>
                                                     <constraint firstItem="jB2-oU-0N3" firstAttribute="leading" secondItem="G6x-WF-Tas" secondAttribute="leading" id="l54-NM-PSt"/>
                                                     <constraint firstAttribute="trailing" secondItem="qzV-Wz-yYc" secondAttribute="trailing" id="oET-W6-i5f"/>
-                                                    <constraint firstAttribute="bottom" secondItem="jB2-oU-0N3" secondAttribute="bottom" constant="1" id="qyy-aN-K6u"/>
+                                                    <constraint firstAttribute="bottom" secondItem="jB2-oU-0N3" secondAttribute="bottom" constant="2" id="qyy-aN-K6u"/>
                                                     <constraint firstItem="qzV-Wz-yYc" firstAttribute="top" secondItem="G6x-WF-Tas" secondAttribute="top" id="ugT-ir-tfJ"/>
                                                 </constraints>
                                             </view>
@@ -920,7 +920,7 @@
                                             <constraint firstItem="2mk-W9-coR" firstAttribute="top" secondItem="hrH-TX-Sz3" secondAttribute="bottom" constant="4" id="J0m-NW-ePx"/>
                                             <constraint firstItem="rfj-YW-5mr" firstAttribute="top" secondItem="4GQ-rt-mqC" secondAttribute="top" id="NwC-Vf-ml5"/>
                                             <constraint firstItem="hrH-TX-Sz3" firstAttribute="leading" secondItem="4GQ-rt-mqC" secondAttribute="leading" id="XOH-1q-yks"/>
-                                            <constraint firstAttribute="height" constant="810" id="cUc-ic-VbW"/>
+                                            <constraint firstAttribute="height" constant="820" id="cUc-ic-VbW"/>
                                             <constraint firstItem="PxS-09-y8Z" firstAttribute="leading" secondItem="4GQ-rt-mqC" secondAttribute="leading" id="egh-xv-Py8"/>
                                             <constraint firstItem="rfj-YW-5mr" firstAttribute="leading" secondItem="4GQ-rt-mqC" secondAttribute="leading" id="fsT-tX-wPq"/>
                                             <constraint firstItem="G6x-WF-Tas" firstAttribute="leading" secondItem="4GQ-rt-mqC" secondAttribute="leading" id="kMx-zm-I6S"/>
@@ -939,7 +939,7 @@
                                 <constraints>
                                     <constraint firstItem="4GQ-rt-mqC" firstAttribute="leading" secondItem="J1j-3K-bfV" secondAttribute="leading" id="F5I-Bq-XUC"/>
                                     <constraint firstItem="4GQ-rt-mqC" firstAttribute="centerX" secondItem="J1j-3K-bfV" secondAttribute="centerX" id="ULG-RX-RVV"/>
-                                    <constraint firstAttribute="bottom" secondItem="4GQ-rt-mqC" secondAttribute="bottom" constant="100" id="cEt-nF-2sg"/>
+                                    <constraint firstAttribute="bottom" secondItem="4GQ-rt-mqC" secondAttribute="bottom" constant="50" id="cEt-nF-2sg"/>
                                     <constraint firstAttribute="trailing" secondItem="4GQ-rt-mqC" secondAttribute="trailing" id="lWF-lT-77S"/>
                                     <constraint firstItem="4GQ-rt-mqC" firstAttribute="top" secondItem="J1j-3K-bfV" secondAttribute="top" constant="-64" id="prQ-KN-RPD"/>
                                 </constraints>
@@ -966,7 +966,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KQu-ih-xNU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1297" y="1385"/>
+            <point key="canvasLocation" x="774" y="1406"/>
         </scene>
         <!--Forgot Password View Controller-->
         <scene sceneID="xXh-BP-zKy">
@@ -1087,7 +1087,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dzy-Z1-CYx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="561" y="36"/>
+            <point key="canvasLocation" x="2" y="36"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="HcT-Kf-vSZ">
@@ -1105,7 +1105,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TZj-rL-hEC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="561" y="-615"/>
+            <point key="canvasLocation" x="-96" y="-618"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="pKf-X1-J2u">
@@ -1143,7 +1143,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J8y-CX-YHW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1751" y="-615"/>
+            <point key="canvasLocation" x="2113" y="-618"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="Ub2-hQ-i9i">
@@ -1620,7 +1620,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ubv-5c-hgX" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="989" y="-617"/>
+            <point key="canvasLocation" x="606" y="-618"/>
         </scene>
     </scenes>
     <resources>

@@ -15,7 +15,6 @@
 #import "CMSPageViewController.h"
 
 @interface SignUpViewController ()<UIGestureRecognizerDelegate, SocialLoginDelegate, BSKeyboardControlsDelegate> {
-    
     int pageCounter;
     NSArray *swipeImageArray;
     int currentSelectedImage;
