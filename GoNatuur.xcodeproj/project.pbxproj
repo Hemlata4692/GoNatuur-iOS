@@ -55,6 +55,10 @@
 		32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20901F25B1760054C344 /* ConnectionManager.m */; };
 		32CC20951F25B1D90054C344 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20941F25B1D90054C344 /* LoginModel.m */; };
 		32CC20991F25B1F80054C344 /* LoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20981F25B1F80054C344 /* LoginService.m */; };
+		B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = B73A65371F3DF0630051E4C5 /* LocalizedString.m */; };
+		B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653A1F3DF07F0051E4C5 /* en.strings */; };
+		B73A653E1F3DF0870051E4C5 /* zh_Simplified.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653C1F3DF0870051E4C5 /* zh_Simplified.strings */; };
+		B73A653F1F3DF0870051E4C5 /* zh_Traditional.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653D1F3DF0870051E4C5 /* zh_Traditional.strings */; };
 		B745811D1F39BECC00A164D6 /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = B745811C1F39BECC00A164D6 /* BSKeyboardControls.m */; };
 		B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = B74581201F39C8EA00A164D6 /* UIFont+CustomFont.m */; };
 		B77A8A781F34388800233782 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A771F34388800233782 /* SignUpViewController.m */; };
@@ -158,6 +162,11 @@
 		32CC20971F25B1F80054C344 /* LoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginService.h; sourceTree = "<group>"; };
 		32CC20981F25B1F80054C344 /* LoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginService.m; sourceTree = "<group>"; };
 		B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.debug.xcconfig"; sourceTree = "<group>"; };
+		B73A65361F3DF0630051E4C5 /* LocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedString.h; sourceTree = "<group>"; };
+		B73A65371F3DF0630051E4C5 /* LocalizedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedString.m; sourceTree = "<group>"; };
+		B73A653A1F3DF07F0051E4C5 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		B73A653C1F3DF0870051E4C5 /* zh_Simplified.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = zh_Simplified.strings; sourceTree = "<group>"; };
+		B73A653D1F3DF0870051E4C5 /* zh_Traditional.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = zh_Traditional.strings; sourceTree = "<group>"; };
 		B745811B1F39BECC00A164D6 /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
 		B745811C1F39BECC00A164D6 /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
 		B745811F1F39C8EA00A164D6 /* UIFont+CustomFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CustomFont.h"; sourceTree = "<group>"; };
@@ -415,6 +424,7 @@
 		320761661F162789001F1790 /* CategoryClasses */ = {
 			isa = PBXGroup;
 			children = (
+				B73A65351F3DF0530051E4C5 /* LocalizedString */,
 				B745811E1F39C8E100A164D6 /* CustomFont */,
 				320761801F163B2F001F1790 /* CornerRadius */,
 				3207617C1F163B1D001F1790 /* PaddingCategory */,
@@ -618,6 +628,7 @@
 		32BAA6071F1360280015E355 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B73A65391F3DF0740051E4C5 /* LocalizableStringFiles */,
 				188605A61F39C8090005D1E2 /* Fonts */,
 				32A3D7001F1CD2CD00062B86 /* Framework */,
 				320761641F162724001F1790 /* Resources */,
@@ -662,6 +673,25 @@
 				BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B73A65351F3DF0530051E4C5 /* LocalizedString */ = {
+			isa = PBXGroup;
+			children = (
+				B73A65361F3DF0630051E4C5 /* LocalizedString.h */,
+				B73A65371F3DF0630051E4C5 /* LocalizedString.m */,
+			);
+			name = LocalizedString;
+			sourceTree = "<group>";
+		};
+		B73A65391F3DF0740051E4C5 /* LocalizableStringFiles */ = {
+			isa = PBXGroup;
+			children = (
+				B73A653A1F3DF07F0051E4C5 /* en.strings */,
+				B73A653C1F3DF0870051E4C5 /* zh_Simplified.strings */,
+				B73A653D1F3DF0870051E4C5 /* zh_Traditional.strings */,
+			);
+			name = LocalizableStringFiles;
 			sourceTree = "<group>";
 		};
 		B745811A1F39BEC100A164D6 /* BSKeyboardControls */ = {
@@ -795,7 +825,9 @@
 				32A3D7131F1CE3BB00062B86 /* GoogleSignIn.bundle in Resources */,
 				184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */,
 				32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */,
+				B73A653F1F3DF0870051E4C5 /* zh_Traditional.strings in Resources */,
 				32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */,
+				B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */,
 				188605AD1F39D7620005D1E2 /* Montserrat-Light.otf in Resources */,
 				18F7A9041F33044100430842 /* BottomTabViewController.xib in Resources */,
 				188605A81F39C8220005D1E2 /* Montserrat-SemiBold.otf in Resources */,
@@ -806,6 +838,7 @@
 				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
 				B77A8A811F347D2B00233782 /* SwipeImage.png in Resources */,
 				32BAA6121F1360290015E355 /* Main.storyboard in Resources */,
+				B73A653E1F3DF0870051E4C5 /* zh_Simplified.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,6 +925,7 @@
 				188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */,
 				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,
 				18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */,
+				B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */,
 				1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */,
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
 				184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */,

@@ -1,0 +1,23 @@
+/*
+  en.strings
+  GoNatuur
+
+  Created by Ranosys on 10/08/17.
+  Copyright © 2017 Hemlata Khajanchi. All rights reserved.
+*/
+
+"loginNewUserText" = "If you are a new uesr, you can Register an account with us and start shopping with GoPurpose.";
+"privacyPolicyText" = "By signing up, you agree to our terms & conditions and privacy policy. If you already have an account, Log In here";
+"alertTitle" = "Alert";
+"alertOk" = "OK";
+"passwordMinimumCharater" = "Minimum 8 character required.";
+"emptyFieldMessage" = "Please fill in all the required fields.";
+"validEmailMessage" = "Please enter a valid email address.";
+"passwordMatchMessage" = "Password does't match.";
+"somethingWrondMessage" = "Some thing went wrong, Please try again later.";
+"Privacy Policy" = "Privacy Policy";
+"privacy policy" = "privacy policy";
+"Terms & Conditions" = "Terms & Conditions";
+"terms & conditions" = "terms & conditions";
+"Log In" = "Log In";
+"Internet connection" = "The Internet connection appears to be offline.";

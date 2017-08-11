@@ -106,7 +106,7 @@
 }
 
 - (void)setAttributString {
-    NSString *str=loginNewUserText;
+    NSString *str=NSLocalizedText(@"loginNewUserText");
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
     NSRange registerTextRange = [str rangeOfString:@"Register"];
     [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:registerTextRange];
@@ -235,12 +235,12 @@
 - (BOOL)performValidationsForLogin {
     if ([self.emailTextField isEmpty] || [self.passwordTextField isEmpty] ) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:alertTitle subTitle:emptyFieldMessage closeButtonTitle:alertOk duration:0.0f];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     }
     else if (![self.emailTextField isValidEmail]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:alertTitle subTitle:validEmailMessage closeButtonTitle:alertOk duration:0.0f];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validEmailMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     }
     else {

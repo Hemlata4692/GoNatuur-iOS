@@ -88,7 +88,7 @@
     }
     else {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:alertTitle subTitle:somethingWrondMessage closeButtonTitle:alertOk duration:0.0f];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrondMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
     }
 }
 #pragma mark - end

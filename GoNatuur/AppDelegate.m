@@ -164,7 +164,7 @@
     }
 }
 - (void)showNotificationAlert:(NSString *)message {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:alertTitle message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:alertOk, nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedText(@"alertTitle") message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedText(@"alertOk"), nil];
     [alert show];
 }
 #pragma mark - end
