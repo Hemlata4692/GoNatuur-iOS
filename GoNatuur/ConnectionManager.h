@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class LoginModel;
+@class DashboardDataModel;
 
 @interface ConnectionManager : NSObject
 
@@ -24,4 +25,8 @@
 - (void)loginGuestUser:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure;
 //CMS page service
 - (void)CMSPageService:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure;
+//Get category listing
+- (void)getCategoryListing:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure;
+//Get dashboard data
+- (void)getDashboardData:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 @end

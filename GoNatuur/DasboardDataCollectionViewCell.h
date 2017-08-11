@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DashboardDataModel.h"
 
 @interface DasboardDataCollectionViewCell : UICollectionViewCell
 //Product cell
@@ -18,8 +19,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *productRating;
 @property (weak, nonatomic) IBOutlet UIImageView *ratingStarImage;
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
+@property (weak, nonatomic) IBOutlet UIView *borderView;
 
 //Footer image cell
 @property (weak, nonatomic) IBOutlet UIImageView *footerImageView;
+
+//Product cell
+- (void)displayProductListData :(DashboardDataModel *)productListData;
+
+//Footer image cell
+- (void)displayFooterBannerData :(DashboardDataModel *)footerBannerImage;
 
 @end

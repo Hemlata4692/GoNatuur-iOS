@@ -37,7 +37,6 @@
 
 #pragma mark - Get authorization token
 - (void)accessToken:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
-    
     [[ConnectionManager sharedManager] getAccessToken:self onSuccess:^(LoginModel *userData) {
         if (success) {
             success (userData);
@@ -50,10 +49,8 @@
 
 #pragma mark - Login user
 - (void)loginUserOnSuccess:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
-    
     [[ConnectionManager sharedManager] loginUser:self onSuccess:^(LoginModel *userData) {
         if (success) {
-
             [UserDefaultManager setValue:userData.userId key:@"userId"];
             [UserDefaultManager setValue:userData.email key:@"emailId"];
             [UserDefaultManager setValue:userData.followCount key:@"followCount"];
@@ -61,6 +58,7 @@
             [UserDefaultManager setValue:userData.quoteId key:@"quoteId"];
             [UserDefaultManager setValue:userData.quoteCount key:@"quoteCount"];
             [UserDefaultManager setValue:userData.wishlistCount key:@"wishlistCount"];
+            [UserDefaultManager setValue:userData.accessToken key:@"Authorization"];
             success (userData);
         }
     } onFailure:^(NSError *error) {
@@ -71,7 +69,6 @@
 
 #pragma mark - save device token
 - (void)saveDeviceToken:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
-    
     [[ConnectionManager sharedManager] sendDevcieToken:self onSuccess:^(LoginModel *userData) {
         if (success) {
             success (userData);

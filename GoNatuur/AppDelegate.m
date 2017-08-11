@@ -70,7 +70,7 @@
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     
-    //[self registerForRemoteNotification];
+    selectedCategoryIndex=-1;
     return YES;
 }
 

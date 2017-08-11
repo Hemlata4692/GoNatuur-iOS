@@ -10,21 +10,19 @@
 #import "CategorySliderCell.h"
 #import "DynamicHeightWidth.h"
 
-@interface CategorySliderViewController ()<UICollectionViewDelegateFlowLayout> {
-@private
-    NSArray *categoryListArray;
-}
+@interface CategorySliderViewController ()<UICollectionViewDelegateFlowLayout>
+
 @end
 
 @implementation CategorySliderViewController
 @synthesize categorySliderCollectionView;
+@synthesize categoryDataArray;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    categoryListArray=@[@"Products value", @"value", @"c", @"d",@"a", @"b", @"c", @"d"];
-    
+    categoryDataArray=[[NSMutableArray alloc]init];
     //Load category slider cell xib
     [categorySliderCollectionView registerNib:[UINib nibWithNibName:@"CategorySliderCell" bundle:nil] forCellWithReuseIdentifier:@"categoryCell"];
     [categorySliderCollectionView reloadData];
@@ -38,24 +36,25 @@
 
 #pragma mark- Collection view delegate and datasource methods
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    return categoryListArray.count;
+    return categoryDataArray.count;
 }
 
 - (CategorySliderCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     CategorySliderCell *categoryCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"categoryCell" forIndexPath:indexPath];
-    
+    NSDictionary *dataDict=[categoryDataArray objectAtIndex:indexPath.row];
     if (myDelegate.selectedCategoryIndex==indexPath.row) {
-        [categoryCell displaySliderItems:[categoryListArray objectAtIndex:indexPath.row] isSelected:true];
+        [categoryCell displaySliderItems:[dataDict objectForKey:@"name"] isSelected:true];
     }
     else {
-        [categoryCell displaySliderItems:[categoryListArray objectAtIndex:indexPath.row] isSelected:false];
+        [categoryCell displaySliderItems:[dataDict objectForKey:@"name"] isSelected:false];
     }
     return categoryCell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     //You may want to create a divider to scale the size by the way..
-    return CGSizeMake([DynamicHeightWidth getDynamicLabelWidth:[categoryListArray objectAtIndex:indexPath.row] font:[UIFont fontWithName:@"Montserrat-SemiBold" size:17.0] widthValue:[[UIScreen mainScreen] bounds].size.width]+30, 30);
+     NSDictionary *dataDict=[categoryDataArray objectAtIndex:indexPath.row];
+    return CGSizeMake([DynamicHeightWidth getDynamicLabelWidth:[dataDict objectForKey:@"name"] font:[UIFont fontWithName:@"Montserrat-SemiBold" size:17.0] widthValue:[[UIScreen mainScreen] bounds].size.width]+30, 30);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

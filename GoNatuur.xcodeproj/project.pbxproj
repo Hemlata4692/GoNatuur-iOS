@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181853261F3D833F00EEB73B /* DashboardDataModel.m */; };
+		1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532A1F3D8A7F00EEB73B /* DashboardService.m */; };
+		1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532E1F3DFED000EEB73B /* ImageCaching.m */; };
 		184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C385B1F3B0911008B8291 /* SideBarViewController.m */; };
 		184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C38641F3B328A008B8291 /* EnableNotificationViewController.m */; };
 		184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */; };
@@ -84,6 +86,10 @@
 /* Begin PBXFileReference section */
 		181853251F3D833F00EEB73B /* DashboardDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardDataModel.h; sourceTree = "<group>"; };
 		181853261F3D833F00EEB73B /* DashboardDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardDataModel.m; sourceTree = "<group>"; };
+		181853291F3D8A7F00EEB73B /* DashboardService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardService.h; sourceTree = "<group>"; };
+		1818532A1F3D8A7F00EEB73B /* DashboardService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardService.m; sourceTree = "<group>"; };
+		1818532D1F3DFED000EEB73B /* ImageCaching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCaching.h; sourceTree = "<group>"; };
+		1818532E1F3DFED000EEB73B /* ImageCaching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCaching.m; sourceTree = "<group>"; };
 		184C385A1F3B0911008B8291 /* SideBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideBarViewController.h; sourceTree = "<group>"; };
 		184C385B1F3B0911008B8291 /* SideBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideBarViewController.m; sourceTree = "<group>"; };
 		184C38631F3B328A008B8291 /* EnableNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableNotificationViewController.h; sourceTree = "<group>"; };
@@ -209,6 +215,24 @@
 				181853261F3D833F00EEB73B /* DashboardDataModel.m */,
 			);
 			name = DashboardModel;
+			sourceTree = "<group>";
+		};
+		181853281F3D8A6300EEB73B /* DashboardService */ = {
+			isa = PBXGroup;
+			children = (
+				181853291F3D8A7F00EEB73B /* DashboardService.h */,
+				1818532A1F3D8A7F00EEB73B /* DashboardService.m */,
+			);
+			name = DashboardService;
+			sourceTree = "<group>";
+		};
+		1818532C1F3DFE4900EEB73B /* ImageCaching */ = {
+			isa = PBXGroup;
+			children = (
+				1818532D1F3DFED000EEB73B /* ImageCaching.h */,
+				1818532E1F3DFED000EEB73B /* ImageCaching.m */,
+			);
+			name = ImageCaching;
 			sourceTree = "<group>";
 		};
 		184C38581F3B08DE008B8291 /* SWRevealViewController */ = {
@@ -424,6 +448,7 @@
 		320761651F162733001F1790 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				1818532C1F3DFE4900EEB73B /* ImageCaching */,
 				188605A21F39C4400005D1E2 /* DynamicHeightWidth */,
 				B745811A1F39BEC100A164D6 /* BSKeyboardControls */,
 				B7DDB1AB1F399D02009BB8A5 /* ConstantCode */,
@@ -452,6 +477,7 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				181853281F3D8A6300EEB73B /* DashboardService */,
 				32CC20961F25B1E90054C344 /* LoginService */,
 				320761681F1627AE001F1790 /* GlobalService */,
 			);
@@ -897,6 +923,7 @@
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
 				B77A8A781F34388800233782 /* SignUpViewController.m in Sources */,
 				B7A86ECD1F3B3D85004DA530 /* CMSPageViewController.m in Sources */,
+				1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */,
 				18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */,
 				B745811D1F39BECC00A164D6 /* BSKeyboardControls.m in Sources */,
 				18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */,
@@ -920,6 +947,7 @@
 				188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */,
 				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,
 				18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */,
+				1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */,
 				1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */,
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
 				184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */,

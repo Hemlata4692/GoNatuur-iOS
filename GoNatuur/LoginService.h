@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Webservice.h"
 
 @class LoginModel;
 

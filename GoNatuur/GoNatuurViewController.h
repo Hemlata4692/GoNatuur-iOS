@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CategorySliderViewController.h"
 
 @interface GoNatuurViewController : UIViewController
+@property (nonatomic, strong) CategorySliderViewController *categorySliderObjc;
 
 - (void)addLeftBarButtonWithImage:(BOOL)isBackButton;
 - (void)addSerachButtonWithImage:(UIImage *)searchButtonImage;
