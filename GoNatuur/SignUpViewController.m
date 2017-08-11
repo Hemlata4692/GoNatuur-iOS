@@ -21,12 +21,15 @@
     int currentSelectedImage;
     UITextField *currentSelectedTextField;
     float screenHeightScaleFactorDifference;
+    float signUpBackViewY;
+    int isSocialLogin;
+    NSString *firstName, *lastName;
 }
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (strong, nonatomic) IBOutlet UIImageView *swipeImageView;
-@property (strong, nonatomic) IBOutlet UIView *loginBackView;
+@property (strong, nonatomic) IBOutlet UIView *signUpBackView;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -82,7 +85,11 @@
 - (void)integrateSocialLoginView {
     SocialLoginViewController *obj = [[SocialLoginViewController alloc] initWithNibName:@"SocialLoginViewController" bundle:nil];
     obj.view.translatesAutoresizingMaskIntoConstraints=YES;
-    obj.view.frame=CGRectMake(60, 259.0+screenHeightScaleFactorDifference-1.0, [[UIScreen mainScreen] bounds].size.width-120, 174);
+    obj.view.frame=CGRectMake(13, signUpBackViewY, [[UIScreen mainScreen] bounds].size.width-26, 212);
+    obj.fbText=@"Sign up with Facebook";
+    obj.weChatText=@"Sign up with WeChat account";
+    obj.wieboText=@"Sign up with Wiebo";
+    obj.googlPlusText=@"Sign up with google plus";
     obj.delegate=self;
     [self addChildViewController:obj];
     [self.mainView addSubview:obj.view];
@@ -90,6 +97,8 @@
 }
 
 - (void)initializedView {
+    
+    self.pageControl.transform = CGAffineTransformMakeScale(1.4, 1.4);
     swipeImageArray = @[@"SwipeImage.png", @"SwipeImage.png", @"SwipeImage.png", @"SwipeImage.png"];
     self.pageControl.numberOfPages = [swipeImageArray count];
     pageCounter = currentSelectedImage;
@@ -110,11 +119,11 @@
     [[self swipeImageView] addGestureRecognizer:swipeImageLeft];
     [[self swipeImageView] addGestureRecognizer:swipeImageRight];
 
-    float scaleFactor = 230.0 / ([[UIScreen mainScreen]bounds].size.width-90);
-    screenHeightScaleFactorDifference = 230.0-(scaleFactor*230.0);
+    float scaleFactor = [[UIScreen mainScreen]bounds].size.height/568.0;
+    signUpBackViewY=42+(scaleFactor*128.0)+28;
     self.mainView.translatesAutoresizingMaskIntoConstraints=true;
-    self.mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, 256.5+screenHeightScaleFactorDifference+508.0);
-    
+    self.mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, signUpBackViewY+538.0);
+    self.scrollView.contentSize = CGSizeMake(0,self.mainView.frame.size.height);
     //Set privacy policy attributed text
     [self setAttributString];
     [self customizedTextField];
@@ -123,12 +132,12 @@
 - (void)setAttributString {
     NSString *str=privacyPolicyText;
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
-    NSRange termConditionTextRange = [str rangeOfString:@"terms & conditions"];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
-    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]} range:termConditionTextRange];
-    NSRange policyTextRange = [str rangeOfString:@"privacy policy"];
-    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]} range:policyTextRange];
+    NSRange termConditionTextRange = [str rangeOfString:@"Terms & Conditions"];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
+    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:termConditionTextRange];
+    NSRange policyTextRange = [str rangeOfString:@"Privacy Policy"];
+    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:policyTextRange];
     NSRange logInTextRange = [str rangeOfString:@"Log In"];
-    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont helveticaNeueMediumWithSize:11], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:logInTextRange];
+    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:logInTextRange];
     self.privacyPolicyLoginLabel.attributedText=string;
     //Add tap gesture at UiLabel
     self.privacyPolicyLoginLabel.userInteractionEnabled = YES;
@@ -178,19 +187,18 @@
     NSDictionary* info = [notification userInfo];
     NSValue *aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
     
-    float loginBackViewY=screenHeightScaleFactorDifference+256.5;
     //Set condition according to check if current selected textfield is behind keyboard
-    if (loginBackViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height<([UIScreen mainScreen].bounds.size.height)-[aValue CGRectValue].size.height) {
+    if (signUpBackViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height<([UIScreen mainScreen].bounds.size.height)-[aValue CGRectValue].size.height) {
         [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
     else {
-        [self.scrollView setContentOffset:CGPointMake(0, ((loginBackViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height)- ([UIScreen mainScreen].bounds.size.height-[aValue CGRectValue].size.height))+10) animated:NO];
+        [self.scrollView setContentOffset:CGPointMake(0, ((signUpBackViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height)- ([UIScreen mainScreen].bounds.size.height-[aValue CGRectValue].size.height))+10) animated:NO];
     }
     
     //Change content size of scroll view if current selected textfield is behind keyboard
-    if ([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(loginBackViewY+self.confirmPasswordTextField.frame.origin.y+self.confirmPasswordTextField.frame.size.height))>0) {
+    if ([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(signUpBackViewY+self.confirmPasswordTextField.frame.origin.y+self.confirmPasswordTextField.frame.size.height))>0) {
         
-        self.scrollView.contentSize = CGSizeMake(0,[UIScreen mainScreen].bounds.size.height+([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(loginBackViewY+self.confirmPasswordTextField.frame.origin.y+self.confirmPasswordTextField.frame.size.height))) + 150);
+        self.scrollView.contentSize = CGSizeMake(0,[UIScreen mainScreen].bounds.size.height+([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(signUpBackViewY+self.confirmPasswordTextField.frame.origin.y+self.confirmPasswordTextField.frame.size.height))) + 150);
     }
 }
 
@@ -207,6 +215,9 @@
     
     //Perform signUp validations
     if([self performValidationsForSignUp]) {
+        isSocialLogin=0;
+        firstName=@"";
+        lastName=@"";
         [myDelegate showIndicator];
         [self performSelector:@selector(userSignUp) withObject:nil afterDelay:.1];
     }
@@ -225,35 +236,35 @@
     CGPoint position = CGPointMake(location.x, location.y);
     
     if ([ConstantCode checkDeviceType] == Device5s) {
-        if ((position.y<11.0 && position.x>118.0 && position.x<153.0)||(position.y>12.0 && position.y<22.0 && position.x<40.0)) {
+        if ((position.y<16.0 && position.x>199.0 && position.x<255.0)||(position.y>17.0 && position.y<31.0 && position.x<95.0)) {
             [self termsNCondition];
         }
-        else if (position.y>12.0 && position.y<22.0 && position.x>57.0 && position.x<110.0) {
+        else if (position.y>16.0 && position.y<32.0 && position.x>118.0 && position.x<214.0) {
             [self privacyPolicy];
         }
-        else if (position.y>23.0 && position.y<35.0 && position.x>93.0 && position.x<131.0) {
+        else if (position.y>32.0 && position.y<47.0 && position.x>172.0 && position.x<217.0) {
             [self logIn];
         }
     }
     else if ([ConstantCode checkDeviceType] == Device6) {
-        if (position.y<11.0 && position.x>117.0 && position.x<189.0) {
+        if (position.y<15.0 && position.x>190.0 && position.x<318.0) {
             [self termsNCondition];
         }
-        else if (position.y>13.0 && position.y<25.0 && position.x<51.0) {
+        else if (position.y>16.0 && position.y<31.0 && position.x>36.0 && position.x<127.0) {
             [self privacyPolicy];
         }
-        else if (position.y>12.0 && position.y<25.0 && position.x>170.0 && position.x<208.0) {
+        else if (position.y>33.0 && position.y<48.0 && position.x>121.0 && position.x<170.0) {
             [self logIn];
         }
     }
     else {
-        if (position.y>6.0 && position.y<16.0 && position.x>118.0 && position.x<189.0) {
+        if ((position.y<23.0 && position.x>195.0 && position.x<326.0)) {
             [self termsNCondition];
         }
-        else if ((position.y>6.0 && position.y<16.0 && position.x>206.0 && position.x<237.0)||(position.y>18.0 && position.y<30.0 && position.x>0.0 && position.x<24.0)) {
+        else if (position.y>24.0 && position.y<40.0 && position.x<97.0) {
             [self privacyPolicy];
         }
-        else if (position.y>17.0 && position.y<30.0 && position.x>142.0 && position.x<180.0) {
+        else if (position.y>23.0 && position.y<40.0 && position.x>282.0 && position.x<330.0) {
             [self logIn];
         }
     }
@@ -296,7 +307,12 @@
         [alert showWarning:nil title:alertTitle subTitle:validEmailMessage closeButtonTitle:alertOk duration:0.0f];
         return NO;
     }
-    else if ([self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text]) {
+    else if (self.passwordTextField.text.length<8) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:alertTitle subTitle:passwordMinimumCharater closeButtonTitle:alertOk duration:0.0f];
+        return NO;
+    }
+    else if (![self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:alertTitle subTitle:passwordMatchMessage closeButtonTitle:alertOk duration:0.0f];
         return NO;
@@ -364,11 +380,31 @@
 #pragma mark - Social login xib delegate method
 - (void)socialLoginResponse:(ConstantType)option result:(NSDictionary *)result {
     DLog(@"email:%@  userId:%@", [result objectForKey:@"email"],[result objectForKey:@"id"]);
+    isSocialLogin=1;
+    self.emailTextField.text=[result objectForKey:@"email"];
+    firstName=[result objectForKey:@"firstName"];
+    lastName=[result objectForKey:@"lastName"];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(userSignUp) withObject:nil afterDelay:.1];
 }
 #pragma mark - end
 
 #pragma mark - Webservice
-- (void)userSignUp {}
+- (void)userSignUp {
+    LoginModel *userLogin = [LoginModel sharedUser];
+    userLogin.email = self.emailTextField.text;
+    userLogin.password = self.passwordTextField.text;
+    userLogin.firstName=firstName;
+    userLogin.lastName=lastName;
+//    userLogin.isSocialLogin=[NSNumber numberWithInt:isSocialLogin];
+    [userLogin signUpUserService:^(LoginModel *userData) {
+        [myDelegate stopIndicator];
+        //Navigate user to dashboard
+        [self navigateToDashboard];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
 
 - (void)userLoginAsGuest {
     LoginModel *userLogin = [LoginModel sharedUser];

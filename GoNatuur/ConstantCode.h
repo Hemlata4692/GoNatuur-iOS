@@ -30,6 +30,7 @@ extern NSString * const emptyFieldMessage;
 extern NSString * const validEmailMessage;
 extern NSString * const passwordMatchMessage;
 extern NSString * const somethingWrondMessage;
+extern NSString * const passwordMinimumCharater;
 //end
 
 + (ConstantType)checkDeviceType;

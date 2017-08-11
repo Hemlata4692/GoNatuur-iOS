@@ -944,7 +944,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sushma Vyas (2KLNR568TA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sushma Vyas (2KLNR568TA)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -967,6 +968,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "94ace2b6-1970-4a20-9817-c085c2369e4b";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -993,7 +995,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sushma Vyas (2KLNR568TA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sushma Vyas (2KLNR568TA)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1009,6 +1012,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "94ace2b6-1970-4a20-9817-c085c2369e4b";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1019,7 +1023,8 @@
 			baseConfigurationReference = B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sushma Vyas (2KLNR568TA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sushma Vyas (2KLNR568TA)";
 				DEVELOPMENT_TEAM = M8A7BYS443;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1029,10 +1034,10 @@
 				INFOPLIST_FILE = GoNatuur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.LoginLibrary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.dwell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5d36d161-4eab-49e9-b4bd-cc5088e93d30";
-				PROVISIONING_PROFILE_SPECIFIER = RanosysWildcard;
+				PROVISIONING_PROFILE = "94ace2b6-1970-4a20-9817-c085c2369e4b";
+				PROVISIONING_PROFILE_SPECIFIER = dwellDevelopment23Nov2016;
 			};
 			name = Debug;
 		};
@@ -1041,7 +1046,8 @@
 			baseConfigurationReference = B83EEE6EC30D7C8806561F9A /* Pods-GoNatuur.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sushma Vyas (2KLNR568TA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sushma Vyas (2KLNR568TA)";
 				DEVELOPMENT_TEAM = M8A7BYS443;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1051,10 +1057,10 @@
 				INFOPLIST_FILE = GoNatuur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.LoginLibrary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.dwell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5d36d161-4eab-49e9-b4bd-cc5088e93d30";
-				PROVISIONING_PROFILE_SPECIFIER = RanosysWildcard;
+				PROVISIONING_PROFILE = "94ace2b6-1970-4a20-9817-c085c2369e4b";
+				PROVISIONING_PROFILE_SPECIFIER = dwellDevelopment23Nov2016;
 			};
 			name = Release;
 		};

@@ -183,6 +183,7 @@
     //Perform signUp validations
     if([self performValidationsForLogin]) {
         [myDelegate showIndicator];
+        isSocialLogin=0;
         [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
     }
 }
@@ -205,17 +206,17 @@
     CGPoint position = CGPointMake(location.x, location.y);
     
     if ([ConstantCode checkDeviceType] == Device5s) {
-        if (position.y>6.5 && position.y<22.0 && position.x>184.0 && position.x<242.0) {
+        if (position.y>6.5 && position.y<22.0 && position.x>184.0 && position.x<245.0) {
             [self signUp];
         }
     }
     else if ([ConstantCode checkDeviceType] == Device6) {
-        if (position.y>11 && position.y<32.0 && position.x>187.0 && position.x<245.0) {
+        if (position.y>16 && position.y<32.0 && position.x>188.0 && position.x<245.0) {
             [self signUp];
         }
     }
     else {
-        if (position.y>12.0 && position.y<30.0 && position.x>210.0 && position.x<278.0) {
+        if (position.y>12.0 && position.y<30.0 && position.x>184.0 && position.x<245.0) {
             [self signUp];
         }
     }
@@ -271,12 +272,13 @@
     [userLogin loginUserOnSuccess:^(LoginModel *userData) {
         if (nil==[UserDefaultManager getValue:@"deviceToken"]||NULL==[UserDefaultManager getValue:@"deviceToken"]) {
             [myDelegate stopIndicator];
+            //Navigate user to dashboard
             [self navigateToDashboard];
         }
         else{
             [self saveDeviceToken];
         }
-//        Navigate user to dashboard
+
     } onfailure:^(NSError *error) {
         
     }];
