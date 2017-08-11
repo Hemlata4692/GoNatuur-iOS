@@ -19,4 +19,6 @@
 - (void)loginUser:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 //Login as guest user service
 - (void)loginGuestUser:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
+//CMS page service
+- (void)CMSPageService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 @end

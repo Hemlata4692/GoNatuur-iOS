@@ -11,6 +11,18 @@
 
 @implementation LoginModel
 
+@synthesize username;
+@synthesize email;
+@synthesize password;
+@synthesize isSocialLogin;
+@synthesize accessToken;
+@synthesize userId;
+@synthesize followCount;
+@synthesize notificationsCount;
+@synthesize quoteCount;
+@synthesize quoteId;
+@synthesize wishlistCount;
+
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
     static LoginModel *loginUser = nil;
@@ -42,6 +54,13 @@
     [[ConnectionManager sharedManager] loginUser:self onSuccess:^(LoginModel *userData) {
         if (success) {
 
+            [UserDefaultManager setValue:userData.userId key:@"userId"];
+            [UserDefaultManager setValue:userData.email key:@"emailId"];
+            [UserDefaultManager setValue:userData.followCount key:@"followCount"];
+            [UserDefaultManager setValue:userData.notificationsCount key:@"notificationsCount"];
+            [UserDefaultManager setValue:userData.quoteId key:@"quoteId"];
+            [UserDefaultManager setValue:userData.quoteCount key:@"quoteCount"];
+            [UserDefaultManager setValue:userData.wishlistCount key:@"wishlistCount"];
             success (userData);
         }
     } onFailure:^(NSError *error) {
@@ -66,14 +85,27 @@
 #pragma mark - Login as guest user
 - (void)loginGuestUserOnSuccess:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
     
-    [[ConnectionManager sharedManager] loginGuestUser:^(LoginModel *userData) {
+    [[ConnectionManager sharedManager] loginGuestUser:self onSuccess:^(LoginModel *userData) {
         if (success) {
-            
+            [UserDefaultManager setValue:userData.quoteId key:@"quoteId"];
             success (userData);
         }
     } onFailure:^(NSError *error) {
         
     }] ;
+}
+#pragma mark - end
+
+#pragma mark - CMS page service
+- (void)CMSPageService:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
+
+    [[ConnectionManager sharedManager] CMSPageService:self onSuccess:^(LoginModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }];
 }
 #pragma mark - end
 @end
