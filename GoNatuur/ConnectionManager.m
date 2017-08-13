@@ -44,6 +44,7 @@
 - (void)loginUser:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *loginService = [[LoginService alloc] init];
     [loginService loginUser:userData onSuccess:^(id response) {
+        NSLog(@"login response %@",response);
         //Parse data from server response and store in datamodel
         userData.userId=[[[response objectAtIndex:0] objectForKey:@"customer"] objectForKey:@"entity_id"];
         userData.accessToken=[[response objectAtIndex:0] objectForKey:@"api_key"];

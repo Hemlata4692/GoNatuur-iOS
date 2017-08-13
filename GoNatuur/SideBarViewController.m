@@ -48,7 +48,7 @@
     [_userProfileImageView setCornerRadius:_userProfileImageView.frame.size.width/2];
     [_userProfileImageView setBorder:_userProfileImageView color:[UIColor whiteColor] borderWidth:3.0];
     _userEmailLabel.translatesAutoresizingMaskIntoConstraints=YES;
-    _userEmailLabel.text=@"hemlata@ranosys.com";
+    _userEmailLabel.text=[UserDefaultManager getValue:@"emailId"];
     _userEmailLabel.numberOfLines=3;
     float newHeight =[DynamicHeightWidth getDynamicLabelHeight:_userEmailLabel.text font:[UIFont fontWithName:@"Montserrat-Regular" size:16.0] widthValue:[[UIScreen mainScreen] bounds].size.width-120];
     _userEmailLabel.frame=CGRectMake(30, _userEmailLabel.frame.origin.y,[[UIScreen mainScreen] bounds].size.width-120, newHeight+1);
@@ -96,6 +96,8 @@
 #pragma mark - Logout user
 - (void)logoutUser {
     //Logout user
+    [UserDefaultManager removeValue:@"emailId"];
+    [UserDefaultManager removeValue:@"Authorization"];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     myDelegate.navigationController = [storyboard instantiateViewControllerWithIdentifier:@"mainNavController"];
     myDelegate.window.rootViewController = myDelegate.navigationController;

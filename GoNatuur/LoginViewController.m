@@ -180,7 +180,7 @@
 - (IBAction)login:(id)sender {
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     [self.keyboardControls.activeField resignFirstResponder];
-    //Perform signUp validations
+    //Perform login validations
     if([self performValidationsForLogin]) {
         [myDelegate showIndicator];
         [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
@@ -230,7 +230,7 @@
 }
 #pragma mark - end
 
-#pragma mark - SignUp validation
+#pragma mark - Login validation
 - (BOOL)performValidationsForLogin {
     if ([self.emailTextField isEmpty] || [self.passwordTextField isEmpty] ) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];

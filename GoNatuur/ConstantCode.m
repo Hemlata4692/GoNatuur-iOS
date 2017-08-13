@@ -16,7 +16,7 @@ NSString * const privacyPolicyText = @"By signing up, you agree to our terms & c
 NSString * const alertTitle = @"Alert";
 NSString * const alertOk = @"OK";
 NSString * const emptyFieldMessage = @"Please fill in all the required fields.";
-NSString * const validEmailMessage = @"Please fill in all the required fields.";
+NSString * const validEmailMessage = @"Please enter a valid email address.";
 NSString * const passwordMatchMessage = @"Password does't match.";
 NSString * const somethingWrondMessage = @"Some thing went wrong, Please try again later.";
 
@@ -36,7 +36,6 @@ NSString * const somethingWrondMessage = @"Some thing went wrong, Please try aga
 
 //Get country code
 + (NSString *)localeCountryCode {
-    
     NSLocale *countryLocale = [NSLocale currentLocale];
     return [countryLocale objectForKey:NSLocaleCountryCode];
 }@end

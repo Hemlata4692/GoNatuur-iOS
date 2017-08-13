@@ -32,7 +32,7 @@
     productPrice.text=productListData.productPrice;
     productDescription.text=productListData.productDescription;
     [ImageCaching downloadImages:productImageView imageUrl:productListData.productImageThumbnail placeholderImage:@"product_placeholder"];
-//    statusBannerImage.hidden=YES;
+    statusBannerImage.hidden=YES;
 }
 
 //Footer image cell
