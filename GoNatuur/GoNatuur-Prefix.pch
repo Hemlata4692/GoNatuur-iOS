@@ -20,6 +20,7 @@
 #import "UIView+RoundedCorner.h"
 #import "Webservice.h"
 #import "ImageCaching.h"
+#import "LocalizedString.h"
 
 #define myDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 //Define to use multi language

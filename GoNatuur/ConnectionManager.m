@@ -31,7 +31,7 @@
     LoginService *authToken = [[LoginService alloc] init];
     //parse data from server response and store in datamodel
     [authToken getAccessToken:userData onSuccess:^(id response) {
-
+        
         
         success(response);
     } onFailure:^(NSError *error) {
@@ -82,7 +82,7 @@
         } onFailure:^(NSError *error) {
             failure(error);
         }] ;
-
+        
     }
 }
 
@@ -108,8 +108,18 @@
         NSLog(@"category list response %@",response);
         userData.categoryNameArray=[response[@"children_data"] mutableCopy];
         success(userData);
-
     } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - SignUp user service
+- (void)signUpUserService:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
+    LoginService *loginService = [[LoginService alloc] init];
+    [loginService signUpUserService:userData onSuccess:^(id response) {
+        //Parse data from server response and store in datamodel
+        userData.cmsTitle=[response objectForKey:@"title"];
+        userData.cmsContent=[response objectForKey:@"content"];
+        success(userData);
+    } onFailure:^(NSError *error) {
         failure(error);
     }] ;
 }
@@ -182,7 +192,7 @@
     } onfailure:^(NSError *error) {
         failure(error);
     }] ;
-
+    
 }
 #pragma mark - end
 
@@ -191,7 +201,7 @@
     DashboardService *currencyData=[[DashboardService alloc]init];
     [currencyData getCurrency:userData success:^(id response) {
         //Parse data from server response and store in data model
-         NSLog(@"currency list response %@",response);
+        NSLog(@"currency list response %@",response);
         userData.userCurrency=response[@"default_display_currency_symbol"];
         NSLog(@"currency  %@",userData.userCurrency);
         success(userData);
@@ -199,7 +209,7 @@
     } onfailure:^(NSError *error) {
         failure(error);
     }] ;
-
+    
 }
 #pragma mark - end
 @end

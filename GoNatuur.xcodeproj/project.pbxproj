@@ -986,6 +986,7 @@
 				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,
 				18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */,
 				1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */,
+				B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */,
 				1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */,
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
 				184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */,
