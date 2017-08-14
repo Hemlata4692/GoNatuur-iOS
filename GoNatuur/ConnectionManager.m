@@ -11,6 +11,9 @@
 #import "LoginModel.h"
 #import "DashboardDataModel.h"
 #import "DashboardService.h"
+#import "SearchDataModel.h"
+#import "SearchService.h"
+#import "CurrencyDataModel.h"
 
 @implementation ConnectionManager
 
@@ -106,7 +109,7 @@
     [categoryList getCategoryListData:userData success:^(id response) {
         //Parse data from server response and store in data model
         NSLog(@"category list response %@",response);
-        userData.categoryNameArray=[response[@"children_data"] mutableCopy];
+        myDelegate.categoryNameArray=[response[@"children_data"] mutableCopy];
         success(userData);
     } onfailure:^(NSError *error) {
     }];
@@ -197,13 +200,47 @@
 #pragma mark - end
 
 #pragma mark - Fetch currency data
-- (void)getDefaultCurrency:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+- (void)getDefaultCurrency:(CurrencyDataModel *)userData onSuccess:(void (^)(CurrencyDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     DashboardService *currencyData=[[DashboardService alloc]init];
     [currencyData getCurrency:userData success:^(id response) {
         //Parse data from server response and store in data model
         NSLog(@"currency list response %@",response);
         userData.userCurrency=response[@"default_display_currency_symbol"];
-        NSLog(@"currency  %@",userData.userCurrency);
+        userData.currentCurrencyCode=response[@"default_display_currency_code"];
+        userData.availableCurrencyArray=[response[@"available_currency_codes"] mutableCopy];
+        userData.availableCurrencyRatesArray=[[NSMutableArray alloc]init];
+        NSArray *ratesArray=response[@"exchange_rates"];
+        for (int i =0; i<ratesArray.count; i++) {
+            NSDictionary * footerDataDict =[ratesArray objectAtIndex:i];
+            CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
+            exchangeData.currencyExchangeCode = footerDataDict[@"currency_to"];
+            exchangeData.currencyExchangeRates = footerDataDict[@"rate"];
+            [userData.availableCurrencyRatesArray addObject:exchangeData];
+        }
+        success(userData);
+        
+    } onfailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Fetch search suggestions data
+- (void)getSearchSuggestionData:(SearchDataModel *)userData onSuccess:(void (^)(SearchDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    SearchService *serachSuggestions=[[SearchService alloc]init];
+    [serachSuggestions getSearchKeywordData:userData success:^(id response) {
+        //Parse data from server response and store in data model
+        NSLog(@"SearchService list response %@",response);
+        userData.searchKeywordListingArray=[[NSMutableArray alloc]init];
+        NSArray *searchArray=response[@"suggestions"];
+        for (int i =0; i<searchArray.count; i++) {
+            NSDictionary * footerDataDict =[searchArray objectAtIndex:i];
+            SearchDataModel * searchData = [[SearchDataModel alloc]init];
+            searchData.keywordName = footerDataDict[@"title"];
+            searchData.keywordID = footerDataDict[@"id"];
+            searchData.keywordAction = footerDataDict[@"action"];
+            [userData.searchKeywordListingArray addObject:searchData];
+        }
         success(userData);
         
     } onfailure:^(NSError *error) {

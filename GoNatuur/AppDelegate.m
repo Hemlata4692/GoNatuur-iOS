@@ -27,6 +27,7 @@
 @synthesize selectedCategoryIndex;
 @synthesize navigationController;
 @synthesize spinnerView;
+@synthesize categoryNameArray;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -70,15 +71,15 @@
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    navigationController = (UINavigationController *)[self.window rootViewController];
-    if (nil!=[UserDefaultManager getValue:@"userId"]) {
-        UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        [self.window setRootViewController:objReveal];
-        [self.window setBackgroundColor:[UIColor whiteColor]];
-        [self.window makeKeyAndVisible];
-    }
+//    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    navigationController = (UINavigationController *)[self.window rootViewController];
+//    if (nil!=[UserDefaultManager getValue:@"userId"]) {
+//        UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+//        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//        [self.window setRootViewController:objReveal];
+//        [self.window setBackgroundColor:[UIColor whiteColor]];
+//        [self.window makeKeyAndVisible];
+//    }
     
     //[self registerForRemoteNotification];
     selectedCategoryIndex=-1;

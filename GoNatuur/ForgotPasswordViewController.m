@@ -50,13 +50,13 @@
 #pragma mark - Forgot password validation
 - (BOOL)performValidationsForForgotPassword {
     if ([_emailTextField isEmpty]) {
-        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:alertTitle subTitle:emptyFieldMessage closeButtonTitle:alertOk duration:0.0f];
+//        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+//        [alert showWarning:nil title:alertTitle subTitle:emptyFieldMessage closeButtonTitle:alertOk duration:0.0f];
         return NO;
     }
     else if (![_emailTextField isValidEmail]) {
-        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:alertTitle subTitle:validEmailMessage closeButtonTitle:alertOk duration:0.0f];
+//        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+//        [alert showWarning:nil title:alertTitle subTitle:validEmailMessage closeButtonTitle:alertOk duration:0.0f];
         return NO;
     }
     else {

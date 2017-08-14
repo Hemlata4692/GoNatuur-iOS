@@ -24,6 +24,11 @@
 		188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 188605A91F39D7230005D1E2 /* Montserrat-Regular.ttf */; };
 		188605AD1F39D7620005D1E2 /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 188605AB1F39D7620005D1E2 /* Montserrat-Light.otf */; };
 		188605AE1F39D7620005D1E2 /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 188605AC1F39D7620005D1E2 /* Montserrat-Medium.otf */; };
+		188B2C0A1F419E8B0001A7AE /* SearchListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C091F419E8B0001A7AE /* SearchListingViewController.m */; };
+		188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C0D1F41D1870001A7AE /* SearchCollectionViewCell.m */; };
+		188B2C131F41DFA50001A7AE /* SearchDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C121F41DFA50001A7AE /* SearchDataModel.m */; };
+		188B2C171F41DFFA0001A7AE /* SearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C161F41DFFA0001A7AE /* SearchService.m */; };
+		188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C1A1F41F45A0001A7AE /* CurrencyDataModel.m */; };
 		18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */; };
 		18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */; };
 		18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F31F32E09800430842 /* GoNatuurViewController.m */; };
@@ -114,6 +119,16 @@
 		188605A91F39D7230005D1E2 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		188605AB1F39D7620005D1E2 /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		188605AC1F39D7620005D1E2 /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
+		188B2C081F419E8B0001A7AE /* SearchListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchListingViewController.h; sourceTree = "<group>"; };
+		188B2C091F419E8B0001A7AE /* SearchListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchListingViewController.m; sourceTree = "<group>"; };
+		188B2C0C1F41D1870001A7AE /* SearchCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCollectionViewCell.h; sourceTree = "<group>"; };
+		188B2C0D1F41D1870001A7AE /* SearchCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionViewCell.m; sourceTree = "<group>"; };
+		188B2C111F41DFA50001A7AE /* SearchDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDataModel.h; sourceTree = "<group>"; };
+		188B2C121F41DFA50001A7AE /* SearchDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDataModel.m; sourceTree = "<group>"; };
+		188B2C151F41DFFA0001A7AE /* SearchService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchService.h; sourceTree = "<group>"; };
+		188B2C161F41DFFA0001A7AE /* SearchService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchService.m; sourceTree = "<group>"; };
+		188B2C191F41F45A0001A7AE /* CurrencyDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyDataModel.h; sourceTree = "<group>"; };
+		188B2C1A1F41F45A0001A7AE /* CurrencyDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyDataModel.m; sourceTree = "<group>"; };
 		18C1DF7C1F3CAE96000D9431 /* DasboardDataCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasboardDataCollectionViewCell.h; sourceTree = "<group>"; };
 		18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DasboardDataCollectionViewCell.m; sourceTree = "<group>"; };
 		18E5D5831F342DE500829292 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
@@ -342,6 +357,69 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		188B2C061F419DD10001A7AE /* SearchSuggestionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18F7A8FA1F32F46800430842 /* SearchViewController.h */,
+				18F7A8FB1F32F46800430842 /* SearchViewController.m */,
+			);
+			name = SearchSuggestionViewController;
+			sourceTree = "<group>";
+		};
+		188B2C071F419E3C0001A7AE /* SearchListingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				188B2C0F1F41D9520001A7AE /* SearchListView */,
+				188B2C0B1F41CD730001A7AE /* SearchListCell */,
+			);
+			name = SearchListingViewController;
+			sourceTree = "<group>";
+		};
+		188B2C0B1F41CD730001A7AE /* SearchListCell */ = {
+			isa = PBXGroup;
+			children = (
+				188B2C0C1F41D1870001A7AE /* SearchCollectionViewCell.h */,
+				188B2C0D1F41D1870001A7AE /* SearchCollectionViewCell.m */,
+			);
+			name = SearchListCell;
+			sourceTree = "<group>";
+		};
+		188B2C0F1F41D9520001A7AE /* SearchListView */ = {
+			isa = PBXGroup;
+			children = (
+				188B2C081F419E8B0001A7AE /* SearchListingViewController.h */,
+				188B2C091F419E8B0001A7AE /* SearchListingViewController.m */,
+			);
+			name = SearchListView;
+			sourceTree = "<group>";
+		};
+		188B2C101F41DF2D0001A7AE /* SearchDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				188B2C111F41DFA50001A7AE /* SearchDataModel.h */,
+				188B2C121F41DFA50001A7AE /* SearchDataModel.m */,
+			);
+			name = SearchDataModel;
+			sourceTree = "<group>";
+		};
+		188B2C141F41DFE60001A7AE /* SearchService */ = {
+			isa = PBXGroup;
+			children = (
+				188B2C151F41DFFA0001A7AE /* SearchService.h */,
+				188B2C161F41DFFA0001A7AE /* SearchService.m */,
+			);
+			name = SearchService;
+			sourceTree = "<group>";
+		};
+		188B2C181F41F42E0001A7AE /* CurrencyDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				188B2C191F41F45A0001A7AE /* CurrencyDataModel.h */,
+				188B2C1A1F41F45A0001A7AE /* CurrencyDataModel.m */,
+			);
+			name = CurrencyDataModel;
+			sourceTree = "<group>";
+		};
 		18C1DF7B1F3CAE51000D9431 /* DashboardDataCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -381,8 +459,8 @@
 		18F7A8F91F32F44800430842 /* SearchViewController */ = {
 			isa = PBXGroup;
 			children = (
-				18F7A8FA1F32F46800430842 /* SearchViewController.h */,
-				18F7A8FB1F32F46800430842 /* SearchViewController.m */,
+				188B2C071F419E3C0001A7AE /* SearchListingViewController */,
+				188B2C061F419DD10001A7AE /* SearchSuggestionViewController */,
 			);
 			name = SearchViewController;
 			sourceTree = "<group>";
@@ -411,6 +489,8 @@
 		320761601F1626F2001F1790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				188B2C181F41F42E0001A7AE /* CurrencyDataModel */,
+				188B2C101F41DF2D0001A7AE /* SearchDataModel */,
 				181853241F3D832200EEB73B /* DashboardModel */,
 				32CC20921F25B1990054C344 /* LoginModel */,
 			);
@@ -487,6 +567,7 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				188B2C141F41DFE60001A7AE /* SearchService */,
 				181853281F3D8A6300EEB73B /* DashboardService */,
 				32CC20961F25B1E90054C344 /* LoginService */,
 				320761681F1627AE001F1790 /* GlobalService */,
@@ -845,8 +926,8 @@
 				TargetAttributes = {
 					32BAA6031F1360280015E355 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = M8A7BYS443;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = T7GN63HCDX;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -956,6 +1037,7 @@
 			files = (
 				32A3D6FF1F1CD2B800062B86 /* FacebookConnect.m in Sources */,
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
+				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
 				32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */,
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
@@ -976,6 +1058,7 @@
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
 				184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */,
+				188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */,
 				3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */,
 				320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */,
 				32A3D6B81F1CBADB00062B86 /* LoginViewController.m in Sources */,
@@ -990,8 +1073,11 @@
 				1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */,
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
 				184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */,
+				188B2C131F41DFA50001A7AE /* SearchDataModel.m in Sources */,
 				B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */,
+				188B2C0A1F419E8B0001A7AE /* SearchListingViewController.m in Sources */,
 				32CC20951F25B1D90054C344 /* LoginModel.m in Sources */,
+				188B2C171F41DFFA0001A7AE /* SearchService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1119,8 +1205,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sushma Vyas (2KLNR568TA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sushma Vyas (2KLNR568TA)";
-				DEVELOPMENT_TEAM = M8A7BYS443;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = T7GN63HCDX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoNatuur",
@@ -1129,10 +1215,10 @@
 				INFOPLIST_FILE = GoNatuur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.dwell;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.GoNatuur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "94ace2b6-1970-4a20-9817-c085c2369e4b";
-				PROVISIONING_PROFILE_SPECIFIER = dwellDevelopment23Nov2016;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -1142,8 +1228,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sushma Vyas (2KLNR568TA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sushma Vyas (2KLNR568TA)";
-				DEVELOPMENT_TEAM = M8A7BYS443;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = T7GN63HCDX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoNatuur",
@@ -1152,10 +1238,10 @@
 				INFOPLIST_FILE = GoNatuur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.dwell;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.GoNatuur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "94ace2b6-1970-4a20-9817-c085c2369e4b";
-				PROVISIONING_PROFILE_SPECIFIER = dwellDevelopment23Nov2016;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

@@ -1,17 +1,14 @@
 //
-//  DasboardDataCollectionViewCell.h
+//  SearchCollectionViewCell.h
 //  GoNatuur
 //
-//  Created by Ranosys-Mac on 10/08/17.
+//  Created by Ranosys-Mac on 14/08/17.
 //  Copyright © 2017 Hemlata Khajanchi. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "DashboardDataModel.h"
-#import "CurrencyDataModel.h"
 
-@interface DasboardDataCollectionViewCell : UICollectionViewCell
-//Product cell
+@interface SearchCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIView *productCellMainView;
 @property (weak, nonatomic) IBOutlet UIImageView *statusBannerImage;
 @property (weak, nonatomic) IBOutlet UILabel *productName;
@@ -22,13 +19,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
 @property (weak, nonatomic) IBOutlet UIView *borderView;
 
-//Footer image cell
-@property (weak, nonatomic) IBOutlet UIImageView *footerImageView;
-
-//Product cell
-- (void)displayProductListData :(DashboardDataModel *)productListData exchangeRates:(NSString *)exchangeRates;
-
-//Footer image cell
-- (void)displayFooterBannerData :(DashboardDataModel *)footerBannerImage;
-
+- (void)displaySearchListData;
 @end

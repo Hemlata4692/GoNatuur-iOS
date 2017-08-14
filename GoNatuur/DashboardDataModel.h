@@ -11,7 +11,6 @@
 @interface DashboardDataModel : NSObject
 @property (strong, nonatomic) NSString *categoryId;
 @property (strong, nonatomic) NSString *categoryName;
-@property (strong, nonatomic) NSMutableArray *categoryNameArray;
 @property (strong, nonatomic) NSString *banerImageUrl;
 @property (strong, nonatomic) NSString *banerImageId;
 @property (strong, nonatomic) NSString *bannerImageType;
@@ -23,11 +22,11 @@
 @property (strong, nonatomic) NSString *productId;
 @property (strong, nonatomic) NSString *productName;
 @property (strong, nonatomic) NSString *productRating;
-@property (strong, nonatomic) NSString *userCurrency;
 @property (strong, nonatomic) NSMutableArray *footerBannerImageArray;
 @property (strong, nonatomic) NSMutableArray *healthyLivingArray;
 @property (strong, nonatomic) NSMutableArray *samplersDataArray;
 
+//Singleton method
 + (instancetype)sharedUser;
 
 //Fetch category listng data
@@ -36,6 +35,4 @@
 //Fetch dashboard data
 - (void)getDashboardData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
 
-//Fetch currency data
-- (void)getCurrencyData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

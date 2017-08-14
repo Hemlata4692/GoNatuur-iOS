@@ -23,6 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     categoryDataArray=[[NSMutableArray alloc]init];
+    categoryDataArray=[myDelegate.categoryNameArray mutableCopy];
     //Load category slider cell xib
     [categorySliderCollectionView registerNib:[UINib nibWithNibName:@"CategorySliderCell" bundle:nil] forCellWithReuseIdentifier:@"categoryCell"];
     [categorySliderCollectionView reloadData];
