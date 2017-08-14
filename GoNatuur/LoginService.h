@@ -21,4 +21,8 @@
 - (void)loginGuestUser:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 //CMS page service
 - (void)CMSPageService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
+//Save device token service
+- (void)saveDeviceTokenService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
+//SignUp user service
+- (void)signUpUserService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 @end

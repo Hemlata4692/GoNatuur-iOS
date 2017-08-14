@@ -74,7 +74,15 @@
 
 #pragma mark - Send device token
 - (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
+    {
+        LoginService *loginService = [[LoginService alloc] init];
+        [loginService saveDeviceTokenService:userData onSuccess:^(id response) {
+            success(userData);
+        } onFailure:^(NSError *error) {
+            failure(error);
+        }] ;
 
+    }
 }
 
 #pragma mark - CMS page service
@@ -90,4 +98,19 @@
     }] ;
 }
 #pragma mark - end
+
+#pragma mark - SignUp user service
+- (void)signUpUserService:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
+    LoginService *loginService = [[LoginService alloc] init];
+    [loginService signUpUserService:userData onSuccess:^(id response) {
+        //Parse data from server response and store in datamodel
+        userData.cmsTitle=[response objectForKey:@"title"];
+        userData.cmsContent=[response objectForKey:@"content"];
+        success(userData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
 @end

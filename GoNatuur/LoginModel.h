@@ -10,6 +10,8 @@
 
 @interface LoginModel : NSObject
 @property (strong, nonatomic) NSString *username;
+@property (strong, nonatomic) NSString *firstName;
+@property (strong, nonatomic) NSString *lastName;
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *password;
 @property (strong, nonatomic) NSNumber *isSocialLogin;
@@ -35,4 +37,6 @@
 - (void)loginGuestUserOnSuccess:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
 //CMS page service
 - (void)CMSPageService:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
+//Sign up user service
+- (void)signUpUserService:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
 @end
