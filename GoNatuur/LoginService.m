@@ -13,7 +13,8 @@ static NSString *kAuthorizationToken=@"integration/admin/token";
 static NSString *kLogin=@"ranosys/customer/customerLogin";
 static NSString *kLoginAsGuest=@"ranosys/customer/guestLogin";
 static NSString *kCMSPage=@"cmsPage/";
-
+static NSString *kSaveDeviceToken=@"ranosys/saveDeviceToken";
+static NSString *kSignUp=@"ranosys/customer/customerSignup";
 
 @implementation LoginService
 
@@ -46,6 +47,29 @@ static NSString *kCMSPage=@"cmsPage/";
 - (void)CMSPageService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
     [UserDefaultManager setValue:@"9e28chln10yp8bkporq87jkw8vrgi6f3" key:@"Authorization"];
     [super get:[NSString stringWithFormat:@"%@%@",kCMSPage,loginData.cmsPageType] parameters:nil onSuccess:success onFailure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Save device token service
+- (void)saveDeviceTokenService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"customerId" : [UserDefaultManager getValue:@"userId"],
+                                 @"deviceType" : [NSNumber numberWithInt:2],
+                                 @"deviceToken" : @"testtoken"};
+    [UserDefaultManager setValue:@"9e28chln10yp8bkporq87jkw8vrgi6f3" key:@"Authorization"];
+    [super post:kSaveDeviceToken parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - SignUp user service
+- (void)signUpUserService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    [UserDefaultManager removeValue:@"Authorization"];
+    NSDictionary *parameters = @{@"customer" : @{@"email" : loginData.email,
+                                                 @"firstname" : loginData.firstName,
+                                                 @"lastname" : loginData.lastName
+                                         },
+                                 @"password" : loginData.password
+                                };
+    [super post:kSignUp parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 @end

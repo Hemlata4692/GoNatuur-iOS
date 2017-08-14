@@ -22,6 +22,8 @@
 #import "ImageCaching.h"
 
 #define myDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
+//Define to use multi language
+#define NSLocalizedText(key) [LocalizedString changeLocalizedString:(key)]
 
 //Google client id
 #define kClientID    @"203484340022-n7i72bu9h19efaspim5cqb1fc18uvtlc.apps.googleusercontent.com"

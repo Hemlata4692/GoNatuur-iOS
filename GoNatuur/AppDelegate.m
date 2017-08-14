@@ -26,6 +26,7 @@
 @synthesize deviceToken;
 @synthesize selectedCategoryIndex;
 @synthesize navigationController;
+@synthesize spinnerView;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -38,20 +39,20 @@
     loaderView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.window.bounds.size.width, self.window.bounds.size.height)];
     loaderView.backgroundColor=[UIColor colorWithRed:63.0/255.0 green:63.0/255.0 blue:63.0/255.0 alpha:0.3];
     [loaderView addSubview:spinnerBackground];
-    self.spinnerView = [[MMMaterialDesignSpinner alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    self.spinnerView.tintColor = [UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0];
-    self.spinnerView.center = CGPointMake(CGRectGetMidX(self.window.bounds), CGRectGetMidY(self.window.bounds));
-    self.spinnerView.lineWidth=3.0f;
+    spinnerView = [[MMMaterialDesignSpinner alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    spinnerView.tintColor = [UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0];
+    spinnerView.center = CGPointMake(CGRectGetMidX(self.window.bounds), CGRectGetMidY(self.window.bounds));
+    spinnerView.lineWidth=3.0f;
     [self.window addSubview:loaderView];
-    [self.window addSubview:self.spinnerView];
-    [self.spinnerView startAnimating];
+    [self.window addSubview:spinnerView];
+    [spinnerView startAnimating];
 }
 
 //Stop indicator
 - (void)stopIndicator {
     [loaderView removeFromSuperview];
-    [self.spinnerView removeFromSuperview];
-    [self.spinnerView stopAnimating];
+    [spinnerView removeFromSuperview];
+    [spinnerView stopAnimating];
 }
 #pragma mark - end
 
@@ -65,7 +66,6 @@
    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont montserratMediumWithSize:20], NSFontAttributeName, nil]];
     
     selectedLoginType=FacebookLogin;
-    
     //Connect appdelegate to facebook delegate
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
@@ -155,7 +155,7 @@
     }
 }
 - (void)showNotificationAlert:(NSString *)message {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:alertTitle message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:alertOk, nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedText(@"alertTitle") message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedText(@"alertOk"), nil];
     [alert show];
 }
 #pragma mark - end

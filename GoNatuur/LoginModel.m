@@ -22,6 +22,8 @@
 @synthesize quoteCount;
 @synthesize quoteId;
 @synthesize wishlistCount;
+@synthesize firstName;
+@synthesize lastName;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -67,7 +69,7 @@
 }
 #pragma mark - end
 
-#pragma mark - save device token
+#pragma mark - Save device token
 - (void)saveDeviceToken:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] sendDevcieToken:self onSuccess:^(LoginModel *userData) {
         if (success) {
@@ -97,6 +99,19 @@
 - (void)CMSPageService:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
 
     [[ConnectionManager sharedManager] CMSPageService:self onSuccess:^(LoginModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Sign up user service
+- (void)signUpUserService:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
+    
+    [[ConnectionManager sharedManager] signUpUserService:self onSuccess:^(LoginModel *userData) {
         if (success) {
             success (userData);
         }

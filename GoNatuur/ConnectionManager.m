@@ -75,7 +75,15 @@
 
 #pragma mark - Send device token
 - (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
+    {
+        LoginService *loginService = [[LoginService alloc] init];
+        [loginService saveDeviceTokenService:userData onSuccess:^(id response) {
+            success(userData);
+        } onFailure:^(NSError *error) {
+            failure(error);
+        }] ;
 
+    }
 }
 
 #pragma mark - CMS page service

@@ -84,11 +84,11 @@
         DLog(@"facebookUserLastName: %@",[fbResult objectForKey:@"last_name"]);
         DLog(@"facebookUserGender: %@",[fbResult objectForKey:@"gender"]);
         DLog(@"facebookUserFriendCount: %@",[[[fbResult objectForKey:@"friends"] objectForKey:@"summary"] objectForKey:@"total_count"]);
-        [_delegate socialLoginResponse:FacebookLogin result:@{@"email":[fbResult objectForKey:@"email"], @"id":[fbResult objectForKey:@"id"]}];
+        [_delegate socialLoginResponse:FacebookLogin result:@{@"email":[fbResult objectForKey:@"email"], @"id":[fbResult objectForKey:@"id"],@"firstName":([fbResult objectForKey:@"first_name"]!=nil?[fbResult objectForKey:@"first_name"]:@""),@"lastName":([fbResult objectForKey:@"last_name"]!=nil?[fbResult objectForKey:@"last_name"]:@"")}];
     }
     else {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:alertTitle subTitle:somethingWrondMessage closeButtonTitle:alertOk duration:0.0f];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrondMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
     }
 }
 #pragma mark - end
@@ -111,7 +111,7 @@
         DLog(@"gmail given name is %@", gmailResult.profile.givenName);
         DLog(@"gmail family name is %@", gmailResult.profile.familyName);
         DLog(@"gmail auth token is %@", gmailResult.authentication.idToken);
-        [_delegate socialLoginResponse:FacebookLogin result:@{@"email":gmailResult.profile.email, @"id":gmailResult.userID}];
+        [_delegate socialLoginResponse:FacebookLogin result:@{@"email":gmailResult.profile.email, @"id":gmailResult.userID,@"firstName":(gmailResult.profile.givenName!=nil?gmailResult.profile.givenName:@""),@"lastName":(gmailResult.profile.familyName!=nil?gmailResult.profile.familyName:@"")}];
     }
 }
 #pragma mark - end
