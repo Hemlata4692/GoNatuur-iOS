@@ -185,9 +185,9 @@
 
 #pragma mark - IBActions
 - (IBAction)login:(id)sender {
-    [scrollView setContentOffset:CGPointMake(0, 0) animated:false];
-    [keyboardControls.activeField resignFirstResponder];
-    //Perform signUp validations
+    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [self.keyboardControls.activeField resignFirstResponder];
+    //Perform login validations
     if([self performValidationsForLogin]) {
         [myDelegate showIndicator];
         isSocialLogin=0;
@@ -200,11 +200,11 @@
 }
 
 - (IBAction)skipAndContinue:(UIButton *)sender {
-    [scrollView setContentOffset:CGPointMake(0, 0) animated:false];
-    [scrollView setContentOffset:CGPointMake(0, 0) animated:false];
-    [keyboardControls.activeField resignFirstResponder];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(userLoginAsGuest) withObject:nil afterDelay:.1];
+    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [self.keyboardControls.activeField resignFirstResponder];
+//    [myDelegate showIndicator];
+//    [self performSelector:@selector(userLoginAsGuest) withObject:nil afterDelay:.1];
 }
 
 //Privacy policy, terms & condition and login tap gesture handler
@@ -238,7 +238,7 @@
 }
 #pragma mark - end
 
-#pragma mark - SignUp validation
+#pragma mark - Login validation
 - (BOOL)performValidationsForLogin {
     if ([emailTextField isEmpty] || [passwordTextField isEmpty] ) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];

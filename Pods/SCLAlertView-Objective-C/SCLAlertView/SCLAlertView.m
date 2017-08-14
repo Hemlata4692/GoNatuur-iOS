@@ -371,7 +371,7 @@ SCLTimerDisplay *buttonTimer;
     for (SCLButton *btn in _buttons)
     {
         btn.frame = CGRectMake(x, y, btn.frame.size.width, btn.frame.size.height);
-        
+        btn.layer.cornerRadius=0.0;
         // Add horizontal or vertical offset acording on _horizontalButtons parameter
         if (_horizontalButtons) {
             x += btn.frame.size.width + 10.0f;
@@ -831,43 +831,43 @@ SCLTimerDisplay *buttonTimer;
     
     // Icon style
     switch (style)
-    {
+    {//182,36,70
         case SCLAlertViewStyleSuccess:
-            viewColor = UIColorFromHEX(0x22B573);
+            viewColor = UIColorFromHEX(0xB62446);
             iconImage = SCLAlertViewStyleKit.imageOfCheckmark;
             break;
             
         case SCLAlertViewStyleError:
-            viewColor = UIColorFromHEX(0xC1272D);
+            viewColor = UIColorFromHEX(0xB62446);
             iconImage = SCLAlertViewStyleKit.imageOfCross;
             break;
             
         case SCLAlertViewStyleNotice:
-            viewColor = UIColorFromHEX(0x727375);
+            viewColor = UIColorFromHEX(0xB62446);
             iconImage = SCLAlertViewStyleKit.imageOfNotice;
             break;
             
         case SCLAlertViewStyleWarning:
-            viewColor = UIColorFromHEX(0xFFD110);
-            iconImage = SCLAlertViewStyleKit.imageOfWarning;
+            viewColor = UIColorFromHEX(0xB62446);
+            iconImage = SCLAlertViewStyleKit.imageOfInfo;
             break;
             
         case SCLAlertViewStyleInfo:
-            viewColor = UIColorFromHEX(0x2866BF);
+            viewColor = UIColorFromHEX(0xB62446);
             iconImage = SCLAlertViewStyleKit.imageOfInfo;
             break;
             
         case SCLAlertViewStyleEdit:
-            viewColor = UIColorFromHEX(0xA429FF);
+            viewColor = UIColorFromHEX(0xB62446);
             iconImage = SCLAlertViewStyleKit.imageOfEdit;
             break;
             
         case SCLAlertViewStyleWaiting:
-            viewColor = UIColorFromHEX(0x6c125d);
+            viewColor = UIColorFromHEX(0xB62446);
             break;
             
         case SCLAlertViewStyleQuestion:
-            viewColor = UIColorFromHEX(0x727375);
+            viewColor = UIColorFromHEX(0xB62446);
             iconImage = SCLAlertViewStyleKit.imageOfQuestion;
             break;
             
@@ -978,7 +978,7 @@ SCLTimerDisplay *buttonTimer;
     {
         if (style == SCLAlertViewStyleWarning)
         {
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
         
         if (!btn.defaultBackgroundColor) {

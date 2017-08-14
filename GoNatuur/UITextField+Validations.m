@@ -11,7 +11,6 @@
 @implementation UITextField (Validations)
 
 - (BOOL)isEmpty {
-    
     return ([self.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) ? YES : NO;
 }
 

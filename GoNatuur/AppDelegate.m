@@ -81,6 +81,7 @@
     }
     
     //[self registerForRemoteNotification];
+    selectedCategoryIndex=-1;
     return YES;
 }
 
@@ -173,7 +174,6 @@
 #pragma mark - Facebook open url connection
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url
                                                 sourceApplication:sourceApplication
@@ -186,16 +186,13 @@
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary *)options {
-    
     if (selectedLoginType==FacebookLogin) {
-        
         return [[FBSDKApplicationDelegate sharedInstance] application:app
                                                               openURL:url
                                                     sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
                                                            annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
     }
     else {
-        
         return [[GIDSignIn sharedInstance] handleURL:url
                                    sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
                                           annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];

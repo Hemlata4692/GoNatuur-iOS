@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define kCellsPerRow 3
 typedef NS_ENUM (NSInteger, ConstantType){
     FacebookLogin,
     WeChatLogin,

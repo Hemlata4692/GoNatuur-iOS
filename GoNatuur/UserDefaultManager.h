@@ -11,7 +11,4 @@
 + (void)setValue : (id)value key :(NSString *)key;
 + (id)getValue : (NSString *)key;
 + (void)removeValue : (NSString *)key;
-+ (void)setDictValue:(int)progressStep totalCount:(int)totalCount;
-+ (void)setAnswerFileSize:(double )size;
-+ (void)setScreenSubmission:(NSString *)isAnsweredAllQuestion;
 @end

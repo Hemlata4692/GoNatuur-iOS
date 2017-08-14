@@ -18,6 +18,6 @@
 }
 
 @property (nonatomic,strong) id <CategorySliderDelegate>delegate;
-
+@property (nonatomic, strong) NSMutableArray *categoryDataArray;
 @property (strong, nonatomic) IBOutlet UICollectionView *categorySliderCollectionView;
 @end
