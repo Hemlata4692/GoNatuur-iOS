@@ -11,7 +11,6 @@
 @implementation UITextField (Validations)
 
 - (BOOL)isEmpty {
-    
     return ([self.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0) ? YES : NO;
 }
 
@@ -26,6 +25,23 @@
     @"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
     return [emailTest evaluateWithObject:self.text];
+}
+
+- (BOOL)isValidPassword {
+    //At least 1 Uppercase Alphabet, 1 Lowercase Alphabet, 1 Number and 1 Special Character:
+    if (![self.text rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:NSLocalizedText(@"specialCharacter")]].length) {
+        return false;
+    }
+    if (![self.text rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:NSLocalizedText(@"upperCaseCharacter")]].length) {
+        return false;
+    }
+    if (![self.text rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:NSLocalizedText(@"lowerCaseCharacter")]].length) {
+        return false;
+    }
+    if (![self.text rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:NSLocalizedText(@"numberCharacter")]].length) {
+        return false;
+    }
+    return true;
 }
 
 - (BOOL)isValidURL {

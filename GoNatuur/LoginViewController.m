@@ -11,7 +11,6 @@
 #import "SignUpViewController.h"
 #import "SocialLoginViewController.h"
 #import "BSKeyboardControls.h"
-#import "UIView+RoundedCorner.h"
 #import "UITextField+Validations.h"
 #import "UITextField+Padding.h"
 
@@ -19,6 +18,7 @@
     UITextField *currentSelectedTextField;
     float loginBackViewY;
     int isSocialLogin;
+    float mainViewHeight;
 }
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -31,6 +31,13 @@
 @end
 
 @implementation LoginViewController
+@synthesize scrollView;
+@synthesize mainView;
+@synthesize loginBackView;
+@synthesize emailTextField;
+@synthesize passwordTextField;
+@synthesize registerLabel;
+@synthesize keyboardControls;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -76,43 +83,55 @@
 - (void)integrateSocialLoginView {
     SocialLoginViewController *obj = [[SocialLoginViewController alloc] initWithNibName:@"SocialLoginViewController" bundle:nil];
     obj.view.translatesAutoresizingMaskIntoConstraints=YES;
-    obj.view.frame=CGRectMake(60, loginBackViewY, [[UIScreen mainScreen] bounds].size.width-120, 174);
+    obj.view.frame=CGRectMake(13, loginBackViewY, [[UIScreen mainScreen] bounds].size.width-26, 212);
+    obj.fbText=@"Log in with Facebook";
+    obj.weChatText=@"Log in with WeChat account";
+    obj.wieboText=@"Log in with Wiebo";
+    obj.googlPlusText=@"Log in with google plus";
     obj.delegate=self;
     [self addChildViewController:obj];
-    [self.mainView addSubview:obj.view];
+    [mainView addSubview:obj.view];
     [obj didMoveToParentViewController:self];
 }
 
 - (void)initializedView {
     isSocialLogin=0;
-    loginBackViewY=(([[UIScreen mainScreen] bounds].size.height/2.0)-(417.0/2.0))+65.0;
-    self.mainView.translatesAutoresizingMaskIntoConstraints=true;
-    self.mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
+    float scaleFactor = [[UIScreen mainScreen]bounds].size.height/568.0;
+    loginBackViewY=100*scaleFactor;
+    mainViewHeight=loginBackViewY+540.0;
+    if (mainViewHeight<=[[UIScreen mainScreen]bounds].size.height) {
+        mainViewHeight=[[UIScreen mainScreen]bounds].size.height;
+    }
+    loginBackView.translatesAutoresizingMaskIntoConstraints=true;
+    loginBackView.frame=CGRectMake(13, loginBackViewY, [[UIScreen mainScreen] bounds].size.width-26, 500);
+    mainView.translatesAutoresizingMaskIntoConstraints=true;
+    mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, mainViewHeight);
+    scrollView.contentSize = CGSizeMake(0,mainView.frame.size.height);
     //Set privacy policy attributed text
     [self setAttributString];
     [self customizedTextField];
 }
 
 - (void)setAttributString {
-    NSString *str=@"If you are a new uesr, you can Register an account with us and start shopping with GoPurpose.";
+    NSString *str=NSLocalizedText(@"loginNewUserText");
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
     NSRange registerTextRange = [str rangeOfString:@"Register"];
-    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont helveticaNeueMediumWithSize:11], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:registerTextRange];
-    self.registerLabel.attributedText=string;
+    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:registerTextRange];
+    registerLabel.attributedText=string;
     //Add tap gesture at label
-    self.registerLabel.userInteractionEnabled = YES;
-    [self.registerLabel addGestureRecognizer: [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnLabel:)]];
+    registerLabel.userInteractionEnabled = YES;
+    [registerLabel addGestureRecognizer: [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnLabel:)]];
 }
 
 - (void)customizedTextField {
     //Add textfield to keyboard controls array
-    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[self.emailTextField, self.passwordTextField]]];
-    [self.keyboardControls setDelegate:self];
+    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[emailTextField, passwordTextField]]];
+    [keyboardControls setDelegate:self];
     //Add text field border and padding
-    [self.emailTextField setTextBorder:self.emailTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
-    [self.passwordTextField setTextBorder:self.passwordTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
-    [self.emailTextField addTextFieldLeftRightPadding:self.emailTextField];
-    [self.passwordTextField addTextFieldLeftRightPadding:self.passwordTextField];
+    [emailTextField setTextBorder:emailTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
+    [passwordTextField setTextBorder:passwordTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
+    [emailTextField addTextFieldLeftRightPadding:emailTextField];
+    [passwordTextField addTextFieldLeftRightPadding:passwordTextField];
 }
 #pragma mark - end
 
@@ -123,19 +142,19 @@
 }
 
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls {
-    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [keyboardControls.activeField resignFirstResponder];
 }
 #pragma mark - end
 
 #pragma mark - Textfield delegates
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self.keyboardControls setActiveField:textField];
+    [keyboardControls setActiveField:textField];
     currentSelectedTextField=textField;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [textField resignFirstResponder];
     return YES;
 }
@@ -144,24 +163,23 @@
     //Set field position after show keyboard
     NSDictionary* info = [notification userInfo];
     NSValue *aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
-    loginBackViewY=(([[UIScreen mainScreen] bounds].size.height/2.0)-(417.0/2.0))+65.0;
     //Set condition according to check if current selected textfield is behind keyboard
     if (loginBackViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height<([UIScreen mainScreen].bounds.size.height)-[aValue CGRectValue].size.height) {
-        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
     else {
-        [self.scrollView setContentOffset:CGPointMake(0, ((loginBackViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height)- ([UIScreen mainScreen].bounds.size.height-[aValue CGRectValue].size.height))+10) animated:NO];
+        [scrollView setContentOffset:CGPointMake(0, ((loginBackViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height)- ([UIScreen mainScreen].bounds.size.height-[aValue CGRectValue].size.height))+10) animated:NO];
     }
     //Change content size of scroll view if current selected textfield is behind keyboard
-    if ([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(loginBackViewY+self.passwordTextField.frame.origin.y+self.passwordTextField.frame.size.height))>0) {
+    if ([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(loginBackViewY+passwordTextField.frame.origin.y+passwordTextField.frame.size.height))>0) {
         
-        self.scrollView.contentSize = CGSizeMake(0,[UIScreen mainScreen].bounds.size.height+([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(loginBackViewY+self.passwordTextField.frame.origin.y+self.passwordTextField.frame.size.height))) + 150);
+        scrollView.contentSize = CGSizeMake(0,[UIScreen mainScreen].bounds.size.height+([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(loginBackViewY+passwordTextField.frame.origin.y+passwordTextField.frame.size.height))) + 150);
     }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    self.scrollView.contentSize = CGSizeMake(0,self.mainView.frame.size.height);
-    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    scrollView.contentSize = CGSizeMake(0,mainView.frame.size.height);
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 #pragma mark - end
 
@@ -169,46 +187,47 @@
 - (IBAction)login:(id)sender {
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     [self.keyboardControls.activeField resignFirstResponder];
-    UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-    [myDelegate.window setRootViewController:objReveal];
-    [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
-    [myDelegate.window makeKeyAndVisible];
-    //Perform signUp validations
-//    if([self performValidationsForLogin]) {
-//        isSocialLogin=0;
-////        [myDelegate showIndicator];
-////        [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
-//    }
+    //Perform login validations
+    if([self performValidationsForLogin]) {
+        [myDelegate showIndicator];
+        isSocialLogin=0;
+        [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
+    }
 }
 
 - (IBAction)forgotPassword:(UIButton *)sender {
-    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:false];
 }
 
 - (IBAction)skipAndContinue:(UIButton *)sender {
     [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [self.keyboardControls.activeField resignFirstResponder];
+//    [myDelegate showIndicator];
+//    [self performSelector:@selector(userLoginAsGuest) withObject:nil afterDelay:.1];
 }
 
 //Privacy policy, terms & condition and login tap gesture handler
 - (void)handleTapOnLabel:(UITapGestureRecognizer *)recognizer {
-    CGPoint location = [recognizer locationInView:self.registerLabel];
+    CGPoint location = [recognizer locationInView:registerLabel];
     CGPoint position = CGPointMake(location.x, location.y);
     
     if ([ConstantCode checkDeviceType] == Device5s) {
-        if (position.y<15.0 && position.x>115.0 && position.x<158.0) {
+        if (position.y>6.5 && position.y<22.0 && position.x>184.0 && position.x<245.0) {
             [self signUp];
         }
     }
     else if ([ConstantCode checkDeviceType] == Device6) {
-        if (position.y<12.0 && position.x>123.0 && position.x<194.0) {
+        if (position.y>16 && position.y<32.0 && position.x>188.0 && position.x<245.0) {
             [self signUp];
         }
     }
     else {
-        if (position.y>4.0 && position.y<16.0 && position.x>128.0 && position.x<198.0) {
+        if (position.y>12.0 && position.y<30.0 && position.x>184.0 && position.x<245.0) {
             [self signUp];
         }
     }
+    DLog(@"%f, %f", position.x, position.y);
 }
 
 - (void)signUp {
@@ -219,16 +238,16 @@
 }
 #pragma mark - end
 
-#pragma mark - SignUp validation
+#pragma mark - Login validation
 - (BOOL)performValidationsForLogin {
-    if ([self.emailTextField isEmpty] || [self.passwordTextField isEmpty] ) {
+    if ([emailTextField isEmpty] || [passwordTextField isEmpty] ) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:@"Alert" subTitle:@"Please fill in all the required fields." closeButtonTitle:@"Ok" duration:0.0f];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     }
-    else if (![self.emailTextField isValidEmail]) {
+    else if (![emailTextField isValidEmail]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:@"Alert" subTitle:@"Please enter a valid email address." closeButtonTitle:@"Ok" duration:0.0f];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validEmailMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     }
     else {
@@ -254,18 +273,19 @@
 //User login webservice called
 - (void)userLogin {
     LoginModel *userLogin = [LoginModel sharedUser];
-    userLogin.email = self.emailTextField.text;
-    userLogin.password = self.passwordTextField.text;
+    userLogin.email = emailTextField.text;
+    userLogin.password = passwordTextField.text;
     userLogin.isSocialLogin=[NSNumber numberWithInt:isSocialLogin];
-    userLogin.countryCode=@"";
     [userLogin loginUserOnSuccess:^(LoginModel *userData) {
         if (nil==[UserDefaultManager getValue:@"deviceToken"]||NULL==[UserDefaultManager getValue:@"deviceToken"]) {
             [myDelegate stopIndicator];
+            //Navigate user to dashboard
+            [self navigateToDashboard];
         }
         else{
             [self saveDeviceToken];
         }
-//        Navigate user to dashboard
+
     } onfailure:^(NSError *error) {
         
     }];
@@ -276,16 +296,41 @@
     LoginModel *saveDeviceToken = [LoginModel sharedUser];
     [saveDeviceToken saveDeviceToken:^(LoginModel *deviceToken) {
         [myDelegate stopIndicator];
+        [self navigateToDashboard];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)userLoginAsGuest {
+    LoginModel *userLogin = [LoginModel sharedUser];
+    [userLogin loginGuestUserOnSuccess:^(LoginModel *userData) {
+        [myDelegate stopIndicator];
+        // Navigate user to dashboard
+        [self navigateToDashboard];
     } onfailure:^(NSError *error) {
         
     }];
 }
 #pragma mark - end
 
+#pragma mark - Navigate to dashboard
+- (void)navigateToDashboard {
+    UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+    [myDelegate.window setRootViewController:objReveal];
+    [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+    [myDelegate.window makeKeyAndVisible];
+}
+#pragma mark - end
+
 #pragma mark - Social login xib delegate method
 - (void)socialLoginResponse:(ConstantType)option result:(NSDictionary *)result {
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [keyboardControls.activeField resignFirstResponder];
     isSocialLogin=1;
-    DLog(@"email:%@  userId:%@", [result objectForKey:@"email"],[result objectForKey:@"id"]);
+    emailTextField.text=[result objectForKey:@"email"];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
 }
 #pragma mark - end
 @end

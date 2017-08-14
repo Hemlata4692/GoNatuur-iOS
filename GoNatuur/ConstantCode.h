@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define kCellsPerRow 3
 typedef NS_ENUM (NSInteger, ConstantType){
     FacebookLogin,
     WeChatLogin,
@@ -20,6 +21,10 @@ typedef NS_ENUM (NSInteger, ConstantType){
 };
 
 @interface ConstantCode : NSObject
+//Set constant values
+extern NSString * const iOS_Version;
+//end
 
 + (ConstantType)checkDeviceType;
++ (NSString *)localeCountryCode;
 @end

@@ -8,30 +8,54 @@
 
 #import "SearchViewController.h"
 
-@interface SearchViewController ()
+@interface SearchViewController () {
+    NSMutableArray *searchArray;
+}
+@property (weak, nonatomic) IBOutlet UITableView *searchTableView;
+@property (weak, nonatomic) IBOutlet UIView *searchView;
+@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 
 @end
 
 @implementation SearchViewController
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    searchArray=[[NSMutableArray alloc]init];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - end
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - IBActions
+- (IBAction)backButtonAction:(id)sender {
 }
-*/
+- (IBAction)cancelButtonAction:(id)sender {
+}
+#pragma mark - end
+
+#pragma mark - Table view data source and delgate methods
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *CellIdentifier = @"searchCell";
+    UITableViewCell *searchCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UILabel *seacrhTextLabel=(UILabel *) [searchCell viewWithTag:1];
+    seacrhTextLabel.text=@"hjshcwjcoewivjujk kiklo";
+    return searchCell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+#pragma mark - end
 
 @end

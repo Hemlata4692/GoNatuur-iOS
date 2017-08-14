@@ -12,7 +12,6 @@
 #import <GoogleSignIn/GoogleSignIn.h>
 #import <UserNotifications/UserNotifications.h>
 
-
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>{
@@ -26,6 +25,8 @@
 @synthesize selectedLoginType;
 @synthesize deviceToken;
 @synthesize selectedCategoryIndex;
+@synthesize navigationController;
+@synthesize spinnerView;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -38,20 +39,20 @@
     loaderView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.window.bounds.size.width, self.window.bounds.size.height)];
     loaderView.backgroundColor=[UIColor colorWithRed:63.0/255.0 green:63.0/255.0 blue:63.0/255.0 alpha:0.3];
     [loaderView addSubview:spinnerBackground];
-    self.spinnerView = [[MMMaterialDesignSpinner alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    self.spinnerView.tintColor = [UIColor colorWithRed:144.0/255.0 green:187.0/255.0 blue:62.0/255.0 alpha:1.0];
-    self.spinnerView.center = CGPointMake(CGRectGetMidX(self.window.bounds), CGRectGetMidY(self.window.bounds));
-    self.spinnerView.lineWidth=3.0f;
+    spinnerView = [[MMMaterialDesignSpinner alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    spinnerView.tintColor = [UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0];
+    spinnerView.center = CGPointMake(CGRectGetMidX(self.window.bounds), CGRectGetMidY(self.window.bounds));
+    spinnerView.lineWidth=3.0f;
     [self.window addSubview:loaderView];
-    [self.window addSubview:self.spinnerView];
-    [self.spinnerView startAnimating];
+    [self.window addSubview:spinnerView];
+    [spinnerView startAnimating];
 }
 
 //Stop indicator
 - (void)stopIndicator {
     [loaderView removeFromSuperview];
-    [self.spinnerView removeFromSuperview];
-    [self.spinnerView stopAnimating];
+    [spinnerView removeFromSuperview];
+    [spinnerView stopAnimating];
 }
 #pragma mark - end
 
@@ -61,15 +62,26 @@
     //Set navigation bar color
 //    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 //    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.0/255.0 green:58.0/255.0 blue:78.0/255.0 alpha:1.0]];
-   [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Montserrat-Medium" size:20.0], NSFontAttributeName, nil]];
+    
+   [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont montserratMediumWithSize:20], NSFontAttributeName, nil]];
     
     selectedLoginType=FacebookLogin;
-    
     //Connect appdelegate to facebook delegate
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    navigationController = (UINavigationController *)[self.window rootViewController];
+    if (nil!=[UserDefaultManager getValue:@"userId"]) {
+        UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        [self.window setRootViewController:objReveal];
+        [self.window setBackgroundColor:[UIColor whiteColor]];
+        [self.window makeKeyAndVisible];
+    }
+    
     //[self registerForRemoteNotification];
+    selectedCategoryIndex=-1;
     return YES;
 }
 
@@ -98,7 +110,7 @@
 
 #pragma mark - Notification Registration
 - (void)registerForRemoteNotification {
-    if(SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0")) {
+    if(SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(iOS_Version)) {
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         center.delegate = self;
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
@@ -111,6 +123,10 @@
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
+}
+
+- (void)unregisterForRemoteNotifications {
+    [[UIApplication sharedApplication] unregisterForRemoteNotifications];
 }
 #pragma mark - end
 
@@ -150,7 +166,7 @@
     }
 }
 - (void)showNotificationAlert:(NSString *)message {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedText(@"alertTitle") message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedText(@"alertOk"), nil];
     [alert show];
 }
 #pragma mark - end
@@ -158,7 +174,6 @@
 #pragma mark - Facebook open url connection
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url
                                                 sourceApplication:sourceApplication
@@ -171,16 +186,13 @@
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary *)options {
-    
     if (selectedLoginType==FacebookLogin) {
-        
         return [[FBSDKApplicationDelegate sharedInstance] application:app
                                                               openURL:url
                                                     sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
                                                            annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
     }
     else {
-        
         return [[GIDSignIn sharedInstance] handleURL:url
                                    sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
                                           annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];

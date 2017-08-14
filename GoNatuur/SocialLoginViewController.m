@@ -19,17 +19,31 @@
 @end
 
 @implementation SocialLoginViewController
+@synthesize fbText, wieboText, weChatText, googlPlusText;
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+  
+    [self.loginWithFaceBookButton setTitle:fbText forState:UIControlStateNormal];
+    [self.loginWithWeChatButton setTitle:weChatText forState:UIControlStateNormal];
+    [self.loginWithWieboButton setTitle:wieboText forState:UIControlStateNormal];
+    [self.loginWithGoogleButton setTitle:googlPlusText forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - end
 
+#pragma mark - IBActions
 - (IBAction)loginWithFaceBook:(id)sender {
     myDelegate.selectedLoginType=FacebookLogin;
     //Need to login with FB
@@ -52,6 +66,7 @@
     [GIDSignIn sharedInstance].uiDelegate = self;
     [gmailConnect gmailLoginWithPermission:self NSString:kClientID];
 }
+#pragma mark - end
 
 #pragma mark - Login with facebook delegate method
 //Facebook delegate method to fetch user data
@@ -69,11 +84,11 @@
         DLog(@"facebookUserLastName: %@",[fbResult objectForKey:@"last_name"]);
         DLog(@"facebookUserGender: %@",[fbResult objectForKey:@"gender"]);
         DLog(@"facebookUserFriendCount: %@",[[[fbResult objectForKey:@"friends"] objectForKey:@"summary"] objectForKey:@"total_count"]);
-        [_delegate socialLoginResponse:FacebookLogin result:@{@"email":[fbResult objectForKey:@"email"], @"id":[fbResult objectForKey:@"id"]}];
+        [_delegate socialLoginResponse:FacebookLogin result:@{@"email":[fbResult objectForKey:@"email"], @"id":[fbResult objectForKey:@"id"],@"firstName":([fbResult objectForKey:@"first_name"]!=nil?[fbResult objectForKey:@"first_name"]:@""),@"lastName":([fbResult objectForKey:@"last_name"]!=nil?[fbResult objectForKey:@"last_name"]:@"")}];
     }
     else {
-        //        [myDelegate stopIndicator];
-        //Show alert if error occured
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrondMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
     }
 }
 #pragma mark - end
@@ -83,19 +98,21 @@
 - (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)gmailResult withError:(NSError *)error {
     //Logout user from gmail
     [[GIDSignIn sharedInstance] signOut];
-    //Fetch user data
-    DLog(@"gmail userId is %@", gmailResult.userID);
-    DLog(@"gmail name is %@", gmailResult.profile.name);
-    DLog(@"gmail email is %@", gmailResult.profile.email);
-    DLog(@"gmail has image is %d", gmailResult.profile.hasImage);
-    if (gmailResult.profile.hasImage) {
-        NSURL *ImageURL = [gmailResult.profile imageURLWithDimension:200];
-        DLog(@"user image URL : %@",ImageURL);
+    if (gmailResult!=nil) {
+        //Fetch user data
+        DLog(@"gmail userId is %@", gmailResult.userID);
+        DLog(@"gmail name is %@", gmailResult.profile.name);
+        DLog(@"gmail email is %@", gmailResult.profile.email);
+        DLog(@"gmail has image is %d", gmailResult.profile.hasImage);
+        if (gmailResult.profile.hasImage) {
+            NSURL *ImageURL = [gmailResult.profile imageURLWithDimension:200];
+            DLog(@"user image URL : %@",ImageURL);
+        }
+        DLog(@"gmail given name is %@", gmailResult.profile.givenName);
+        DLog(@"gmail family name is %@", gmailResult.profile.familyName);
+        DLog(@"gmail auth token is %@", gmailResult.authentication.idToken);
+        [_delegate socialLoginResponse:FacebookLogin result:@{@"email":gmailResult.profile.email, @"id":gmailResult.userID,@"firstName":(gmailResult.profile.givenName!=nil?gmailResult.profile.givenName:@""),@"lastName":(gmailResult.profile.familyName!=nil?gmailResult.profile.familyName:@"")}];
     }
-    DLog(@"gmail given name is %@", gmailResult.profile.givenName);
-    DLog(@"gmail family name is %@", gmailResult.profile.familyName);
-    DLog(@"gmail auth token is %@", gmailResult.authentication.idToken);
-    [_delegate socialLoginResponse:FacebookLogin result:@{@"email":gmailResult.profile.email, @"id":gmailResult.userID}];
 }
 #pragma mark - end
 

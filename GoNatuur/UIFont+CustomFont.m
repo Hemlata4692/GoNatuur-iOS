@@ -34,4 +34,19 @@
     UIFont *font=[UIFont fontWithName:@"HelveticaNeue-Medium" size:size];
     return font;
 }
+
++ (UIFont*)montserratMediumWithSize:(int)size {
+    UIFont *font=[UIFont fontWithName:@"Montserrat-Medium" size:size];
+    return font;
+}
+
++ (UIFont*)montserratRegularWithSize:(int)size {
+    UIFont *font=[UIFont fontWithName:@"Montserrat-Regular" size:size];
+    return font;
+}
+
++ (UIFont*)montserratLightWithSize:(int)size {
+    UIFont *font=[UIFont fontWithName:@"Montserrat-Light" size:size];
+    return font;
+}
 @end

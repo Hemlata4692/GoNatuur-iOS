@@ -19,6 +19,8 @@
 @end
 
 @implementation GoNatuurViewController
+@synthesize categorySliderObjc;
+
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -58,7 +60,7 @@
 #pragma mark - Add category slider
 - (void)addCategorySlideView {
     //Load category slider xib
-    CategorySliderViewController *categorySliderObjc = [[CategorySliderViewController alloc] initWithNibName:@"CategorySliderViewController" bundle:nil];
+     categorySliderObjc = [[CategorySliderViewController alloc] initWithNibName:@"CategorySliderViewController" bundle:nil];
     categorySliderObjc.view.translatesAutoresizingMaskIntoConstraints=YES;
     //Under top and bottom bar is enable then 64+ is not needed else use 64+
     categorySliderObjc.view.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 64+40);//Height 64(fixed)+46(original height)

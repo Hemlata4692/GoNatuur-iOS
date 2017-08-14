@@ -24,15 +24,10 @@
     textView.layer.borderWidth = 1.0f;
     textView.layer.borderColor = color.CGColor;
 }
-//set view border
-- (void)setViewBorder: (UIView *)view  color:(UIColor *)color {
-    view.layer.borderColor =color.CGColor;
-    view.layer.borderWidth = 1.5f;
-}
 //set label border
-- (void)setBorder: (UIView *)view  color:(UIColor *)color {
+- (void)setBorder:(UIView *)view  color:(UIColor *)color borderWidth:(CGFloat)borderWidth{
     view.layer.borderColor =color.CGColor;
-    view.layer.borderWidth = 1.0f;
+    view.layer.borderWidth = borderWidth;
 }
 //set bottom border only
 - (void)setBottomBorder: (UIView *)view color:(UIColor *)color {
@@ -44,9 +39,9 @@
 //add shadow
 - (void)addShadow: (UIView *)view color:(UIColor *)color {
     view.layer.shadowColor =color.CGColor;
-    view.layer.shadowOffset = CGSizeMake(1, 1);
-    view.layer.shadowOpacity = 1;
-    view.layer.shadowRadius = 2.0;
+    view.layer.shadowOffset = CGSizeMake(1.0, 1.0);
+    view.layer.shadowOpacity = 1.0;
+    view.layer.shadowRadius = 3.0;
 }
 //add shadow with corner radius
 - (void)addShadowWithCornerRadius: (UIView *)_myView color:(UIColor *)color borderColor:(UIColor *)borderColor radius:(CGFloat)radius {
