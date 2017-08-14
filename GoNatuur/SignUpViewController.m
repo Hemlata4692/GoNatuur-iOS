@@ -35,12 +35,21 @@
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
 @property (strong, nonatomic) IBOutlet UILabel *privacyPolicyLoginLabel;
-
 //Declare BSKeyboard variable
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
 @end
 
 @implementation SignUpViewController
+@synthesize scrollView;
+@synthesize mainView;
+@synthesize swipeImageView;
+@synthesize signUpBackView;
+@synthesize pageControl;
+@synthesize emailTextField;
+@synthesize passwordTextField;
+@synthesize confirmPasswordTextField;
+@synthesize privacyPolicyLoginLabel;
+@synthesize keyboardControls;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -92,19 +101,19 @@
     obj.googlPlusText=@"Sign up with google plus";
     obj.delegate=self;
     [self addChildViewController:obj];
-    [self.mainView addSubview:obj.view];
+    [mainView addSubview:obj.view];
     [obj didMoveToParentViewController:self];
 }
 
 - (void)initializedView {
     
-    self.pageControl.transform = CGAffineTransformMakeScale(1.4, 1.4);
+    pageControl.transform = CGAffineTransformMakeScale(1.4, 1.4);
     swipeImageArray = @[@"SwipeImage.png", @"SwipeImage.png", @"SwipeImage.png", @"SwipeImage.png"];
-    self.pageControl.numberOfPages = [swipeImageArray count];
+    pageControl.numberOfPages = [swipeImageArray count];
     pageCounter = currentSelectedImage;
-    self.pageControl.currentPage = pageCounter;
-    self.swipeImageView.image=[UIImage imageNamed:[swipeImageArray objectAtIndex:pageCounter]];
-    self.swipeImageView.userInteractionEnabled = YES;
+    pageControl.currentPage = pageCounter;
+    swipeImageView.image=[UIImage imageNamed:[swipeImageArray objectAtIndex:pageCounter]];
+    swipeImageView.userInteractionEnabled = YES;
     
     //Swipe gesture to swipe images to left
     UISwipeGestureRecognizer *swipeImageLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeIntroImageLeft)];
@@ -121,9 +130,9 @@
 
     float scaleFactor = [[UIScreen mainScreen]bounds].size.height/568.0;
     signUpBackViewY=42+(scaleFactor*128.0)+28;
-    self.mainView.translatesAutoresizingMaskIntoConstraints=true;
-    self.mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, signUpBackViewY+538.0);
-    self.scrollView.contentSize = CGSizeMake(0,self.mainView.frame.size.height);
+    mainView.translatesAutoresizingMaskIntoConstraints=true;
+    mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, signUpBackViewY+538.0);
+    scrollView.contentSize = CGSizeMake(0,mainView.frame.size.height);
     //Set privacy policy attributed text
     [self setAttributString];
     [self customizedTextField];
@@ -139,23 +148,23 @@
     [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:policyTextRange];
     NSRange logInTextRange = [str rangeOfString:@"Log In"];
     [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:logInTextRange];
-    self.privacyPolicyLoginLabel.attributedText=string;
+    privacyPolicyLoginLabel.attributedText=string;
     //Add tap gesture at UiLabel
-    self.privacyPolicyLoginLabel.userInteractionEnabled = YES;
-    [self.privacyPolicyLoginLabel addGestureRecognizer: [[UITapGestureRecognizer alloc] initWithTarget:self
+    privacyPolicyLoginLabel.userInteractionEnabled = YES;
+    [privacyPolicyLoginLabel addGestureRecognizer: [[UITapGestureRecognizer alloc] initWithTarget:self
                                              action:@selector(handleTapOnLabel:)]];
 }
 
 - (void)customizedTextField {
     //Adding textfield to keyboard controls array
-    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[self.emailTextField, self.passwordTextField, self.confirmPasswordTextField]]];
-    [self.keyboardControls setDelegate:self];
-    [self.emailTextField setTextBorder:self.emailTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
-    [self.passwordTextField setTextBorder:self.passwordTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
-    [self.confirmPasswordTextField setTextBorder:self.confirmPasswordTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
-    [self.emailTextField addTextFieldLeftRightPadding:self.emailTextField];
-    [self.passwordTextField addTextFieldLeftRightPadding:self.passwordTextField];
-    [self.confirmPasswordTextField addTextFieldLeftRightPadding:self.confirmPasswordTextField];
+    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[emailTextField, passwordTextField, confirmPasswordTextField]]];
+    [keyboardControls setDelegate:self];
+    [emailTextField setTextBorder:emailTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
+    [passwordTextField setTextBorder:passwordTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
+    [confirmPasswordTextField setTextBorder:confirmPasswordTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
+    [emailTextField addTextFieldLeftRightPadding:emailTextField];
+    [passwordTextField addTextFieldLeftRightPadding:passwordTextField];
+    [confirmPasswordTextField addTextFieldLeftRightPadding:confirmPasswordTextField];
 }
 #pragma mark - end
 
@@ -166,19 +175,19 @@
 }
 
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls {
-    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [keyboardControls.activeField resignFirstResponder];
 }
 #pragma mark - end
 
 #pragma mark - Textfield delegates
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self.keyboardControls setActiveField:textField];
+    [keyboardControls setActiveField:textField];
     currentSelectedTextField=textField;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [textField resignFirstResponder];
     return YES;
 }
@@ -190,29 +199,29 @@
     
     //Set condition according to check if current selected textfield is behind keyboard
     if (signUpBackViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height<([UIScreen mainScreen].bounds.size.height)-[aValue CGRectValue].size.height) {
-        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
     else {
-        [self.scrollView setContentOffset:CGPointMake(0, ((signUpBackViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height)- ([UIScreen mainScreen].bounds.size.height-[aValue CGRectValue].size.height))+10) animated:NO];
+        [scrollView setContentOffset:CGPointMake(0, ((signUpBackViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height)- ([UIScreen mainScreen].bounds.size.height-[aValue CGRectValue].size.height))+10) animated:NO];
     }
     
     //Change content size of scroll view if current selected textfield is behind keyboard
-    if ([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(signUpBackViewY+self.confirmPasswordTextField.frame.origin.y+self.confirmPasswordTextField.frame.size.height))>0) {
+    if ([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(signUpBackViewY+confirmPasswordTextField.frame.origin.y+confirmPasswordTextField.frame.size.height))>0) {
         
-        self.scrollView.contentSize = CGSizeMake(0,[UIScreen mainScreen].bounds.size.height+([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(signUpBackViewY+self.confirmPasswordTextField.frame.origin.y+self.confirmPasswordTextField.frame.size.height))) + 150);
+        scrollView.contentSize = CGSizeMake(0,[UIScreen mainScreen].bounds.size.height+([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(signUpBackViewY+confirmPasswordTextField.frame.origin.y+confirmPasswordTextField.frame.size.height))) + 150);
     }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    self.scrollView.contentSize = CGSizeMake(0,self.mainView.frame.size.height);
-    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    scrollView.contentSize = CGSizeMake(0,mainView.frame.size.height);
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 #pragma mark - end
 
 #pragma mark - IBActions
 - (IBAction)createAccount:(UIButton *)sender {
-    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
-    [self.keyboardControls.activeField resignFirstResponder];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [keyboardControls.activeField resignFirstResponder];
     
     //Perform signUp validations
     if([self performValidationsForSignUp]) {
@@ -225,15 +234,15 @@
 }
 
 - (IBAction)skipAndContinue:(UIButton *)sender {
-    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
-    [self.keyboardControls.activeField resignFirstResponder];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [keyboardControls.activeField resignFirstResponder];
     [myDelegate showIndicator];
     [self performSelector:@selector(userLoginAsGuest) withObject:nil afterDelay:.1];
 }
 
 //Privacy policy, terms & condition and login tap gesture handler
 - (void)handleTapOnLabel:(UITapGestureRecognizer *)recognizer {
-    CGPoint location = [recognizer locationInView:self.privacyPolicyLoginLabel];
+    CGPoint location = [recognizer locationInView:privacyPolicyLoginLabel];
     CGPoint position = CGPointMake(location.x, location.y);
     
     if ([ConstantCode checkDeviceType] == Device5s) {
@@ -274,7 +283,7 @@
 
 //Privacy policy, termCondition and login click action
 - (void)privacyPolicy {
-    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("Privacy");
     CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
     obj.isPrivacyPolicy=true;
@@ -282,7 +291,7 @@
 }
 
 - (void)termsNCondition {
-    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("termsNCondition");
     CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
     obj.isPrivacyPolicy=false;
@@ -290,7 +299,7 @@
 }
 
 - (void)logIn {
-    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     [self.navigationController popViewControllerAnimated:true];
     DLog("logIn");
 }
@@ -298,23 +307,28 @@
 
 #pragma mark - SignUp validation
 - (BOOL)performValidationsForSignUp {
-    if ([self.emailTextField isEmpty] || [self.passwordTextField isEmpty] || [self.confirmPasswordTextField isEmpty]) {
+    if ([emailTextField isEmpty] || [passwordTextField isEmpty] || [confirmPasswordTextField isEmpty]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     }
-    else if (![self.emailTextField isValidEmail]) {
+    else if (![emailTextField isValidEmail]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validEmailMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     }
-    else if (self.passwordTextField.text.length<8) {
+    else if (passwordTextField.text.length<8) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"passwordMinimumCharater") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     }
-    else if (![self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text]) {
+    else if (![passwordTextField isValidPassword]) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validPassword") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        return NO;
+    }
+    else if (![passwordTextField.text isEqualToString:confirmPasswordTextField.text]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"passwordMatchMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
@@ -354,9 +368,9 @@
 - (void)swipeIntroImageLeft {
     pageCounter++;
     if (pageCounter < swipeImageArray.count) {
-        self.pageControl.currentPage = pageCounter;
-        self.swipeImageView.image=[UIImage imageNamed:[swipeImageArray objectAtIndex:pageCounter]];
-        UIImageView *moveIMageView = self.swipeImageView;
+        pageControl.currentPage = pageCounter;
+        swipeImageView.image=[UIImage imageNamed:[swipeImageArray objectAtIndex:pageCounter]];
+        UIImageView *moveIMageView = swipeImageView;
         [self addLeftAnimationPresentToView:moveIMageView];
     }
     else {
@@ -368,9 +382,9 @@
 - (void)swipeIntroImageRight {
     pageCounter--;
     if (pageCounter>=0) {
-        self.pageControl.currentPage = pageCounter;
-        self.swipeImageView.image=[UIImage imageNamed:[swipeImageArray objectAtIndex:pageCounter]];
-        UIImageView *moveIMageView = self.swipeImageView;
+        pageControl.currentPage = pageCounter;
+        swipeImageView.image=[UIImage imageNamed:[swipeImageArray objectAtIndex:pageCounter]];
+        UIImageView *moveIMageView = swipeImageView;
         [self addRightAnimationPresentToView:moveIMageView];
     }
     else {
@@ -383,7 +397,7 @@
 - (void)socialLoginResponse:(ConstantType)option result:(NSDictionary *)result {
     DLog(@"email:%@  userId:%@", [result objectForKey:@"email"],[result objectForKey:@"id"]);
     isSocialLogin=1;
-    self.emailTextField.text=[result objectForKey:@"email"];
+    emailTextField.text=[result objectForKey:@"email"];
     firstName=[result objectForKey:@"firstName"];
     lastName=[result objectForKey:@"lastName"];
     [myDelegate showIndicator];
@@ -394,8 +408,8 @@
 #pragma mark - Webservice
 - (void)userSignUp {
     LoginModel *userLogin = [LoginModel sharedUser];
-    userLogin.email = self.emailTextField.text;
-    userLogin.password = self.passwordTextField.text;
+    userLogin.email = emailTextField.text;
+    userLogin.password = passwordTextField.text;
     userLogin.firstName=firstName;
     userLogin.lastName=lastName;
 //    userLogin.isSocialLogin=[NSNumber numberWithInt:isSocialLogin];
