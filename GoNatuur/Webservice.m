@@ -162,6 +162,16 @@
         }
             return NO;
             break;
+        case 404: {
+            msg = responseObject[@"message"];
+            SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+            [alert addButton:@"Ok" actionBlock:^(void) {
+                //add action
+            }];
+            [alert showWarning:nil title:@"Alert" subTitle:msg closeButtonTitle:nil duration:0.0f];
+        }
+            return NO;
+            break;
         default: {
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
             [alert showWarning:nil title:@"Alert" subTitle:msg closeButtonTitle:@"Ok" duration:0.0f];

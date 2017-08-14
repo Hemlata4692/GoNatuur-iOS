@@ -100,6 +100,32 @@
 }
 #pragma mark - end
 
+#pragma mark - Forgot password service
+- (void)forgotPasswordService:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure  {
+    LoginService *loginService = [[LoginService alloc] init];
+    [loginService forgotPasswordService:userData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        userData.otpNumber=[[response  objectAtIndex:0] objectForKey:@"resetOTP"];
+        success(userData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Reset password service
+- (void)resetPasswordService:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure  {
+    LoginService *loginService = [[LoginService alloc] init];
+    [loginService resetPasswordService:userData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        userData.otpNumber=[[response  objectAtIndex:0] objectForKey:@"resetOTP"];
+        success(userData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
 #pragma mark - Category listing service
 - (void)getCategoryListing:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     DashboardService *categoryList=[[DashboardService alloc]init];

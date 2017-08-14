@@ -14,6 +14,7 @@
 @synthesize username;
 @synthesize email;
 @synthesize password;
+@synthesize otpNumber;
 @synthesize isSocialLogin;
 @synthesize accessToken;
 @synthesize userId;
@@ -112,6 +113,30 @@
 - (void)signUpUserService:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
     
     [[ConnectionManager sharedManager] signUpUserService:self onSuccess:^(LoginModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Forgot password service
+- (void)forgotPasswordService:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] forgotPasswordService:self onSuccess:^(LoginModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Reset password service
+- (void)resetPasswordService:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] resetPasswordService:self onSuccess:^(LoginModel *userData) {
         if (success) {
             success (userData);
         }
