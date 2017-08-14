@@ -29,10 +29,19 @@
     [productCellMainView setCornerRadius:5.0];
     [borderView addShadow:borderView color:[UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0]];
     productName.text=productListData.productName;
-    productPrice.text=productListData.productPrice;
+    productPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrency"],productListData.productPrice];
     productDescription.text=productListData.productDescription;
     [ImageCaching downloadImages:productImageView imageUrl:productListData.productImageThumbnail placeholderImage:@"product_placeholder"];
     statusBannerImage.hidden=YES;
+    if ([productListData.productRating isEqualToString:@""] || productListData.productRating==nil) {
+        productRating.hidden=YES;
+        ratingStarImage.hidden=YES;
+    }
+    else {
+        productRating.hidden=NO;
+        ratingStarImage.hidden=NO;
+        productRating.text=productListData.productRating;
+    }
 }
 
 //Footer image cell

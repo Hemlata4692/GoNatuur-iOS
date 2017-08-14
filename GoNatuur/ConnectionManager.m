@@ -177,4 +177,21 @@
 
 }
 #pragma mark - end
+
+#pragma mark - Fetch currency data
+- (void)getDefaultCurrency:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    DashboardService *currencyData=[[DashboardService alloc]init];
+    [currencyData getCurrency:userData success:^(id response) {
+        //Parse data from server response and store in data model
+         NSLog(@"currency list response %@",response);
+        userData.userCurrency=response[@"default_display_currency_symbol"];
+        NSLog(@"currency  %@",userData.userCurrency);
+        success(userData);
+        
+    } onfailure:^(NSError *error) {
+        failure(error);
+    }] ;
+
+}
+#pragma mark - end
 @end

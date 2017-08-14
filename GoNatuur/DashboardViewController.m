@@ -44,6 +44,7 @@
     healthyLivingDataArray=[[NSMutableArray alloc]init];
     samplersProductDataArray=[[NSMutableArray alloc]init];
     [self viewCustomisation];
+    [self performSelector:@selector(getDefaultCurrency) withObject:nil afterDelay:.1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -130,11 +131,7 @@
 
 - (void)reloadCollectionView {
     [_productCollectionView reloadData];
-//    [_productCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
-//                                   atScrollPosition:UICollectionViewScrollPositionTop
-//                                           animated:YES];
     [_productCollectionView setContentOffset:CGPointZero animated:YES];
-
 }
 #pragma mark - end
 
@@ -149,6 +146,17 @@
 #pragma mark - end
 
 #pragma mark - Webservice
+//Get default currency
+- (void)getDefaultCurrency {
+    DashboardDataModel *currencyData = [DashboardDataModel sharedUser];
+    [currencyData getCurrencyData:^(DashboardDataModel *userData)  {
+        
+    } onfailure:^(NSError *error) {
+        
+    }];
+
+}
+
 //Get category list data
 - (void)getCategoryListData {
     DashboardDataModel *categoryList = [DashboardDataModel sharedUser];

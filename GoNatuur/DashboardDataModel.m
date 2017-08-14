@@ -27,6 +27,7 @@
 @synthesize footerBannerImageArray;
 @synthesize healthyLivingArray;
 @synthesize samplersDataArray;
+@synthesize userCurrency;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -56,6 +57,19 @@
 - (void)getDashboardData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getDashboardData:self onSuccess:^(DashboardDataModel *userData) {
         if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Get currency data
+- (void)getCurrencyData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getDefaultCurrency:self onSuccess:^(DashboardDataModel *userData) {
+        if (success) {
+             [UserDefaultManager setValue:userData.userCurrency key:@"DefaultCurrency"];
             success (userData);
         }
     } onFailure:^(NSError *error) {

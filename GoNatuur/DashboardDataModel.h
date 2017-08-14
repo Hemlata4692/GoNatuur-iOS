@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSString *productId;
 @property (strong, nonatomic) NSString *productName;
 @property (strong, nonatomic) NSString *productRating;
+@property (strong, nonatomic) NSString *userCurrency;
 @property (strong, nonatomic) NSMutableArray *footerBannerImageArray;
 @property (strong, nonatomic) NSMutableArray *healthyLivingArray;
 @property (strong, nonatomic) NSMutableArray *samplersDataArray;
@@ -34,4 +35,7 @@
 
 //Fetch dashboard data
 - (void)getDashboardData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
+
+//Fetch currency data
+- (void)getCurrencyData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

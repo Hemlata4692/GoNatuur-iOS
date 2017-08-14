@@ -11,6 +11,7 @@
 
 static NSString *kCategoryList=@"categories";
 static NSString *kDasboardData=@"ranosys/dashboard";
+static NSString *kCurrencyData=@"directory/currency";
 
 @implementation DashboardService
 
@@ -29,6 +30,14 @@ static NSString *kDasboardData=@"ranosys/dashboard";
     [UserDefaultManager setValue:[UserDefaultManager getValue:@"Authorization"] key:@"Authorization"];
 //    [UserDefaultManager setValue:@"9e28chln10yp8bkporq87jkw8vrgi6f3" key:@"Authorization"];
     [super post:kDasboardData parameters:nil success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Get currency data
+- (void)getCurrency:(DashboardDataModel *)dasboardData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    //    [UserDefaultManager setValue:[UserDefaultManager getValue:@"Authorization"] key:@"Authorization"];
+//    [UserDefaultManager setValue:@"9e28chln10yp8bkporq87jkw8vrgi6f3" key:@"Authorization"];
+    [super get:kCurrencyData parameters:nil onSuccess:success onFailure:failure];
 }
 #pragma mark - end
 @end
