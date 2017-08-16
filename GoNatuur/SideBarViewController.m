@@ -54,6 +54,7 @@
     float newHeight =[DynamicHeightWidth getDynamicLabelHeight:_userEmailLabel.text font:[UIFont fontWithName:@"Montserrat-Regular" size:16.0] widthValue:[[UIScreen mainScreen] bounds].size.width-120];
     _userEmailLabel.frame=CGRectMake(30, _userEmailLabel.frame.origin.y,[[UIScreen mainScreen] bounds].size.width-120, newHeight+1);
     
+    //remove extra lines from table view
     _sideBarTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 #pragma mark - end
