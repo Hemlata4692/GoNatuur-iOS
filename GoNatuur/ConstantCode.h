@@ -10,7 +10,9 @@
 #import <UIKit/UIKit.h>
 
 #define kCellsPerRow 3
-typedef NS_ENUM (NSInteger, ConstantType){
+#define kProductCellsPerRow 2
+
+typedef NS_ENUM (NSInteger, ConstantType) {
     FacebookLogin,
     WeChatLogin,
     WeiboLogin,

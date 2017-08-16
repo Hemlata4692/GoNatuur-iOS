@@ -16,6 +16,7 @@
 @property(nonatomic,assign)ConstantType selectedLoginType;
 @property (nonatomic,strong) NSString *deviceToken;
 @property (nonatomic,assign) int selectedCategoryIndex;
+@property (strong, nonatomic) NSMutableArray *categoryNameArray;
 @property (retain, nonatomic) UINavigationController *navigationController;
 
 - (void)showIndicator;

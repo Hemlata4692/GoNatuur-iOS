@@ -9,17 +9,21 @@
 #import "DashboardViewController.h"
 #import "DasboardDataCollectionViewCell.h"
 #import "DashboardDataModel.h"
+#import "CurrencyDataModel.h"
 
 @interface DashboardViewController ()<UIGestureRecognizerDelegate> {
 @private
     int selectedIndex;
     int buttonTag;
+    BOOL firstTime;
     NSMutableArray *bannerImageArray;
     NSMutableArray *footerImageArray;
     NSMutableArray *bestSellerDataArray;
     NSMutableArray *healthyLivingDataArray;
     NSMutableArray *samplersProductDataArray;
     DashboardDataModel * bannerImageData;
+    CurrencyDataModel *exchangeCurrencyData;
+    NSString *exchangeRates;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *buttonSeperator;
@@ -35,16 +39,14 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title=@"GoNatuur";
-    [self addLeftBarButtonWithImage:false];
     // Do any additional setup after loading the view.
+    firstTime=true;
     bannerImageArray=[[NSMutableArray alloc]init];
     bestSellerDataArray=[[NSMutableArray alloc]init];
     footerImageArray=[[NSMutableArray alloc]init];
     healthyLivingDataArray=[[NSMutableArray alloc]init];
     samplersProductDataArray=[[NSMutableArray alloc]init];
     [self viewCustomisation];
-    [self performSelector:@selector(getDefaultCurrency) withObject:nil afterDelay:.1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,8 +56,18 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
+    self.navigationController.navigationBarHidden=false;
+    self.title=@"GoNatuur";
+    [self addLeftBarButtonWithImage:false];
+    if (firstTime) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
+    }
+    else {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getDashboardData) withObject:nil afterDelay:.1];
+    }
+    
 }
 #pragma mark - end
 
@@ -93,13 +105,13 @@
     if (collectionView==_productCollectionView) {
         DasboardDataCollectionViewCell *productCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productCell" forIndexPath:indexPath];
         if (buttonTag==1) {
-            [productCell displayProductListData:[bestSellerDataArray objectAtIndex:indexPath.item]];
+            [productCell displayProductListData:[bestSellerDataArray objectAtIndex:indexPath.item] exchangeRates:exchangeRates];
         }
         else if (buttonTag==2) {
-            [productCell displayProductListData:[healthyLivingDataArray objectAtIndex:indexPath.item]];
+            [productCell displayProductListData:[healthyLivingDataArray objectAtIndex:indexPath.item] exchangeRates:exchangeRates];
         }
         else {
-            [productCell displayProductListData:[samplersProductDataArray objectAtIndex:indexPath.item]];
+            [productCell displayProductListData:[samplersProductDataArray objectAtIndex:indexPath.item] exchangeRates:exchangeRates];
         }
         [productCell.contentView addShadow:productCell.contentView color:[UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0]];
         return productCell;
@@ -118,11 +130,13 @@
     buttonTag=1;
     [self reloadCollectionView];
 }
+
 - (IBAction)healthyLivingButtonAction:(id)sender {
     [self reframeSeperatorLabel:sender];
     buttonTag=2;
     [self reloadCollectionView];
 }
+
 - (IBAction)samplersButtonAction:(id)sender {
     [self reframeSeperatorLabel:sender];
     buttonTag=3;
@@ -138,7 +152,7 @@
 #pragma mark - Set animation for button bottom selection
 - (void)reframeSeperatorLabel:(UIButton *)button {
     CGPoint endFrame = button.center;
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         _buttonSeperator.center = endFrame;
         _buttonSeperator.frame=CGRectMake(button.frame.origin.x+(button.frame.size.width/2)-(_buttonSeperator.frame.size.width/2), button.frame.size.height-2, _buttonSeperator.frame.size.width, _buttonSeperator.frame.size.height);
     }];
@@ -148,13 +162,18 @@
 #pragma mark - Webservice
 //Get default currency
 - (void)getDefaultCurrency {
-    DashboardDataModel *currencyData = [DashboardDataModel sharedUser];
-    [currencyData getCurrencyData:^(DashboardDataModel *userData)  {
-        
+    CurrencyDataModel *currencyData = [CurrencyDataModel sharedUser];
+    [currencyData getCurrencyData:^(CurrencyDataModel *userData)  {
+        exchangeCurrencyData=userData;
+        for (int i=0; i<exchangeCurrencyData.availableCurrencyRatesArray.count; i++) {
+            if ([[UserDefaultManager getValue:@"DefaultCurrencyCode"] containsString:[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencyExchangeCode]]) {
+                exchangeRates=[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencyExchangeRates];
+            }
+        }
+        [self getDashboardData];
     } onfailure:^(NSError *error) {
         
     }];
-
 }
 
 //Get category list data
@@ -162,9 +181,9 @@
     DashboardDataModel *categoryList = [DashboardDataModel sharedUser];
     categoryList.categoryId=@"2";
     [categoryList getCategoryListDataOnSuccess:^(DashboardDataModel *userData)  {
-        self.categorySliderObjc.categoryDataArray=[userData.categoryNameArray mutableCopy];
+        self.categorySliderObjc.categoryDataArray=[myDelegate.categoryNameArray mutableCopy];
         [self.categorySliderObjc.categorySliderCollectionView reloadData];
-        [self getDashboardData];
+        [self getDefaultCurrency];
     } onfailure:^(NSError *error) {
         
     }];
@@ -174,6 +193,7 @@
     DashboardDataModel *dashboardData = [DashboardDataModel sharedUser];
     [dashboardData getDashboardData:^(DashboardDataModel *userData)  {
         [myDelegate stopIndicator];
+        firstTime=false;
         bannerImageData=userData;
         [self displayData];
     } onfailure:^(NSError *error) {
@@ -189,7 +209,7 @@
     samplersProductDataArray=[bannerImageData.samplersDataArray mutableCopy];
     //footerImageView
     bannerImageData=[footerImageArray objectAtIndex:0];
-    [ImageCaching downloadImages:_footerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder"];
+    [ImageCaching downloadImages:_footerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:false];
     [_productCollectionView reloadData];
     [_footerImageCollectionView reloadData];
     [self swipeImages];
@@ -200,7 +220,7 @@
 - (void)swipeImages {
     selectedIndex=0;
     bannerImageData=[bannerImageArray objectAtIndex:selectedIndex];
-    [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder"];
+    [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:false];
     self.bannerImageView.userInteractionEnabled = YES;
     
     //Swipe gesture to swipe images to left
@@ -246,7 +266,7 @@
     selectedIndex++;
     if (selectedIndex<bannerImageArray.count) {
         bannerImageData=[bannerImageArray objectAtIndex:selectedIndex];
-        [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder"];
+        [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:false];
         UIImageView *moveImageView = _bannerImageView;
         [self addLeftAnimationPresentToView:moveImageView];
     }
@@ -262,7 +282,7 @@
         //check if screen is navigated from image question or not
         bannerImageData=[bannerImageArray objectAtIndex:selectedIndex];
         //set image from afnetworking
-        [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder"];
+        [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:false];
         UIImageView *moveImageView = _bannerImageView;
         [self addRightAnimationPresentToView:moveImageView];
     }

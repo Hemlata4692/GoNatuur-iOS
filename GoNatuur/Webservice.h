@@ -19,6 +19,10 @@
 @interface Webservice : NSObject
 
 @property(nonatomic,retain) AFHTTPSessionManager *manager;
+@property (readwrite, nonatomic, copy) id success;
+@property (readwrite, nonatomic, copy) id failure;
+@property (strong, nonatomic) NSString *retryPath;
+@property (strong, nonatomic) NSDictionary *retryParameters;
 
 //Singleton instance
 + (id)sharedManager;
@@ -33,6 +37,8 @@
 //end
 
 - (void)get:(NSString *)path parameters:(NSDictionary *)parameters onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
+
+- (void)getSearchData:(NSString *)path parameters:(NSDictionary *)parameters onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 
 //Check response success
 - (BOOL)isStatusOK:(id)responseObject;

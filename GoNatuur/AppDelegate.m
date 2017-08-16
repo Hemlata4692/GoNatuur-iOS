@@ -27,6 +27,7 @@
 @synthesize selectedCategoryIndex;
 @synthesize navigationController;
 @synthesize spinnerView;
+@synthesize categoryNameArray;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -59,10 +60,8 @@
 #pragma mark - Application life cycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    //Set navigation bar color
-//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-//    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.0/255.0 green:58.0/255.0 blue:78.0/255.0 alpha:1.0]];
     
+    //Set navigation bar color
    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont montserratMediumWithSize:20], NSFontAttributeName, nil]];
     
     selectedLoginType=FacebookLogin;
@@ -165,6 +164,7 @@
         //if app is not active
     }
 }
+
 - (void)showNotificationAlert:(NSString *)message {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedText(@"alertTitle") message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedText(@"alertOk"), nil];
     [alert show];

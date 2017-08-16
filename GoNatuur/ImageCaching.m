@@ -11,7 +11,7 @@
 @implementation ImageCaching
 
 #pragma mark - Downloading image using afnetworking
-+ (void)downloadImages:(UIImageView *)imageView imageUrl:(NSString *)imageUrl placeholderImage:(NSString *)placeholderImage {
++ (void)downloadImages:(UIImageView *)imageView imageUrl:(NSString *)imageUrl placeholderImage:(NSString *)placeholderImage isDashboardCell:(BOOL)isDashboardCell {
     
     __weak UIImageView *weakRef = imageView;
     NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:imageUrl]
@@ -19,8 +19,14 @@
                                               timeoutInterval:60];
     
     [imageView setImageWithURLRequest:imageRequest placeholderImage:[UIImage imageNamed:placeholderImage] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        if (isDashboardCell) {
+            weakRef.contentMode = UIViewContentModeScaleAspectFill;
+            weakRef.clipsToBounds = YES;
+        }
+        else{
         weakRef.contentMode = UIViewContentModeScaleAspectFit;
         weakRef.clipsToBounds = YES;
+        }
         weakRef.image = image;
         weakRef.backgroundColor = [UIColor clearColor];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {

@@ -13,7 +13,6 @@
 @synthesize banerImageUrl;
 @synthesize categoryId;
 @synthesize categoryName;
-@synthesize categoryNameArray;
 @synthesize banerImageId;
 @synthesize bannerImageType;
 @synthesize bannerImageArray;
@@ -27,7 +26,7 @@
 @synthesize footerBannerImageArray;
 @synthesize healthyLivingArray;
 @synthesize samplersDataArray;
-@synthesize userCurrency;
+
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -65,16 +64,4 @@
 }
 #pragma mark - end
 
-#pragma mark - Get currency data
-- (void)getCurrencyData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure {
-    [[ConnectionManager sharedManager] getDefaultCurrency:self onSuccess:^(DashboardDataModel *userData) {
-        if (success) {
-             [UserDefaultManager setValue:userData.userCurrency key:@"DefaultCurrency"];
-            success (userData);
-        }
-    } onFailure:^(NSError *error) {
-        
-    }] ;
-}
-#pragma mark - end
 @end

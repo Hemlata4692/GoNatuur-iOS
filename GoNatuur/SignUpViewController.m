@@ -164,9 +164,9 @@
     view = field.superview.superview.superview;
 }
 
-- (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls {
+- (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControl {
     [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    [keyboardControls.activeField resignFirstResponder];
+    [keyboardControl.activeField resignFirstResponder];
 }
 #pragma mark - end
 
@@ -310,7 +310,7 @@
     }
     else if (_passwordTextField.text.length<8) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"passwordMinimumCharater") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validPassword") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     }
     else if (![_passwordTextField isValidPassword]) {
