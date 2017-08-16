@@ -74,6 +74,14 @@
         notificationBadgeLabel.frame=CGRectMake(185, notificationBadgeLabel.frame.origin.y,notificationBadgeLabel.frame.size.width+12, 15);
         [notificationBadgeLabel setCornerRadius:8.0];
     }
+    
+    UILabel *cellLabel=(UILabel *) [cell viewWithTag:0];
+    if (indexPath.row==6&&(nil==[UserDefaultManager getValue:@"userId"])) {
+        cellLabel.text=@"SignIn";
+    }
+    else {
+        cellLabel.text=CellIdentifier;
+    }
     return cell;
 }
 
@@ -83,12 +91,17 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==6) {
-        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert addButton:@"Ok" actionBlock:^(void) {
-            //logou user
+        if ((nil!=[UserDefaultManager getValue:@"userId"])) {
+            SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+            [alert addButton:@"Ok" actionBlock:^(void) {
+                //Logout user
+                [self logoutUser];
+            }];
+            [alert showWarning:nil title:@"Alert" subTitle:@"Are you sure you want to Signout?" closeButtonTitle:@"Cancel" duration:0.0f];
+        }
+        else {
             [self logoutUser];
-        }];
-        [alert showWarning:nil title:@"Alert" subTitle:@"Are you sure you want to Signout?" closeButtonTitle:@"Cancel" duration:0.0f];
+        }
     }
 }
 #pragma mark - end
@@ -96,6 +109,7 @@
 #pragma mark - Logout user
 - (void)logoutUser {
     //Logout user
+    [UserDefaultManager removeValue:@"userId"];
     [UserDefaultManager removeValue:@"emailId"];
     [UserDefaultManager removeValue:@"Authorization"];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

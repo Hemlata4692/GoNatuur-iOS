@@ -15,6 +15,8 @@ static NSString *kLoginAsGuest=@"ranosys/customer/guestLogin";
 static NSString *kCMSPage=@"cmsPage/";
 static NSString *kSaveDeviceToken=@"ranosys/saveDeviceToken";
 static NSString *kSignUp=@"ranosys/customer/customerSignup";
+static NSString *kForgotPassword=@"ranosys/customer/forgotPassword";
+static NSString *kResetPassword=@"ranosys/customer/resetPassword";
 
 @implementation LoginService
 
@@ -70,6 +72,27 @@ static NSString *kSignUp=@"ranosys/customer/customerSignup";
                                  @"password" : loginData.password
                                 };
     [super post:kSignUp parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Forgot password service
+- (void)forgotPasswordService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    [UserDefaultManager removeValue:@"Authorization"];
+    NSDictionary *parameters = @{@"email" : loginData.email,
+                                 @"template" : @"email"
+                                 };
+    [super post:kForgotPassword parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Reset password service
+- (void)resetPasswordService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    [UserDefaultManager removeValue:@"Authorization"];
+    NSDictionary *parameters = @{@"email" : loginData.email,
+                                 @"password" : loginData.password,
+                                 @"requestOTP" : loginData.otpNumber
+                                 };
+    [super post:kResetPassword parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 @end
