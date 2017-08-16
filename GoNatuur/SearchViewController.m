@@ -108,7 +108,8 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     if (![textField.text isEqualToString:@""]) {
-        UIViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListingViewController"];
+        SearchListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListingViewController"];
+         obj.searchKeyword=searchKey;
         [self.navigationController pushViewController:obj animated:true];
     }
     return YES;
