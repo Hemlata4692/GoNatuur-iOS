@@ -30,10 +30,32 @@
 #pragma mark - IBAction
 - (IBAction)enableNotificationButtonAction:(id)sender {
     [myDelegate registerForRemoteNotification];
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification * _Nonnull note) {
+                                                      if ([[UIApplication sharedApplication] isRegisteredForRemoteNotifications]) {
+                                                          //User tapped "Allow"
+                                                          [self navigateToDashboard];
+                                                      }
+                                                      else{
+                                                          //User tapped "Don't Allow"
+                                                          [self navigateToDashboard];
+                                                      }
+                                                  }];
 }
 
 - (IBAction)disableNotificationButtonAction:(id)sender {
     [myDelegate unregisterForRemoteNotifications];
+    [self navigateToDashboard];
 }
 #pragma mark - end
+
+- (void)navigateToDashboard {
+    [UserDefaultManager setValue:[NSNumber numberWithBool:true] key:@"enableNotification"];
+    UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+    [myDelegate.window setRootViewController:objReveal];
+    [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+    [myDelegate.window makeKeyAndVisible];
+}
 @end

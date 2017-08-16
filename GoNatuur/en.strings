@@ -25,3 +25,4 @@
 "upperCaseCharacter" = "ABCDEFGHIJKLKMNOPQRSTUVWXYZ";
 "lowerCaseCharacter" = "abcdefghijklmnopqrstuvwxyz";
 "numberCharacter" = "0123456789";
+"resetPasswordSuccess" = "Your passwod is updated.";

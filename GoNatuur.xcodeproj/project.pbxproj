@@ -69,6 +69,7 @@
 		B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653A1F3DF07F0051E4C5 /* en.strings */; };
 		B73A653E1F3DF0870051E4C5 /* zh_Simplified.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653C1F3DF0870051E4C5 /* zh_Simplified.strings */; };
 		B73A653F1F3DF0870051E4C5 /* zh_Traditional.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653D1F3DF0870051E4C5 /* zh_Traditional.strings */; };
+		B73E00E31F4184DF001DEBA2 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B73E00E21F4184DF001DEBA2 /* Montserrat-Bold.otf */; };
 		B745811D1F39BECC00A164D6 /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = B745811C1F39BECC00A164D6 /* BSKeyboardControls.m */; };
 		B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = B74581201F39C8EA00A164D6 /* UIFont+CustomFont.m */; };
 		B77A8A781F34388800233782 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A771F34388800233782 /* SignUpViewController.m */; };
@@ -197,6 +198,7 @@
 		B73A653A1F3DF07F0051E4C5 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
 		B73A653C1F3DF0870051E4C5 /* zh_Simplified.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = zh_Simplified.strings; sourceTree = "<group>"; };
 		B73A653D1F3DF0870051E4C5 /* zh_Traditional.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = zh_Traditional.strings; sourceTree = "<group>"; };
+		B73E00E21F4184DF001DEBA2 /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.otf"; sourceTree = "<group>"; };
 		B745811B1F39BECC00A164D6 /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
 		B745811C1F39BECC00A164D6 /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
 		B745811F1F39C8EA00A164D6 /* UIFont+CustomFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CustomFont.h"; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 		188605A61F39C8090005D1E2 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				B73E00E21F4184DF001DEBA2 /* Montserrat-Bold.otf */,
 				184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */,
 				188605A71F39C8220005D1E2 /* Montserrat-SemiBold.otf */,
 				188605A91F39D7230005D1E2 /* Montserrat-Regular.ttf */,
@@ -986,6 +989,7 @@
 				188605AE1F39D7620005D1E2 /* Montserrat-Medium.otf in Resources */,
 				B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
+				B73E00E31F4184DF001DEBA2 /* Montserrat-Bold.otf in Resources */,
 				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
 				B77A8A811F347D2B00233782 /* SwipeImage.png in Resources */,
 				32BAA6121F1360290015E355 /* Main.storyboard in Resources */,

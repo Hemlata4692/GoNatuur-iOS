@@ -103,6 +103,32 @@
 }
 #pragma mark - end
 
+#pragma mark - Forgot password service
+- (void)forgotPasswordService:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure  {
+    LoginService *loginService = [[LoginService alloc] init];
+    [loginService forgotPasswordService:userData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        userData.otpNumber=[[response  objectAtIndex:0] objectForKey:@"resetOTP"];
+        success(userData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Reset password service
+- (void)resetPasswordService:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure  {
+    LoginService *loginService = [[LoginService alloc] init];
+    [loginService resetPasswordService:userData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        userData.otpNumber=[[response  objectAtIndex:0] objectForKey:@"resetOTP"];
+        success(userData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
 #pragma mark - Category listing service
 - (void)getCategoryListing:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     DashboardService *categoryList=[[DashboardService alloc]init];
@@ -119,8 +145,13 @@
     LoginService *loginService = [[LoginService alloc] init];
     [loginService signUpUserService:userData onSuccess:^(id response) {
         //Parse data from server response and store in datamodel
-        userData.cmsTitle=[response objectForKey:@"title"];
-        userData.cmsContent=[response objectForKey:@"content"];
+        userData.userId=[[[response objectAtIndex:0] objectForKey:@"customer"] objectForKey:@"entity_id"];
+        userData.accessToken=[[response objectAtIndex:0] objectForKey:@"api_key"];
+        userData.followCount=[[response objectAtIndex:0] objectForKey:@"follow_count"];
+        userData.notificationsCount=[[response objectAtIndex:0] objectForKey:@"notifications_count"];
+        userData.quoteId=[[response objectAtIndex:0] objectForKey:@"quote_id"];
+        userData.quoteCount=[[response objectAtIndex:0] objectForKey:@"quote_count"];
+        userData.wishlistCount=[[response objectAtIndex:0] objectForKey:@"wishlist_count"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
