@@ -142,8 +142,13 @@
     LoginService *loginService = [[LoginService alloc] init];
     [loginService signUpUserService:userData onSuccess:^(id response) {
         //Parse data from server response and store in datamodel
-        userData.cmsTitle=[response objectForKey:@"title"];
-        userData.cmsContent=[response objectForKey:@"content"];
+        userData.userId=[[[response objectAtIndex:0] objectForKey:@"customer"] objectForKey:@"entity_id"];
+        userData.accessToken=[[response objectAtIndex:0] objectForKey:@"api_key"];
+        userData.followCount=[[response objectAtIndex:0] objectForKey:@"follow_count"];
+        userData.notificationsCount=[[response objectAtIndex:0] objectForKey:@"notifications_count"];
+        userData.quoteId=[[response objectAtIndex:0] objectForKey:@"quote_id"];
+        userData.quoteCount=[[response objectAtIndex:0] objectForKey:@"quote_count"];
+        userData.wishlistCount=[[response objectAtIndex:0] objectForKey:@"wishlist_count"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
