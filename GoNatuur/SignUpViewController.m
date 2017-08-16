@@ -97,7 +97,7 @@
 
 - (void)initializedView {
     _pageControl.transform = CGAffineTransformMakeScale(1.4, 1.4);
-    swipeImageArray = @[@"SwipeImage.png", @"SwipeImage.png", @"SwipeImage.png", @"SwipeImage.png"];
+    swipeImageArray = @[@"SwipeImage.png", @"SwipeImage.png", @"SwipeImage.png"];
     _pageControl.numberOfPages = [swipeImageArray count];
     pageCounter = currentSelectedImage;
     _pageControl.currentPage = pageCounter;
