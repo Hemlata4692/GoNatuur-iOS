@@ -85,10 +85,10 @@
     SocialLoginViewController *obj = [[SocialLoginViewController alloc] initWithNibName:@"SocialLoginViewController" bundle:nil];
     obj.view.translatesAutoresizingMaskIntoConstraints=YES;
     obj.view.frame=CGRectMake(13, signUpBackViewY, [[UIScreen mainScreen] bounds].size.width-26, 212);
-    obj.fbText=@"Sign up with Facebook";
-    obj.weChatText=@"Sign up with WeChat account";
-    obj.wieboText=@"Sign up with Wiebo";
-    obj.googlPlusText=@"Sign up with google plus";
+    obj.fbText=NSLocalizedText(@"signUpFb");
+    obj.weChatText=NSLocalizedText(@"signUpWeChat");
+    obj.wieboText=NSLocalizedText(@"signUpWiebo");
+    obj.googlPlusText=NSLocalizedText(@"signUpGooglePlus");
     obj.delegate=self;
     [self addChildViewController:obj];
     [_mainView addSubview:obj.view];
@@ -96,7 +96,6 @@
 }
 
 - (void)initializedView {
-    
     _pageControl.transform = CGAffineTransformMakeScale(1.4, 1.4);
     swipeImageArray = @[@"SwipeImage.png", @"SwipeImage.png", @"SwipeImage.png", @"SwipeImage.png"];
     _pageControl.numberOfPages = [swipeImageArray count];
@@ -402,7 +401,7 @@
     userLogin.password = _passwordTextField.text;
     userLogin.firstName=firstName;
     userLogin.lastName=lastName;
-//    userLogin.isSocialLogin=[NSNumber numberWithInt:isSocialLogin];
+    userLogin.isSocialLogin=[NSNumber numberWithInt:isSocialLogin];
     [userLogin signUpUserService:^(LoginModel *userData) {
         [myDelegate stopIndicator];
         //Navigate user to dashboard
@@ -417,7 +416,11 @@
     [userLogin loginGuestUserOnSuccess:^(LoginModel *userData) {
         [myDelegate stopIndicator];
         //Navigate user to dashboard
-        [self navigateToDashboard];
+//        [self navigateToDashboard];
+        UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+        [myDelegate.window setRootViewController:objReveal];
+        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+        [myDelegate.window makeKeyAndVisible];
     } onfailure:^(NSError *error) {
         
     }];

@@ -10,7 +10,10 @@
 #import "DashboardViewController.h"
 #import "UIView+Toast.h"
 
-@interface BottomTabViewController ()
+@interface BottomTabViewController () {
+    @private
+    int buttonCount;
+}
 @property (strong, nonatomic) IBOutlet UIView *bottomTabView;
 @property (weak, nonatomic) IBOutlet UIButton *homeTab;
 @property (weak, nonatomic) IBOutlet UIButton *myCartTab;
@@ -35,6 +38,11 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    buttonCount=0;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -43,6 +51,7 @@
 
 #pragma mark - Tab bar IBAction
 - (IBAction)homeTabAction:(id)sender {
+    buttonCount=1;
     [_homeTab setSelected:YES];
     [_myCartTab setSelected:NO];
     [_wishlistTab setSelected:NO];
@@ -61,10 +70,12 @@
         _homeTabImageIcon.alpha=1.0;
         _homeTab.backgroundColor=[UIColor blackColor];
     }
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    DashboardViewController * loginView = [storyboard instantiateViewControllerWithIdentifier:@"DashboardViewController"];
-    [self.navigationController setViewControllers: [NSArray arrayWithObject:loginView]
-                                         animated: NO];
+    if (buttonCount==0) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        DashboardViewController * loginView = [storyboard instantiateViewControllerWithIdentifier:@"DashboardViewController"];
+        [self.navigationController setViewControllers: [NSArray arrayWithObject:loginView]
+                                             animated: NO];
+    }
 }
 
 - (IBAction)myCartTabAction:(id)sender {

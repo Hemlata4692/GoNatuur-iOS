@@ -9,6 +9,7 @@
 #import "SocialLoginViewController.h"
 #import "FacebookConnect.h"
 #import "GmailSignInConnect.h"
+#import "UIView+Toast.h"
 
 @interface SocialLoginViewController () <FacebookDelegate,GIDSignInDelegate,GIDSignInUIDelegate>
 
@@ -53,9 +54,11 @@
 }
 
 - (IBAction)loginWithWeChat:(id)sender {
+    [self.view makeToast:@"Feature is currently not available."];
 }
 
 - (IBAction)loginWithWiebo:(id)sender {
+    [self.view makeToast:@"Feature is currently not available."];
 }
 
 - (IBAction)loginWithGoogle:(id)sender {
@@ -88,7 +91,7 @@
     }
     else {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrondMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrongMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
     }
 }
 #pragma mark - end

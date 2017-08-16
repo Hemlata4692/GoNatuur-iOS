@@ -118,7 +118,7 @@
     }
     else {
         DasboardDataCollectionViewCell *footerImageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"footerImageCell" forIndexPath:indexPath];
-        [footerImageCell displayFooterBannerData:[footerImageArray objectAtIndex:indexPath.item]];
+        [footerImageCell displayFooterBannerData:[footerImageArray objectAtIndex:indexPath.item+1]];
         return footerImageCell;
     }
 }

@@ -14,7 +14,7 @@
 "emptyFieldMessage" = "Please fill in all the required fields.";
 "validEmailMessage" = "Please enter valid Email Address.";
 "passwordMatchMessage" = "Password and Confirm Password does not match.";
-"somethingWrondMessage" = "Something went wrong, please try again later.";
+"somethingWrongMessage" = "Something went wrong, please try again later.";
 "Privacy Policy" = "Privacy Policy";
 "privacy policy" = "privacy policy";
 "Terms & Conditions" = "Terms & Conditions";
@@ -25,4 +25,12 @@
 "upperCaseCharacter" = "ABCDEFGHIJKLKMNOPQRSTUVWXYZ";
 "lowerCaseCharacter" = "abcdefghijklmnopqrstuvwxyz";
 "numberCharacter" = "0123456789";
-"resetPasswordSuccess" = "Your passwod is updated.";
+"resetPasswordSuccess" = "Password updated successfully.";
+"loginFb" = "Log in with Facebook";
+"loginWeChat" = "Log in with WeChat";
+"loginWiebo" = "Log in with Wiebo";
+"loginGooglePlus" = "Log in with Google Plus";
+"signUpFb" = "Sign up with Facebook";
+"signUpWeChat" = "Sign up with WeChat";
+"signUpWiebo" = "Sign up with Wiebo";
+"signUpGooglePlus" = "Sign up with Google Plus";

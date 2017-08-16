@@ -202,9 +202,8 @@
             return NO;
             break;
         default: {
-            msg = responseObject[@"message"];
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-            [alert showWarning:nil title:@"Alert" subTitle:msg closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+            [alert showWarning:nil title:@"Alert" subTitle:NSLocalizedText(@"somethingWrongMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         }
             return NO;
             break;

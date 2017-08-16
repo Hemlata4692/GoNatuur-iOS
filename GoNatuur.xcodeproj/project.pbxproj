@@ -14,6 +14,9 @@
 		184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C38641F3B328A008B8291 /* EnableNotificationViewController.m */; };
 		184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */; };
 		1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */; };
+		1870F0C61F4463AE008B2CE5 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0C51F4463AE008B2CE5 /* NotificationViewController.m */; };
+		1870F0CA1F44657D008B2CE5 /* NotificationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0C91F44657D008B2CE5 /* NotificationDataModel.m */; };
+		1870F0CE1F4465AB008B2CE5 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0CD1F4465AB008B2CE5 /* NotificationService.m */; };
 		188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1886058F1F39AF320005D1E2 /* UserNotifications.framework */; };
 		188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605941F39BC430005D1E2 /* DashboardViewController.m */; };
 		1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605991F39C0FC0005D1E2 /* CategorySliderViewController.m */; };
@@ -108,6 +111,12 @@
 		184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Regular.otf"; sourceTree = "<group>"; };
 		1870F0BC1F44185F008B2CE5 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		1870F0C41F4463AE008B2CE5 /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
+		1870F0C51F4463AE008B2CE5 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
+		1870F0C81F44657D008B2CE5 /* NotificationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationDataModel.h; sourceTree = "<group>"; };
+		1870F0C91F44657D008B2CE5 /* NotificationDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationDataModel.m; sourceTree = "<group>"; };
+		1870F0CC1F4465AB008B2CE5 /* NotificationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		1870F0CD1F4465AB008B2CE5 /* NotificationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
 		1886058F1F39AF320005D1E2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		188605931F39BC430005D1E2 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		188605941F39BC430005D1E2 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
@@ -285,6 +294,7 @@
 		184C38611F3B3254008B8291 /* NotificationModule */ = {
 			isa = PBXGroup;
 			children = (
+				1870F0C31F446395008B2CE5 /* NotificationListViewController */,
 				184C38621F3B326C008B8291 /* EnableNotificationView */,
 			);
 			name = NotificationModule;
@@ -306,6 +316,33 @@
 				1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */,
 			);
 			name = ToastView;
+			sourceTree = "<group>";
+		};
+		1870F0C31F446395008B2CE5 /* NotificationListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1870F0C41F4463AE008B2CE5 /* NotificationViewController.h */,
+				1870F0C51F4463AE008B2CE5 /* NotificationViewController.m */,
+			);
+			name = NotificationListViewController;
+			sourceTree = "<group>";
+		};
+		1870F0C71F446562008B2CE5 /* NotificationModel */ = {
+			isa = PBXGroup;
+			children = (
+				1870F0C81F44657D008B2CE5 /* NotificationDataModel.h */,
+				1870F0C91F44657D008B2CE5 /* NotificationDataModel.m */,
+			);
+			name = NotificationModel;
+			sourceTree = "<group>";
+		};
+		1870F0CB1F44658E008B2CE5 /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				1870F0CC1F4465AB008B2CE5 /* NotificationService.h */,
+				1870F0CD1F4465AB008B2CE5 /* NotificationService.m */,
+			);
+			name = NotificationService;
 			sourceTree = "<group>";
 		};
 		188605911F39BB720005D1E2 /* DashboardModule */ = {
@@ -504,6 +541,7 @@
 		320761601F1626F2001F1790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1870F0C71F446562008B2CE5 /* NotificationModel */,
 				188B2C181F41F42E0001A7AE /* CurrencyDataModel */,
 				188B2C101F41DF2D0001A7AE /* SearchDataModel */,
 				181853241F3D832200EEB73B /* DashboardModel */,
@@ -558,7 +596,6 @@
 				B7DDB1AB1F399D02009BB8A5 /* ConstantCode */,
 				18F7A8F51F32E2B800430842 /* SWRevealView */,
 				32A3D6C01F1CBDE200062B86 /* SocialLogin */,
-				329F7D4F1F172AD9008E0E15 /* AlertView */,
 				320761881F164BD2001F1790 /* Crashlytics */,
 				320761731F163A9D001F1790 /* MMMaterialDesignerSpinner */,
 				3207616F1F162829001F1790 /* DefaultManager */,
@@ -583,6 +620,7 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				1870F0CB1F44658E008B2CE5 /* NotificationService */,
 				188B2C141F41DFE60001A7AE /* SearchService */,
 				181853281F3D8A6300EEB73B /* DashboardService */,
 				32CC20961F25B1E90054C344 /* LoginService */,
@@ -679,13 +717,6 @@
 				3207618A1F164BE1001F1790 /* UncaughtExceptionHandler.m */,
 			);
 			name = Crashlytics;
-			sourceTree = "<group>";
-		};
-		329F7D4F1F172AD9008E0E15 /* AlertView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = AlertView;
 			sourceTree = "<group>";
 		};
 		32A3D6B51F1CBABA00062B86 /* LoginModule */ = {
@@ -1054,6 +1085,7 @@
 			files = (
 				32A3D6FF1F1CD2B800062B86 /* FacebookConnect.m in Sources */,
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
+				1870F0CA1F44657D008B2CE5 /* NotificationDataModel.m in Sources */,
 				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
 				32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */,
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
@@ -1067,6 +1099,7 @@
 				18F7A9031F33044100430842 /* BottomTabViewController.m in Sources */,
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
 				181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */,
+				1870F0CE1F4465AB008B2CE5 /* NotificationService.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
 				1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */,
 				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,
@@ -1075,6 +1108,7 @@
 				320761871F164986001F1790 /* Webservice.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
+				1870F0C61F4463AE008B2CE5 /* NotificationViewController.m in Sources */,
 				184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */,
 				188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */,
 				3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */,
