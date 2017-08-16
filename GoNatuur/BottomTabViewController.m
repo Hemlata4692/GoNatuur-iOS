@@ -64,7 +64,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     DashboardViewController * loginView = [storyboard instantiateViewControllerWithIdentifier:@"DashboardViewController"];
     [self.navigationController setViewControllers: [NSArray arrayWithObject:loginView]
-                                         animated: YES];
+                                         animated: NO];
 }
 
 - (IBAction)myCartTabAction:(id)sender {

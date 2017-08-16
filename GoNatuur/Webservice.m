@@ -46,19 +46,14 @@
     }
     manager.securityPolicy.allowInvalidCertificates = YES;
     [manager POST:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        responseObject=(NSMutableDictionary *)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     } failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
-        NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
         [myDelegate stopIndicator];
         if (error.code == -1009) {
-            
-            //            NSLocalizedText(@"Internet connection")
+            [self showRetryAlertMessage:NSLocalizedText(@"Internet connection") path:path parameters:parameters success:success failure:failure error:error];
         }
         else if (error.code == -1001) {
-            
-            
-            //            NSLocalizedText(@"Internet connection")
+            [self showRetryAlertMessage:NSLocalizedText(@"RequestTimeout") path:path parameters:parameters success:success failure:failure error:error];
         }
         else {
             NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:kNilOptions error:&error] mutableCopy];
@@ -69,8 +64,8 @@
             [json setObject:[NSNumber numberWithInteger:statusCode] forKey:@"status"];
             [self isStatusOK:json];
             NSLog(@"error %ld",(long)statusCode);
+            failure(error);
         }
-        failure(error);
     }];
 }
 
@@ -115,26 +110,26 @@
     [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
     }
-        failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
+         failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
              [myDelegate stopIndicator];
-            if (error.code == -1009) {
-                //      NSLocalizedText(@"Internet connection")
-            }
-            else if (error.code == -1001) {
-                //            NSLocalizedText(@"Tiemout")
-            }
-            else {
-                NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:kNilOptions error:&error] mutableCopy];
-                NSLog(@"json %@",json);
-                NSLog(@"error %ld",(long)error.code);
-                NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-                NSInteger statusCode = [response statusCode];
-                [json setObject:[NSNumber numberWithInteger:statusCode] forKey:@"status"];
-                [self isStatusOK:json];
-                NSLog(@"error %ld",(long)statusCode);
-            }
-            failure(error);
-        }];
+             if (error.code == -1009) {
+                 [self showRetryAlertMessage:NSLocalizedText(@"Internet connection") path:path parameters:parameters success:success failure:failure error:error];
+             }
+             else if (error.code == -1001) {
+                 [self showRetryAlertMessage:NSLocalizedText(@"RequestTimeout") path:path parameters:parameters success:success failure:failure error:error];
+             }
+             else {
+                 NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:kNilOptions error:&error] mutableCopy];
+                 NSLog(@"json %@",json);
+                 NSLog(@"error %ld",(long)error.code);
+                 NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+                 NSInteger statusCode = [response statusCode];
+                 [json setObject:[NSNumber numberWithInteger:statusCode] forKey:@"status"];
+                 [self isStatusOK:json];
+                 NSLog(@"error %ld",(long)statusCode);
+                 failure(error);
+             }
+         }];
 }
 
 //Get method for search services
@@ -153,10 +148,10 @@
          failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
              [myDelegate stopIndicator];
              if (error.code == -1009) {
-                 //      NSLocalizedText(@"Internet connection")
+                 [self showRetryAlertMessage:NSLocalizedText(@"Internet connection") path:path parameters:parameters success:success failure:failure error:error];
              }
              else if (error.code == -1001) {
-                 //            NSLocalizedText(@"Tiemout")
+                 [self showRetryAlertMessage:NSLocalizedText(@"RequestTimeout") path:path parameters:parameters success:success failure:failure error:error];
              }
              else {
                  NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:kNilOptions error:&error] mutableCopy];
@@ -167,11 +162,10 @@
                  [json setObject:[NSNumber numberWithInteger:statusCode] forKey:@"status"];
                  [self isStatusOK:json];
                  NSLog(@"error %ld",(long)statusCode);
+                 failure(error);
              }
-             failure(error);
          }];
 }
-
 
 //Check response success
 - (BOOL)isStatusOK:(id)responseObject {
@@ -181,7 +175,7 @@
         case 400: {
             msg = responseObject[@"message"];
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-            [alert showWarning:nil title:@"Alert" subTitle:msg closeButtonTitle:@"Ok" duration:0.0f];
+            [alert showWarning:nil title:@"Alert" subTitle:msg closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
             return NO;
         }
         case 200:
@@ -208,8 +202,9 @@
             return NO;
             break;
         default: {
+            msg = responseObject[@"message"];
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-            [alert showWarning:nil title:@"Alert" subTitle:msg closeButtonTitle:@"Ok" duration:0.0f];
+            [alert showWarning:nil title:@"Alert" subTitle:msg closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         }
             return NO;
             break;
@@ -217,5 +212,26 @@
 }
 #pragma mark - end
 
+#pragma mark - Retry webservice
+- (void)showRetryAlertMessage:(NSString *)message path:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(NSError *))failure error:(NSError *)error {
+    SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+    [alert addButton:NSLocalizedText(@"alertRetry") actionBlock:^(void) {
+        self.success=success;
+        self.failure=failure;
+        self.retryPath=path;
+        self.retryParameters=parameters;
+        [myDelegate showIndicator];
+        [self performSelector:@selector(retryWebservice) withObject:nil afterDelay:.1];
+        
+    }];
+    [alert addButton:NSLocalizedText(@"alertCancel") actionBlock:^(void) {
+        failure(error);
+    }];
+    [alert showWarning:nil title:@"Alert" subTitle:message closeButtonTitle:nil duration:0.0f];
+}
 
+- (void)retryWebservice {
+    [self post:self.retryPath parameters:self.retryParameters success:self.success failure:self.failure];
+}
+#pragma mark - end
 @end

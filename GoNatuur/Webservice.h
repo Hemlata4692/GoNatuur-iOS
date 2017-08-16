@@ -19,6 +19,10 @@
 @interface Webservice : NSObject
 
 @property(nonatomic,retain) AFHTTPSessionManager *manager;
+@property (readwrite, nonatomic, copy) id success;
+@property (readwrite, nonatomic, copy) id failure;
+@property (strong, nonatomic) NSString *retryPath;
+@property (strong, nonatomic) NSDictionary *retryParameters;
 
 //Singleton instance
 + (id)sharedManager;

@@ -10,7 +10,7 @@
 #import "DashboardDataModel.h"
 #import "CurrencyDataModel.h"
 
-static NSString *kCategoryList=@"categories";
+static NSString *kCategoryList=@"ranosys/categories";
 static NSString *kDashboardData=@"ranosys/dashboard";
 static NSString *kCurrencyData=@"directory/currency";
 
@@ -20,7 +20,7 @@ static NSString *kCurrencyData=@"directory/currency";
 #pragma mark - Get category listing
 - (void)getCategoryListData:(DashboardDataModel *)categoryList success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
 //    [UserDefaultManager setValue:[UserDefaultManager getValue:@"Authorization"] key:@"Authorization"];
-    [UserDefaultManager setValue:@"9e28chln10yp8bkporq87jkw8vrgi6f3" key:@"Authorization"];
+//    [UserDefaultManager setValue:@"9e28chln10yp8bkporq87jkw8vrgi6f3" key:@"Authorization"];
     NSDictionary *parameters = @{@"rootCategoryId":categoryList.categoryId};
     NSLog(@"category list request %@",parameters);
     [super get:[NSString stringWithFormat:@"%@",kCategoryList] parameters:parameters onSuccess:success onFailure:failure];
@@ -29,7 +29,7 @@ static NSString *kCurrencyData=@"directory/currency";
 
 #pragma mark - Get dashboard data
 - (void)getDashboardData:(DashboardDataModel *)dasboardData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    [UserDefaultManager setValue:[UserDefaultManager getValue:@"Authorization"] key:@"Authorization"];
+//    [UserDefaultManager setValue:[UserDefaultManager getValue:@"Authorization"] key:@"Authorization"];
 //    [UserDefaultManager setValue:@"9e28chln10yp8bkporq87jkw8vrgi6f3" key:@"Authorization"];
     [super post:kDashboardData parameters:nil success:success failure:failure];
 }

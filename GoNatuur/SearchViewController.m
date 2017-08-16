@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *closeImageIcon;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
+@property (weak, nonatomic) IBOutlet UILabel *noResultLabel;
 @property (strong, nonatomic) NSTimer * searchTimer;
 @end
 
@@ -38,6 +39,7 @@
              forControlEvents:UIControlEventEditingChanged];
     _closeImageIcon.hidden=YES;
     _closeButton.hidden=YES;
+    _noResultLabel.hidden=YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -49,8 +51,8 @@
     statusBarView.backgroundColor = [UIColor colorWithRed:239.0/255.0 green:229.0/255.0 blue:233.0/255.0 alpha:1.0];
     [self.view addSubview:statusBarView];
 
+    //remove extra lines
     _searchTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -121,10 +123,17 @@
     SearchDataModel *serachData = [SearchDataModel sharedUser];
     serachData.serachKeyword=keyword;
     [serachData getSearchSuggestions:^(SearchDataModel *userData)  {
+        if (userData.searchKeywordListingArray.count==0) {
+            _noResultLabel.hidden=NO;
+        }
+        else {
+        _noResultLabel.hidden=YES;
         searchArray=[userData.searchKeywordListingArray mutableCopy];
         [_searchTableView reloadData];
+        }
     } onfailure:^(NSError *error) {
-        
+        _noResultLabel.hidden=NO;
+        _searchTableView.hidden=YES;
     }];
 
 }
@@ -147,7 +156,7 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [_searchTextField resignFirstResponder];
     SearchListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListingViewController"];
-    obj.searchKeyword=searchKey;
+    obj.searchKeyword=[[searchArray objectAtIndex:indexPath.row] keywordName];
     [self.navigationController pushViewController:obj animated:true];
 }
 #pragma mark - end

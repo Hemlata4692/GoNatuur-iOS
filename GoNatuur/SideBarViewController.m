@@ -49,7 +49,12 @@
     [_userProfileImageView setCornerRadius:_userProfileImageView.frame.size.width/2];
     [_userProfileImageView setBorder:_userProfileImageView color:[UIColor whiteColor] borderWidth:3.0];
     _userEmailLabel.translatesAutoresizingMaskIntoConstraints=YES;
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+        _userEmailLabel.text=@"Guest User";
+    }
+    else {
     _userEmailLabel.text=[UserDefaultManager getValue:@"emailId"];
+    }
     _userEmailLabel.numberOfLines=3;
     float newHeight =[DynamicHeightWidth getDynamicLabelHeight:_userEmailLabel.text font:[UIFont fontWithName:@"Montserrat-Regular" size:16.0] widthValue:[[UIScreen mainScreen] bounds].size.width-120];
     _userEmailLabel.frame=CGRectMake(30, _userEmailLabel.frame.origin.y,[[UIScreen mainScreen] bounds].size.width-120, newHeight+1);
@@ -69,25 +74,26 @@
     NSString *CellIdentifier = [menuItemsArray objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if (indexPath.row==5) {
-        UILabel *notificationBadgeLabel=(UILabel *) [cell viewWithTag:3];
+        UILabel *notificationBadgeLabel=(UILabel *) [cell viewWithTag:10];
         notificationBadgeLabel.translatesAutoresizingMaskIntoConstraints=YES;
         if([[[UserDefaultManager getValue:@"notificationsCount"] stringValue] isEqualToString:@""] || [UserDefaultManager getValue:@"notificationsCount"]==nil || [[[UserDefaultManager getValue:@"notificationsCount"] stringValue] isEqualToString:@"0"]) {
             notificationBadgeLabel.hidden=YES;
         }
         else {
-        notificationBadgeLabel.text=[[UserDefaultManager getValue:@"notificationsCount"] stringValue];
+            notificationBadgeLabel.hidden=NO;
+            notificationBadgeLabel.text=[[UserDefaultManager getValue:@"notificationsCount"] stringValue];
         }
         [notificationBadgeLabel sizeToFit];
         notificationBadgeLabel.frame=CGRectMake(185, notificationBadgeLabel.frame.origin.y,notificationBadgeLabel.frame.size.width+12, 15);
         [notificationBadgeLabel setCornerRadius:8.0];
     }
     
-    UILabel *cellLabel=(UILabel *) [cell viewWithTag:0];
+    UILabel *cellLabel=(UILabel *) [cell viewWithTag:1];
     if (indexPath.row==6&&(nil==[UserDefaultManager getValue:@"userId"])) {
-        cellLabel.text=@"SignIn";
+        cellLabel.text=@"SIGNIN";
     }
     else {
-        cellLabel.text=CellIdentifier;
+        cellLabel.text=[CellIdentifier uppercaseString];
     }
     return cell;
 }
@@ -115,11 +121,17 @@
     else if (indexPath.row==5) {
     }
     else if (indexPath.row==6) {
+        if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            [self logoutUser];
+        }
+        else {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert addButton:@"Ok" actionBlock:^(void) {
             //logou user
             [self logoutUser];
-        }
+        }];
+        [alert showWarning:nil title:@"Alert" subTitle:@"Are you sure you want to Signout?" closeButtonTitle:@"Cancel" duration:0.0f];
+    }
     }
 }
 #pragma mark - end

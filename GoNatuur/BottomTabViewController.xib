@@ -33,6 +33,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2eW-L6-Q0G">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UiP-2z-ES6">
                     <rect key="frame" x="16" y="0.0" width="60" height="50"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -126,7 +130,7 @@
                     <rect key="frame" x="260" y="6" width="24" height="24"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="UiP-2z-ES6" secondAttribute="bottom" id="2zi-hL-TYX"/>
                 <constraint firstAttribute="bottom" secondItem="ep2-H9-qD3" secondAttribute="bottom" constant="19" id="4XV-af-onS"/>
@@ -148,18 +152,22 @@
                 <constraint firstItem="vJs-Kz-0j0" firstAttribute="leading" secondItem="IKE-Y2-wMo" secondAttribute="trailing" constant="16" id="UZD-PA-9jt"/>
                 <constraint firstItem="IKE-Y2-wMo" firstAttribute="leading" secondItem="YsB-Mn-QBT" secondAttribute="trailing" constant="35" id="YWA-9C-Tre"/>
                 <constraint firstItem="IKE-Y2-wMo" firstAttribute="leading" secondItem="p3F-nQ-Ebh" secondAttribute="trailing" constant="16" id="Ya9-Ud-ZUZ"/>
+                <constraint firstItem="2eW-L6-Q0G" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Z68-zz-xbE"/>
                 <constraint firstItem="ep2-H9-qD3" firstAttribute="centerX" secondItem="UiP-2z-ES6" secondAttribute="centerX" constant="-1" id="Z90-DL-St0"/>
                 <constraint firstItem="UiP-2z-ES6" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Zqp-4J-Xw9"/>
                 <constraint firstItem="DOF-bQ-yM5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="6" id="aKy-UJ-FAC"/>
                 <constraint firstAttribute="bottom" secondItem="vJs-Kz-0j0" secondAttribute="bottom" id="bO3-kf-4HF"/>
                 <constraint firstItem="ep2-H9-qD3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="7" id="cPk-qt-0JV"/>
                 <constraint firstItem="DOF-bQ-yM5" firstAttribute="leading" secondItem="IKE-Y2-wMo" secondAttribute="trailing" constant="32" id="coV-Ez-J9a"/>
+                <constraint firstAttribute="trailing" secondItem="2eW-L6-Q0G" secondAttribute="trailing" id="cyS-yp-Jm9"/>
                 <constraint firstItem="p3F-nQ-Ebh" firstAttribute="width" secondItem="IKE-Y2-wMo" secondAttribute="width" id="dBu-pa-wY2"/>
                 <constraint firstItem="ep2-H9-qD3" firstAttribute="top" secondItem="YsB-Mn-QBT" secondAttribute="top" id="sa3-Wz-Cpm"/>
+                <constraint firstItem="2eW-L6-Q0G" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="tAp-f8-ONa"/>
                 <constraint firstItem="OY7-AS-R7r" firstAttribute="centerX" secondItem="IKE-Y2-wMo" secondAttribute="centerX" constant="-2" id="tfS-80-iCo"/>
                 <constraint firstAttribute="trailing" secondItem="DOF-bQ-yM5" secondAttribute="trailing" constant="36" id="wQ8-oV-xpy"/>
                 <constraint firstItem="p3F-nQ-Ebh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="wUE-Qe-7Gi"/>
                 <constraint firstItem="ep2-H9-qD3" firstAttribute="bottom" secondItem="YsB-Mn-QBT" secondAttribute="bottom" id="x2g-66-tN9"/>
+                <constraint firstAttribute="bottom" secondItem="2eW-L6-Q0G" secondAttribute="bottom" id="zvK-jG-yz8"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

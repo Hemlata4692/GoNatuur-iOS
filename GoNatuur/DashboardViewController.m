@@ -209,7 +209,7 @@
     samplersProductDataArray=[bannerImageData.samplersDataArray mutableCopy];
     //footerImageView
     bannerImageData=[footerImageArray objectAtIndex:0];
-    [ImageCaching downloadImages:_footerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder"];
+    [ImageCaching downloadImages:_footerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:false];
     [_productCollectionView reloadData];
     [_footerImageCollectionView reloadData];
     [self swipeImages];
@@ -220,7 +220,7 @@
 - (void)swipeImages {
     selectedIndex=0;
     bannerImageData=[bannerImageArray objectAtIndex:selectedIndex];
-    [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder"];
+    [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:false];
     self.bannerImageView.userInteractionEnabled = YES;
     
     //Swipe gesture to swipe images to left
@@ -266,7 +266,7 @@
     selectedIndex++;
     if (selectedIndex<bannerImageArray.count) {
         bannerImageData=[bannerImageArray objectAtIndex:selectedIndex];
-        [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder"];
+        [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:false];
         UIImageView *moveImageView = _bannerImageView;
         [self addLeftAnimationPresentToView:moveImageView];
     }
@@ -282,7 +282,7 @@
         //check if screen is navigated from image question or not
         bannerImageData=[bannerImageArray objectAtIndex:selectedIndex];
         //set image from afnetworking
-        [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder"];
+        [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:false];
         UIImageView *moveImageView = _bannerImageView;
         [self addRightAnimationPresentToView:moveImageView];
     }

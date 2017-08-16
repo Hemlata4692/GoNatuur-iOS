@@ -25,6 +25,7 @@
 @synthesize wishlistCount;
 @synthesize firstName;
 @synthesize lastName;
+@synthesize profilePicture;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{

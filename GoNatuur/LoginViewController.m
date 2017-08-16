@@ -65,6 +65,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
+    _emailTextField.text=@"";
+    _passwordTextField.text=@"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -136,7 +138,7 @@
 }
 
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControl {
-    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [keyboardControl.activeField resignFirstResponder];
 }
 #pragma mark - end

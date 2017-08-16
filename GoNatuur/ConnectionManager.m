@@ -49,13 +49,14 @@
     [loginService loginUser:userData onSuccess:^(id response) {
         NSLog(@"login response %@",response);
         //Parse data from server response and store in datamodel
-        userData.userId=[[[response objectAtIndex:0] objectForKey:@"customer"] objectForKey:@"entity_id"];
-        userData.accessToken=[[response objectAtIndex:0] objectForKey:@"api_key"];
-        userData.followCount=[[response objectAtIndex:0] objectForKey:@"follow_count"];
-        userData.notificationsCount=[[response objectAtIndex:0] objectForKey:@"notifications_count"];
-        userData.quoteId=[[response objectAtIndex:0] objectForKey:@"quote_id"];
-        userData.quoteCount=[[response objectAtIndex:0] objectForKey:@"quote_count"];
-        userData.wishlistCount=[[response objectAtIndex:0] objectForKey:@"wishlist_count"];
+        userData.userId=[[response objectForKey:@"customer"] objectForKey:@"id"];
+        userData.profilePicture=[[response objectForKey:@"customer"] objectForKey:@"profile_pic"];
+        userData.accessToken=[response objectForKey:@"api_key"];
+        userData.followCount=[response objectForKey:@"follow_count"];
+        userData.notificationsCount=[response objectForKey:@"notifications_count"];
+        userData.quoteId=[response objectForKey:@"quote_id"];
+        userData.quoteCount=[response objectForKey:@"quote_count"];
+        userData.wishlistCount=[response objectForKey:@"wishlist_count"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -144,14 +145,16 @@
 - (void)signUpUserService:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *loginService = [[LoginService alloc] init];
     [loginService signUpUserService:userData onSuccess:^(id response) {
+        NSLog(@"signup response %@",response);
         //Parse data from server response and store in datamodel
-        userData.userId=[[[response objectAtIndex:0] objectForKey:@"customer"] objectForKey:@"entity_id"];
-        userData.accessToken=[[response objectAtIndex:0] objectForKey:@"api_key"];
-        userData.followCount=[[response objectAtIndex:0] objectForKey:@"follow_count"];
-        userData.notificationsCount=[[response objectAtIndex:0] objectForKey:@"notifications_count"];
-        userData.quoteId=[[response objectAtIndex:0] objectForKey:@"quote_id"];
-        userData.quoteCount=[[response objectAtIndex:0] objectForKey:@"quote_count"];
-        userData.wishlistCount=[[response objectAtIndex:0] objectForKey:@"wishlist_count"];
+        userData.userId=[[response objectForKey:@"customer"] objectForKey:@"id"];
+        userData.profilePicture=[[response objectForKey:@"customer"] objectForKey:@"profile_pic"];
+        userData.accessToken=[response objectForKey:@"api_key"];
+        userData.followCount=[response objectForKey:@"follow_count"];
+        userData.notificationsCount=[response objectForKey:@"notifications_count"];
+        userData.quoteId=[response objectForKey:@"quote_id"];
+        userData.quoteCount=[response objectForKey:@"quote_count"];
+        userData.wishlistCount=[response objectForKey:@"wishlist_count"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
