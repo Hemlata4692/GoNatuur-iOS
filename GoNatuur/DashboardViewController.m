@@ -130,11 +130,13 @@
     buttonTag=1;
     [self reloadCollectionView];
 }
+
 - (IBAction)healthyLivingButtonAction:(id)sender {
     [self reframeSeperatorLabel:sender];
     buttonTag=2;
     [self reloadCollectionView];
 }
+
 - (IBAction)samplersButtonAction:(id)sender {
     [self reframeSeperatorLabel:sender];
     buttonTag=3;

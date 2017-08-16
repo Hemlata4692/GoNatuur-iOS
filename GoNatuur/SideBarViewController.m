@@ -9,6 +9,7 @@
 #import "SideBarViewController.h"
 #import "SWRevealViewController.h"
 #import "DynamicHeightWidth.h"
+#import "UIView+Toast.h"
 
 @interface SideBarViewController () {
     NSArray *menuItemsArray;
@@ -69,7 +70,12 @@
     if (indexPath.row==5) {
         UILabel *notificationBadgeLabel=(UILabel *) [cell viewWithTag:3];
         notificationBadgeLabel.translatesAutoresizingMaskIntoConstraints=YES;
-        notificationBadgeLabel.text=@"5478";
+        if([[[UserDefaultManager getValue:@"notificationsCount"] stringValue] isEqualToString:@""] || [UserDefaultManager getValue:@"notificationsCount"]==nil || [[[UserDefaultManager getValue:@"notificationsCount"] stringValue] isEqualToString:@"0"]) {
+            notificationBadgeLabel.hidden=YES;
+        }
+        else {
+        notificationBadgeLabel.text=[[UserDefaultManager getValue:@"notificationsCount"] stringValue];
+        }
         [notificationBadgeLabel sizeToFit];
         notificationBadgeLabel.frame=CGRectMake(185, notificationBadgeLabel.frame.origin.y,notificationBadgeLabel.frame.size.width+12, 15);
         [notificationBadgeLabel setCornerRadius:8.0];
@@ -82,7 +88,24 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row==6) {
+    if (indexPath.row==0) {
+        [self.view makeToast:@"Feature is currently not available."];
+    }
+    else if (indexPath.row==1) {
+        [self.view makeToast:@"Feature is currently not available."];
+    }
+    else if (indexPath.row==2) {
+        [self.view makeToast:@"Feature is currently not available."];
+    }
+    else if (indexPath.row==3) {
+        
+    }
+    else if (indexPath.row==4) {
+        [self.view makeToast:@"Feature is currently not available."];
+    }
+    else if (indexPath.row==5) {
+    }
+    else if (indexPath.row==6) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert addButton:@"Ok" actionBlock:^(void) {
             //logou user

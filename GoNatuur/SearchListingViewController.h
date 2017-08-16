@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SearchListingViewController : GoNatuurViewController
-
+@property (nonatomic, strong) NSString *searchKeyword;
 @end

@@ -13,6 +13,7 @@
 @property (strong, nonatomic) NSString *keywordID;
 @property (strong, nonatomic) NSString *keywordName;
 @property (strong, nonatomic) NSString *keywordAction;
+@property (strong, nonatomic) NSString *searchResultCount;
 @property (strong, nonatomic) NSMutableArray *searchKeywordListingArray;
 
 //Singleton method

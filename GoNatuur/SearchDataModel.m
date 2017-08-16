@@ -14,6 +14,7 @@
 @synthesize keywordID;
 @synthesize keywordName;
 @synthesize keywordAction;
+@synthesize searchResultCount;
 @synthesize searchKeywordListingArray;
 
 #pragma mark - Shared instance

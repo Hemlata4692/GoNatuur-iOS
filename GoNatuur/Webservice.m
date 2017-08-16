@@ -53,7 +53,6 @@
         [myDelegate stopIndicator];
         if (error.code == -1009) {
             
-            
             //            NSLocalizedText(@"Internet connection")
         }
         else if (error.code == -1001) {
@@ -137,6 +136,42 @@
             failure(error);
         }];
 }
+
+//Get method for search services
+- (void)getSearchData:(NSString *)path parameters:(NSDictionary *)parameters onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [self.manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json",@"application/x-www-form-urlencoded", nil]];
+    if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
+    }
+    path = [NSString stringWithFormat:@"http://dev.gonatuur.com/en/%@",path];
+    [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+    }
+         failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
+             [myDelegate stopIndicator];
+             if (error.code == -1009) {
+                 //      NSLocalizedText(@"Internet connection")
+             }
+             else if (error.code == -1001) {
+                 //            NSLocalizedText(@"Tiemout")
+             }
+             else {
+                 NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:kNilOptions error:&error] mutableCopy];
+                 NSLog(@"json %@",json);
+                 NSLog(@"error %ld",(long)error.code);
+                 NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+                 NSInteger statusCode = [response statusCode];
+                 [json setObject:[NSNumber numberWithInteger:statusCode] forKey:@"status"];
+                 [self isStatusOK:json];
+                 NSLog(@"error %ld",(long)statusCode);
+             }
+             failure(error);
+         }];
+}
+
 
 //Check response success
 - (BOOL)isStatusOK:(id)responseObject {

@@ -15,7 +15,9 @@
 @end
 
 @implementation SearchListingViewController
+@synthesize searchKeyword;
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -27,6 +29,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    self.title=searchKeyword;
+    self.navigationController.navigationBarHidden=false;
+    [self addLeftBarButtonWithImage:true];
+}
+#pragma mark - end
 
 #pragma mark - Collection view datasource methods
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {

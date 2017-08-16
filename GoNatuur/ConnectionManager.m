@@ -232,13 +232,12 @@
         //Parse data from server response and store in data model
         NSLog(@"SearchService list response %@",response);
         userData.searchKeywordListingArray=[[NSMutableArray alloc]init];
-        NSArray *searchArray=response[@"suggestions"];
+        NSArray *searchArray=[response mutableCopy];
         for (int i =0; i<searchArray.count; i++) {
-            NSDictionary * footerDataDict =[searchArray objectAtIndex:i];
+            NSDictionary * searchDataDict =[searchArray objectAtIndex:i];
             SearchDataModel * searchData = [[SearchDataModel alloc]init];
-            searchData.keywordName = footerDataDict[@"title"];
-            searchData.keywordID = footerDataDict[@"id"];
-            searchData.keywordAction = footerDataDict[@"action"];
+            searchData.keywordName = searchDataDict[@"title"];
+            searchData.searchResultCount = searchDataDict[@"num_results"];
             [userData.searchKeywordListingArray addObject:searchData];
         }
         success(userData);

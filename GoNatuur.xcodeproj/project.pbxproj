@@ -13,6 +13,7 @@
 		184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C385B1F3B0911008B8291 /* SideBarViewController.m */; };
 		184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C38641F3B328A008B8291 /* EnableNotificationViewController.m */; };
 		184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */; };
+		1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */; };
 		188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1886058F1F39AF320005D1E2 /* UserNotifications.framework */; };
 		188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605941F39BC430005D1E2 /* DashboardViewController.m */; };
 		1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605991F39C0FC0005D1E2 /* CategorySliderViewController.m */; };
@@ -104,6 +105,8 @@
 		184C38631F3B328A008B8291 /* EnableNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableNotificationViewController.h; sourceTree = "<group>"; };
 		184C38641F3B328A008B8291 /* EnableNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnableNotificationViewController.m; sourceTree = "<group>"; };
 		184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Regular.otf"; sourceTree = "<group>"; };
+		1870F0BC1F44185F008B2CE5 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		1886058F1F39AF320005D1E2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		188605931F39BC430005D1E2 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		188605941F39BC430005D1E2 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
@@ -292,6 +295,15 @@
 				184C38641F3B328A008B8291 /* EnableNotificationViewController.m */,
 			);
 			name = EnableNotificationView;
+			sourceTree = "<group>";
+		};
+		1870F0BB1F44184F008B2CE5 /* ToastView */ = {
+			isa = PBXGroup;
+			children = (
+				1870F0BC1F44185F008B2CE5 /* UIView+Toast.h */,
+				1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */,
+			);
+			name = ToastView;
 			sourceTree = "<group>";
 		};
 		188605911F39BB720005D1E2 /* DashboardModule */ = {
@@ -555,6 +567,7 @@
 		320761661F162789001F1790 /* CategoryClasses */ = {
 			isa = PBXGroup;
 			children = (
+				1870F0BB1F44184F008B2CE5 /* ToastView */,
 				B73A65351F3DF0530051E4C5 /* LocalizedString */,
 				B745811E1F39C8E100A164D6 /* CustomFont */,
 				320761801F163B2F001F1790 /* CornerRadius */,
@@ -1051,6 +1064,7 @@
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
 				181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
+				1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */,
 				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,

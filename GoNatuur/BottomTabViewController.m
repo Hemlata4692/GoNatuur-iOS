@@ -7,6 +7,8 @@
 //
 
 #import "BottomTabViewController.h"
+#import "DashboardViewController.h"
+#import "UIView+Toast.h"
 
 @interface BottomTabViewController ()
 @property (strong, nonatomic) IBOutlet UIView *bottomTabView;
@@ -58,8 +60,11 @@
     else {
         _homeTabImageIcon.alpha=1.0;
         _homeTab.backgroundColor=[UIColor blackColor];
-        
     }
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    DashboardViewController * loginView = [storyboard instantiateViewControllerWithIdentifier:@"DashboardViewController"];
+    [self.navigationController setViewControllers: [NSArray arrayWithObject:loginView]
+                                         animated: YES];
 }
 
 - (IBAction)myCartTabAction:(id)sender {
@@ -81,6 +86,7 @@
         _myCartTabImageIcon.alpha=1.0;
         _myCartTab.backgroundColor=[UIColor blackColor];
     }
+    [self.view makeToast:@"Feature is currently not available."];
 }
 
 - (IBAction)wishlistTabAction:(id)sender {
@@ -102,6 +108,7 @@
         _wishlistTabImageIcon.alpha=1.0;
         _wishlistTab.backgroundColor=[UIColor blackColor];
     }
+    [self.view makeToast:@"Feature is currently not available."];
 }
 
 - (IBAction)profileTabAction:(id)sender {
@@ -123,6 +130,7 @@
         _profileTabImageIcon.alpha=1.0;
         _profileTab.backgroundColor=[UIColor blackColor];
     }
+    [self.view makeToast:@"Feature is currently not available."];
 }
 #pragma mark - end
 

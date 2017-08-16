@@ -11,7 +11,9 @@
 #import "SearchDataModel.h"
 
 @interface SearchViewController () {
+    @private
     NSMutableArray *searchArray;
+    NSString *searchKey;
 }
 @property (weak, nonatomic) IBOutlet UITableView *searchTableView;
 @property (weak, nonatomic) IBOutlet UIView *searchView;
@@ -30,6 +32,7 @@
     
     searchArray=[[NSMutableArray alloc]init];
     
+    [_searchTextField becomeFirstResponder];
     [_searchTextField addTarget:self
                        action:@selector(textFieldDidChange:)
              forControlEvents:UIControlEventEditingChanged];
@@ -94,11 +97,11 @@
 
 - (void) searchForKeyword:(NSTimer *)timer {
     // retrieve the keyword from user info
-    NSString *keyword = (NSString*)timer.userInfo;
+    searchKey = (NSString*)timer.userInfo;
     // perform your search (stubbed here using NSLog)
-    NSLog(@"Searching for keyword %@", keyword);
-    if (![keyword isEqualToString:@""]) {
-         [self getSerachSuggestionListing:keyword];
+    NSLog(@"Searching for keyword %@", searchKey);
+    if (![searchKey isEqualToString:@""]) {
+         [self getSerachSuggestionListing:searchKey];
     }
 }
 
@@ -141,7 +144,10 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [_searchTextField resignFirstResponder];
+    SearchListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListingViewController"];
+    obj.searchKeyword=searchKey;
+    [self.navigationController pushViewController:obj animated:true];
 }
 #pragma mark - end
 

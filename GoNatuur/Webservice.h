@@ -34,6 +34,8 @@
 
 - (void)get:(NSString *)path parameters:(NSDictionary *)parameters onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 
+- (void)getSearchData:(NSString *)path parameters:(NSDictionary *)parameters onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
+
 //Check response success
 - (BOOL)isStatusOK:(id)responseObject;
 //end

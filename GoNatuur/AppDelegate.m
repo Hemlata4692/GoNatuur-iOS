@@ -60,10 +60,8 @@
 #pragma mark - Application life cycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    //Set navigation bar color
-//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-//    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.0/255.0 green:58.0/255.0 blue:78.0/255.0 alpha:1.0]];
     
+    //Set navigation bar color
    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont montserratMediumWithSize:20], NSFontAttributeName, nil]];
     
     selectedLoginType=FacebookLogin;
@@ -71,15 +69,15 @@
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     
-//    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    navigationController = (UINavigationController *)[self.window rootViewController];
-//    if (nil!=[UserDefaultManager getValue:@"userId"]) {
-//        UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-//        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//        [self.window setRootViewController:objReveal];
-//        [self.window setBackgroundColor:[UIColor whiteColor]];
-//        [self.window makeKeyAndVisible];
-//    }
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    navigationController = (UINavigationController *)[self.window rootViewController];
+    if (nil!=[UserDefaultManager getValue:@"userId"]) {
+        UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        [self.window setRootViewController:objReveal];
+        [self.window setBackgroundColor:[UIColor whiteColor]];
+        [self.window makeKeyAndVisible];
+    }
     
     //[self registerForRemoteNotification];
     selectedCategoryIndex=-1;
