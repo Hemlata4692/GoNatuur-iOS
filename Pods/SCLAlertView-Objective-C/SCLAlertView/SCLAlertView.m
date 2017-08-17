@@ -833,41 +833,41 @@ SCLTimerDisplay *buttonTimer;
     switch (style)
     {//182,36,70
         case SCLAlertViewStyleSuccess:
-            viewColor = UIColorFromHEX(0xB62446);
+            viewColor = UIColorFromHEX(0x921B37);
             iconImage = SCLAlertViewStyleKit.imageOfCheckmark;
             break;
             
         case SCLAlertViewStyleError:
-            viewColor = UIColorFromHEX(0xB62446);
+            viewColor = UIColorFromHEX(0x921B37);
             iconImage = SCLAlertViewStyleKit.imageOfCross;
             break;
             
         case SCLAlertViewStyleNotice:
-            viewColor = UIColorFromHEX(0xB62446);
+            viewColor = UIColorFromHEX(0x921B37);
             iconImage = SCLAlertViewStyleKit.imageOfNotice;
             break;
             
         case SCLAlertViewStyleWarning:
-            viewColor = UIColorFromHEX(0xB62446);
+            viewColor = UIColorFromHEX(0x921B37);
             iconImage = SCLAlertViewStyleKit.imageOfInfo;
             break;
             
         case SCLAlertViewStyleInfo:
-            viewColor = UIColorFromHEX(0xB62446);
+            viewColor = UIColorFromHEX(0x921B37);
             iconImage = SCLAlertViewStyleKit.imageOfInfo;
             break;
             
         case SCLAlertViewStyleEdit:
-            viewColor = UIColorFromHEX(0xB62446);
+            viewColor = UIColorFromHEX(0x921B37);
             iconImage = SCLAlertViewStyleKit.imageOfEdit;
             break;
             
         case SCLAlertViewStyleWaiting:
-            viewColor = UIColorFromHEX(0xB62446);
+            viewColor = UIColorFromHEX(0x921B37);
             break;
             
         case SCLAlertViewStyleQuestion:
-            viewColor = UIColorFromHEX(0xB62446);
+            viewColor = UIColorFromHEX(0x921B37);
             iconImage = SCLAlertViewStyleKit.imageOfQuestion;
             break;
             

@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface ImageCaching : NSObject
-+ (void)downloadImages:(UIImageView *)imageView imageUrl:(NSString *)imageUrl placeholderImage:(NSString *)placeholderImage;
++ (void)downloadImages:(UIImageView *)imageView imageUrl:(NSString *)imageUrl placeholderImage:(NSString *)placeholderImage isDashboardCell:(BOOL)isDashboardCell;
 @end

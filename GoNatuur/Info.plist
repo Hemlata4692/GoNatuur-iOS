@@ -23,7 +23,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.203484340022-n7i72bu9h19efaspim5cqb1fc18uvtlc</string>
+				<string>com.googleusercontent.apps.393389385580-q5a9ttuhgucfd7lq0t6sfg32ir9u3gne</string>
 			</array>
 		</dict>
 		<dict>
@@ -59,6 +59,7 @@
 		<string>Montserrat-Light.otf</string>
 		<string>Montserrat-Medium.otf</string>
 		<string>SF-UI-Display-Regular.otf</string>
+		<string>Montserrat-Bold.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

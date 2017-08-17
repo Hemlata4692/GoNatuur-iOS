@@ -42,6 +42,7 @@
     view.layer.shadowOffset = CGSizeMake(1.0, 1.0);
     view.layer.shadowOpacity = 1.0;
     view.layer.shadowRadius = 3.0;
+    view.layer.masksToBounds=YES;
 }
 //add shadow with corner radius
 - (void)addShadowWithCornerRadius: (UIView *)_myView color:(UIColor *)color borderColor:(UIColor *)borderColor radius:(CGFloat)radius {

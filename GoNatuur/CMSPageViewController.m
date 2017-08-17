@@ -16,7 +16,6 @@
 
 @implementation CMSPageViewController
 @synthesize isPrivacyPolicy;
-@synthesize webView;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -34,11 +33,10 @@
 
 #pragma mark - View initialization
 - (void)initializedView {
-    
     self.navigationController.navigationBarHidden=false;
     //Set clear background color
-    webView.backgroundColor = [UIColor clearColor];
-    webView.opaque=NO;
+    _webView.backgroundColor = [UIColor clearColor];
+    _webView.opaque=NO;
     //Set navigationBar background image
     UIImage *image = [UIImage imageNamed:@"navigation.png"];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
@@ -92,7 +90,7 @@
     userLogin.cmsPageType=cmsPageType;
     [userLogin CMSPageService:^(LoginModel *userData) {
         self.navigationItem.title=userData.cmsTitle;
-        [webView loadHTMLString:userData.cmsContent baseURL: nil];
+        [_webView loadHTMLString:userData.cmsContent baseURL: nil];
     } onfailure:^(NSError *error) {
     }];
 }

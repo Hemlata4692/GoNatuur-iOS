@@ -3,12 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>203484340022-n7i72bu9h19efaspim5cqb1fc18uvtlc.apps.googleusercontent.com</string>
+	<string>393389385580-q5a9ttuhgucfd7lq0t6sfg32ir9u3gne.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.203484340022-n7i72bu9h19efaspim5cqb1fc18uvtlc</string>
+	<string>com.googleusercontent.apps.393389385580-q5a9ttuhgucfd7lq0t6sfg32ir9u3gne</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.ranosys.LoginLibrary</string>
+	<string>com.ranosys.GoNatuur</string>
 </dict>
 </plist>

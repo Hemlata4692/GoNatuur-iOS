@@ -11,6 +11,9 @@
 #import "LoginModel.h"
 #import "DashboardDataModel.h"
 #import "DashboardService.h"
+#import "SearchDataModel.h"
+#import "SearchService.h"
+#import "CurrencyDataModel.h"
 
 @implementation ConnectionManager
 
@@ -29,10 +32,8 @@
 #pragma mark - Community code
 - (void)getAccessToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *authToken = [[LoginService alloc] init];
-    //parse data from server response and store in datamodel
+    //Parse data from server response and store in datamodel
     [authToken getAccessToken:userData onSuccess:^(id response) {
-        
-        
         success(response);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -46,13 +47,14 @@
     [loginService loginUser:userData onSuccess:^(id response) {
         NSLog(@"login response %@",response);
         //Parse data from server response and store in datamodel
-        userData.userId=[[[response objectAtIndex:0] objectForKey:@"customer"] objectForKey:@"entity_id"];
-        userData.accessToken=[[response objectAtIndex:0] objectForKey:@"api_key"];
-        userData.followCount=[[response objectAtIndex:0] objectForKey:@"follow_count"];
-        userData.notificationsCount=[[response objectAtIndex:0] objectForKey:@"notifications_count"];
-        userData.quoteId=[[response objectAtIndex:0] objectForKey:@"quote_id"];
-        userData.quoteCount=[[response objectAtIndex:0] objectForKey:@"quote_count"];
-        userData.wishlistCount=[[response objectAtIndex:0] objectForKey:@"wishlist_count"];
+        userData.userId=[[response objectForKey:@"customer"] objectForKey:@"id"];
+        userData.profilePicture=[[response objectForKey:@"customer"] objectForKey:@"profile_pic"];
+        userData.accessToken=[response objectForKey:@"api_key"];
+        userData.followCount=[response objectForKey:@"follow_count"];
+        userData.notificationsCount=[response objectForKey:@"notifications_count"];
+        userData.quoteId=[response objectForKey:@"quote_id"];
+        userData.quoteCount=[response objectForKey:@"quote_count"];
+        userData.wishlistCount=[response objectForKey:@"wishlist_count"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -82,7 +84,6 @@
         } onFailure:^(NSError *error) {
             failure(error);
         }] ;
-        
     }
 }
 
@@ -100,24 +101,59 @@
 }
 #pragma mark - end
 
+#pragma mark - Forgot password service
+- (void)forgotPasswordService:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure  {
+    LoginService *loginService = [[LoginService alloc] init];
+    [loginService forgotPasswordService:userData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        userData.otpNumber=[[response  objectAtIndex:0] objectForKey:@"resetOTP"];
+        success(userData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Reset password service
+- (void)resetPasswordService:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure  {
+    LoginService *loginService = [[LoginService alloc] init];
+    [loginService resetPasswordService:userData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        userData.otpNumber=[[response  objectAtIndex:0] objectForKey:@"resetOTP"];
+        success(userData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
 #pragma mark - Category listing service
 - (void)getCategoryListing:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     DashboardService *categoryList=[[DashboardService alloc]init];
     [categoryList getCategoryListData:userData success:^(id response) {
         //Parse data from server response and store in data model
         NSLog(@"category list response %@",response);
-        userData.categoryNameArray=[response[@"children_data"] mutableCopy];
+        myDelegate.categoryNameArray=[response[@"children_data"] mutableCopy];
         success(userData);
     } onfailure:^(NSError *error) {
     }];
 }
+#pragma mark - end
+
 #pragma mark - SignUp user service
 - (void)signUpUserService:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *loginService = [[LoginService alloc] init];
     [loginService signUpUserService:userData onSuccess:^(id response) {
+        NSLog(@"signup response %@",response);
         //Parse data from server response and store in datamodel
-        userData.cmsTitle=[response objectForKey:@"title"];
-        userData.cmsContent=[response objectForKey:@"content"];
+        userData.userId=[[response objectForKey:@"customer"] objectForKey:@"id"];
+        userData.profilePicture=[[response objectForKey:@"customer"] objectForKey:@"profile_pic"];
+        userData.accessToken=[response objectForKey:@"api_key"];
+        userData.followCount=[response objectForKey:@"follow_count"];
+        userData.notificationsCount=[response objectForKey:@"notifications_count"];
+        userData.quoteId=[response objectForKey:@"quote_id"];
+        userData.quoteCount=[response objectForKey:@"quote_count"];
+        userData.wishlistCount=[response objectForKey:@"wishlist_count"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -197,13 +233,46 @@
 #pragma mark - end
 
 #pragma mark - Fetch currency data
-- (void)getDefaultCurrency:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+- (void)getDefaultCurrency:(CurrencyDataModel *)userData onSuccess:(void (^)(CurrencyDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     DashboardService *currencyData=[[DashboardService alloc]init];
     [currencyData getCurrency:userData success:^(id response) {
         //Parse data from server response and store in data model
         NSLog(@"currency list response %@",response);
         userData.userCurrency=response[@"default_display_currency_symbol"];
-        NSLog(@"currency  %@",userData.userCurrency);
+        userData.currentCurrencyCode=response[@"default_display_currency_code"];
+        userData.availableCurrencyArray=[response[@"available_currency_codes"] mutableCopy];
+        userData.availableCurrencyRatesArray=[[NSMutableArray alloc]init];
+        NSArray *ratesArray=response[@"exchange_rates"];
+        for (int i =0; i<ratesArray.count; i++) {
+            NSDictionary * footerDataDict =[ratesArray objectAtIndex:i];
+            CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
+            exchangeData.currencyExchangeCode = footerDataDict[@"currency_to"];
+            exchangeData.currencyExchangeRates = footerDataDict[@"rate"];
+            [userData.availableCurrencyRatesArray addObject:exchangeData];
+        }
+        success(userData);
+        
+    } onfailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Fetch search suggestions data
+- (void)getSearchSuggestionData:(SearchDataModel *)userData onSuccess:(void (^)(SearchDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    SearchService *serachSuggestions=[[SearchService alloc]init];
+    [serachSuggestions getSearchKeywordData:userData success:^(id response) {
+        //Parse data from server response and store in data model
+        NSLog(@"SearchService list response %@",response);
+        userData.searchKeywordListingArray=[[NSMutableArray alloc]init];
+        NSArray *searchArray=[response mutableCopy];
+        for (int i =0; i<searchArray.count; i++) {
+            NSDictionary * searchDataDict =[searchArray objectAtIndex:i];
+            SearchDataModel * searchData = [[SearchDataModel alloc]init];
+            searchData.keywordName = searchDataDict[@"title"];
+            searchData.searchResultCount = searchDataDict[@"num_results"];
+            [userData.searchKeywordListingArray addObject:searchData];
+        }
         success(userData);
         
     } onfailure:^(NSError *error) {
