@@ -32,10 +32,8 @@
 #pragma mark - Community code
 - (void)getAccessToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *authToken = [[LoginService alloc] init];
-    //parse data from server response and store in datamodel
+    //Parse data from server response and store in datamodel
     [authToken getAccessToken:userData onSuccess:^(id response) {
-        
-        
         success(response);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -86,7 +84,6 @@
         } onFailure:^(NSError *error) {
             failure(error);
         }] ;
-        
     }
 }
 
@@ -141,6 +138,8 @@
     } onfailure:^(NSError *error) {
     }];
 }
+#pragma mark - end
+
 #pragma mark - SignUp user service
 - (void)signUpUserService:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *loginService = [[LoginService alloc] init];

@@ -33,7 +33,6 @@
 
 #pragma mark - View initialization
 - (void)initializedView {
-    
     self.navigationController.navigationBarHidden=false;
     //Set clear background color
     _webView.backgroundColor = [UIColor clearColor];

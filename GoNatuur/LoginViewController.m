@@ -80,10 +80,10 @@
     SocialLoginViewController *obj = [[SocialLoginViewController alloc] initWithNibName:@"SocialLoginViewController" bundle:nil];
     obj.view.translatesAutoresizingMaskIntoConstraints=YES;
     obj.view.frame=CGRectMake(13, loginBackViewY, [[UIScreen mainScreen] bounds].size.width-26, 212);
-    obj.fbText=@"Log in with Facebook";
-    obj.weChatText=@"Log in with WeChat account";
-    obj.wieboText=@"Log in with Wiebo";
-    obj.googlPlusText=@"Log in with google plus";
+    obj.fbText=NSLocalizedText(@"loginFb");
+    obj.weChatText=NSLocalizedText(@"loginWeChat");
+    obj.wieboText=NSLocalizedText(@"loginWiebo");
+    obj.googlPlusText=NSLocalizedText(@"loginGooglePlus");
     obj.delegate=self;
     [self addChildViewController:obj];
     [_mainView addSubview:obj.view];

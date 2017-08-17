@@ -26,3 +26,12 @@
 "lowerCaseCharacter" = "abcdefghijklmnopqrstuvwxyz";
 "numberCharacter" = "0123456789";
 "resetPasswordSuccess" = "Your passwod is updated.";
+"GoNatuur" = "GoNatuur";
+"loginFb" = "Log in with Facebook";
+"loginWeChat" = "Log in with WeChat";
+"loginWiebo" = "Log in with Wiebo";
+"loginGooglePlus" = "Log in with Google Plus";
+"signUpFb" = "Sign up with Facebook";
+"signUpWeChat" = "Sign up with WeChat";
+"signUpWiebo" = "Sign up with Wiebo";
+"signUpGooglePlus" = "Sign up with Google Plus";

@@ -57,7 +57,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
-    self.title=@"GoNatuur";
+    self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:false];
     if (firstTime) {
         [myDelegate showIndicator];

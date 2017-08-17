@@ -78,7 +78,6 @@
     [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
-        //[UserDefaultManager getValue:@"Authorization"]
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
     }
     manager.securityPolicy.allowInvalidCertificates = YES;

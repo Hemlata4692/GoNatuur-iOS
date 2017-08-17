@@ -9,6 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CMSPageViewController : UIViewController
-
 @property (assign, nonatomic) BOOL isPrivacyPolicy;
 @end
