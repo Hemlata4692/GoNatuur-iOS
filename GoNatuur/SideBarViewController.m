@@ -48,6 +48,8 @@
 - (void)viewCustomisationAndData {
     [_userProfileImageView setCornerRadius:_userProfileImageView.frame.size.width/2];
     [_userProfileImageView setBorder:_userProfileImageView color:[UIColor whiteColor] borderWidth:3.0];
+    [ImageCaching downloadImages:_userProfileImageView imageUrl:[UserDefaultManager getValue:@"profilePicture"] placeholderImage:@"profile_placeholder" isDashboardCell:true];
+
     _userEmailLabel.translatesAutoresizingMaskIntoConstraints=YES;
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
         _userEmailLabel.text=@"Guest User";
@@ -89,8 +91,10 @@
     }
     
     UILabel *cellLabel=(UILabel *) [cell viewWithTag:1];
+    UIImageView *cellImage=(UIImageView *) [cell viewWithTag:20];
     if (indexPath.row==6&&(nil==[UserDefaultManager getValue:@"userId"])) {
-        cellLabel.text=@"SIGNIN";
+        cellLabel.text=@"LOG IN";
+        cellImage.image=[UIImage imageNamed:@"login"];
     }
     else {
         cellLabel.text=[CellIdentifier uppercaseString];
@@ -113,12 +117,13 @@
         [self.view makeToast:@"Feature is currently not available."];
     }
     else if (indexPath.row==3) {
-        
+        [self.view makeToast:@"Feature is currently not available."];
     }
     else if (indexPath.row==4) {
         [self.view makeToast:@"Feature is currently not available."];
     }
     else if (indexPath.row==5) {
+//        [self checkGuestAccess];
     }
     else if (indexPath.row==6) {
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
@@ -126,15 +131,30 @@
         }
         else {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert addButton:@"Ok" actionBlock:^(void) {
+        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
             //logou user
             [self logoutUser];
         }];
-        [alert showWarning:nil title:@"Alert" subTitle:@"Are you sure you want to Signout?" closeButtonTitle:@"Cancel" duration:0.0f];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"logoutUser") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
     }
     }
 }
 #pragma mark - end
+
+- (void)checkGuestAccess {
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
+            //logou user
+            [self logoutUser];
+        }];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"guestUserAccess") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
+    }
+    else {
+            [self.view makeToast:@"Feature is currently not available."];
+    }
+
+}
 
 #pragma mark - Logout user
 - (void)logoutUser {
@@ -142,6 +162,8 @@
     [UserDefaultManager removeValue:@"userId"];
     [UserDefaultManager removeValue:@"emailId"];
     [UserDefaultManager removeValue:@"Authorization"];
+    [UserDefaultManager removeValue:@"profilePicture"];
+    [UserDefaultManager removeValue:@"enableNotification"];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     myDelegate.navigationController = [storyboard instantiateViewControllerWithIdentifier:@"mainNavController"];
     myDelegate.window.rootViewController = myDelegate.navigationController;

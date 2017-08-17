@@ -52,6 +52,6 @@
 
 //Footer image cell
 - (void)displayFooterBannerData :(DashboardDataModel *)footerBannerImage {
-    [ImageCaching downloadImages:footerImageView imageUrl:footerBannerImage.banerImageUrl placeholderImage:@"product_placeholder" isDashboardCell:false];
+    [ImageCaching downloadImages:footerImageView imageUrl:footerBannerImage.banerImageUrl placeholderImage:@"product_placeholder" isDashboardCell:true];
 }
 @end

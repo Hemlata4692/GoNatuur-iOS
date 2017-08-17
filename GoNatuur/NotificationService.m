@@ -18,7 +18,7 @@ static NSString *kNotificationList=@"ranosys/notifications/getList";
     NSDictionary *parameters = @{@"criteria" : @{@"filter_groups" : @[
                                                                  @{
                                                                      @"filters":@[
-                                                                             @{@"field":@"category_id",
+                                                                             @{@"field":@"customer_id",
                                                                                @"value":[UserDefaultManager getValue:@"userId"],
                                                                                @"condition_type": @"eq"
                                                                                }

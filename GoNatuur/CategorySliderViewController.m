@@ -61,7 +61,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     myDelegate.selectedCategoryIndex=(int)indexPath.row;
     [_delegate selectedProduct:(int)indexPath.row];
-    [categorySliderCollectionView reloadData];
+  //  [categorySliderCollectionView reloadData];
 }
 #pragma mark - end
 

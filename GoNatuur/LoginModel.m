@@ -26,6 +26,7 @@
 @synthesize firstName;
 @synthesize lastName;
 @synthesize profilePicture;
+@synthesize socialUserId;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -63,6 +64,7 @@
             [UserDefaultManager setValue:userData.quoteCount key:@"quoteCount"];
             [UserDefaultManager setValue:userData.wishlistCount key:@"wishlistCount"];
             [UserDefaultManager setValue:userData.accessToken key:@"Authorization"];
+            [UserDefaultManager setValue:userData.profilePicture key:@"profilePicture"];
             success (userData);
         }
     } onFailure:^(NSError *error) {
@@ -112,9 +114,17 @@
 
 #pragma mark - Sign up user service
 - (void)signUpUserService:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
-    
     [[ConnectionManager sharedManager] signUpUserService:self onSuccess:^(LoginModel *userData) {
         if (success) {
+            [UserDefaultManager setValue:userData.userId key:@"userId"];
+            [UserDefaultManager setValue:userData.email key:@"emailId"];
+            [UserDefaultManager setValue:userData.followCount key:@"followCount"];
+            [UserDefaultManager setValue:userData.notificationsCount key:@"notificationsCount"];
+            [UserDefaultManager setValue:userData.quoteId key:@"quoteId"];
+            [UserDefaultManager setValue:userData.quoteCount key:@"quoteCount"];
+            [UserDefaultManager setValue:userData.wishlistCount key:@"wishlistCount"];
+            [UserDefaultManager setValue:userData.accessToken key:@"Authorization"];
+            [UserDefaultManager setValue:userData.profilePicture key:@"profilePicture"];
             success (userData);
         }
     } onFailure:^(NSError *error) {

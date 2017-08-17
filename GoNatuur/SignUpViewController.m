@@ -15,7 +15,7 @@
 #import "CMSPageViewController.h"
 
 @interface SignUpViewController ()<UIGestureRecognizerDelegate, SocialLoginDelegate, BSKeyboardControlsDelegate> {
-   @private
+@private
     int pageCounter;
     NSArray *swipeImageArray;
     int currentSelectedImage;
@@ -23,7 +23,7 @@
     float screenHeightScaleFactorDifference;
     float signUpBackViewY;
     int isSocialLogin;
-    NSString *firstName, *lastName;
+    NSString *firstName, *lastName, *socialLoginID, *profilePic;
 }
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -97,12 +97,13 @@
 
 - (void)initializedView {
     _pageControl.transform = CGAffineTransformMakeScale(1.4, 1.4);
-    swipeImageArray = @[@"SwipeImage.png", @"SwipeImage.png", @"SwipeImage.png"];
+    swipeImageArray = @[@"dashboard_banner2.png", @"dashboard_banner1.png", @"dashboard_banner2.png"];
     _pageControl.numberOfPages = [swipeImageArray count];
     pageCounter = currentSelectedImage;
     _pageControl.currentPage = pageCounter;
     _swipeImageView.image=[UIImage imageNamed:[swipeImageArray objectAtIndex:pageCounter]];
     _swipeImageView.userInteractionEnabled = YES;
+    [_swipeImageView setCornerRadius:3.0];
     
     //Swipe gesture to swipe images to left
     UISwipeGestureRecognizer *swipeImageLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeIntroImageLeft)];
@@ -116,9 +117,10 @@
     // Adding the swipe gesture on image view
     [[self swipeImageView] addGestureRecognizer:swipeImageLeft];
     [[self swipeImageView] addGestureRecognizer:swipeImageRight];
-
-    float scaleFactor = [[UIScreen mainScreen]bounds].size.height/568.0;
-    signUpBackViewY=42+(scaleFactor*128.0)+28;
+    
+    //    float scaleFactor = [[UIScreen mainScreen]bounds].size.height/568.0;
+    //    signUpBackViewY=45+(scaleFactor*140.0)+29;
+    signUpBackViewY=222;
     _mainView.translatesAutoresizingMaskIntoConstraints=true;
     _mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, signUpBackViewY+538.0);
     _scrollView.contentSize = CGSizeMake(0,_mainView.frame.size.height);
@@ -132,16 +134,71 @@
     NSString *str=NSLocalizedText(@"privacyPolicyText");
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
     NSRange termConditionTextRange = [str rangeOfString:@"Terms & Conditions"];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
-    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:termConditionTextRange];
+    ////    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:termConditionTextRange];
+    //    NSRange policyTextRange = [str rangeOfString:@"Privacy Policy"];
+    //    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:policyTextRange];
+    //    NSRange logInTextRange = [str rangeOfString:@"Log In"];
+    //    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:logInTextRange];
+    
+    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13]} range:termConditionTextRange];
     NSRange policyTextRange = [str rangeOfString:@"Privacy Policy"];
-    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:policyTextRange];
+    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13]} range:policyTextRange];
     NSRange logInTextRange = [str rangeOfString:@"Log In"];
-    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:logInTextRange];
+    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13]} range:logInTextRange];
+    
     _privacyPolicyLoginLabel.attributedText=string;
+    
+    if ([ConstantCode checkDeviceType] == Device5s) {
+        //Add terms underline
+        UILabel *termsUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(204, 15, 50, 1)];
+        termsUnderlineLabel.backgroundColor=[UIColor blackColor];
+        [_privacyPolicyLoginLabel addSubview:termsUnderlineLabel];
+        //Add condition underline
+        UILabel *conditionUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(23, 31, 68, 1)];
+        conditionUnderlineLabel.backgroundColor=[UIColor blackColor];
+        [_privacyPolicyLoginLabel addSubview:conditionUnderlineLabel];
+        //Add privacy policy underline
+        UILabel *privacyPolicyUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(122, 31, 82, 1)];
+        privacyPolicyUnderlineLabel.backgroundColor=[UIColor blackColor];
+        [_privacyPolicyLoginLabel addSubview:privacyPolicyUnderlineLabel];
+        //Add login underline
+        UILabel *loginUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(175, 47, 38, 1)];
+        loginUnderlineLabel.backgroundColor=[UIColor blackColor];
+        [_privacyPolicyLoginLabel addSubview:loginUnderlineLabel];
+    }
+    
+    else if ([ConstantCode checkDeviceType] == Device6) {
+        //Add terms&condition underline
+        UILabel *termsUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(195, 15, 121, 1)];
+        termsUnderlineLabel.backgroundColor=[UIColor blackColor];
+        [_privacyPolicyLoginLabel addSubview:termsUnderlineLabel];
+        //Add privacy policy underline
+        UILabel *privacyPolicyUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(39, 31, 82, 1)];
+        privacyPolicyUnderlineLabel.backgroundColor=[UIColor blackColor];
+        [_privacyPolicyLoginLabel addSubview:privacyPolicyUnderlineLabel];
+        //Add login underline
+        UILabel *loginUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(128, 47, 38, 1)];
+        loginUnderlineLabel.backgroundColor=[UIColor blackColor];
+        [_privacyPolicyLoginLabel addSubview:loginUnderlineLabel];
+    }
+    else {
+        //Add terms&condition underline
+        UILabel *termsUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(201, 23, 121, 1)];
+        termsUnderlineLabel.backgroundColor=[UIColor blackColor];
+        [_privacyPolicyLoginLabel addSubview:termsUnderlineLabel];
+        //Add privacy policy underline
+        UILabel *privacyPolicyUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(8, 38, 82, 1)];
+        privacyPolicyUnderlineLabel.backgroundColor=[UIColor blackColor];
+        [_privacyPolicyLoginLabel addSubview:privacyPolicyUnderlineLabel];
+        //Add login underline
+        UILabel *loginUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(286, 38, 38, 1)];
+        loginUnderlineLabel.backgroundColor=[UIColor blackColor];
+        [_privacyPolicyLoginLabel addSubview:loginUnderlineLabel];
+    }
+    
     //Add tap gesture at UiLabel
     _privacyPolicyLoginLabel.userInteractionEnabled = YES;
-    [_privacyPolicyLoginLabel addGestureRecognizer: [[UITapGestureRecognizer alloc] initWithTarget:self
-                                             action:@selector(handleTapOnLabel:)]];
+    [_privacyPolicyLoginLabel addGestureRecognizer: [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnLabel:)]];
 }
 
 - (void)customizedTextField {
@@ -211,7 +268,7 @@
 - (IBAction)createAccount:(UIButton *)sender {
     [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     [_keyboardControls.activeField resignFirstResponder];
-    
+    myDelegate.selectedLoginType=SignUp;
     //Perform signUp validations
     if([self performValidationsForSignUp]) {
         isSocialLogin=0;
@@ -274,17 +331,17 @@
 - (void)privacyPolicy {
     [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("Privacy");
-    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
-    obj.isPrivacyPolicy=true;
-    [self.navigationController pushViewController:obj animated:true];
+//    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
+//    obj.isPrivacyPolicy=true;
+//    [self.navigationController pushViewController:obj animated:true];
 }
 
 - (void)termsNCondition {
     [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("termsNCondition");
-    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
-    obj.isPrivacyPolicy=false;
-    [self.navigationController pushViewController:obj animated:true];
+//    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
+//    obj.isPrivacyPolicy=false;
+//    [self.navigationController pushViewController:obj animated:true];
 }
 
 - (void)logIn {
@@ -389,6 +446,8 @@
     _emailTextField.text=[result objectForKey:@"email"];
     firstName=[result objectForKey:@"firstName"];
     lastName=[result objectForKey:@"lastName"];
+    socialLoginID=[result objectForKey:@"id"];
+    profilePic=[result objectForKey:@"imageUrl"];
     [myDelegate showIndicator];
     [self performSelector:@selector(userSignUp) withObject:nil afterDelay:.1];
 }
@@ -401,7 +460,9 @@
     userLogin.password = _passwordTextField.text;
     userLogin.firstName=firstName;
     userLogin.lastName=lastName;
+    userLogin.socialUserId=socialLoginID;
     userLogin.isSocialLogin=[NSNumber numberWithInt:isSocialLogin];
+    userLogin.profilePicture=profilePic;
     [userLogin signUpUserService:^(LoginModel *userData) {
         [myDelegate stopIndicator];
         //Navigate user to dashboard
@@ -416,7 +477,7 @@
     [userLogin loginGuestUserOnSuccess:^(LoginModel *userData) {
         [myDelegate stopIndicator];
         //Navigate user to dashboard
-//        [self navigateToDashboard];
+        //        [self navigateToDashboard];
         UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
         [myDelegate.window setRootViewController:objReveal];
         [myDelegate.window setBackgroundColor:[UIColor whiteColor]];

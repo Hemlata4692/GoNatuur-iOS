@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "SearchViewController.h"
 #import "CategorySliderViewController.h"
+#import "UIView+Toast.h"
 
 @interface GoNatuurViewController ()<SWRevealViewControllerDelegate,CategorySliderDelegate>{
 @private
@@ -51,7 +52,7 @@
     //Load bottom tab bar xib
     BottomTabViewController *controller = [[BottomTabViewController alloc] initWithNibName:@"BottomTabViewController" bundle:nil];
     [self addChildViewController:controller];
-    [controller.view setFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-50, [[UIScreen mainScreen] bounds].size.width, 50)];
+    [controller.view setFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-60, [[UIScreen mainScreen] bounds].size.width, 60)];
     [self.view addSubview:controller.view];
     [controller didMoveToParentViewController:self];
 }
@@ -142,9 +143,10 @@
 }
 
 - (void)serachButtonAction:(id)sender {
-    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    SearchViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"SearchViewController"];
-    [self.navigationController pushViewController:searchView animated:YES];
+//    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    SearchViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"SearchViewController"];
+//    [self.navigationController pushViewController:searchView animated:YES];
+    [self.view makeToast:@"Feature is currently not available."];
 }
 #pragma mark - end
 

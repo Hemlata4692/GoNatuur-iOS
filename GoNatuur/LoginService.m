@@ -65,15 +65,36 @@ static NSString *kResetPassword=@"ranosys/customer/resetPassword";
 #pragma mark - SignUp user service
 - (void)signUpUserService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
     [UserDefaultManager removeValue:@"Authorization"];
-    NSDictionary *parameters = @{@"customer" : @{@"email" : loginData.email,
+    NSDictionary *parameters;
+    if ([loginData.isSocialLogin isEqual:@0]) {
+        parameters = @{@"customer" : @{@"email" : loginData.email,
+                                                     @"firstname" : @"John",
+                                                     @"lastname" : @"Doe"
+                                                     },
+                                     @"password" : loginData.password,
+                                     @"isSocial":loginData.isSocialLogin,
+                                     @"profileImageUrl":@"",
+                                     @"socialType":[NSNumber numberWithInt:myDelegate.selectedLoginType],
+                                     @"socialUserId":@"",
+                                     @"redirectUrl":@""
+                                     };
+    }
+    else {
+    parameters = @{@"customer" : @{@"email" : loginData.email,
                                                  @"firstname" : @"John",
                                                  @"lastname" : @"Doe"
                                          },
-                                 @"password" : loginData.password,
-                                 @"isSocial":loginData.isSocialLogin
+                                 @"isSocial":loginData.isSocialLogin,
+                                 @"profileImageUrl":loginData.profilePicture,
+                                 @"socialType":[NSNumber numberWithInt:myDelegate.selectedLoginType],
+                                 @"socialUserId":loginData.socialUserId,
+                                 @"redirectUrl":@""
                                 };
+    }
+    NSLog(@"sign up request social %@",parameters);
     [super post:kSignUp parameters:parameters success:success failure:failure];
 }
+
 #pragma mark - end
 
 #pragma mark - Forgot password service

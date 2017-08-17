@@ -44,11 +44,11 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook" translatesAutoresizingMaskIntoConstraints="NO" id="oO5-Mi-F5I">
-                    <rect key="frame" x="30" y="25" width="15" height="15"/>
+                    <rect key="frame" x="28" y="25" width="20" height="20"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="15" id="HiH-uA-dor"/>
-                        <constraint firstAttribute="width" constant="15" id="wc6-uQ-1dU"/>
+                        <constraint firstAttribute="height" constant="20" id="HiH-uA-dor"/>
+                        <constraint firstAttribute="width" constant="20" id="wc6-uQ-1dU"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PIY-b6-7xn">
@@ -138,8 +138,8 @@
                 <constraint firstItem="4ex-eF-Bsm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="13" id="W1W-Cf-IQp"/>
                 <constraint firstItem="PIY-b6-7xn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="13" id="iw7-3w-hLw"/>
                 <constraint firstAttribute="trailing" secondItem="nZ7-B5-RrR" secondAttribute="trailing" constant="13" id="jzf-jI-bYs"/>
-                <constraint firstItem="oO5-Mi-F5I" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="lCe-pI-SHY"/>
-                <constraint firstItem="oO5-Mi-F5I" firstAttribute="centerY" secondItem="Me6-jg-Wy5" secondAttribute="centerY" id="lHJ-1R-4Zz"/>
+                <constraint firstItem="oO5-Mi-F5I" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="28" id="lCe-pI-SHY"/>
+                <constraint firstItem="oO5-Mi-F5I" firstAttribute="centerY" secondItem="Me6-jg-Wy5" secondAttribute="centerY" constant="2" id="lHJ-1R-4Zz"/>
                 <constraint firstItem="wgW-Zf-OQX" firstAttribute="centerY" secondItem="nZ7-B5-RrR" secondAttribute="centerY" id="u6N-mA-Vde"/>
                 <constraint firstAttribute="trailing" secondItem="4ex-eF-Bsm" secondAttribute="trailing" constant="13" id="wdQ-sW-cq6"/>
                 <constraint firstItem="miz-8G-7DX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="28" id="yIL-p1-QpG"/>

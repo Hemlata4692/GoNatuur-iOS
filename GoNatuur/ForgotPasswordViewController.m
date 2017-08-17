@@ -249,6 +249,8 @@
         [self addLeftAnimationPresentToView:moveForgotView];
         _resetPasswordView.hidden=false;
         _forgotPasswordView.hidden=true;
+        _resetEmailTextField.text=_emailTextField.text;
+        _resetEmailTextField.enabled=false;
         [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_otpTextField, _resetEmailTextField, _resetPasswordTextField, _resetConfirmPasswordTextField]]];
         [_keyboardControls setDelegate:self];
         currentView=_resetPasswordView;

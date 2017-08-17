@@ -46,6 +46,7 @@
     }
     manager.securityPolicy.allowInvalidCertificates = YES;
     [manager POST:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+         responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     } failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
         [myDelegate stopIndicator];
@@ -108,6 +109,7 @@
     }
     path = [NSString stringWithFormat:@"%@%@",BASE_URL,path];
     [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+         responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     }
          failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
@@ -143,6 +145,7 @@
     }
     path = [NSString stringWithFormat:@"http://dev.gonatuur.com/en/%@",path];
     [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+         responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     }
          failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {

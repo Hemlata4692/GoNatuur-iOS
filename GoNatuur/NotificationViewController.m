@@ -55,6 +55,7 @@
     [notificationList getUserNotification:^(NotificationDataModel *userData)  {
         [myDelegate stopIndicator];
         notificationArray=[userData.notificationListArray mutableCopy];
+        [_notificationTableView reloadData];
     } onfailure:^(NSError *error) {
         
     }];

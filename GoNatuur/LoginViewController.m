@@ -112,7 +112,25 @@
     NSString *str=NSLocalizedText(@"loginNewUserText");
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
     NSRange registerTextRange = [str rangeOfString:@"Register"];
-    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:registerTextRange];
+//    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleDouble)} range:registerTextRange];
+    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13]} range:registerTextRange];
+    _registerLabel.attributedText=string;
+    
+    if ([ConstantCode checkDeviceType] == Device5s) {
+        UILabel *templabel=[[UILabel alloc] initWithFrame:CGRectMake(188, 21, 50, 1)];
+        templabel.backgroundColor=[UIColor blackColor];
+        [_registerLabel addSubview:templabel];
+    }
+    else if ([ConstantCode checkDeviceType] == Device6) {
+        UILabel *templabel=[[UILabel alloc] initWithFrame:CGRectMake(190, 29, 50, 1)];
+        templabel.backgroundColor=[UIColor blackColor];
+        [_registerLabel addSubview:templabel];
+    }
+    else {
+        UILabel *templabel=[[UILabel alloc] initWithFrame:CGRectMake(186.5, 28, 50, 1)];
+        templabel.backgroundColor=[UIColor blackColor];
+        [_registerLabel addSubview:templabel];
+    }
     _registerLabel.attributedText=string;
     //Add tap gesture at label
     _registerLabel.userInteractionEnabled = YES;

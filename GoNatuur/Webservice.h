@@ -14,7 +14,7 @@
 //beta link
 #define BASE_URL                          @"http://dev.gonatuur.com/en/rest/en/V1/"
 
-//http://gonatuur.local/rest/default/V1/integration/admin/token
+//http://gonatuur.local/rest/default/V1/integration/admin/token 
 //http://gonatuur.local/rest/default/V1/ranosys/customer/customer-login
 @interface Webservice : NSObject
 

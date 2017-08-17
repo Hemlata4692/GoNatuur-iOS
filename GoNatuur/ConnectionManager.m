@@ -123,7 +123,6 @@
     LoginService *loginService = [[LoginService alloc] init];
     [loginService resetPasswordService:userData onSuccess:^(id response) {
         //Parse data from server response and store in data model
-        userData.otpNumber=[[response  objectAtIndex:0] objectForKey:@"resetOTP"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -187,7 +186,6 @@
             productData.productId = productDataDict[@"id"];
             productData.productPrice = [productDataDict[@"price"] stringValue];
             productData.productName = productDataDict[@"name"];
-//            productData.productDescription = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"];
             if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                  productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
@@ -202,7 +200,6 @@
             healthyLivingData.productId = productDataDict[@"id"];
             healthyLivingData.productPrice = [productDataDict[@"price"] stringValue];
             healthyLivingData.productName = productDataDict[@"name"];
-//            healthyLivingData.productDescription = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"];
             if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 healthyLivingData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
@@ -217,7 +214,6 @@
             samplersArrayData.productId = productDataDict[@"id"];
             samplersArrayData.productPrice = [productDataDict[@"price"] stringValue];
             samplersArrayData.productName = productDataDict[@"name"];
-//            samplersArrayData.productDescription = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"];
             if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 samplersArrayData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
