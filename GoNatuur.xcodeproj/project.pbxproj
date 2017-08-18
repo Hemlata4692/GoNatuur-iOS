@@ -599,7 +599,6 @@
 				B7DDB1AB1F399D02009BB8A5 /* ConstantCode */,
 				18F7A8F51F32E2B800430842 /* SWRevealView */,
 				32A3D6C01F1CBDE200062B86 /* SocialLogin */,
-				329F7D4F1F172AD9008E0E15 /* AlertView */,
 				320761881F164BD2001F1790 /* Crashlytics */,
 				320761731F163A9D001F1790 /* MMMaterialDesignerSpinner */,
 				3207616F1F162829001F1790 /* DefaultManager */,
@@ -721,13 +720,6 @@
 				3207618A1F164BE1001F1790 /* UncaughtExceptionHandler.m */,
 			);
 			name = Crashlytics;
-			sourceTree = "<group>";
-		};
-		329F7D4F1F172AD9008E0E15 /* AlertView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = AlertView;
 			sourceTree = "<group>";
 		};
 		32A3D6B51F1CBABA00062B86 /* LoginModule */ = {

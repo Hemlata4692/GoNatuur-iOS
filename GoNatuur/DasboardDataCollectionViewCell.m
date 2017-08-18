@@ -32,7 +32,7 @@
     double productCalculatedPrice =[productListData.productPrice doubleValue]*[exchangeRates doubleValue];
     productPrice.text=[NSString stringWithFormat:@"%@ %.2f",[UserDefaultManager getValue:@"DefaultCurrency"],productCalculatedPrice];
     if ((nil==productListData.productDescription)||[productListData.productDescription isEqualToString:@""]) {
-        productDescription.text=@"NA";
+        productDescription.text=NSLocalizedText(@"dataNotAdded");
     }
     else {
         productDescription.text=productListData.productDescription;

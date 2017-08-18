@@ -111,8 +111,7 @@
 - (void)setAttributString {
     NSString *str=NSLocalizedText(@"loginNewUserText");
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
-    NSRange registerTextRange = [str rangeOfString:@"Register"];
-    //    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleDouble)} range:registerTextRange];
+    NSRange registerTextRange = [str rangeOfString:NSLocalizedText(@"Register")];
     [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13]} range:registerTextRange];
     _registerLabel.attributedText=string;
     

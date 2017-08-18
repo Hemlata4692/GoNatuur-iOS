@@ -97,7 +97,7 @@
         _myCartTabImageIcon.alpha=1.0;
         _myCartTab.backgroundColor=[UIColor blackColor];
     }
-    [self.view makeToast:@"Feature is currently not available."];
+    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
 }
 
 - (IBAction)wishlistTabAction:(id)sender {
@@ -119,7 +119,7 @@
         _wishlistTabImageIcon.alpha=1.0;
         _wishlistTab.backgroundColor=[UIColor blackColor];
     }
-    [self.view makeToast:@"Feature is currently not available."];
+    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
 }
 
 - (IBAction)profileTabAction:(id)sender {
@@ -141,7 +141,7 @@
         _profileTabImageIcon.alpha=1.0;
         _profileTab.backgroundColor=[UIColor blackColor];
     }
-    [self.view makeToast:@"Feature is currently not available."];
+    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
 }
 #pragma mark - end
 
