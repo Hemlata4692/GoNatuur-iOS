@@ -18,6 +18,8 @@
     NSMutableArray *searchedProductsArray;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *searchCollectionView;
+@property (weak, nonatomic) IBOutlet UIView *paginationView;
+@property (weak, nonatomic) IBOutlet UILabel *noRecordLabel;
 
 @end
 
@@ -29,6 +31,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     searchedProductsArray=[[NSMutableArray alloc]init];
+    _paginationView.hidden=YES;
+    _noRecordLabel.hidden=YES;
     [myDelegate showIndicator];
     [self performSelector:@selector(getSerachProductListing) withObject:nil afterDelay:.1];
 }
@@ -54,22 +58,21 @@
     searchData.searchPageCount=[@(pageCount) stringValue];
     [searchData getSearchProductListing:^(SearchDataModel *userData)  {
         [myDelegate stopIndicator];
-        totalProducts=[userData.searchPageCount intValue];
+        totalProducts=[userData.searchResultCount intValue];
         if (userData.searchProductListArray.count==0) {
-            //_noResultLabel.hidden=NO;
+            _noRecordLabel.hidden=NO;
         }
         else {
-            //            _noResultLabel.hidden=YES;
+            _noRecordLabel.hidden=YES;
             [searchedProductsArray addObjectsFromArray:userData.searchProductListArray];
-            [_searchCollectionView reloadData];
+            [self hideactivityIndicator];
         }
     } onfailure:^(NSError *error) {
-        //        _noResultLabel.hidden=NO;
-        //        _searchTableView.hidden=YES;
+        _noRecordLabel.hidden=NO;
+        _searchCollectionView.hidden=YES;
     }];
 }
 #pragma mark - end
-
 
 #pragma mark - Collection view datasource methods
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
@@ -78,8 +81,7 @@
 
 - (SearchCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     SearchCollectionViewCell *searchCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"searchCell" forIndexPath:indexPath];
-    [searchCell.contentView addShadow:searchCell.contentView color:[UIColor redColor]];
-    [searchCell displaySearchListData];
+    [searchCell displayProductListData:[searchedProductsArray objectAtIndex:indexPath.item] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
     return searchCell;
 }
 
@@ -88,6 +90,27 @@
     float picDimension = (self.view.frame.size.width-20) / 2.0;
     return CGSizeMake(picDimension-5, picDimension+105);
 }
+#pragma mark - end
+
+#pragma mark - Pagination
+//Handling pagination in collection view
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView1 {
+    if (_paginationView.hidden==YES) {
+        if (_searchCollectionView.contentOffset.y == _searchCollectionView.contentSize.height - scrollView1.frame.size.height) {
+            if (searchedProductsArray.count<totalProducts) {
+                _paginationView.hidden=NO;
+                pageCount++;
+                [self getSerachProductListing];
+            }
+        }
+    }
+}
+
+- (void)hideactivityIndicator {
+    _paginationView.hidden=YES;
+    [_searchCollectionView reloadData];
+}
+
 #pragma mark - end
 
 @end

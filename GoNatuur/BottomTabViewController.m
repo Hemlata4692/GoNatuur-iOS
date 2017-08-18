@@ -10,10 +10,7 @@
 #import "DashboardViewController.h"
 #import "UIView+Toast.h"
 
-@interface BottomTabViewController () {
-@private
-    int buttonCount;
-}
+@interface BottomTabViewController ()
 @property (strong, nonatomic) IBOutlet UIView *bottomTabView;
 @property (weak, nonatomic) IBOutlet UIButton *homeTab;
 @property (weak, nonatomic) IBOutlet UIButton *myCartTab;
@@ -40,7 +37,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    buttonCount=0;
+    myDelegate.tabButtonTag=@"1";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,7 +48,6 @@
 
 #pragma mark - Tab bar IBAction
 - (IBAction)homeTabAction:(id)sender {
-    buttonCount=1;
     [_homeTab setSelected:YES];
     [_myCartTab setSelected:NO];
     [_wishlistTab setSelected:NO];
@@ -70,7 +66,7 @@
         _homeTabImageIcon.alpha=1.0;
         _homeTab.backgroundColor=[UIColor blackColor];
     }
-    if (buttonCount==0) {
+    if ([myDelegate.tabButtonTag isEqualToString:@"0"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         DashboardViewController * loginView = [storyboard instantiateViewControllerWithIdentifier:@"DashboardViewController"];
         [self.navigationController setViewControllers: [NSArray arrayWithObject:loginView]
@@ -92,6 +88,7 @@
         _homeTabImageIcon.alpha=1.0;
         _wishlistTabImageIcon.alpha=1.0;
         _profileTabImageIcon.alpha=1.0;
+        myDelegate.tabButtonTag=@"0";
     }
     else {
         _myCartTabImageIcon.alpha=1.0;
@@ -114,6 +111,7 @@
         _homeTabImageIcon.alpha=1.0;
         _wishlistTabImageIcon.alpha=0.6;
         _profileTabImageIcon.alpha=1.0;
+        myDelegate.tabButtonTag=@"0";
     }
     else {
         _wishlistTabImageIcon.alpha=1.0;
@@ -136,6 +134,7 @@
         _homeTabImageIcon.alpha=1.0;
         _wishlistTabImageIcon.alpha=1.0;
         _profileTabImageIcon.alpha=0.6;
+        myDelegate.tabButtonTag=@"0";
     }
     else {
         _profileTabImageIcon.alpha=1.0;

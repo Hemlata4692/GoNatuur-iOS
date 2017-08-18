@@ -18,7 +18,8 @@
 @property (nonatomic,assign) int selectedCategoryIndex;
 @property (strong, nonatomic) NSMutableArray *categoryNameArray;
 @property (retain, nonatomic) UINavigationController *navigationController;
-@property (nonatomic, strong)  NSString *exchangeRates;
+@property (nonatomic, strong) NSString *exchangeRates;
+@property (nonatomic, strong) NSString *tabButtonTag;
 - (void)showIndicator;
 - (void)stopIndicator;
 

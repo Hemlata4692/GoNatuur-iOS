@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SearchDataModel.h"
 
 @interface SearchCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIView *productCellMainView;
@@ -19,5 +20,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
 @property (weak, nonatomic) IBOutlet UIView *borderView;
 
-- (void)displaySearchListData;
+- (void)displayProductListData :(SearchDataModel *)productListData exchangeRates:(NSString *)exchangeRates;
 @end

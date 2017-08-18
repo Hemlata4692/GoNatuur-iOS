@@ -190,6 +190,7 @@
                 productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [userData.bestSellerArray addObject:productData];
         }
         userData.healthyLivingArray=[[NSMutableArray alloc]init];
@@ -204,6 +205,7 @@
                 healthyLivingData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             healthyLivingData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            healthyLivingData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [userData.healthyLivingArray addObject:healthyLivingData];
         }
         userData.samplersDataArray=[[NSMutableArray alloc]init];
@@ -218,6 +220,7 @@
                 samplersArrayData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             samplersArrayData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            samplersArrayData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [userData.samplersDataArray addObject:samplersArrayData];
         }
         userData.footerBannerImageArray=[[NSMutableArray alloc]init];
@@ -315,6 +318,7 @@
                 productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [searchData.searchProductListArray addObject:productData];
         }
         searchData.searchResultCount=response[@"total_count"];
@@ -323,7 +327,7 @@
     } onfailure:^(NSError *error) {
         failure(error);
     }] ;
-
+    
 }
 #pragma mark - end
 

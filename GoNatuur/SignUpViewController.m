@@ -132,7 +132,7 @@
 - (void)setAttributString {
     NSString *str=NSLocalizedText(@"privacyPolicyText");
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
-    NSRange termConditionTextRange = [str rangeOfString:@"Terms & Conditions"];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
+    NSRange termConditionTextRange = [str rangeOfString:NSLocalizedText(@"terms&Conditions")];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
     [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13]} range:termConditionTextRange];
     NSRange policyTextRange = [str rangeOfString:NSLocalizedText(@"privacyPolicy")];
     [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13]} range:policyTextRange];

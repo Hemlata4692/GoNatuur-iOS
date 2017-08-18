@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "DynamicHeightWidth.h"
 #import "UIView+Toast.h"
+#import "NotificationViewController.h"
 
 @interface SideBarViewController () {
     NSArray *menuItemsArray;
@@ -37,6 +38,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
+    if ([ConstantCode checkDeviceType]==Device5s) {
+        _sideBarTableView.scrollEnabled=YES;
+    }
     [_sideBarTableView reloadData];
 }
 
@@ -123,8 +127,7 @@
         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else if (indexPath.row==5) {
-        //        [self checkGuestAccess];
-        [self.view makeToast:@"Feature is currently not available."];
+//        [self checkGuestAccess:5];
     }
     else if (indexPath.row==6) {
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
@@ -133,7 +136,7 @@
         else {
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
             [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-                //logou user
+                //logou1 user
                 [self logoutUser];
             }];
             [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"logoutUser") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
@@ -143,7 +146,7 @@
 #pragma mark - end
 
 #pragma mark - Guest access
-- (void)checkGuestAccess {
+- (void)checkGuestAccess:(int)rowIndex {
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
@@ -153,9 +156,21 @@
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"guestUserAccess") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
     }
     else {
-        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+//        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+        //NotificationViewController
+        if (rowIndex==5) {
+//set navigation by code
+//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//            NotificationViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"NotificationViewController"];
+//            
+//            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
+//            [navController setViewControllers: @[rootViewController] animated: YES];
+//            
+//            [self.revealViewController setFrontViewController:navController];
+//            [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+
+        }
     }
-    
 }
 #pragma mark - end
 
