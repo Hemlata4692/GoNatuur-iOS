@@ -11,6 +11,7 @@
 "alertTitle" = "Alert";
 "alertOk" = "Ok";
 "alertCancel" = "Cancel";
+"alertRetry"="Retry";
 "validPassword" = "Password minimum 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.";
 "emptyFieldMessage" = "Please fill in all the required fields.";
 "validEmailMessage" = "Please enter valid Email Address.";

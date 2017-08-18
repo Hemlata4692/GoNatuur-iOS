@@ -10,11 +10,13 @@
 #import "NotificationDataModel.h"
 
 static NSString *kNotificationList=@"ranosys/notifications/getList";
+static NSString *kMArkNotificationRead=@"ranosys/notifications/markAsReaded";
+
 
 @implementation NotificationService
 
-#pragma mark - Fetch search keywords
-- (void)getUserNotificationData:(NotificationDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+#pragma mark - Fetch notification list
+- (void)getUserNotificationData:(NotificationDataModel *)notiData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{@"criteria" : @{@"filter_groups" : @[
                                                                  @{
                                                                      @"filters":@[
@@ -31,12 +33,25 @@ static NSString *kNotificationList=@"ranosys/notifications/getList";
                                                                    }
                                                                  ],
                                                          @"page_size" : @"10",
-                                                         @"current_page" : @"1"
+                                                         @"current_page" : notiData.pageCount
                                                          }
                                    };
     NSLog(@"notification list request %@",parameters);
     //  [super post:kSearchSuggestions parameters:parameters success:success failure:failure];
     [super post:kNotificationList parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Mark as read
+- (void)markNotification:(NotificationDataModel *)notiData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"notificationId":notiData.notificationId,
+                                                 @"status" : @"1",
+                                                 @"customer_id" : [UserDefaultManager getValue:@"userId"]
+                                 };
+    
+    NSLog(@"notification read request %@",parameters);
+    //  [super post:kSearchSuggestions parameters:parameters success:success failure:failure];
+    [super post:kMArkNotificationRead parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 @end

@@ -17,6 +17,7 @@
 @synthesize targetId;// it will be the id of resective details, listing, category screen
 @synthesize notificationListArray;
 @synthesize totalCount;
+@synthesize pageCount;
 //1 => 'product_listing',
 //2 => 'product_details',
 //3 => 'events_listing',
@@ -34,9 +35,21 @@
 }
 #pragma mark - end
 
-#pragma mark - Notification
+#pragma mark - Notification lsit
 - (void)getUserNotification:(void (^)(NotificationDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getNotificationListingData:self onSuccess:^(NotificationDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Mark as read
+- (void)markNotificationRead:(void (^)(NotificationDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] markNotificationAsRead:self onSuccess:^(NotificationDataModel *userData) {
         if (success) {
             success (userData);
         }

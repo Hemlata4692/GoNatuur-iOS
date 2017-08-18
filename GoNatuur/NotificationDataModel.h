@@ -15,6 +15,7 @@
 @property (strong, nonatomic) NSString *notificationType;
 @property (strong, nonatomic) NSString *targetId;
 @property (strong, nonatomic) NSString *totalCount;
+@property (strong, nonatomic) NSNumber *pageCount;
 @property (strong, nonatomic) NSMutableArray *notificationListArray;
 
 //Singleton method
@@ -22,4 +23,7 @@
 
 //Fetch notifications
 - (void)getUserNotification:(void (^)(NotificationDataModel *))success onfailure:(void (^)(NSError *))failure;
+
+//Mark notification as read
+- (void)markNotificationRead:(void (^)(NotificationDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

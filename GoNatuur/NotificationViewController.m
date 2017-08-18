@@ -14,6 +14,8 @@
 @private
     NSMutableArray *notificationArray;
     int totalCount;
+    UIView *footerView;
+    int pageCount;
 }
 @property (weak, nonatomic) IBOutlet UITableView *notificationTableView;
 
@@ -30,6 +32,7 @@
     _notificationTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
     
     notificationArray=[[NSMutableArray alloc]init];
+    pageCount=1;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,7 +45,7 @@
     self.navigationController.navigationBarHidden=false;
     self.title=@"Notifications";
     [self addLeftBarButtonWithImage:false];
-    
+    [self initFooterView];
     //call notification list webservice
     [myDelegate showIndicator];
     [self performSelector:@selector(getNotificationListing) withObject:nil afterDelay:.1];
@@ -52,9 +55,23 @@
 #pragma mark - Webservice
 - (void)getNotificationListing {
     NotificationDataModel *notificationList = [NotificationDataModel sharedUser];
-    [notificationList getUserNotification:^(NotificationDataModel *userData)  {
+    notificationList.pageCount=[NSNumber numberWithInt:pageCount];
+    [notificationList getUserNotification:^(NotificationDataModel *userData) {
         [myDelegate stopIndicator];
-        notificationArray=[userData.notificationListArray mutableCopy];
+        //[self markNotificationAsRead];
+        [notificationArray addObjectsFromArray:userData.notificationListArray];
+        totalCount =[userData.totalCount intValue];
+        [_notificationTableView reloadData];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)markNotificationAsRead {
+    //markNotificationRead
+    NotificationDataModel *notificationList = [NotificationDataModel sharedUser];
+    [notificationList markNotificationRead:^(NotificationDataModel *userData)  {
+        [myDelegate stopIndicator];
         [_notificationTableView reloadData];
     } onfailure:^(NSError *error) {
         
@@ -76,7 +93,8 @@
     }
     UILabel *notificationBadgeLabel=(UILabel *) [complainCell viewWithTag:1];
     notificationBadgeLabel.translatesAutoresizingMaskIntoConstraints=YES;
-    notificationBadgeLabel.text=[[notificationArray objectAtIndex:indexPath.row] notificationMessage];
+    NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];
+    notificationBadgeLabel.text=notiData.notificationMessage;
     float newHeight =[DynamicHeightWidth getDynamicLabelHeight:notificationBadgeLabel.text font:[UIFont fontWithName:@"Montserrat-Regular" size:15.0] widthValue:_notificationTableView.frame.size.width-77];
     notificationBadgeLabel.frame=CGRectMake(48, 7,_notificationTableView.frame.size.width-77, newHeight+1);
     return complainCell;
@@ -85,5 +103,39 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
 }
+
 #pragma mark - end
+
+#pragma mark - Pagignation for table view
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (notificationArray.count ==totalCount) {
+        [(UIActivityIndicatorView *)[footerView viewWithTag:10] stopAnimating];
+        [(UILabel *)[footerView viewWithTag:11] setHidden:true];
+    }
+    else if(indexPath.row==[notificationArray count]-1) {
+        if(notificationArray.count < totalCount) {
+            tableView.tableFooterView = footerView;
+            [(UIActivityIndicatorView *)[footerView viewWithTag:10] startAnimating];
+            pageCount++;
+            [self getNotificationListing];
+        }
+        else {
+            _notificationTableView.tableFooterView = nil;
+        }
+    }
+}
+
+//Load footer view in table
+- (void)initFooterView {
+    footerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, 40.0)];
+    UIActivityIndicatorView * actInd = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    actInd.color=[UIColor whiteColor];
+    actInd.tag = 10;
+    actInd.frame = CGRectMake(self.view.frame.size.width/2-10, 10.0, 20.0, 20.0);
+    actInd.hidesWhenStopped = YES;
+    [footerView addSubview:actInd];
+    actInd = nil;
+}
+#pragma mark - end
+
 @end

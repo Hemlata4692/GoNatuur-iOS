@@ -13,5 +13,6 @@
 
 //Fetch notifications
 - (void)getUserNotificationData:(NotificationDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
-
+//Mark as read
+- (void)markNotification:(NotificationDataModel *)notiData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 @end

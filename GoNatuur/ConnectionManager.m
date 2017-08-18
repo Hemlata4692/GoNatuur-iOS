@@ -321,4 +321,18 @@
 
 }
 #pragma mark - end
+
+#pragma mark - Notification read/unread
+- (void)markNotificationAsRead:(NotificationDataModel *)userData onSuccess:(void (^)(NotificationDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    NotificationService *dataList=[[NotificationService alloc]init];
+    [dataList markNotification:userData success:^(id response) {
+        //Parse data from server response and store in data model
+        NSLog(@"notification response %@",response);
+        success(userData);
+    } onfailure:^(NSError *error) {
+        failure(error);
+    }] ;
+    
+}
+#pragma mark - end
 @end
