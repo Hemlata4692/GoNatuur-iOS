@@ -94,7 +94,7 @@
                                                              options:kNilOptions error:&error];
         NSLog(@"json %@",json);
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:@"Alert" subTitle:[json objectForKey:@"message"] closeButtonTitle:@"Ok" duration:0.0f];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:[json objectForKey:@"message"] closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
     }];
 }
 
@@ -178,7 +178,7 @@
         case 400: {
             msg = responseObject[@"message"];
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-            [alert showWarning:nil title:@"Alert" subTitle:msg closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:msg closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
             return NO;
         }
         case 200:
@@ -187,26 +187,26 @@
         case 401: {
             msg = responseObject[@"message"];
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-            [alert addButton:@"Ok" actionBlock:^(void) {
+            [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
                 //add action
             }];
-            [alert showWarning:nil title:@"Alert" subTitle:msg closeButtonTitle:nil duration:0.0f];
+            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:msg closeButtonTitle:nil duration:0.0f];
         }
             return NO;
             break;
         case 404: {
             msg = responseObject[@"message"];
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-            [alert addButton:@"Ok" actionBlock:^(void) {
+            [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
                 //add action
             }];
-            [alert showWarning:nil title:@"Alert" subTitle:msg closeButtonTitle:nil duration:0.0f];
+            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:msg closeButtonTitle:nil duration:0.0f];
         }
             return NO;
             break;
         default: {
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-            [alert showWarning:nil title:@"Alert" subTitle:NSLocalizedText(@"somethingWrongMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrongMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         }
             return NO;
             break;
@@ -229,7 +229,7 @@
     [alert addButton:NSLocalizedText(@"alertCancel") actionBlock:^(void) {
         failure(error);
     }];
-    [alert showWarning:nil title:@"Alert" subTitle:message closeButtonTitle:nil duration:0.0f];
+    [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:message closeButtonTitle:nil duration:0.0f];
 }
 
 - (void)retryWebservice {
