@@ -11,6 +11,7 @@
 #import "SearchViewController.h"
 #import "CategorySliderViewController.h"
 #import "UIView+Toast.h"
+#import "ProductListingViewController.h"
 
 @interface GoNatuurViewController ()<SWRevealViewControllerDelegate,CategorySliderDelegate>{
 @private
@@ -95,6 +96,10 @@
 
 - (void)selectedProduct:(int)option {
     NSLog(@"%d", option);
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ProductListingViewController * productListView = [storyboard instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
+    productListView.selectedProductCategoryId=[[[self.categorySliderObjc.categoryDataArray objectAtIndex:option] objectForKey:@"id"] intValue];
+    [self.navigationController setViewControllers: [NSArray arrayWithObject:productListView] animated:false];
 }
 #pragma mark - end
 

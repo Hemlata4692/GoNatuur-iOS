@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GoNatuurPickerView">
+            <connections>
+                <outlet property="goNatuurPickerViewObj" destination="iN0-l3-epB" id="5Jo-16-zwM"/>
+                <outlet property="pickerView" destination="JRB-R8-bLT" id="lBN-QX-Rfn"/>
+                <outlet property="toolBar" destination="vdu-yj-WdB" id="7EL-eZ-RhV"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vdu-yj-WdB">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="YrY-gc-q2T"/>
+                    </constraints>
+                    <items>
+                        <barButtonItem systemItem="cancel" id="BSR-Zh-1Ub">
+                            <connections>
+                                <action selector="cancel:" destination="-1" id="tKM-W9-aUZ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="9wO-1c-pz5"/>
+                        <barButtonItem systemItem="done" id="DyM-My-Alc">
+                            <connections>
+                                <action selector="done:" destination="-1" id="s6y-PY-Nqk"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
+                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JRB-R8-bLT">
+                    <rect key="frame" x="0.0" y="44" width="375" height="156"/>
+                    <color key="backgroundColor" red="0.99215686274509807" green="0.95686274509803915" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="ze5-Xl-Wgs"/>
+                        <outlet property="delegate" destination="-1" id="j9M-u5-4IO"/>
+                    </connections>
+                </pickerView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="JRB-R8-bLT" secondAttribute="bottom" id="CdK-TD-tF2"/>
+                <constraint firstItem="JRB-R8-bLT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="44" id="EVf-Vh-2ON"/>
+                <constraint firstItem="vdu-yj-WdB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="MgI-pC-Gl8"/>
+                <constraint firstAttribute="trailing" secondItem="vdu-yj-WdB" secondAttribute="trailing" id="O40-ZX-5XN"/>
+                <constraint firstAttribute="trailing" secondItem="JRB-R8-bLT" secondAttribute="trailing" id="OXb-Ok-Eic"/>
+                <constraint firstItem="JRB-R8-bLT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Rod-e4-NqH"/>
+                <constraint firstItem="vdu-yj-WdB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ktv-KC-cpM"/>
+                <constraint firstItem="JRB-R8-bLT" firstAttribute="top" secondItem="vdu-yj-WdB" secondAttribute="bottom" id="vEU-MP-RLa"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

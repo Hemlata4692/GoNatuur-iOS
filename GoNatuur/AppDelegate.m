@@ -28,6 +28,7 @@
 @synthesize navigationController;
 @synthesize spinnerView;
 @synthesize categoryNameArray;
+@synthesize isProductList;
 
 #pragma mark - Global indicator
 //Show indicator

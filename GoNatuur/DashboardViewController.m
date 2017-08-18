@@ -184,6 +184,7 @@
     DashboardDataModel *categoryList = [DashboardDataModel sharedUser];
     categoryList.categoryId=@"2";
     [categoryList getCategoryListDataOnSuccess:^(DashboardDataModel *userData)  {
+        myDelegate.categoryNameArray=[userData.categoryNameArray mutableCopy];
         self.categorySliderObjc.categoryDataArray=[myDelegate.categoryNameArray mutableCopy];
         [self.categorySliderObjc.categorySliderCollectionView reloadData];
         [self getDefaultCurrency];

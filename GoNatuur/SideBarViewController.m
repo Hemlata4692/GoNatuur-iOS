@@ -118,6 +118,8 @@
     }
     else if (indexPath.row==3) {
         [self.view makeToast:@"Feature is currently not available."];
+        myDelegate.selectedCategoryIndex=-1;
+        myDelegate.isProductList=false;
     }
     else if (indexPath.row==4) {
         [self.view makeToast:@"Feature is currently not available."];

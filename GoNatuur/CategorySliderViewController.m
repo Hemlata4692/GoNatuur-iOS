@@ -29,6 +29,22 @@
     [categorySliderCollectionView reloadData];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+//    if ((categoryDataArray.count>0)&&(myDelegate.selectedCategoryIndex!=-1)) {
+//        [categorySliderCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:myDelegate.selectedCategoryIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+//    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if ((categoryDataArray.count>0)&&(myDelegate.selectedCategoryIndex!=-1)) {
+        [categorySliderCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:myDelegate.selectedCategoryIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+    }
+
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -59,9 +75,12 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    myDelegate.selectedCategoryIndex=(int)indexPath.row;
-    [_delegate selectedProduct:(int)indexPath.row];
-    //  [categorySliderCollectionView reloadData];
+    if (myDelegate.selectedCategoryIndex!=(int)indexPath.row) {
+        myDelegate.isProductList=true;
+        myDelegate.selectedCategoryIndex=(int)indexPath.row;
+        [_delegate selectedProduct:(int)indexPath.row];
+        [categorySliderCollectionView reloadData];
+    }
 }
 #pragma mark - end
 
