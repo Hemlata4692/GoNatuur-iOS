@@ -13,9 +13,9 @@
 "alertCancel" = "Cancel";
 "alertRetry"="Retry";
 "passwordMinimumCharater" = "Minimum 8 character required.";
-"validPassword" = "Minimum 1 number, capital letter, small letter and special character.";
+"validPassword" = "Password minimum 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.";
 "emptyFieldMessage" = "Please fill in all the required fields.";
-"validEmailMessage" = "Please enter a valid email address.";
+"validEmailMessage" = "Please enter valid Email Address.";
 "passwordMatchMessage" = "Password does't match.";
 "somethingWrongMessage" = "Some thing went wrong, Please try again later.";
 "Privacy Policy" = "Privacy Policy";
@@ -40,3 +40,11 @@
 "logoutUser"="Are you sure you want to Signout?";
 "GoNatuur" = "GoNatuur";
 "forgotpassword"="Oh noooo!!\nForgot your password??";
+"sideBarLogin"="LOG IN";
+"featureNotAvailable"="Feature is currently not available.";
+"guestUser"="Guest User";
+"dataNotAdded"="NA";
+"Notifications"="Notifications";
+"terms&Conditions"="Terms & Conditions";
+"privacyPolicy"="Privacy Policy";
+"Register"="Register";

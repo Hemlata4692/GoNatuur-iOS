@@ -47,7 +47,6 @@ static NSString *kResetPassword=@"ranosys/customer/resetPassword";
 
 #pragma mark - CMS page service
 - (void)CMSPageService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
-    [UserDefaultManager setValue:@"9e28chln10yp8bkporq87jkw8vrgi6f3" key:@"Authorization"];
     [super get:[NSString stringWithFormat:@"%@%@",kCMSPage,loginData.cmsPageType] parameters:nil onSuccess:success onFailure:failure];
 }
 #pragma mark - end

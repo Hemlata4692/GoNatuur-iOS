@@ -43,7 +43,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
-    self.title=@"Notifications";
+    self.title=NSLocalizedText(@"Notifications");
     [self addLeftBarButtonWithImage:false];
     [self initFooterView];
     //call notification list webservice

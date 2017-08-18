@@ -52,7 +52,7 @@
     
     _userEmailLabel.translatesAutoresizingMaskIntoConstraints=YES;
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
-        _userEmailLabel.text=@"Guest User";
+        _userEmailLabel.text=NSLocalizedText(@"guestUser");
     }
     else {
         _userEmailLabel.text=[UserDefaultManager getValue:@"emailId"];
@@ -93,7 +93,7 @@
     UILabel *cellLabel=(UILabel *) [cell viewWithTag:1];
     UIImageView *cellImage=(UIImageView *) [cell viewWithTag:20];
     if (indexPath.row==6&&(nil==[UserDefaultManager getValue:@"userId"])) {
-        cellLabel.text=@"LOG IN";
+        cellLabel.text=NSLocalizedText(@"sideBarLogin");
         cellImage.image=[UIImage imageNamed:@"login"];
     }
     else {
@@ -108,19 +108,19 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==0) {
-        [self.view makeToast:@"Feature is currently not available."];
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else if (indexPath.row==1) {
-        [self.view makeToast:@"Feature is currently not available."];
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else if (indexPath.row==2) {
-        [self.view makeToast:@"Feature is currently not available."];
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else if (indexPath.row==3) {
-        [self.view makeToast:@"Feature is currently not available."];
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else if (indexPath.row==4) {
-        [self.view makeToast:@"Feature is currently not available."];
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else if (indexPath.row==5) {
         //        [self checkGuestAccess];
@@ -152,7 +152,7 @@
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"guestUserAccess") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
     }
     else {
-        [self.view makeToast:@"Feature is currently not available."];
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     
 }

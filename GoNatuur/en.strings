@@ -9,7 +9,7 @@
 "loginNewUserText" = "If you are a new uesr, you can Register an account with us and start shopping with GoPurpose.";
 "privacyPolicyText" = "By signing up, you agree to our Terms & Conditions and Privacy Policy. If you already have an account, Log In here";
 "alertTitle" = "Alert";
-"alertOk" = "Ok";
+"alertOk" = "OK";
 "alertCancel" = "Cancel";
 "alertRetry"="Retry";
 "validPassword" = "Password minimum 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.";
@@ -40,3 +40,11 @@
 "signUpGooglePlus" = "Sign up with Google Plus";
 "GoNatuur" = "GoNatuur";
 "forgotpassword"="Oh noooo!!\nForgot your password??";
+"sideBarLogin"="LOG IN";
+"featureNotAvailable"="Feature is currently not available.";
+"guestUser"="Guest User";
+"dataNotAdded"="NA";
+"Notifications"="Notifications";
+"terms&Conditions"="Terms & Conditions";
+"privacyPolicy"="Privacy Policy";
+"Register"="Register";

@@ -146,7 +146,7 @@
     //    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     //    SearchViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"SearchViewController"];
     //    [self.navigationController pushViewController:searchView animated:YES];
-    [self.view makeToast:@"Feature is currently not available."];
+    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
 }
 #pragma mark - end
 
