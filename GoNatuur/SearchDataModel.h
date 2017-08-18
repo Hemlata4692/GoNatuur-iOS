@@ -14,11 +14,22 @@
 @property (strong, nonatomic) NSString *keywordName;
 @property (strong, nonatomic) NSString *keywordAction;
 @property (strong, nonatomic) NSString *searchResultCount;
+@property (strong, nonatomic) NSString *searchPageCount;
 @property (strong, nonatomic) NSMutableArray *searchKeywordListingArray;
+@property (strong, nonatomic) NSString *productPrice;
+@property (strong, nonatomic) NSString *productDescription;
+@property (strong, nonatomic) NSString *productImageThumbnail;
+@property (strong, nonatomic) NSString *productId;
+@property (strong, nonatomic) NSString *productName;
+@property (strong, nonatomic) NSString *productRating;
+@property (strong, nonatomic) NSMutableArray *searchProductListArray;
 
 //Singleton method
 + (instancetype)sharedUser;
 
 //Fetch search suggestions
 - (void)getSearchSuggestions:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
+
+//Get search listing data
+- (void)getSearchProductListing:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

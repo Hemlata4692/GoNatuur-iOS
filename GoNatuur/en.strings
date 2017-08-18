@@ -9,7 +9,7 @@
 "loginNewUserText" = "If you are a new uesr, you can Register an account with us and start shopping with GoPurpose.";
 "privacyPolicyText" = "By signing up, you agree to our Terms & Conditions and Privacy Policy. If you already have an account, Log In here";
 "alertTitle" = "Alert";
-"alertOk" = "Ok";
+"alertOk" = "OK";
 "alertCancel" = "Cancel";
 "alertRetry"="Retry";
 "validPassword" = "Password minimum 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.";
@@ -29,7 +29,7 @@
 "numberCharacter" = "0123456789";
 "resetPasswordSuccess" = "Password updated successfully.";
 "guestUserAccess"="Please login to access this module.";
-"logoutUser"="Are you sure you want to Signout?";
+"logoutUser"="Are you sure you want to Sign out?";
 "loginFb" = "Log in with Facebook";
 "loginWeChat" = "Log in with WeChat";
 "loginWiebo" = "Log in with Wiebo";

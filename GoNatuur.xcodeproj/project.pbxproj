@@ -19,6 +19,8 @@
 		187561931F469E1000F609AB /* BottomTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187561921F469E1000F609AB /* BottomTabViewController.xib */; };
 		187561971F469F3800F609AB /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187561961F469F3800F609AB /* NotificationViewController.m */; };
 		1875619A1F469F8600F609AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187561981F469F8600F609AB /* Main.storyboard */; };
+		1875619D1F46AAC500F609AB /* dashboard_banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619B1F46AAC500F609AB /* dashboard_banner1.png */; };
+		1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619C1F46AAC500F609AB /* dashboard_banner2.png */; };
 		188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1886058F1F39AF320005D1E2 /* UserNotifications.framework */; };
 		188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605941F39BC430005D1E2 /* DashboardViewController.m */; };
 		1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605991F39C0FC0005D1E2 /* CategorySliderViewController.m */; };
@@ -78,7 +80,6 @@
 		B77A8A781F34388800233782 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A771F34388800233782 /* SignUpViewController.m */; };
 		B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */; };
 		B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */; };
-		B77A8A811F347D2B00233782 /* SwipeImage.png in Resources */ = {isa = PBXBuildFile; fileRef = B77A8A801F347D2B00233782 /* SwipeImage.png */; };
 		B7A86ECD1F3B3D85004DA530 /* CMSPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A86ECC1F3B3D85004DA530 /* CMSPageViewController.m */; };
 		B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */ = {isa = PBXBuildFile; fileRef = B7DDB1AD1F399D14009BB8A5 /* ConstantCode.m */; };
 		E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */; };
@@ -119,6 +120,8 @@
 		187561951F469F3800F609AB /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
 		187561961F469F3800F609AB /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		187561991F469F8600F609AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1875619B1F46AAC500F609AB /* dashboard_banner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner1.png; sourceTree = "<group>"; };
+		1875619C1F46AAC500F609AB /* dashboard_banner2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner2.png; sourceTree = "<group>"; };
 		1886058F1F39AF320005D1E2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		188605931F39BC430005D1E2 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		188605941F39BC430005D1E2 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
@@ -217,7 +220,6 @@
 		B77A8A7A1F346C1200233782 /* SocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
 		B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialLoginViewController.m; sourceTree = "<group>"; };
 		B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLoginViewController.xib; sourceTree = "<group>"; };
-		B77A8A801F347D2B00233782 /* SwipeImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SwipeImage.png; sourceTree = "<group>"; };
 		B7A86ECB1F3B3D85004DA530 /* CMSPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSPageViewController.h; sourceTree = "<group>"; };
 		B7A86ECC1F3B3D85004DA530 /* CMSPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSPageViewController.m; sourceTree = "<group>"; };
 		B7DDB1AC1F399D14009BB8A5 /* ConstantCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantCode.h; sourceTree = "<group>"; };
@@ -582,7 +584,8 @@
 		320761641F162724001F1790 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B77A8A801F347D2B00233782 /* SwipeImage.png */,
+				1875619B1F46AAC500F609AB /* dashboard_banner1.png */,
+				1875619C1F46AAC500F609AB /* dashboard_banner2.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1021,16 +1024,17 @@
 				B73A653F1F3DF0870051E4C5 /* zh_Traditional.strings in Resources */,
 				187561931F469E1000F609AB /* BottomTabViewController.xib in Resources */,
 				32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */,
+				1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */,
 				B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */,
 				188605AD1F39D7620005D1E2 /* Montserrat-Light.otf in Resources */,
 				188605A81F39C8220005D1E2 /* Montserrat-SemiBold.otf in Resources */,
+				1875619D1F46AAC500F609AB /* dashboard_banner1.png in Resources */,
 				1886059C1F39C0FC0005D1E2 /* CategorySliderViewController.xib in Resources */,
 				188605AE1F39D7620005D1E2 /* Montserrat-Medium.otf in Resources */,
 				B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
 				B73E00E31F4184DF001DEBA2 /* Montserrat-Bold.otf in Resources */,
 				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
-				B77A8A811F347D2B00233782 /* SwipeImage.png in Resources */,
 				1875619A1F469F8600F609AB /* Main.storyboard in Resources */,
 				B73A653E1F3DF0870051E4C5 /* zh_Simplified.strings in Resources */,
 			);

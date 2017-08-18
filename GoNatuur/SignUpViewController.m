@@ -134,12 +134,6 @@
     NSString *str=NSLocalizedText(@"privacyPolicyText");
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
     NSRange termConditionTextRange = [str rangeOfString:@"Terms & Conditions"];// * Notice that usage of rangeOfString in this case may cause some bugs - I use it here only for demonstration
-    ////    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:termConditionTextRange];
-    //    NSRange policyTextRange = [str rangeOfString:@"Privacy Policy"];
-    //    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:policyTextRange];
-    //    NSRange logInTextRange = [str rangeOfString:@"Log In"];
-    //    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:logInTextRange];
-    
     [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13]} range:termConditionTextRange];
     NSRange policyTextRange = [str rangeOfString:@"Privacy Policy"];
     [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13]} range:policyTextRange];
@@ -329,7 +323,7 @@
 
 //Privacy policy, termCondition and login click action
 - (void)privacyPolicy {
-    [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    //[_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("Privacy");
     //    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
     //    obj.isPrivacyPolicy=true;
@@ -337,7 +331,7 @@
 }
 
 - (void)termsNCondition {
-    [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+   // [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("termsNCondition");
     //    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
     //    obj.isPrivacyPolicy=false;

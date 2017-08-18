@@ -124,6 +124,7 @@
     }
     else if (indexPath.row==5) {
         //        [self checkGuestAccess];
+        [self.view makeToast:@"Feature is currently not available."];
     }
     else if (indexPath.row==6) {
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
