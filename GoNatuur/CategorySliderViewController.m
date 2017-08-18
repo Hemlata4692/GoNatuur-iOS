@@ -31,9 +31,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    if ((categoryDataArray.count>0)&&(myDelegate.selectedCategoryIndex!=-1)) {
-//        [categorySliderCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:myDelegate.selectedCategoryIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-//    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
