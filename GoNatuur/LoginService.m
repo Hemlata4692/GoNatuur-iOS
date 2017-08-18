@@ -30,9 +30,9 @@ static NSString *kResetPassword=@"ranosys/customer/resetPassword";
 - (void)loginUser:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
     [UserDefaultManager removeValue:@"Authorization"];
     NSDictionary *parameters = @{@"email" : loginData.email,
-                                     @"password" : loginData.password,
-                                     @"isSocialLogin" : loginData.isSocialLogin,
-                                     @"countryCode" : [ConstantCode localeCountryCode]};
+                                 @"password" : loginData.password,
+                                 @"isSocialLogin" : loginData.isSocialLogin,
+                                 @"countryCode" : [ConstantCode localeCountryCode]};
     [super post:kLogin parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
@@ -47,6 +47,7 @@ static NSString *kResetPassword=@"ranosys/customer/resetPassword";
 
 #pragma mark - CMS page service
 - (void)CMSPageService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    [UserDefaultManager setValue:@"9e28chln10yp8bkporq87jkw8vrgi6f3" key:@"Authorization"];
     [super get:[NSString stringWithFormat:@"%@%@",kCMSPage,loginData.cmsPageType] parameters:nil onSuccess:success onFailure:failure];
 }
 #pragma mark - end
@@ -63,12 +64,33 @@ static NSString *kResetPassword=@"ranosys/customer/resetPassword";
 #pragma mark - SignUp user service
 - (void)signUpUserService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
     [UserDefaultManager removeValue:@"Authorization"];
-    NSDictionary *parameters = @{@"customer" : @{@"email" : loginData.email,
-                                                 @"firstname" : @"John",
-                                                 @"lastname" : @"Doe"
-                                         },
-                                 @"password" : loginData.password
-                                };
+    NSDictionary *parameters;
+    if ([loginData.isSocialLogin isEqual:@0]) {
+        parameters = @{@"customer" : @{@"email" : loginData.email,
+                                       @"firstname" : @"John",
+                                       @"lastname" : @"Doe"
+                                       },
+                       @"password" : loginData.password,
+                       @"isSocial":loginData.isSocialLogin,
+                       @"profileImageUrl":@"",
+                       @"socialType":[NSNumber numberWithInt:myDelegate.selectedLoginType],
+                       @"socialUserId":@"",
+                       @"redirectUrl":@""
+                       };
+    }
+    else {
+        parameters = @{@"customer" : @{@"email" : loginData.email,
+                                       @"firstname" : @"John",
+                                       @"lastname" : @"Doe"
+                                       },
+                       @"isSocial":loginData.isSocialLogin,
+                       @"profileImageUrl":loginData.profilePicture,
+                       @"socialType":[NSNumber numberWithInt:myDelegate.selectedLoginType],
+                       @"socialUserId":loginData.socialUserId,
+                       @"redirectUrl":@""
+                       };
+    }
+    NSLog(@"sign up request social %@",parameters);
     [super post:kSignUp parameters:parameters success:success failure:failure];
 }
 #pragma mark - end

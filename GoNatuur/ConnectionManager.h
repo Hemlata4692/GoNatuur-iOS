@@ -12,6 +12,7 @@
 @class DashboardDataModel;
 @class SearchDataModel;
 @class CurrencyDataModel;
+@class NotificationDataModel;
 
 @interface ConnectionManager : NSObject
 
@@ -41,4 +42,8 @@
 - (void)signUpUserService:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure;
 //Search keyword
 - (void)getSearchSuggestionData:(SearchDataModel *)userData onSuccess:(void (^)(SearchDataModel *userData))success onFailure:(void (^)(NSError *))failure;
+//notification listing
+- (void)getNotificationListingData:(NotificationDataModel *)userData onSuccess:(void (^)(NotificationDataModel *userData))success onFailure:(void (^)(NSError *))failure;
+//Mark notification read
+- (void)markNotificationAsRead:(NotificationDataModel *)userData onSuccess:(void (^)(NotificationDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 @end

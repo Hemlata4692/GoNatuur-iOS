@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "SearchViewController.h"
 #import "CategorySliderViewController.h"
+#import "UIView+Toast.h"
 
 @interface GoNatuurViewController ()<SWRevealViewControllerDelegate,CategorySliderDelegate>{
 @private
@@ -29,10 +30,13 @@
     SWRevealViewController *revealController = [self revealViewController];
     [revealController panGestureRecognizer];
     [revealController tapGestureRecognizer];
+    
     //add search button
     [self addSerachButtonWithImage:[UIImage imageNamed:@"search"]];
+    
     //add bottom tab
     [self addBottomTab];
+    
     //add category slider
     [self addCategorySlideView];
 }
@@ -48,7 +52,7 @@
     //Load bottom tab bar xib
     BottomTabViewController *controller = [[BottomTabViewController alloc] initWithNibName:@"BottomTabViewController" bundle:nil];
     [self addChildViewController:controller];
-    [controller.view setFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-50, [[UIScreen mainScreen] bounds].size.width, 50)];
+    [controller.view setFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-60, [[UIScreen mainScreen] bounds].size.width, 60)];
     [self.view addSubview:controller.view];
     [controller didMoveToParentViewController:self];
 }
@@ -57,7 +61,7 @@
 #pragma mark - Add category slider
 - (void)addCategorySlideView {
     //Load category slider xib
-     categorySliderObjc = [[CategorySliderViewController alloc] initWithNibName:@"CategorySliderViewController" bundle:nil];
+    categorySliderObjc = [[CategorySliderViewController alloc] initWithNibName:@"CategorySliderViewController" bundle:nil];
     categorySliderObjc.view.translatesAutoresizingMaskIntoConstraints=YES;
     //Under top and bottom bar is enable then 64+ is not needed else use 64+
     categorySliderObjc.view.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 64+40);//Height 64(fixed)+46(original height)
@@ -139,9 +143,10 @@
 }
 
 - (void)serachButtonAction:(id)sender {
-    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    SearchViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"SearchViewController"];
-    [self.navigationController pushViewController:searchView animated:YES];
+    //    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    //    SearchViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"SearchViewController"];
+    //    [self.navigationController pushViewController:searchView animated:YES];
+    [self.view makeToast:@"Feature is currently not available."];
 }
 #pragma mark - end
 

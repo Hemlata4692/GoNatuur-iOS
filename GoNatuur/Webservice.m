@@ -1,6 +1,6 @@
 //
 //  Webservice.m
-//  
+//
 //
 //  Created by Hema on 11/04/16.
 //  Copyright © 2016 Ranosys. All rights reserved.
@@ -46,6 +46,7 @@
     }
     manager.securityPolicy.allowInvalidCertificates = YES;
     [manager POST:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     } failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
         [myDelegate stopIndicator];
@@ -78,6 +79,7 @@
     [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
+        //[UserDefaultManager getValue:@"Authorization"]
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
     }
     manager.securityPolicy.allowInvalidCertificates = YES;
@@ -107,6 +109,7 @@
     }
     path = [NSString stringWithFormat:@"%@%@",BASE_URL,path];
     [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     }
          failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
@@ -142,6 +145,7 @@
     }
     path = [NSString stringWithFormat:@"http://dev.gonatuur.com/en/%@",path];
     [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     }
          failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
@@ -201,9 +205,8 @@
             return NO;
             break;
         default: {
-            msg = responseObject[@"message"];
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-            [alert showWarning:nil title:@"Alert" subTitle:msg closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+            [alert showWarning:nil title:@"Alert" subTitle:NSLocalizedText(@"somethingWrongMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         }
             return NO;
             break;
