@@ -54,14 +54,14 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     //You may want to create a divider to scale the size by the way..
-     NSDictionary *dataDict=[categoryDataArray objectAtIndex:indexPath.row];
+    NSDictionary *dataDict=[categoryDataArray objectAtIndex:indexPath.row];
     return CGSizeMake([DynamicHeightWidth getDynamicLabelWidth:[dataDict objectForKey:@"name"] font:[UIFont fontWithName:@"Montserrat-SemiBold" size:17.0] widthValue:[[UIScreen mainScreen] bounds].size.width]+30, 30);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     myDelegate.selectedCategoryIndex=(int)indexPath.row;
     [_delegate selectedProduct:(int)indexPath.row];
-    [categorySliderCollectionView reloadData];
+    //  [categorySliderCollectionView reloadData];
 }
 #pragma mark - end
 

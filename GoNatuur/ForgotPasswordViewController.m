@@ -46,11 +46,11 @@
     [super viewWillAppear:YES];
     //Allocate keyboard notification
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                         selector:@selector(keyboardWillShow:)
-                                             name:UIKeyboardWillShowNotification object:nil];
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                         selector:@selector(keyboardWillHide:)
-                                             name:UIKeyboardWillHideNotification object:nil];
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -72,7 +72,7 @@
 
 #pragma mark - View initialization
 - (void)initializedView {
-    _forgotYourPasswordLabel.text=@"Oh noooo!!\nForgot your password??";
+    _forgotYourPasswordLabel.text=NSLocalizedText(@"forgotpassword");
     float scaleFactor = [[UIScreen mainScreen]bounds].size.height/568.0;
     forgotBackViewY=100*scaleFactor;
     _forgotPasswordView.translatesAutoresizingMaskIntoConstraints=true;

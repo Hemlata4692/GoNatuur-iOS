@@ -211,7 +211,7 @@ static const NSString * CSToastActivityViewKey  = @"CSToastActivityViewKey";
         if([point caseInsensitiveCompare:@"top"] == NSOrderedSame) {
             return CGPointMake(self.bounds.size.width/2, (toast.frame.size.height / 2) + CSToastVerticalPadding);
         } else if([point caseInsensitiveCompare:@"bottom"] == NSOrderedSame) {
-            return CGPointMake(self.bounds.size.width/2, (self.bounds.size.height - (toast.frame.size.height / 2)) - CSToastVerticalPadding-50);
+            return CGPointMake(self.bounds.size.width/2, (self.bounds.size.height - (toast.frame.size.height / 2)) - CSToastVerticalPadding-60);
         } else if([point caseInsensitiveCompare:@"center"] == NSOrderedSame) {
             return CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
         }
@@ -308,7 +308,7 @@ static const NSString * CSToastActivityViewKey  = @"CSToastActivityViewKey";
         // size the message label according to the length of the text
         CGSize maxSizeMessage = CGSizeMake((self.bounds.size.width * CSToastMaxWidth) - imageWidth, self.bounds.size.height * CSToastMaxHeight);
         CGSize expectedSizeMessage = [self sizeForString:message font:messageLabel.font constrainedToSize:maxSizeMessage lineBreakMode:messageLabel.lineBreakMode];
-        messageLabel.frame = CGRectMake(0.0, 60.0, expectedSizeMessage.width, expectedSizeMessage.height);
+        messageLabel.frame = CGRectMake(0.0, 70.0, expectedSizeMessage.width, expectedSizeMessage.height);
     }
     
     // titleLabel frame values
@@ -342,7 +342,7 @@ static const NSString * CSToastActivityViewKey  = @"CSToastActivityViewKey";
     CGFloat wrapperWidth = MAX((imageWidth + (CSToastHorizontalPadding * 2)), (longerLeft + longerWidth + CSToastHorizontalPadding));
     CGFloat wrapperHeight = MAX((messageTop + messageHeight + CSToastVerticalPadding), (imageHeight + (CSToastVerticalPadding * 2)));
     
-    wrapperView.frame = CGRectMake(0.0, 60.0, wrapperWidth, wrapperHeight);
+    wrapperView.frame = CGRectMake(0.0, 70.0, wrapperWidth, wrapperHeight);
     
     if(titleLabel != nil) {
         titleLabel.frame = CGRectMake(titleLeft, titleTop, titleWidth, titleHeight);

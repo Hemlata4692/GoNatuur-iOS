@@ -25,7 +25,7 @@
     CurrencyDataModel *exchangeCurrencyData;
     NSString *exchangeRates;
 }
-
+@property (weak, nonatomic) IBOutlet UILabel *noRecordLabel;
 @property (weak, nonatomic) IBOutlet UILabel *buttonSeperator;
 @property (weak, nonatomic) IBOutlet UIImageView *bannerImageView;
 @property (weak, nonatomic) IBOutlet UICollectionView *productCollectionView;
@@ -47,6 +47,7 @@
     healthyLivingDataArray=[[NSMutableArray alloc]init];
     samplersProductDataArray=[[NSMutableArray alloc]init];
     [self viewCustomisation];
+    _noRecordLabel.hidden=YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,7 +68,6 @@
         [myDelegate showIndicator];
         [self performSelector:@selector(getDashboardData) withObject:nil afterDelay:.1];
     }
-    
 }
 #pragma mark - end
 
@@ -118,7 +118,7 @@
     }
     else {
         DasboardDataCollectionViewCell *footerImageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"footerImageCell" forIndexPath:indexPath];
-        [footerImageCell displayFooterBannerData:[footerImageArray objectAtIndex:indexPath.item]];
+        [footerImageCell displayFooterBannerData:[footerImageArray objectAtIndex:indexPath.item+1]];
         return footerImageCell;
     }
 }
@@ -127,18 +127,21 @@
 #pragma mark - IBActions
 - (IBAction)bestSellerButtonAction:(id)sender {
     [self reframeSeperatorLabel:sender];
+    _noRecordLabel.hidden=YES;
     buttonTag=1;
     [self reloadCollectionView];
 }
 
 - (IBAction)healthyLivingButtonAction:(id)sender {
     [self reframeSeperatorLabel:sender];
+    _noRecordLabel.hidden=YES;
     buttonTag=2;
     [self reloadCollectionView];
 }
 
 - (IBAction)samplersButtonAction:(id)sender {
     [self reframeSeperatorLabel:sender];
+    _noRecordLabel.hidden=YES;
     buttonTag=3;
     [self reloadCollectionView];
 }

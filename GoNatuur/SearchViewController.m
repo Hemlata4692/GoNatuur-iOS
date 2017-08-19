@@ -11,7 +11,7 @@
 #import "SearchDataModel.h"
 
 @interface SearchViewController () {
-    @private
+@private
     NSMutableArray *searchArray;
     NSString *searchKey;
 }
@@ -35,8 +35,8 @@
     
     [_searchTextField becomeFirstResponder];
     [_searchTextField addTarget:self
-                       action:@selector(textFieldDidChange:)
-             forControlEvents:UIControlEventEditingChanged];
+                         action:@selector(textFieldDidChange:)
+               forControlEvents:UIControlEventEditingChanged];
     _closeImageIcon.hidden=YES;
     _closeButton.hidden=YES;
     _noResultLabel.hidden=YES;
@@ -50,7 +50,7 @@
     UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 20)];
     statusBarView.backgroundColor = [UIColor colorWithRed:239.0/255.0 green:229.0/255.0 blue:233.0/255.0 alpha:1.0];
     [self.view addSubview:statusBarView];
-
+    
     //remove extra lines
     _searchTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -91,10 +91,10 @@
     }
     // reschedule the search: in 1.0 second, call the searchForKeyword: method on the new textfield content
     _searchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                        target: self
-                                                      selector: @selector(searchForKeyword:)
-                                                      userInfo:_searchTextField.text
-                                                       repeats: NO];
+                                                    target: self
+                                                  selector: @selector(searchForKeyword:)
+                                                  userInfo:_searchTextField.text
+                                                   repeats: NO];
 }
 
 - (void) searchForKeyword:(NSTimer *)timer {
@@ -103,7 +103,7 @@
     // perform your search (stubbed here using NSLog)
     NSLog(@"Searching for keyword %@", searchKey);
     if (![searchKey isEqualToString:@""]) {
-         [self getSerachSuggestionListing:searchKey];
+        [self getSerachSuggestionListing:searchKey];
     }
 }
 
@@ -111,7 +111,7 @@
     [textField resignFirstResponder];
     if (![textField.text isEqualToString:@""]) {
         SearchListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListingViewController"];
-         obj.searchKeyword=searchKey;
+        obj.searchKeyword=searchKey;
         [self.navigationController pushViewController:obj animated:true];
     }
     return YES;
@@ -127,15 +127,15 @@
             _noResultLabel.hidden=NO;
         }
         else {
-        _noResultLabel.hidden=YES;
-        searchArray=[userData.searchKeywordListingArray mutableCopy];
-        [_searchTableView reloadData];
+            _noResultLabel.hidden=YES;
+            searchArray=[userData.searchKeywordListingArray mutableCopy];
+            [_searchTableView reloadData];
         }
     } onfailure:^(NSError *error) {
         _noResultLabel.hidden=NO;
         _searchTableView.hidden=YES;
     }];
-
+    
 }
 #pragma mark - end
 

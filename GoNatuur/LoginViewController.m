@@ -15,7 +15,7 @@
 #import "UITextField+Padding.h"
 
 @interface LoginViewController ()<UIGestureRecognizerDelegate, SocialLoginDelegate, BSKeyboardControlsDelegate> {
-   @private
+@private
     UITextField *currentSelectedTextField;
     float loginBackViewY;
     int isSocialLogin;
@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    [self authenticationToken];
+    //    [self authenticationToken];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -100,7 +100,7 @@
     }
     _loginBackView.translatesAutoresizingMaskIntoConstraints=true;
     _loginBackView.frame=CGRectMake(13, loginBackViewY, [[UIScreen mainScreen] bounds].size.width-26, 500);
-   _mainView.translatesAutoresizingMaskIntoConstraints=true;
+    _mainView.translatesAutoresizingMaskIntoConstraints=true;
     _mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, mainViewHeight);
     _scrollView.contentSize = CGSizeMake(0,_mainView.frame.size.height);
     //Set privacy policy attributed text
@@ -111,8 +111,25 @@
 - (void)setAttributString {
     NSString *str=NSLocalizedText(@"loginNewUserText");
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
-    NSRange registerTextRange = [str rangeOfString:@"Register"];
-    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:registerTextRange];
+    NSRange registerTextRange = [str rangeOfString:NSLocalizedText(@"Register")];
+    [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratLightWithSize:13]} range:registerTextRange];
+    _registerLabel.attributedText=string;
+    
+    if ([ConstantCode checkDeviceType] == Device5s) {
+        UILabel *templabel=[[UILabel alloc] initWithFrame:CGRectMake(188, 21, 50, 1)];
+        templabel.backgroundColor=[UIColor blackColor];
+        [_registerLabel addSubview:templabel];
+    }
+    else if ([ConstantCode checkDeviceType] == Device6) {
+        UILabel *templabel=[[UILabel alloc] initWithFrame:CGRectMake(190, 29, 50, 1)];
+        templabel.backgroundColor=[UIColor blackColor];
+        [_registerLabel addSubview:templabel];
+    }
+    else {
+        UILabel *templabel=[[UILabel alloc] initWithFrame:CGRectMake(186.5, 28, 50, 1)];
+        templabel.backgroundColor=[UIColor blackColor];
+        [_registerLabel addSubview:templabel];
+    }
     _registerLabel.attributedText=string;
     //Add tap gesture at label
     _registerLabel.userInteractionEnabled = YES;
@@ -254,12 +271,12 @@
 #pragma mark - Webservice
 //Community code webservice called
 - (void)authenticationToken {
-//    [myDelegate showIndicator];
+    //    [myDelegate showIndicator];
     LoginModel *authToken = [LoginModel sharedUser];
     authToken.username=@"";
     authToken.password=@"";
     [authToken accessToken:^(LoginModel *userData) {
-//        [self userLogin];
+        //        [self userLogin];
     } onfailure:^(NSError *error) {
         
     }];
@@ -280,7 +297,7 @@
         else{
             [self saveDeviceToken];
         }
-
+        
     } onfailure:^(NSError *error) {
         
     }];
@@ -302,7 +319,11 @@
     [userLogin loginGuestUserOnSuccess:^(LoginModel *userData) {
         [myDelegate stopIndicator];
         // Navigate user to dashboard
-        [self navigateToDashboard];
+        //        [self navigateToDashboard];
+        UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+        [myDelegate.window setRootViewController:objReveal];
+        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+        [myDelegate.window makeKeyAndVisible];
     } onfailure:^(NSError *error) {
         
     }];

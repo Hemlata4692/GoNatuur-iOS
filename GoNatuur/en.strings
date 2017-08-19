@@ -1,20 +1,22 @@
 /*
-  en.strings
-  GoNatuur
-
-  Created by Ranosys on 10/08/17.
-  Copyright © 2017 Hemlata Khajanchi. All rights reserved.
-*/
+ en.strings
+ GoNatuur
+ 
+ Created by Ranosys on 10/08/17.
+ Copyright © 2017 Hemlata Khajanchi. All rights reserved.
+ */
 
 "loginNewUserText" = "If you are a new uesr, you can Register an account with us and start shopping with GoPurpose.";
 "privacyPolicyText" = "By signing up, you agree to our Terms & Conditions and Privacy Policy. If you already have an account, Log In here";
 "alertTitle" = "Alert";
 "alertOk" = "OK";
+"alertCancel" = "Cancel";
+"alertRetry"="Retry";
 "validPassword" = "Password minimum 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.";
 "emptyFieldMessage" = "Please fill in all the required fields.";
 "validEmailMessage" = "Please enter valid Email Address.";
 "passwordMatchMessage" = "Password and Confirm Password does not match.";
-"somethingWrondMessage" = "Something went wrong, please try again later.";
+"somethingWrongMessage" = "Something went wrong, please try again later.";
 "Privacy Policy" = "Privacy Policy";
 "privacy policy" = "privacy policy";
 "Terms & Conditions" = "Terms & Conditions";
@@ -25,8 +27,9 @@
 "upperCaseCharacter" = "ABCDEFGHIJKLKMNOPQRSTUVWXYZ";
 "lowerCaseCharacter" = "abcdefghijklmnopqrstuvwxyz";
 "numberCharacter" = "0123456789";
-"resetPasswordSuccess" = "Your passwod is updated.";
-"GoNatuur" = "GoNatuur";
+"resetPasswordSuccess" = "Password updated successfully.";
+"guestUserAccess"="Please login to access this module.";
+"logoutUser"="Are you sure you want to Signout?";
 "loginFb" = "Log in with Facebook";
 "loginWeChat" = "Log in with WeChat";
 "loginWiebo" = "Log in with Wiebo";
@@ -35,3 +38,13 @@
 "signUpWeChat" = "Sign up with WeChat";
 "signUpWiebo" = "Sign up with Wiebo";
 "signUpGooglePlus" = "Sign up with Google Plus";
+"GoNatuur" = "GoNatuur";
+"forgotpassword"="Oh noooo!!\nForgot your password??";
+"sideBarLogin"="LOG IN";
+"featureNotAvailable"="Feature is currently not available.";
+"guestUser"="Guest User";
+"dataNotAdded"="NA";
+"Notifications"="Notifications";
+"terms&Conditions"="Terms & Conditions";
+"privacyPolicy"="Privacy Policy";
+"Register"="Register";

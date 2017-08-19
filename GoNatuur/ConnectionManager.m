@@ -14,9 +14,10 @@
 #import "SearchDataModel.h"
 #import "SearchService.h"
 #import "CurrencyDataModel.h"
+#import "NotificationService.h"
+#import "NotificationDataModel.h"
 
 @implementation ConnectionManager
-
 #pragma mark - Shared instance
 
 + (instancetype)sharedManager {
@@ -32,8 +33,10 @@
 #pragma mark - Community code
 - (void)getAccessToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *authToken = [[LoginService alloc] init];
-    //Parse data from server response and store in datamodel
+    //parse data from server response and store in datamodel
     [authToken getAccessToken:userData onSuccess:^(id response) {
+        
+        
         success(response);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -84,6 +87,7 @@
         } onFailure:^(NSError *error) {
             failure(error);
         }] ;
+        
     }
 }
 
@@ -119,7 +123,6 @@
     LoginService *loginService = [[LoginService alloc] init];
     [loginService resetPasswordService:userData onSuccess:^(id response) {
         //Parse data from server response and store in data model
-        userData.otpNumber=[[response  objectAtIndex:0] objectForKey:@"resetOTP"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -138,8 +141,6 @@
     } onfailure:^(NSError *error) {
     }];
 }
-#pragma mark - end
-
 #pragma mark - SignUp user service
 - (void)signUpUserService:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *loginService = [[LoginService alloc] init];
@@ -185,7 +186,9 @@
             productData.productId = productDataDict[@"id"];
             productData.productPrice = [productDataDict[@"price"] stringValue];
             productData.productName = productDataDict[@"name"];
-            productData.productDescription = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"];
+            if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
+                productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+            }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
             [userData.bestSellerArray addObject:productData];
         }
@@ -197,7 +200,9 @@
             healthyLivingData.productId = productDataDict[@"id"];
             healthyLivingData.productPrice = [productDataDict[@"price"] stringValue];
             healthyLivingData.productName = productDataDict[@"name"];
-            healthyLivingData.productDescription = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"];
+            if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
+                healthyLivingData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+            }
             healthyLivingData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
             [userData.healthyLivingArray addObject:healthyLivingData];
         }
@@ -209,7 +214,9 @@
             samplersArrayData.productId = productDataDict[@"id"];
             samplersArrayData.productPrice = [productDataDict[@"price"] stringValue];
             samplersArrayData.productName = productDataDict[@"name"];
-            samplersArrayData.productDescription = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"];
+            if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
+                samplersArrayData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+            }
             samplersArrayData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
             [userData.samplersDataArray addObject:samplersArrayData];
         }
@@ -229,6 +236,13 @@
         failure(error);
     }] ;
     
+}
+
+- (NSString *)stringByStrippingHTML:(NSString *)str {
+    NSRange r;
+    while ((r = [str rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
+        str = [str stringByReplacingCharactersInRange:r withString:@""];
+    return str;
 }
 #pragma mark - end
 
@@ -275,6 +289,46 @@
         }
         success(userData);
         
+    } onfailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Notification listing
+- (void)getNotificationListingData:(NotificationDataModel *)userData onSuccess:(void (^)(NotificationDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    NotificationService *dataList=[[NotificationService alloc]init];
+    [dataList getUserNotificationData:userData success:^(id response) {
+        //Parse data from server response and store in data model
+        NSLog(@"notification list response %@",response);
+        userData.notificationListArray=[[NSMutableArray alloc]init];
+        NSArray *notificationArray=response[@"items"];
+        for (int i =0; i<notificationArray.count; i++) {
+            NSDictionary * dataDict =[notificationArray objectAtIndex:i];
+            NotificationDataModel * notiData = [[NotificationDataModel alloc]init];
+            notiData.notificationId = dataDict[@"id"];
+            notiData.notificationType = dataDict[@"type"];
+            notiData.notificationMessage = dataDict[@"message"];
+            notiData.targetId = dataDict[@"targat_id"];
+            notiData.notificationStatus = dataDict[@"status"];
+            [userData.notificationListArray addObject:notiData];
+        }
+        userData.totalCount=response[@"total_count"];
+        success(userData);
+    } onfailure:^(NSError *error) {
+        failure(error);
+    }] ;
+    
+}
+#pragma mark - end
+
+#pragma mark - Notification read/unread
+- (void)markNotificationAsRead:(NotificationDataModel *)userData onSuccess:(void (^)(NotificationDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    NotificationService *dataList=[[NotificationService alloc]init];
+    [dataList markNotification:userData success:^(id response) {
+        //Parse data from server response and store in data model
+        NSLog(@"notification response %@",response);
+        success(userData);
     } onfailure:^(NSError *error) {
         failure(error);
     }] ;

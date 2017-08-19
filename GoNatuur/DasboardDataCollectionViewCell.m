@@ -31,7 +31,12 @@
     productName.text=productListData.productName;
     double productCalculatedPrice =[productListData.productPrice doubleValue]*[exchangeRates doubleValue];
     productPrice.text=[NSString stringWithFormat:@"%@ %.2f",[UserDefaultManager getValue:@"DefaultCurrency"],productCalculatedPrice];
-    productDescription.text=productListData.productDescription;
+    if ((nil==productListData.productDescription)||[productListData.productDescription isEqualToString:@""]) {
+        productDescription.text=NSLocalizedText(@"dataNotAdded");
+    }
+    else {
+        productDescription.text=productListData.productDescription;
+    }
     [ImageCaching downloadImages:productImageView imageUrl:productListData.productImageThumbnail placeholderImage:@"product_placeholder" isDashboardCell:true];
     statusBannerImage.hidden=YES;
     if ([productListData.productRating isEqualToString:@""] || productListData.productRating==nil) {
@@ -47,6 +52,6 @@
 
 //Footer image cell
 - (void)displayFooterBannerData :(DashboardDataModel *)footerBannerImage {
-    [ImageCaching downloadImages:footerImageView imageUrl:footerBannerImage.banerImageUrl placeholderImage:@"product_placeholder" isDashboardCell:false];
+    [ImageCaching downloadImages:footerImageView imageUrl:footerBannerImage.banerImageUrl placeholderImage:@"product_placeholder" isDashboardCell:true];
 }
 @end

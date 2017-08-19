@@ -14,6 +14,11 @@
 		184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C38641F3B328A008B8291 /* EnableNotificationViewController.m */; };
 		184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */; };
 		1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */; };
+		1875618D1F469B2800F609AB /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875618C1F469B2800F609AB /* NotificationService.m */; };
+		187561911F469BD500F609AB /* NotificationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187561901F469BD500F609AB /* NotificationDataModel.m */; };
+		187561931F469E1000F609AB /* BottomTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187561921F469E1000F609AB /* BottomTabViewController.xib */; };
+		187561971F469F3800F609AB /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187561961F469F3800F609AB /* NotificationViewController.m */; };
+		1875619A1F469F8600F609AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187561981F469F8600F609AB /* Main.storyboard */; };
 		188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1886058F1F39AF320005D1E2 /* UserNotifications.framework */; };
 		188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605941F39BC430005D1E2 /* DashboardViewController.m */; };
 		1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605991F39C0FC0005D1E2 /* CategorySliderViewController.m */; };
@@ -36,7 +41,6 @@
 		18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */; };
 		18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8FB1F32F46800430842 /* SearchViewController.m */; };
 		18F7A9031F33044100430842 /* BottomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A9011F33044100430842 /* BottomTabViewController.m */; };
-		18F7A9041F33044100430842 /* BottomTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F7A9021F33044100430842 /* BottomTabViewController.xib */; };
 		3207616E1F162820001F1790 /* NullValueChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3207616D1F162820001F1790 /* NullValueChecker.m */; };
 		320761721F162834001F1790 /* UserDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761711F162834001F1790 /* UserDefaultManager.m */; };
 		320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761751F163AB2001F1790 /* MMMaterialDesignSpinner.m */; };
@@ -59,7 +63,6 @@
 		32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32A3D7151F1CE4A500062B86 /* GoogleService-Info.plist */; };
 		32BAA6091F1360280015E355 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BAA6081F1360280015E355 /* main.m */; };
 		32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BAA60B1F1360280015E355 /* AppDelegate.m */; };
-		32BAA6121F1360290015E355 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32BAA6101F1360290015E355 /* Main.storyboard */; };
 		32BAA6141F1360290015E355 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32BAA6131F1360290015E355 /* Assets.xcassets */; };
 		32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32BAA6151F1360290015E355 /* LaunchScreen.storyboard */; };
 		32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20901F25B1760054C344 /* ConnectionManager.m */; };
@@ -108,6 +111,14 @@
 		184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Regular.otf"; sourceTree = "<group>"; };
 		1870F0BC1F44185F008B2CE5 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		1875618B1F469B2800F609AB /* NotificationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		1875618C1F469B2800F609AB /* NotificationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
+		1875618F1F469BD500F609AB /* NotificationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationDataModel.h; sourceTree = "<group>"; };
+		187561901F469BD500F609AB /* NotificationDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationDataModel.m; sourceTree = "<group>"; };
+		187561921F469E1000F609AB /* BottomTabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomTabViewController.xib; sourceTree = "<group>"; };
+		187561951F469F3800F609AB /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
+		187561961F469F3800F609AB /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
+		187561991F469F8600F609AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1886058F1F39AF320005D1E2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		188605931F39BC430005D1E2 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		188605941F39BC430005D1E2 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
@@ -145,7 +156,6 @@
 		18F7A8FB1F32F46800430842 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		18F7A9001F33044100430842 /* BottomTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomTabViewController.h; sourceTree = "<group>"; };
 		18F7A9011F33044100430842 /* BottomTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomTabViewController.m; sourceTree = "<group>"; };
-		18F7A9021F33044100430842 /* BottomTabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomTabViewController.xib; sourceTree = "<group>"; };
 		3207616C1F162820001F1790 /* NullValueChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullValueChecker.h; sourceTree = "<group>"; };
 		3207616D1F162820001F1790 /* NullValueChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullValueChecker.m; sourceTree = "<group>"; };
 		320761701F162834001F1790 /* UserDefaultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultManager.h; sourceTree = "<group>"; };
@@ -182,7 +192,6 @@
 		32BAA6081F1360280015E355 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32BAA60A1F1360280015E355 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		32BAA60B1F1360280015E355 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		32BAA6111F1360290015E355 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		32BAA6131F1360290015E355 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32BAA6161F1360290015E355 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		32BAA6181F1360290015E355 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -285,6 +294,7 @@
 		184C38611F3B3254008B8291 /* NotificationModule */ = {
 			isa = PBXGroup;
 			children = (
+				187561941F469F3000F609AB /* NotificationListViewController */,
 				184C38621F3B326C008B8291 /* EnableNotificationView */,
 			);
 			name = NotificationModule;
@@ -306,6 +316,33 @@
 				1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */,
 			);
 			name = ToastView;
+			sourceTree = "<group>";
+		};
+		1875618A1F469B1C00F609AB /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				1875618B1F469B2800F609AB /* NotificationService.h */,
+				1875618C1F469B2800F609AB /* NotificationService.m */,
+			);
+			name = NotificationService;
+			sourceTree = "<group>";
+		};
+		1875618E1F469BCD00F609AB /* NotificationModel */ = {
+			isa = PBXGroup;
+			children = (
+				1875618F1F469BD500F609AB /* NotificationDataModel.h */,
+				187561901F469BD500F609AB /* NotificationDataModel.m */,
+			);
+			name = NotificationModel;
+			sourceTree = "<group>";
+		};
+		187561941F469F3000F609AB /* NotificationListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				187561951F469F3800F609AB /* NotificationViewController.h */,
+				187561961F469F3800F609AB /* NotificationViewController.m */,
+			);
+			name = NotificationListViewController;
 			sourceTree = "<group>";
 		};
 		188605911F39BB720005D1E2 /* DashboardModule */ = {
@@ -485,7 +522,7 @@
 			children = (
 				18F7A9001F33044100430842 /* BottomTabViewController.h */,
 				18F7A9011F33044100430842 /* BottomTabViewController.m */,
-				18F7A9021F33044100430842 /* BottomTabViewController.xib */,
+				187561921F469E1000F609AB /* BottomTabViewController.xib */,
 			);
 			name = BottomTabBarView;
 			sourceTree = "<group>";
@@ -504,6 +541,7 @@
 		320761601F1626F2001F1790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1875618E1F469BCD00F609AB /* NotificationModel */,
 				188B2C181F41F42E0001A7AE /* CurrencyDataModel */,
 				188B2C101F41DF2D0001A7AE /* SearchDataModel */,
 				181853241F3D832200EEB73B /* DashboardModel */,
@@ -558,7 +596,6 @@
 				B7DDB1AB1F399D02009BB8A5 /* ConstantCode */,
 				18F7A8F51F32E2B800430842 /* SWRevealView */,
 				32A3D6C01F1CBDE200062B86 /* SocialLogin */,
-				329F7D4F1F172AD9008E0E15 /* AlertView */,
 				320761881F164BD2001F1790 /* Crashlytics */,
 				320761731F163A9D001F1790 /* MMMaterialDesignerSpinner */,
 				3207616F1F162829001F1790 /* DefaultManager */,
@@ -583,6 +620,7 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				1875618A1F469B1C00F609AB /* NotificationService */,
 				188B2C141F41DFE60001A7AE /* SearchService */,
 				181853281F3D8A6300EEB73B /* DashboardService */,
 				32CC20961F25B1E90054C344 /* LoginService */,
@@ -681,13 +719,6 @@
 			name = Crashlytics;
 			sourceTree = "<group>";
 		};
-		329F7D4F1F172AD9008E0E15 /* AlertView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = AlertView;
-			sourceTree = "<group>";
-		};
 		32A3D6B51F1CBABA00062B86 /* LoginModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -765,7 +796,7 @@
 			children = (
 				320761621F162706001F1790 /* AppDelegate */,
 				320761631F162712001F1790 /* Classes */,
-				32BAA6101F1360290015E355 /* Main.storyboard */,
+				187561981F469F8600F609AB /* Main.storyboard */,
 				32BAA6131F1360290015E355 /* Assets.xcassets */,
 				32BAA6151F1360290015E355 /* LaunchScreen.storyboard */,
 				32BAA6181F1360290015E355 /* Info.plist */,
@@ -980,10 +1011,10 @@
 				184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */,
 				32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */,
 				B73A653F1F3DF0870051E4C5 /* zh_Traditional.strings in Resources */,
+				187561931F469E1000F609AB /* BottomTabViewController.xib in Resources */,
 				32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */,
 				B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */,
 				188605AD1F39D7620005D1E2 /* Montserrat-Light.otf in Resources */,
-				18F7A9041F33044100430842 /* BottomTabViewController.xib in Resources */,
 				188605A81F39C8220005D1E2 /* Montserrat-SemiBold.otf in Resources */,
 				1886059C1F39C0FC0005D1E2 /* CategorySliderViewController.xib in Resources */,
 				188605AE1F39D7620005D1E2 /* Montserrat-Medium.otf in Resources */,
@@ -992,7 +1023,7 @@
 				B73E00E31F4184DF001DEBA2 /* Montserrat-Bold.otf in Resources */,
 				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
 				B77A8A811F347D2B00233782 /* SwipeImage.png in Resources */,
-				32BAA6121F1360290015E355 /* Main.storyboard in Resources */,
+				1875619A1F469F8600F609AB /* Main.storyboard in Resources */,
 				B73A653E1F3DF0870051E4C5 /* zh_Simplified.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1054,12 +1085,14 @@
 			files = (
 				32A3D6FF1F1CD2B800062B86 /* FacebookConnect.m in Sources */,
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
+				187561911F469BD500F609AB /* NotificationDataModel.m in Sources */,
 				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
 				32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */,
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
 				B77A8A781F34388800233782 /* SignUpViewController.m in Sources */,
 				B7A86ECD1F3B3D85004DA530 /* CMSPageViewController.m in Sources */,
+				187561971F469F3800F609AB /* NotificationViewController.m in Sources */,
 				1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */,
 				18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */,
 				B745811D1F39BECC00A164D6 /* BSKeyboardControls.m in Sources */,
@@ -1069,6 +1102,7 @@
 				181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
 				1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */,
+				1875618D1F469B2800F609AB /* NotificationService.m in Sources */,
 				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
@@ -1102,10 +1136,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		32BAA6101F1360290015E355 /* Main.storyboard */ = {
+		187561981F469F8600F609AB /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				32BAA6111F1360290015E355 /* Base */,
+				187561991F469F8600F609AB /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1228,6 +1262,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoNatuur",
+					"$(PROJECT_DIR)/GoNatuur/GoNatuur",
 				);
 				GCC_PREFIX_HEADER = "GoNatuur/GoNatuur-Prefix.pch";
 				INFOPLIST_FILE = GoNatuur/Info.plist;
@@ -1251,6 +1286,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoNatuur",
+					"$(PROJECT_DIR)/GoNatuur/GoNatuur",
 				);
 				GCC_PREFIX_HEADER = "GoNatuur/GoNatuur-Prefix.pch";
 				INFOPLIST_FILE = GoNatuur/Info.plist;

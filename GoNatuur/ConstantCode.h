@@ -13,6 +13,7 @@
 #define kProductCellsPerRow 2
 
 typedef NS_ENUM (NSInteger, ConstantType) {
+    SignUp,
     FacebookLogin,
     WeChatLogin,
     WeiboLogin,
