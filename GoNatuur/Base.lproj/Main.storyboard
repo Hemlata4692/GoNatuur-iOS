@@ -810,7 +810,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <segue destination="EHJ-cQ-uoC" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="Xuf-dV-9oO"/>
+                                            <segue destination="EHJ-cQ-uoC" kind="custom" identifier="Notifications" customClass="SWRevealViewControllerSeguePushController" id="Xuf-dV-9oO"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Signout" rowHeight="50" id="74L-T1-TAH">
@@ -2179,7 +2179,6 @@
         <!--Navigation Controller-->
         <scene sceneID="eIh-3c-mQX">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XxV-aV-YPf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController extendedLayoutIncludesOpaqueBars="YES" id="EHJ-cQ-uoC" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
@@ -2191,6 +2190,7 @@
                         <segue destination="bqH-17-cmY" kind="relationship" relationship="rootViewController" id="kLi-M0-zOM"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XxV-aV-YPf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1438" y="49"/>
         </scene>

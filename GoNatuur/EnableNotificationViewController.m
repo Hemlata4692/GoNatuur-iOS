@@ -8,7 +8,10 @@
 
 #import "EnableNotificationViewController.h"
 
-@interface EnableNotificationViewController ()
+@interface EnableNotificationViewController () {
+    @private
+    BOOL isNotificationAllowed;
+}
 @property (weak, nonatomic) IBOutlet UIImageView *notificationBackgroundImage;
 @property (weak, nonatomic) IBOutlet UILabel *infoTextLabel;
 @end
@@ -26,16 +29,26 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark - end
+//UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Turn on Location Services to allow DigiBi to determine your location." message:@"" delegate:self cancelButtonTitle:@"Settings" otherButtonTitles:@"Cancel", nil];
+//
+////                UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Turn on Location Service to Allow \"DigiBi\" to Determine Your Location" message:@"Need location for this app" delegate:self cancelButtonTitle:@"Settings" otherButtonTitles:@"Cancel", nil];
+//alert.tag = 3;
 
 #pragma mark - IBAction
 - (IBAction)enableNotificationButtonAction:(id)sender {
-    [myDelegate registerForRemoteNotification];
+    if ([[UserDefaultManager getValue:@"allowNotification"] isEqual:@1]) {
+        [myDelegate registerForRemoteNotification];
+        [self navigateToDashboard];
+    }
+    else {
+    
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification * _Nonnull note) {
                                                       if ([[UIApplication sharedApplication] isRegisteredForRemoteNotifications]) {
                                                           //User tapped "Allow"
+                                                          [UserDefaultManager setValue:@1 key:@"allowNotification"];
                                                           [self navigateToDashboard];
                                                       }
                                                       else{
@@ -43,6 +56,7 @@
                                                           [self navigateToDashboard];
                                                       }
                                                   }];
+    }
 }
 
 - (IBAction)disableNotificationButtonAction:(id)sender {

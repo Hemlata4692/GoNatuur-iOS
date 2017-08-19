@@ -127,7 +127,7 @@
         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else if (indexPath.row==5) {
-//        [self checkGuestAccess:5];
+        [self checkGuestAccess];
     }
     else if (indexPath.row==6) {
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
@@ -144,32 +144,48 @@
     }
 }
 #pragma mark - end
+//@[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications", @"Signout"]
+#pragma mark - Navigation segue identifier
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+        if([identifier isEqualToString:@"My Orders"])
+        {
+            return NO;
+        }
+        else if([identifier isEqualToString:@"Payment"])
+        {
+            return NO;
+        }
+        else if([identifier isEqualToString:@"Redeem Points"])
+        {
+            return NO;
+        }
+        else if([identifier isEqualToString:@"Notifications"])
+        {
+            
+            return NO;
+        }
+        else {
+            return YES;
+        }
+    }
+    else {
+        // by default perform the segue transition
+        return YES;
+    }
+}
+#pragma mark - end
 
 #pragma mark - Guest access
-- (void)checkGuestAccess:(int)rowIndex {
+- (void)checkGuestAccess {
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-            //logou user
+            //logout user
             [self logoutUser];
         }];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"guestUserAccess") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
-    }
-    else {
-//        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
-        //NotificationViewController
-        if (rowIndex==5) {
-//set navigation by code
-//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//            NotificationViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"NotificationViewController"];
-//            
-//            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
-//            [navController setViewControllers: @[rootViewController] animated: YES];
-//            
-//            [self.revealViewController setFrontViewController:navController];
-//            [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
-
-        }
     }
 }
 #pragma mark - end
