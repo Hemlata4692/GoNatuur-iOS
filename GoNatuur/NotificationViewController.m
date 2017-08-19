@@ -18,6 +18,7 @@
     int pageCount;
 }
 @property (weak, nonatomic) IBOutlet UITableView *notificationTableView;
+@property (weak, nonatomic) IBOutlet UILabel *noRecordLabel;
 
 @end
 
@@ -30,7 +31,7 @@
     _notificationTableView.estimatedRowHeight = 400.0;//set maximum row height
     _notificationTableView.rowHeight = UITableViewAutomaticDimension;//set dynamic height of row according to text
     _notificationTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
-    
+    _noRecordLabel.hidden=YES;
     notificationArray=[[NSMutableArray alloc]init];
     pageCount=1;
 }
@@ -43,7 +44,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
-    self.title=@"Notifications";
+    self.title=NSLocalizedText(@"Notifications");
     [self addLeftBarButtonWithImage:false];
     [self initFooterView];
     //call notification list webservice
@@ -58,21 +59,25 @@
     notificationList.pageCount=[NSNumber numberWithInt:pageCount];
     [notificationList getUserNotification:^(NotificationDataModel *userData) {
         [myDelegate stopIndicator];
-        //[self markNotificationAsRead];
+        if (notificationArray.count==0) {
+            _noRecordLabel.hidden=NO;
+        }
+        else {
+            _noRecordLabel.hidden=YES;
         [notificationArray addObjectsFromArray:userData.notificationListArray];
         totalCount =[userData.totalCount intValue];
         [_notificationTableView reloadData];
+        }
     } onfailure:^(NSError *error) {
-        
+        _noRecordLabel.hidden=NO;
     }];
 }
 
-- (void)markNotificationAsRead {
-    //markNotificationRead
+- (void)markNotificationAsRead:(NSString *)notificationId {
     NotificationDataModel *notificationList = [NotificationDataModel sharedUser];
+    notificationList.notificationId=notificationId;
     [notificationList markNotificationRead:^(NotificationDataModel *userData)  {
         [myDelegate stopIndicator];
-        [_notificationTableView reloadData];
     } onfailure:^(NSError *error) {
         
     }];
@@ -102,6 +107,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+     NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];
+     [self markNotificationAsRead:notiData.notificationId];
 }
 
 #pragma mark - end
