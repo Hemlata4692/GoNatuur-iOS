@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "DynamicHeightWidth.h"
 #import "UIView+Toast.h"
+#import "NotificationViewController.h"
 
 @interface SideBarViewController () {
     NSArray *menuItemsArray;
@@ -37,6 +38,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
+    if ([ConstantCode checkDeviceType]==Device5s) {
+        _sideBarTableView.scrollEnabled=YES;
+    }
     [_sideBarTableView reloadData];
 }
 
@@ -123,7 +127,7 @@
         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else if (indexPath.row==5) {
-        //        [self checkGuestAccess];
+        [self checkGuestAccess];
     }
     else if (indexPath.row==6) {
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
@@ -132,11 +136,43 @@
         else {
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
             [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-                //logou user
+                //logou1 user
                 [self logoutUser];
             }];
             [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"logoutUser") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
         }
+    }
+}
+#pragma mark - end
+//@[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications", @"Signout"]
+#pragma mark - Navigation segue identifier
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+        if([identifier isEqualToString:@"My Orders"])
+        {
+            return NO;
+        }
+        else if([identifier isEqualToString:@"Payment"])
+        {
+            return NO;
+        }
+        else if([identifier isEqualToString:@"Redeem Points"])
+        {
+            return NO;
+        }
+        else if([identifier isEqualToString:@"Notifications"])
+        {
+            
+            return NO;
+        }
+        else {
+            return YES;
+        }
+    }
+    else {
+        // by default perform the segue transition
+        return YES;
     }
 }
 #pragma mark - end
@@ -146,15 +182,11 @@
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-            //logou user
+            //logout user
             [self logoutUser];
         }];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"guestUserAccess") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
     }
-    else {
-        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
-    }
-    
 }
 #pragma mark - end
 

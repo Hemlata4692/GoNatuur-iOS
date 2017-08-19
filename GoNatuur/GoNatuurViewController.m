@@ -143,10 +143,10 @@
 }
 
 - (void)serachButtonAction:(id)sender {
-    //    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    //    SearchViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"SearchViewController"];
-    //    [self.navigationController pushViewController:searchView animated:YES];
-    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SearchViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"SearchViewController"];
+    [self.navigationController pushViewController:searchView animated:YES];
+//    [self.view makeToast:@"Feature is currently not available."];
 }
 #pragma mark - end
 

@@ -39,14 +39,15 @@
     }
     [ImageCaching downloadImages:productImageView imageUrl:productListData.productImageThumbnail placeholderImage:@"product_placeholder" isDashboardCell:true];
     statusBannerImage.hidden=YES;
-    if ([productListData.productRating isEqualToString:@""] || productListData.productRating==nil) {
+    if ([productListData.productRating isEqualToString:@""] || productListData.productRating==nil || [productListData.productRating isEqualToString:@"0"]) {
         productRating.hidden=YES;
         ratingStarImage.hidden=YES;
     }
     else {
         productRating.hidden=NO;
         ratingStarImage.hidden=NO;
-        productRating.text=productListData.productRating;
+        float rating = (([productListData.productRating integerValue])*5.0)/100.0;
+        productRating.text=[NSString stringWithFormat:@"%.1f",rating];
     }
 }
 

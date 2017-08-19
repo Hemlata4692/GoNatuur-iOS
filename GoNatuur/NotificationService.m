@@ -37,7 +37,6 @@ static NSString *kMArkNotificationRead=@"ranosys/notifications/markAsReaded";
                                                          }
                                    };
     NSLog(@"notification list request %@",parameters);
-    //  [super post:kSearchSuggestions parameters:parameters success:success failure:failure];
     [super post:kNotificationList parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
@@ -46,11 +45,9 @@ static NSString *kMArkNotificationRead=@"ranosys/notifications/markAsReaded";
 - (void)markNotification:(NotificationDataModel *)notiData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{@"notificationId":notiData.notificationId,
                                                  @"status" : @"1",
-                                                 @"customer_id" : [UserDefaultManager getValue:@"userId"]
                                  };
     
     NSLog(@"notification read request %@",parameters);
-    //  [super post:kSearchSuggestions parameters:parameters success:success failure:failure];
     [super post:kMArkNotificationRead parameters:parameters success:success failure:failure];
 }
 #pragma mark - end

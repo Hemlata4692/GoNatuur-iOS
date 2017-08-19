@@ -23,7 +23,6 @@
     NSMutableArray *samplersProductDataArray;
     DashboardDataModel * bannerImageData;
     CurrencyDataModel *exchangeCurrencyData;
-    NSString *exchangeRates;
 }
 @property (weak, nonatomic) IBOutlet UILabel *noRecordLabel;
 @property (weak, nonatomic) IBOutlet UILabel *buttonSeperator;
@@ -104,14 +103,14 @@
 - (DasboardDataCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (collectionView==_productCollectionView) {
         DasboardDataCollectionViewCell *productCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productCell" forIndexPath:indexPath];
-        if (buttonTag==1) {
-            [productCell displayProductListData:[bestSellerDataArray objectAtIndex:indexPath.item] exchangeRates:exchangeRates];
+        if (buttonTag==1) {//[UserDefaultManager setValue:[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencyExchangeRates] key:@"ExchangeRates"]
+            [productCell displayProductListData:[bestSellerDataArray objectAtIndex:indexPath.item] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
         }
         else if (buttonTag==2) {
-            [productCell displayProductListData:[healthyLivingDataArray objectAtIndex:indexPath.item] exchangeRates:exchangeRates];
+            [productCell displayProductListData:[healthyLivingDataArray objectAtIndex:indexPath.item] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
         }
         else {
-            [productCell displayProductListData:[samplersProductDataArray objectAtIndex:indexPath.item] exchangeRates:exchangeRates];
+            [productCell displayProductListData:[samplersProductDataArray objectAtIndex:indexPath.item] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
         }
         [productCell.contentView addShadow:productCell.contentView color:[UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0]];
         return productCell;
@@ -170,7 +169,8 @@
         exchangeCurrencyData=userData;
         for (int i=0; i<exchangeCurrencyData.availableCurrencyRatesArray.count; i++) {
             if ([[UserDefaultManager getValue:@"DefaultCurrencyCode"] containsString:[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencyExchangeCode]]) {
-                exchangeRates=[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencyExchangeRates];
+                [UserDefaultManager setValue:[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencyExchangeRates] key:@"ExchangeRates"];
+//                myDelegate.exchangeRates=[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencyExchangeRates];
             }
         }
         [self getDashboardData];
