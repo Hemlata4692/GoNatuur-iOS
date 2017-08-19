@@ -121,7 +121,8 @@
         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else if (indexPath.row==3) {
-        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+        myDelegate.selectedCategoryIndex=-1;
+        myDelegate.isProductList=false;
     }
     else if (indexPath.row==4) {
         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
@@ -131,9 +132,11 @@
     }
     else if (indexPath.row==6) {
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            myDelegate.selectedCategoryIndex=-1;
             [self logoutUser];
         }
         else {
+            myDelegate.selectedCategoryIndex=-1;
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
             [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
                 //logou1 user

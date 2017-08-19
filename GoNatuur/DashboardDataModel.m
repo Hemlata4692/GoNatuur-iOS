@@ -26,7 +26,10 @@
 @synthesize footerBannerImageArray;
 @synthesize healthyLivingArray;
 @synthesize samplersDataArray;
-
+@synthesize currentPage;
+@synthesize pageSize;
+@synthesize totalProductCount;
+@synthesize categoryNameArray;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -64,4 +67,27 @@
 }
 #pragma mark - end
 
+#pragma mark - Category banner service
+- (void)getCategoryBannerData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getCategoryBannerData:self onSuccess:^(DashboardDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Product list data service
+- (void)getProductListService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getProductListService:self onSuccess:^(DashboardDataModel *productData) {
+        if (success) {
+            success (productData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
 @end

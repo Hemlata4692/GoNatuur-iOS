@@ -17,6 +17,7 @@
 @property (nonatomic,strong) NSString *deviceToken;
 @property (nonatomic,assign) int selectedCategoryIndex;
 @property (strong, nonatomic) NSMutableArray *categoryNameArray;
+@property (nonatomic,assign) bool isProductList;
 @property (retain, nonatomic) UINavigationController *navigationController;
 @property (nonatomic, strong) NSString *exchangeRates;
 @property (nonatomic, strong) NSString *tabButtonTag;

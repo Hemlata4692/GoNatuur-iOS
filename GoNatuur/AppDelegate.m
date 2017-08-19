@@ -28,6 +28,7 @@
 @synthesize navigationController;
 @synthesize spinnerView;
 @synthesize categoryNameArray;
+@synthesize isProductList;
 @synthesize exchangeRates;
 @synthesize tabButtonTag;
 
