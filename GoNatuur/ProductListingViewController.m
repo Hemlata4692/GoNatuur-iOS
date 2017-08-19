@@ -38,6 +38,9 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //Add custom picker view and initialized indexs
+    [self addCustomPickerView];
     // Do any additional setup after loading the view.
 }
 
@@ -80,8 +83,6 @@
     _refreshControl.tintColor=[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0];
     [_refreshControl addTarget:self action:@selector(refreshControlAction) forControlEvents:UIControlEventValueChanged];
     [_productListTableView addSubview:_refreshControl];
-    //Add custom picker view and initialized indexs
-    [self addCustomPickerView];
 }
 
 - (void)initializeFooterView {

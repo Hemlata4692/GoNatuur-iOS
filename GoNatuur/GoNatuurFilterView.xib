@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -81,10 +81,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SoE-84-rkp">
-                    <rect key="frame" x="0.0" y="24" width="320" height="1"/>
+                    <rect key="frame" x="0.0" y="23" width="320" height="1"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="Kve-xj-K2Q"/>
+                        <constraint firstAttribute="height" constant="1" id="m19-Fe-hlW"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
@@ -116,22 +116,22 @@
             <constraints>
                 <constraint firstItem="YrB-p1-Ibg" firstAttribute="leading" secondItem="YZe-qf-rfV" secondAttribute="trailing" constant="7" id="16e-LW-DzG"/>
                 <constraint firstItem="xRi-xJ-muS" firstAttribute="centerY" secondItem="chM-IL-EKf" secondAttribute="centerY" id="Avq-Qu-7sD"/>
+                <constraint firstAttribute="trailing" secondItem="SoE-84-rkp" secondAttribute="trailing" id="COV-J2-GvM"/>
                 <constraint firstItem="chM-IL-EKf" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="CYx-lJ-vsF"/>
-                <constraint firstAttribute="bottom" secondItem="SoE-84-rkp" secondAttribute="bottom" id="Fdd-oi-wav"/>
                 <constraint firstItem="YZe-qf-rfV" firstAttribute="centerY" secondItem="xRi-xJ-muS" secondAttribute="centerY" id="IQt-Xw-djY"/>
                 <constraint firstItem="chM-IL-EKf" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Iae-hR-wdY"/>
                 <constraint firstItem="pgj-qC-N2p" firstAttribute="centerY" secondItem="obP-zs-Wpb" secondAttribute="centerY" id="Jzh-Ut-1l4"/>
                 <constraint firstItem="obP-zs-Wpb" firstAttribute="height" secondItem="chM-IL-EKf" secondAttribute="height" id="Kk2-rJ-Omk"/>
+                <constraint firstItem="SoE-84-rkp" firstAttribute="top" secondItem="Ffl-My-SYB" secondAttribute="bottom" constant="-2" id="LAt-dM-IZ4"/>
                 <constraint firstItem="chM-IL-EKf" firstAttribute="leading" secondItem="xRi-xJ-muS" secondAttribute="trailing" constant="1" id="Lo9-ji-eh7"/>
-                <constraint firstAttribute="trailing" secondItem="SoE-84-rkp" secondAttribute="trailing" id="OB3-rI-KtP"/>
                 <constraint firstItem="obP-zs-Wpb" firstAttribute="leading" secondItem="chM-IL-EKf" secondAttribute="trailing" constant="1" id="OgB-V4-lDr"/>
                 <constraint firstItem="g4E-69-6Yb" firstAttribute="centerY" secondItem="chM-IL-EKf" secondAttribute="centerY" id="SIl-YL-tO0"/>
                 <constraint firstItem="xRi-xJ-muS" firstAttribute="height" secondItem="chM-IL-EKf" secondAttribute="height" id="XUx-ik-d6i"/>
                 <constraint firstItem="Ffl-My-SYB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Y2n-k8-WYn"/>
-                <constraint firstItem="SoE-84-rkp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ZdB-ia-99e"/>
                 <constraint firstItem="chM-IL-EKf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ZsW-y4-fqa"/>
                 <constraint firstAttribute="trailing" secondItem="pgj-qC-N2p" secondAttribute="trailing" constant="7" id="a93-qL-fcN"/>
                 <constraint firstItem="obP-zs-Wpb" firstAttribute="centerY" secondItem="chM-IL-EKf" secondAttribute="centerY" id="bXr-rZ-IJx"/>
+                <constraint firstItem="SoE-84-rkp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dTz-Gd-r0l"/>
                 <constraint firstItem="Ffl-My-SYB" firstAttribute="leading" secondItem="chM-IL-EKf" secondAttribute="trailing" id="hWm-Q0-A15"/>
                 <constraint firstItem="obP-zs-Wpb" firstAttribute="width" secondItem="chM-IL-EKf" secondAttribute="width" id="i4X-rp-fKC"/>
                 <constraint firstItem="YrB-p1-Ibg" firstAttribute="leading" secondItem="xRi-xJ-muS" secondAttribute="trailing" id="ihH-83-Bh8"/>

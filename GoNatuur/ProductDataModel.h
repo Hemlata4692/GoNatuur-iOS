@@ -13,16 +13,16 @@
 @property (strong, nonatomic) NSString *categoryName;
 @property (strong, nonatomic) NSString *productMediaUrl;
 @property (strong, nonatomic) NSString *productMediaType;
-@property (strong, nonatomic) NSString *productPrice;
+@property (strong, nonatomic) NSNumber *productPrice;
 @property (strong, nonatomic) NSString *productDescription;
 @property (strong, nonatomic) NSString *productShortDescription;
 @property (strong, nonatomic) NSString *productImageThumbnail;
 @property (strong, nonatomic) NSNumber *productId;
 @property (strong, nonatomic) NSString *productName;
-@property (strong, nonatomic) NSNumber *productRating;
+@property (strong, nonatomic) NSString *productRating;
 @property (strong, nonatomic) NSString *productPointsEarn;
-@property (strong, nonatomic) NSString *productMaxQuantity;
-@property (strong, nonatomic) NSString *productQuantity;
+@property (strong, nonatomic) NSNumber *productMaxQuantity;
+@property (strong, nonatomic) NSNumber *productQuantity;
 @property (strong, nonatomic) NSMutableArray *productDataArray;
 @property (strong, nonatomic) NSMutableArray *productMediaArray;
 

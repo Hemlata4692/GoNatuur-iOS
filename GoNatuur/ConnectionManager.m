@@ -441,6 +441,7 @@
             productData.productShortDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"short_description"]];
         }
         productData.productMaxQuantity=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
+        productData.productMediaArray=[[response objectForKey:@"media"] mutableCopy];
         success(productData);
     } onfailure:^(NSError *error) {
     }];

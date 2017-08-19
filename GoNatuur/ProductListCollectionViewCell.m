@@ -32,7 +32,7 @@
         _productRating.hidden=NO;
         _ratingStarImage.hidden=NO;
         float rating = (([productListData.productRating integerValue])*5.0)/100.0;
-        _productRating.text=[NSString stringWithFormat:@"%.1f",rating];
+        _productRating.text=[NSString stringWithFormat:@"(%.1f)",rating];
     }
 ////    _productPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrency"],productListData.productPrice];
 //    _productDescription.text=productListData.productDescription;
