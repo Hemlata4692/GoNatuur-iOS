@@ -322,7 +322,7 @@
 
 //Privacy policy, termCondition and login click action
 - (void)privacyPolicy {
-    [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    //[_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("Privacy");
     //    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
     //    obj.isPrivacyPolicy=true;
@@ -330,7 +330,7 @@
 }
 
 - (void)termsNCondition {
-    [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+   // [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("termsNCondition");
     //    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
     //    obj.isPrivacyPolicy=false;

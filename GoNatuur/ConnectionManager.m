@@ -136,7 +136,8 @@
     [categoryList getCategoryListData:userData success:^(id response) {
         //Parse data from server response and store in data model
         NSLog(@"category list response %@",response);
-        myDelegate.categoryNameArray=[response[@"children_data"] mutableCopy];
+//        myDelegate.categoryNameArray=[response[@"children_data"] mutableCopy];
+        userData.categoryNameArray=[response[@"children_data"] mutableCopy];
         success(userData);
     } onfailure:^(NSError *error) {
     }];
@@ -190,6 +191,7 @@
                 productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [userData.bestSellerArray addObject:productData];
         }
         userData.healthyLivingArray=[[NSMutableArray alloc]init];
@@ -204,6 +206,7 @@
                 healthyLivingData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             healthyLivingData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            healthyLivingData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [userData.healthyLivingArray addObject:healthyLivingData];
         }
         userData.samplersDataArray=[[NSMutableArray alloc]init];
@@ -218,6 +221,7 @@
                 samplersArrayData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             samplersArrayData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            samplersArrayData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [userData.samplersDataArray addObject:samplersArrayData];
         }
         userData.footerBannerImageArray=[[NSMutableArray alloc]init];
@@ -237,7 +241,9 @@
     }] ;
     
 }
+#pragma mark - end
 
+#pragma mark - Convert HTML in string
 - (NSString *)stringByStrippingHTML:(NSString *)str {
     NSRange r;
     while ((r = [str rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
@@ -277,7 +283,7 @@
     SearchService *serachSuggestions=[[SearchService alloc]init];
     [serachSuggestions getSearchKeywordData:userData success:^(id response) {
         //Parse data from server response and store in data model
-        NSLog(@"SearchService list response %@",response);
+        NSLog(@"SearchService keyword response %@",response);
         userData.searchKeywordListingArray=[[NSMutableArray alloc]init];
         NSArray *searchArray=[response mutableCopy];
         for (int i =0; i<searchArray.count; i++) {
@@ -292,6 +298,37 @@
     } onfailure:^(NSError *error) {
         failure(error);
     }] ;
+}
+#pragma mark - end
+
+#pragma mark - Search listing data
+- (void)getSearchData:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    SearchService *serachSuggestions=[[SearchService alloc]init];
+    [serachSuggestions getSearchListing:searchData success:^(id response) {
+        //Parse data from server response and store in data model
+        NSLog(@"SearchService list response %@",response);
+        searchData.searchProductListArray=[[NSMutableArray alloc]init];
+        NSArray *productDataArray=response[@"items"];
+        for (int i =0; i<productDataArray.count; i++) {
+            NSDictionary * productDataDict =[productDataArray objectAtIndex:i];
+            SearchDataModel * productData = [[SearchDataModel alloc]init];
+            productData.productId = productDataDict[@"id"];
+            productData.productPrice = [productDataDict[@"price"] stringValue];
+            productData.productName = productDataDict[@"name"];
+            if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
+                productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+            }
+            productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+            [searchData.searchProductListArray addObject:productData];
+        }
+        searchData.searchResultCount=response[@"total_count"];
+        success(searchData);
+        
+    } onfailure:^(NSError *error) {
+        failure(error);
+    }] ;
+    
 }
 #pragma mark - end
 
@@ -327,12 +364,61 @@
     NotificationService *dataList=[[NotificationService alloc]init];
     [dataList markNotification:userData success:^(id response) {
         //Parse data from server response and store in data model
-        NSLog(@"notification response %@",response);
+        DLog(@"notification response %@",response);
         success(userData);
     } onfailure:^(NSError *error) {
         failure(error);
     }] ;
     
+}
+#pragma mark - end
+
+#pragma mark - Category banner service
+- (void)getCategoryBannerData:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    DashboardService *categoryList=[[DashboardService alloc]init];
+    [categoryList getCategoryBannerData:userData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"category list response %@",response);
+        userData.banerImageUrl=@"";
+        if (nil!=[response objectForKey:@"custom_attributes"]) {
+            for (int i=0; i<[[response objectForKey:@"custom_attributes"] count]; i++) {
+                if ([[[[response objectForKey:@"custom_attributes"] objectAtIndex:i] objectForKey:@"attribute_code"] isEqualToString:@"image"]) {
+                    userData.banerImageUrl=[[[response objectForKey:@"custom_attributes"] objectAtIndex:i] objectForKey:@"value"];
+                    break;
+                }
+            }
+        }
+        success(userData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Product list data service
+- (void)getProductListService:(DashboardDataModel *)productData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    DashboardService *productList=[[DashboardService alloc]init];
+    [productList getProductListService:productData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"product list response %@",response);
+        productData.totalProductCount=[response objectForKey:@"total_count"];
+        productData.productDataArray=[NSMutableArray new];
+        productData.banerImageUrl=@"";
+        for (int i=0; i<[[response objectForKey:@"items"] count]; i++) {
+            DashboardDataModel *tempModel=[[DashboardDataModel alloc] init];
+            tempModel.productId=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"id"];
+            tempModel.productName=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"name"];
+            tempModel.productPrice=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"price"];
+            tempModel.productImageThumbnail=[[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            if ([[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
+                tempModel.productDescription=[self stringByStrippingHTML:[[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+            }
+            
+             tempModel.productRating = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+            [productData.productDataArray addObject:tempModel];
+        }
+        success(productData);
+    } onfailure:^(NSError *error) {
+    }];
 }
 #pragma mark - end
 @end

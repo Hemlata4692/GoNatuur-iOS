@@ -961,7 +961,6 @@ const int FrontViewPositionNone = 0xff;
 
 - (IBAction)revealToggle:(id)sender
 {
-
     [self revealToggleAnimated:YES];
 }
 

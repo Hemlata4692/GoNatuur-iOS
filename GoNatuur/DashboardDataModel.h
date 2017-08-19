@@ -25,6 +25,11 @@
 @property (strong, nonatomic) NSMutableArray *footerBannerImageArray;
 @property (strong, nonatomic) NSMutableArray *healthyLivingArray;
 @property (strong, nonatomic) NSMutableArray *samplersDataArray;
+@property (strong, nonatomic) NSMutableArray *productDataArray;
+@property (strong, nonatomic) NSNumber *currentPage;
+@property (strong, nonatomic) NSNumber *pageSize;
+@property (strong, nonatomic) NSNumber *totalProductCount;
+@property (strong, nonatomic) NSMutableArray *categoryNameArray;
 
 //Singleton method
 + (instancetype)sharedUser;
@@ -34,5 +39,8 @@
 
 //Fetch dashboard data
 - (void)getDashboardData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
-
+//Product list data service
+- (void)getProductListService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Category banner service
+- (void)getCategoryBannerData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

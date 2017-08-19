@@ -26,6 +26,7 @@ typedef NS_ENUM (NSInteger, ConstantType) {
 @interface ConstantCode : NSObject
 //Set constant values
 extern NSString * const iOS_Version;
+extern NSString * const productImageBaseUrl;
 //end
 
 + (ConstantType)checkDeviceType;

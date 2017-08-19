@@ -16,6 +16,13 @@
 @synthesize keywordAction;
 @synthesize searchResultCount;
 @synthesize searchKeywordListingArray;
+@synthesize productPrice;
+@synthesize productDescription;
+@synthesize productImageThumbnail;
+@synthesize productId;
+@synthesize productName;
+@synthesize productRating;
+@synthesize searchProductListArray;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser {
@@ -28,7 +35,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Get serach suggestions
+#pragma mark - Get search suggestions
 - (void)getSearchSuggestions:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getSearchSuggestionData:self onSuccess:^(SearchDataModel *userData) {
         if (success) {
@@ -37,6 +44,19 @@
     } onFailure:^(NSError *error) {
         
     }] ;
+}
+#pragma mark - end
+
+#pragma mark - Get search listing
+- (void)getSearchProductListing:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getSearchData:self success:^(SearchDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onfailure:^(NSError *error) {
+        
+    }] ;
+    
 }
 #pragma mark - end
 @end

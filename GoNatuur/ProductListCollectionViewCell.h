@@ -1,15 +1,15 @@
 //
-//  SearchCollectionViewCell.h
+//  ProductListCollectionViewCell.h
 //  GoNatuur
 //
-//  Created by Ranosys-Mac on 14/08/17.
+//  Created by Ranosys on 16/08/17.
 //  Copyright © 2017 Hemlata Khajanchi. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "SearchDataModel.h"
+#import "DashboardDataModel.h"
 
-@interface SearchCollectionViewCell : UICollectionViewCell
+@interface ProductListCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIView *productCellMainView;
 @property (weak, nonatomic) IBOutlet UIImageView *statusBannerImage;
 @property (weak, nonatomic) IBOutlet UILabel *productName;
@@ -20,5 +20,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
 @property (weak, nonatomic) IBOutlet UIView *borderView;
 
-- (void)displayProductListData :(SearchDataModel *)productListData exchangeRates:(NSString *)exchangeRates;
+- (void)displayProductListData :(DashboardDataModel *)productListData exchangeRates:(NSString *)exchangeRates;
 @end

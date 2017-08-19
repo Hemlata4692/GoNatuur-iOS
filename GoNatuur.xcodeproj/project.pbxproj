@@ -19,6 +19,8 @@
 		187561931F469E1000F609AB /* BottomTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187561921F469E1000F609AB /* BottomTabViewController.xib */; };
 		187561971F469F3800F609AB /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187561961F469F3800F609AB /* NotificationViewController.m */; };
 		1875619A1F469F8600F609AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187561981F469F8600F609AB /* Main.storyboard */; };
+		1875619D1F46AAC500F609AB /* dashboard_banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619B1F46AAC500F609AB /* dashboard_banner1.png */; };
+		1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619C1F46AAC500F609AB /* dashboard_banner2.png */; };
 		188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1886058F1F39AF320005D1E2 /* UserNotifications.framework */; };
 		188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605941F39BC430005D1E2 /* DashboardViewController.m */; };
 		1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605991F39C0FC0005D1E2 /* CategorySliderViewController.m */; };
@@ -78,8 +80,14 @@
 		B77A8A781F34388800233782 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A771F34388800233782 /* SignUpViewController.m */; };
 		B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */; };
 		B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */; };
-		B77A8A811F347D2B00233782 /* SwipeImage.png in Resources */ = {isa = PBXBuildFile; fileRef = B77A8A801F347D2B00233782 /* SwipeImage.png */; };
 		B7A86ECD1F3B3D85004DA530 /* CMSPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A86ECC1F3B3D85004DA530 /* CMSPageViewController.m */; };
+		B7AA39B31F47101400423121 /* GoNatuurFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AA39B11F47101400423121 /* GoNatuurFilterView.m */; };
+		B7AA39B41F47101400423121 /* GoNatuurFilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7AA39B21F47101400423121 /* GoNatuurFilterView.xib */; };
+		B7AA39B81F47102100423121 /* GoNatuurPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AA39B61F47102100423121 /* GoNatuurPickerView.m */; };
+		B7AA39B91F47102100423121 /* GoNatuurPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7AA39B71F47102100423121 /* GoNatuurPickerView.xib */; };
+		B7AA39C01F47108D00423121 /* ProductListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AA39BF1F47108D00423121 /* ProductListingViewController.m */; };
+		B7AA39C51F47116700423121 /* ProductListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AA39C41F47116700423121 /* ProductListCollectionViewCell.m */; };
+		B7AA39C81F47116E00423121 /* ProductListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AA39C71F47116E00423121 /* ProductListTableViewCell.m */; };
 		B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */ = {isa = PBXBuildFile; fileRef = B7DDB1AD1F399D14009BB8A5 /* ConstantCode.m */; };
 		E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */; };
 /* End PBXBuildFile section */
@@ -119,6 +127,8 @@
 		187561951F469F3800F609AB /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
 		187561961F469F3800F609AB /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		187561991F469F8600F609AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1875619B1F46AAC500F609AB /* dashboard_banner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner1.png; sourceTree = "<group>"; };
+		1875619C1F46AAC500F609AB /* dashboard_banner2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner2.png; sourceTree = "<group>"; };
 		1886058F1F39AF320005D1E2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		188605931F39BC430005D1E2 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		188605941F39BC430005D1E2 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
@@ -217,9 +227,20 @@
 		B77A8A7A1F346C1200233782 /* SocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
 		B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialLoginViewController.m; sourceTree = "<group>"; };
 		B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLoginViewController.xib; sourceTree = "<group>"; };
-		B77A8A801F347D2B00233782 /* SwipeImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SwipeImage.png; sourceTree = "<group>"; };
 		B7A86ECB1F3B3D85004DA530 /* CMSPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSPageViewController.h; sourceTree = "<group>"; };
 		B7A86ECC1F3B3D85004DA530 /* CMSPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSPageViewController.m; sourceTree = "<group>"; };
+		B7AA39B01F47101400423121 /* GoNatuurFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurFilterView.h; sourceTree = "<group>"; };
+		B7AA39B11F47101400423121 /* GoNatuurFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoNatuurFilterView.m; sourceTree = "<group>"; };
+		B7AA39B21F47101400423121 /* GoNatuurFilterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoNatuurFilterView.xib; sourceTree = "<group>"; };
+		B7AA39B51F47102100423121 /* GoNatuurPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurPickerView.h; sourceTree = "<group>"; };
+		B7AA39B61F47102100423121 /* GoNatuurPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoNatuurPickerView.m; sourceTree = "<group>"; };
+		B7AA39B71F47102100423121 /* GoNatuurPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoNatuurPickerView.xib; sourceTree = "<group>"; };
+		B7AA39BE1F47108D00423121 /* ProductListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductListingViewController.h; sourceTree = "<group>"; };
+		B7AA39BF1F47108D00423121 /* ProductListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductListingViewController.m; sourceTree = "<group>"; };
+		B7AA39C31F47116700423121 /* ProductListCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductListCollectionViewCell.h; sourceTree = "<group>"; };
+		B7AA39C41F47116700423121 /* ProductListCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductListCollectionViewCell.m; sourceTree = "<group>"; };
+		B7AA39C61F47116E00423121 /* ProductListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductListTableViewCell.h; sourceTree = "<group>"; };
+		B7AA39C71F47116E00423121 /* ProductListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductListTableViewCell.m; sourceTree = "<group>"; };
 		B7DDB1AC1F399D14009BB8A5 /* ConstantCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantCode.h; sourceTree = "<group>"; };
 		B7DDB1AD1F399D14009BB8A5 /* ConstantCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstantCode.m; sourceTree = "<group>"; };
 		B83EEE6EC30D7C8806561F9A /* Pods-GoNatuur.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.release.xcconfig"; sourceTree = "<group>"; };
@@ -530,6 +551,7 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B7AA39BA1F47106600423121 /* ProductModule */,
 				188605961F39C05A0005D1E2 /* GlobalViewModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
 				188605911F39BB720005D1E2 /* DashboardModule */,
@@ -582,7 +604,8 @@
 		320761641F162724001F1790 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B77A8A801F347D2B00233782 /* SwipeImage.png */,
+				1875619B1F46AAC500F609AB /* dashboard_banner1.png */,
+				1875619C1F46AAC500F609AB /* dashboard_banner2.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -590,6 +613,8 @@
 		320761651F162733001F1790 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				B7AA39AF1F470FFA00423121 /* GoNatuurPickerView */,
+				B7AA39AE1F470FF300423121 /* GoNatuurFilterView */,
 				1818532C1F3DFE4900EEB73B /* ImageCaching */,
 				188605A21F39C4400005D1E2 /* DynamicHeightWidth */,
 				B745811A1F39BEC100A164D6 /* BSKeyboardControls */,
@@ -920,6 +945,79 @@
 			name = CMSPageViewController;
 			sourceTree = "<group>";
 		};
+		B7AA39AE1F470FF300423121 /* GoNatuurFilterView */ = {
+			isa = PBXGroup;
+			children = (
+				B7AA39B01F47101400423121 /* GoNatuurFilterView.h */,
+				B7AA39B11F47101400423121 /* GoNatuurFilterView.m */,
+				B7AA39B21F47101400423121 /* GoNatuurFilterView.xib */,
+			);
+			name = GoNatuurFilterView;
+			sourceTree = "<group>";
+		};
+		B7AA39AF1F470FFA00423121 /* GoNatuurPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				B7AA39B51F47102100423121 /* GoNatuurPickerView.h */,
+				B7AA39B61F47102100423121 /* GoNatuurPickerView.m */,
+				B7AA39B71F47102100423121 /* GoNatuurPickerView.xib */,
+			);
+			name = GoNatuurPickerView;
+			sourceTree = "<group>";
+		};
+		B7AA39BA1F47106600423121 /* ProductModule */ = {
+			isa = PBXGroup;
+			children = (
+				B7AA39BB1F47106E00423121 /* ProductListingViewController */,
+			);
+			name = ProductModule;
+			sourceTree = "<group>";
+		};
+		B7AA39BB1F47106E00423121 /* ProductListingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B7AA39BC1F47107500423121 /* ProductListView */,
+				B7AA39BD1F47107F00423121 /* ProductListCell */,
+			);
+			name = ProductListingViewController;
+			sourceTree = "<group>";
+		};
+		B7AA39BC1F47107500423121 /* ProductListView */ = {
+			isa = PBXGroup;
+			children = (
+				B7AA39BE1F47108D00423121 /* ProductListingViewController.h */,
+				B7AA39BF1F47108D00423121 /* ProductListingViewController.m */,
+			);
+			name = ProductListView;
+			sourceTree = "<group>";
+		};
+		B7AA39BD1F47107F00423121 /* ProductListCell */ = {
+			isa = PBXGroup;
+			children = (
+				B7AA39C21F47109D00423121 /* ProductViewCollectionViewCell */,
+				B7AA39C11F47109800423121 /* ProductViewTableViewCell */,
+			);
+			name = ProductListCell;
+			sourceTree = "<group>";
+		};
+		B7AA39C11F47109800423121 /* ProductViewTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				B7AA39C61F47116E00423121 /* ProductListTableViewCell.h */,
+				B7AA39C71F47116E00423121 /* ProductListTableViewCell.m */,
+			);
+			name = ProductViewTableViewCell;
+			sourceTree = "<group>";
+		};
+		B7AA39C21F47109D00423121 /* ProductViewCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				B7AA39C31F47116700423121 /* ProductListCollectionViewCell.h */,
+				B7AA39C41F47116700423121 /* ProductListCollectionViewCell.m */,
+			);
+			name = ProductViewCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		B7DDB1AB1F399D02009BB8A5 /* ConstantCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -1007,22 +1105,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				188605A11F39C1FA0005D1E2 /* CategorySliderCell.xib in Resources */,
+				B7AA39B91F47102100423121 /* GoNatuurPickerView.xib in Resources */,
 				32A3D7131F1CE3BB00062B86 /* GoogleSignIn.bundle in Resources */,
 				184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */,
 				32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */,
 				B73A653F1F3DF0870051E4C5 /* zh_Traditional.strings in Resources */,
+				B7AA39B41F47101400423121 /* GoNatuurFilterView.xib in Resources */,
 				187561931F469E1000F609AB /* BottomTabViewController.xib in Resources */,
 				32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */,
+				1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */,
 				B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */,
 				188605AD1F39D7620005D1E2 /* Montserrat-Light.otf in Resources */,
 				188605A81F39C8220005D1E2 /* Montserrat-SemiBold.otf in Resources */,
+				1875619D1F46AAC500F609AB /* dashboard_banner1.png in Resources */,
 				1886059C1F39C0FC0005D1E2 /* CategorySliderViewController.xib in Resources */,
 				188605AE1F39D7620005D1E2 /* Montserrat-Medium.otf in Resources */,
 				B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
 				B73E00E31F4184DF001DEBA2 /* Montserrat-Bold.otf in Resources */,
 				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
-				B77A8A811F347D2B00233782 /* SwipeImage.png in Resources */,
 				1875619A1F469F8600F609AB /* Main.storyboard in Resources */,
 				B73A653E1F3DF0870051E4C5 /* zh_Simplified.strings in Resources */,
 			);
@@ -1088,22 +1189,26 @@
 				187561911F469BD500F609AB /* NotificationDataModel.m in Sources */,
 				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
 				32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */,
+				B7AA39B81F47102100423121 /* GoNatuurPickerView.m in Sources */,
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
 				B77A8A781F34388800233782 /* SignUpViewController.m in Sources */,
 				B7A86ECD1F3B3D85004DA530 /* CMSPageViewController.m in Sources */,
 				187561971F469F3800F609AB /* NotificationViewController.m in Sources */,
+				B7AA39C01F47108D00423121 /* ProductListingViewController.m in Sources */,
 				1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */,
 				18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */,
 				B745811D1F39BECC00A164D6 /* BSKeyboardControls.m in Sources */,
 				18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */,
 				18F7A9031F33044100430842 /* BottomTabViewController.m in Sources */,
+				B7AA39C81F47116E00423121 /* ProductListTableViewCell.m in Sources */,
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
 				181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
 				1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */,
 				1875618D1F469B2800F609AB /* NotificationService.m in Sources */,
 				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,
+				B7AA39B31F47101400423121 /* GoNatuurFilterView.m in Sources */,
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
@@ -1116,6 +1221,7 @@
 				32A3D6B81F1CBADB00062B86 /* LoginViewController.m in Sources */,
 				188605A51F39C6890005D1E2 /* DynamicHeightWidth.m in Sources */,
 				18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */,
+				B7AA39C51F47116700423121 /* ProductListCollectionViewCell.m in Sources */,
 				32BAA6091F1360280015E355 /* main.m in Sources */,
 				188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */,
 				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,

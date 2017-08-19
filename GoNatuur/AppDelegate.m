@@ -28,6 +28,9 @@
 @synthesize navigationController;
 @synthesize spinnerView;
 @synthesize categoryNameArray;
+@synthesize isProductList;
+@synthesize exchangeRates;
+@synthesize tabButtonTag;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -60,7 +63,8 @@
 #pragma mark - Application life cycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    [NSThread sleepForTimeInterval:1.0];
+    tabButtonTag=0;
     //Set navigation bar color
    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont montserratMediumWithSize:20], NSFontAttributeName, nil]];
     
