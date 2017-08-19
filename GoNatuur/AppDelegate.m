@@ -29,6 +29,8 @@
 @synthesize spinnerView;
 @synthesize categoryNameArray;
 @synthesize isProductList;
+@synthesize exchangeRates;
+@synthesize tabButtonTag;
 
 #pragma mark - Global indicator
 //Show indicator

@@ -20,5 +20,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
 @property (weak, nonatomic) IBOutlet UIView *borderView;
 
-- (void)displayProductListData:(DashboardDataModel *)productListData;
+- (void)displayProductListData :(DashboardDataModel *)productListData exchangeRates:(NSString *)exchangeRates;
 @end
