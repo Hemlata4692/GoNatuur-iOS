@@ -16,6 +16,8 @@
 #import "CurrencyDataModel.h"
 #import "NotificationService.h"
 #import "NotificationDataModel.h"
+#import "ReviewDataModel.h"
+#import "ReviewService.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -48,7 +50,7 @@
 - (void)loginUser:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *loginService = [[LoginService alloc] init];
     [loginService loginUser:userData onSuccess:^(id response) {
-        NSLog(@"login response %@",response);
+        DLog(@"login response %@",response);
         //Parse data from server response and store in datamodel
         userData.userId=[[response objectForKey:@"customer"] objectForKey:@"id"];
         userData.profilePicture=[[response objectForKey:@"customer"] objectForKey:@"profile_pic"];
@@ -135,7 +137,7 @@
     DashboardService *categoryList=[[DashboardService alloc]init];
     [categoryList getCategoryListData:userData success:^(id response) {
         //Parse data from server response and store in data model
-        NSLog(@"category list response %@",response);
+        DLog(@"category list response %@",response);
 //        myDelegate.categoryNameArray=[response[@"children_data"] mutableCopy];
         userData.categoryNameArray=[response[@"children_data"] mutableCopy];
         success(userData);
@@ -146,7 +148,7 @@
 - (void)signUpUserService:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *loginService = [[LoginService alloc] init];
     [loginService signUpUserService:userData onSuccess:^(id response) {
-        NSLog(@"signup response %@",response);
+        DLog(@"signup response %@",response);
         //Parse data from server response and store in datamodel
         userData.userId=[[response objectForKey:@"customer"] objectForKey:@"id"];
         userData.profilePicture=[[response objectForKey:@"customer"] objectForKey:@"profile_pic"];
@@ -168,7 +170,7 @@
     DashboardService *categoryList=[[DashboardService alloc]init];
     [categoryList getDashboardData:userData success:^(id response) {
         //Parse data from server response and store in data model
-        NSLog(@"dashboard data response %@",response);
+        DLog(@"dashboard data response %@",response);
         userData.bannerImageArray=[[NSMutableArray alloc]init];
         NSArray *bannerArray=response[@"banner"];
         for (int i =0; i<bannerArray.count; i++) {
@@ -257,7 +259,7 @@
     DashboardService *currencyData=[[DashboardService alloc]init];
     [currencyData getCurrency:userData success:^(id response) {
         //Parse data from server response and store in data model
-        NSLog(@"currency list response %@",response);
+        DLog(@"currency list response %@",response);
         userData.userCurrency=response[@"default_display_currency_symbol"];
         userData.currentCurrencyCode=response[@"default_display_currency_code"];
         userData.availableCurrencyArray=[response[@"available_currency_codes"] mutableCopy];
@@ -283,7 +285,7 @@
     SearchService *serachSuggestions=[[SearchService alloc]init];
     [serachSuggestions getSearchKeywordData:userData success:^(id response) {
         //Parse data from server response and store in data model
-        NSLog(@"SearchService keyword response %@",response);
+        DLog(@"SearchService keyword response %@",response);
         userData.searchKeywordListingArray=[[NSMutableArray alloc]init];
         NSArray *searchArray=[response mutableCopy];
         for (int i =0; i<searchArray.count; i++) {
@@ -306,7 +308,7 @@
     SearchService *serachSuggestions=[[SearchService alloc]init];
     [serachSuggestions getSearchListing:searchData success:^(id response) {
         //Parse data from server response and store in data model
-        NSLog(@"SearchService list response %@",response);
+        DLog(@"SearchService list response %@",response);
         searchData.searchProductListArray=[[NSMutableArray alloc]init];
         NSArray *productDataArray=response[@"items"];
         for (int i =0; i<productDataArray.count; i++) {
@@ -337,7 +339,7 @@
     NotificationService *dataList=[[NotificationService alloc]init];
     [dataList getUserNotificationData:userData success:^(id response) {
         //Parse data from server response and store in data model
-        NSLog(@"notification list response %@",response);
+        DLog(@"notification list response %@",response);
         userData.notificationListArray=[[NSMutableArray alloc]init];
         NSArray *notificationArray=response[@"items"];
         for (int i =0; i<notificationArray.count; i++) {
@@ -418,6 +420,20 @@
         }
         success(productData);
     } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Review listing
+- (void)getReviewListing:(ReviewDataModel *)reviewData onSuccess:(void (^)(ReviewDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    ReviewService *reviewList=[[ReviewService alloc]init];
+    [reviewList getReviewListing:reviewData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"review list response %@",response);
+
+        success(reviewData);
+     }
+     onfailure:^(NSError *error) {
     }];
 }
 #pragma mark - end

@@ -12,6 +12,9 @@
 #import "DashboardDataModel.h"
 #import "GoNatuurFilterView.h"
 #import "GoNatuurPickerView.h"
+#import "WebViewController.h"
+#import "ReviewViewController.h"
+#import "ReviewListingViewController.h"
 
 @interface ProductListingViewController ()<UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
     NSMutableArray *productListDataArray, *subCategoryDataList, *subCategoryPickerArray;
@@ -168,7 +171,11 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ReviewListingViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"ReviewListingViewController"];
+    [self.navigationController pushViewController:searchView animated:YES];
+}
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (productListDataArray.count == totalProductCount)

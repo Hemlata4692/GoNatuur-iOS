@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180ECD251F482A38003C936E /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD241F482A38003C936E /* WebViewController.m */; };
+		180ECD291F484A17003C936E /* ReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD281F484A17003C936E /* ReviewViewController.m */; };
+		180ECD301F484DE4003C936E /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD2F1F484DE4003C936E /* UIPlaceHolderTextView.m */; };
+		180ECD331F485B56003C936E /* EDStarRating.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD321F485B56003C936E /* EDStarRating.m */; };
+		180ECD371F486E89003C936E /* ReviewListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD361F486E89003C936E /* ReviewListingViewController.m */; };
+		180ECD3C1F489AF0003C936E /* ReviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD3B1F489AF0003C936E /* ReviewTableViewCell.m */; };
+		180ECD401F48A1D1003C936E /* ReviewDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD3F1F48A1D1003C936E /* ReviewDataModel.m */; };
+		180ECD441F48A215003C936E /* ReviewService.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD431F48A215003C936E /* ReviewService.m */; };
 		181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181853261F3D833F00EEB73B /* DashboardDataModel.m */; };
 		1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532A1F3D8A7F00EEB73B /* DashboardService.m */; };
 		1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532E1F3DFED000EEB73B /* ImageCaching.m */; };
@@ -106,6 +114,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		180ECD231F482A38003C936E /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		180ECD241F482A38003C936E /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		180ECD271F484A17003C936E /* ReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewViewController.h; sourceTree = "<group>"; };
+		180ECD281F484A17003C936E /* ReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewViewController.m; sourceTree = "<group>"; };
+		180ECD2E1F484DE4003C936E /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
+		180ECD2F1F484DE4003C936E /* UIPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceHolderTextView.m; sourceTree = "<group>"; };
+		180ECD311F485B56003C936E /* EDStarRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDStarRating.h; sourceTree = "<group>"; };
+		180ECD321F485B56003C936E /* EDStarRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDStarRating.m; sourceTree = "<group>"; };
+		180ECD351F486E89003C936E /* ReviewListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewListingViewController.h; sourceTree = "<group>"; };
+		180ECD361F486E89003C936E /* ReviewListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewListingViewController.m; sourceTree = "<group>"; };
+		180ECD3A1F489AF0003C936E /* ReviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewTableViewCell.h; sourceTree = "<group>"; };
+		180ECD3B1F489AF0003C936E /* ReviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewTableViewCell.m; sourceTree = "<group>"; };
+		180ECD3E1F48A1D1003C936E /* ReviewDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewDataModel.h; sourceTree = "<group>"; };
+		180ECD3F1F48A1D1003C936E /* ReviewDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewDataModel.m; sourceTree = "<group>"; };
+		180ECD421F48A215003C936E /* ReviewService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewService.h; sourceTree = "<group>"; };
+		180ECD431F48A215003C936E /* ReviewService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewService.m; sourceTree = "<group>"; };
 		181853251F3D833F00EEB73B /* DashboardDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardDataModel.h; sourceTree = "<group>"; };
 		181853261F3D833F00EEB73B /* DashboardDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardDataModel.m; sourceTree = "<group>"; };
 		181853291F3D8A7F00EEB73B /* DashboardService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardService.h; sourceTree = "<group>"; };
@@ -267,6 +291,79 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		180ECD221F482A0C003C936E /* WebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				180ECD231F482A38003C936E /* WebViewController.h */,
+				180ECD241F482A38003C936E /* WebViewController.m */,
+			);
+			name = WebViewController;
+			sourceTree = "<group>";
+		};
+		180ECD261F4849F2003C936E /* ReviewViewController */ = {
+			isa = PBXGroup;
+			children = (
+				180ECD271F484A17003C936E /* ReviewViewController.h */,
+				180ECD281F484A17003C936E /* ReviewViewController.m */,
+			);
+			name = ReviewViewController;
+			sourceTree = "<group>";
+		};
+		180ECD2A1F484B5C003C936E /* StarRatingView */ = {
+			isa = PBXGroup;
+			children = (
+				180ECD311F485B56003C936E /* EDStarRating.h */,
+				180ECD321F485B56003C936E /* EDStarRating.m */,
+			);
+			name = StarRatingView;
+			sourceTree = "<group>";
+		};
+		180ECD341F486E6F003C936E /* ReviewListingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				180ECD351F486E89003C936E /* ReviewListingViewController.h */,
+				180ECD361F486E89003C936E /* ReviewListingViewController.m */,
+			);
+			name = ReviewListingViewController;
+			sourceTree = "<group>";
+		};
+		180ECD381F489AAD003C936E /* ReviewModule */ = {
+			isa = PBXGroup;
+			children = (
+				180ECD341F486E6F003C936E /* ReviewListingViewController */,
+				180ECD391F489AC4003C936E /* ReviewListCell */,
+				180ECD261F4849F2003C936E /* ReviewViewController */,
+			);
+			name = ReviewModule;
+			sourceTree = "<group>";
+		};
+		180ECD391F489AC4003C936E /* ReviewListCell */ = {
+			isa = PBXGroup;
+			children = (
+				180ECD3A1F489AF0003C936E /* ReviewTableViewCell.h */,
+				180ECD3B1F489AF0003C936E /* ReviewTableViewCell.m */,
+			);
+			name = ReviewListCell;
+			sourceTree = "<group>";
+		};
+		180ECD3D1F489E3F003C936E /* ReviewModel */ = {
+			isa = PBXGroup;
+			children = (
+				180ECD3E1F48A1D1003C936E /* ReviewDataModel.h */,
+				180ECD3F1F48A1D1003C936E /* ReviewDataModel.m */,
+			);
+			name = ReviewModel;
+			sourceTree = "<group>";
+		};
+		180ECD411F48A200003C936E /* ReviewService */ = {
+			isa = PBXGroup;
+			children = (
+				180ECD421F48A215003C936E /* ReviewService.h */,
+				180ECD431F48A215003C936E /* ReviewService.m */,
+			);
+			name = ReviewService;
+			sourceTree = "<group>";
+		};
 		181853241F3D832200EEB73B /* DashboardModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -551,6 +648,8 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				180ECD381F489AAD003C936E /* ReviewModule */,
+				180ECD221F482A0C003C936E /* WebViewController */,
 				B7AA39BA1F47106600423121 /* ProductModule */,
 				188605961F39C05A0005D1E2 /* GlobalViewModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
@@ -563,6 +662,7 @@
 		320761601F1626F2001F1790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				180ECD3D1F489E3F003C936E /* ReviewModel */,
 				1875618E1F469BCD00F609AB /* NotificationModel */,
 				188B2C181F41F42E0001A7AE /* CurrencyDataModel */,
 				188B2C101F41DF2D0001A7AE /* SearchDataModel */,
@@ -613,6 +713,7 @@
 		320761651F162733001F1790 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				180ECD2A1F484B5C003C936E /* StarRatingView */,
 				B7AA39AF1F470FFA00423121 /* GoNatuurPickerView */,
 				B7AA39AE1F470FF300423121 /* GoNatuurFilterView */,
 				1818532C1F3DFE4900EEB73B /* ImageCaching */,
@@ -645,6 +746,7 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				180ECD411F48A200003C936E /* ReviewService */,
 				1875618A1F469B1C00F609AB /* NotificationService */,
 				188B2C141F41DFE60001A7AE /* SearchService */,
 				181853281F3D8A6300EEB73B /* DashboardService */,
@@ -711,6 +813,8 @@
 		320761781F163B06001F1790 /* ValidationCategory */ = {
 			isa = PBXGroup;
 			children = (
+				180ECD2E1F484DE4003C936E /* UIPlaceHolderTextView.h */,
+				180ECD2F1F484DE4003C936E /* UIPlaceHolderTextView.m */,
 				320761791F163B12001F1790 /* UITextField+Validations.h */,
 				3207617A1F163B12001F1790 /* UITextField+Validations.m */,
 			);
@@ -1187,7 +1291,9 @@
 				32A3D6FF1F1CD2B800062B86 /* FacebookConnect.m in Sources */,
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
 				187561911F469BD500F609AB /* NotificationDataModel.m in Sources */,
+				180ECD301F484DE4003C936E /* UIPlaceHolderTextView.m in Sources */,
 				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
+				180ECD3C1F489AF0003C936E /* ReviewTableViewCell.m in Sources */,
 				32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */,
 				B7AA39B81F47102100423121 /* GoNatuurPickerView.m in Sources */,
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
@@ -1208,7 +1314,10 @@
 				1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */,
 				1875618D1F469B2800F609AB /* NotificationService.m in Sources */,
 				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,
+				180ECD401F48A1D1003C936E /* ReviewDataModel.m in Sources */,
 				B7AA39B31F47101400423121 /* GoNatuurFilterView.m in Sources */,
+				180ECD251F482A38003C936E /* WebViewController.m in Sources */,
+				180ECD291F484A17003C936E /* ReviewViewController.m in Sources */,
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
@@ -1222,15 +1331,18 @@
 				188605A51F39C6890005D1E2 /* DynamicHeightWidth.m in Sources */,
 				18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */,
 				B7AA39C51F47116700423121 /* ProductListCollectionViewCell.m in Sources */,
+				180ECD331F485B56003C936E /* EDStarRating.m in Sources */,
 				32BAA6091F1360280015E355 /* main.m in Sources */,
 				188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */,
 				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,
 				18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */,
 				1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */,
+				180ECD441F48A215003C936E /* ReviewService.m in Sources */,
 				B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */,
 				1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */,
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
 				184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */,
+				180ECD371F486E89003C936E /* ReviewListingViewController.m in Sources */,
 				188B2C131F41DFA50001A7AE /* SearchDataModel.m in Sources */,
 				B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */,
 				188B2C0A1F419E8B0001A7AE /* SearchListingViewController.m in Sources */,
