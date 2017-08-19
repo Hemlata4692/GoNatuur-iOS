@@ -80,6 +80,11 @@
 		B77A8A781F34388800233782 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A771F34388800233782 /* SignUpViewController.m */; };
 		B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */; };
 		B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */; };
+		B7A4D3ED1F48278A00A28BBE /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3EC1F48278900A28BBE /* ProductDetailViewController.m */; };
+		B7A4D3F01F4828E500A28BBE /* ProductDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3EF1F4828E500A28BBE /* ProductDetailTableViewCell.m */; };
+		B7A4D3F51F48294700A28BBE /* ProductDetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3F41F48294700A28BBE /* ProductDetailCollectionViewCell.m */; };
+		B7A4D3FA1F4854CC00A28BBE /* ProductDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3F91F4854CC00A28BBE /* ProductDataModel.m */; };
+		B7A4D3FD1F4857C900A28BBE /* ProductService.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3FC1F4857C900A28BBE /* ProductService.m */; };
 		B7A86ECD1F3B3D85004DA530 /* CMSPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A86ECC1F3B3D85004DA530 /* CMSPageViewController.m */; };
 		B7AA39B31F47101400423121 /* GoNatuurFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AA39B11F47101400423121 /* GoNatuurFilterView.m */; };
 		B7AA39B41F47101400423121 /* GoNatuurFilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7AA39B21F47101400423121 /* GoNatuurFilterView.xib */; };
@@ -227,6 +232,16 @@
 		B77A8A7A1F346C1200233782 /* SocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
 		B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialLoginViewController.m; sourceTree = "<group>"; };
 		B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLoginViewController.xib; sourceTree = "<group>"; };
+		B7A4D3EB1F48278900A28BBE /* ProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailViewController.h; sourceTree = "<group>"; };
+		B7A4D3EC1F48278900A28BBE /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
+		B7A4D3EE1F4828E500A28BBE /* ProductDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailTableViewCell.h; sourceTree = "<group>"; };
+		B7A4D3EF1F4828E500A28BBE /* ProductDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailTableViewCell.m; sourceTree = "<group>"; };
+		B7A4D3F31F48294700A28BBE /* ProductDetailCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailCollectionViewCell.h; sourceTree = "<group>"; };
+		B7A4D3F41F48294700A28BBE /* ProductDetailCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailCollectionViewCell.m; sourceTree = "<group>"; };
+		B7A4D3F81F4854CC00A28BBE /* ProductDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDataModel.h; sourceTree = "<group>"; };
+		B7A4D3F91F4854CC00A28BBE /* ProductDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDataModel.m; sourceTree = "<group>"; };
+		B7A4D3FB1F4857C900A28BBE /* ProductService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductService.h; sourceTree = "<group>"; };
+		B7A4D3FC1F4857C900A28BBE /* ProductService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductService.m; sourceTree = "<group>"; };
 		B7A86ECB1F3B3D85004DA530 /* CMSPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSPageViewController.h; sourceTree = "<group>"; };
 		B7A86ECC1F3B3D85004DA530 /* CMSPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSPageViewController.m; sourceTree = "<group>"; };
 		B7AA39B01F47101400423121 /* GoNatuurFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurFilterView.h; sourceTree = "<group>"; };
@@ -563,6 +578,7 @@
 		320761601F1626F2001F1790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B7A4D3F71F4854A500A28BBE /* ProductModel */,
 				1875618E1F469BCD00F609AB /* NotificationModel */,
 				188B2C181F41F42E0001A7AE /* CurrencyDataModel */,
 				188B2C101F41DF2D0001A7AE /* SearchDataModel */,
@@ -645,6 +661,7 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				B7A4D3F61F48549D00A28BBE /* ProductService */,
 				1875618A1F469B1C00F609AB /* NotificationService */,
 				188B2C141F41DFE60001A7AE /* SearchService */,
 				181853281F3D8A6300EEB73B /* DashboardService */,
@@ -936,6 +953,69 @@
 			name = SocialLoginButttonView;
 			sourceTree = "<group>";
 		};
+		B7A4D3E81F4826AF00A28BBE /* ProductDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B7A4D3E91F4826C600A28BBE /* ProductDetailView */,
+				B7A4D3EA1F4826CF00A28BBE /* ProductDetailCell */,
+			);
+			name = ProductDetailViewController;
+			sourceTree = "<group>";
+		};
+		B7A4D3E91F4826C600A28BBE /* ProductDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				B7A4D3EB1F48278900A28BBE /* ProductDetailViewController.h */,
+				B7A4D3EC1F48278900A28BBE /* ProductDetailViewController.m */,
+			);
+			name = ProductDetailView;
+			sourceTree = "<group>";
+		};
+		B7A4D3EA1F4826CF00A28BBE /* ProductDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+				B7A4D3F21F48291900A28BBE /* ProductDetailCollectionViewCell */,
+				B7A4D3F11F48290B00A28BBE /* ProductDetailTableViewCell */,
+			);
+			name = ProductDetailCell;
+			sourceTree = "<group>";
+		};
+		B7A4D3F11F48290B00A28BBE /* ProductDetailTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				B7A4D3EE1F4828E500A28BBE /* ProductDetailTableViewCell.h */,
+				B7A4D3EF1F4828E500A28BBE /* ProductDetailTableViewCell.m */,
+			);
+			name = ProductDetailTableViewCell;
+			sourceTree = "<group>";
+		};
+		B7A4D3F21F48291900A28BBE /* ProductDetailCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				B7A4D3F31F48294700A28BBE /* ProductDetailCollectionViewCell.h */,
+				B7A4D3F41F48294700A28BBE /* ProductDetailCollectionViewCell.m */,
+			);
+			name = ProductDetailCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		B7A4D3F61F48549D00A28BBE /* ProductService */ = {
+			isa = PBXGroup;
+			children = (
+				B7A4D3FB1F4857C900A28BBE /* ProductService.h */,
+				B7A4D3FC1F4857C900A28BBE /* ProductService.m */,
+			);
+			name = ProductService;
+			sourceTree = "<group>";
+		};
+		B7A4D3F71F4854A500A28BBE /* ProductModel */ = {
+			isa = PBXGroup;
+			children = (
+				B7A4D3F81F4854CC00A28BBE /* ProductDataModel.h */,
+				B7A4D3F91F4854CC00A28BBE /* ProductDataModel.m */,
+			);
+			name = ProductModel;
+			sourceTree = "<group>";
+		};
 		B7A86ECA1F3B3D5A004DA530 /* CMSPageViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -968,6 +1048,7 @@
 		B7AA39BA1F47106600423121 /* ProductModule */ = {
 			isa = PBXGroup;
 			children = (
+				B7A4D3E81F4826AF00A28BBE /* ProductDetailViewController */,
 				B7AA39BB1F47106E00423121 /* ProductListingViewController */,
 			);
 			name = ProductModule;
@@ -1201,12 +1282,16 @@
 				B745811D1F39BECC00A164D6 /* BSKeyboardControls.m in Sources */,
 				18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */,
 				18F7A9031F33044100430842 /* BottomTabViewController.m in Sources */,
+				B7A4D3F51F48294700A28BBE /* ProductDetailCollectionViewCell.m in Sources */,
 				B7AA39C81F47116E00423121 /* ProductListTableViewCell.m in Sources */,
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
 				181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
 				1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */,
+				B7A4D3ED1F48278A00A28BBE /* ProductDetailViewController.m in Sources */,
+				B7A4D3FD1F4857C900A28BBE /* ProductService.m in Sources */,
 				1875618D1F469B2800F609AB /* NotificationService.m in Sources */,
+				B7A4D3FA1F4854CC00A28BBE /* ProductDataModel.m in Sources */,
 				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,
 				B7AA39B31F47101400423121 /* GoNatuurFilterView.m in Sources */,
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
@@ -1225,6 +1310,7 @@
 				32BAA6091F1360280015E355 /* main.m in Sources */,
 				188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */,
 				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,
+				B7A4D3F01F4828E500A28BBE /* ProductDetailTableViewCell.m in Sources */,
 				18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */,
 				1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */,
 				B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */,

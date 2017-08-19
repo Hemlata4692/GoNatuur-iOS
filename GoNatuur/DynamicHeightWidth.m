@@ -17,7 +17,7 @@
                      options:NSStringDrawingUsesLineFragmentOrigin
                      attributes:@{NSFontAttributeName:font}
                      context:nil];
-    return textRect.size.width;
+    return textRect.size.width+1;
 }
 
 + (float)getDynamicLabelHeight:(NSString *)text font:(UIFont *)font widthValue:(float)widthValue {
@@ -27,6 +27,6 @@
                      options:NSStringDrawingUsesLineFragmentOrigin
                      attributes:@{NSFontAttributeName:font}
                      context:nil];
-    return textRect.size.height;
+    return textRect.size.height+1;
 }
 @end

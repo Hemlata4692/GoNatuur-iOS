@@ -16,6 +16,8 @@
 #import "CurrencyDataModel.h"
 #import "NotificationService.h"
 #import "NotificationDataModel.h"
+#import "ProductDataModel.h"
+#import "ProductService.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -416,6 +418,29 @@
              tempModel.productRating = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [productData.productDataArray addObject:tempModel];
         }
+        success(productData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Product detail service
+- (void)getProductDetail:(ProductDataModel *)productData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
+    ProductService *productDetailData=[[ProductService alloc]init];
+    [productDetailData getProductDetailService:productData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"category list response %@",response);
+        NSDictionary *customAttributeDict=[[[response objectForKey:@"custom_attribute"] objectAtIndex:0] copy];
+        productData.productName=[response objectForKey:@"name"];
+        productData.productPrice=[response objectForKey:@"price"];
+        productData.categoryId=[[customAttributeDict objectForKey:@"category_ids"] objectAtIndex:0];
+        if ([customAttributeDict objectForKey:@"description"]!=nil) {
+            productData.productDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"description"]];
+        }
+        if ([customAttributeDict objectForKey:@"short_description"]!=nil) {
+            productData.productShortDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"short_description"]];
+        }
+        productData.productMaxQuantity=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
         success(productData);
     } onfailure:^(NSError *error) {
     }];
