@@ -31,6 +31,8 @@
 @synthesize isProductList;
 @synthesize exchangeRates;
 @synthesize tabButtonTag;
+@synthesize productCartItemsDetail;
+@synthesize productCartItemKeys;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -64,11 +66,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [NSThread sleepForTimeInterval:1.0];
-    tabButtonTag=0;
-    //Set navigation bar color
+        //Set navigation bar color
    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont montserratMediumWithSize:20], NSFontAttributeName, nil]];
-    
-    selectedLoginType=FacebookLogin;
+    //Values initialized
+    [self initializedValues];
     //Connect appdelegate to facebook delegate
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
@@ -84,7 +85,6 @@
     }
     
     //[self registerForRemoteNotification];
-    selectedCategoryIndex=-1;
     return YES;
 }
 
@@ -172,6 +172,18 @@
 - (void)showNotificationAlert:(NSString *)message {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedText(@"alertTitle") message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedText(@"alertOk"), nil];
     [alert show];
+}
+#pragma mark - end
+
+#pragma mark - Value initialized of didFinishLaunch
+- (void)initializedValues {
+    tabButtonTag=0;
+    selectedLoginType=FacebookLogin;
+    if (myDelegate.productCartItemKeys==nil) {
+        myDelegate.productCartItemKeys=[NSMutableArray new];
+        myDelegate.productCartItemsDetail=[NSMutableDictionary new];
+    }
+    selectedCategoryIndex=-1;
 }
 #pragma mark - end
 

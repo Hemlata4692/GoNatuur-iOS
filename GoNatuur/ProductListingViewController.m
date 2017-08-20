@@ -40,6 +40,9 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //Add custom picker view and initialized indexs
+    [self addCustomPickerView];
     // Do any additional setup after loading the view.
 }
 
@@ -82,8 +85,6 @@
     _refreshControl.tintColor=[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0];
     [_refreshControl addTarget:self action:@selector(refreshControlAction) forControlEvents:UIControlEventValueChanged];
     [_productListTableView addSubview:_refreshControl];
-    //Add custom picker view and initialized indexs
-    [self addCustomPickerView];
 }
 
 - (void)initializeFooterView {
@@ -98,8 +99,8 @@
 
 - (void)addCustomPickerView {
     //Add filter xib view
-    filterViewObj=[[GoNatuurFilterView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 25) delegate:self];
-    filterViewObj.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 25);
+    filterViewObj=[[GoNatuurFilterView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35) delegate:self];
+    filterViewObj.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35);
     [filterViewObj setButtonTitles:@"" subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:@""];
     //Set initial index of picker view and initialized picker view
     selectedFirstFilterIndex=0;
@@ -124,10 +125,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row==0) {
-        return 200.0;
+        return 180.0;
     }
     else if (indexPath.row==1) {
-        return 25.0;
+        return 35.0;
     }
     else if (indexPath.row==2) {
         return productListHeight;
@@ -217,6 +218,14 @@
     //You may want to create a divider to scale the size by the way.
     float picDimension = (self.view.frame.size.width-20) / 2.0;
     return CGSizeMake(picDimension-5, picDimension+105);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    //StoryBoard navigation
+    ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+    obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
+    [self.navigationController pushViewController:obj animated:YES];
 }
 #pragma mark - end
 

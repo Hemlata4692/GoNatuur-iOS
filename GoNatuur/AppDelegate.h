@@ -21,6 +21,8 @@
 @property (retain, nonatomic) UINavigationController *navigationController;
 @property (nonatomic, strong) NSString *exchangeRates;
 @property (nonatomic, strong) NSString *tabButtonTag;
+@property (strong, nonatomic) NSMutableArray *productCartItemKeys;
+@property (strong, nonatomic) NSMutableDictionary *productCartItemsDetail;
 - (void)showIndicator;
 - (void)stopIndicator;
 
