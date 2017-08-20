@@ -12,6 +12,15 @@
 @implementation ReviewDataModel
 @synthesize pageCount;
 @synthesize totalCount;
+@synthesize username;
+@synthesize reviewTitle;
+@synthesize reviewDescription;
+@synthesize starFilter;
+@synthesize sortBy;
+@synthesize productId;
+@synthesize userImageUrl;
+@synthesize userLocation;
+@synthesize reviewListArray;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser {

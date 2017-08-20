@@ -43,6 +43,12 @@
 //Get review list data
 - (void)getReviewListingData {
     ReviewDataModel *reviewList = [ReviewDataModel sharedUser];
+    reviewList.productId=@"4";
+    reviewList.username=@"";
+    reviewList.reviewDescription=@"";
+    reviewList.reviewTitle=@"";
+    reviewList.sortBy=@"0";
+    reviewList.starFilter=@"0";
     [reviewList getUserReviewListingData:^(ReviewDataModel *userData)  {
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
