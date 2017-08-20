@@ -11,5 +11,6 @@
 @interface DynamicHeightWidth : NSObject
 
 + (float)getDynamicLabelWidth:(NSString *)text font:(UIFont *)font widthValue:(float)widthValue;
-+ (float)getDynamicLabelHeight:(NSString *)text font:(UIFont *)font widthValue:(float)widthValue ;
++ (float)getDynamicLabelHeight:(NSString *)text font:(UIFont *)font widthValue:(float)widthValue;
++ (float)getDynamicLabelHeight:(NSString *)text font:(UIFont *)font widthValue:(float)widthValue  heightValue:(float)heightValue;
 @end

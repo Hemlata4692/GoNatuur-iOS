@@ -13,6 +13,7 @@
 @class SearchDataModel;
 @class CurrencyDataModel;
 @class NotificationDataModel;
+@class ProductDataModel;
 
 @interface ConnectionManager : NSObject
 
@@ -52,4 +53,6 @@
 - (void)getCategoryBannerData:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 //Search listing data
 - (void)getSearchData:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
+//Product detail service
+- (void)getProductDetail:(ProductDataModel *)userData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure;
 @end
