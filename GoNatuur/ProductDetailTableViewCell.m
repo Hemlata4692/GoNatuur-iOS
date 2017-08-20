@@ -10,6 +10,7 @@
 #import "DynamicHeightWidth.h"
 #import "ProductDataModel.h"
 
+
 @implementation ProductDetailTableViewCell
 
 - (void)awakeFromNib {
@@ -27,7 +28,6 @@
     _productNameLabel.translatesAutoresizingMaskIntoConstraints=true;
     _productNameLabel.frame=CGRectMake(40, 24, [[UIScreen mainScreen] bounds].size.width-80, [DynamicHeightWidth getDynamicLabelHeight:productName font:[UIFont montserratMediumWithSize:20] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:52]);
     _productNameLabel.text=productName;
-//    _productNameLabel.backgroundColor=[UIColor grayColor];
 }
 
 - (void)displayProductDescription:(NSString *)productDescription {
@@ -42,8 +42,14 @@
         //Show all blank star
     }
     else {
-        float rating = (([productRating integerValue])*5.0)/100.0;
-        //Show star according to rating
+        _starBackView.starImage = [UIImage imageNamed:@"star-unselected"];
+        _starBackView.starHighlightedImage = [UIImage imageNamed:@"star"];
+        _starBackView.maxRating = 5.0;
+        _starBackView.delegate = self;
+//        _starBackView.horizontalMargin = 10;
+        _starBackView.editable=NO;
+        _starBackView.rating= [productRating floatValue];
+        _starBackView.displayMode=EDStarRatingDisplayHalf;
     }
 }
 

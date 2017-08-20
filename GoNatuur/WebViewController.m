@@ -23,8 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    productDetaiData=@"<html><head><title>bvjeger erheru her rhre uh</title></head><body><p>hewufhreureu eru r r rerherh fer</p<img src='https://images.pexels.com/photos/34950/pexels-photo.jpg?h=350&auto=compress&cs=tinysrgb' /></body></html>";
-
 }
 
 - (void)didReceiveMemoryWarning {

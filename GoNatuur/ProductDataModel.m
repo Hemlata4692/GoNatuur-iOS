@@ -26,6 +26,10 @@
 @synthesize productQuantity;
 @synthesize productDataArray;
 @synthesize productMediaArray;
+@synthesize productBrandStory;
+@synthesize productBenefitsUsage;
+@synthesize isWishlist;
+@synthesize isFollowing;
 
 - (id)copyWithZone:(NSZone *)zone {
     ProductDataModel *another = [[ProductDataModel alloc] init];
@@ -36,6 +40,8 @@
     another.productPrice= [self.productPrice copyWithZone: zone];
     another.productDescription= [self.productDescription copyWithZone: zone];
     another.productShortDescription= [self.productShortDescription copyWithZone: zone];
+    another.productBrandStory= [self.productBrandStory copyWithZone: zone];
+    another.productBenefitsUsage= [self.productBenefitsUsage copyWithZone: zone];
     another.productImageThumbnail= [self.productImageThumbnail copyWithZone: zone];
     another.productId= [self.productId copyWithZone: zone];
     another.productName= [self.productName copyWithZone: zone];
@@ -62,6 +68,30 @@
 #pragma mark - Fetch product detail
 - (void)getProductDetailOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getProductDetail:self onSuccess:^(ProductDataModel *productData) {
+        if (success) {
+            success (productData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Add to wishlist
+- (void)addProductWishlistOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] addToWishlistService:self onSuccess:^(ProductDataModel *productData) {
+        if (success) {
+            success (productData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Follow product
+- (void)followProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] followProduct:self onSuccess:^(ProductDataModel *productData) {
         if (success) {
             success (productData);
         }

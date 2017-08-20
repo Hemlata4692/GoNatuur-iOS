@@ -14,6 +14,8 @@
 #import "UpdateCartItem.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AVKit/AVKit.h>
+#import "WebViewController.h"
+#import "ReviewListingViewController.h"
 
 @interface ProductDetailViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -250,6 +252,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
     if (indexPath.row==3 && [[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
         NSURL *videoURL = [NSURL URLWithString:@"https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"];
         AVPlayer *player = [AVPlayer playerWithURL:videoURL];
@@ -262,21 +265,44 @@
      }*/
     else if (indexPath.row==8) {
         //Description action
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
+        webView.navigationTitle=NSLocalizedText(@"Description");
+        webView.productDetaiData=productDetailModelData.productDescription;
+        [self.navigationController pushViewController:webView animated:YES];
     }
     else if (indexPath.row==9) {
         //Benifit action
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
+        webView.navigationTitle=NSLocalizedText(@"Benefits&Usage");
+        webView.productDetaiData=productDetailModelData.productBenefitsUsage;
+        [self.navigationController pushViewController:webView animated:YES];
     }
     else if (indexPath.row==10) {
         //Brand action
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
+        webView.navigationTitle=NSLocalizedText(@"BrandStory");
+        webView.productDetaiData=productDetailModelData.productBrandStory;
+        [self.navigationController pushViewController:webView animated:YES];
     }
     else if (indexPath.row==11) {
         //Review action
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ReviewListingViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewListingViewController"];
+        [self.navigationController pushViewController:reviewView animated:YES];
     }
     else if (indexPath.row==12) {
         //Follow action
+//        if (![productDetailModelData.isFollowing isEqualToString:@"1"]) {
+//            [self followProduct];
+//        }
+        [self followProduct:(int)indexPath.row];
     }
     else if (indexPath.row==13) {
         //Wishlist action
+        [self addToWishlist:(int)indexPath.row];
     }
     else if (indexPath.row==14) {
         //Share action
@@ -285,6 +311,7 @@
         //Location action
     }
 }
+
 #pragma mark - end
 
 #pragma mark - Collection view datasource methods
@@ -333,6 +360,36 @@
     } onfailure:^(NSError *error) {
         
     }];
+}
+
+//Add product to wishlist
+- (void)addToWishlist:(int)btnTag {
+    NSIndexPath *index=[NSIndexPath indexPathForRow:btnTag inSection:0];
+    ProductDetailTableViewCell * cell = (ProductDetailTableViewCell *)[_productDetailTableView cellForRowAtIndexPath:index];
+    UILabel *cellLabel=(UILabel *)[cell viewWithTag:11];
+    ProductDataModel *productData = [ProductDataModel sharedUser];
+    productData.productId=[NSNumber numberWithInt:selectedProductId];
+    [productData addProductWishlistOnSuccess:^(ProductDataModel *productDetailData)  {
+        cellLabel.text=@"Added to Wishlist";
+    } onfailure:^(NSError *error) {
+        cellLabel.text=@"Add to Wishlist";
+    }];
+
+}
+
+//Follow product
+- (void)followProduct:(int)btnTag {
+    NSIndexPath *index=[NSIndexPath indexPathForRow:btnTag inSection:0];
+    ProductDetailTableViewCell * cell = (ProductDetailTableViewCell *)[_productDetailTableView cellForRowAtIndexPath:index];
+    UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
+    ProductDataModel *productData = [ProductDataModel sharedUser];
+    productData.productId=[NSNumber numberWithInt:selectedProductId];
+    [productData followProductOnSuccess:^(ProductDataModel *productDetailData)  {
+        cellLabel.text=@"Followed";
+    } onfailure:^(NSError *error) {
+        cellLabel.text=@"Follow this Product";
+    }];
+    
 }
 #pragma mark - end
 

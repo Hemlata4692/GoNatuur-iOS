@@ -8,11 +8,16 @@
 
 #import "ReviewListingViewController.h"
 #import "ReviewDataModel.h"
+#import "UITextField+Padding.h"
+#import "ReviewViewController.h"
 
 @interface ReviewListingViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *reviewListingTableView;
 @property (weak, nonatomic) IBOutlet UIView *filterView;
-
+@property (weak, nonatomic) IBOutlet UIButton *writeReviewButton;
+@property (weak, nonatomic) IBOutlet UIButton *starFilterButton;
+@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
+@property (weak, nonatomic) IBOutlet UIButton *sortByFilterButton;
 @end
 
 @implementation ReviewListingViewController
@@ -23,7 +28,6 @@
     // Do any additional setup after loading the view.
     [myDelegate showIndicator];
     [self performSelector:@selector(getReviewListingData) withObject:nil afterDelay:.1];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,7 +40,16 @@
     self.title=NSLocalizedText(@"Review");
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
+    [self viewCustomisation];
 }
+
+- (void)viewCustomisation {
+    //customisation of objects
+    [_writeReviewButton setCornerRadius:17.0];
+    [_writeReviewButton addShadow:_writeReviewButton color:[UIColor blackColor]];
+    [_searchTextField addTextFieldLeftRightPadding:_searchTextField];
+}
+
 #pragma mark - end
 
 #pragma mark - Webservice
@@ -54,7 +67,21 @@
     } onfailure:^(NSError *error) {
     }];
 }
+#pragma mark - end
 
+#pragma mark - IBActions
+- (IBAction)starFilterButtonAction:(id)sender {
+}
+
+- (IBAction)sortByFilterAction:(id)sender {
+}
+
+- (IBAction)writeReviewButtonAction:(id)sender {
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ReviewViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewViewController"];
+    [self.navigationController pushViewController:reviewView animated:YES];
+}
+#pragma mark - end
 
 #pragma mark - Table view data source and delgate methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -71,5 +98,5 @@
 //- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 //    return UITableViewAutomaticDimension;
 //}
-
+#pragma mark - end
 @end

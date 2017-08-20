@@ -695,6 +695,7 @@
 			isa = PBXGroup;
 			children = (
 				180ECD3D1F489E3F003C936E /* ReviewModel */,
+				B7A4D3F71F4854A500A28BBE /* ProductModel */,
 				1875618E1F469BCD00F609AB /* NotificationModel */,
 				188B2C181F41F42E0001A7AE /* CurrencyDataModel */,
 				188B2C101F41DF2D0001A7AE /* SearchDataModel */,
@@ -781,6 +782,7 @@
 			isa = PBXGroup;
 			children = (
 				180ECD411F48A200003C936E /* ReviewService */,
+				B7A4D3F61F48549D00A28BBE /* ProductService */,
 				1875618A1F469B1C00F609AB /* NotificationService */,
 				188B2C141F41DFE60001A7AE /* SearchService */,
 				181853281F3D8A6300EEB73B /* DashboardService */,

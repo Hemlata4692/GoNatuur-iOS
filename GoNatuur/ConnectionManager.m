@@ -18,6 +18,8 @@
 #import "NotificationDataModel.h"
 #import "ReviewDataModel.h"
 #import "ReviewService.h"
+#import "ProductDataModel.h"
+#import "ProductService.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -138,7 +140,7 @@
     [categoryList getCategoryListData:userData success:^(id response) {
         //Parse data from server response and store in data model
         DLog(@"category list response %@",response);
-//        myDelegate.categoryNameArray=[response[@"children_data"] mutableCopy];
+        //        myDelegate.categoryNameArray=[response[@"children_data"] mutableCopy];
         userData.categoryNameArray=[response[@"children_data"] mutableCopy];
         success(userData);
     } onfailure:^(NSError *error) {
@@ -415,7 +417,7 @@
                 tempModel.productDescription=[self stringByStrippingHTML:[[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             
-             tempModel.productRating = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+            tempModel.productRating = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [productData.productDataArray addObject:tempModel];
         }
         success(productData);
@@ -424,17 +426,79 @@
 }
 #pragma mark - end
 
-#pragma mark - Review listing
+#pragma mark - Product detail service
+- (void)getProductDetail:(ProductDataModel *)productData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
+    ProductService *productDetailData=[[ProductService alloc]init];
+    [productDetailData getProductDetailService:productData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"category list response %@",response);
+        NSDictionary *customAttributeDict=[[[response objectForKey:@"custom_attribute"] objectAtIndex:0] copy];
+        productData.productName=[response objectForKey:@"name"];
+        productData.productPrice=[response objectForKey:@"price"];
+        productData.categoryId=[[customAttributeDict objectForKey:@"category_ids"] objectAtIndex:0];
+        if ([customAttributeDict objectForKey:@"description"]!=nil) {
+            productData.productDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"description"]];
+        }
+        if ([customAttributeDict objectForKey:@"short_description"]!=nil) {
+            productData.productShortDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"short_description"]];
+        }
+        if ([customAttributeDict objectForKey:@"benifits_usage"]!=nil) {
+            productData.productBenefitsUsage=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"benifits_usage"]];
+        }
+        //rating
+        //        if ([customAttributeDict objectForKey:@"brand_story"]!=nil) {
+        //            productData.productBrandStory=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"brand_story"]];
+        //        }
+        productData.productMaxQuantity=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
+        productData.isFollowing=[response objectForKey:@"is_following"];
+        //        productData.isWishlist=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
+        
+        productData.productMediaArray=[[response objectForKey:@"media"] mutableCopy];
+        success(productData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Review list service
 - (void)getReviewListing:(ReviewDataModel *)reviewData onSuccess:(void (^)(ReviewDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     ReviewService *reviewList=[[ReviewService alloc]init];
     [reviewList getReviewListing:reviewData success:^(id response) {
         //Parse data from server response and store in data model
         DLog(@"review list response %@",response);
-
+        
         success(reviewData);
-     }
-     onfailure:^(NSError *error) {
-    }];
+    }
+                       onfailure:^(NSError *error) {
+                       }];
+}
+#pragma mark - end
+
+#pragma mark - Add to wishlist service
+- (void)addToWishlistService:(ProductDataModel *)wishlistData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
+    ProductService *addToWishlist=[[ProductService alloc]init];
+    [addToWishlist addProductToWishlist:wishlistData success:^(id response) {
+        DLog(@"wishlist response %@",response);
+        
+        success(wishlistData);
+    }
+                              onfailure:^(NSError *error) {
+                              }];
+    
+}
+#pragma mark - end
+
+#pragma mark - Follow product service
+- (void)followProduct:(ProductDataModel *)followData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
+    ProductService *followProduct=[[ProductService alloc]init];
+    [followProduct addProductToWishlist:followData success:^(id response) {
+        DLog(@"follow response %@",response);
+        
+        success(followData);
+    }
+                              onfailure:^(NSError *error) {
+                              }];
+    
 }
 #pragma mark - end
 @end
