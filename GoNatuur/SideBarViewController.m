@@ -201,6 +201,7 @@
     [UserDefaultManager removeValue:@"Authorization"];
     [UserDefaultManager removeValue:@"profilePicture"];
     [UserDefaultManager removeValue:@"enableNotification"];
+    [UserDefaultManager removeValue:@"quoteId"];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     myDelegate.navigationController = [storyboard instantiateViewControllerWithIdentifier:@"mainNavController"];
     myDelegate.window.rootViewController = myDelegate.navigationController;

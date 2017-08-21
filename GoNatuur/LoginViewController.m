@@ -333,16 +333,8 @@
 #pragma mark - Navigate to dashboard
 - (void)navigateToDashboard {
     //StoryBoard navigation
-    if (nil==[UserDefaultManager getValue:@"enableNotification"]||NULL==[UserDefaultManager getValue:@"enableNotification"]) {
-        UIViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EnableNotificationViewController"];
-        [self.navigationController pushViewController:obj animated:true];
-    }
-    else {
-        UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-        [myDelegate.window setRootViewController:objReveal];
-        [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
-        [myDelegate.window makeKeyAndVisible];
-    }
+    UIViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EnableNotificationViewController"];
+    [self.navigationController pushViewController:obj animated:true];
 }
 #pragma mark - end
 
