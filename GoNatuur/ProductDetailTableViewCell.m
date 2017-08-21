@@ -38,19 +38,19 @@
 }
 
 - (void)displayRating:(NSString *)productRating {
-    if ([productRating isEqualToString:@""] || productRating==nil || [productRating isEqualToString:@"0"]) {
-        //Show all blank star
-    }
-    else {
+//    if ([productRating isEqualToString:@""] || productRating==nil || [productRating isEqualToString:@"0"]) {
+//        //Show all blank star
+//    }
+//    else {
         _starBackView.starImage = [UIImage imageNamed:@"star-unselected"];
         _starBackView.starHighlightedImage = [UIImage imageNamed:@"star"];
         _starBackView.maxRating = 5.0;
         _starBackView.delegate = self;
 //        _starBackView.horizontalMargin = 10;
         _starBackView.editable=NO;
-        _starBackView.rating= [productRating floatValue];
+        _starBackView.rating= 4.5;
         _starBackView.displayMode=EDStarRatingDisplayHalf;
-    }
+//    }
 }
 
 - (void)displayProductMediaImage:(NSDictionary *)productImageDict qrCode:(UIImage *)qrCodeImage {

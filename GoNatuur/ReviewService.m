@@ -10,7 +10,8 @@
 #import "ReviewDataModel.h"
 
 static NSString *kReviewListing=@"ranosys/getReviewsList";
-
+static NSString *kRationOptions=@"ranosys/getRatngFormOptions";
+static NSString *kAddReview=@"ranosys/addProductReview";
 
 @implementation ReviewService
 
@@ -34,57 +35,42 @@ static NSString *kReviewListing=@"ranosys/getReviewsList";
                                                              }
                                                          ],
                                                  @"sort_orders" : @[
-                                                         @{@"field":@"reviewvote.value",
-                                                           @"direction":@"DESC"
-                                                           }
+                                                         @{@"field":reviewData.sortBy,
+                                                           @"direction":reviewData.sortByValue
+                                                           },
                                                          ],
                                                  @"page_size" : @"10",
-                                                 @"current_page" : @1
+                                                 @"current_page" : reviewData.pageCount
                                                  },
                                  @"productId": reviewData.productId,
                                  @"starFilter": reviewData.starFilter,
-                                 @"applyStarFilter":reviewData.sortBy
+                                 @"applyStarFilter":@"1"
                                  };
     DLog(@"review list request %@",parameters);
     [super post:kReviewListing parameters:parameters success:success failure:failure];
 }
-//reviewData.pageCount
-//[UserDefaultManager getValue:@"userId"]
+//applyStarFilter - to apply filter = 1 and 0 to not apply
 
-//{
-//    "searchCriteria": {
-//        "filter_groups": [
-//                          {
-//                              "filters": [
-//                                          {
-//                                              "field": "nickname",
-//                                              "value": "%a%",
-//                                              "condition_type": "like"
-//                                          },
-//                                          {
-//                                              "field": "title",
-//                                              "value": "%a%",
-//                                              "condition_type": "like"
-//                                          },
-//                                          {
-//                                              "field": "detail",
-//                                              "value": "%a%",
-//                                              "condition_type": "like"
-//                                          }
-//                                          ]
-//                          }
-//                          ],
-//        "sort_orders": [
-//                        {
-//                            "field": "reviewvote.value",
-//                            "direction": "DESC"
-//                        }
-//                        ],
-//        "page_size": 10,
-//        "current_page": 1
-//    },
-//    "productId": 4,
-//    "starFilter": 4,
-//    "applyStarFilter":0
-//}
+//Fetch rating options
+- (void)getRatingOptions:(ReviewDataModel *)reviewData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    [self get:kRationOptions parameters:nil onSuccess:success onFailure:failure];
+}
+
+//Add review
+- (void)addProductReview:(ReviewDataModel *)reviewData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"productId": reviewData.productId,
+                                 @"reviewTitle": reviewData.reviewTitle,
+                                 @"customerId":[UserDefaultManager getValue:@"userId"],
+                                 @"customerNickName":reviewData.username,
+                                 @"reviewDetail":reviewData.reviewDescription,
+                                 @"starRatingOptions" : @[
+                                         @{@"rating_id":@"1",
+                                           @"option_id":reviewData.ratingId
+                                           },
+                                         ],
+                                 };
+    DLog(@"review request %@",parameters);
+    [super post:kAddReview parameters:parameters success:success failure:failure];
+}
+
 @end

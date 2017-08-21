@@ -13,4 +13,10 @@
 
 //Fetch review listing
 - (void)getReviewListing:(ReviewDataModel *)reviewData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
+
+//Fetch rating options
+- (void)getRatingOptions:(ReviewDataModel *)reviewData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
+
+//Add revew
+- (void)addProductReview:(ReviewDataModel *)reviewData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 @end

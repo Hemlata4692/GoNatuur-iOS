@@ -101,7 +101,7 @@
     // retrieve the keyword from user info
     searchKey = (NSString*)timer.userInfo;
     // perform your search (stubbed here using NSLog)
-    NSLog(@"Searching for keyword %@", searchKey);
+    DLog(@"Searching for keyword %@", searchKey);
     if (![searchKey isEqualToString:@""]) {
         [self getSerachSuggestionListing:searchKey];
     }
@@ -125,6 +125,8 @@
     [serachData getSearchSuggestions:^(SearchDataModel *userData)  {
         if (userData.searchKeywordListingArray.count==0) {
             _noResultLabel.hidden=NO;
+            searchArray=[NSMutableArray new];
+            [_searchTableView reloadData];
         }
         else {
             _noResultLabel.hidden=YES;

@@ -389,9 +389,9 @@
         
         UIGraphicsBeginImageContextWithOptions(img.size, NO, [UIScreen mainScreen].scale );
         CGContextRef context = UIGraphicsGetCurrentContext();
-        CGContextTranslateCTM(context, 0, img.size.height);
+        CGContextTranslateCTM(context, 0, 15);
         CGContextScaleCTM(context, 1.0, -1.0);
-        CGRect rect = CGRectMake(0, 0, img.size.width, img.size.height);
+        CGRect rect = CGRectMake(0, 0, 15, 15);
         // draw alpha-mask
         CGContextSetBlendMode(context, kCGBlendModeNormal);
         CGContextDrawImage(context, rect, img.CGImage);

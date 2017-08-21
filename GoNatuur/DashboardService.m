@@ -40,7 +40,7 @@ static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
 
 #pragma mark - Get product list data
 - (void)getProductListService:(DashboardDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    [UserDefaultManager setValue:[UserDefaultManager getValue:@"Authorization"] key:@"Authorization"];
+//    [UserDefaultManager setValue:[UserDefaultManager getValue:@"Authorization"] key:@"Authorization"];
     NSString *typeId;
     if (!myDelegate.isProductList) {
         typeId=@"event";
@@ -81,7 +81,6 @@ static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
 
 #pragma mark - Get category banner
 - (void)getCategoryBannerData:(DashboardDataModel *)categoryList success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    
     NSDictionary *parameters = @{@"categoryId":categoryList.categoryId};
     NSLog(@"category list request %@",parameters);
     [super post:kCategoryBannerData parameters:parameters success:success failure:failure];
