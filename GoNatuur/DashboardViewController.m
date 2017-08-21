@@ -59,6 +59,7 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:false];
+    [self showSelectedTab:1];
     if (firstTime) {
         [myDelegate showIndicator];
         [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
@@ -67,6 +68,11 @@
         [myDelegate showIndicator];
         [self performSelector:@selector(getDashboardData) withObject:nil afterDelay:.1];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    myDelegate.tabButtonTag=@"0";
 }
 #pragma mark - end
 

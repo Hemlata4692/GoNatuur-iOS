@@ -128,6 +128,7 @@
         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else if (indexPath.row==5) {
+        myDelegate.selectedCategoryIndex=-1;
         [self checkGuestAccess];
     }
     else if (indexPath.row==6) {
@@ -166,7 +167,6 @@
         }
         else if([identifier isEqualToString:@"Notifications"])
         {
-            
             return NO;
         }
         else {
