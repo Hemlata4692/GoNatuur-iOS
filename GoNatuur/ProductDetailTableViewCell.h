@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "ProductDataModel.h"
+#import "EDStarRating.h"
 
-@interface ProductDetailTableViewCell : UITableViewCell
+@interface ProductDetailTableViewCell : UITableViewCell<EDStarRatingProtocol>
 @property (strong, nonatomic) IBOutlet UILabel *productNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *productShortDescriptionLabel;
-@property (strong, nonatomic) IBOutlet UIView *starBackView;
+@property (strong, nonatomic) IBOutlet EDStarRating *starBackView;
 @property (strong, nonatomic) IBOutlet UIImageView *productImageView;
 @property (weak, nonatomic) IBOutlet UIView *transparentView;
 @property (weak, nonatomic) IBOutlet UIImageView *videoIcon;

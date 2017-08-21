@@ -38,7 +38,6 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     //Add custom picker view and initialized indexs
     [self addCustomPickerView];
     // Do any additional setup after loading the view.
@@ -170,7 +169,11 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    ReviewListingViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"ReviewListingViewController"];
+//    [self.navigationController pushViewController:searchView animated:YES];
+}
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (productListDataArray.count == totalProductCount)

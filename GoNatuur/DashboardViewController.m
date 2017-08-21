@@ -112,7 +112,6 @@
         else {
             [productCell displayProductListData:[samplersProductDataArray objectAtIndex:indexPath.item] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
         }
-        [productCell.contentView addShadow:productCell.contentView color:[UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0]];
         return productCell;
     }
     else {

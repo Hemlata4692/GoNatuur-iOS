@@ -8,6 +8,7 @@
 
 #import "UIView+RoundedCorner.h"
 
+
 @implementation UIView (RoundedCorner)
 //set corner radius
 - (void)setCornerRadius:(CGFloat)radius {
@@ -40,9 +41,9 @@
 - (void)addShadow: (UIView *)view color:(UIColor *)color {
     view.layer.shadowColor =color.CGColor;
     view.layer.shadowOffset = CGSizeMake(1.0, 1.0);
-    view.layer.shadowOpacity = 1.0;
-    view.layer.shadowRadius = 3.0;
-    view.layer.masksToBounds=YES;
+    view.layer.shadowOpacity = 0.6;
+    view.layer.shadowRadius = 2.0;
+    view.layer.masksToBounds=NO;
 }
 //add shadow with corner radius
 - (void)addShadowWithCornerRadius: (UIView *)_myView color:(UIColor *)color borderColor:(UIColor *)borderColor radius:(CGFloat)radius {
