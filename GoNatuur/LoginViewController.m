@@ -289,25 +289,8 @@
     userLogin.password = _passwordTextField.text;
     userLogin.isSocialLogin=[NSNumber numberWithInt:isSocialLogin];
     [userLogin loginUserOnSuccess:^(LoginModel *userData) {
-        if (nil==[UserDefaultManager getValue:@"deviceToken"]||NULL==[UserDefaultManager getValue:@"deviceToken"]) {
-            [myDelegate stopIndicator];
-            //Navigate user to dashboard
-            [self navigateToDashboard];
-        }
-        else{
-            [self saveDeviceToken];
-        }
-        
-    } onfailure:^(NSError *error) {
-        
-    }];
-}
-
-//Save device token for push notifications
-- (void)saveDeviceToken {
-    LoginModel *saveDeviceToken = [LoginModel sharedUser];
-    [saveDeviceToken saveDeviceToken:^(LoginModel *deviceToken) {
         [myDelegate stopIndicator];
+        //Navigate user to dashboard
         [self navigateToDashboard];
     } onfailure:^(NSError *error) {
         

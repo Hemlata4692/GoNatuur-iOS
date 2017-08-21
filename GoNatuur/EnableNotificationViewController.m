@@ -9,6 +9,8 @@
 #import "EnableNotificationViewController.h"
 #import <UserNotifications/UserNotifications.h>
 
+#define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 @interface EnableNotificationViewController () {
     @private
     BOOL isNotificationAllowed;
@@ -67,71 +69,104 @@
 }
 #pragma mark - end
 
+#pragma mark - UIApplicationWillEnterForegroundNotification handler
 - (void)didBecomeInActiveState {
     [self checkNotificationSetting];
 }
+#pragma mark - end
 
+#pragma mark - Check push notification setting
 - (void)checkNotificationSetting {
     if (isClickEnable!=0) {
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-        [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *settings){
-            //Query the authorization status of the UNNotificationSettings object
-            switch (settings.authorizationStatus) {
-                case UNAuthorizationStatusAuthorized:
-                    if (isClickEnable==2) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self showSettingAlert];
-                        });
+        if(SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(iOS_Version)) {
+            //Use for iOS 9 or later device
+            UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+            [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *settings){
+                //Query the authorization status of the UNNotificationSettings object
+                switch (settings.authorizationStatus) {
+                    case UNAuthorizationStatusAuthorized:
+                        if (isClickEnable==2) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self showSettingAlert];
+                            });
+                        }
+                        else {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [myDelegate registerForRemoteNotification];
+                                [UserDefaultManager setValue:[NSNumber numberWithBool:true] key:@"enableNotification"];
+                                [self navigateToDashboard];
+                            });
+                        }
+                        break;
+                    case UNAuthorizationStatusDenied:
+                    {
+                        if (isClickEnable==1) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self showSettingAlert];
+                            });
+                        }
+                        else {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [myDelegate unregisterForRemoteNotifications];
+                                [self navigateToDashboard];
+                            });
+                        }
                     }
-                    else {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [myDelegate registerForRemoteNotification];
-                            [UserDefaultManager setValue:[NSNumber numberWithBool:true] key:@"enableNotification"];
-                            [self navigateToDashboard];
-                        });
-                    }
-                    break;
-                case UNAuthorizationStatusDenied:
-                {
-                    if (isClickEnable==1) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self showSettingAlert];
-                        });
-                    }
-                    else {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [myDelegate unregisterForRemoteNotifications];
-                            [self navigateToDashboard];
-                        });
-                    }
+                        break;
+                    case UNAuthorizationStatusNotDetermined:
+                        break;
+                    default:
+                        break;
                 }
-                    break;
-                case UNAuthorizationStatusNotDetermined:
-                    break;
-                default:
-                    break;
+            }];
+        }
+        else {
+            //Use for iOS 8 device
+            if ([[[UIApplication sharedApplication] currentUserNotificationSettings] types]!=UIUserNotificationTypeNone) {
+                if (isClickEnable==2) {
+                    [self showSettingAlert];
+                }
+                else {
+                    [myDelegate registerForRemoteNotification];
+                    [UserDefaultManager setValue:[NSNumber numberWithBool:true] key:@"enableNotification"];
+                    [self navigateToDashboard];
+                }
             }
-        }];
+            else {
+                if (isClickEnable==1) {
+                    [self showSettingAlert];
+                }
+                else {
+                    [myDelegate unregisterForRemoteNotifications];
+                    [self navigateToDashboard];
+                }
+            }
+        }
     }
 }
+#pragma mark - end
 
+#pragma mark - Show alert
 - (void)showSettingAlert {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"\"GoNatuur\" Would Like to Send You Notifications" message:@"Notifications may include alerts, sounds, and icon badges. These can be configured in Settings." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedText(@"PushNotificationAlertTitle") message:NSLocalizedText(@"PushNotificationAlertMessage") preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *allow = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *allow = [UIAlertAction actionWithTitle:NSLocalizedText(@"alertOk") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
     }];
-    UIAlertAction *donotAllow = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *donotAllow = [UIAlertAction actionWithTitle:NSLocalizedText(@"alertCancel") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     }];
     [alertController addAction:donotAllow];
     [alertController addAction:allow];
     [self presentViewController:alertController animated:YES completion:nil];
 }
+#pragma mark - end
 
+#pragma mark - Navigate to dashboard
 - (void)navigateToDashboard {
     UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
     [myDelegate.window setRootViewController:objReveal];
     [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
     [myDelegate.window makeKeyAndVisible];
 }
+#pragma mark - end
 @end
