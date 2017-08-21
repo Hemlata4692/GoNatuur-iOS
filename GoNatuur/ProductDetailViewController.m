@@ -291,6 +291,7 @@
         //Review action
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ReviewListingViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewListingViewController"];
+        reviewView.productID =[NSNumber numberWithInt:selectedProductId];
         [self.navigationController pushViewController:reviewView animated:YES];
     }
     else if (indexPath.row==12) {

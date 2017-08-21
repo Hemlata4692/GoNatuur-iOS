@@ -97,7 +97,7 @@
 }
 
 - (void)displayAddToCartButton {
-    _addToCartButton.layer.cornerRadius=17.5;
-    _addToCartButton.layer.masksToBounds=true;
+    [_addToCartButton setCornerRadius:17.0];
+    [_addToCartButton addShadow:_addToCartButton color:[UIColor blackColor]];
 }
 @end

@@ -8,7 +8,6 @@
 
 #import "GoNatuurPickerView.h"
 
-
 @interface GoNatuurPickerView() {
     int tagValue;
 }
@@ -42,7 +41,7 @@
     tagValue=option;
     [_pickerView reloadAllComponents];
     [_pickerView selectRow:selectedIndex inComponent:0 animated:YES];
-    
+   
     [UIView animateWithDuration:0.2f animations:^{
         //To Frame
         goNatuurPickerViewObj.frame=CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-pickerHeight, [[UIScreen mainScreen] bounds].size.width, pickerHeight);
@@ -50,6 +49,7 @@
     } completion:^(BOOL completed) {
         
     }];
+     _pickerView.showsSelectionIndicator = YES;
 }
 
 - (void)hidePickerView {

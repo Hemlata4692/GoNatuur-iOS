@@ -353,8 +353,7 @@
 		180ECD381F489AAD003C936E /* ReviewModule */ = {
 			isa = PBXGroup;
 			children = (
-				180ECD341F486E6F003C936E /* ReviewListingViewController */,
-				180ECD391F489AC4003C936E /* ReviewListCell */,
+				185693CD1F4AA10D00D1EE0F /* ReviewListView */,
 				180ECD261F4849F2003C936E /* ReviewViewController */,
 			);
 			name = ReviewModule;
@@ -448,6 +447,15 @@
 				184C38641F3B328A008B8291 /* EnableNotificationViewController.m */,
 			);
 			name = EnableNotificationView;
+			sourceTree = "<group>";
+		};
+		185693CD1F4AA10D00D1EE0F /* ReviewListView */ = {
+			isa = PBXGroup;
+			children = (
+				180ECD391F489AC4003C936E /* ReviewListCell */,
+				180ECD341F486E6F003C936E /* ReviewListingViewController */,
+			);
+			name = ReviewListView;
 			sourceTree = "<group>";
 		};
 		1870F0BB1F44184F008B2CE5 /* ToastView */ = {

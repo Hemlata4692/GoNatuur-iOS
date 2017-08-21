@@ -14,7 +14,7 @@
 @property (strong, nonatomic) NSString *username;
 @property (strong, nonatomic) NSString *starFilter;
 @property (strong, nonatomic) NSString *sortBy;
-@property (strong, nonatomic) NSString *productId;
+@property (strong, nonatomic) NSNumber *productId;
 @property (strong, nonatomic) NSString *reviewTitle;
 @property (strong, nonatomic) NSString *reviewDescription;
 @property (strong, nonatomic) NSString *userImageUrl;

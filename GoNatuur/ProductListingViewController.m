@@ -38,7 +38,6 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     //Add custom picker view and initialized indexs
     [self addCustomPickerView];
     // Do any additional setup after loading the view.

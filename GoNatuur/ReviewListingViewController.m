@@ -10,8 +10,16 @@
 #import "ReviewDataModel.h"
 #import "UITextField+Padding.h"
 #import "ReviewViewController.h"
+#import "GoNatuurPickerView.h"
 
-@interface ReviewListingViewController ()
+@interface ReviewListingViewController ()<GoNatuurPickerViewDelegate> {
+    @private
+    GoNatuurPickerView *sortingPickerView;
+    ReviewDataModel *reviewList;
+     int selectedStarFilterIndex, selectedPickerIndex, selectedSortByFilterIndex, selectedSortFilterIndex;
+    NSMutableArray *reviewListingDataAray, *sortByDataArray, *starFilterDataArray;
+    NSString *starFilter, *sortByFilter;
+}
 @property (weak, nonatomic) IBOutlet UITableView *reviewListingTableView;
 @property (weak, nonatomic) IBOutlet UIView *filterView;
 @property (weak, nonatomic) IBOutlet UIButton *writeReviewButton;
@@ -21,11 +29,16 @@
 @end
 
 @implementation ReviewListingViewController
+@synthesize productID;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    starFilterDataArray=[[NSMutableArray alloc]initWithObjects:@"1 Star",@"2 Stars",@"3 Stars",@"4 Stars",@"5 Stars", nil];
+    sortByDataArray=[[NSMutableArray alloc]initWithObjects:@"Most Recent",@"Stars low to high",@"Stars high to low", nil];
+    sortByFilter=@"";
+    starFilter=@"";
     [myDelegate showIndicator];
     [self performSelector:@selector(getReviewListingData) withObject:nil afterDelay:.1];
 }
@@ -48,20 +61,53 @@
     [_writeReviewButton setCornerRadius:17.0];
     [_writeReviewButton addShadow:_writeReviewButton color:[UIColor blackColor]];
     [_searchTextField addTextFieldLeftRightPadding:_searchTextField];
+     [self addCustomPickerView];
 }
 
 #pragma mark - end
 
+- (void)addCustomPickerView {
+    //Set initial index of picker view and initialized picker view
+    selectedStarFilterIndex=0;
+    selectedPickerIndex=0;
+    selectedSortByFilterIndex=0;
+    sortingPickerView=[[GoNatuurPickerView alloc] initWithFrame:self.view.frame delegate:self pickerHeight:230];
+    [self.view addSubview:sortingPickerView.goNatuurPickerViewObj];
+}
+
+#pragma mark - Custom picker delegate method
+- (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {
+    if (option==1) {
+        if (selectedPickerIndex!=tempSelectedIndex) {
+            selectedPickerIndex=tempSelectedIndex;
+            [_starFilterButton setTitle:[starFilterDataArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
+            starFilter=[NSString stringWithFormat:@"%d",selectedPickerIndex+1];
+//            [myDelegate showIndicator];
+//            [self performSelector:@selector(getReviewListingData) withObject:nil afterDelay:.1];
+        }
+    }
+    else if (option==2) {
+        if (selectedSortFilterIndex!=tempSelectedIndex) {
+            selectedSortFilterIndex=tempSelectedIndex;
+            [_sortByFilterButton setTitle:[sortByDataArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
+            sortByFilter=@"";
+            //            [myDelegate showIndicator];
+            //            [self performSelector:@selector(getReviewListingData) withObject:nil afterDelay:.1];
+        }
+    }
+}
+#pragma mark - end
+//:(NSString *)userName starValue:(NSString *)starValue sortFilter:(NSString *)sortFilter
 #pragma mark - Webservice
 //Get review list data
 - (void)getReviewListingData {
-    ReviewDataModel *reviewList = [ReviewDataModel sharedUser];
-    reviewList.productId=@"4";
-    reviewList.username=@"";
-    reviewList.reviewDescription=@"";
-    reviewList.reviewTitle=@"";
-    reviewList.sortBy=@"0";
-    reviewList.starFilter=@"0";
+    reviewList = [ReviewDataModel sharedUser];
+    reviewList.productId=productID;
+    reviewList.username=_searchTextField.text;
+    reviewList.reviewDescription=_searchTextField.text;
+    reviewList.reviewTitle=_searchTextField.text;
+    reviewList.sortBy=sortByFilter;
+    reviewList.starFilter=starFilter;
     [reviewList getUserReviewListingData:^(ReviewDataModel *userData)  {
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
@@ -71,15 +117,33 @@
 
 #pragma mark - IBActions
 - (IBAction)starFilterButtonAction:(id)sender {
+    [sortingPickerView showPickerView:starFilterDataArray selectedIndex:selectedPickerIndex option:1];
 }
 
 - (IBAction)sortByFilterAction:(id)sender {
+     [sortingPickerView showPickerView:sortByDataArray selectedIndex:selectedSortFilterIndex option:2];
 }
 
 - (IBAction)writeReviewButtonAction:(id)sender {
     UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ReviewViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewViewController"];
     [self.navigationController pushViewController:reviewView animated:YES];
+}
+#pragma mark - end
+
+#pragma mark Text Field Delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+   [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    // add your method here
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
 }
 #pragma mark - end
 
