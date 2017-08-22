@@ -11,10 +11,14 @@
 #import "UITextField+Padding.h"
 #import "UIPlaceHolderTextView.h"
 #import "BSKeyboardControls.h"
+#import "ReviewService.h"
+#import "ReviewDataModel.h"
+#import "ReviewListingViewController.h"
 
 @interface ReviewViewController ()<EDStarRatingProtocol,BSKeyboardControlsDelegate> {
 @private
     NSString *starRatingValue;
+    NSMutableArray *ratingOptionArray;
 }
 
 @property (weak, nonatomic) IBOutlet UIView *shadowView;
@@ -26,11 +30,14 @@
 @end
 
 @implementation ReviewViewController
+@synthesize selectedProductId;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    ratingOptionArray=[[NSMutableArray alloc]init];
+  
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,6 +85,35 @@
 
 - (void)starsSelectionChanged:(EDStarRating *)control rating:(float)rating {
     starRatingValue = [NSString stringWithFormat:@"%.1f", rating];
+}
+#pragma mark - end
+
+#pragma mark - IBAction
+- (IBAction)addReviewButtonAction:(id)sender {
+    [myDelegate showIndicator];
+    [self performSelector:@selector(addProductReview) withObject:nil afterDelay:.1];
+}
+#pragma mark - end
+
+#pragma mark - Webservice
+- (void)addProductReview {
+    ReviewDataModel *addReview = [ReviewDataModel sharedUser];
+    addReview.productId=selectedProductId;
+    addReview.username=@"testuser";
+    addReview.reviewTitle=_titleTextField.text;
+    addReview.reviewDescription=_reviewTextView.text;
+    addReview.ratingId=starRatingValue;
+    [addReview addCustomerReview:^(ReviewDataModel *userData)  {
+        [myDelegate stopIndicator];
+        [self popToReviewList];
+        ratingOptionArray=[userData.rationOptionsArray mutableCopy];
+    } onfailure:^(NSError *error) {
+    }];
+
+}
+
+- (void)popToReviewList {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - end
 

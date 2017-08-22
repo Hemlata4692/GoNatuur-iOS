@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "EDStarRating.h"
+#import "ReviewDataModel.h"
 
-@interface ReviewTableViewCell : UITableViewCell
+@interface ReviewTableViewCell : UITableViewCell<EDStarRatingProtocol>
 @property (weak, nonatomic) IBOutlet UIImageView *userImageView;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UILabel *location;
@@ -17,4 +18,5 @@
 @property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
 @property (weak, nonatomic) IBOutlet UILabel *reviewTextLabel;
 
+- (void)displayData :(ReviewDataModel *)listData;
 @end

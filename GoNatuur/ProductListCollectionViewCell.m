@@ -34,18 +34,5 @@
         float rating = (([productListData.productRating integerValue])*5.0)/100.0;
         _productRating.text=[NSString stringWithFormat:@"(%.1f)",rating];
     }
-////    _productPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrency"],productListData.productPrice];
-//    _productDescription.text=productListData.productDescription;
-//    [ImageCaching downloadImages:_productImageView imageUrl:productListData.productImageThumbnail placeholderImage:@"product_placeholder" isDashboardCell:true];
-//        statusBannerImage.hidden=YES;
-//        if ([productListData.productRating isEqualToString:@""] || productListData.productRating==nil) {
-//            productRating.hidden=YES;
-//            ratingStarImage.hidden=YES;
-//        }
-//        else {
-//            productRating.hidden=NO;
-//            ratingStarImage.hidden=NO;
-//            productRating.text=productListData.productRating;
-//        }
 }
 @end

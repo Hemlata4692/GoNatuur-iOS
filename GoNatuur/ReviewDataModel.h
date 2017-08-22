@@ -19,11 +19,22 @@
 @property (strong, nonatomic) NSString *reviewDescription;
 @property (strong, nonatomic) NSString *userImageUrl;
 @property (strong, nonatomic) NSString *userLocation;
-@property (strong, nonatomic) NSString *reviewListArray;
+@property (strong, nonatomic) NSString *sortByValue;
+@property (strong, nonatomic) NSString *ratingId;
+@property (strong, nonatomic) NSString *optionId;
+@property (strong, nonatomic) NSString *reviewId;
+@property (strong, nonatomic) NSMutableArray *reviewListArray;
+@property (strong, nonatomic) NSMutableArray *rationOptionsArray;
 
 //Singleton instanse
 + (instancetype)sharedUser;
 
 //Review listing data
 - (void)getUserReviewListingData:(void (^)(ReviewDataModel *))success onfailure:(void (^)(NSError *))failure;
+
+//Rating options data
+- (void)getRatingData:(void (^)(ReviewDataModel *))success onfailure:(void (^)(NSError *))failure;
+
+//Add review
+- (void)addCustomerReview:(void (^)(ReviewDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end
