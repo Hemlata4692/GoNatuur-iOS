@@ -91,8 +91,14 @@
     [userLogin CMSPageService:^(LoginModel *userData) {
         self.navigationItem.title=userData.cmsTitle;
      //   [_webView loadHTMLString:userData.cmsContent baseURL: nil];
-         [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body text=\"#5E5E5E\" align='justify' face=\"Montserrat-Regular\" size=\"5\">%@</body></html>", userData.cmsContent] baseURL: nil];
-    } onfailure:^(NSError *error) {
+        userData.cmsContent = [NSString stringWithFormat:@"<span style=\"font-family: %@; font-size: %i\">%@</span>",
+                            @"Montserrat-Light",
+                            17,
+                            userData.cmsContent];
+        [myDelegate showIndicator];
+        // [_productDetailWebView loadHTMLString:productDetaiData baseURL: nil];
+        [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body bgcolor=\"#FDF4F6\" text=\"#000000\" align='justify'>%@</body></html>", userData.cmsContent] baseURL: nil];
+        } onfailure:^(NSError *error) {
     }];
 }
 #pragma mark - end
