@@ -13,6 +13,9 @@
 #import "LoginModel.h"
 #import "ProductDetailViewController.h"
 #import "ProductListingViewController.h"
+#import "UIImage+animatedGIF.h"
+
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
 @interface DashboardViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -251,7 +254,7 @@
     samplersProductDataArray=[bannerImageData.samplersDataArray mutableCopy];
     //footerImageView
     bannerImageData=[footerImageArray objectAtIndex:0];
-    [ImageCaching downloadImages:_footerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:false];
+    [ImageCaching downloadImages:_footerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:true];
     [_productCollectionView reloadData];
     [_footerImageCollectionView reloadData];
     [self swipeImages];
@@ -262,7 +265,25 @@
 - (void)swipeImages {
     selectedIndex=0;
     bannerImageData=[bannerImageArray objectAtIndex:selectedIndex];
-    [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:false];
+   // [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:true];
+    
+    
+   
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        NSURL *url = [NSURL URLWithString:bannerImageData.banerImageUrl];
+//        _bannerImageView.image = [UIImage animatedImageWithAnimatedGIFData:[NSData dataWithContentsOfURL:url]];
+//        _bannerImageView.image = [UIImage animatedImageWithAnimatedGIFURL:url];
+//    });
+
+    dispatch_async(kBgQueue, ^{
+        NSURL *url = [NSURL URLWithString:bannerImageData.banerImageUrl];
+        _bannerImageView.image = [UIImage animatedImageWithAnimatedGIFData:[NSData dataWithContentsOfURL:url]];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _bannerImageView.image = [UIImage animatedImageWithAnimatedGIFURL:url];
+        });
+    });
+    
     self.bannerImageView.userInteractionEnabled = YES;
      _footerImageView.userInteractionEnabled=YES;
     //Swipe gesture to swipe images to left

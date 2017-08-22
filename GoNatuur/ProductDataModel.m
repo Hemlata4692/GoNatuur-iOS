@@ -30,6 +30,11 @@
 @synthesize productBenefitsUsage;
 @synthesize wishlist;
 @synthesize following;
+@synthesize productSubtitle;
+@synthesize productWhereToBuy;
+@synthesize productUrlKey;
+@synthesize reviewAdded;
+@synthesize reviewId;
 
 - (id)copyWithZone:(NSZone *)zone {
     ProductDataModel *another = [[ProductDataModel alloc] init];

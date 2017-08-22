@@ -436,23 +436,30 @@
         productData.productName=[response objectForKey:@"name"];
         productData.productPrice=[response objectForKey:@"price"];
         productData.categoryId=[[customAttributeDict objectForKey:@"category_ids"] objectAtIndex:0];
+        productData.productSubtitle=[customAttributeDict objectForKey:@"subtitle"];
+        productData.productUrlKey=[customAttributeDict objectForKey:@"url_key"];
         if ([customAttributeDict objectForKey:@"description"]!=nil) {
             productData.productDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"description"]];
         }
         if ([customAttributeDict objectForKey:@"short_description"]!=nil) {
             productData.productShortDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"short_description"]];
         }
-        if ([customAttributeDict objectForKey:@"benifits_usage"]!=nil) {
-            productData.productBenefitsUsage=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"benifits_usage"]];
+        if ([customAttributeDict objectForKey:@"benefits_usage"]!=nil) {
+            productData.productBenefitsUsage=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"benefits_usage"]];
         }
+        if ([customAttributeDict objectForKey:@"brand_story"]!=nil) {
+            productData.productBrandStory=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"brand_story"]];
+        }
+       productData.productWhereToBuy=[customAttributeDict objectForKey:@"where_buy"];
         //rating
         //        if ([customAttributeDict objectForKey:@"brand_story"]!=nil) {
         //            productData.productBrandStory=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"brand_story"]];
         //        }
         productData.productMaxQuantity=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
         productData.following=[[response objectForKey:@"is_following"] stringValue];
-        //        productData.isWishlist=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
-        
+        productData.wishlist=[[response objectForKey:@"is_in_wishlist"] stringValue];
+        productData.reviewAdded=[[response objectForKey:@"is_reviewed"] stringValue];
+        productData.reviewId=[[response objectForKey:@"review_id"] stringValue];
         productData.productMediaArray=[[response objectForKey:@"media"] mutableCopy];
         success(productData);
     } onfailure:^(NSError *error) {

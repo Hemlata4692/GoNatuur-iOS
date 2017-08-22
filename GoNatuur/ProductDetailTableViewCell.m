@@ -34,7 +34,6 @@
     _productShortDescriptionLabel.translatesAutoresizingMaskIntoConstraints=true;
     _productShortDescriptionLabel.frame=CGRectMake(40, 0, [[UIScreen mainScreen] bounds].size.width-80, [DynamicHeightWidth getDynamicLabelHeight:productDescription font:[UIFont montserratMediumWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:30]);
     _productShortDescriptionLabel.text=productDescription;
-//    _productShortDescriptionLabel.backgroundColor=[UIColor greenColor];
 }
 
 - (void)displayRating:(NSString *)productRating {
@@ -48,7 +47,7 @@
         _starBackView.delegate = self;
 //        _starBackView.horizontalMargin = 10;
         _starBackView.editable=NO;
-        _starBackView.rating= 4.5;
+        _starBackView.rating= [productRating floatValue];
         _starBackView.displayMode=EDStarRatingDisplayHalf;
 //    }
 }
@@ -64,7 +63,6 @@
             _videoIcon.hidden=false;
             _video360Icon.hidden=true;
         }
-        
         /*Code is commented for 360 video media type
          else if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"image"]) {
          _transparentView.hidden=false;

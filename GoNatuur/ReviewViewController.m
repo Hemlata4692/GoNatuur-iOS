@@ -31,6 +31,8 @@
 
 @implementation ReviewViewController
 @synthesize selectedProductId;
+@synthesize reviewData;
+@synthesize isEditMode;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -65,20 +67,26 @@
     [_titleTextField addTextFieldLeftRightPadding:_titleTextField];
     [_reviewTextView setTextViewBorder:_reviewTextView color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_reviewTextView setPlaceholder:NSLocalizedText(@"textViewPlaceholder")];    _reviewTextView.textContainer.lineFragmentPadding = 10;
-    [self addstarRating];
+    
+    if ([isEditMode isEqualToString:@"1"]) {
+         [self displayData];
+    }
+    else {
+        [self addstarRating:0];
+    }
 }
 #pragma mark - end
 
 #pragma mark - Add rating methods
-- (void)addstarRating {
+- (void)addstarRating:(NSString *)rating {
     _starRatingView.starImage = [UIImage imageNamed:@"star-unselected"];
     _starRatingView.starHighlightedImage = [UIImage imageNamed:@"star"];
     _starRatingView.maxRating = 5.0;
     _starRatingView.delegate = self;
     _starRatingView.horizontalMargin = 5;
     _starRatingView.editable=YES;
-    _starRatingView.rating= 0;
-    _starRatingView.displayMode=EDStarRatingDisplayHalf;
+    _starRatingView.rating= [rating floatValue];
+    _starRatingView.displayMode=EDStarRatingDisplayFull;
     [self starsSelectionChanged:_starRatingView rating:0];
 }
 
@@ -105,7 +113,6 @@
     [addReview addCustomerReview:^(ReviewDataModel *userData)  {
         [myDelegate stopIndicator];
         [self popToReviewList];
-        ratingOptionArray=[userData.rationOptionsArray mutableCopy];
     } onfailure:^(NSError *error) {
     }];
 
@@ -113,6 +120,12 @@
 
 - (void)popToReviewList {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)displayData {
+    _titleTextField.text=reviewData.reviewTitle;
+    _reviewTextView.text=reviewData.reviewDescription;
+   [self addstarRating:reviewData.ratingId];
 }
 #pragma mark - end
 
