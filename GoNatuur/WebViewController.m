@@ -37,9 +37,13 @@
     [self addLeftBarButtonWithImage:true];
 
     [_shadowView addShadow:_shadowView color:[UIColor darkGrayColor]];
+    productDetaiData = [NSString stringWithFormat:@"<span style=\"font-family: %@; font-size: %i\">%@</span>",
+                  @"Montserrat-Light",
+                  17,
+                  productDetaiData];
     [myDelegate showIndicator];
    // [_productDetailWebView loadHTMLString:productDetaiData baseURL: nil];
-    [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body bgcolor=\"#FFEDF1\" text=\"#5E5E5E\" align='justify' face=\"Montserrat-Medium\" size=\"5\">%@</body></html>", productDetaiData] baseURL: nil];
+    [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body bgcolor=\"#FDF4F6\" text=\"#000000\" align='justify'>%@</body></html>", productDetaiData] baseURL: nil];
 }
 #pragma mark - end
 
@@ -50,6 +54,8 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [myDelegate stopIndicator];
+    NSString *padding = @"document.body.style.padding='5px 5px 5px 5px';";
+    [webView stringByEvaluatingJavaScriptFromString:padding];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {

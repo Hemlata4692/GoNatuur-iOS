@@ -1344,7 +1344,7 @@
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D8L-uG-sMh">
                                 <rect key="frame" x="0.0" y="-20" width="320" height="460"/>
-                                <color key="backgroundColor" red="1" green="0.92941176469999998" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.99215686274509807" green="0.95686274509803915" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="fYU-mv-kdR" id="6Ju-M3-D83"/>
                                 </connections>
@@ -1357,7 +1357,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.92941176469999998" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99215686274509807" green="0.95686274509803915" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="D8L-uG-sMh" firstAttribute="top" secondItem="QbH-6X-kiV" secondAttribute="bottom" constant="-20" id="CXg-0l-mjT"/>
                             <constraint firstItem="yrO-vT-77F" firstAttribute="top" secondItem="QbH-6X-kiV" secondAttribute="bottom" constant="40" id="GOA-La-qcm"/>
@@ -1660,7 +1660,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.92941176470588238" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.99215686274509807" green="0.95686274509803915" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="z3F-hP-CD4" firstAttribute="width" secondItem="kx7-rY-Exe" secondAttribute="width" id="1WD-7D-ykP"/>
                                     <constraint firstAttribute="height" constant="82" id="3A5-vd-9ba"/>
@@ -2184,7 +2184,7 @@
                                 </connections>
                             </webView>
                         </subviews>
-                        <color key="backgroundColor" red="0.97647058823529409" green="0.94509803921568625" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99215686274509807" green="0.95686274509803915" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="G0b-WN-vhp" firstAttribute="top" secondItem="YAB-Je-xfj" secondAttribute="bottom" constant="20" id="1KM-9I-ZvL"/>
                             <constraint firstItem="YAB-Je-xfj" firstAttribute="top" secondItem="LwF-df-5KV" secondAttribute="bottom" constant="20" id="Evu-gD-aZI"/>

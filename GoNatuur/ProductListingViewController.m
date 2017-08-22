@@ -75,6 +75,8 @@
     totalProductCount=0;
     currentpage=1;
     _productListTableView.tableFooterView=nil;
+    //Bring front view picker view
+    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
     //Allocate footer view
     [self initializeFooterView];
     // Pull to refresh
