@@ -128,6 +128,7 @@
         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else if (indexPath.row==5) {
+        myDelegate.selectedCategoryIndex=-1;
         [self checkGuestAccess];
     }
     else if (indexPath.row==6) {
@@ -166,7 +167,6 @@
         }
         else if([identifier isEqualToString:@"Notifications"])
         {
-            
             return NO;
         }
         else {
@@ -201,6 +201,7 @@
     [UserDefaultManager removeValue:@"Authorization"];
     [UserDefaultManager removeValue:@"profilePicture"];
     [UserDefaultManager removeValue:@"enableNotification"];
+    [UserDefaultManager removeValue:@"quoteId"];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     myDelegate.navigationController = [storyboard instantiateViewControllerWithIdentifier:@"mainNavController"];
     myDelegate.window.rootViewController = myDelegate.navigationController;

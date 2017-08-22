@@ -27,17 +27,33 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [_homeTab setSelected:YES];
-    if (_homeTab.selected) {
-        _homeTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
-        _homeTabImageIcon.alpha=0.6;
-    }
+//    [_homeTab setSelected:YES];
+    [self viewInitialized];
+//    if (_homeTab.selected) {
+//        _homeTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
+//        _homeTabImageIcon.alpha=0.6;
+//    }
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewInitialized {
+    //Deselect all tabs
+    [_homeTab setSelected:false];
+    [_myCartTab setSelected:false];
+    [_wishlistTab setSelected:false];
+    [_profileTab setSelected:false];
+    _homeTab.backgroundColor=[UIColor blackColor];
+    _homeTabImageIcon.alpha=1.0;
+    _myCartTab.backgroundColor=[UIColor blackColor];
+    _wishlistTab.backgroundColor=[UIColor blackColor];
+    _profileTab.backgroundColor=[UIColor blackColor];
+    _myCartTabImageIcon.alpha=1.0;
+    _wishlistTabImageIcon.alpha=1.0;
+    _profileTabImageIcon.alpha=1.0;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    myDelegate.tabButtonTag=@"1";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,13 +62,35 @@
 }
 #pragma mark - end
 
+#pragma mark - Update home tab
+- (void)showSelectedTab:(int)item {
+    if (item==1) {
+        _homeTab.selected=true;
+        _homeTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
+        _homeTabImageIcon.alpha=0.6;
+    }
+    else if (item==2) {
+        _myCartTab.selected=true;
+        _myCartTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
+        _myCartTabImageIcon.alpha=0.6;
+    }
+    else if (item==3) {
+        _wishlistTab.selected=true;
+        _wishlistTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
+        _wishlistTabImageIcon.alpha=0.6;
+    }
+    else if (item==4) {
+        _profileTab.selected=true;
+        _profileTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
+        _profileTabImageIcon.alpha=0.6;
+    }
+}
+#pragma mark - end
+
 #pragma mark - Tab bar IBAction
 - (IBAction)homeTabAction:(id)sender {
-    [_homeTab setSelected:YES];
-    [_myCartTab setSelected:NO];
-    [_wishlistTab setSelected:NO];
-    [_profileTab setSelected:NO];
-    if (_homeTab.selected) {
+    if (!_homeTab.selected) {
+        myDelegate.selectedCategoryIndex=-1;
         _homeTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
         _homeTabImageIcon.alpha=0.6;
         _myCartTab.backgroundColor=[UIColor blackColor];
@@ -61,12 +99,7 @@
         _myCartTabImageIcon.alpha=1.0;
         _wishlistTabImageIcon.alpha=1.0;
         _profileTabImageIcon.alpha=1.0;
-    }
-    else {
-        _homeTabImageIcon.alpha=1.0;
-        _homeTab.backgroundColor=[UIColor blackColor];
-    }
-    if ([myDelegate.tabButtonTag isEqualToString:@"0"]) {
+        //Navigate to dashboard screen
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         DashboardViewController * loginView = [storyboard instantiateViewControllerWithIdentifier:@"DashboardViewController"];
         [self.navigationController setViewControllers: [NSArray arrayWithObject:loginView]
@@ -75,11 +108,8 @@
 }
 
 - (IBAction)myCartTabAction:(id)sender {
-    [_homeTab setSelected:NO];
-    [_myCartTab setSelected:YES];
-    [_wishlistTab setSelected:NO];
-    [_profileTab setSelected:NO];
-    if (_myCartTab.selected) {
+    /*Feature not available
+    if (!_myCartTab.selected) {
         _myCartTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
         _myCartTabImageIcon.alpha=0.6;
         _homeTab.backgroundColor=[UIColor blackColor];
@@ -89,20 +119,13 @@
         _wishlistTabImageIcon.alpha=1.0;
         _profileTabImageIcon.alpha=1.0;
         myDelegate.tabButtonTag=@"0";
-    }
-    else {
-        _myCartTabImageIcon.alpha=1.0;
-        _myCartTab.backgroundColor=[UIColor blackColor];
-    }
+    }*/
     [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
 }
 
 - (IBAction)wishlistTabAction:(id)sender {
-    [_homeTab setSelected:NO];
-    [_myCartTab setSelected:NO];
-    [_wishlistTab setSelected:YES];
-    [_profileTab setSelected:NO];
-    if (_wishlistTab.selected) {
+    /*Feature not available
+    if (!_wishlistTab.selected) {
         _wishlistTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
         _homeTab.backgroundColor=[UIColor blackColor];
         _myCartTab.backgroundColor=[UIColor blackColor];
@@ -112,20 +135,13 @@
         _wishlistTabImageIcon.alpha=0.6;
         _profileTabImageIcon.alpha=1.0;
         myDelegate.tabButtonTag=@"0";
-    }
-    else {
-        _wishlistTabImageIcon.alpha=1.0;
-        _wishlistTab.backgroundColor=[UIColor blackColor];
-    }
+    }*/
     [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
 }
 
 - (IBAction)profileTabAction:(id)sender {
-    [_homeTab setSelected:NO];
-    [_myCartTab setSelected:NO];
-    [_wishlistTab setSelected:NO];
-    [_profileTab setSelected:YES];
-    if (_profileTab.selected) {
+     /*Feature not available
+    if (!_profileTab.selected) {
         _profileTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
         _homeTab.backgroundColor=[UIColor blackColor];
         _myCartTab.backgroundColor=[UIColor blackColor];
@@ -135,11 +151,7 @@
         _wishlistTabImageIcon.alpha=1.0;
         _profileTabImageIcon.alpha=0.6;
         myDelegate.tabButtonTag=@"0";
-    }
-    else {
-        _profileTabImageIcon.alpha=1.0;
-        _profileTab.backgroundColor=[UIColor blackColor];
-    }
+    }*/
     [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
 }
 #pragma mark - end

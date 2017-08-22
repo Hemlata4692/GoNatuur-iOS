@@ -10,6 +10,7 @@
 #import "DasboardDataCollectionViewCell.h"
 #import "DashboardDataModel.h"
 #import "CurrencyDataModel.h"
+#import "LoginModel.h"
 
 @interface DashboardViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -59,6 +60,7 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:false];
+    [self showSelectedTab:1];
     if (firstTime) {
         [myDelegate showIndicator];
         [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
@@ -67,6 +69,11 @@
         [myDelegate showIndicator];
         [self performSelector:@selector(getDashboardData) withObject:nil afterDelay:.1];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    myDelegate.tabButtonTag=@"0";
 }
 #pragma mark - end
 
@@ -195,10 +202,26 @@
 - (void)getDashboardData {
     DashboardDataModel *dashboardData = [DashboardDataModel sharedUser];
     [dashboardData getDashboardData:^(DashboardDataModel *userData)  {
-        [myDelegate stopIndicator];
         firstTime=false;
         bannerImageData=userData;
         [self displayData];
+        if (nil!=[UserDefaultManager getValue:@"deviceToken"]&&NULL!=[UserDefaultManager getValue:@"deviceToken"]&&nil!=[UserDefaultManager getValue:@"enableNotification"]) {
+            [self saveDeviceToken];
+        }
+        else{
+            [myDelegate stopIndicator];
+        }
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+//Save device token for push notifications
+- (void)saveDeviceToken {
+    LoginModel *saveDeviceToken = [LoginModel sharedUser];
+    [saveDeviceToken saveDeviceToken:^(LoginModel *deviceToken) {
+        [myDelegate stopIndicator];
+        [UserDefaultManager removeValue:@"enableNotification"];
     } onfailure:^(NSError *error) {
         
     }];

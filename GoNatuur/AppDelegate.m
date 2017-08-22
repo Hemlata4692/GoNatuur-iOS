@@ -76,7 +76,7 @@
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     navigationController = (UINavigationController *)[self.window rootViewController];
-    if (nil!=[UserDefaultManager getValue:@"userId"]) {
+    if (nil!=[UserDefaultManager getValue:@"quoteId"]) {
         UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         [self.window setRootViewController:objReveal];

@@ -55,3 +55,5 @@
 "BrandStory"="Brand Story";
 "Shipping is free if the total purchase is above USD$100."="Shipping is free if the total purchase is above USD$100.";
 "Products can be returned within 30 days of purchase, subject to the following conditions."="Products can be returned within 30 days of purchase, subject to the following conditions.";
+"PushNotificationAlertTitle"="\"GoNatuur\" Would Like to Send You Notifications";
+"PushNotificationAlertMessage"="Notifications may include alerts, sounds, and icon badges. These can be configured in Settings.";
