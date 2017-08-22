@@ -1106,8 +1106,8 @@
 		B7A4D3EA1F4826CF00A28BBE /* ProductDetailCell */ = {
 			isa = PBXGroup;
 			children = (
-				B7A4D3F21F48291900A28BBE /* ProductDetailCollectionViewCell */,
 				B7A4D3F11F48290B00A28BBE /* ProductDetailTableViewCell */,
+				B7A4D3F21F48291900A28BBE /* ProductDetailCollectionViewCell */,
 			);
 			name = ProductDetailCell;
 			sourceTree = "<group>";

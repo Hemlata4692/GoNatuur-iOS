@@ -466,6 +466,55 @@
     [reviewList getReviewListing:reviewData success:^(id response) {
         //Parse data from server response and store in data model
         DLog(@"review list response %@",response);
+        reviewData.totalCount=[response objectForKey:@"total_count"];
+        reviewData.reviewListArray=[NSMutableArray new];
+        NSArray *reviewArray=response[@"items"];
+        for (int i=0; i<reviewArray.count; i++) {
+            NSDictionary * dataDict =[reviewArray objectAtIndex:i];
+            ReviewDataModel *tempModel=[[ReviewDataModel alloc] init];
+            tempModel.username=[dataDict objectForKey:@"nickname"];
+            tempModel.userImageUrl=[dataDict objectForKey:@"profile_pic"];
+            tempModel.reviewDescription=[dataDict objectForKey:@"detail"];
+            tempModel.reviewTitle=[dataDict objectForKey:@"title"];
+            tempModel.reviewId=[dataDict objectForKey:@"review_id"];
+            tempModel.ratingId = [[[dataDict objectForKey:@"rating_votes"] objectAtIndex:0] objectForKey:@"value"];
+            [reviewData.reviewListArray addObject:tempModel];
+        }
+        success(reviewData);
+    }
+                       onfailure:^(NSError *error) {
+                       }];
+}
+#pragma mark - end
+
+#pragma mark - Rating options
+- (void)getRationOptions:(ReviewDataModel *)reviewData onSuccess:(void (^)(ReviewDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    ReviewService *reviewList=[[ReviewService alloc]init];
+    [reviewList getRatingOptions:reviewData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"rating option list response %@",response);
+        reviewData.rationOptionsArray=[[NSMutableArray alloc]init];
+        NSArray *ratingArray=[[response objectForKey:@"items"] objectForKey:@"rating_options"];
+        for (int i =0; i<ratingArray.count; i++) {
+            NSDictionary * dataDict =[ratingArray objectAtIndex:i];
+            ReviewDataModel * ratingData = [[ReviewDataModel alloc]init];
+            ratingData.ratingId = dataDict[@"rating_id"];
+            ratingData.optionId = dataDict[@"option_id"];
+            [reviewData.rationOptionsArray addObject:ratingData];
+        }
+        success(reviewData);
+    }
+                       onfailure:^(NSError *error) {
+                       }];
+}
+#pragma mark - end
+
+#pragma mark - Add review
+- (void)addReview:(ReviewDataModel *)reviewData onSuccess:(void (^)(ReviewDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    ReviewService *reviewList=[[ReviewService alloc]init];
+    [reviewList addProductReview:reviewData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"review  response %@",response);
         
         success(reviewData);
     }

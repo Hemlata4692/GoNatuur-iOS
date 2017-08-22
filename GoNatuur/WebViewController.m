@@ -37,7 +37,9 @@
     [self addLeftBarButtonWithImage:true];
 
     [_shadowView addShadow:_shadowView color:[UIColor darkGrayColor]];
-    [_productDetailWebView loadHTMLString:productDetaiData baseURL: nil];
+    [myDelegate showIndicator];
+   // [_productDetailWebView loadHTMLString:productDetaiData baseURL: nil];
+    [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body bgcolor=\"#FFEDF1\" text=\"#5E5E5E\" align='justify' face=\"Montserrat-Medium\" size=\"5\">%@</body></html>", productDetaiData] baseURL: nil];
 }
 #pragma mark - end
 

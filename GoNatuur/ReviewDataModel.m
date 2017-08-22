@@ -21,6 +21,11 @@
 @synthesize userImageUrl;
 @synthesize userLocation;
 @synthesize reviewListArray;
+@synthesize sortByValue;
+@synthesize rationOptionsArray;
+@synthesize ratingId;
+@synthesize optionId;
+@synthesize reviewId;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser {
@@ -36,6 +41,30 @@
 #pragma mark - Review lsit
 - (void)getUserReviewListingData:(void (^)(ReviewDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getReviewListing:self onSuccess:^(ReviewDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Ration options
+- (void)getRatingData:(void (^)(ReviewDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getRationOptions:self onSuccess:^(ReviewDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Add review
+- (void)addCustomerReview:(void (^)(ReviewDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] addReview:self onSuccess:^(ReviewDataModel *userData) {
         if (success) {
             success (userData);
         }

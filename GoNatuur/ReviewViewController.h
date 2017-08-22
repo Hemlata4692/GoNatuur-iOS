@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ReviewViewController : GoNatuurViewController
-
+@property (nonatomic,strong) NSNumber *selectedProductId;
 @end

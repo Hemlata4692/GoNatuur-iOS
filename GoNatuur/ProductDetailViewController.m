@@ -98,10 +98,10 @@
         return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productName font:[UIFont montserratMediumWithSize:20] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:52]+24;
     }
     else if (indexPath.row==1) {
-        return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productShortDescription font:[UIFont montserratMediumWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:30]+3;
+        return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productShortDescription font:[UIFont montserratMediumWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:30]+5;
     }
     else if (indexPath.row==2) {
-        return 15;
+        return 22;
     }
     else if (indexPath.row==3) {
         return 290;

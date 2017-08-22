@@ -90,7 +90,8 @@
     userLogin.cmsPageType=cmsPageType;
     [userLogin CMSPageService:^(LoginModel *userData) {
         self.navigationItem.title=userData.cmsTitle;
-        [_webView loadHTMLString:userData.cmsContent baseURL: nil];
+     //   [_webView loadHTMLString:userData.cmsContent baseURL: nil];
+         [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body text=\"#5E5E5E\" align='justify' face=\"Montserrat-Regular\" size=\"5\">%@</body></html>", userData.cmsContent] baseURL: nil];
     } onfailure:^(NSError *error) {
     }];
 }
