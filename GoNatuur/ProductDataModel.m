@@ -28,8 +28,8 @@
 @synthesize productMediaArray;
 @synthesize productBrandStory;
 @synthesize productBenefitsUsage;
-@synthesize isWishlist;
-@synthesize isFollowing;
+@synthesize wishlist;
+@synthesize following;
 
 - (id)copyWithZone:(NSZone *)zone {
     ProductDataModel *another = [[ProductDataModel alloc] init];
@@ -92,6 +92,30 @@
 #pragma mark - Follow product
 - (void)followProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] followProduct:self onSuccess:^(ProductDataModel *productData) {
+        if (success) {
+            success (productData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Remove from wishlist
+- (void)removeProductWishlistOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] removeWishlistService:self onSuccess:^(ProductDataModel *productData) {
+        if (success) {
+            success (productData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Unfollow product
+- (void)unFollowProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure{
+    [[ConnectionManager sharedManager] unFollowProduct:self onSuccess:^(ProductDataModel *productData) {
         if (success) {
             success (productData);
         }
