@@ -231,10 +231,10 @@
         }
            UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
-            cellLabel.text=@"Unfollow this Product";
+            cellLabel.text=NSLocalizedText(@"unfollow");
         }
         else{
-            cellLabel.text=@"Follow this Product";
+            cellLabel.text=NSLocalizedText(@"follow");
         }
     }
     else if (indexPath.row==13) {
@@ -381,9 +381,9 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData addProductWishlistOnSuccess:^(ProductDataModel *productDetailData)  {
-        cellLabel.text=@"Added to Wishlist";
+        cellLabel.text=NSLocalizedText(@"wishlistAdded");
     } onfailure:^(NSError *error) {
-        cellLabel.text=@"Add to Wishlist";
+        cellLabel.text=NSLocalizedText(@"wishlist");
     }];
 
 }
@@ -396,12 +396,11 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData followProductOnSuccess:^(ProductDataModel *productDetailData)  {
-        cellLabel.text=@"Unfollow this Product";
+         cellLabel.text=NSLocalizedText(@"unfollow");
         productDetailModelData.following=@"1";
     } onfailure:^(NSError *error) {
-        cellLabel.text=@"Follow this Product";
+        cellLabel.text=NSLocalizedText(@"follow");
     }];
-    
 }
 
 //Unfollow product
@@ -412,10 +411,10 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData unFollowProductOnSuccess:^(ProductDataModel *productDetailData)  {
-        cellLabel.text=@"Follow this Product";
+        cellLabel.text=NSLocalizedText(@"follow");
         productDetailModelData.following=@"0";
     } onfailure:^(NSError *error) {
-        cellLabel.text=@"Unfollow this Product";
+         cellLabel.text=NSLocalizedText(@"unfollow");
     }];
     
 }

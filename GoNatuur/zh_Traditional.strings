@@ -58,3 +58,7 @@
 "PushNotificationAlertTitle"="\"GoNatuur\" Would Like to Send You Notifications";
 "PushNotificationAlertMessage"="Notifications may include alerts, sounds, and icon badges. These can be configured in Settings.";
 "textViewPlaceholder"="  Write your review here....";
+"follow"="Follow this Product";
+"unfollow"="Unfollow this Product";
+"wishlist"="Add to Wishlist";
+"wishlistAdded"="Added to Wishlist";
