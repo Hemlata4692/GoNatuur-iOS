@@ -23,6 +23,7 @@
 @synthesize productName;
 @synthesize productRating;
 @synthesize searchProductListArray;
+@synthesize specialPrice;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser {

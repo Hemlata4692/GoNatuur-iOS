@@ -178,6 +178,8 @@
         //Parse data from server response and store in data model
         DLog(@"dashboard data response %@",response);
         userData.bannerImageArray=[[NSMutableArray alloc]init];
+        userData.notificationsCount=response[@"notification_count"];
+        userData.profilePicture=response[@"profile_pick"];
         NSArray *bannerArray=response[@"banner"];
         for (int i =0; i<bannerArray.count; i++) {
             NSDictionary * bannerDataDict =[bannerArray objectAtIndex:i];
@@ -229,6 +231,8 @@
                 samplersArrayData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             samplersArrayData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            DLog(@"%@",[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"]);
+            samplersArrayData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             samplersArrayData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [userData.samplersDataArray addObject:samplersArrayData];
         }
@@ -327,6 +331,7 @@
                 productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+             productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [searchData.searchProductListArray addObject:productData];
         }
@@ -420,7 +425,7 @@
             if ([[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 tempModel.productDescription=[self stringByStrippingHTML:[[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
-            
+            tempModel.specialPrice = [[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             tempModel.productRating = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [productData.productDataArray addObject:tempModel];
         }

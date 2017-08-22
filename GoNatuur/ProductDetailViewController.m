@@ -336,7 +336,7 @@
 
 - (ProductDetailCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProductDetailCollectionViewCell *productMediaCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productImageVideoCell" forIndexPath:indexPath];
-    [productMediaCell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:indexPath.row] qrCode:qrCodeImage.image];
+    [productMediaCell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:indexPath.row] qrCode:qrCodeImage.image selectedIndex:selectedMediaIndex currentIndex:(int)indexPath.row];
     return productMediaCell;
 }
 
@@ -344,6 +344,7 @@
     selectedMediaIndex=(int)indexPath.row;
     ProductDetailTableViewCell *tempCell = [_productDetailTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     [tempCell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] qrCode:qrCodeImage.image];
+    [collectionView reloadData];
 }
 #pragma mark - end
 
@@ -499,6 +500,7 @@
         [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] qrCode:qrCodeImage.image];
         UIView *moveIMageView = cell.contentView;
         [self addLeftAnimationPresentToView:moveIMageView];
+        [self scrollMediaCollectionViewAtIndex];
     }
     else {
         selectedMediaIndex = (int)productDetailModelData.productMediaArray.count - 1;
@@ -514,10 +516,17 @@
         [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] qrCode:qrCodeImage.image];
         UIView *moveIMageView = cell.contentView;
         [self addRightAnimationPresentToView:moveIMageView];
+        [self scrollMediaCollectionViewAtIndex];
     }
     else {
         selectedMediaIndex = 0;
     }
+}
+
+- (void)scrollMediaCollectionViewAtIndex {
+    ProductDetailTableViewCell *tempCell = [_productDetailTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
+    [tempCell.productMediaCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:selectedMediaIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];
+    [tempCell.productMediaCollectionView reloadData];
 }
 #pragma mark - end
 @end

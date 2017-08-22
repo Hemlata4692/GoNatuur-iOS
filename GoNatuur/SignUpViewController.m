@@ -446,47 +446,15 @@
     _lastNameTextField.text=[result objectForKey:@"lastName"];
     socialLoginID=[result objectForKey:@"id"];
     profilePic=[result objectForKey:@"imageUrl"];
-    NSMutableArray *tempTextFields=[NSMutableArray new];
     //Adding textfield to keyboard controls array
     bool flag=false;
     //Check first name
-    if (![_firstNameTextField isEmpty]) {
-        _firstNameTextField.enabled=false;
-    }
-    else {
+    if ([_firstNameTextField isEmpty] || [_lastNameTextField isEmpty] || [_emailTextField isEmpty]) {
         flag=true;
-        _firstNameTextField.enabled=true;
-        [tempTextFields addObject:_firstNameTextField];
     }
-    //Check last name
-    if (![_lastNameTextField isEmpty]) {
-        _lastNameTextField.enabled=false;
-    }
-    else {
-        flag=true;
-        _lastNameTextField.enabled=true;
-        [tempTextFields addObject:_lastNameTextField];
-    }
-    //Check email id
-    if (![_emailTextField isEmpty]) {
-        _emailTextField.enabled=false;
-    }
-    else {
-        flag=true;
-        _emailTextField.enabled=true;
-        [tempTextFields addObject:_emailTextField];
-    }
-    
     if (!flag) {
         [myDelegate showIndicator];
         [self performSelector:@selector(userSignUp) withObject:nil afterDelay:.1];
-    }
-    else {
-        [tempTextFields addObject:_passwordTextField];
-        [tempTextFields addObject:_confirmPasswordTextField];
-        [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:[tempTextFields copy]]];
-        [_keyboardControls setDelegate:self];
-        [tempTextFields addObject:_firstNameTextField];
     }
 }
 #pragma mark - end

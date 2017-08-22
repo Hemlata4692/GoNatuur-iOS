@@ -39,7 +39,7 @@
 }
 //add shadow
 - (void)addShadow: (UIView *)view color:(UIColor *)color {
-    view.layer.shadowColor =color.CGColor;
+    view.layer.shadowColor = color.CGColor;
     view.layer.shadowOffset = CGSizeMake(1.0, 1.0);
     view.layer.shadowOpacity = 0.6;
     view.layer.shadowRadius = 2.0;

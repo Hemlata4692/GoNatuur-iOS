@@ -57,6 +57,7 @@
     _transparentView.hidden=true;
     if ([[productImageDict objectForKey:@"media_type"] isEqualToString:@"QRCode"]) {
         _productImageView.image=qrCodeImage;
+        _productImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     else {
         if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
