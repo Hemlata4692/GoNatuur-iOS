@@ -164,10 +164,6 @@
     // add your method here
     return YES;
 }
-
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    
-}
 #pragma mark - end
 
 #pragma mark - Table view data source and delgate methods
