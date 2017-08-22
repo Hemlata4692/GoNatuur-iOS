@@ -75,6 +75,10 @@
 - (void)showSelectedTab:(int)item {
     [bottomTabController showSelectedTab:item];
 }
+
+- (void)updateCartBadge {
+    [bottomTabController updateCartBadge];
+}
 #pragma mark - end
 
 #pragma mark - Add category slider

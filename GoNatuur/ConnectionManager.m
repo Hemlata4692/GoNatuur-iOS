@@ -62,6 +62,8 @@
         userData.quoteId=[response objectForKey:@"quote_id"];
         userData.quoteCount=[response objectForKey:@"quote_count"];
         userData.wishlistCount=[response objectForKey:@"wishlist_count"];
+        userData.firstName=[[response objectForKey:@"customer"] objectForKey:@"firstname"];
+        userData.lastName=[[response objectForKey:@"customer"] objectForKey:@"lastname"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -159,6 +161,8 @@
         userData.notificationsCount=[response objectForKey:@"notifications_count"];
         userData.quoteId=[response objectForKey:@"quote_id"];
         userData.quoteCount=[response objectForKey:@"quote_count"];
+        userData.firstName=[[response objectForKey:@"customer"] objectForKey:@"firstname"];
+        userData.lastName=[[response objectForKey:@"customer"] objectForKey:@"lastname"];
         userData.wishlistCount=[response objectForKey:@"wishlist_count"];
         success(userData);
     } onFailure:^(NSError *error) {
@@ -449,11 +453,25 @@
         //        if ([customAttributeDict objectForKey:@"brand_story"]!=nil) {
         //            productData.productBrandStory=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"brand_story"]];
         //        }
+        productData.productMinQuantity=([[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"min_qty"] intValue]==0?@1:[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"min_qty"]);
         productData.productMaxQuantity=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
         productData.following=[[response objectForKey:@"is_following"] stringValue];
+        productData.productSku=[response objectForKey:@"sku"];
         //        productData.isWishlist=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
         
         productData.productMediaArray=[[response objectForKey:@"media"] mutableCopy];
+        success(productData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Add to cart service
+- (void)addToCartProductService:(ProductDataModel *)productData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
+    ProductService *productDetailData=[[ProductService alloc]init];
+    [productDetailData addToCartProduct:productData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"category list response %@",response);
         success(productData);
     } onfailure:^(NSError *error) {
     }];

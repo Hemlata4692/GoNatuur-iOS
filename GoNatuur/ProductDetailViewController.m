@@ -16,6 +16,7 @@
 #import <AVKit/AVKit.h>
 #import "WebViewController.h"
 #import "ReviewListingViewController.h"
+#import "UIView+Toast.h"
 
 @interface ProductDetailViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -95,10 +96,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row==0) {
-        return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productName font:[UIFont montserratMediumWithSize:20] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:52]+24;
+        return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productName font:[UIFont montserratSemiBoldWithSize:20] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:52]+24;
     }
     else if (indexPath.row==1) {
-        return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productShortDescription font:[UIFont montserratMediumWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:30]+5;
+        return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productShortDescription font:[UIFont montserratSemiBoldWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:30]+5;
     }
     else if (indexPath.row==2) {
         return 22;
@@ -367,6 +368,7 @@
         [productDetailModelData.productMediaArray insertObject:@{@"media_type":@"QRCode"} atIndex:(tempIndex==-1?0:tempIndex)];
         [myDelegate stopIndicator];
         isServiceCalled=true;
+        currentQuantity=[productDetailData.productMinQuantity intValue];
         [_productDetailTableView reloadData];
     } onfailure:^(NSError *error) {
         
@@ -386,6 +388,21 @@
         cellLabel.text=NSLocalizedText(@"wishlist");
     }];
 
+}
+
+//Add to cart
+- (void)addToCartProductService {
+    ProductDataModel *productData = [ProductDataModel sharedUser];
+    productData.productQuantity=productDetailModelData.productQuantity;
+    productData.productSku=productDetailModelData.productSku;
+    [productData addToCartProductOnSuccess:^(ProductDataModel *productDetailData)  {
+        [myDelegate stopIndicator];
+        [UserDefaultManager setValue:[NSNumber numberWithInt:[[UserDefaultManager getValue:@"quoteCount"] intValue]+currentQuantity] key:@"quoteCount"];
+        [self updateCartBadge];
+        [self.view makeToast:@"Added to cart"];
+    } onfailure:^(NSError *error) {
+        
+    }];
 }
 
 //Follow product
@@ -433,7 +450,7 @@
 - (IBAction)removeQuantityAction:(UIButton *)sender {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];
     ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
-    if(currentQuantity>1){
+    if(currentQuantity>[productDetailModelData.productMinQuantity intValue]){
         currentQuantity-=1;
         cell.cartNumberItemLabel.text=[NSString stringWithFormat:@"%d",currentQuantity];
     }
@@ -441,7 +458,8 @@
 
 - (IBAction)insertInCartItemAction:(UIButton *)sender {
     productDetailModelData.productQuantity=[NSNumber numberWithInt:currentQuantity];
-    [UpdateCartItem addProductCartItem:[productDetailModelData copy]];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(addToCartProductService) withObject:nil afterDelay:.1];
 }
 #pragma mark - end
 

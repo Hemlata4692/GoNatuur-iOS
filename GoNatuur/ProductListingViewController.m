@@ -334,6 +334,10 @@
             selectedSubCategoryIndex=tempSelectedIndex;
             [filterViewObj.subCategoryButtonOutlet setTitle:[subCategoryPickerArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
             currentCategoryId=[[[subCategoryDataList objectAtIndex:selectedSubCategoryIndex] objectForKey:@"id"] intValue];
+            bannerImageUrl=@"";
+            productListDataArray=[NSMutableArray new];
+            totalProductCount=0;
+            currentpage=1;
             [myDelegate showIndicator];
             [self performSelector:@selector(getCategoryBannerData) withObject:nil afterDelay:.1];
         }
