@@ -229,6 +229,13 @@
         if (cell == nil){
             cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"followCell"];
         }
+           UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
+        if ([productDetailModelData.following isEqualToString:@"1"]) {
+            cellLabel.text=@"Unfollow this Product";
+        }
+        else{
+            cellLabel.text=@"Follow this Product";
+        }
     }
     else if (indexPath.row==13) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"wishlistCell"];
@@ -296,14 +303,17 @@
     }
     else if (indexPath.row==12) {
         //Follow action
-//        if (![productDetailModelData.isFollowing isEqualToString:@"1"]) {
-//            [self followProduct];
-//        }
+        if ([productDetailModelData.following isEqualToString:@"1"]) {
+            [self unFollowProduct:(int)indexPath.row];
+        }
+        else {
         [self followProduct:(int)indexPath.row];
+        }
     }
     else if (indexPath.row==13) {
         //Wishlist action
         [self addToWishlist:(int)indexPath.row];
+        //add toast if item already added to wishlist
     }
     else if (indexPath.row==14) {
         //Share action
@@ -386,9 +396,26 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData followProductOnSuccess:^(ProductDataModel *productDetailData)  {
-        cellLabel.text=@"Followed";
+        cellLabel.text=@"Unfollow this Product";
+        productDetailModelData.following=@"1";
     } onfailure:^(NSError *error) {
         cellLabel.text=@"Follow this Product";
+    }];
+    
+}
+
+//Unfollow product
+- (void)unFollowProduct:(int)btnTag {
+    NSIndexPath *index=[NSIndexPath indexPathForRow:btnTag inSection:0];
+    ProductDetailTableViewCell * cell = (ProductDetailTableViewCell *)[_productDetailTableView cellForRowAtIndexPath:index];
+    UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
+    ProductDataModel *productData = [ProductDataModel sharedUser];
+    productData.productId=[NSNumber numberWithInt:selectedProductId];
+    [productData unFollowProductOnSuccess:^(ProductDataModel *productDetailData)  {
+        cellLabel.text=@"Follow this Product";
+        productDetailModelData.following=@"0";
+    } onfailure:^(NSError *error) {
+        cellLabel.text=@"Unfollow this Product";
     }];
     
 }

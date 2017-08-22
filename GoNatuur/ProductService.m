@@ -11,14 +11,16 @@
 
 static NSString *kProductDetail=@"ranosys/getProductsDetails";
 static NSString *kAddWishlist=@"ipwishlist/add/product";
-static NSString *kFollowProduct=@"ranosys/getProductsDetails";
+static NSString *kFollowProduct=@"ranosys/product/follow/mine";
+static NSString *kRemoveWishlist=@"ipwishlist/delete/wishlistItem";
+static NSString *kUnFollowProduct=@"ranosys/product/unfollow/mine";
 
 @implementation ProductService
 
 #pragma mark - Get product detail service
 - (void)getProductDetailService:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{@"productId":productDetail.productId,
-                                 @"customerId":[NSNumber numberWithInt:0]
+                                 @"customerId":[UserDefaultManager getValue:@"userId"]
                                  };
     DLog(@"producy detail request %@",parameters);
     [super post:kProductDetail parameters:parameters success:success failure:failure];
@@ -36,6 +38,18 @@ static NSString *kFollowProduct=@"ranosys/getProductsDetails";
 }
 #pragma mark - end
 
+#pragma mark - Remove to wish list
+//remove prodcut to wishlist
+- (void)removeProductFromWishlist:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"wishlistItemId":productDetail.productId,
+                                 @"customerId":[UserDefaultManager getValue:@"userId"]
+                                 };
+    DLog(@"wish list request %@",parameters);
+    [super post:kRemoveWishlist parameters:parameters success:success failure:failure];
+}
+
+#pragma mark - end
+
 #pragma mark - Follow product
 //follow product
 - (void)followProduct:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
@@ -44,6 +58,17 @@ static NSString *kFollowProduct=@"ranosys/getProductsDetails";
                                  };
     DLog(@"follow request %@",parameters);
     [super post:kFollowProduct parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Unfollow product
+//follow product
+- (void)unFollowProduct:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"productId":productDetail.productId,
+                                 @"customerId":[UserDefaultManager getValue:@"userId"]
+                                 };
+    DLog(@"unfollow request %@",parameters);
+    [super post:kUnFollowProduct parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 @end

@@ -22,8 +22,8 @@
 @property (strong, nonatomic) NSNumber *productId;
 @property (strong, nonatomic) NSString *productName;
 @property (strong, nonatomic) NSString *productRating;
-@property (strong, nonatomic) NSString *isFollowing;
-@property (strong, nonatomic) NSString *isWishlist;
+@property (strong, nonatomic) NSString *following;
+@property (strong, nonatomic) NSString *wishlist;
 @property (strong, nonatomic) NSString *productPointsEarn;
 @property (strong, nonatomic) NSNumber *productMaxQuantity;
 @property (strong, nonatomic) NSNumber *productQuantity;
@@ -39,6 +39,12 @@
 //Add to wish list
 - (void)addProductWishlistOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
 
+//Remove wish list
+- (void)removeProductWishlistOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
+
 //Follow product
 - (void)followProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
+
+//Unfollow product
+- (void)unFollowProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

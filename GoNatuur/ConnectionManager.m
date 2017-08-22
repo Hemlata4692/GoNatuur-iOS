@@ -1,4 +1,4 @@
-//
+ //
 //  ConnectionManager.m
 //  GoNatuur
 //
@@ -450,7 +450,7 @@
         //            productData.productBrandStory=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"brand_story"]];
         //        }
         productData.productMaxQuantity=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
-        productData.isFollowing=[response objectForKey:@"is_following"];
+        productData.following=[[response objectForKey:@"is_following"] stringValue];
         //        productData.isWishlist=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
         
         productData.productMediaArray=[[response objectForKey:@"media"] mutableCopy];
@@ -528,7 +528,19 @@
     ProductService *addToWishlist=[[ProductService alloc]init];
     [addToWishlist addProductToWishlist:wishlistData success:^(id response) {
         DLog(@"wishlist response %@",response);
-        
+        success(wishlistData);
+    }
+                              onfailure:^(NSError *error) {
+                              }];
+    
+}
+#pragma mark - end
+
+#pragma mark - Renove from wishlist service
+- (void)removeWishlistService:(ProductDataModel *)wishlistData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
+    ProductService *addToWishlist=[[ProductService alloc]init];
+    [addToWishlist removeProductFromWishlist:wishlistData success:^(id response) {
+        DLog(@"remove wishlist response %@",response);
         success(wishlistData);
     }
                               onfailure:^(NSError *error) {
@@ -540,13 +552,25 @@
 #pragma mark - Follow product service
 - (void)followProduct:(ProductDataModel *)followData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
     ProductService *followProduct=[[ProductService alloc]init];
-    [followProduct addProductToWishlist:followData success:^(id response) {
+    [followProduct followProduct:followData success:^(id response) {
         DLog(@"follow response %@",response);
-        
         success(followData);
     }
                               onfailure:^(NSError *error) {
                               }];
+    
+}
+#pragma mark - end
+
+#pragma mark - Unfollow product service
+- (void)unFollowProduct:(ProductDataModel *)followData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
+    ProductService *followProduct=[[ProductService alloc]init];
+    [followProduct unFollowProduct:followData success:^(id response) {
+        DLog(@"unfollow response %@",response);
+        success(followData);
+    }
+                       onfailure:^(NSError *error) {
+                       }];
     
 }
 #pragma mark - end
