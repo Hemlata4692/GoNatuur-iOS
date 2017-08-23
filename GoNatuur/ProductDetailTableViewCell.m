@@ -26,13 +26,13 @@
 
 - (void)displayProductName:(NSString *)productName {
     _productNameLabel.translatesAutoresizingMaskIntoConstraints=true;
-    _productNameLabel.frame=CGRectMake(40, 24, [[UIScreen mainScreen] bounds].size.width-80, [DynamicHeightWidth getDynamicLabelHeight:productName font:[UIFont montserratMediumWithSize:20] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:52]);
+    _productNameLabel.frame=CGRectMake(40, 24, [[UIScreen mainScreen] bounds].size.width-80, [DynamicHeightWidth getDynamicLabelHeight:productName font:[UIFont montserratSemiBoldWithSize:20] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:52]);
     _productNameLabel.text=productName;
 }
 
 - (void)displayProductDescription:(NSString *)productDescription {
     _productShortDescriptionLabel.translatesAutoresizingMaskIntoConstraints=true;
-    _productShortDescriptionLabel.frame=CGRectMake(40, 0, [[UIScreen mainScreen] bounds].size.width-80, [DynamicHeightWidth getDynamicLabelHeight:productDescription font:[UIFont montserratMediumWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:30]);
+    _productShortDescriptionLabel.frame=CGRectMake(40, 0, [[UIScreen mainScreen] bounds].size.width-80, [DynamicHeightWidth getDynamicLabelHeight:productDescription font:[UIFont montserratSemiBoldWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:30]);
     _productShortDescriptionLabel.text=productDescription;
 //    _productShortDescriptionLabel.backgroundColor=[UIColor greenColor];
 }
@@ -57,6 +57,7 @@
     _transparentView.hidden=true;
     if ([[productImageDict objectForKey:@"media_type"] isEqualToString:@"QRCode"]) {
         _productImageView.image=qrCodeImage;
+        _productImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     else {
         if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {

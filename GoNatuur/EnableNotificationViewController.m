@@ -150,7 +150,7 @@
 - (void)showSettingAlert {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedText(@"PushNotificationAlertTitle") message:NSLocalizedText(@"PushNotificationAlertMessage") preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *allow = [UIAlertAction actionWithTitle:NSLocalizedText(@"alertOk") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *allow = [UIAlertAction actionWithTitle:NSLocalizedText(@"alertSettings") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
     }];
     UIAlertAction *donotAllow = [UIAlertAction actionWithTitle:NSLocalizedText(@"alertCancel") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

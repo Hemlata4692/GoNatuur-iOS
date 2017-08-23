@@ -10,4 +10,5 @@
 
 @interface BottomTabViewController : UIViewController
 - (void)showSelectedTab:(int)item;
+- (void)updateCartBadge;
 @end

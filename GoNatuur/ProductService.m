@@ -14,13 +14,22 @@ static NSString *kAddWishlist=@"ipwishlist/add/product";
 static NSString *kFollowProduct=@"ranosys/product/follow/mine";
 static NSString *kRemoveWishlist=@"ipwishlist/delete/wishlistItem";
 static NSString *kUnFollowProduct=@"ranosys/product/unfollow/mine";
+static NSString *kGuestAddToCartProduct=@"guest-carts/566b65a6ac1eaa6587a939ca27d3d44b/items";
+static NSString *kLoginedAddToCartProduct=@"carts/mine";
 
 @implementation ProductService
 
 #pragma mark - Get product detail service
 - (void)getProductDetailService:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSString *customerID;
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+        customerID=@"0";
+    }
+    else {
+        customerID=[UserDefaultManager getValue:@"userId"];
+    }
     NSDictionary *parameters = @{@"productId":productDetail.productId,
-                                 @"customerId":[UserDefaultManager getValue:@"userId"]
+                                 @"customerId":customerID
                                  };
     DLog(@"producy detail request %@",parameters);
     [super post:kProductDetail parameters:parameters success:success failure:failure];
@@ -69,6 +78,33 @@ static NSString *kUnFollowProduct=@"ranosys/product/unfollow/mine";
                                  };
     DLog(@"unfollow request %@",parameters);
     [super post:kUnFollowProduct parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Add to cart service
+- (void)addToCartProduct:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+        NSDictionary *parameters = @{@"cartItem":@{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
+                                                   @"sku":productDetail.productSku,
+                                                   @"qty":productDetail.productQuantity
+                                                   }
+                                     };
+        DLog(@"Add to cart parameters: %@",parameters);
+        [super post:kGuestAddToCartProduct parameters:parameters success:success failure:failure];
+    }
+    else {
+        NSDictionary *parameters = @{@"quote":@{@"id":[UserDefaultManager getValue:@"quoteId"],
+                                                @"items":@[@{
+                                                               @"sku":productDetail.productSku,
+                                                               @"qty":productDetail.productQuantity,
+                                                               @"quote_id":[UserDefaultManager getValue:@"quoteId"]
+                                                               }
+                                                           ]
+                                                }
+                                     };
+        DLog(@"Add to cart parameters: %@",parameters);
+        [super post:kLoginedAddToCartProduct parameters:parameters success:success failure:failure];
+    }
 }
 #pragma mark - end
 @end
