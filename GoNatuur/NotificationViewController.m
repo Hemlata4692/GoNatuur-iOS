@@ -97,18 +97,24 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     UILabel *notificationBadgeLabel=(UILabel *) [cell viewWithTag:1];
+    UIImageView *notiIcon=(UIImageView *) [cell viewWithTag:2];
+    UIImageView *arrowIcon=(UIImageView *) [cell viewWithTag:3];
     notificationBadgeLabel.translatesAutoresizingMaskIntoConstraints=YES;
     NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];
     if ([notiData.notificationStatus isEqualToString:@"1"]) {
         notificationBadgeLabel.textColor=[UIColor whiteColor];
-        cell.contentView.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
+        cell.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
+        notiIcon.alpha=1.0;
+        arrowIcon.alpha=1.0;
     }
     else {
-        notificationBadgeLabel.textColor=[UIColor colorWithRed:226.0/255.0 green:226.0/255.0 blue:226.0/255.0 alpha:1.0];
-        cell.contentView.backgroundColor=[UIColor colorWithRed:201.0/255.0 green:95.0/255.0 blue:119.0/255.0 alpha:1.0];
+        notificationBadgeLabel.textColor=[UIColor colorWithRed:247.0/255.0 green:216.0/255.0 blue:223.0/255.0 alpha:1.0];
+        cell.backgroundColor=[UIColor colorWithRed:216.0/255.0 green:59.0/255.0 blue:95.0/255.0 alpha:1.0];
+        notiIcon.alpha=0.95;
+        arrowIcon.alpha=0.6;
     }
     notificationBadgeLabel.text=notiData.notificationMessage;
-    float newHeight =[DynamicHeightWidth getDynamicLabelHeight:notificationBadgeLabel.text font:[UIFont fontWithName:@"Montserrat-Regular" size:15.0] widthValue:_notificationTableView.frame.size.width-77];
+    float newHeight =[DynamicHeightWidth getDynamicLabelHeight:notificationBadgeLabel.text font:[UIFont montserratLightWithSize:15] widthValue:_notificationTableView.frame.size.width-77];
     notificationBadgeLabel.frame=CGRectMake(48, 7,_notificationTableView.frame.size.width-77, newHeight+1);
     return cell;
 }

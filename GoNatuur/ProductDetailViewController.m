@@ -67,7 +67,7 @@
 //Create QRCode
 - (void)makeQRCode {
     qrCodeImage=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80*2, 80*2)];
-    NSString *qrString = [NSString stringWithFormat:@"RohitModiQRCode"];
+    NSString *qrString = [NSString stringWithFormat:@"%@%@%s",@"http://dev.gonatuur.com/",productDetailModelData.productUrlKey,".html"];
     NSData *stringData = [qrString dataUsingEncoding: NSUTF8StringEncoding];
     CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     [qrFilter setValue:stringData forKey:@"inputMessage"];
@@ -225,6 +225,10 @@
     }
     else if (indexPath.row==12) {
         //Follow action
+        if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            [myDelegate checkGuestAccess];
+        }
+        else {
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             [self unFollowProduct:(int)indexPath.row];
         }
@@ -234,14 +238,29 @@
     }
     else if (indexPath.row==13) {
         //Wishlist action
-        [self addToWishlist:(int)indexPath.row];
-        //add toast if item already added to wishlist
+        if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            [myDelegate checkGuestAccess];
+        }
+        else {
+        if ([productDetailModelData.following isEqualToString:@"1"]) {
+            [self.view makeToast:NSLocalizedText(@"alreadyAddedWishlist")];
+        }
+        else {
+            [self addToWishlist:(int)indexPath.row];
+        }
+        }
+        
     }
     else if (indexPath.row==14) {
         //Share action
     }
     else if (indexPath.row==15) {
         //Location action
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
+        webView.navigationTitle=NSLocalizedText(@"Where to buy");
+        webView.productDetaiData=productDetailModelData.productWhereToBuy;
+        [self.navigationController pushViewController:webView animated:YES];
     }
 }
 

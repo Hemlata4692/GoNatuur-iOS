@@ -37,6 +37,7 @@
         productDescription.text=productListData.productDescription;
     }
     [ImageCaching downloadImages:productImageView imageUrl:productListData.productImageThumbnail placeholderImage:@"product_placeholder" isDashboardCell:true];
+    
     statusBannerImage.hidden=YES;
     if ([productListData.productRating isEqualToString:@""] || productListData.productRating==nil || [productListData.productRating isEqualToString:@"0"]) {
         productRating.hidden=YES;

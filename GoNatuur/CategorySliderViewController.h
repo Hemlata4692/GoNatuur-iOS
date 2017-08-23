@@ -17,6 +17,7 @@
     id <CategorySliderDelegate> _delegate;
 }
 
+@property (weak, nonatomic) IBOutlet UIView *shadowView;
 @property (nonatomic,strong) id <CategorySliderDelegate>delegate;
 @property (nonatomic, strong) NSMutableArray *categoryDataArray;
 @property (strong, nonatomic) IBOutlet UICollectionView *categorySliderCollectionView;

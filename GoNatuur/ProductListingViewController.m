@@ -230,7 +230,6 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     //StoryBoard navigation
     ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
     obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];

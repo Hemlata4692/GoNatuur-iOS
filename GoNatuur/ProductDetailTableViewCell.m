@@ -60,7 +60,6 @@
             _videoIcon.hidden=false;
             _video360Icon.hidden=true;
         }
-        
         /*Code is commented for 360 video media type
          else if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"image"]) {
          _transparentView.hidden=false;

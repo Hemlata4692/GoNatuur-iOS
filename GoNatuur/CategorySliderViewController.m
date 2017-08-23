@@ -18,10 +18,13 @@
 @synthesize categorySliderCollectionView;
 @synthesize categoryDataArray;
 
+
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+     [_shadowView addShadow:_shadowView color:[UIColor darkGrayColor]];
+    
     categoryDataArray=[[NSMutableArray alloc]init];
     categoryDataArray=[myDelegate.categoryNameArray mutableCopy];
     //Load category slider cell xib
