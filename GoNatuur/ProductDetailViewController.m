@@ -173,7 +173,13 @@
         }
     }
     else if (indexPath.row==13) {
-       
+        UILabel *cellLabel=(UILabel *)[cell viewWithTag:11];
+        if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
+            cellLabel.text=NSLocalizedText(@"wishlistAdded");
+        }
+        else{
+            cellLabel.text=NSLocalizedText(@"wishlist");
+        }
     }
     return cell;
 }
