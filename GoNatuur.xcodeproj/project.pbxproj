@@ -54,7 +54,6 @@
 		18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */; };
 		18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8FB1F32F46800430842 /* SearchViewController.m */; };
 		18F7A9031F33044100430842 /* BottomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A9011F33044100430842 /* BottomTabViewController.m */; };
-		18FAA4FE1F4DA7B400F106BC /* MONTSERRAT-LIGHTITALIC.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 18FAA4FD1F4DA7B400F106BC /* MONTSERRAT-LIGHTITALIC.TTF */; };
 		3207616E1F162820001F1790 /* NullValueChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3207616D1F162820001F1790 /* NullValueChecker.m */; };
 		320761721F162834001F1790 /* UserDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761711F162834001F1790 /* UserDefaultManager.m */; };
 		320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761751F163AB2001F1790 /* MMMaterialDesignSpinner.m */; };
@@ -203,7 +202,6 @@
 		18F7A8FB1F32F46800430842 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		18F7A9001F33044100430842 /* BottomTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomTabViewController.h; sourceTree = "<group>"; };
 		18F7A9011F33044100430842 /* BottomTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomTabViewController.m; sourceTree = "<group>"; };
-		18FAA4FD1F4DA7B400F106BC /* MONTSERRAT-LIGHTITALIC.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MONTSERRAT-LIGHTITALIC.TTF"; sourceTree = "<group>"; };
 		3207616C1F162820001F1790 /* NullValueChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullValueChecker.h; sourceTree = "<group>"; };
 		3207616D1F162820001F1790 /* NullValueChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullValueChecker.m; sourceTree = "<group>"; };
 		320761701F162834001F1790 /* UserDefaultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultManager.h; sourceTree = "<group>"; };
@@ -559,7 +557,6 @@
 		188605A61F39C8090005D1E2 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				18FAA4FD1F4DA7B400F106BC /* MONTSERRAT-LIGHTITALIC.TTF */,
 				B73E00E21F4184DF001DEBA2 /* Montserrat-Bold.otf */,
 				184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */,
 				188605A71F39C8220005D1E2 /* Montserrat-SemiBold.otf */,
@@ -1328,7 +1325,6 @@
 				B73A653F1F3DF0870051E4C5 /* zh_Traditional.strings in Resources */,
 				B7AA39B41F47101400423121 /* GoNatuurFilterView.xib in Resources */,
 				187561931F469E1000F609AB /* BottomTabViewController.xib in Resources */,
-				18FAA4FE1F4DA7B400F106BC /* MONTSERRAT-LIGHTITALIC.TTF in Resources */,
 				187129031F48CAAA00D16581 /* ProductDetailDownArrow.png in Resources */,
 				32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */,
 				1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */,
