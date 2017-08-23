@@ -64,9 +64,14 @@
     [_titleTextField setTextBorder:_titleTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_titleTextField addTextFieldLeftRightPadding:_titleTextField];
     [_reviewTextView setTextViewBorder:_reviewTextView color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
-    [_reviewTextView setPlaceholder:NSLocalizedText(@"textViewPlaceholder")];
-    _reviewTextView.textContainer.lineFragmentPadding = 10;
-    [self addstarRating];
+    [_reviewTextView setPlaceholder:NSLocalizedText(@"textViewPlaceholder")];    _reviewTextView.textContainer.lineFragmentPadding = 10;
+    
+    if ([isEditMode isEqualToString:@"1"]) {
+         [self displayData];
+    }
+    else {
+        [self addstarRating:0];
+    }
 }
 #pragma mark - end
 

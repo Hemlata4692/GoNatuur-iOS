@@ -164,6 +164,10 @@
         [cell.addToCartButton addTarget:self action:@selector(insertInCartItemAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     else if (indexPath.row==12) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"followCell"];
+        if (cell == nil){
+            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"followCell"];
+        }
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"unfollow");
@@ -177,8 +181,18 @@
         if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"wishlistAdded");
         }
+        UILabel *cellLabel=(UILabel *)[cell viewWithTag:11];
+        if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
+            cellLabel.text=NSLocalizedText(@"wishlistAdded");
+        }
         else{
             cellLabel.text=NSLocalizedText(@"wishlist");
+        }
+    }
+    else if (indexPath.row==14) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"shareCell"];
+        if (cell == nil){
+            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"shareCell"];
         }
     }
     return cell;
@@ -234,6 +248,7 @@
         }
         else {
             [self followProduct:(int)indexPath.row];
+        }
         }
     }
     else if (indexPath.row==13) {
