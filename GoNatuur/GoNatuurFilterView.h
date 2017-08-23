@@ -17,8 +17,11 @@
 @interface GoNatuurFilterView : UIView {
     id <GoNatuurFilterViewDelegate> _delegate;
 }
-@property (strong, nonatomic) IBOutlet UIButton *firstFilterButtonOutlet;
+@property (strong, nonatomic) IBOutlet UIImageView *subCategoryArrowImageView;
 @property (strong, nonatomic) IBOutlet UIButton *subCategoryButtonOutlet;
+@property (strong, nonatomic) IBOutlet UIImageView *firstFilterArrowImageView;
+@property (strong, nonatomic) IBOutlet UIButton *firstFilterButtonOutlet;
+@property (strong, nonatomic) IBOutlet UIImageView *secondFilterArrowImageView;
 @property (strong, nonatomic) IBOutlet UIButton *secondFilterButtonOutlet;
 
 @property (strong, nonatomic) IBOutlet UIView *goNatuurFilterViewObj;

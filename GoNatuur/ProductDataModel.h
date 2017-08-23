@@ -15,20 +15,27 @@
 @property (strong, nonatomic) NSString *productMediaType;
 @property (strong, nonatomic) NSNumber *productPrice;
 @property (strong, nonatomic) NSString *productDescription;
+@property (strong, nonatomic) NSString *productSubtitle;
 @property (strong, nonatomic) NSString *productShortDescription;
 @property (strong, nonatomic) NSString *productImageThumbnail;
 @property (strong, nonatomic) NSString *productBenefitsUsage;
 @property (strong, nonatomic) NSString *productBrandStory;
+@property (strong, nonatomic) NSString *productWhereToBuy;
 @property (strong, nonatomic) NSNumber *productId;
 @property (strong, nonatomic) NSString *productName;
 @property (strong, nonatomic) NSString *productRating;
 @property (strong, nonatomic) NSString *following;
 @property (strong, nonatomic) NSString *wishlist;
+@property (strong, nonatomic) NSString *reviewId;
+@property (strong, nonatomic) NSString *reviewAdded;
+@property (strong, nonatomic) NSString *productUrlKey;
 @property (strong, nonatomic) NSString *productPointsEarn;
 @property (strong, nonatomic) NSNumber *productMaxQuantity;
+@property (strong, nonatomic) NSNumber *productMinQuantity;
 @property (strong, nonatomic) NSNumber *productQuantity;
 @property (strong, nonatomic) NSMutableArray *productDataArray;
 @property (strong, nonatomic) NSMutableArray *productMediaArray;
+@property (strong, nonatomic) NSString *productSku;
 
 //Singleton method
 + (instancetype)sharedUser;
@@ -47,4 +54,6 @@
 
 //Unfollow product
 - (void)unFollowProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Add to cart service
+- (void)addToCartProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

@@ -84,7 +84,7 @@
         DLog(@"facebookUserLastName: %@",[fbResult objectForKey:@"last_name"]);
         DLog(@"facebookUserGender: %@",[fbResult objectForKey:@"gender"]);
         DLog(@"facebookUserFriendCount: %@",[[[fbResult objectForKey:@"friends"] objectForKey:@"summary"] objectForKey:@"total_count"]);
-        [_delegate socialLoginResponse:FacebookLogin result:@{@"email":[fbResult objectForKey:@"email"], @"id":[fbResult objectForKey:@"id"],@"firstName":([fbResult objectForKey:@"first_name"]!=nil?[fbResult objectForKey:@"first_name"]:@""),@"lastName":([fbResult objectForKey:@"last_name"]!=nil?[fbResult objectForKey:@"last_name"]:@""),@"id":[fbResult objectForKey:@"id"],@"imageUrl":[[[fbResult objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"]}];
+        [_delegate socialLoginResponse:FacebookLogin result:@{@"email":([fbResult objectForKey:@"email"]!=nil?[fbResult objectForKey:@"email"]:@""), @"id":[fbResult objectForKey:@"id"],@"firstName":([fbResult objectForKey:@"first_name"]!=nil?[fbResult objectForKey:@"first_name"]:@""),@"lastName":([fbResult objectForKey:@"last_name"]!=nil?[fbResult objectForKey:@"last_name"]:@""),@"id":[fbResult objectForKey:@"id"],@"imageUrl":[[[fbResult objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"]}];
     }
     else {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
@@ -112,7 +112,7 @@
         DLog(@"gmail given name is %@", gmailResult.profile.givenName);
         DLog(@"gmail family name is %@", gmailResult.profile.familyName);
         DLog(@"gmail auth token is %@", gmailResult.authentication.idToken);
-      [_delegate socialLoginResponse:FacebookLogin result:@{@"email":gmailResult.profile.email, @"id":gmailResult.userID,@"firstName":(gmailResult.profile.givenName!=nil?gmailResult.profile.givenName:@""),@"lastName":(gmailResult.profile.familyName!=nil?gmailResult.profile.familyName:@""),@"id":gmailResult.userID,@"imageUrl":[ImageURL absoluteString]}];
+      [_delegate socialLoginResponse:FacebookLogin result:@{@"email":(gmailResult.profile.email!=nil?gmailResult.profile.email:@""), @"id":gmailResult.userID,@"firstName":(gmailResult.profile.givenName!=nil?gmailResult.profile.givenName:@""),@"lastName":(gmailResult.profile.familyName!=nil?gmailResult.profile.familyName:@""),@"id":gmailResult.userID,@"imageUrl":[ImageURL absoluteString]}];
     }
 }
 #pragma mark - end

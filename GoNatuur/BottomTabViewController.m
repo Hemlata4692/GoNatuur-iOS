@@ -14,6 +14,7 @@
 @property (strong, nonatomic) IBOutlet UIView *bottomTabView;
 @property (weak, nonatomic) IBOutlet UIButton *homeTab;
 @property (weak, nonatomic) IBOutlet UIButton *myCartTab;
+@property (strong, nonatomic) IBOutlet UILabel *cartBadgeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *wishlistTab;
 @property (weak, nonatomic) IBOutlet UIButton *profileTab;
 @property (weak, nonatomic) IBOutlet UIImageView *homeTabImageIcon;
@@ -27,17 +28,18 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [_homeTab setSelected:YES];
     [self viewInitialized];
-//    if (_homeTab.selected) {
-//        _homeTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
-//        _homeTabImageIcon.alpha=0.6;
-//    }
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewInitialized {
     //Deselect all tabs
+    _cartBadgeLabel.layer.masksToBounds=true;
+    _cartBadgeLabel.layer.cornerRadius=9;
+    _cartBadgeLabel.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
+    _cartBadgeLabel.textColor=[UIColor whiteColor];
+    _cartBadgeLabel.hidden=true;
+    [self updateCartBadge];
     [_homeTab setSelected:false];
     [_myCartTab setSelected:false];
     [_wishlistTab setSelected:false];
@@ -73,6 +75,8 @@
         _myCartTab.selected=true;
         _myCartTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
         _myCartTabImageIcon.alpha=0.6;
+        _cartBadgeLabel.backgroundColor=[UIColor whiteColor];
+        _cartBadgeLabel.textColor=[UIColor blackColor];
     }
     else if (item==3) {
         _wishlistTab.selected=true;
@@ -83,6 +87,13 @@
         _profileTab.selected=true;
         _profileTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
         _profileTabImageIcon.alpha=0.6;
+    }
+}
+
+- (void)updateCartBadge {
+    if ([[UserDefaultManager getValue:@"quoteCount"] intValue]>0) {
+        _cartBadgeLabel.hidden=false;
+        _cartBadgeLabel.text=[NSString stringWithFormat:@"%d",[[UserDefaultManager getValue:@"quoteCount"] intValue]];
     }
 }
 #pragma mark - end

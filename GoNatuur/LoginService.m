@@ -66,8 +66,8 @@ static NSString *kResetPassword=@"ranosys/customer/resetPassword";
     NSDictionary *parameters;
     if ([loginData.isSocialLogin isEqual:@0]) {
         parameters = @{@"customer" : @{@"email" : loginData.email,
-                                       @"firstname" : @"John",
-                                       @"lastname" : @"Doe"
+                                       @"firstname" : loginData.firstName,
+                                       @"lastname" : loginData.lastName
                                        },
                        @"password" : loginData.password,
                        @"isSocial":loginData.isSocialLogin,
@@ -79,8 +79,8 @@ static NSString *kResetPassword=@"ranosys/customer/resetPassword";
     }
     else {
         parameters = @{@"customer" : @{@"email" : loginData.email,
-                                       @"firstname" : @"John",
-                                       @"lastname" : @"Doe"
+                                       @"firstname" : loginData.firstName,
+                                       @"lastname" : loginData.lastName
                                        },
                        @"isSocial":loginData.isSocialLogin,
                        @"profileImageUrl":loginData.profilePicture,

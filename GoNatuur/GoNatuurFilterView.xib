@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -16,9 +16,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GoNatuurFilterView">
             <connections>
+                <outlet property="firstFilterArrowImageView" destination="g4E-69-6Yb" id="CAv-cv-Rk3"/>
                 <outlet property="firstFilterButtonOutlet" destination="chM-IL-EKf" id="k3D-wE-xIB"/>
                 <outlet property="goNatuurFilterViewObj" destination="iN0-l3-epB" id="U5F-6y-0Rj"/>
+                <outlet property="secondFilterArrowImageView" destination="pgj-qC-N2p" id="hbT-4V-QKo"/>
                 <outlet property="secondFilterButtonOutlet" destination="obP-zs-Wpb" id="Wr2-iq-HQg"/>
+                <outlet property="subCategoryArrowImageView" destination="YZe-qf-rfV" id="npc-FE-7iu"/>
                 <outlet property="subCategoryButtonOutlet" destination="xRi-xJ-muS" id="wxK-ka-FFg"/>
             </connections>
         </placeholder>
