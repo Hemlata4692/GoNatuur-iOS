@@ -55,4 +55,9 @@
     return font;
 }
 
++ (UIFont*)montserratSemiBoldWithSize:(int)size {
+    UIFont *font=[UIFont fontWithName:@"Montserrat-SemiBold" size:size];
+    return font;
+}
+
 @end

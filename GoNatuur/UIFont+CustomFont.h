@@ -19,4 +19,5 @@
 + (UIFont*)montserratRegularWithSize:(int)size;
 + (UIFont*)montserratLightWithSize:(int)size;
 + (UIFont*)montserratBoldWithSize:(int)size;
++ (UIFont*)montserratSemiBoldWithSize:(int)size;
 @end

@@ -475,6 +475,9 @@
         productData.wishlist=[[response objectForKey:@"is_in_wishlist"] stringValue];
         productData.reviewAdded=[[response objectForKey:@"is_reviewed"] stringValue];
         productData.reviewId=[response objectForKey:@"review_id"];
+        productData.productSku=[response objectForKey:@"sku"];
+        //        productData.isWishlist=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
+        
         productData.productMediaArray=[[response objectForKey:@"media"] mutableCopy];
         success(productData);
     } onfailure:^(NSError *error) {

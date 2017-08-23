@@ -35,6 +35,8 @@
 @synthesize productUrlKey;
 @synthesize reviewAdded;
 @synthesize reviewId;
+@synthesize productMinQuantity;
+@synthesize productSku;
 
 - (id)copyWithZone:(NSZone *)zone {
     ProductDataModel *another = [[ProductDataModel alloc] init];
