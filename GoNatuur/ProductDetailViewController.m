@@ -65,7 +65,7 @@
 //Create QRCode
 - (void)makeQRCode {
     qrCodeImage=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80*2, 80*2)];
-    NSString *qrString = [NSString stringWithFormat:@"RohitModiQRCode"];
+    NSString *qrString = [NSString stringWithFormat:@"%@%@%s",@"http://dev.gonatuur.com/",productDetailModelData.productUrlKey,".html"];
     NSData *stringData = [qrString dataUsingEncoding: NSUTF8StringEncoding];
     CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     [qrFilter setValue:stringData forKey:@"inputMessage"];
@@ -138,7 +138,7 @@
         if (cell == nil){
             cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"productDetailDescriptionCell"];
         }
-        [cell displayProductDescription:productDetailModelData.productShortDescription];
+        [cell displayProductDescription:productDetailModelData.productSubtitle];
     }
     else if (indexPath.row==2) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"productDetailRatingCell"];
@@ -230,7 +230,7 @@
         if (cell == nil){
             cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"followCell"];
         }
-           UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
+        UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"unfollow");
         }
@@ -242,6 +242,13 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"wishlistCell"];
         if (cell == nil){
             cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"wishlistCell"];
+        }
+        UILabel *cellLabel=(UILabel *)[cell viewWithTag:11];
+        if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
+            cellLabel.text=NSLocalizedText(@"wishlistAdded");
+        }
+        else{
+            cellLabel.text=NSLocalizedText(@"wishlist");
         }
     }
     else if (indexPath.row==14) {
@@ -260,7 +267,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
     if (indexPath.row==3 && [[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
         NSURL *videoURL = [NSURL URLWithString:@"https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"];
         AVPlayer *player = [AVPlayer playerWithURL:videoURL];
@@ -268,9 +274,6 @@
         playerViewController.player = player;
         [self presentViewController:playerViewController animated:YES completion:nil];
     }
-    /*Code is commented for 360 video media type
-     else if(indexPath.row==3 && [[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
-     }*/
     else if (indexPath.row==8) {
         //Description action
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -291,7 +294,7 @@
         //Brand action
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
-        webView.navigationTitle=NSLocalizedText(@"BrandStory");
+        webView.navigationTitle=NSLocalizedText(@"Brandstory");
         webView.productDetaiData=productDetailModelData.productBrandStory;
         [self.navigationController pushViewController:webView animated:YES];
     }
@@ -300,27 +303,49 @@
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ReviewListingViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewListingViewController"];
         reviewView.productID =[NSNumber numberWithInt:selectedProductId];
+        reviewView.reviewAdded=productDetailModelData.reviewAdded;
+        reviewView.reviewId=productDetailModelData.reviewId;
         [self.navigationController pushViewController:reviewView animated:YES];
     }
     else if (indexPath.row==12) {
         //Follow action
+        if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            [myDelegate checkGuestAccess];
+        }
+        else {
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             [self unFollowProduct:(int)indexPath.row];
         }
         else {
-        [self followProduct:(int)indexPath.row];
+            [self followProduct:(int)indexPath.row];
+        }
         }
     }
     else if (indexPath.row==13) {
         //Wishlist action
-        [self addToWishlist:(int)indexPath.row];
-        //add toast if item already added to wishlist
+        if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            [myDelegate checkGuestAccess];
+        }
+        else {
+        if ([productDetailModelData.following isEqualToString:@"1"]) {
+            [self.view makeToast:NSLocalizedText(@"alreadyAddedWishlist")];
+        }
+        else {
+            [self addToWishlist:(int)indexPath.row];
+        }
+        }
+        
     }
     else if (indexPath.row==14) {
         //Share action
     }
     else if (indexPath.row==15) {
         //Location action
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
+        webView.navigationTitle=NSLocalizedText(@"Where to buy");
+        webView.productDetaiData=productDetailModelData.productWhereToBuy;
+        [self.navigationController pushViewController:webView animated:YES];
     }
 }
 
@@ -355,7 +380,7 @@
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData getProductDetailOnSuccess:^(ProductDataModel *productDetailData)  {
         productDetailModelData=productDetailData;
-         [self makeQRCode];
+        [self makeQRCode];
         int tempIndex=-1;
         for (int i=0; i<productDetailModelData.productMediaArray.count; i++) {
             if ([[[productDetailModelData.productMediaArray objectAtIndex:i] objectForKey:@"media_type"] isEqualToString:@"image"]) {
@@ -388,7 +413,7 @@
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"wishlist");
     }];
-
+    
 }
 
 //Add to cart
@@ -414,7 +439,7 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData followProductOnSuccess:^(ProductDataModel *productDetailData)  {
-         cellLabel.text=NSLocalizedText(@"unfollow");
+        cellLabel.text=NSLocalizedText(@"unfollow");
         productDetailModelData.following=@"1";
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"follow");
@@ -432,7 +457,7 @@
         cellLabel.text=NSLocalizedText(@"follow");
         productDetailModelData.following=@"0";
     } onfailure:^(NSError *error) {
-         cellLabel.text=NSLocalizedText(@"unfollow");
+        cellLabel.text=NSLocalizedText(@"unfollow");
     }];
     
 }

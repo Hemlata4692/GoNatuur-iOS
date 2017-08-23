@@ -112,12 +112,9 @@
 
 #pragma mark -
 #pragma mark Drawing
--(CGPoint)pointOfStarAtPosition:(NSInteger)position highlighted:(BOOL)hightlighted
-{
-   // UIImage *tempImage=[UIImage imageNamed:@"light_star.png"];
-
-    CGSize size = hightlighted?starHighlightedImage.size:starImage.size;
-    
+-(CGPoint)pointOfStarAtPosition:(NSInteger)position highlighted:(BOOL)hightlighted {
+   CGSize size = hightlighted?starHighlightedImage.size:starImage.size;
+//    CGSize size = CGSizeMake(18, 18);
     NSInteger starsSpace = self.bounds.size.width - 2*horizontalMargin;
     
     NSInteger interSpace = 0;
@@ -137,7 +134,6 @@
     {
 #if EDSTAR_MACOSX
         [backgroundImage drawInRect:self.bounds fromRect:NSMakeRect(0.0, 0.0, backgroundImage.size.width, backgroundImage.size.height) operation:NSCompositeSourceOver fraction:1.0];
-        
 #else
         [backgroundImage drawInRect:self.bounds];
         
@@ -158,7 +154,6 @@
 
 }
 
-
 -(void)setBackgroundColor:(EDColor *)color
 {
 #if EDSTAR_IOS
@@ -171,7 +166,6 @@
         self.backCGColor = [self cgColor:color];
     }
 }
-
 
 -(CGColorRef)cgColor:(EDColor*)color
 {
@@ -277,7 +271,6 @@
             
             if( self.displayMode == EDStarRatingDisplayHalf  )
             {
-              //  UIImage *tempImage=[UIImage imageNamed:@"light_star.png"];
                 float difference = (point.x - p.x)/starImage.size.width;
                 if( difference < self.halfStarThreshold )
                 {
@@ -389,9 +382,9 @@
         
         UIGraphicsBeginImageContextWithOptions(img.size, NO, [UIScreen mainScreen].scale );
         CGContextRef context = UIGraphicsGetCurrentContext();
-        CGContextTranslateCTM(context, 0, 15);
+        CGContextTranslateCTM(context, 0, img.size.height);
         CGContextScaleCTM(context, 1.0, -1.0);
-        CGRect rect = CGRectMake(0, 0, 15, 15);
+        CGRect rect = CGRectMake(0, 0, img.size.width, img.size.height);
         // draw alpha-mask
         CGContextSetBlendMode(context, kCGBlendModeNormal);
         CGContextDrawImage(context, rect, img.CGImage);

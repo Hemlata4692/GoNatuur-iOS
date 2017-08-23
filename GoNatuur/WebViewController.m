@@ -11,7 +11,6 @@
 
 @interface WebViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *productDetailWebView;
-@property (weak, nonatomic) IBOutlet UIView *shadowView;
 
 @end
 
@@ -35,17 +34,18 @@
     self.title=navigationTitle;
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
-
-    [_shadowView addShadow:_shadowView color:[UIColor darkGrayColor]];
     productDetaiData = [NSString stringWithFormat:@"<span style=\"font-family: %@; font-size: %i\">%@</span>",
                   @"Montserrat-Light",
                   17,
                   productDetaiData];
     [myDelegate showIndicator];
    // [_productDetailWebView loadHTMLString:productDetaiData baseURL: nil];
+    if ([navigationTitle isEqualToString:NSLocalizedText(@"Where to buy")]) {
+         [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body bgcolor=\"#FDF4F6\" text=\"#000000\" align='left'>%@</body></html>", productDetaiData] baseURL: nil];
+    }
+    else {
     [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body bgcolor=\"#FDF4F6\" text=\"#000000\" align='justify'>%@</body></html>", productDetaiData] baseURL: nil];
-    // [_productDetailWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://dev.gonatuur.com/media/weltpixel/owlcarouselslider/images/b/a/banner2_1.gif"]]];
-
+    }
 }
 #pragma mark - end
 

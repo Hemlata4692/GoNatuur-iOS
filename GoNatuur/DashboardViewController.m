@@ -256,7 +256,7 @@
     healthyLivingDataArray=[bannerImageData.healthyLivingArray mutableCopy];
     samplersProductDataArray=[bannerImageData.samplersDataArray mutableCopy];
     //footerImageView
-    [ImageCaching downloadImages:_footerImageView imageUrl:[[footerImageArray objectAtIndex:0] banerImageUrl] placeholderImage:@"banner_placeholder" isDashboardCell:false];
+    [ImageCaching downloadImages:_footerImageView imageUrl:[[footerImageArray objectAtIndex:0] banerImageUrl] placeholderImage:@"banner_placeholder" isDashboardCell:true];
     [_productCollectionView reloadData];
     [_footerImageCollectionView reloadData];
     [self swipeImages];
@@ -266,7 +266,7 @@
 #pragma mark - Swipe Images
 - (void)swipeImages {
     selectedIndex=0;
-    [ImageCaching downloadImages:_bannerImageView imageUrl:[[bannerImageArray objectAtIndex:selectedIndex] banerImageUrl] placeholderImage:@"banner_placeholder" isDashboardCell:false];
+    [ImageCaching downloadImages:_bannerImageView imageUrl:[[bannerImageArray objectAtIndex:selectedIndex] banerImageUrl] placeholderImage:@"banner_placeholder" isDashboardCell:true];
     self.bannerImageView.userInteractionEnabled = YES;
      _footerImageView.userInteractionEnabled=YES;
     //Swipe gesture to swipe images to left
@@ -326,7 +326,7 @@
 - (void)swipeImagesLeft:(UISwipeGestureRecognizer *)sender {
     selectedIndex++;
     if (selectedIndex<bannerImageArray.count) {
-        [ImageCaching downloadImages:_bannerImageView imageUrl:[[bannerImageArray objectAtIndex:selectedIndex] banerImageUrl] placeholderImage:@"banner_placeholder" isDashboardCell:false];
+        [ImageCaching downloadImages:_bannerImageView imageUrl:[[bannerImageArray objectAtIndex:selectedIndex] banerImageUrl] placeholderImage:@"banner_placeholder" isDashboardCell:true];
         UIImageView *moveImageView = _bannerImageView;
         [self addLeftAnimationPresentToView:moveImageView];
     }
@@ -341,7 +341,7 @@
     if (selectedIndex<bannerImageArray.count) {
         //check if screen is navigated from image question or not
         //set image from afnetworking
-        [ImageCaching downloadImages:_bannerImageView imageUrl:[[bannerImageArray objectAtIndex:selectedIndex] banerImageUrl] placeholderImage:@"banner_placeholder" isDashboardCell:false];
+        [ImageCaching downloadImages:_bannerImageView imageUrl:[[bannerImageArray objectAtIndex:selectedIndex] banerImageUrl] placeholderImage:@"banner_placeholder" isDashboardCell:true];
         UIImageView *moveImageView = _bannerImageView;
         [self addRightAnimationPresentToView:moveImageView];
     }
