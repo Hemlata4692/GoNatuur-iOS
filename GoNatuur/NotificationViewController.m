@@ -114,7 +114,7 @@
         arrowIcon.alpha=0.6;
     }
     notificationBadgeLabel.text=notiData.notificationMessage;
-    float newHeight =[DynamicHeightWidth getDynamicLabelHeight:notificationBadgeLabel.text font:[UIFont fontWithName:@"Montserrat-Regular" size:15.0] widthValue:_notificationTableView.frame.size.width-77];
+    float newHeight =[DynamicHeightWidth getDynamicLabelHeight:notificationBadgeLabel.text font:[UIFont montserratLightWithSize:15] widthValue:_notificationTableView.frame.size.width-77];
     notificationBadgeLabel.frame=CGRectMake(48, 7,_notificationTableView.frame.size.width-77, newHeight+1);
     return cell;
 }
