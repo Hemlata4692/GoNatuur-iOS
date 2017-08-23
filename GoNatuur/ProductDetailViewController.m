@@ -400,7 +400,7 @@
         [myDelegate stopIndicator];
         [UserDefaultManager setValue:[NSNumber numberWithInt:[[UserDefaultManager getValue:@"quoteCount"] intValue]+currentQuantity] key:@"quoteCount"];
         [self updateCartBadge];
-        [self.view makeToast:@"Added to cart"];
+        [self.view makeToast:NSLocalizedText(@"Added to cart")];
     } onfailure:^(NSError *error) {
         
     }];

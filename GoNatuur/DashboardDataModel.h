@@ -33,6 +33,7 @@
 @property (strong, nonatomic) NSString *profilePicture;
 @property (strong, nonatomic) NSNumber *notificationsCount;
 @property (strong, nonatomic) NSString *specialPrice;
+@property (strong, nonatomic) NSNumber *productQty;
 
 //Singleton method
 + (instancetype)sharedUser;

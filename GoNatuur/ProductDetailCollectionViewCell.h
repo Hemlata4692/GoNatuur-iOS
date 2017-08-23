@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ProductDetailCollectionViewCell : UICollectionViewCell
+@property (strong, nonatomic) IBOutlet UIImageView *shadowImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *productthumbnailImageView;
 @property (weak, nonatomic) IBOutlet UIView *blackTransparentView;
 @property (strong, nonatomic) IBOutlet UIImageView *icon360ImageView;

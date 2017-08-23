@@ -170,6 +170,7 @@
 }
 
 - (void)serachButtonAction:(id)sender {
+    myDelegate.selectedCategoryIndex=-1;
     UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     SearchViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"SearchViewController"];
     [self.navigationController pushViewController:searchView animated:YES];

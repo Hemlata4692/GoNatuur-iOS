@@ -14,9 +14,9 @@
 @end
 @implementation GoNatuurFilterView
 @synthesize goNatuurFilterViewObj;
-@synthesize firstFilterButtonOutlet;
-@synthesize subCategoryButtonOutlet;
-@synthesize secondFilterButtonOutlet;
+@synthesize subCategoryButtonOutlet, subCategoryArrowImageView;
+@synthesize firstFilterButtonOutlet, firstFilterArrowImageView;
+@synthesize secondFilterButtonOutlet, secondFilterArrowImageView;
 
 #pragma mark - Initialized view
 - (id)initWithFrame:(CGRect)frame delegate:(id)delegate {
@@ -30,8 +30,8 @@
 }
 
 - (void)setButtonTitles:(NSString *)firstFilterText subCategoryText:(NSString *)subCategoryText secondFilterText:(NSString *)secondFilterText {
-    [firstFilterButtonOutlet setTitle:firstFilterText forState:UIControlStateNormal];
     [subCategoryButtonOutlet setTitle:subCategoryText forState:UIControlStateNormal];
+    [firstFilterButtonOutlet setTitle:firstFilterText forState:UIControlStateNormal];
     [secondFilterButtonOutlet setTitle:secondFilterText forState:UIControlStateNormal];
 }
 #pragma mark - end

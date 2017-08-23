@@ -201,6 +201,8 @@
                 productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
+            productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [userData.bestSellerArray addObject:productData];
         }
@@ -216,6 +218,8 @@
                 healthyLivingData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             healthyLivingData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            healthyLivingData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
+            healthyLivingData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             healthyLivingData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [userData.healthyLivingArray addObject:healthyLivingData];
         }
@@ -231,7 +235,7 @@
                 samplersArrayData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             samplersArrayData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
-            DLog(@"%@",[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"]);
+            samplersArrayData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
             samplersArrayData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             samplersArrayData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [userData.samplersDataArray addObject:samplersArrayData];
@@ -331,6 +335,7 @@
                 productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
              productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [searchData.searchProductListArray addObject:productData];
@@ -440,7 +445,7 @@
     ProductService *productDetailData=[[ProductService alloc]init];
     [productDetailData getProductDetailService:productData success:^(id response) {
         //Parse data from server response and store in data model
-        DLog(@"category list response %@",response);
+        DLog(@"product list response %@",response);
         NSDictionary *customAttributeDict=[[[response objectForKey:@"custom_attribute"] objectAtIndex:0] copy];
         productData.productName=[response objectForKey:@"name"];
         productData.productPrice=[response objectForKey:@"price"];

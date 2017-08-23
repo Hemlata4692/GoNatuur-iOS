@@ -65,6 +65,8 @@
             [UserDefaultManager setValue:userData.wishlistCount key:@"wishlistCount"];
             [UserDefaultManager setValue:userData.accessToken key:@"Authorization"];
             [UserDefaultManager setValue:userData.profilePicture key:@"profilePicture"];
+            [UserDefaultManager setValue:userData.firstName key:@"firstname"];
+            [UserDefaultManager setValue:userData.lastName key:@"lastname"];
             success (userData);
         }
     } onFailure:^(NSError *error) {
@@ -125,6 +127,8 @@
             [UserDefaultManager setValue:userData.wishlistCount key:@"wishlistCount"];
             [UserDefaultManager setValue:userData.accessToken key:@"Authorization"];
             [UserDefaultManager setValue:userData.profilePicture key:@"profilePicture"];
+            [UserDefaultManager setValue:userData.firstName key:@"firstname"];
+            [UserDefaultManager setValue:userData.lastName key:@"lastname"];
             success (userData);
         }
     } onFailure:^(NSError *error) {

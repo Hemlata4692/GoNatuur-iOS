@@ -21,8 +21,15 @@ static NSString *kLoginedAddToCartProduct=@"carts/mine";
 
 #pragma mark - Get product detail service
 - (void)getProductDetailService:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSString *customerID;
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+        customerID=@"0";
+    }
+    else {
+        customerID=[UserDefaultManager getValue:@"userId"];
+    }
     NSDictionary *parameters = @{@"productId":productDetail.productId,
-                                 @"customerId":[UserDefaultManager getValue:@"userId"]
+                                 @"customerId":customerID
                                  };
     DLog(@"producy detail request %@",parameters);
     [super post:kProductDetail parameters:parameters success:success failure:failure];
