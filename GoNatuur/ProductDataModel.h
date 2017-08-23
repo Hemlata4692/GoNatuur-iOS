@@ -31,9 +31,11 @@
 @property (strong, nonatomic) NSString *productUrlKey;
 @property (strong, nonatomic) NSString *productPointsEarn;
 @property (strong, nonatomic) NSNumber *productMaxQuantity;
+@property (strong, nonatomic) NSNumber *productMinQuantity;
 @property (strong, nonatomic) NSNumber *productQuantity;
 @property (strong, nonatomic) NSMutableArray *productDataArray;
 @property (strong, nonatomic) NSMutableArray *productMediaArray;
+@property (strong, nonatomic) NSString *productSku;
 
 //Singleton method
 + (instancetype)sharedUser;
@@ -52,4 +54,6 @@
 
 //Unfollow product
 - (void)unFollowProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Add to cart service
+- (void)addToCartProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

@@ -327,8 +327,10 @@
     [_keyboardControls.activeField resignFirstResponder];
     isSocialLogin=1;
     _emailTextField.text=[result objectForKey:@"email"];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
+    if (![_emailTextField isEmpty]) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
+    }
 }
 #pragma mark - end
 @end

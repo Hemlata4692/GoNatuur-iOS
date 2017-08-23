@@ -65,6 +65,7 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:false];
+    myDelegate.selectedCategoryIndex=-1;
     [self showSelectedTab:1];
     if (firstTime) {
         [myDelegate showIndicator];
@@ -134,18 +135,23 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ProductDetailViewController * detailScreen=[sb instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
-    if (buttonTag==1) {
-        detailScreen.selectedProductId=[[[bestSellerDataArray objectAtIndex:indexPath.item] productId] intValue];
-    }
-    else if (buttonTag==2) {
-        detailScreen.selectedProductId=[[[healthyLivingDataArray objectAtIndex:indexPath.item] productId] intValue];
+    if (collectionView==_productCollectionView) {
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ProductDetailViewController * detailScreen=[sb instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+        if (buttonTag==1) {
+            detailScreen.selectedProductId=[[[bestSellerDataArray objectAtIndex:indexPath.item] productId] intValue];
+        }
+        else if (buttonTag==2) {
+            detailScreen.selectedProductId=[[[healthyLivingDataArray objectAtIndex:indexPath.item] productId] intValue];
+        }
+        else {
+            detailScreen.selectedProductId=[[[samplersProductDataArray objectAtIndex:indexPath.item] productId] intValue];
+        }
+        [self.navigationController pushViewController:detailScreen animated:YES];
     }
     else {
-        detailScreen.selectedProductId=[[[samplersProductDataArray objectAtIndex:indexPath.item] productId] intValue];
+        [self handleBannerClickEvent:(int)indexPath.item+3];
     }
-    [self.navigationController pushViewController:detailScreen animated:YES];
 }
 #pragma mark - end
 
@@ -302,15 +308,17 @@
     //tap gesture
     UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(handleSingleTap:)];
     tapGesture1.numberOfTapsRequired = 1;
-    tapGesture1.view.tag=1;
+    
     [tapGesture1 setDelegate:self];
     [_bannerImageView addGestureRecognizer:tapGesture1];
     
     UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(handleSingleTap:)];
     tapGesture2.numberOfTapsRequired = 1;
-    tapGesture1.view.tag=2;
+    
     [tapGesture2 setDelegate:self];
     [_footerImageView addGestureRecognizer:tapGesture2];
+    tapGesture1.view.tag=1;
+    tapGesture2.view.tag=2;
 }
 
 //Adding left animation to banner images
@@ -337,12 +345,11 @@
     [viewTobeAnimatedRight.layer addAnimation:transition forKey:nil];
 }
 
-//swipe images in left direction
+//Swipe images in left direction
 - (void)swipeImagesLeft:(UISwipeGestureRecognizer *)sender {
     selectedIndex++;
     if (selectedIndex<bannerImageArray.count) {
-        bannerImageData=[bannerImageArray objectAtIndex:selectedIndex];
-        [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:false];
+        [ImageCaching downloadImages:_bannerImageView imageUrl:[[bannerImageArray objectAtIndex:selectedIndex] banerImageUrl] placeholderImage:@"banner_placeholder" isDashboardCell:false];
         UIImageView *moveImageView = _bannerImageView;
         [self addLeftAnimationPresentToView:moveImageView];
     }
@@ -351,14 +358,13 @@
     }
 }
 
-//swipe images in right direction
+//Swipe images in right direction
 - (void)swipeImagesRight:(UISwipeGestureRecognizer *)sender {
     selectedIndex--;
     if (selectedIndex<bannerImageArray.count) {
         //check if screen is navigated from image question or not
-        bannerImageData=[bannerImageArray objectAtIndex:selectedIndex];
         //set image from afnetworking
-        [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:false];
+        [ImageCaching downloadImages:_bannerImageView imageUrl:[[bannerImageArray objectAtIndex:selectedIndex] banerImageUrl] placeholderImage:@"banner_placeholder" isDashboardCell:false];
         UIImageView *moveImageView = _bannerImageView;
         [self addRightAnimationPresentToView:moveImageView];
     }
@@ -366,36 +372,73 @@
         selectedIndex++;
     }
 }
-
-- (void)handleSingleTap:(UITapGestureRecognizer *)tap {
-    //handle Tap...
-    if (tap.view.tag==1) {
-        [self handleBannerClickEvent];
-    }
-    else {
-        
-    }
-}
-
-- (void)handleBannerClickEvent {
-      UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    if ([bannerImageData.bannerImageType isEqualToString:@"product_listing"]) {
-        myDelegate.isProductList=true;
-        ProductListingViewController * detailScreen=[sb instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
-        detailScreen.selectedProductCategoryId=[bannerImageData.banerImageId intValue];
-         [self.navigationController pushViewController:detailScreen animated:YES];
-    }
-    else if ([bannerImageData.bannerImageType isEqualToString:@""]) {
-        
-    }
-    else if ([bannerImageData.bannerImageType isEqualToString:@""]) {
-        
-    }
-    else if ([bannerImageData.bannerImageType isEqualToString:@""]) {
-        
-    }
-    
-}
 #pragma mark - end
 
+#pragma mark - Tap gesture handle
+//Handle tap gesture action
+- (void)handleSingleTap:(UITapGestureRecognizer *)tap {
+    //handle Tap...
+    DLog(@"%d", (int)tap.view.tag);
+    if (tap.view.tag==1) {
+        if (bannerImageArray.count>0) {
+            [self handleBannerClickEvent:1];
+        }
+    }
+    else {
+        if (footerImageArray.count>0) {
+            [self handleBannerClickEvent:2];
+        }
+    }
+}
+
+- (void)handleBannerClickEvent:(int)tapIndex {
+    DashboardDataModel *tempBannerImageData;
+    if (tapIndex==1) {
+        tempBannerImageData=[bannerImageArray objectAtIndex:selectedIndex];
+    }
+    else {
+        tempBannerImageData=[footerImageArray objectAtIndex:tapIndex-2];
+    }
+    if (nil!=tempBannerImageData.banerImageId&&NULL!=tempBannerImageData.banerImageId&&![tempBannerImageData.banerImageId isEqualToString:@""]) {
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        if ([tempBannerImageData.bannerImageType isEqualToString:@"product_list"]) {
+            //Navigate to product list
+            DLog(@"%@",tempBannerImageData.banerImageId);
+            myDelegate.isProductList=true;
+            myDelegate.selectedCategoryIndex=[self selectedCategoryIndex:[tempBannerImageData.banerImageId intValue]];
+            ProductListingViewController * detailScreen=[sb instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
+            detailScreen.selectedProductCategoryId=[tempBannerImageData.banerImageId intValue];
+            [self.navigationController pushViewController:detailScreen animated:YES];
+        }
+        else if ([tempBannerImageData.bannerImageType isEqualToString:@"product_details"]) {
+            //Navigate to product detail
+            UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ProductDetailViewController * detailScreen=[sb instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+            detailScreen.selectedProductId=[tempBannerImageData.banerImageId intValue];
+            [self.navigationController pushViewController:detailScreen animated:YES];
+        }
+        else if ([tempBannerImageData.bannerImageType isEqualToString:@"event_list"]) {
+            //Navigate to product list
+            myDelegate.isProductList=false;
+            ProductListingViewController * detailScreen=[sb instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
+            detailScreen.selectedProductCategoryId=[tempBannerImageData.banerImageId intValue];
+            [self.navigationController pushViewController:detailScreen animated:YES];
+        }
+        else if ([tempBannerImageData.bannerImageType isEqualToString:@"event_details"]) {
+            //Screen is not available
+        }
+    }
+}
+
+- (int)selectedCategoryIndex:(int)productId {
+    int index=-1;
+    for (int i=0; i<myDelegate.categoryNameArray.count; i++) {
+        if ([[[myDelegate.categoryNameArray objectAtIndex:i] objectForKey:@"id"] intValue]==productId) {
+            index=i;
+            break;
+        }
+    }
+    return index;
+}
+#pragma mark - end
 @end
