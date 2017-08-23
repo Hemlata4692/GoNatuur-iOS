@@ -25,6 +25,7 @@
     BOOL isServiceCalled;
     UIImageView *qrCodeImage;
     int selectedMediaIndex, currentQuantity;
+    NSArray *cellIdentifierArray;
 }
 @property (strong, nonatomic) IBOutlet UITableView *productDetailTableView;
 @end
@@ -46,6 +47,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"productDetailPriceCell", @"productDetailInfoCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"benefitCell",@"brandCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,7 +96,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (indexPath.row==0) {
         return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productName font:[UIFont montserratSemiBoldWithSize:20] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:52]+24;
     }
@@ -125,60 +126,29 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ProductDetailTableViewCell *cell;
+    NSString *CellIdentifier = [cellIdentifierArray objectAtIndex:indexPath.row];
+    ProductDetailTableViewCell* cell = [_productDetailTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil){
+        cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     if (indexPath.row==0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"productDetailNameCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"productDetailNameCell"];
-        }
         [cell displayProductName:productDetailModelData.productName];
     }
     else if (indexPath.row==1) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"productDetailDescriptionCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"productDetailDescriptionCell"];
-        }
         [cell displayProductDescription:productDetailModelData.productShortDescription];
     }
     else if (indexPath.row==2) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"productDetailRatingCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"productDetailRatingCell"];
-        }
         [cell displayRating:productDetailModelData.productRating];
     }
     else if (indexPath.row==3) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"productDetailImageCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"productDetailImageCell"];
-        }
         [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] qrCode:qrCodeImage.image];
         cell.productImageView.userInteractionEnabled=YES;
-        //Swipe gesture to swipe images to left
-        UISwipeGestureRecognizer *swipeImageLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeIntroImageLeft)];
-        swipeImageLeft.delegate=self;
-        UISwipeGestureRecognizer *swipeImageRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeIntroImageRight)];
-        swipeImageRight.delegate=self;
-        
-        // Setting the swipe direction.
-        [swipeImageLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-        [swipeImageRight setDirection:UISwipeGestureRecognizerDirectionRight];
-        // Adding the swipe gesture on image view
-        [cell.contentView addGestureRecognizer:swipeImageLeft];
-        [cell.contentView addGestureRecognizer:swipeImageRight];
+        [self addSwipeGesture:cell.contentView];
     }
     else if (indexPath.row==4) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"productDetailMediaCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"productDetailMediaCell"];
-        }
         [cell.productMediaCollectionView reloadData];
     }
     else if (indexPath.row==5) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"productDetailPriceCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"productDetailPriceCell"];
-        }
         [cell displayProductPrice:productDetailModelData currentQuantity:currentQuantity];
         cell.incrementCartButton.tag=indexPath.row;
         cell.removeFromCartButton.tag=indexPath.row;
@@ -186,51 +156,15 @@
         [cell.removeFromCartButton addTarget:self action:@selector(removeQuantityAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     else if (indexPath.row==6) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"productDetailInfoCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"productDetailInfoCell"];
-        }
         [cell displayProductInfo];
     }
     else if (indexPath.row==7) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"productDetailAddCartButtonCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"productDetailAddCartButtonCell"];
-        }
         [cell displayAddToCartButton];
         cell.addToCartButton.tag=indexPath.row;
         [cell.addToCartButton addTarget:self action:@selector(insertInCartItemAction:) forControlEvents:UIControlEventTouchUpInside];
     }
-    else if (indexPath.row==8) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"descriptionCell"];
-        }
-    }
-    else if (indexPath.row==9) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"benefitCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"benefitCell"];
-        }
-    }
-    else if (indexPath.row==10) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"brandCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"brandCell"];
-        }
-    }
-    else if (indexPath.row==11) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"reviewCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"reviewCell"];
-        }
-    }
     else if (indexPath.row==12) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"followCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"followCell"];
-        }
-           UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
+        UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"unfollow");
         }
@@ -239,68 +173,49 @@
         }
     }
     else if (indexPath.row==13) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"wishlistCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"wishlistCell"];
-        }
-    }
-    else if (indexPath.row==14) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"shareCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"shareCell"];
-        }
-    }
-    else if (indexPath.row==15) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"locationCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"locationCell"];
-        }
+       
     }
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)addSwipeGesture:(UIView *)view {
+    //Swipe gesture to swipe images to left
+    UISwipeGestureRecognizer *swipeImageLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeIntroImageLeft)];
+    swipeImageLeft.delegate=self;
+    UISwipeGestureRecognizer *swipeImageRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeIntroImageRight)];
+    swipeImageRight.delegate=self;
+    
+    // Setting the swipe direction.
+    [swipeImageLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [swipeImageRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    // Adding the swipe gesture on image view
+    [view addGestureRecognizer:swipeImageLeft];
+    [view addGestureRecognizer:swipeImageRight];
+}
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==3 && [[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
-        NSURL *videoURL = [NSURL URLWithString:@"https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"];
+        NSURL *videoURL = [NSURL URLWithString:@""];
         AVPlayer *player = [AVPlayer playerWithURL:videoURL];
         AVPlayerViewController *playerViewController = [AVPlayerViewController new];
         playerViewController.player = player;
         [self presentViewController:playerViewController animated:YES completion:nil];
     }
-    /*Code is commented for 360 video media type
-     else if(indexPath.row==3 && [[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
-     }*/
     else if (indexPath.row==8) {
         //Description action
-        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
-        webView.navigationTitle=NSLocalizedText(@"Description");
-        webView.productDetaiData=productDetailModelData.productDescription;
-        [self.navigationController pushViewController:webView animated:YES];
+        [self navigateToView:NSLocalizedText(@"Description") webViewData:productDetailModelData.productDescription viewIdentifier:@"webView" productId:0];
     }
     else if (indexPath.row==9) {
-        //Benifit action
-        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
-        webView.navigationTitle=NSLocalizedText(@"Benefits&Usage");
-        webView.productDetaiData=productDetailModelData.productBenefitsUsage;
-        [self.navigationController pushViewController:webView animated:YES];
+        //Benefit action
+        [self navigateToView:NSLocalizedText(@"Benefits&Usage") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0];
     }
     else if (indexPath.row==10) {
         //Brand action
-        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
-        webView.navigationTitle=NSLocalizedText(@"BrandStory");
-        webView.productDetaiData=productDetailModelData.productBrandStory;
-        [self.navigationController pushViewController:webView animated:YES];
+        [self navigateToView:NSLocalizedText(@"BrandStory") webViewData:productDetailModelData.productBrandStory viewIdentifier:@"webView" productId:0];
     }
     else if (indexPath.row==11) {
         //Review action
-        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ReviewListingViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewListingViewController"];
-        reviewView.productID =[NSNumber numberWithInt:selectedProductId];
-        [self.navigationController pushViewController:reviewView animated:YES];
+        [self navigateToView:@"" webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId]];
     }
     else if (indexPath.row==12) {
         //Follow action
@@ -308,7 +223,7 @@
             [self unFollowProduct:(int)indexPath.row];
         }
         else {
-        [self followProduct:(int)indexPath.row];
+            [self followProduct:(int)indexPath.row];
         }
     }
     else if (indexPath.row==13) {
@@ -324,6 +239,20 @@
     }
 }
 
+- (void)navigateToView:(NSString *)navTitle webViewData:(NSString *)webViewData viewIdentifier:(NSString *)viewIdentifier productId:(NSNumber *)productId {
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    if ([viewIdentifier isEqualToString:@"webView"]) {
+        WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
+        webView.navigationTitle=navTitle;
+        webView.productDetaiData=webViewData;
+        [self.navigationController pushViewController:webView animated:YES];
+    }
+    else {
+        ReviewListingViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewListingViewController"];
+        reviewView.productID =productId;
+        [self.navigationController pushViewController:reviewView animated:YES];
+    }
+}
 #pragma mark - end
 
 #pragma mark - Collection view datasource methods
@@ -355,7 +284,7 @@
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData getProductDetailOnSuccess:^(ProductDataModel *productDetailData)  {
         productDetailModelData=productDetailData;
-         [self makeQRCode];
+        [self makeQRCode];
         int tempIndex=-1;
         for (int i=0; i<productDetailModelData.productMediaArray.count; i++) {
             if ([[[productDetailModelData.productMediaArray objectAtIndex:i] objectForKey:@"media_type"] isEqualToString:@"image"]) {
@@ -388,7 +317,7 @@
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"wishlist");
     }];
-
+    
 }
 
 //Add to cart
@@ -414,7 +343,7 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData followProductOnSuccess:^(ProductDataModel *productDetailData)  {
-         cellLabel.text=NSLocalizedText(@"unfollow");
+        cellLabel.text=NSLocalizedText(@"unfollow");
         productDetailModelData.following=@"1";
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"follow");
@@ -432,7 +361,7 @@
         cellLabel.text=NSLocalizedText(@"follow");
         productDetailModelData.following=@"0";
     } onfailure:^(NSError *error) {
-         cellLabel.text=NSLocalizedText(@"unfollow");
+        cellLabel.text=NSLocalizedText(@"unfollow");
     }];
     
 }

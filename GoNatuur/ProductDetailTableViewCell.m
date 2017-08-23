@@ -20,7 +20,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -34,23 +34,18 @@
     _productShortDescriptionLabel.translatesAutoresizingMaskIntoConstraints=true;
     _productShortDescriptionLabel.frame=CGRectMake(40, 0, [[UIScreen mainScreen] bounds].size.width-80, [DynamicHeightWidth getDynamicLabelHeight:productDescription font:[UIFont montserratSemiBoldWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:30]);
     _productShortDescriptionLabel.text=productDescription;
-//    _productShortDescriptionLabel.backgroundColor=[UIColor greenColor];
 }
 
 - (void)displayRating:(NSString *)productRating {
-//    if ([productRating isEqualToString:@""] || productRating==nil || [productRating isEqualToString:@"0"]) {
-//        //Show all blank star
-//    }
-//    else {
-        _starBackView.starImage = [UIImage imageNamed:@"star-unselected"];
-        _starBackView.starHighlightedImage = [UIImage imageNamed:@"star"];
-        _starBackView.maxRating = 5.0;
-        _starBackView.delegate = self;
-//        _starBackView.horizontalMargin = 10;
-        _starBackView.editable=NO;
-        _starBackView.rating= 4.5;
-        _starBackView.displayMode=EDStarRatingDisplayHalf;
-//    }
+    
+    _starBackView.starImage = [UIImage imageNamed:@"star-unselected"];
+    _starBackView.starHighlightedImage = [UIImage imageNamed:@"star"];
+    _starBackView.maxRating = 5.0;
+    _starBackView.delegate = self;
+    //        _starBackView.horizontalMargin = 10;
+    _starBackView.editable=NO;
+    _starBackView.rating= 4.5;
+    _starBackView.displayMode=EDStarRatingDisplayHalf;
 }
 
 - (void)displayProductMediaImage:(NSDictionary *)productImageDict qrCode:(UIImage *)qrCodeImage {
@@ -84,7 +79,7 @@
     [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:18]} range:currenyTextRange];
     [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:18]} range:decimalTextRange];
     _productPriceLabel.attributedText=string;
-    _productPointsEarnLabel.text=[NSString stringWithFormat:@"Points Earn: %@ip",(nil==productData.productPointsEarn?@"0":productData.productPointsEarn)];
+    _productPointsEarnLabel.text=[NSString stringWithFormat:@"%@: %@ip",NSLocalizedText(@"Points Earn"),(nil==productData.productPointsEarn?@"0":productData.productPointsEarn)];
     _addCartView.layer.borderColor=[UIColor blackColor].CGColor;
     _addCartView.layer.borderWidth=1.0;
     _cartNumberItemLabel.text=[NSString stringWithFormat:@"%d",currentQuantity];
