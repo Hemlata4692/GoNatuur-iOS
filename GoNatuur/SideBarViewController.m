@@ -148,7 +148,7 @@
     }
 }
 #pragma mark - end
-//@[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications", @"Signout"]
+
 #pragma mark - Navigation segue identifier
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
@@ -180,31 +180,4 @@
 }
 #pragma mark - end
 
-//#pragma mark - Guest access
-//- (void)checkGuestAccess {
-//    if ((nil==[UserDefaultManager getValue:@"userId"])) {
-//        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-//        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-//            //logout user
-//            [self logoutUser];
-//        }];
-//        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"guestUserAccess") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
-//    }
-//}
-//#pragma mark - end
-//
-//#pragma mark - Logout user
-//- (void)logoutUser {
-//    //Logout user
-//    [UserDefaultManager removeValue:@"userId"];
-//    [UserDefaultManager removeValue:@"emailId"];
-//    [UserDefaultManager removeValue:@"Authorization"];
-//    [UserDefaultManager removeValue:@"profilePicture"];
-//    [UserDefaultManager removeValue:@"enableNotification"];
-//    [UserDefaultManager removeValue:@"quoteId"];
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    myDelegate.navigationController = [storyboard instantiateViewControllerWithIdentifier:@"mainNavController"];
-//    myDelegate.window.rootViewController = myDelegate.navigationController;
-//}
-//#pragma mark - end
 @end
