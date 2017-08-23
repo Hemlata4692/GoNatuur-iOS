@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "CategorySliderViewController.h"
+#import "BottomTabViewController.h"
 
 @interface GoNatuurViewController : UIViewController
 @property (nonatomic, strong) CategorySliderViewController *categorySliderObjc;
+@property (nonatomic, strong) BottomTabViewController *bottomTabController;
 
 - (void)addLeftBarButtonWithImage:(BOOL)isBackButton;
 - (void)addSerachButtonWithImage:(UIImage *)searchButtonImage;
+- (void)showSelectedTab:(int)item;
 @end

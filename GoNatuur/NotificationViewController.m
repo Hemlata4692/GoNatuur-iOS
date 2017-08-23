@@ -31,6 +31,7 @@
     _notificationTableView.estimatedRowHeight = 400.0;//set maximum row height
     _notificationTableView.rowHeight = UITableViewAutomaticDimension;//set dynamic height of row according to text
     _notificationTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
+    _notificationTableView.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
     _noRecordLabel.hidden=YES;
     notificationArray=[[NSMutableArray alloc]init];
     pageCount=1;
@@ -59,12 +60,12 @@
     notificationList.pageCount=[NSNumber numberWithInt:pageCount];
     [notificationList getUserNotification:^(NotificationDataModel *userData) {
         [myDelegate stopIndicator];
+        [notificationArray addObjectsFromArray:userData.notificationListArray];
         if (notificationArray.count==0) {
             _noRecordLabel.hidden=NO;
         }
         else {
             _noRecordLabel.hidden=YES;
-        [notificationArray addObjectsFromArray:userData.notificationListArray];
         totalCount =[userData.totalCount intValue];
         [_notificationTableView reloadData];
         }
@@ -82,7 +83,6 @@
         
     }];
 }
-
 #pragma mark - end
 
 #pragma mark - Table view datasource delegate methods
@@ -92,17 +92,25 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *simpleTableIdentifier=@"notificationCell";
-    UITableViewCell *complainCell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    if (complainCell == nil) {
-        complainCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
-    UILabel *notificationBadgeLabel=(UILabel *) [complainCell viewWithTag:1];
+    UILabel *notificationBadgeLabel=(UILabel *) [cell viewWithTag:1];
     notificationBadgeLabel.translatesAutoresizingMaskIntoConstraints=YES;
     NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];
+    if ([notiData.notificationStatus isEqualToString:@"1"]) {
+        notificationBadgeLabel.textColor=[UIColor whiteColor];
+        cell.contentView.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
+    }
+    else {
+        notificationBadgeLabel.textColor=[UIColor colorWithRed:226.0/255.0 green:226.0/255.0 blue:226.0/255.0 alpha:1.0];
+        cell.contentView.backgroundColor=[UIColor colorWithRed:201.0/255.0 green:95.0/255.0 blue:119.0/255.0 alpha:1.0];
+    }
     notificationBadgeLabel.text=notiData.notificationMessage;
     float newHeight =[DynamicHeightWidth getDynamicLabelHeight:notificationBadgeLabel.text font:[UIFont fontWithName:@"Montserrat-Regular" size:15.0] widthValue:_notificationTableView.frame.size.width-77];
     notificationBadgeLabel.frame=CGRectMake(48, 7,_notificationTableView.frame.size.width-77, newHeight+1);
-    return complainCell;
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

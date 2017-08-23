@@ -31,6 +31,8 @@
 @synthesize isProductList;
 @synthesize exchangeRates;
 @synthesize tabButtonTag;
+@synthesize productCartItemsDetail;
+@synthesize productCartItemKeys;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -64,18 +66,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [NSThread sleepForTimeInterval:1.0];
-    tabButtonTag=0;
-    //Set navigation bar color
+        //Set navigation bar color
    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont montserratMediumWithSize:20], NSFontAttributeName, nil]];
-    
-    selectedLoginType=FacebookLogin;
+    //Values initialized
+    [self initializedValues];
     //Connect appdelegate to facebook delegate
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     navigationController = (UINavigationController *)[self.window rootViewController];
-    if (nil!=[UserDefaultManager getValue:@"userId"]) {
+    if (nil!=[UserDefaultManager getValue:@"quoteId"]) {
         UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         [self.window setRootViewController:objReveal];
@@ -84,7 +85,6 @@
     }
     
     //[self registerForRemoteNotification];
-    selectedCategoryIndex=-1;
     return YES;
 }
 
@@ -175,6 +175,18 @@
 }
 #pragma mark - end
 
+#pragma mark - Value initialized of didFinishLaunch
+- (void)initializedValues {
+    tabButtonTag=0;
+    selectedLoginType=FacebookLogin;
+    if (myDelegate.productCartItemKeys==nil) {
+        myDelegate.productCartItemKeys=[NSMutableArray new];
+        myDelegate.productCartItemsDetail=[NSMutableDictionary new];
+    }
+    selectedCategoryIndex=-1;
+}
+#pragma mark - end
+
 #pragma mark - Facebook open url connection
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
@@ -201,6 +213,34 @@
                                    sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
                                           annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
     }
+}
+#pragma mark - end
+
+#pragma mark - Guest access
+- (void)checkGuestAccess {
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
+            //logout user
+            [self logoutUser];
+        }];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"guestUserAccess") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
+    }
+}
+#pragma mark - end
+
+#pragma mark - Logout user
+- (void)logoutUser {
+    //Logout user
+    [UserDefaultManager removeValue:@"userId"];
+    [UserDefaultManager removeValue:@"emailId"];
+    [UserDefaultManager removeValue:@"Authorization"];
+    [UserDefaultManager removeValue:@"profilePicture"];
+    [UserDefaultManager removeValue:@"enableNotification"];
+    [UserDefaultManager removeValue:@"quoteId"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    myDelegate.navigationController = [storyboard instantiateViewControllerWithIdentifier:@"mainNavController"];
+    myDelegate.window.rootViewController = myDelegate.navigationController;
 }
 #pragma mark - end
 @end

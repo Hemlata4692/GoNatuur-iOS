@@ -10,6 +10,9 @@
 #import "DasboardDataCollectionViewCell.h"
 #import "DashboardDataModel.h"
 #import "CurrencyDataModel.h"
+#import "LoginModel.h"
+#import "ProductDetailViewController.h"
+#import "ProductListingViewController.h"
 
 @interface DashboardViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -59,6 +62,7 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:false];
+    [self showSelectedTab:1];
     if (firstTime) {
         [myDelegate showIndicator];
         [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
@@ -67,6 +71,11 @@
         [myDelegate showIndicator];
         [self performSelector:@selector(getDashboardData) withObject:nil afterDelay:.1];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    myDelegate.tabButtonTag=@"0";
 }
 #pragma mark - end
 
@@ -103,7 +112,7 @@
 - (DasboardDataCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (collectionView==_productCollectionView) {
         DasboardDataCollectionViewCell *productCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productCell" forIndexPath:indexPath];
-        if (buttonTag==1) {//[UserDefaultManager setValue:[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencyExchangeRates] key:@"ExchangeRates"]
+        if (buttonTag==1) {
             [productCell displayProductListData:[bestSellerDataArray objectAtIndex:indexPath.item] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
         }
         else if (buttonTag==2) {
@@ -112,7 +121,6 @@
         else {
             [productCell displayProductListData:[samplersProductDataArray objectAtIndex:indexPath.item] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
         }
-        [productCell.contentView addShadow:productCell.contentView color:[UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0]];
         return productCell;
     }
     else {
@@ -120,6 +128,21 @@
         [footerImageCell displayFooterBannerData:[footerImageArray objectAtIndex:indexPath.item+1]];
         return footerImageCell;
     }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ProductDetailViewController * detailScreen=[sb instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+    if (buttonTag==1) {
+        detailScreen.selectedProductId=[[[bestSellerDataArray objectAtIndex:indexPath.item] productId] intValue];
+    }
+    else if (buttonTag==2) {
+        detailScreen.selectedProductId=[[[healthyLivingDataArray objectAtIndex:indexPath.item] productId] intValue];
+    }
+    else {
+        detailScreen.selectedProductId=[[[samplersProductDataArray objectAtIndex:indexPath.item] productId] intValue];
+    }
+    [self.navigationController pushViewController:detailScreen animated:YES];
 }
 #pragma mark - end
 
@@ -170,7 +193,6 @@
         for (int i=0; i<exchangeCurrencyData.availableCurrencyRatesArray.count; i++) {
             if ([[UserDefaultManager getValue:@"DefaultCurrencyCode"] containsString:[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencyExchangeCode]]) {
                 [UserDefaultManager setValue:[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencyExchangeRates] key:@"ExchangeRates"];
-//                myDelegate.exchangeRates=[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencyExchangeRates];
             }
         }
         [self getDashboardData];
@@ -196,10 +218,26 @@
 - (void)getDashboardData {
     DashboardDataModel *dashboardData = [DashboardDataModel sharedUser];
     [dashboardData getDashboardData:^(DashboardDataModel *userData)  {
-        [myDelegate stopIndicator];
         firstTime=false;
         bannerImageData=userData;
         [self displayData];
+        if (nil!=[UserDefaultManager getValue:@"deviceToken"]&&NULL!=[UserDefaultManager getValue:@"deviceToken"]&&nil!=[UserDefaultManager getValue:@"enableNotification"]) {
+            [self saveDeviceToken];
+        }
+        else{
+            [myDelegate stopIndicator];
+        }
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+//Save device token for push notifications
+- (void)saveDeviceToken {
+    LoginModel *saveDeviceToken = [LoginModel sharedUser];
+    [saveDeviceToken saveDeviceToken:^(LoginModel *deviceToken) {
+        [myDelegate stopIndicator];
+        [UserDefaultManager removeValue:@"enableNotification"];
     } onfailure:^(NSError *error) {
         
     }];
@@ -226,7 +264,7 @@
     bannerImageData=[bannerImageArray objectAtIndex:selectedIndex];
     [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:false];
     self.bannerImageView.userInteractionEnabled = YES;
-    
+     _footerImageView.userInteractionEnabled=YES;
     //Swipe gesture to swipe images to left
     UISwipeGestureRecognizer *swipeImageLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeImagesLeft:)];
     swipeImageLeft.delegate=self;
@@ -239,6 +277,19 @@
     // Adding the swipe gesture on image view
     [[self bannerImageView] addGestureRecognizer:swipeImageLeft];
     [[self bannerImageView] addGestureRecognizer:swipeImageRight];
+    
+    //tap gesture
+    UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(handleSingleTap:)];
+    tapGesture1.numberOfTapsRequired = 1;
+    tapGesture1.view.tag=1;
+    [tapGesture1 setDelegate:self];
+    [_bannerImageView addGestureRecognizer:tapGesture1];
+    
+    UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(handleSingleTap:)];
+    tapGesture2.numberOfTapsRequired = 1;
+    tapGesture1.view.tag=2;
+    [tapGesture2 setDelegate:self];
+    [_footerImageView addGestureRecognizer:tapGesture2];
 }
 
 //Adding left animation to banner images
@@ -293,6 +344,36 @@
     else {
         selectedIndex++;
     }
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)tap {
+    //handle Tap...
+    if (tap.view.tag==1) {
+        [self handleBannerClickEvent];
+    }
+    else {
+        
+    }
+}
+
+- (void)handleBannerClickEvent {
+      UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    if ([bannerImageData.bannerImageType isEqualToString:@"product_listing"]) {
+        myDelegate.isProductList=true;
+        ProductListingViewController * detailScreen=[sb instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
+        detailScreen.selectedProductCategoryId=[bannerImageData.banerImageId intValue];
+         [self.navigationController pushViewController:detailScreen animated:YES];
+    }
+    else if ([bannerImageData.bannerImageType isEqualToString:@""]) {
+        
+    }
+    else if ([bannerImageData.bannerImageType isEqualToString:@""]) {
+        
+    }
+    else if ([bannerImageData.bannerImageType isEqualToString:@""]) {
+        
+    }
+    
 }
 #pragma mark - end
 

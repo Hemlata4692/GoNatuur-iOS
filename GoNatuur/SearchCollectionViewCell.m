@@ -23,7 +23,7 @@
 - (void)displayProductListData :(SearchDataModel *)productListData exchangeRates:(NSString *)exchangeRates {
     [borderView setBorder:borderView color:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0] borderWidth:1.0];
     [borderView setCornerRadius:5.0];
-    [productCellMainView addShadow:productCellMainView color:[UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0]];
+    [productCellMainView addShadow:productCellMainView color:[UIColor colorWithRed:222.0/255.0 green:222.0/255.0 blue:222.0/255.0 alpha:1.0]];
     productName.text=productListData.productName;
     double productCalculatedPrice =[productListData.productPrice doubleValue]*[exchangeRates doubleValue];
     productPrice.text=[NSString stringWithFormat:@"%@ %.2f",[UserDefaultManager getValue:@"DefaultCurrency"],productCalculatedPrice];

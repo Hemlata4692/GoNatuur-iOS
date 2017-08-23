@@ -49,24 +49,10 @@
         responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     } failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
+        NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
         [myDelegate stopIndicator];
-        if (error.code == -1009) {
-            [self showRetryAlertMessage:NSLocalizedText(@"Internet connection") path:path parameters:parameters success:success failure:failure error:error];
-        }
-        else if (error.code == -1001) {
-            [self showRetryAlertMessage:NSLocalizedText(@"RequestTimeout") path:path parameters:parameters success:success failure:failure error:error];
-        }
-        else {
-            NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:kNilOptions error:&error] mutableCopy];
-            NSLog(@"json %@",json);
-            NSLog(@"error %ld",(long)error.code);
-            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-            NSInteger statusCode = [response statusCode];
-            [json setObject:[NSNumber numberWithInteger:statusCode] forKey:@"status"];
-            [self isStatusOK:json];
-            NSLog(@"error %ld",(long)statusCode);
-            failure(error);
-        }
+        [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
+        
     }];
 }
 
@@ -89,12 +75,9 @@
     } progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         success(responseObject);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
         [myDelegate stopIndicator];
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
-                                                             options:kNilOptions error:&error];
-        NSLog(@"json %@",json);
-        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:[json objectForKey:@"message"] closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
     }];
 }
 
@@ -113,24 +96,10 @@
         success(responseObject);
     }
          failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
+             NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
              [myDelegate stopIndicator];
-             if (error.code == -1009) {
-                 [self showRetryAlertMessage:NSLocalizedText(@"Internet connection") path:path parameters:parameters success:success failure:failure error:error];
-             }
-             else if (error.code == -1001) {
-                 [self showRetryAlertMessage:NSLocalizedText(@"RequestTimeout") path:path parameters:parameters success:success failure:failure error:error];
-             }
-             else {
-                 NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:kNilOptions error:&error] mutableCopy];
-                 NSLog(@"json %@",json);
-                 NSLog(@"error %ld",(long)error.code);
-                 NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-                 NSInteger statusCode = [response statusCode];
-                 [json setObject:[NSNumber numberWithInteger:statusCode] forKey:@"status"];
-                 [self isStatusOK:json];
-                 NSLog(@"error %ld",(long)statusCode);
-                 failure(error);
-             }
+             [myDelegate stopIndicator];
+             [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
          }];
 }
 
@@ -149,25 +118,36 @@
         success(responseObject);
     }
          failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
+             NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
              [myDelegate stopIndicator];
-             if (error.code == -1009) {
-                 [self showRetryAlertMessage:NSLocalizedText(@"Internet connection") path:path parameters:parameters success:success failure:failure error:error];
-             }
-             else if (error.code == -1001) {
-                 [self showRetryAlertMessage:NSLocalizedText(@"RequestTimeout") path:path parameters:parameters success:success failure:failure error:error];
-             }
-             else {
-                 NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:kNilOptions error:&error] mutableCopy];
-                 NSLog(@"json %@",json);
-                 NSLog(@"error %ld",(long)error.code);
-                 NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-                 NSInteger statusCode = [response statusCode];
-                 [json setObject:[NSNumber numberWithInteger:statusCode] forKey:@"status"];
-                 [self isStatusOK:json];
-                 NSLog(@"error %ld",(long)statusCode);
-                 failure(error);
-             }
+             [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
          }];
+}
+
+- (void)parseHeaderData:(NSURLSessionDataTask *)task error:(NSError *)error  path:(NSString *)path parameters:(NSDictionary *)parameters onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    if (error.code == -1009) {
+        [self showRetryAlertMessage:NSLocalizedText(@"Internet connection") path:path parameters:parameters success:success failure:failure error:error];
+    }
+    else if (error.code == -1001) {
+        [self showRetryAlertMessage:NSLocalizedText(@"RequestTimeout") path:path parameters:parameters success:success failure:failure error:error];
+    }
+    else {
+    NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+    NSInteger statusCode = [response statusCode];
+    if ((int)statusCode==200 && error) {
+        success(@{@"status":[NSNumber numberWithBool:true]});
+    }
+    else {
+        NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:kNilOptions error:&error] mutableCopy];
+        NSLog(@"json %@",json);
+        NSLog(@"error %ld",(long)error.code);
+        
+        [json setObject:[NSNumber numberWithInteger:statusCode] forKey:@"status"];
+        [self isStatusOK:json];
+        NSLog(@"error %ld",(long)statusCode);
+        failure(error);
+    }
+    }
 }
 
 //Check response success

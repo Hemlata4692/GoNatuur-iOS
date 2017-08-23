@@ -22,6 +22,7 @@
 
 @implementation GoNatuurViewController
 @synthesize categorySliderObjc;
+@synthesize bottomTabController;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -35,27 +36,44 @@
     //add search button
     [self addSerachButtonWithImage:[UIImage imageNamed:@"search"]];
     
-    //add bottom tab
-    [self addBottomTab];
+//    //add bottom tab
+//    [self addBottomTab];
     
     //add category slider
     [self addCategorySlideView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    //add bottom tab
+    [self addBottomTab];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [bottomTabController willMoveToParentViewController:nil];
+    [bottomTabController.view removeFromSuperview];
+    [bottomTabController removeFromParentViewController];
+}
 #pragma mark - end
 
 #pragma mark - Add bottom tab
 - (void)addBottomTab {
     //Load bottom tab bar xib
-    BottomTabViewController *controller = [[BottomTabViewController alloc] initWithNibName:@"BottomTabViewController" bundle:nil];
-    [self addChildViewController:controller];
-    [controller.view setFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-60, [[UIScreen mainScreen] bounds].size.width, 60)];
-    [self.view addSubview:controller.view];
-    [controller didMoveToParentViewController:self];
+    bottomTabController = [[BottomTabViewController alloc] initWithNibName:@"BottomTabViewController" bundle:nil];
+    [self addChildViewController:bottomTabController];
+    [bottomTabController.view setFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-60, [[UIScreen mainScreen] bounds].size.width, 60)];
+    [self.view addSubview:bottomTabController.view];
+    [bottomTabController didMoveToParentViewController:self];
+}
+
+- (void)showSelectedTab:(int)item {
+    [bottomTabController showSelectedTab:item];
 }
 #pragma mark - end
 
