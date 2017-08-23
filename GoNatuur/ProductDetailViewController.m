@@ -309,21 +309,32 @@
     }
     else if (indexPath.row==12) {
         //Follow action
+        if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            [myDelegate checkGuestAccess];
+        }
+        else {
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             [self unFollowProduct:(int)indexPath.row];
         }
         else {
             [self followProduct:(int)indexPath.row];
         }
+        }
     }
     else if (indexPath.row==13) {
         //Wishlist action
+        if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            [myDelegate checkGuestAccess];
+        }
+        else {
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             [self.view makeToast:NSLocalizedText(@"alreadyAddedWishlist")];
         }
         else {
             [self addToWishlist:(int)indexPath.row];
         }
+        }
+        
     }
     else if (indexPath.row==14) {
         //Share action

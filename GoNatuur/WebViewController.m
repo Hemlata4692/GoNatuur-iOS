@@ -11,7 +11,6 @@
 
 @interface WebViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *productDetailWebView;
-@property (weak, nonatomic) IBOutlet UIView *shadowView;
 
 @end
 
@@ -35,8 +34,6 @@
     self.title=navigationTitle;
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
-
-    [_shadowView addShadow:_shadowView color:[UIColor darkGrayColor]];
     productDetaiData = [NSString stringWithFormat:@"<span style=\"font-family: %@; font-size: %i\">%@</span>",
                   @"Montserrat-Light",
                   17,

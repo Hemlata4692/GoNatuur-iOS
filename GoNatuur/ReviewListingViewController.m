@@ -75,6 +75,10 @@
     [_writeReviewButton setCornerRadius:17.0];
     [_writeReviewButton addShadow:_writeReviewButton color:[UIColor blackColor]];
     [_searchTextField addTextFieldLeftRightPadding:_searchTextField];
+//    _reviewListingTableView.estimatedRowHeight = 500.0;//set maximum row height
+//    _reviewListingTableView.rowHeight = UITableViewAutomaticDimension;//set dynamic height of row according to text
+    _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
+
     [self addCustomPickerView];
 }
 
@@ -112,7 +116,7 @@
             sortByValue=@"DESC";
         }
     }
-     reviewListingDataAray=[[NSMutableArray alloc]init];
+    reviewListingDataAray=[[NSMutableArray alloc]init];
     [myDelegate showIndicator];
     [self performSelector:@selector(getReviewListingData) withObject:nil afterDelay:.1];
 }
@@ -205,7 +209,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *CellIdentifier = @"reviewCell";
     ReviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    [cell displayData:[reviewListingDataAray objectAtIndex:indexPath.row]];
+    cell.editReviewIcon.hidden=YES;
+    [cell displayData:[reviewListingDataAray objectAtIndex:indexPath.row] reviewId:reviewId rectSize:_reviewListingTableView.frame.size];
     return cell;
 }
 

@@ -21,7 +21,6 @@
     NSMutableArray *ratingOptionArray;
 }
 
-@property (weak, nonatomic) IBOutlet UIView *shadowView;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UIPlaceHolderTextView *reviewTextView;
 @property (weak, nonatomic) IBOutlet EDStarRating *starRatingView;
@@ -60,7 +59,6 @@
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_titleTextField, _reviewTextView]]];
     [_keyboardControls setDelegate:self];
     //customisation of objects
-    [_shadowView addShadow:_shadowView color:[UIColor blackColor]];
     [_submitReviewButton setCornerRadius:17.0];
     [_submitReviewButton addShadow:_submitReviewButton color:[UIColor blackColor]];
     [_titleTextField setTextBorder:_titleTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
@@ -106,7 +104,7 @@
 - (void)addProductReview {
     ReviewDataModel *addReview = [ReviewDataModel sharedUser];
     addReview.productId=selectedProductId;
-    addReview.username=@"";
+    addReview.username=[UserDefaultManager getValue:@"firstname"];;
     addReview.reviewTitle=_titleTextField.text;
     addReview.reviewDescription=_reviewTextView.text;
     addReview.ratingId=starRatingValue;

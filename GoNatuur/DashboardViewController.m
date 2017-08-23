@@ -265,7 +265,7 @@
 - (void)swipeImages {
     selectedIndex=0;
     bannerImageData=[bannerImageArray objectAtIndex:selectedIndex];
-   // [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:true];
+    [ImageCaching downloadImages:_bannerImageView imageUrl:bannerImageData.banerImageUrl placeholderImage:@"banner_placeholder" isDashboardCell:true];
     
     
    
@@ -275,14 +275,14 @@
 //        _bannerImageView.image = [UIImage animatedImageWithAnimatedGIFURL:url];
 //    });
 
-    dispatch_async(kBgQueue, ^{
-        NSURL *url = [NSURL URLWithString:bannerImageData.banerImageUrl];
-        _bannerImageView.image = [UIImage animatedImageWithAnimatedGIFData:[NSData dataWithContentsOfURL:url]];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            _bannerImageView.image = [UIImage animatedImageWithAnimatedGIFURL:url];
-        });
-    });
+//    dispatch_async(kBgQueue, ^{
+//        NSURL *url = [NSURL URLWithString:bannerImageData.banerImageUrl];
+//        _bannerImageView.image = [UIImage animatedImageWithAnimatedGIFData:[NSData dataWithContentsOfURL:url]];
+//
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            _bannerImageView.image = [UIImage animatedImageWithAnimatedGIFURL:url];
+//        });
+//    });
     
     self.bannerImageView.userInteractionEnabled = YES;
      _footerImageView.userInteractionEnabled=YES;

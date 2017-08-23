@@ -459,7 +459,7 @@
         productData.following=[[response objectForKey:@"is_following"] stringValue];
         productData.wishlist=[[response objectForKey:@"is_in_wishlist"] stringValue];
         productData.reviewAdded=[[response objectForKey:@"is_reviewed"] stringValue];
-        productData.reviewId=[[response objectForKey:@"review_id"] stringValue];
+        productData.reviewId=[response objectForKey:@"review_id"];
         productData.productMediaArray=[[response objectForKey:@"media"] mutableCopy];
         success(productData);
     } onfailure:^(NSError *error) {
