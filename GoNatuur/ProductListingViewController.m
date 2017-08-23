@@ -104,7 +104,7 @@
     //Add filter xib view
     filterViewObj=[[GoNatuurFilterView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35) delegate:self];
     filterViewObj.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35);
-    [filterViewObj setButtonTitles:@"Filter" subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:@"Sort"];
+    [filterViewObj setButtonTitles:NSLocalizedText(@"Filter") subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:NSLocalizedText(@"Sortby")];
     //Customized filter view
     filterViewObj.firstFilterButtonOutlet.enabled=false;
     filterViewObj.secondFilterButtonOutlet.enabled=false;
@@ -181,12 +181,6 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    ReviewListingViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"ReviewListingViewController"];
-//    [self.navigationController pushViewController:searchView animated:YES];
-}
-
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (productListDataArray.count == totalProductCount)
     {
@@ -246,7 +240,7 @@
         subCategoryDataList=[userData.categoryNameArray mutableCopy];
         //Set initial value come to default condition
         [subCategoryDataList insertObject:@{@"id":[NSNumber numberWithInt:currentCategoryId],
-                                            @"name":@"All"
+                                            @"name":NSLocalizedText(@"All")
                                             } atIndex:0];
         if (subCategoryDataList.count>0) {
             for (int i=0; i<subCategoryDataList.count; i++) {
