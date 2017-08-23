@@ -44,7 +44,8 @@ static NSString *kAddReview=@"ranosys/addProductReview";
                                                  },
                                  @"productId": reviewData.productId,
                                  @"starFilter": reviewData.starFilter,
-                                 @"applyStarFilter":@"1"
+                                 @"applyStarFilter":reviewData.applyStarFilter,
+                                 @"status_id":@"1"
                                  };
     DLog(@"review list request %@",parameters);
     [super post:kReviewListing parameters:parameters success:success failure:failure];

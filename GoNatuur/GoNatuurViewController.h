@@ -17,4 +17,5 @@
 - (void)addLeftBarButtonWithImage:(BOOL)isBackButton;
 - (void)addSerachButtonWithImage:(UIImage *)searchButtonImage;
 - (void)showSelectedTab:(int)item;
+- (void)updateCartBadge;
 @end

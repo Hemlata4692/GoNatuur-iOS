@@ -30,6 +30,13 @@
 @synthesize productBenefitsUsage;
 @synthesize wishlist;
 @synthesize following;
+@synthesize productSubtitle;
+@synthesize productWhereToBuy;
+@synthesize productUrlKey;
+@synthesize reviewAdded;
+@synthesize reviewId;
+@synthesize productMinQuantity;
+@synthesize productSku;
 
 - (id)copyWithZone:(NSZone *)zone {
     ProductDataModel *another = [[ProductDataModel alloc] init];
@@ -51,6 +58,8 @@
     another.productQuantity= [self.productQuantity copyWithZone: zone];
     another.productDataArray= [self.productDataArray copyWithZone: zone];
     another.productMediaArray= [self.productMediaArray copyWithZone: zone];
+    another.productMinQuantity= [self.productMinQuantity copyWithZone: zone];
+    another.productSku= [self.productSku copyWithZone: zone];
     return another;
 }
 
@@ -80,6 +89,18 @@
 #pragma mark - Add to wishlist
 - (void)addProductWishlistOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] addToWishlistService:self onSuccess:^(ProductDataModel *productData) {
+        if (success) {
+            success (productData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Add to cart service
+- (void)addToCartProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] addToCartProductService:self onSuccess:^(ProductDataModel *productData) {
         if (success) {
             success (productData);
         }

@@ -16,6 +16,7 @@
 #import <AVKit/AVKit.h>
 #import "WebViewController.h"
 #import "ReviewListingViewController.h"
+#import "UIView+Toast.h"
 
 @interface ProductDetailViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -66,7 +67,7 @@
 //Create QRCode
 - (void)makeQRCode {
     qrCodeImage=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80*2, 80*2)];
-    NSString *qrString = [NSString stringWithFormat:@"RohitModiQRCode"];
+    NSString *qrString = [NSString stringWithFormat:@"%@%@%s",@"http://dev.gonatuur.com/",productDetailModelData.productUrlKey,".html"];
     NSData *stringData = [qrString dataUsingEncoding: NSUTF8StringEncoding];
     CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     [qrFilter setValue:stringData forKey:@"inputMessage"];
@@ -96,10 +97,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==0) {
-        return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productName font:[UIFont montserratMediumWithSize:20] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:52]+24;
+        return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productName font:[UIFont montserratSemiBoldWithSize:20] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:52]+24;
     }
     else if (indexPath.row==1) {
-        return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productShortDescription font:[UIFont montserratMediumWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:30]+5;
+        return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productShortDescription font:[UIFont montserratSemiBoldWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:30]+5;
     }
     else if (indexPath.row==2) {
         return 22;
@@ -163,6 +164,10 @@
         [cell.addToCartButton addTarget:self action:@selector(insertInCartItemAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     else if (indexPath.row==12) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"followCell"];
+        if (cell == nil){
+            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"followCell"];
+        }
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"unfollow");
@@ -172,7 +177,13 @@
         }
     }
     else if (indexPath.row==13) {
-       
+        UILabel *cellLabel=(UILabel *)[cell viewWithTag:11];
+        if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
+            cellLabel.text=NSLocalizedText(@"wishlistAdded");
+        }
+        else{
+            cellLabel.text=NSLocalizedText(@"wishlist");
+        }
     }
     return cell;
 }
@@ -218,23 +229,43 @@
     }
     else if (indexPath.row==12) {
         //Follow action
+        if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            [myDelegate checkGuestAccess];
+        }
+        else {
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             [self unFollowProduct:(int)indexPath.row];
         }
         else {
             [self followProduct:(int)indexPath.row];
         }
+        }
     }
     else if (indexPath.row==13) {
         //Wishlist action
-        [self addToWishlist:(int)indexPath.row];
-        //add toast if item already added to wishlist
+        if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            [myDelegate checkGuestAccess];
+        }
+        else {
+        if ([productDetailModelData.following isEqualToString:@"1"]) {
+            [self.view makeToast:NSLocalizedText(@"alreadyAddedWishlist")];
+        }
+        else {
+            [self addToWishlist:(int)indexPath.row];
+        }
+        }
+        
     }
     else if (indexPath.row==14) {
         //Share action
     }
     else if (indexPath.row==15) {
         //Location action
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
+        webView.navigationTitle=NSLocalizedText(@"Where to buy");
+        webView.productDetaiData=productDetailModelData.productWhereToBuy;
+        [self.navigationController pushViewController:webView animated:YES];
     }
 }
 
@@ -264,7 +295,7 @@
 
 - (ProductDetailCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProductDetailCollectionViewCell *productMediaCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productImageVideoCell" forIndexPath:indexPath];
-    [productMediaCell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:indexPath.row] qrCode:qrCodeImage.image];
+    [productMediaCell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:indexPath.row] qrCode:qrCodeImage.image selectedIndex:selectedMediaIndex currentIndex:(int)indexPath.row];
     return productMediaCell;
 }
 
@@ -272,6 +303,7 @@
     selectedMediaIndex=(int)indexPath.row;
     ProductDetailTableViewCell *tempCell = [_productDetailTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     [tempCell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] qrCode:qrCodeImage.image];
+    [collectionView reloadData];
 }
 #pragma mark - end
 
@@ -296,6 +328,7 @@
         [productDetailModelData.productMediaArray insertObject:@{@"media_type":@"QRCode"} atIndex:(tempIndex==-1?0:tempIndex)];
         [myDelegate stopIndicator];
         isServiceCalled=true;
+        currentQuantity=[productDetailData.productMinQuantity intValue];
         [_productDetailTableView reloadData];
     } onfailure:^(NSError *error) {
         
@@ -315,6 +348,21 @@
         cellLabel.text=NSLocalizedText(@"wishlist");
     }];
     
+}
+
+//Add to cart
+- (void)addToCartProductService {
+    ProductDataModel *productData = [ProductDataModel sharedUser];
+    productData.productQuantity=productDetailModelData.productQuantity;
+    productData.productSku=productDetailModelData.productSku;
+    [productData addToCartProductOnSuccess:^(ProductDataModel *productDetailData)  {
+        [myDelegate stopIndicator];
+        [UserDefaultManager setValue:[NSNumber numberWithInt:[[UserDefaultManager getValue:@"quoteCount"] intValue]+currentQuantity] key:@"quoteCount"];
+        [self updateCartBadge];
+        [self.view makeToast:NSLocalizedText(@"Added to cart")];
+    } onfailure:^(NSError *error) {
+        
+    }];
 }
 
 //Follow product
@@ -362,7 +410,7 @@
 - (IBAction)removeQuantityAction:(UIButton *)sender {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];
     ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
-    if(currentQuantity>1){
+    if(currentQuantity>[productDetailModelData.productMinQuantity intValue]){
         currentQuantity-=1;
         cell.cartNumberItemLabel.text=[NSString stringWithFormat:@"%d",currentQuantity];
     }
@@ -370,7 +418,8 @@
 
 - (IBAction)insertInCartItemAction:(UIButton *)sender {
     productDetailModelData.productQuantity=[NSNumber numberWithInt:currentQuantity];
-    [UpdateCartItem addProductCartItem:[productDetailModelData copy]];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(addToCartProductService) withObject:nil afterDelay:.1];
 }
 #pragma mark - end
 
@@ -410,6 +459,7 @@
         [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] qrCode:qrCodeImage.image];
         UIView *moveIMageView = cell.contentView;
         [self addLeftAnimationPresentToView:moveIMageView];
+        [self scrollMediaCollectionViewAtIndex];
     }
     else {
         selectedMediaIndex = (int)productDetailModelData.productMediaArray.count - 1;
@@ -425,10 +475,17 @@
         [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] qrCode:qrCodeImage.image];
         UIView *moveIMageView = cell.contentView;
         [self addRightAnimationPresentToView:moveIMageView];
+        [self scrollMediaCollectionViewAtIndex];
     }
     else {
         selectedMediaIndex = 0;
     }
+}
+
+- (void)scrollMediaCollectionViewAtIndex {
+    ProductDetailTableViewCell *tempCell = [_productDetailTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
+    [tempCell.productMediaCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:selectedMediaIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];
+    [tempCell.productMediaCollectionView reloadData];
 }
 #pragma mark - end
 @end

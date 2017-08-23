@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSString *ratingId;
 @property (strong, nonatomic) NSString *optionId;
 @property (strong, nonatomic) NSString *reviewId;
+@property (strong, nonatomic) NSString *applyStarFilter;
 @property (strong, nonatomic) NSMutableArray *reviewListArray;
 @property (strong, nonatomic) NSMutableArray *rationOptionsArray;
 

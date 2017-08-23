@@ -30,7 +30,8 @@
         weakRef.image = image;
         weakRef.backgroundColor = [UIColor clearColor];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-        
+        weakRef.contentMode = UIViewContentModeScaleAspectFill;
+        weakRef.clipsToBounds = YES;
     }];
 }
 #pragma mark - end

@@ -75,6 +75,10 @@
 - (void)showSelectedTab:(int)item {
     [bottomTabController showSelectedTab:item];
 }
+
+- (void)updateCartBadge {
+    [bottomTabController updateCartBadge];
+}
 #pragma mark - end
 
 #pragma mark - Add category slider
@@ -166,6 +170,7 @@
 }
 
 - (void)serachButtonAction:(id)sender {
+    myDelegate.selectedCategoryIndex=-1;
     UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     SearchViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"SearchViewController"];
     [self.navigationController pushViewController:searchView animated:YES];

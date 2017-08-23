@@ -45,8 +45,19 @@
     return font;
 }
 
++ (UIFont*)montserratBoldWithSize:(int)size {
+    UIFont *font=[UIFont fontWithName:@"Montserrat-Bold" size:size];
+    return font;
+}
+
 + (UIFont*)montserratLightWithSize:(int)size {
     UIFont *font=[UIFont fontWithName:@"Montserrat-Light" size:size];
     return font;
 }
+
++ (UIFont*)montserratSemiBoldWithSize:(int)size {
+    UIFont *font=[UIFont fontWithName:@"Montserrat-SemiBold" size:size];
+    return font;
+}
+
 @end
