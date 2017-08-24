@@ -54,7 +54,7 @@
 "Product"="Product";
 "Description"="Description";
 "Benefits&Usage"="Benefits & Usage";
-"Brandstory"="Brand Story";
+"BrandStory"="Brand Story";
 "Shipping is free if the total purchase is above USD$100."="Shipping is free if the total purchase is above USD$100.";
 "Products can be returned within 30 days of purchase, subject to the following conditions."="Products can be returned within 30 days of purchase, subject to the following conditions.";
 "PushNotificationAlertTitle"="\"GoNatuur\" Would Like to Send You Notifications";
@@ -71,3 +71,4 @@
 "Sortby"="Sort By";
 "Filter"="Filter";
 "RateProduct"="Please rate the product to submit a review.";
+"invalidOTP"="Invalid OTP.";

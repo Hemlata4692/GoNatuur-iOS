@@ -11,7 +11,7 @@
 
 @interface WebViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *productDetailWebView;
-
+@property (weak, nonatomic) IBOutlet UILabel *noDataLabel;
 @end
 
 @implementation WebViewController
@@ -34,6 +34,13 @@
     self.title=navigationTitle;
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
+    
+    if ([productDetaiData isEqualToString:@""] || productDetaiData==nil) {
+         _noDataLabel.hidden=NO;
+        _productDetailWebView.hidden=YES;
+    }
+    else {
+        _noDataLabel.hidden=YES;
     productDetaiData = [NSString stringWithFormat:@"<span style=\"font-family: %@; font-size: %i\">%@</span>",
                   @"Montserrat-Light",
                   17,
@@ -46,6 +53,7 @@
     else {
     [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body bgcolor=\"#FDF4F6\" text=\"#000000\" align='justify'>%@</body></html>", productDetaiData] baseURL: nil];
     }
+    }
 }
 #pragma mark - end
 
@@ -56,12 +64,17 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [myDelegate stopIndicator];
-    NSString *padding = @"document.body.style.padding='5px 5px 5px 5px';";
+    NSString *padding = @"document.body.style.padding='5px 5px 5px 5px'";
     [webView stringByEvaluatingJavaScriptFromString:padding];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [myDelegate stopIndicator];
+    SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+    [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrongMessage")  closeButtonTitle:nil duration:0.0f];
 }
 #pragma mark - end
 @end

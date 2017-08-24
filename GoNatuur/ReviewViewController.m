@@ -126,7 +126,7 @@
     ReviewDataModel *addReview = [ReviewDataModel sharedUser];
     addReview.productId=selectedProductId;
 //    addReview.username=[UserDefaultManager getValue:@"firstname"];
-     addReview.username=@"hemlata";
+     addReview.username=@"";
     addReview.reviewTitle=_titleTextField.text;
     addReview.reviewDescription=_reviewTextView.text;
     addReview.ratingId=starRatingValue;

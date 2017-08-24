@@ -11,6 +11,8 @@
 
 @interface CMSPageViewController ()
 
+@property (weak, nonatomic) IBOutlet UIView *shadowView;
+
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
 @end
 
@@ -34,12 +36,13 @@
 #pragma mark - View initialization
 - (void)initializedView {
     self.navigationController.navigationBarHidden=false;
+    
+    [_shadowView addShadow:_shadowView color:[UIColor darkGrayColor]];
     //Set clear background color
     _webView.backgroundColor = [UIColor clearColor];
     _webView.opaque=NO;
     //Set navigationBar background image
-    UIImage *image = [UIImage imageNamed:@"navigation.png"];
-    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    [self setTransparentNavigtionBar];
     //Set navigation back button
     [self addLeftBarButtonWithImage];
     [myDelegate showIndicator];
@@ -49,6 +52,16 @@
     else {
         [self performSelector:@selector(CMSPageService:) withObject:@"terms_conditions" afterDelay:.1];
     }
+}
+
+//Make the navigation bar transparent and show only bar items.
+- (void)setTransparentNavigtionBar {
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.view.backgroundColor = [UIColor clearColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
 }
 #pragma mark - end
 
@@ -77,10 +90,17 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [myDelegate stopIndicator];
+    NSString *padding = @"document.body.style.padding='5px 5px 5px 5px'";
+    [webView stringByEvaluatingJavaScriptFromString:padding];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [myDelegate stopIndicator];
+    SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+    [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrongMessage")  closeButtonTitle:nil duration:0.0f];
 }
 #pragma mark - end
 
