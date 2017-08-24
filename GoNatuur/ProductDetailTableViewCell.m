@@ -32,7 +32,8 @@
 
 - (void)displayProductDescription:(NSString *)productDescription {
     _productShortDescriptionLabel.translatesAutoresizingMaskIntoConstraints=true;
-    _productShortDescriptionLabel.frame=CGRectMake(40, 0, [[UIScreen mainScreen] bounds].size.width-80, [DynamicHeightWidth getDynamicLabelHeight:productDescription font:[UIFont montserratSemiBoldWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:30]);
+    _productShortDescriptionLabel.numberOfLines=0;
+    _productShortDescriptionLabel.frame=CGRectMake(40, 0, [[UIScreen mainScreen] bounds].size.width-80, [DynamicHeightWidth getDynamicLabelHeight:productDescription font:[UIFont montserratSemiBoldWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:1000]);
     _productShortDescriptionLabel.text=productDescription;
 }
 
@@ -54,23 +55,36 @@
 
 - (void)displayProductMediaImage:(NSDictionary *)productImageDict qrCode:(UIImage *)qrCodeImage {
     _transparentView.hidden=true;
+    _productImageView.translatesAutoresizingMaskIntoConstraints=true;
     if ([[productImageDict objectForKey:@"media_type"] isEqualToString:@"QRCode"]) {
+        float width;
+        if (([[UIScreen mainScreen] bounds].size.width-80)>240) {
+            width=240;
+        }
+        else {
+            width=([[UIScreen mainScreen] bounds].size.width-80);
+        }
+        _productImageView.frame=CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(width/2), (290/2)-(width/2), width, width);
         _productImageView.image=qrCodeImage;
+        DLog(@"%f,%f",qrCodeImage.size.width,qrCodeImage.size.height);
         _productImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     else {
+        _productImageView.frame=CGRectMake(40, 20, [[UIScreen mainScreen] bounds].size.width-80, 250);
         if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
             _transparentView.hidden=false;
             _videoIcon.hidden=false;
             _video360Icon.hidden=true;
         }
+        
         /*Code is commented for 360 video media type
          else if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"image"]) {
          _transparentView.hidden=false;
          _videoIcon.hidden=true;
          _video360Icon.hidden=false;
          }*/
-        [ImageCaching downloadImages:_productImageView imageUrl:[productImageDict objectForKey:@"path"] placeholderImage:@"product_placeholder" isDashboardCell:true];
+        
+        [ImageCaching downloadImages:_productImageView imageUrl:[NSString stringWithFormat:@"%@%@",productDetailImageBaseUrl,[productImageDict objectForKey:@"file"]] placeholderImage:@"product_placeholder" isDashboardCell:false];
     }
 }
 

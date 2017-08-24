@@ -102,8 +102,9 @@
     LoginService *loginService = [[LoginService alloc] init];
     [loginService CMSPageService:userData onSuccess:^(id response) {
         //Parse data from server response and store in data model
-        userData.cmsTitle=[response objectForKey:@"title"];
-        userData.cmsContent=[response objectForKey:@"content"];
+        DLog(@"CMS page response %@",response);
+        userData.cmsTitle=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"title"];
+        userData.cmsContent=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"content"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -339,6 +340,7 @@
             productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
              productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+            productData.productType=[productDataDict objectForKey:@"type_id"];
             [searchData.searchProductListArray addObject:productData];
         }
         searchData.searchResultCount=response[@"total_count"];
@@ -432,6 +434,7 @@
                 tempModel.productDescription=[self stringByStrippingHTML:[[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             tempModel.specialPrice = [[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            tempModel.productQty = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"extension_attributes"]objectForKey:@"qty"];
             tempModel.productRating = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [productData.productDataArray addObject:tempModel];
         }

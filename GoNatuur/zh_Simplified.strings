@@ -7,7 +7,7 @@
  */
 
 "loginNewUserText" = "If you are a new uesr, you can Register an account with us and start shopping with GoPurpose.";
-"privacyPolicyText" = "By signing up, you agree to our Terms & Conditions and Privacy Policy. If you already have an account, Log In here";
+"privacyPolicyText" = "By signing up, you agree to our Terms & Conditions and Privacy Policy. If you already have an account, Log In here.";
 "alertTitle" = "Alert";
 "alertOk" = "OK";
 "alertCancel" = "Cancel";

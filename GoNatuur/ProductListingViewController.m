@@ -13,6 +13,7 @@
 #import "GoNatuurFilterView.h"
 #import "GoNatuurPickerView.h"
 #import "ProductDetailViewController.h"
+#import "UIView+Toast.h"
 
 @interface ProductListingViewController ()<UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
     NSMutableArray *productListDataArray, *subCategoryDataList, *subCategoryPickerArray;
@@ -224,10 +225,15 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    //StoryBoard navigation
-    ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
-    obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
-    [self.navigationController pushViewController:obj animated:YES];
+    if (!myDelegate.isProductList) {
+         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    }
+    else {
+        //StoryBoard navigation
+        ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+        obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
+        [self.navigationController pushViewController:obj animated:YES];
+    }
 }
 #pragma mark - end
 
@@ -251,7 +257,6 @@
         
         [self getCategoryBannerData];
     } onfailure:^(NSError *error) {
-        [self getCategoryBannerData];
     }];
 }
 
@@ -263,7 +268,6 @@
         bannerImageUrl=userData.banerImageUrl;
         [self getProductListData];
     } onfailure:^(NSError *error) {
-        [self getProductListData];
     }];
 }
 

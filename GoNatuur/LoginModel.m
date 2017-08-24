@@ -104,7 +104,6 @@
 
 #pragma mark - CMS page service
 - (void)CMSPageService:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
-    
     [[ConnectionManager sharedManager] CMSPageService:self onSuccess:^(LoginModel *userData) {
         if (success) {
             success (userData);

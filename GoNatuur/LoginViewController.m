@@ -210,6 +210,7 @@
 
 - (IBAction)forgotPassword:(UIButton *)sender {
     [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    //Screen navigation through seague
 }
 
 - (IBAction)skipAndContinue:(UIButton *)sender {

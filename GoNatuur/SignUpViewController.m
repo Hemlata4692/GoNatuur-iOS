@@ -330,17 +330,17 @@
 - (void)privacyPolicy {
     //[_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("Privacy");
-    //    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
-    //    obj.isPrivacyPolicy=true;
-    //    [self.navigationController pushViewController:obj animated:true];
+    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
+    obj.isPrivacyPolicy=true;
+    [self.navigationController pushViewController:obj animated:true];
 }
 
 - (void)termsNCondition {
     // [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("termsNCondition");
-    //    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
-    //    obj.isPrivacyPolicy=false;
-    //    [self.navigationController pushViewController:obj animated:true];
+        CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
+        obj.isPrivacyPolicy=false;
+        [self.navigationController pushViewController:obj animated:true];
 }
 
 - (void)logIn {
@@ -464,8 +464,8 @@
     LoginModel *userLogin = [LoginModel sharedUser];
     userLogin.email = _emailTextField.text;
     userLogin.password = _passwordTextField.text;
-    userLogin.firstName=firstName;
-    userLogin.lastName=lastName;
+    userLogin.firstName=_firstNameTextField.text;
+    userLogin.lastName=_lastNameTextField.text;
     userLogin.socialUserId=socialLoginID;
     userLogin.isSocialLogin=[NSNumber numberWithInt:isSocialLogin];
     userLogin.profilePicture=profilePic;
