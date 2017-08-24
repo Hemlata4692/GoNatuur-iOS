@@ -52,7 +52,7 @@
         productCalculatedPrice =[productListData.specialPrice doubleValue]*[exchangeRates doubleValue];
     }
     else {
-        if (nil==productListData.productQty||NULL==productListData.productQty||[productListData.productQty intValue]<1) {
+        if ([productListData.productType isEqualToString:@""]&&(nil==productListData.productQty||NULL==productListData.productQty||[productListData.productQty intValue]<1)) {
             statusBannerImage.hidden=false;
             statusBannerImage.image=[UIImage imageNamed:@"soldout"];
         }
