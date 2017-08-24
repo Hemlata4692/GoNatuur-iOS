@@ -48,9 +48,10 @@
     float descriptionHeight =[DynamicHeightWidth getDynamicLabelHeight:_reviewTextLabel.text font:[UIFont montserratRegularWithSize:12] widthValue:rectSize.width-93];
     _reviewTextLabel.numberOfLines=0;
     if (titleHeight<=17 && descriptionHeight<=16) {
-        _ratingView.frame=CGRectMake(_userImageView.frame.origin.x+_userImageView.frame.size.width+17, _reviewTitleLabel.frame.origin.y+15, _ratingView.frame.size.width, _ratingView.frame.size.height);
+        _ratingView.translatesAutoresizingMaskIntoConstraints=YES;
+        _ratingView.frame=CGRectMake(_userImageView.frame.origin.x+_userImageView.frame.size.width+17, _reviewTitleLabel.frame.origin.y+_reviewTitleLabel.frame.size.height+8, _ratingView.frame.size.width, _ratingView.frame.size.height);
         
-        _reviewTextLabel.frame=CGRectMake(_reviewTextLabel.frame.origin.x, _reviewTitleLabel.frame.origin.y+_reviewTitleLabel.frame.size.height+4+_ratingView.frame.size.height+15, rectSize.width-93, descriptionHeight+1);
+        _reviewTextLabel.frame=CGRectMake(_reviewTitleLabel.frame.origin.x, _reviewTitleLabel.frame.origin.y+_reviewTitleLabel.frame.size.height+4+_ratingView.frame.size.height+15, rectSize.width-93, descriptionHeight+1);
     }
     else if (titleHeight<=33 && descriptionHeight<=31) {
         _ratingView.translatesAutoresizingMaskIntoConstraints=YES;
