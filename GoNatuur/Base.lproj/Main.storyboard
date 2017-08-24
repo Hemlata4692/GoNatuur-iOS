@@ -2336,17 +2336,17 @@
                                                         </constraints>
                                                     </imageView>
                                                     <imageView userInteractionEnabled="NO" alpha="0.64999997615814209" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="C1K-UA-0ig">
-                                                        <rect key="frame" x="254" y="298" width="18" height="18"/>
+                                                        <rect key="frame" x="256" y="299" width="16" height="16"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="18" id="gw8-4n-nAt"/>
-                                                            <constraint firstAttribute="height" constant="18" id="vFh-9q-ZDU"/>
+                                                            <constraint firstAttribute="width" constant="16" id="gw8-4n-nAt"/>
+                                                            <constraint firstAttribute="height" constant="16" id="vFh-9q-ZDU"/>
                                                         </constraints>
                                                     </imageView>
                                                     <imageView userInteractionEnabled="NO" alpha="0.64999997615814209" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="iey-U9-gPU">
-                                                        <rect key="frame" x="254" y="253" width="18" height="18"/>
+                                                        <rect key="frame" x="256" y="254" width="16" height="16"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="18" id="47B-Dl-QmZ"/>
-                                                            <constraint firstAttribute="height" constant="18" id="Mov-3T-X0M"/>
+                                                            <constraint firstAttribute="width" constant="16" id="47B-Dl-QmZ"/>
+                                                            <constraint firstAttribute="height" constant="16" id="Mov-3T-X0M"/>
                                                         </constraints>
                                                     </imageView>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="password" translatesAutoresizingMaskIntoConstraints="NO" id="WdK-0b-5HB">

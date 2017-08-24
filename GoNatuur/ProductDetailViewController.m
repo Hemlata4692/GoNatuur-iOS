@@ -17,6 +17,7 @@
 #import "WebViewController.h"
 #import "ReviewListingViewController.h"
 #import "UIView+Toast.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface ProductDetailViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -201,11 +202,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==3 && [[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
-        NSURL *videoURL = [NSURL URLWithString:@""];
-        AVPlayer *player = [AVPlayer playerWithURL:videoURL];
-        AVPlayerViewController *playerViewController = [AVPlayerViewController new];
-        playerViewController.player = player;
-        [self presentViewController:playerViewController animated:YES completion:nil];
+        NSURL *videoURL = [NSURL URLWithString:[[[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"extension_attributes"] objectForKey:@"video_content"] objectForKey:@"video_url"]];
+        MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
+        [self presentViewController:moviePlayer animated:YES completion:NULL];
     }
     else if (indexPath.row==8) {
         //Description action

@@ -83,7 +83,8 @@
          _videoIcon.hidden=true;
          _video360Icon.hidden=false;
          }*/
-        [ImageCaching downloadImages:_productImageView imageUrl:[productImageDict objectForKey:@"path"] placeholderImage:@"product_placeholder" isDashboardCell:false];
+        
+        [ImageCaching downloadImages:_productImageView imageUrl:[NSString stringWithFormat:@"%@%@",productDetailImageBaseUrl,[productImageDict objectForKey:@"file"]] placeholderImage:@"product_placeholder" isDashboardCell:false];
     }
 }
 
