@@ -275,7 +275,7 @@
     if ([viewIdentifier isEqualToString:@"webView"]) {
         WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
         webView.navigationTitle=navTitle;
-        webView.productDetaiData=webViewData;
+       // webView.productDetaiData=webViewData;
         [self.navigationController pushViewController:webView animated:YES];
     }
     else {
