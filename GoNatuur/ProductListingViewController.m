@@ -251,7 +251,6 @@
         
         [self getCategoryBannerData];
     } onfailure:^(NSError *error) {
-        [self getCategoryBannerData];
     }];
 }
 
@@ -263,7 +262,6 @@
         bannerImageUrl=userData.banerImageUrl;
         [self getProductListData];
     } onfailure:^(NSError *error) {
-        [self getProductListData];
     }];
 }
 

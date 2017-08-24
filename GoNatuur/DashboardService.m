@@ -51,7 +51,7 @@ static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
 //    [UserDefaultManager setValue:[UserDefaultManager getValue:@"Authorization"] key:@"Authorization"];
     NSString *typeId;
     if (!myDelegate.isProductList) {
-        typeId=@"event";
+        typeId=@"ticket";
     }
     else {
         typeId=@"simple";

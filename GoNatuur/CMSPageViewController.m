@@ -44,10 +44,10 @@
     [self addLeftBarButtonWithImage];
     [myDelegate showIndicator];
     if (isPrivacyPolicy) {
-        [self performSelector:@selector(CMSPageService:) withObject:[NSNumber numberWithInt:4] afterDelay:.1];
+        [self performSelector:@selector(CMSPageService:) withObject:@"privacy_policy" afterDelay:.1];
     }
     else {
-        [self performSelector:@selector(CMSPageService:) withObject:[NSNumber numberWithInt:6] afterDelay:.1];
+        [self performSelector:@selector(CMSPageService:) withObject:@"terms_conditions" afterDelay:.1];
     }
 }
 #pragma mark - end
@@ -85,18 +85,13 @@
 #pragma mark - end
 
 #pragma mark - Webservices
-- (void)CMSPageService:(NSNumber *)cmsPageType {
+- (void)CMSPageService:(NSString *)cmsPageType {
     LoginModel *userLogin = [LoginModel sharedUser];
     userLogin.cmsPageType=cmsPageType;
     [userLogin CMSPageService:^(LoginModel *userData) {
         self.navigationItem.title=userData.cmsTitle;
      //   [_webView loadHTMLString:userData.cmsContent baseURL: nil];
-        userData.cmsContent = [NSString stringWithFormat:@"<span style=\"font-family: %@; font-size: %i\">%@</span>",
-                            @"Montserrat-Light",
-                            17,
-                            userData.cmsContent];
-        [myDelegate showIndicator];
-        // [_productDetailWebView loadHTMLString:productDetaiData baseURL: nil];
+        userData.cmsContent = [NSString stringWithFormat:@"<span style=\"font-family: %@; font-size: %i\">%@</span>",@"Montserrat-Light", 17, userData.cmsContent];
         [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body bgcolor=\"#FDF4F6\" text=\"#000000\" align='justify'>%@</body></html>", userData.cmsContent] baseURL: nil];
         } onfailure:^(NSError *error) {
     }];

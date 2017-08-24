@@ -36,9 +36,6 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBarHidden=false;
-    self.title=NSLocalizedText(@"Product");
-    [self addLeftBarButtonWithImage:true];
     [self viewInitialization];
     [myDelegate showIndicator];
     [self performSelector:@selector(getProductDetailData) withObject:nil afterDelay:.1];
@@ -47,6 +44,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+    self.navigationController.navigationBarHidden=false;
+    self.title=NSLocalizedText(@"Product");
+    [self addLeftBarButtonWithImage:true];
     cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"productDetailPriceCell", @"productDetailInfoCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"benefitCell",@"brandCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
 }
 
@@ -66,7 +66,7 @@
 
 //Create QRCode
 - (void)makeQRCode {
-    qrCodeImage=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80*2, 80*2)];
+    qrCodeImage=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80*4, 80*4)];
     NSString *qrString = [NSString stringWithFormat:@"%@%@%s",@"http://dev.gonatuur.com/",productDetailModelData.productUrlKey,".html"];
     NSData *stringData = [qrString dataUsingEncoding: NSUTF8StringEncoding];
     CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
@@ -100,7 +100,7 @@
         return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productName font:[UIFont montserratSemiBoldWithSize:20] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:52]+24;
     }
     else if (indexPath.row==1) {
-        return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productShortDescription font:[UIFont montserratSemiBoldWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:30]+5;
+        return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productShortDescription font:[UIFont montserratSemiBoldWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:1000]+5;
     }
     else if (indexPath.row==2) {
         return 22;
@@ -164,10 +164,6 @@
         [cell.addToCartButton addTarget:self action:@selector(insertInCartItemAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     else if (indexPath.row==12) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"followCell"];
-        if (cell == nil){
-            cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"followCell"];
-        }
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"unfollow");

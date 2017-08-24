@@ -57,11 +57,6 @@
         productCalculatedPrice =[productListData.specialPrice doubleValue]*[exchangeRates doubleValue];
     }
     else {
-        
-        if (nil==productListData.productQty||NULL==productListData.productQty||[productListData.productQty intValue]<1) {
-            statusBannerImage.hidden=false;
-            statusBannerImage.image=[UIImage imageNamed:@"soldout"];
-        }
         productCalculatedPrice =[productListData.productPrice doubleValue]*[exchangeRates doubleValue];
     }
     productPrice.text=[NSString stringWithFormat:@"%@ %.2f",[UserDefaultManager getValue:@"DefaultCurrency"],productCalculatedPrice];
