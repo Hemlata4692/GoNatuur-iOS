@@ -99,19 +99,22 @@
     UILabel *notificationBadgeLabel=(UILabel *) [cell viewWithTag:1];
     UIImageView *notiIcon=(UIImageView *) [cell viewWithTag:2];
     UIImageView *arrowIcon=(UIImageView *) [cell viewWithTag:3];
+    UIImageView *sepImage=(UIImageView *) [cell viewWithTag:4];
     notificationBadgeLabel.translatesAutoresizingMaskIntoConstraints=YES;
-    NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];
+    NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];    
     if ([notiData.notificationStatus isEqualToString:@"1"]) {
         notificationBadgeLabel.textColor=[UIColor whiteColor];
         cell.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
         notiIcon.alpha=1.0;
         arrowIcon.alpha=1.0;
+        sepImage.image=[UIImage imageNamed:@"navigationSep2"];
     }
     else {
         notificationBadgeLabel.textColor=[UIColor colorWithRed:247.0/255.0 green:216.0/255.0 blue:223.0/255.0 alpha:1.0];
         cell.backgroundColor=[UIColor colorWithRed:216.0/255.0 green:59.0/255.0 blue:95.0/255.0 alpha:1.0];
         notiIcon.alpha=0.95;
         arrowIcon.alpha=0.6;
+        sepImage.image=[UIImage imageNamed:@"notificationSep"];
     }
     notificationBadgeLabel.text=notiData.notificationMessage;
     float newHeight =[DynamicHeightWidth getDynamicLabelHeight:notificationBadgeLabel.text font:[UIFont montserratLightWithSize:15] widthValue:_notificationTableView.frame.size.width-77];

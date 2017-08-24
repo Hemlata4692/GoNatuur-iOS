@@ -111,7 +111,7 @@
     [textField resignFirstResponder];
     if (![textField.text isEqualToString:@""]) {
         SearchListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListingViewController"];
-        obj.searchKeyword=searchKey;
+        obj.searchKeyword=_searchTextField.text;
         [self.navigationController pushViewController:obj animated:true];
     }
     return YES;

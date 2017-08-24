@@ -14,6 +14,7 @@
 #import "ReviewService.h"
 #import "ReviewDataModel.h"
 #import "ReviewListingViewController.h"
+#import "UITextField+Validations.h"
 
 @interface ReviewViewController ()<EDStarRatingProtocol,BSKeyboardControlsDelegate> {
 @private
@@ -85,7 +86,12 @@
     _starRatingView.editable=YES;
     _starRatingView.rating= [rating floatValue];
     _starRatingView.displayMode=EDStarRatingDisplayFull;
-    [self starsSelectionChanged:_starRatingView rating:0];
+    if ([isEditMode isEqualToString:@"1"]) {
+       [self starsSelectionChanged:_starRatingView rating:[starRatingValue floatValue]];
+    }
+    else {
+        [self starsSelectionChanged:_starRatingView rating:0];
+    }
 }
 
 - (void)starsSelectionChanged:(EDStarRating *)control rating:(float)rating {
@@ -95,8 +101,23 @@
 
 #pragma mark - IBAction
 - (IBAction)addReviewButtonAction:(id)sender {
-    [myDelegate showIndicator];
-    [self performSelector:@selector(addProductReview) withObject:nil afterDelay:.1];
+    if([self performValidations]) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(addProductReview) withObject:nil afterDelay:.1];
+    }
+}
+#pragma mark - end
+
+#pragma mark - Review validation
+- (BOOL)performValidations {
+    if ([starRatingValue isEqualToString:@"0.0"]) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"RateProduct") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        return NO;
+    }
+    else {
+        return YES;
+    }
 }
 #pragma mark - end
 
@@ -104,16 +125,22 @@
 - (void)addProductReview {
     ReviewDataModel *addReview = [ReviewDataModel sharedUser];
     addReview.productId=selectedProductId;
-    addReview.username=[UserDefaultManager getValue:@"firstname"];;
+//    addReview.username=[UserDefaultManager getValue:@"firstname"];
+     addReview.username=@"hemlata";
     addReview.reviewTitle=_titleTextField.text;
     addReview.reviewDescription=_reviewTextView.text;
     addReview.ratingId=starRatingValue;
+    if([isEditMode isEqualToString:@"1"]) {
+        addReview.reviewId=reviewData.reviewId;
+    }
+    else {
+        addReview.reviewId=@"0";
+    }
     [addReview addCustomerReview:^(ReviewDataModel *userData)  {
         [myDelegate stopIndicator];
         [self popToReviewList];
     } onfailure:^(NSError *error) {
     }];
-
 }
 
 - (void)popToReviewList {
@@ -123,6 +150,7 @@
 - (void)displayData {
     _titleTextField.text=reviewData.reviewTitle;
     _reviewTextView.text=reviewData.reviewDescription;
+    starRatingValue=reviewData.ratingId;
    [self addstarRating:reviewData.ratingId];
 }
 #pragma mark - end

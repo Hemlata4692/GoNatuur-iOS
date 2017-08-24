@@ -168,18 +168,22 @@
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"unfollow");
+            cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
         }
         else{
             cellLabel.text=NSLocalizedText(@"follow");
+            cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
     }
     else if (indexPath.row==13) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:11];
         if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"wishlistAdded");
+            cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
         }
         else{
             cellLabel.text=NSLocalizedText(@"wishlist");
+            cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
     }
     return cell;
@@ -208,19 +212,19 @@
     }
     else if (indexPath.row==8) {
         //Description action
-        [self navigateToView:NSLocalizedText(@"Description") webViewData:productDetailModelData.productDescription viewIdentifier:@"webView" productId:0];
+        [self navigateToView:NSLocalizedText(@"Description") webViewData:productDetailModelData.productDescription viewIdentifier:@"webView" productId:0 reviewId:@"" reviewAdded:@""];
     }
     else if (indexPath.row==9) {
         //Benefit action
-        [self navigateToView:NSLocalizedText(@"Benefits&Usage") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0];
+        [self navigateToView:NSLocalizedText(@"Benefits&Usage") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0 reviewId:@"" reviewAdded:@""];
     }
     else if (indexPath.row==10) {
         //Brand action
-        [self navigateToView:NSLocalizedText(@"BrandStory") webViewData:productDetailModelData.productBrandStory viewIdentifier:@"webView" productId:0];
+        [self navigateToView:NSLocalizedText(@"BrandStory") webViewData:productDetailModelData.productBrandStory viewIdentifier:@"webView" productId:0 reviewId:@"" reviewAdded:@""];
     }
     else if (indexPath.row==11) {
         //Review action
-        [self navigateToView:@"" webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId]];
+        [self navigateToView:@"" webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId] reviewId:productDetailModelData.reviewId reviewAdded:productDetailModelData.reviewAdded];
     }
     else if (indexPath.row==12) {
         //Follow action
@@ -242,10 +246,12 @@
             [myDelegate checkGuestAccess];
         }
         else {
-        if ([productDetailModelData.following isEqualToString:@"1"]) {
+        if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
             [self.view makeToast:NSLocalizedText(@"alreadyAddedWishlist")];
         }
         else {
+//            cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
+//            productDetailModelData.wishlist=@"1";
             [self addToWishlist:(int)indexPath.row];
         }
         }
@@ -264,7 +270,7 @@
     }
 }
 
-- (void)navigateToView:(NSString *)navTitle webViewData:(NSString *)webViewData viewIdentifier:(NSString *)viewIdentifier productId:(NSNumber *)productId {
+- (void)navigateToView:(NSString *)navTitle webViewData:(NSString *)webViewData viewIdentifier:(NSString *)viewIdentifier productId:(NSNumber *)productId reviewId:(NSString *)reviewId reviewAdded:(NSString *)reviewAdded{
     UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     if ([viewIdentifier isEqualToString:@"webView"]) {
         WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
@@ -275,6 +281,8 @@
     else {
         ReviewListingViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewListingViewController"];
         reviewView.productID =productId;
+        reviewView.reviewId=reviewId;
+        reviewView.reviewAdded=reviewAdded;
         [self.navigationController pushViewController:reviewView animated:YES];
     }
 }
@@ -339,8 +347,12 @@
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData addProductWishlistOnSuccess:^(ProductDataModel *productDetailData)  {
         cellLabel.text=NSLocalizedText(@"wishlistAdded");
+        cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
+         productDetailModelData.wishlist=@"1";
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"wishlist");
+         productDetailModelData.wishlist=@"0";
+         cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
     }];
     
 }
@@ -369,9 +381,12 @@
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData followProductOnSuccess:^(ProductDataModel *productDetailData)  {
         cellLabel.text=NSLocalizedText(@"unfollow");
+         cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
         productDetailModelData.following=@"1";
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"follow");
+         cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
+        productDetailModelData.following=@"0";
     }];
 }
 
@@ -384,9 +399,12 @@
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData unFollowProductOnSuccess:^(ProductDataModel *productDetailData)  {
         cellLabel.text=NSLocalizedText(@"follow");
+        cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         productDetailModelData.following=@"0";
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"unfollow");
+         cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
+        productDetailModelData.following=@"1";
     }];
     
 }

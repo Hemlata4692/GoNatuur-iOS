@@ -12,6 +12,7 @@
 #import "ReviewViewController.h"
 #import "GoNatuurPickerView.h"
 #import "ReviewTableViewCell.h"
+#import "DynamicHeightWidth.h"
 
 @interface ReviewListingViewController ()<GoNatuurPickerViewDelegate> {
 @private
@@ -48,10 +49,6 @@
     pageCount=1;
     applyStarFilter=@"1";
     _noRecordLabel.hidden=YES;
-    reviewListingDataAray=[[NSMutableArray alloc]init];
-    if ([reviewAdded isEqualToString:@"1"]) {
-        _writeReviewButton.enabled=false;
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,6 +63,7 @@
     [self addLeftBarButtonWithImage:true];
     [self viewCustomisation];
     [self initFooterView];
+    reviewListingDataAray=[[NSMutableArray alloc]init];
     [myDelegate showIndicator];
     [self performSelector:@selector(getReviewListingData) withObject:nil afterDelay:.1];
 }
@@ -75,10 +73,11 @@
     [_writeReviewButton setCornerRadius:17.0];
     [_writeReviewButton addShadow:_writeReviewButton color:[UIColor blackColor]];
     [_searchTextField addTextFieldLeftRightPadding:_searchTextField];
-//    _reviewListingTableView.estimatedRowHeight = 500.0;//set maximum row height
-//    _reviewListingTableView.rowHeight = UITableViewAutomaticDimension;//set dynamic height of row according to text
     _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
-
+    if ([reviewAdded isEqualToString:@"1"] || (nil==[UserDefaultManager getValue:@"userId"])) {
+        _writeReviewButton.enabled=false;
+         _writeReviewButton.alpha = 0.8;
+    }
     [self addCustomPickerView];
 }
 
@@ -86,8 +85,8 @@
 
 - (void)addCustomPickerView {
     //Set initial index of picker view and initialized picker view
-    selectedStarFilterIndex=0;
     selectedPickerIndex=-1;
+    selectedSortFilterIndex=-1;
     selectedSortByFilterIndex=0;
     sortingPickerView=[[GoNatuurPickerView alloc] initWithFrame:self.view.frame delegate:self pickerHeight:230];
     [self.view addSubview:sortingPickerView.goNatuurPickerViewObj];
@@ -112,8 +111,18 @@
         if (selectedSortFilterIndex!=tempSelectedIndex) {
             selectedSortFilterIndex=tempSelectedIndex;
             [_sortByFilterButton setTitle:[sortByDataArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
-            sortByFilter=@"created_at";
-            sortByValue=@"DESC";
+            if (selectedSortFilterIndex==0) {
+                sortByFilter=@"created_at";
+                sortByValue=@"DESC";
+            }
+            else if (selectedSortFilterIndex==1) {
+                sortByFilter=@"reviewvote.value";
+                sortByValue=@"ASC";
+            }
+            else {
+                sortByFilter=@"reviewvote.value";
+                sortByValue=@"DESC";
+            }
         }
     }
     reviewListingDataAray=[[NSMutableArray alloc]init];
@@ -157,18 +166,12 @@
 #pragma mark - IBActions
 - (IBAction)starFilterButtonAction:(id)sender {
     [_searchTextField resignFirstResponder];
-    if (selectedPickerIndex==-1) {
-        selectedPickerIndex=1;
-    }
-    [sortingPickerView showPickerView:starFilterDataArray selectedIndex:selectedPickerIndex option:1];
+    [sortingPickerView showPickerView:starFilterDataArray selectedIndex:(selectedPickerIndex==-1?1:selectedPickerIndex) option:1];
 }
 
 - (IBAction)sortByFilterAction:(id)sender {
     [_searchTextField resignFirstResponder];
-    if (selectedPickerIndex==-1) {
-        selectedPickerIndex=1;
-    }
-    [sortingPickerView showPickerView:sortByDataArray selectedIndex:selectedSortFilterIndex option:2];
+    [sortingPickerView showPickerView:sortByDataArray selectedIndex:(selectedSortFilterIndex==-1?0:selectedSortFilterIndex) option:2];
 }
 
 - (IBAction)writeReviewButtonAction:(id)sender {
@@ -210,23 +213,41 @@
     NSString *CellIdentifier = @"reviewCell";
     ReviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     cell.editReviewIcon.hidden=YES;
-    [cell displayData:[reviewListingDataAray objectAtIndex:indexPath.row] reviewId:reviewId rectSize:_reviewListingTableView.frame.size];
+    if ([[[reviewListingDataAray objectAtIndex:indexPath.row]reviewId] intValue]==[reviewId intValue]) {
+         [cell displayData:[reviewListingDataAray objectAtIndex:indexPath.row] reviewId:reviewId rectSize:_reviewListingTableView.frame.size];
+    }
+    else {
+         [cell displayData:[reviewListingDataAray objectAtIndex:indexPath.row] reviewId:@"0" rectSize:_reviewListingTableView.frame.size];
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if ([[[reviewListingDataAray objectAtIndex:indexPath.row]reviewId] intValue]==[reviewId intValue]) {
     UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ReviewViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewViewController"];
     reviewView.selectedProductId=productID;
     reviewView.isEditMode=@"1";
     reviewView.reviewData=[reviewListingDataAray objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:reviewView animated:YES];
+    }
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return UITableViewAutomaticDimension;
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //    float titleHeight =[DynamicHeightWidth getDynamicLabelHeight:[[reviewListingDataAray objectAtIndex:indexPath.row] reviewTitle] font:[UIFont montserratBoldWithSize:13] widthValue:tableView.frame.size.width-93];
+    float descriptionHeight =[DynamicHeightWidth getDynamicLabelHeight:[[reviewListingDataAray objectAtIndex:indexPath.row] reviewDescription] font:[UIFont montserratRegularWithSize:12] widthValue:tableView.frame.size.width-93];
+    
+    if (descriptionHeight<=16) {
+        return 120;
+    }
+    else if (descriptionHeight<=31) {
+        return 120;
+        
+    }
+    else {
+        return 120+descriptionHeight-35;
+    }
+}
 #pragma mark - end
 
 #pragma mark - Pagignation for table view
