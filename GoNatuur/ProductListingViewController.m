@@ -113,6 +113,11 @@
     filterViewObj.secondFilterButtonOutlet.alpha=0.5;
     filterViewObj.firstFilterArrowImageView.alpha=0.4;
     filterViewObj.secondFilterArrowImageView.alpha=0.4;
+    if (!myDelegate.isProductList) {
+        filterViewObj.subCategoryButtonOutlet.enabled=false;
+        filterViewObj.subCategoryButtonOutlet.alpha=0.5;
+        filterViewObj.subCategoryArrowImageView.alpha=0.4;
+    }
     //Set initial index of picker view and initialized picker view
     selectedFirstFilterIndex=0;
     selectedSubCategoryIndex=0;

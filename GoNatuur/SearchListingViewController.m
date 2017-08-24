@@ -11,6 +11,7 @@
 #import "SearchService.h"
 #import "SearchDataModel.h"
 #import "ProductDetailViewController.h"
+#import "UIView+Toast.h"
 
 @interface SearchListingViewController ()<UICollectionViewDelegateFlowLayout> {
 @private
@@ -93,10 +94,15 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    //StoryBoard navigation
-    ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
-    obj.selectedProductId=[[[searchedProductsArray objectAtIndex:indexPath.item] productId] intValue];
-    [self.navigationController pushViewController:obj animated:YES];
+    if ([[[searchedProductsArray objectAtIndex:indexPath.item] productType] isEqualToString:@"ticket"]) {
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    }
+    else {
+        //StoryBoard navigation
+        ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+        obj.selectedProductId=[[[searchedProductsArray objectAtIndex:indexPath.item] productId] intValue];
+        [self.navigationController pushViewController:obj animated:YES];
+    }
 }
 #pragma mark - end
 
