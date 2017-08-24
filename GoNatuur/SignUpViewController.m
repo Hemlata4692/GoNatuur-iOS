@@ -464,8 +464,8 @@
     LoginModel *userLogin = [LoginModel sharedUser];
     userLogin.email = _emailTextField.text;
     userLogin.password = _passwordTextField.text;
-    userLogin.firstName=firstName;
-    userLogin.lastName=lastName;
+    userLogin.firstName=_firstNameTextField.text;
+    userLogin.lastName=_lastNameTextField.text;
     userLogin.socialUserId=socialLoginID;
     userLogin.isSocialLogin=[NSNumber numberWithInt:isSocialLogin];
     userLogin.profilePicture=profilePic;
