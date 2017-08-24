@@ -13,6 +13,7 @@
 #import "UITextField+Padding.h"
 #import "LoginModel.h"
 #import "CMSPageViewController.h"
+#import "UIView+Toast.h"
 
 @interface SignUpViewController ()<UIGestureRecognizerDelegate, SocialLoginDelegate, BSKeyboardControlsDelegate> {
 @private
@@ -330,6 +331,8 @@
 - (void)privacyPolicy {
     //[_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("Privacy");
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [_keyboardControls.activeField resignFirstResponder];
     CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
     obj.isPrivacyPolicy=true;
     [self.navigationController pushViewController:obj animated:true];
@@ -338,6 +341,8 @@
 - (void)termsNCondition {
     // [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("termsNCondition");
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [_keyboardControls.activeField resignFirstResponder];
         CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
         obj.isPrivacyPolicy=false;
         [self.navigationController pushViewController:obj animated:true];
@@ -345,6 +350,7 @@
 
 - (void)logIn {
     [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [_keyboardControls.activeField resignFirstResponder];
     [self.navigationController popViewControllerAnimated:true];
     DLog("logIn");
 }
@@ -439,23 +445,32 @@
 
 #pragma mark - Social login xib delegate method
 - (void)socialLoginResponse:(ConstantType)option result:(NSDictionary *)result {
-    DLog(@"email:%@  userId:%@", [result objectForKey:@"email"],[result objectForKey:@"id"]);
-    isSocialLogin=1;
-    _emailTextField.text=[result objectForKey:@"email"];
-    _firstNameTextField.text=[result objectForKey:@"firstName"];
-    _lastNameTextField.text=[result objectForKey:@"lastName"];
-    socialLoginID=[result objectForKey:@"id"];
-    profilePic=[result objectForKey:@"imageUrl"];
-    //Adding textfield to keyboard controls array
-    bool flag=false;
-    //Check first name
-    if ([_firstNameTextField isEmpty] || [_lastNameTextField isEmpty] || [_emailTextField isEmpty]) {
-        flag=true;
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    [_keyboardControls.activeField resignFirstResponder];
+    if (option==FacebookLogin || option==GoogleLogin) {
+        DLog(@"email:%@  userId:%@", [result objectForKey:@"email"],[result objectForKey:@"id"]);
+        isSocialLogin=1;
+        _emailTextField.text=[result objectForKey:@"email"];
+        _firstNameTextField.text=[result objectForKey:@"firstName"];
+        _lastNameTextField.text=[result objectForKey:@"lastName"];
+        socialLoginID=[result objectForKey:@"id"];
+        profilePic=[result objectForKey:@"imageUrl"];
+        //Adding textfield to keyboard controls array
+        bool flag=false;
+        //Check first name
+        if ([_firstNameTextField isEmpty] || [_lastNameTextField isEmpty] || [_emailTextField isEmpty]) {
+            flag=true;
+        }
+        if (!flag) {
+            [myDelegate showIndicator];
+            [self performSelector:@selector(userSignUp) withObject:nil afterDelay:.1];
+        }
     }
-    if (!flag) {
-        [myDelegate showIndicator];
-        [self performSelector:@selector(userSignUp) withObject:nil afterDelay:.1];
+    else {
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
+    
+    
 }
 #pragma mark - end
 

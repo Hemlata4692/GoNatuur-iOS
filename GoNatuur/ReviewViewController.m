@@ -101,6 +101,7 @@
 
 #pragma mark - IBAction
 - (IBAction)addReviewButtonAction:(id)sender {
+    [self.view endEditing:true];
     if([self performValidations]) {
         [myDelegate showIndicator];
         [self performSelector:@selector(addProductReview) withObject:nil afterDelay:.1];
