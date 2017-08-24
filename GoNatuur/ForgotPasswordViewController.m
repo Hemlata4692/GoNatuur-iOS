@@ -270,7 +270,7 @@
             //add action
             [self.navigationController popViewControllerAnimated:true];
         }];
-        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"resetPasswordSuccess") closeButtonTitle:nil duration:0.0f];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:userData.successMessage closeButtonTitle:nil duration:0.0f];
     } onfailure:^(NSError *error) {
         
     }];

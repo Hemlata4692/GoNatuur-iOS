@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSString *cmsTitle;
 @property (strong, nonatomic) NSString *cmsContent;
 @property (strong, nonatomic) NSString *socialUserId;
+@property (strong, nonatomic) NSString *successMessage;
 
 + (instancetype)sharedUser;
 //Login user

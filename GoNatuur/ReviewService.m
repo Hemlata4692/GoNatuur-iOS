@@ -64,6 +64,7 @@ static NSString *kAddReview=@"ranosys/addProductReview";
                                  @"customerId":[UserDefaultManager getValue:@"userId"],
                                  @"customerNickName":reviewData.username,
                                  @"reviewDetail":reviewData.reviewDescription,
+                                 @"reviewId":reviewData.reviewId,
                                  @"starRatingOptions" : @[
                                          @{@"rating_id":@"1",
                                            @"option_id":reviewData.ratingId

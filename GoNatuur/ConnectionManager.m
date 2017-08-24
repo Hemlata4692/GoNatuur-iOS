@@ -129,6 +129,7 @@
     LoginService *loginService = [[LoginService alloc] init];
     [loginService resetPasswordService:userData onSuccess:^(id response) {
         //Parse data from server response and store in data model
+        userData.successMessage=response[@"message"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);

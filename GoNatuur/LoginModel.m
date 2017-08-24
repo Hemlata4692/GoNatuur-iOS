@@ -27,6 +27,7 @@
 @synthesize lastName;
 @synthesize profilePicture;
 @synthesize socialUserId;
+@synthesize successMessage;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
