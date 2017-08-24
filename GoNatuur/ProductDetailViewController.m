@@ -259,6 +259,7 @@
     }
     else if (indexPath.row==14) {
         //Share action
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else if (indexPath.row==15) {
         //Location action

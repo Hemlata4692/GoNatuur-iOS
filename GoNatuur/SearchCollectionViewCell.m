@@ -25,8 +25,6 @@
     [borderView setCornerRadius:5.0];
     [productCellMainView addShadow:productCellMainView color:[UIColor colorWithRed:222.0/255.0 green:222.0/255.0 blue:222.0/255.0 alpha:1.0]];
     productName.text=productListData.productName;
-//    double productCalculatedPrice =[productListData.productPrice doubleValue]*[exchangeRates doubleValue];
-//    productPrice.text=[NSString stringWithFormat:@"%@ %.2f",[UserDefaultManager getValue:@"DefaultCurrency"],productCalculatedPrice];
     if ((nil==productListData.productDescription)||[productListData.productDescription isEqualToString:@""]) {
         productDescription.text=NSLocalizedText(@"dataNotAdded");
     }
@@ -52,7 +50,7 @@
         productCalculatedPrice =[productListData.specialPrice doubleValue]*[exchangeRates doubleValue];
     }
     else {
-        if ([productListData.productType isEqualToString:@""]&&(nil==productListData.productQty||NULL==productListData.productQty||[productListData.productQty intValue]<1)) {
+        if ([productListData.productType isEqualToString:@"ticket"]&&(nil==productListData.productQty||NULL==productListData.productQty||[productListData.productQty intValue]<1)) {
             statusBannerImage.hidden=false;
             statusBannerImage.image=[UIImage imageNamed:@"soldout"];
         }

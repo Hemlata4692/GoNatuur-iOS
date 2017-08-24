@@ -14,7 +14,7 @@ static NSString *kAddWishlist=@"ipwishlist/add/product";
 static NSString *kFollowProduct=@"ranosys/product/follow/mine";
 static NSString *kRemoveWishlist=@"ipwishlist/delete/wishlistItem";
 static NSString *kUnFollowProduct=@"ranosys/product/unfollow/mine";
-static NSString *kGuestAddToCartProduct=@"guest-carts/566b65a6ac1eaa6587a939ca27d3d44b/items";
+static NSString *kGuestAddToCartProduct=@"guest-carts/";
 static NSString *kLoginedAddToCartProduct=@"carts/mine";
 
 @implementation ProductService
@@ -90,7 +90,8 @@ static NSString *kLoginedAddToCartProduct=@"carts/mine";
                                                    }
                                      };
         DLog(@"Add to cart parameters: %@",parameters);
-        [super post:kGuestAddToCartProduct parameters:parameters success:success failure:failure];
+        
+        [super post:[NSString stringWithFormat:@"%@%@/items",kGuestAddToCartProduct,[UserDefaultManager getValue:@"quoteId"]] parameters:parameters success:success failure:failure];
     }
     else {
         NSDictionary *parameters = @{@"quote":@{@"id":[UserDefaultManager getValue:@"quoteId"],

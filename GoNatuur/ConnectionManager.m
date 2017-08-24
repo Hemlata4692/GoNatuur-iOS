@@ -518,7 +518,7 @@
             tempModel.reviewDescription=[dataDict objectForKey:@"detail"];
             tempModel.reviewTitle=[dataDict objectForKey:@"title"];
             tempModel.reviewId=[dataDict objectForKey:@"review_id"];
-            tempModel.ratingId = [[[dataDict objectForKey:@"rating_votes"] objectAtIndex:0] objectForKey:@"value"];
+            tempModel.ratingId = ([[dataDict objectForKey:@"rating_votes"] count]==0?@"0":[[[dataDict objectForKey:@"rating_votes"] objectAtIndex:0] objectForKey:@"value"]);
             [reviewData.reviewListArray addObject:tempModel];
         }
         success(reviewData);
