@@ -287,6 +287,7 @@
 }
 #pragma mark - end
 
+#pragma mark - HCYoutubeParser method
 - (void)showYouTubeVideo:(NSURL *)url {
     [HCYoutubeParser thumbnailForYoutubeURL:url thumbnailSize:YouTubeThumbnailDefaultHighQuality completeBlock:^(UIImage *image, NSError *error) {
         if (!error) {
@@ -302,7 +303,6 @@
                     URLString = [qualities objectForKey:@"live"];
                 }
                 else {
-//                    [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Couldn't find youtube video" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil] show];
                     return;
                 }
                 MPMoviePlayerViewController *mp = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:URLString]];
@@ -314,6 +314,7 @@
         }
     }];
 }
+#pragma mark - end
 
 #pragma mark - Collection view datasource methods
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {

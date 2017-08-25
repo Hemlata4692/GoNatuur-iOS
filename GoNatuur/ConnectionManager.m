@@ -463,7 +463,7 @@
         productData.productSubtitle=[customAttributeDict objectForKey:@"subtitle"];
         productData.productUrlKey=[customAttributeDict objectForKey:@"url_key"];
         if ([customAttributeDict objectForKey:@"description"]!=nil) {
-            productData.productDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"description"]];
+            productData.productDescription=[customAttributeDict objectForKey:@"description"];
         }
         if ([customAttributeDict objectForKey:@"short_description"]!=nil) {
             productData.productShortDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"short_description"]];

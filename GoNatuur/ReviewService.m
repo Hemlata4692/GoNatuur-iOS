@@ -30,7 +30,11 @@ static NSString *kAddReview=@"ranosys/addProductReview";
                                                                      @{@"field":@"detail",
                                                                        @"value":[NSString stringWithFormat:@"%s%@%s","%",reviewData.reviewDescription,"%"],
                                                                        @"condition_type": @"like"
-                                                                       },
+                                                                       }
+                                                                     ]
+                                                             },
+                                                         @{
+                                                             @"filters":@[
                                                                      @{@"field":@"status_id",
                                                                        @"value":@"1",
                                                                        @"condition_type": @"eq"

@@ -39,7 +39,7 @@
     
     [_shadowView addShadow:_shadowView color:[UIColor darkGrayColor]];
     //Set clear background color
-    _webView.backgroundColor = [UIColor clearColor];
+    _webView.backgroundColor = [UIColor colorWithRed:253.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0];
     _webView.opaque=NO;
     //Set navigationBar background image
     [self setTransparentNavigtionBar];
@@ -111,8 +111,18 @@
     [userLogin CMSPageService:^(LoginModel *userData) {
         self.navigationItem.title=userData.cmsTitle;
      //   [_webView loadHTMLString:userData.cmsContent baseURL: nil];
-        userData.cmsContent = [NSString stringWithFormat:@"<span style=\"font-family: %@; font-size: %i\">%@</span>",@"Montserrat-Light", 15, userData.cmsContent];
-        [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body bgcolor=\"#FDF4F6\" text=\"#000000\" align='justify'>%@</body></html>", userData.cmsContent] baseURL: nil];
+        
+        
+        
+//        userData.cmsContent = [NSString stringWithFormat:@"<span style=\"font-family: %@; background-color:\"#FDF4F6\" color:\"#000000\" text-align:\"justify\" font-size: %i\">%@</span>",@"Montserrat-Light", 15, userData.cmsContent];
+        DLog(@"%@",[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; background-color:#FDF4F6 color:#000000 text-align:justify font-size:15'>%@</body></html>", userData.cmsContent]);
+        [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' text-align:'justify' font-size:15'>%@</body></html>", userData.cmsContent] baseURL: nil];
+  
+        
+        
+        
+//        userData.cmsContent = [NSString stringWithFormat:@"<span style=\"font-family: %@; font-size: %i\">%@</span>",@"Montserrat-Light", 15, userData.cmsContent];
+//        [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body bgcolor=\"#FDF4F6\" text=\"#000000\" align='justify'>%@</body></html>", userData.cmsContent] baseURL: nil];
         } onfailure:^(NSError *error) {
     }];
 }
