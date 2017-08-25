@@ -36,7 +36,7 @@
     _reviewTitleLabel.numberOfLines=2;
     
     if ([reviewId intValue]==0) {
-        _reviewTitleLabel.frame=CGRectMake(_userImageView.frame.origin.x+_userImageView.frame.size.width+20, _reviewTitleLabel.frame.origin.y, rectSize.width-93, titleHeight+1);
+        _reviewTitleLabel.frame=CGRectMake(86, _reviewTitleLabel.frame.origin.y, rectSize.width-93, titleHeight+1);
         _editReviewIcon.hidden=YES;
     }
     else {
@@ -49,13 +49,13 @@
     _reviewTextLabel.numberOfLines=0;
     if (titleHeight<=17 && descriptionHeight<=16) {
         _ratingView.translatesAutoresizingMaskIntoConstraints=YES;
-        _ratingView.frame=CGRectMake(_userImageView.frame.origin.x+_userImageView.frame.size.width+17, _reviewTitleLabel.frame.origin.y+_reviewTitleLabel.frame.size.height+8, _ratingView.frame.size.width, _ratingView.frame.size.height);
+        _ratingView.frame=CGRectMake(83, _reviewTitleLabel.frame.origin.y+_reviewTitleLabel.frame.size.height+8, _ratingView.frame.size.width, _ratingView.frame.size.height);
         
         _reviewTextLabel.frame=CGRectMake(_reviewTitleLabel.frame.origin.x, _reviewTitleLabel.frame.origin.y+_reviewTitleLabel.frame.size.height+4+_ratingView.frame.size.height+15, rectSize.width-93, descriptionHeight+1);
     }
     else if (titleHeight<=33 && descriptionHeight<=31) {
         _ratingView.translatesAutoresizingMaskIntoConstraints=YES;
-        _ratingView.frame=CGRectMake(_userImageView.frame.origin.x+_userImageView.frame.size.width+17, _reviewTitleLabel.frame.origin.y+_reviewTitleLabel.frame.size.height+10, _ratingView.frame.size.width, _ratingView.frame.size.height);
+        _ratingView.frame=CGRectMake(83, _reviewTitleLabel.frame.origin.y+_reviewTitleLabel.frame.size.height+10, _ratingView.frame.size.width, _ratingView.frame.size.height);
         
         _reviewTextLabel.frame=CGRectMake(_reviewTextLabel.frame.origin.x, _reviewTitleLabel.frame.origin.y+_reviewTitleLabel.frame.size.height+4+_ratingView.frame.size.height+15, rectSize.width-93, descriptionHeight);
     }

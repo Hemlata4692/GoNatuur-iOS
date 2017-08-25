@@ -36,7 +36,7 @@ static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
         customerID=[UserDefaultManager getValue:@"userId"];
     }
     NSDictionary *parameters = @{@"customerId":customerID};
-    [super post:kDashboardData parameters:parameters success:success failure:failure];
+    [super post:kDashboardData parameters:nil success:success failure:failure];
 }
 #pragma mark - end
 

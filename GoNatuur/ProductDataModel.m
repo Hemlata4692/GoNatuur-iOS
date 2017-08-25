@@ -37,6 +37,8 @@
 @synthesize reviewId;
 @synthesize productMinQuantity;
 @synthesize productSku;
+@synthesize specialPrice;
+@synthesize avg_rating_percent;
 
 - (id)copyWithZone:(NSZone *)zone {
     ProductDataModel *another = [[ProductDataModel alloc] init];
@@ -60,6 +62,7 @@
     another.productMediaArray= [self.productMediaArray copyWithZone: zone];
     another.productMinQuantity= [self.productMinQuantity copyWithZone: zone];
     another.productSku= [self.productSku copyWithZone: zone];
+    another.specialPrice= [self.specialPrice copyWithZone: zone];
     return another;
 }
 

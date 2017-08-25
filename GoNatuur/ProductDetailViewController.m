@@ -18,6 +18,7 @@
 #import "ReviewListingViewController.h"
 #import "UIView+Toast.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "HCYoutubeParser.h"
 
 @interface ProductDetailViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -118,7 +119,7 @@
     else if (indexPath.row==6) {
         float tempHeight=[DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"Shipping is free if the total purchase is above USD$100.") font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80];
         tempHeight+=[DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"Products can be returned within 30 days of purchase, subject to the following conditions.") font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80];
-        return tempHeight+2;
+        return tempHeight+5;
     }
     else if (indexPath.row==7) {
         return 45;
@@ -205,10 +206,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row==3 && [[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
+    if (indexPath.row==3 && ![[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"media_type"] isEqualToString:@"image"]) {
         NSURL *videoURL = [NSURL URLWithString:[[[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"extension_attributes"] objectForKey:@"video_content"] objectForKey:@"video_url"]];
-        MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
-        [self presentViewController:moviePlayer animated:YES completion:NULL];
+        [myDelegate showIndicator];
+        [self performSelector:@selector(showYouTubeVideo:) withObject:videoURL afterDelay:.1];
     }
     else if (indexPath.row==8) {
         //Description action
@@ -285,6 +286,34 @@
     }
 }
 #pragma mark - end
+
+- (void)showYouTubeVideo:(NSURL *)url {
+    [HCYoutubeParser thumbnailForYoutubeURL:url thumbnailSize:YouTubeThumbnailDefaultHighQuality completeBlock:^(UIImage *image, NSError *error) {
+        if (!error) {
+            [HCYoutubeParser h264videosWithYoutubeURL:url completeBlock:^(NSDictionary *videoDictionary, NSError *error) {
+                
+                [myDelegate stopIndicator];
+                NSDictionary *qualities = videoDictionary;
+                NSString *URLString = nil;
+                if ([qualities objectForKey:@"small"] != nil) {
+                    URLString = [qualities objectForKey:@"small"];
+                }
+                else if ([qualities objectForKey:@"live"] != nil) {
+                    URLString = [qualities objectForKey:@"live"];
+                }
+                else {
+//                    [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Couldn't find youtube video" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil] show];
+                    return;
+                }
+                MPMoviePlayerViewController *mp = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:URLString]];
+                [self presentViewController:mp animated:YES completion:NULL];
+            }];
+        }
+        else {
+            [myDelegate stopIndicator];
+        }
+    }];
+}
 
 #pragma mark - Collection view datasource methods
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {

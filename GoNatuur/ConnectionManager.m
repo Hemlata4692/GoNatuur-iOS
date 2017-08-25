@@ -182,6 +182,8 @@
         userData.bannerImageArray=[[NSMutableArray alloc]init];
         userData.notificationsCount=response[@"notification_count"];
         userData.profilePicture=response[@"profile_pick"];
+        userData.firstName=response[@"firstname"];
+        userData.lastName=response[@"lastname"];
         NSArray *bannerArray=response[@"banner"];
         for (int i =0; i<bannerArray.count; i++) {
             NSDictionary * bannerDataDict =[bannerArray objectAtIndex:i];
@@ -206,6 +208,7 @@
             productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
             productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+            productData.productType=[productDataDict objectForKey:@"type_id"];
             [userData.bestSellerArray addObject:productData];
         }
         userData.healthyLivingArray=[[NSMutableArray alloc]init];
@@ -223,6 +226,7 @@
             healthyLivingData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
             healthyLivingData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             healthyLivingData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+            healthyLivingData.productType=[productDataDict objectForKey:@"type_id"];
             [userData.healthyLivingArray addObject:healthyLivingData];
         }
         userData.samplersDataArray=[[NSMutableArray alloc]init];
@@ -240,6 +244,7 @@
             samplersArrayData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
             samplersArrayData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             samplersArrayData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+             samplersArrayData.productType=[productDataDict objectForKey:@"type_id"];
             [userData.samplersDataArray addObject:samplersArrayData];
         }
         userData.footerBannerImageArray=[[NSMutableArray alloc]init];
@@ -451,6 +456,7 @@
         //Parse data from server response and store in data model
         DLog(@"product list response %@",response);
         NSDictionary *customAttributeDict=[[[response objectForKey:@"custom_attribute"] objectAtIndex:0] copy];
+        productData.productRating=[response objectForKey:@"avg_rating_percent"];
         productData.productName=[response objectForKey:@"name"];
         productData.productPrice=[response objectForKey:@"price"];
         productData.categoryId=[[customAttributeDict objectForKey:@"category_ids"] objectAtIndex:0];
@@ -480,9 +486,17 @@
         productData.reviewAdded=[[response objectForKey:@"is_reviewed"] stringValue];
         productData.reviewId=[response objectForKey:@"review_id"];
         productData.productSku=[response objectForKey:@"sku"];
+        productData.specialPrice = [customAttributeDict objectForKey:@"special_price"];
         //        productData.isWishlist=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
-        
-        productData.productMediaArray=[[response objectForKey:@"media"] mutableCopy];
+        productData.productMediaArray=[NSMutableArray new];
+        for (NSDictionary *tempDict in [response objectForKey:@"media"]) {
+            if ([[tempDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
+                if ([[tempDict objectForKey:@"types"] count]>0&&[[tempDict objectForKey:@"types"] containsObject:@"video_360"]) {
+                    [tempDict setValue:@"video_360" forKey:@"media_type"];
+                }
+            }
+            [productData.productMediaArray addObject:tempDict];
+        }
         success(productData);
     } onfailure:^(NSError *error) {
     }];

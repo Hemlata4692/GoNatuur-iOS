@@ -38,19 +38,21 @@
 }
 
 - (void)displayRating:(NSString *)productRating {
-//    if ([productRating isEqualToString:@""] || productRating==nil || [productRating isEqualToString:@"0"]) {
-//        //Show all blank star
-//    }
-//    else {
-        _starBackView.starImage = [UIImage imageNamed:@"star-unselected"];
-        _starBackView.starHighlightedImage = [UIImage imageNamed:@"star"];
-        _starBackView.maxRating = 5.0;
-        _starBackView.delegate = self;
-//        _starBackView.horizontalMargin = 10;
-        _starBackView.editable=NO;
-        _starBackView.rating= [productRating floatValue];
-        _starBackView.displayMode=EDStarRatingDisplayHalf;
-//    }
+    _starBackView.starImage = [UIImage imageNamed:@"star-unselected"];
+    _starBackView.starHighlightedImage = [UIImage imageNamed:@"star"];
+    _starBackView.maxRating = 5.0;
+    _starBackView.delegate = self;
+    //        _starBackView.horizontalMargin = 10;
+    _starBackView.editable=NO;
+    _starBackView.rating= [productRating floatValue];
+    _starBackView.displayMode=EDStarRatingDisplayHalf;
+    if ([productRating isEqualToString:@""] || productRating==nil || [productRating isEqualToString:@"0"]) {
+        _starBackView.rating= 0.0;;
+    }
+    else {
+        float rating = (([productRating integerValue])*5.0)/100.0;
+        _starBackView.rating=rating;
+    }
 }
 
 - (void)displayProductMediaImage:(NSDictionary *)productImageDict qrCode:(UIImage *)qrCodeImage {
@@ -77,19 +79,27 @@
             _video360Icon.hidden=true;
         }
         
-        /*Code is commented for 360 video media type
-         else if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"image"]) {
+        //Code is commented for 360 video media type
+         else if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"video_360"]) {
          _transparentView.hidden=false;
          _videoIcon.hidden=true;
          _video360Icon.hidden=false;
-         }*/
+         }
         
         [ImageCaching downloadImages:_productImageView imageUrl:[NSString stringWithFormat:@"%@%@",productDetailImageBaseUrl,[productImageDict objectForKey:@"file"]] placeholderImage:@"product_placeholder" isDashboardCell:false];
     }
 }
 
 - (void)displayProductPrice:(ProductDataModel *)productData currentQuantity:(int)currentQuantity {
-    NSString *str=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrency"],[productData.productPrice floatValue]];
+    
+    double productCalculatedPrice;
+    if (nil!=productData.specialPrice&&![productData.specialPrice isEqualToString:@""]) {
+        productCalculatedPrice =[productData.specialPrice doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+    }
+    else {
+        productCalculatedPrice =[productData.productPrice doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+    }
+    NSString *str=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrency"],productCalculatedPrice];
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
     NSRange currenyTextRange = [str rangeOfString:[UserDefaultManager getValue:@"DefaultCurrency"]];
     NSRange decimalTextRange = [str rangeOfString:[[str componentsSeparatedByString:@"."] objectAtIndex:1]];

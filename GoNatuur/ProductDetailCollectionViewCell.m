@@ -29,12 +29,12 @@
             _icon360ImageView.hidden=true;
         }
         
-        /*Code is commented for 360 video media type
-         else if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"image"]) {
+        //Code is commented for 360 video media type
+         else if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"video_360"]) {
          _blackTransparentView.hidden=false;
          _videoIconImageView.hidden=true;
          _icon360ImageView.hidden=false;
-         }*/
+         }
         [ImageCaching downloadImages:_productthumbnailImageView imageUrl:[NSString stringWithFormat:@"%@%@",productDetailImageBaseUrl,[productImageDict objectForKey:@"file"]] placeholderImage:@"product_placeholder" isDashboardCell:true];
     }
     if (currentIndex==selectedIndex) {

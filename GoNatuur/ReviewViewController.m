@@ -22,6 +22,7 @@
     NSMutableArray *ratingOptionArray;
 }
 
+@property (strong, nonatomic) IBOutlet UILabel *reviewScreenTitle;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UIPlaceHolderTextView *reviewTextView;
 @property (weak, nonatomic) IBOutlet EDStarRating *starRatingView;
@@ -39,7 +40,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     ratingOptionArray=[[NSMutableArray alloc]init];
-  
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,12 +65,17 @@
     [_titleTextField setTextBorder:_titleTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_titleTextField addTextFieldLeftRightPadding:_titleTextField];
     [_reviewTextView setTextViewBorder:_reviewTextView color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
-    [_reviewTextView setPlaceholder:NSLocalizedText(@"textViewPlaceholder")];    _reviewTextView.textContainer.lineFragmentPadding = 10;
+    [_reviewTextView setPlaceholder:NSLocalizedText(@"textViewPlaceholder")];
+    _reviewTextView.textContainer.lineFragmentPadding = 10;
     
     if ([isEditMode isEqualToString:@"1"]) {
+        [_submitReviewButton setTitle:NSLocalizedText(@"UPDATE REVIEW") forState:UIControlStateNormal];
+        _reviewScreenTitle.text=NSLocalizedText(@"Update Your Review");
          [self displayData];
     }
     else {
+        [_submitReviewButton setTitle:NSLocalizedText(@"SUBMIT REVIEW") forState:UIControlStateNormal];
+        _reviewScreenTitle.text=NSLocalizedText(@"Write New Review");
         [self addstarRating:0];
     }
 }
@@ -126,8 +131,7 @@
 - (void)addProductReview {
     ReviewDataModel *addReview = [ReviewDataModel sharedUser];
     addReview.productId=selectedProductId;
-//    addReview.username=[UserDefaultManager getValue:@"firstname"];
-     addReview.username=@"";
+    addReview.username=[UserDefaultManager getValue:@"firstname"];
     addReview.reviewTitle=_titleTextField.text;
     addReview.reviewDescription=_reviewTextView.text;
     addReview.ratingId=starRatingValue;

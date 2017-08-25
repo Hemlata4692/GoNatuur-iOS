@@ -49,6 +49,8 @@
     pageCount=1;
     applyStarFilter=@"1";
     _noRecordLabel.hidden=YES;
+    [self viewCustomisation];
+    [self initFooterView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,8 +63,6 @@
     self.title=NSLocalizedText(@"Review");
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
-    [self viewCustomisation];
-    [self initFooterView];
     reviewListingDataAray=[[NSMutableArray alloc]init];
     [myDelegate showIndicator];
     [self performSelector:@selector(getReviewListingData) withObject:nil afterDelay:.1];
@@ -98,11 +98,12 @@
         if (selectedPickerIndex!=tempSelectedIndex) {
             selectedPickerIndex=tempSelectedIndex;
             [_starFilterButton setTitle:[starFilterDataArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
-            starFilter=[NSString stringWithFormat:@"%d",selectedPickerIndex+1];
-            if ([_starFilterButton.titleLabel.text isEqualToString:@"All"]) {
+            if (tempSelectedIndex==0) {
+                starFilter=[NSString stringWithFormat:@"5"];
                 applyStarFilter=@"0";
             }
             else {
+                starFilter=[NSString stringWithFormat:@"%lu",([starFilterDataArray count]-(tempSelectedIndex+1))+1];
                 applyStarFilter=@"1";
             }
         }
