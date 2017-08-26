@@ -16,4 +16,6 @@
 
 //Get search listing data
 - (void)getSearchListing:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
+//Search list pagination data
+- (void)getProductListService:(SearchDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 @end

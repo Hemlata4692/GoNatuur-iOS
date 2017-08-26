@@ -158,7 +158,7 @@
         privacyPolicyUnderlineLabel.backgroundColor=[UIColor blackColor];
         [_privacyPolicyLoginLabel addSubview:privacyPolicyUnderlineLabel];
         //Add login underline
-        UILabel *loginUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(175, 47, 38, 1)];
+        UILabel *loginUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(174, 47, 38, 1)];
         loginUnderlineLabel.backgroundColor=[UIColor blackColor];
         [_privacyPolicyLoginLabel addSubview:loginUnderlineLabel];
     }
@@ -173,7 +173,7 @@
         privacyPolicyUnderlineLabel.backgroundColor=[UIColor blackColor];
         [_privacyPolicyLoginLabel addSubview:privacyPolicyUnderlineLabel];
         //Add login underline
-        UILabel *loginUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(128, 47, 38, 1)];
+        UILabel *loginUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(127, 47, 38, 1)];
         loginUnderlineLabel.backgroundColor=[UIColor blackColor];
         [_privacyPolicyLoginLabel addSubview:loginUnderlineLabel];
     }
@@ -187,7 +187,7 @@
         privacyPolicyUnderlineLabel.backgroundColor=[UIColor blackColor];
         [_privacyPolicyLoginLabel addSubview:privacyPolicyUnderlineLabel];
         //Add login underline
-        UILabel *loginUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(286, 38, 38, 1)];
+        UILabel *loginUnderlineLabel=[[UILabel alloc] initWithFrame:CGRectMake(285, 38, 38, 1)];
         loginUnderlineLabel.backgroundColor=[UIColor blackColor];
         [_privacyPolicyLoginLabel addSubview:loginUnderlineLabel];
     }
