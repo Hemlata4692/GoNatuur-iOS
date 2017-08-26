@@ -74,7 +74,8 @@
     [_writeReviewButton setCornerRadius:17.0];
     [_writeReviewButton addShadow:_writeReviewButton color:[UIColor blackColor]];
     [_searchTextField addTextFieldLeftRightPadding:_searchTextField];
-    _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
+    //Bring front view picker view
+    [self.view bringSubviewToFront:sortingPickerView.goNatuurPickerViewObj];
     if ([reviewAdded isEqualToString:@"1"] || (nil==[UserDefaultManager getValue:@"userId"])) {
         _writeReviewButton.enabled=false;
         _writeReviewButton.alpha = 0.8;
@@ -153,10 +154,12 @@
         if (reviewListingDataAray.count==0) {
             _noRecordLabel.hidden=NO;
              [_reviewListingTableView reloadData];
+                _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
         }
         else {
             _noRecordLabel.hidden=YES;
             [_reviewListingTableView reloadData];
+                _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
         }
     } onfailure:^(NSError *error) {
         _noRecordLabel.hidden=NO;
