@@ -106,7 +106,7 @@
     [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:18]} range:currenyTextRange];
     [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:18]} range:decimalTextRange];
     _productPriceLabel.attributedText=string;
-    _productPointsEarnLabel.text=[NSString stringWithFormat:@"%@: %@ip",NSLocalizedText(@"Points Earn"),(nil==productData.productPointsEarn?@"0":productData.productPointsEarn)];
+//    _productPointsEarnLabel.text=[NSString stringWithFormat:@"%@: %@ip",NSLocalizedText(@"Points Earn"),(nil==productData.productPointsEarn?@"0":productData.productPointsEarn)];
     _addCartView.layer.borderColor=[UIColor blackColor].CGColor;
     _addCartView.layer.borderWidth=1.0;
     _cartNumberItemLabel.text=[NSString stringWithFormat:@"%d",currentQuantity];
