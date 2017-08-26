@@ -38,7 +38,13 @@
     }
     [ImageCaching downloadImages:productImageView imageUrl:productListData.productImageThumbnail placeholderImage:@"product_placeholder" isDashboardCell:true];
     
-    statusBannerImage.hidden=YES;
+    if ([productListData.productType isEqualToString:@"ticket"]&&(nil==productListData.productQty||NULL==productListData.productQty||[productListData.productQty intValue]<1)) {
+        statusBannerImage.hidden=false;
+        statusBannerImage.image=[UIImage imageNamed:@"soldout"];
+    }
+    else {
+         statusBannerImage.hidden=true;
+    }
     if ([productListData.productRating isEqualToString:@""] || productListData.productRating==nil || [productListData.productRating isEqualToString:@"0"]) {
         productRating.hidden=YES;
         ratingStarImage.hidden=YES;
