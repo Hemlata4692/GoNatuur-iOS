@@ -149,6 +149,7 @@
 }
 
 - (void)popToReviewList {
+    _reviewListObj.reviewAdded=@"1";
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -28,6 +28,7 @@
     UIImageView *qrCodeImage;
     int selectedMediaIndex, currentQuantity;
     NSArray *cellIdentifierArray;
+    bool isServiceCalledMPMoviePlayerDone;
 }
 @property (strong, nonatomic) IBOutlet UITableView *productDetailTableView;
 @end
@@ -39,8 +40,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self viewInitialization];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(getProductDetailData) withObject:nil afterDelay:.1];
     // Do any additional setup after loading the view.
 }
 
@@ -50,6 +49,13 @@
     self.title=NSLocalizedText(@"Product");
     [self addLeftBarButtonWithImage:true];
     cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"productDetailPriceCell", @"productDetailInfoCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"benefitCell",@"brandCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
+    if (isServiceCalledMPMoviePlayerDone) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getProductDetailData) withObject:nil afterDelay:.1];
+    }
+    else {
+        isServiceCalledMPMoviePlayerDone=true;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,6 +66,7 @@
 
 #pragma mark - Initialized view
 - (void)viewInitialization {
+    isServiceCalledMPMoviePlayerDone=true;
     isServiceCalled=false;
     productDetailCellHeight=0.0;
     selectedMediaIndex=0;
@@ -306,6 +313,7 @@
                     return;
                 }
                 MPMoviePlayerViewController *mp = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:URLString]];
+                isServiceCalledMPMoviePlayerDone=false;
                 [self presentViewController:mp animated:YES completion:NULL];
             }];
         }
