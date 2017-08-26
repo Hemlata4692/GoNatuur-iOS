@@ -9,6 +9,7 @@
 #import "SearchService.h"
 #import "SearchDataModel.h"
 
+static NSString *kProductListData=@"ranosys/productsList";
 static NSString *kSearchSuggestions=@"search/ajax/suggest/?";
 static NSString *kSearchListing=@"ranosys/getSearchList";
 
@@ -24,9 +25,28 @@ static NSString *kSearchListing=@"ranosys/getSearchList";
 
 #pragma mark - Search listing data
 - (void)getSearchListing:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    NSDictionary *parameters = @{@"keyword":searchData.serachKeyword,@"pageSize":@"2"};
+    NSDictionary *parameters = @{@"keyword":searchData.serachKeyword,@"pageSize":searchData.searchPageCount};
     NSLog(@"search list request %@",parameters);
     [super post:kSearchListing parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
+
+#pragma mark - Search list pagination data
+- (void)getProductListService:(SearchDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                               @{
+                                                                   @"filters":@[
+                                                                           @{@"field":@"entity_id",
+                                                                             @"value":productData.productId,
+                                                                             @"condition_type": @"in"
+                                                                             }
+                                                                           ]
+                                                                   }
+                                                               ],
+                                                       @"page_size" : @0,
+                                                       @"current_page" : @0
+                                                       }
+                                 };
+    [super post:kProductListData parameters:parameters success:success failure:failure];
+}
 @end

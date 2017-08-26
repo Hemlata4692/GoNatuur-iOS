@@ -36,6 +36,7 @@
     searchedProductsArray=[[NSMutableArray alloc]init];
     _paginationView.hidden=YES;
     _noRecordLabel.hidden=YES;
+     pageCount=10;
     [myDelegate showIndicator];
     [self performSelector:@selector(getSerachProductListing) withObject:nil afterDelay:.1];
 }
@@ -50,12 +51,11 @@
     self.title=searchKeyword;
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
-    pageCount=1;
 }
 #pragma mark - end
 
 #pragma mark - Webservice
-- (void) getSerachProductListing{
+- (void)getSerachProductListing{
     SearchDataModel *searchData = [SearchDataModel sharedUser];
     searchData.serachKeyword=searchKeyword;
     searchData.searchPageCount=[@(pageCount) stringValue];
@@ -67,13 +67,41 @@
         }
         else {
             searchListIds=[[userData searchProductIds] mutableCopy];
+            [self removeObectsFromSearchListWithLimit];
             _noRecordLabel.hidden=YES;
             [searchedProductsArray addObjectsFromArray:userData.searchProductListArray];
+            [_searchCollectionView reloadData];
         }
     } onfailure:^(NSError *error) {
         _noRecordLabel.hidden=NO;
         _searchCollectionView.hidden=YES;
     }];
+}
+
+- (void)getSearchPaginationList {
+    SearchDataModel *searchData = [SearchDataModel sharedUser];
+    NSString *productIds=[NSString stringWithFormat:@"%@",[searchListIds objectAtIndex:0]];
+    for (int i=1; i<pageCount; i++) {
+        if (i<searchListIds.count) {
+            productIds=[NSString stringWithFormat:@"%@,%@",productIds,[searchListIds objectAtIndex:i]];
+        }
+    }
+    searchData.productId=productIds;
+    [searchData getProductListServiceOnSuccess:^(SearchDataModel *userData)  {
+        [self removeObectsFromSearchListWithLimit];
+        [searchedProductsArray addObjectsFromArray:userData.searchProductListArray];
+        [self hideactivityIndicator];
+    } onfailure:^(NSError *error) {
+        [self hideactivityIndicator];
+    }];
+}
+
+- (void)removeObectsFromSearchListWithLimit {
+    for (int i=0; i<pageCount; i++) {
+        if (i<searchListIds.count) {
+            [searchListIds removeObjectAtIndex:0];
+        }
+    }
 }
 #pragma mark - end
 
@@ -114,8 +142,7 @@
         if (_searchCollectionView.contentOffset.y == _searchCollectionView.contentSize.height - scrollView1.frame.size.height) {
             if (searchedProductsArray.count<totalProducts) {
                 _paginationView.hidden=NO;
-                pageCount++;
-                [self getSerachProductListing];
+                [self getSearchPaginationList];
             }
         }
     }

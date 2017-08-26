@@ -62,4 +62,17 @@
     
 }
 #pragma mark - end
+
+#pragma mark - Search list pagination data
+- (void)getProductListServiceOnSuccess:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getProductListService:self success:^(SearchDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onfailure:^(NSError *error) {
+        
+    }] ;
+    
+}
+#pragma mark - end
 @end
