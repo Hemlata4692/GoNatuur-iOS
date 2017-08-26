@@ -26,6 +26,7 @@
 @property (strong, nonatomic) NSString *specialPrice;
 @property (strong, nonatomic) NSString *productQty;
 @property (strong, nonatomic) NSString *productType;
+@property (strong, nonatomic) NSMutableArray *searchProductIds;
 
 //Singleton method
 + (instancetype)sharedUser;

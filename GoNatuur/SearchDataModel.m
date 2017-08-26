@@ -25,6 +25,7 @@
 @synthesize searchProductListArray;
 @synthesize specialPrice;
 @synthesize productQty;
+@synthesize searchProductIds;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser {

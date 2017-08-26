@@ -349,6 +349,7 @@
             [searchData.searchProductListArray addObject:productData];
         }
         searchData.searchResultCount=response[@"total_count"];
+        searchData.searchProductIds=[response[@"relevance_items"] mutableCopy];
         success(searchData);
         
     } onfailure:^(NSError *error) {

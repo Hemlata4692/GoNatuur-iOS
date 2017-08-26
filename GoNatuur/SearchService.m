@@ -10,7 +10,7 @@
 #import "SearchDataModel.h"
 
 static NSString *kSearchSuggestions=@"search/ajax/suggest/?";
-static NSString *kSearchListing=@"ranosys/getSearchList?";
+static NSString *kSearchListing=@"ranosys/getSearchList";
 
 @implementation SearchService
 
@@ -24,7 +24,7 @@ static NSString *kSearchListing=@"ranosys/getSearchList?";
 
 #pragma mark - Search listing data
 - (void)getSearchListing:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    NSDictionary *parameters = @{@"keyword":searchData.serachKeyword,@"currentPage":searchData.searchPageCount,@"pageSize":@"10"};
+    NSDictionary *parameters = @{@"keyword":searchData.serachKeyword,@"pageSize":@"2"};
     NSLog(@"search list request %@",parameters);
     [super post:kSearchListing parameters:parameters success:success failure:failure];
 }

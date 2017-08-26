@@ -18,6 +18,7 @@
     int pageCount;
     int totalProducts;
     NSMutableArray *searchedProductsArray;
+    NSMutableArray *searchListIds;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *searchCollectionView;
 @property (weak, nonatomic) IBOutlet UIView *paginationView;
@@ -65,9 +66,9 @@
             _noRecordLabel.hidden=NO;
         }
         else {
+            searchListIds=[[userData searchProductIds] mutableCopy];
             _noRecordLabel.hidden=YES;
             [searchedProductsArray addObjectsFromArray:userData.searchProductListArray];
-            [self hideactivityIndicator];
         }
     } onfailure:^(NSError *error) {
         _noRecordLabel.hidden=NO;
