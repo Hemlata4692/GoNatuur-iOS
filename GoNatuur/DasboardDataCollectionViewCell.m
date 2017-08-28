@@ -53,7 +53,7 @@
         productRating.hidden=NO;
         ratingStarImage.hidden=NO;
         float rating = (([productListData.productRating integerValue])*5.0)/100.0;
-        productRating.text=[NSString stringWithFormat:@"%.1f",rating];
+        productRating.text=[NSString stringWithFormat:@"(%.1f)",rating];
     }
     
     double productCalculatedPrice;

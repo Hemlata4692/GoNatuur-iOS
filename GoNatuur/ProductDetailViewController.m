@@ -41,6 +41,13 @@
     [super viewDidLoad];
     [self viewInitialization];
     // Do any additional setup after loading the view.
+    if (isServiceCalledMPMoviePlayerDone) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getProductDetailData) withObject:nil afterDelay:.1];
+    }
+    else {
+        isServiceCalledMPMoviePlayerDone=true;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -49,13 +56,6 @@
     self.title=NSLocalizedText(@"Product");
     [self addLeftBarButtonWithImage:true];
     cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"productDetailPriceCell", @"productDetailInfoCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"benefitCell",@"brandCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
-    if (isServiceCalledMPMoviePlayerDone) {
-        [myDelegate showIndicator];
-        [self performSelector:@selector(getProductDetailData) withObject:nil afterDelay:.1];
-    }
-    else {
-        isServiceCalledMPMoviePlayerDone=true;
-    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -242,7 +242,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    float titleHeight =[DynamicHeightWidth getDynamicLabelHeight:[[reviewListingDataAray objectAtIndex:indexPath.row] reviewTitle] font:[UIFont montserratBoldWithSize:13] widthValue:tableView.frame.size.width-93];
+    //float titleHeight =[DynamicHeightWidth getDynamicLabelHeight:[[reviewListingDataAray objectAtIndex:indexPath.row] reviewTitle] font:[UIFont montserratBoldWithSize:13] widthValue:tableView.frame.size.width-93];
     float descriptionHeight =[DynamicHeightWidth getDynamicLabelHeight:[[reviewListingDataAray objectAtIndex:indexPath.row] reviewDescription] font:[UIFont montserratRegularWithSize:12] widthValue:tableView.frame.size.width-93];
     
     if (descriptionHeight<=16) {

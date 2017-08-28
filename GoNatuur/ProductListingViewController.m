@@ -230,7 +230,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (!myDelegate.isProductList) {
+    if (!myDelegate.isProductList || [[[productListDataArray objectAtIndex:indexPath.row]productType] isEqualToString:eventIdentifier]) {
          [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else {
