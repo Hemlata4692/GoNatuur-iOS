@@ -14,6 +14,7 @@
 #import "ReviewService.h"
 #import "ReviewDataModel.h"
 #import "ReviewListingViewController.h"
+#import "UITextField+Validations.h"
 
 @interface ReviewViewController ()<EDStarRatingProtocol,BSKeyboardControlsDelegate> {
 @private
@@ -21,7 +22,6 @@
     NSMutableArray *ratingOptionArray;
 }
 
-@property (weak, nonatomic) IBOutlet UIView *shadowView;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UIPlaceHolderTextView *reviewTextView;
 @property (weak, nonatomic) IBOutlet EDStarRating *starRatingView;
@@ -31,6 +31,8 @@
 
 @implementation ReviewViewController
 @synthesize selectedProductId;
+@synthesize reviewData;
+@synthesize isEditMode;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -58,29 +60,38 @@
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_titleTextField, _reviewTextView]]];
     [_keyboardControls setDelegate:self];
     //customisation of objects
-    [_shadowView addShadow:_shadowView color:[UIColor blackColor]];
     [_submitReviewButton setCornerRadius:17.0];
     [_submitReviewButton addShadow:_submitReviewButton color:[UIColor blackColor]];
     [_titleTextField setTextBorder:_titleTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_titleTextField addTextFieldLeftRightPadding:_titleTextField];
     [_reviewTextView setTextViewBorder:_reviewTextView color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
-    [_reviewTextView setPlaceholder:NSLocalizedText(@"textViewPlaceholder")];
-    _reviewTextView.textContainer.lineFragmentPadding = 10;
-    [self addstarRating];
+    [_reviewTextView setPlaceholder:NSLocalizedText(@"textViewPlaceholder")];    _reviewTextView.textContainer.lineFragmentPadding = 10;
+    
+    if ([isEditMode isEqualToString:@"1"]) {
+         [self displayData];
+    }
+    else {
+        [self addstarRating:0];
+    }
 }
 #pragma mark - end
 
 #pragma mark - Add rating methods
-- (void)addstarRating {
+- (void)addstarRating:(NSString *)rating {
     _starRatingView.starImage = [UIImage imageNamed:@"star-unselected"];
     _starRatingView.starHighlightedImage = [UIImage imageNamed:@"star"];
     _starRatingView.maxRating = 5.0;
     _starRatingView.delegate = self;
     _starRatingView.horizontalMargin = 5;
     _starRatingView.editable=YES;
-    _starRatingView.rating= 0;
-    _starRatingView.displayMode=EDStarRatingDisplayHalf;
-    [self starsSelectionChanged:_starRatingView rating:0];
+    _starRatingView.rating= [rating floatValue];
+    _starRatingView.displayMode=EDStarRatingDisplayFull;
+    if ([isEditMode isEqualToString:@"1"]) {
+       [self starsSelectionChanged:_starRatingView rating:[starRatingValue floatValue]];
+    }
+    else {
+        [self starsSelectionChanged:_starRatingView rating:0];
+    }
 }
 
 - (void)starsSelectionChanged:(EDStarRating *)control rating:(float)rating {
@@ -90,8 +101,23 @@
 
 #pragma mark - IBAction
 - (IBAction)addReviewButtonAction:(id)sender {
-    [myDelegate showIndicator];
-    [self performSelector:@selector(addProductReview) withObject:nil afterDelay:.1];
+    if([self performValidations]) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(addProductReview) withObject:nil afterDelay:.1];
+    }
+}
+#pragma mark - end
+
+#pragma mark - Review validation
+- (BOOL)performValidations {
+    if ([starRatingValue isEqualToString:@"0.0"]) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"RateProduct") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        return NO;
+    }
+    else {
+        return YES;
+    }
 }
 #pragma mark - end
 
@@ -99,21 +125,33 @@
 - (void)addProductReview {
     ReviewDataModel *addReview = [ReviewDataModel sharedUser];
     addReview.productId=selectedProductId;
-    addReview.username=@"";
+//    addReview.username=[UserDefaultManager getValue:@"firstname"];
+     addReview.username=@"";
     addReview.reviewTitle=_titleTextField.text;
     addReview.reviewDescription=_reviewTextView.text;
     addReview.ratingId=starRatingValue;
+    if([isEditMode isEqualToString:@"1"]) {
+        addReview.reviewId=reviewData.reviewId;
+    }
+    else {
+        addReview.reviewId=@"0";
+    }
     [addReview addCustomerReview:^(ReviewDataModel *userData)  {
         [myDelegate stopIndicator];
         [self popToReviewList];
-        ratingOptionArray=[userData.rationOptionsArray mutableCopy];
     } onfailure:^(NSError *error) {
     }];
-
 }
 
 - (void)popToReviewList {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)displayData {
+    _titleTextField.text=reviewData.reviewTitle;
+    _reviewTextView.text=reviewData.reviewDescription;
+    starRatingValue=reviewData.ratingId;
+   [self addstarRating:reviewData.ratingId];
 }
 #pragma mark - end
 

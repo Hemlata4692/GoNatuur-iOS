@@ -10,6 +10,8 @@
 #import "SearchCollectionViewCell.h"
 #import "SearchService.h"
 #import "SearchDataModel.h"
+#import "ProductDetailViewController.h"
+#import "UIView+Toast.h"
 
 @interface SearchListingViewController ()<UICollectionViewDelegateFlowLayout> {
 @private
@@ -89,6 +91,18 @@
     //You may want to create a divider to scale the size by the way.
     float picDimension = (self.view.frame.size.width-20) / 2.0;
     return CGSizeMake(picDimension-5, picDimension+105);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([[[searchedProductsArray objectAtIndex:indexPath.item] productType] isEqualToString:@"ticket"]) {
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    }
+    else {
+        //StoryBoard navigation
+        ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+        obj.selectedProductId=[[[searchedProductsArray objectAtIndex:indexPath.item] productId] intValue];
+        [self.navigationController pushViewController:obj animated:YES];
+    }
 }
 #pragma mark - end
 

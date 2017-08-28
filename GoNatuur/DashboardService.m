@@ -28,7 +28,15 @@ static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
 
 #pragma mark - Get dashboard data
 - (void)getDashboardData:(DashboardDataModel *)dasboardData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    [super post:kDashboardData parameters:nil success:success failure:failure];
+    NSString *customerID;
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+        customerID=@"0";
+    }
+    else {
+        customerID=[UserDefaultManager getValue:@"userId"];
+    }
+    NSDictionary *parameters = @{@"customerId":customerID};
+    [super post:kDashboardData parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 
@@ -43,7 +51,7 @@ static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
 //    [UserDefaultManager setValue:[UserDefaultManager getValue:@"Authorization"] key:@"Authorization"];
     NSString *typeId;
     if (!myDelegate.isProductList) {
-        typeId=@"event";
+        typeId=@"ticket";
     }
     else {
         typeId=@"simple";

@@ -30,6 +30,10 @@
 @property (strong, nonatomic) NSNumber *pageSize;
 @property (strong, nonatomic) NSNumber *totalProductCount;
 @property (strong, nonatomic) NSMutableArray *categoryNameArray;
+@property (strong, nonatomic) NSString *profilePicture;
+@property (strong, nonatomic) NSNumber *notificationsCount;
+@property (strong, nonatomic) NSString *specialPrice;
+@property (strong, nonatomic) NSNumber *productQty;
 
 //Singleton method
 + (instancetype)sharedUser;

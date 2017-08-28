@@ -30,6 +30,10 @@ static NSString *kAddReview=@"ranosys/addProductReview";
                                                                      @{@"field":@"detail",
                                                                        @"value":[NSString stringWithFormat:@"%s%@%s","%",reviewData.reviewDescription,"%"],
                                                                        @"condition_type": @"like"
+                                                                       },
+                                                                     @{@"field":@"status_id",
+                                                                       @"value":@"1",
+                                                                       @"condition_type": @"eq"
                                                                        }
                                                                      ]
                                                              }
@@ -44,7 +48,7 @@ static NSString *kAddReview=@"ranosys/addProductReview";
                                                  },
                                  @"productId": reviewData.productId,
                                  @"starFilter": reviewData.starFilter,
-                                 @"applyStarFilter":@"1"
+                                 @"applyStarFilter":reviewData.applyStarFilter
                                  };
     DLog(@"review list request %@",parameters);
     [super post:kReviewListing parameters:parameters success:success failure:failure];
@@ -63,6 +67,7 @@ static NSString *kAddReview=@"ranosys/addProductReview";
                                  @"customerId":[UserDefaultManager getValue:@"userId"],
                                  @"customerNickName":reviewData.username,
                                  @"reviewDetail":reviewData.reviewDescription,
+                                 @"reviewId":reviewData.reviewId,
                                  @"starRatingOptions" : @[
                                          @{@"rating_id":@"1",
                                            @"option_id":reviewData.ratingId

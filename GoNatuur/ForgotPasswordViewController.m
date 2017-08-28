@@ -121,6 +121,26 @@
     currentSelectedTextField=textField;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if(textField == _otpTextField)
+    {
+        if (range.length > 0 && [string length] == 0)
+        {
+            return YES;
+        }
+        if (textField.text.length > 5 && range.length == 0)
+        {
+            return NO;
+        }
+        else
+        {
+            return YES;
+        }
+    }
+    return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     currentView.frame=CGRectMake(13, forgotBackViewY, [[UIScreen mainScreen] bounds].size.width-26, 350);
     [textField resignFirstResponder];
@@ -231,6 +251,11 @@
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"passwordMatchMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     }
+    else if (_otpTextField.text.length<6) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"invalidOTP") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        return NO;
+    }
     else {
         return YES;
     }
@@ -270,7 +295,7 @@
             //add action
             [self.navigationController popViewControllerAnimated:true];
         }];
-        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"resetPasswordSuccess") closeButtonTitle:nil duration:0.0f];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:userData.successMessage closeButtonTitle:nil duration:0.0f];
     } onfailure:^(NSError *error) {
         
     }];

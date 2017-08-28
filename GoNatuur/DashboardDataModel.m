@@ -30,6 +30,9 @@
 @synthesize pageSize;
 @synthesize totalProductCount;
 @synthesize categoryNameArray;
+@synthesize profilePicture;
+@synthesize notificationsCount;
+@synthesize productQty;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -59,6 +62,13 @@
 - (void)getDashboardData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getDashboardData:self onSuccess:^(DashboardDataModel *userData) {
         if (success) {
+            [UserDefaultManager setValue:userData.notificationsCount key:@"notificationsCount"];
+            if ((nil==[UserDefaultManager getValue:@"userId"])){
+                [UserDefaultManager removeValue:@"profilePicture"];
+            }
+            else {
+                [UserDefaultManager setValue:userData.profilePicture key:@"profilePicture"];
+            }
             success (userData);
         }
     } onFailure:^(NSError *error) {

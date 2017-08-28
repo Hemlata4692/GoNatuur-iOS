@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *reviewTitleLabel;
 @property (weak, nonatomic) IBOutlet EDStarRating *ratingView;
 @property (weak, nonatomic) IBOutlet UILabel *reviewTextLabel;
+@property (weak, nonatomic) IBOutlet UIButton *editReviewIcon;
 
-- (void)displayData :(ReviewDataModel *)listData;
+- (void)displayData :(ReviewDataModel *)listData reviewId:(NSString*)reviewId rectSize:(CGSize)rectSize;
 @end

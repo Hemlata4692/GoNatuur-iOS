@@ -7,13 +7,15 @@
  */
 
 "loginNewUserText" = "If you are a new uesr, you can Register an account with us and start shopping with GoPurpose.";
-"privacyPolicyText" = "By signing up, you agree to our Terms & Conditions and Privacy Policy. If you already have an account, Log In here";
+"privacyPolicyText" = "By signing up, you agree to our Terms & Conditions and Privacy Policy. If you already have an account, Log In here.";
 "alertTitle" = "Alert";
 "alertOk" = "OK";
 "alertCancel" = "Cancel";
 "alertRetry"="Retry";
+"alertSettings"="Settings";
 "validPassword" = "Password minimum 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.";
 "emptyFieldMessage" = "Please fill in all the required fields.";
+"invalidOTP"="Invalid OTP.";
 "validEmailMessage" = "Please enter valid Email Address.";
 "passwordMatchMessage" = "Password and Confirm Password does not match.";
 "somethingWrongMessage" = "Something went wrong, please try again later.";
@@ -53,6 +55,7 @@
 "Product"="Product";
 "Description"="Description";
 "Benefits&Usage"="Benefits & Usage";
+"BrandStory"="Brand Story";
 "Shipping is free if the total purchase is above USD$100."="Shipping is free if the total purchase is above USD$100.";
 "Products can be returned within 30 days of purchase, subject to the following conditions."="Products can be returned within 30 days of purchase, subject to the following conditions.";
 "PushNotificationAlertTitle"="\"GoNatuur\" Would Like to Send You Notifications";
@@ -62,3 +65,10 @@
 "unfollow"="Unfollow this Product";
 "wishlist"="Add to Wishlist";
 "wishlistAdded"="Added to Wishlist";
+"Where to buy"="Where To Buy";
+"alreadyAddedWishlist"="Product already added to wishlist.";
+"Added to cart"="Added to cart";
+"All"="All";
+"Sortby"="Sort By";
+"Filter"="Filter";
+"RateProduct"="Please rate the product to submit a review.";

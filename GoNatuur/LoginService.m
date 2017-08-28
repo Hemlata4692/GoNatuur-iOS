@@ -12,7 +12,7 @@
 static NSString *kAuthorizationToken=@"integration/admin/token";
 static NSString *kLogin=@"ranosys/customer/customerLogin";
 static NSString *kLoginAsGuest=@"ranosys/customer/guestLogin";
-static NSString *kCMSPage=@"cmsPage/";
+static NSString *kCMSPage=@"ranosys/cmsBlock/search";
 static NSString *kSaveDeviceToken=@"ranosys/saveDeviceToken";
 static NSString *kSignUp=@"ranosys/customer/customerSignup";
 static NSString *kForgotPassword=@"ranosys/customer/forgotPassword";
@@ -47,7 +47,19 @@ static NSString *kResetPassword=@"ranosys/customer/resetPassword";
 
 #pragma mark - CMS page service
 - (void)CMSPageService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
-    [super get:[NSString stringWithFormat:@"%@%@",kCMSPage,loginData.cmsPageType] parameters:nil onSuccess:success onFailure:failure];
+    [UserDefaultManager removeValue:@"Authorization"];
+    NSDictionary *parameters = @{@"searchCriteria" : @{@"filter_groups":@[@{@"filters":@[@{@"field":@"identifier",
+                                                                                           @"value":loginData.cmsPageType,
+                                                                                           @"condition_type":@"eq"
+                                                                                           }
+                                                                                         ]
+                                                                            }
+                                                                          ],
+                                                       @"page_size":[NSNumber numberWithInt:0],
+                                                       @"current_page":[NSNumber numberWithInt:0]
+                                                       }
+                                 };
+   [super post:kCMSPage parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 
@@ -66,8 +78,8 @@ static NSString *kResetPassword=@"ranosys/customer/resetPassword";
     NSDictionary *parameters;
     if ([loginData.isSocialLogin isEqual:@0]) {
         parameters = @{@"customer" : @{@"email" : loginData.email,
-                                       @"firstname" : @"John",
-                                       @"lastname" : @"Doe"
+                                       @"firstname" : loginData.firstName,
+                                       @"lastname" : loginData.lastName
                                        },
                        @"password" : loginData.password,
                        @"isSocial":loginData.isSocialLogin,
@@ -79,8 +91,8 @@ static NSString *kResetPassword=@"ranosys/customer/resetPassword";
     }
     else {
         parameters = @{@"customer" : @{@"email" : loginData.email,
-                                       @"firstname" : @"John",
-                                       @"lastname" : @"Doe"
+                                       @"firstname" : loginData.firstName,
+                                       @"lastname" : loginData.lastName
                                        },
                        @"isSocial":loginData.isSocialLogin,
                        @"profileImageUrl":loginData.profilePicture,

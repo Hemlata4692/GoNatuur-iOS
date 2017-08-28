@@ -13,6 +13,7 @@
 #import "GoNatuurFilterView.h"
 #import "GoNatuurPickerView.h"
 #import "ProductDetailViewController.h"
+#import "UIView+Toast.h"
 
 @interface ProductListingViewController ()<UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
     NSMutableArray *productListDataArray, *subCategoryDataList, *subCategoryPickerArray;
@@ -25,6 +26,7 @@
     int selectedFirstFilterIndex, selectedSubCategoryIndex, selectedSecondFilterIndex;
     GoNatuurPickerView *gNPickerViewObj;
     int currentCategoryId;
+    int lastSelectedCategoryId;
 }
 @property (strong, nonatomic) IBOutlet UILabel *noRecordLabel;
 @property (strong, nonatomic) IBOutlet UITableView *productListTableView;
@@ -38,6 +40,8 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //When user go to search screen then store last product category id
+    lastSelectedCategoryId=myDelegate.selectedCategoryIndex;
     //Add custom picker view and initialized indexs
     [self addCustomPickerView];
     // Do any additional setup after loading the view.
@@ -61,6 +65,7 @@
 
 #pragma mark - View initialization
 - (void)viewInitialization {
+    myDelegate.selectedCategoryIndex=lastSelectedCategoryId;
     if (!myDelegate.isProductList) {
         currentCategoryId=21;
     }
@@ -100,7 +105,19 @@
     //Add filter xib view
     filterViewObj=[[GoNatuurFilterView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35) delegate:self];
     filterViewObj.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35);
-    [filterViewObj setButtonTitles:@"" subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:@""];
+    [filterViewObj setButtonTitles:NSLocalizedText(@"Filter") subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:NSLocalizedText(@"Sortby")];
+    //Customized filter view
+    filterViewObj.firstFilterButtonOutlet.enabled=false;
+    filterViewObj.secondFilterButtonOutlet.enabled=false;
+    filterViewObj.firstFilterButtonOutlet.alpha=0.5;
+    filterViewObj.secondFilterButtonOutlet.alpha=0.5;
+    filterViewObj.firstFilterArrowImageView.alpha=0.4;
+    filterViewObj.secondFilterArrowImageView.alpha=0.4;
+    if (!myDelegate.isProductList) {
+        filterViewObj.subCategoryButtonOutlet.enabled=false;
+        filterViewObj.subCategoryButtonOutlet.alpha=0.5;
+        filterViewObj.subCategoryArrowImageView.alpha=0.4;
+    }
     //Set initial index of picker view and initialized picker view
     selectedFirstFilterIndex=0;
     selectedSubCategoryIndex=0;
@@ -151,7 +168,6 @@
         if (cell == nil){
             cell = [[ProductListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"filterCell"];
         }
-        
         [cell.contentView addSubview:filterViewObj.goNatuurFilterViewObj];
     }
     else if (indexPath.row==2) {
@@ -169,12 +185,6 @@
         }
     }
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    ReviewListingViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"ReviewListingViewController"];
-//    [self.navigationController pushViewController:searchView animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -220,11 +230,15 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    //StoryBoard navigation
-    ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
-    obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
-    [self.navigationController pushViewController:obj animated:YES];
+    if (!myDelegate.isProductList) {
+         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    }
+    else {
+        //StoryBoard navigation
+        ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+        obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
+        [self.navigationController pushViewController:obj animated:YES];
+    }
 }
 #pragma mark - end
 
@@ -235,18 +249,19 @@
     subCategoryList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
     [subCategoryList getCategoryListDataOnSuccess:^(DashboardDataModel *userData)  {
         subCategoryDataList=[userData.categoryNameArray mutableCopy];
+        //Set initial value come to default condition
+        [subCategoryDataList insertObject:@{@"id":[NSNumber numberWithInt:currentCategoryId],
+                                            @"name":NSLocalizedText(@"All")
+                                            } atIndex:0];
         if (subCategoryDataList.count>0) {
             for (int i=0; i<subCategoryDataList.count; i++) {
                 [subCategoryPickerArray addObject:[[subCategoryDataList objectAtIndex:i] objectForKey:@"name"]];
             }
             [filterViewObj.subCategoryButtonOutlet setTitle:[subCategoryPickerArray objectAtIndex:0] forState:UIControlStateNormal];
         }
-        else {
-            [filterViewObj.subCategoryButtonOutlet setTitle:@"" forState:UIControlStateNormal];
-        }
+        
         [self getCategoryBannerData];
     } onfailure:^(NSError *error) {
-        [self getCategoryBannerData];
     }];
 }
 
@@ -258,7 +273,6 @@
         bannerImageUrl=userData.banerImageUrl;
         [self getProductListData];
     } onfailure:^(NSError *error) {
-        [self getProductListData];
     }];
 }
 
@@ -334,6 +348,10 @@
             selectedSubCategoryIndex=tempSelectedIndex;
             [filterViewObj.subCategoryButtonOutlet setTitle:[subCategoryPickerArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
             currentCategoryId=[[[subCategoryDataList objectAtIndex:selectedSubCategoryIndex] objectForKey:@"id"] intValue];
+            bannerImageUrl=@"";
+            productListDataArray=[NSMutableArray new];
+            totalProductCount=0;
+            currentpage=1;
             [myDelegate showIndicator];
             [self performSelector:@selector(getCategoryBannerData) withObject:nil afterDelay:.1];
         }

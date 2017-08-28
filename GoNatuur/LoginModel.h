@@ -24,10 +24,11 @@
 @property (strong, nonatomic) NSNumber *quoteCount;
 @property (strong, nonatomic) NSNumber *quoteId;
 @property (strong, nonatomic) NSNumber *wishlistCount;
-@property (strong, nonatomic) NSNumber *cmsPageType;//Terms & Conditions:6 and Privacy policy:4
+@property (strong, nonatomic) NSString *cmsPageType;
 @property (strong, nonatomic) NSString *cmsTitle;
 @property (strong, nonatomic) NSString *cmsContent;
 @property (strong, nonatomic) NSString *socialUserId;
+@property (strong, nonatomic) NSString *successMessage;
 
 + (instancetype)sharedUser;
 //Login user

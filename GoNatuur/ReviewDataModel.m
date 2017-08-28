@@ -26,6 +26,7 @@
 @synthesize ratingId;
 @synthesize optionId;
 @synthesize reviewId;
+@synthesize applyStarFilter;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser {

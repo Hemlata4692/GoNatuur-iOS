@@ -62,6 +62,8 @@
         userData.quoteId=[response objectForKey:@"quote_id"];
         userData.quoteCount=[response objectForKey:@"quote_count"];
         userData.wishlistCount=[response objectForKey:@"wishlist_count"];
+        userData.firstName=[[response objectForKey:@"customer"] objectForKey:@"firstname"];
+        userData.lastName=[[response objectForKey:@"customer"] objectForKey:@"lastname"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -100,8 +102,9 @@
     LoginService *loginService = [[LoginService alloc] init];
     [loginService CMSPageService:userData onSuccess:^(id response) {
         //Parse data from server response and store in data model
-        userData.cmsTitle=[response objectForKey:@"title"];
-        userData.cmsContent=[response objectForKey:@"content"];
+        DLog(@"CMS page response %@",response);
+        userData.cmsTitle=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"title"];
+        userData.cmsContent=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"content"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -127,6 +130,7 @@
     LoginService *loginService = [[LoginService alloc] init];
     [loginService resetPasswordService:userData onSuccess:^(id response) {
         //Parse data from server response and store in data model
+        userData.successMessage=response[@"message"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -159,6 +163,8 @@
         userData.notificationsCount=[response objectForKey:@"notifications_count"];
         userData.quoteId=[response objectForKey:@"quote_id"];
         userData.quoteCount=[response objectForKey:@"quote_count"];
+        userData.firstName=[[response objectForKey:@"customer"] objectForKey:@"firstname"];
+        userData.lastName=[[response objectForKey:@"customer"] objectForKey:@"lastname"];
         userData.wishlistCount=[response objectForKey:@"wishlist_count"];
         success(userData);
     } onFailure:^(NSError *error) {
@@ -174,6 +180,8 @@
         //Parse data from server response and store in data model
         DLog(@"dashboard data response %@",response);
         userData.bannerImageArray=[[NSMutableArray alloc]init];
+        userData.notificationsCount=response[@"notification_count"];
+        userData.profilePicture=response[@"profile_pick"];
         NSArray *bannerArray=response[@"banner"];
         for (int i =0; i<bannerArray.count; i++) {
             NSDictionary * bannerDataDict =[bannerArray objectAtIndex:i];
@@ -186,47 +194,17 @@
         userData.bestSellerArray=[[NSMutableArray alloc]init];
         NSArray *productDataArray=response[@"best_seller_slider"];
         for (int i =0; i<productDataArray.count; i++) {
-            NSDictionary * productDataDict =[productDataArray objectAtIndex:i];
-            DashboardDataModel * productData = [[DashboardDataModel alloc]init];
-            productData.productId = productDataDict[@"id"];
-            productData.productPrice = [productDataDict[@"price"] stringValue];
-            productData.productName = productDataDict[@"name"];
-            if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
-                productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
-            }
-            productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
-            productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
-            [userData.bestSellerArray addObject:productData];
+            [userData.bestSellerArray addObject:[self getDashboardParseData:[productDataArray objectAtIndex:i]]];
         }
         userData.healthyLivingArray=[[NSMutableArray alloc]init];
         NSArray *healthyLivingArray=response[@"category_tab1"];
         for (int i =0; i<healthyLivingArray.count; i++) {
-            NSDictionary * productDataDict =[healthyLivingArray objectAtIndex:i];
-            DashboardDataModel * healthyLivingData = [[DashboardDataModel alloc]init];
-            healthyLivingData.productId = productDataDict[@"id"];
-            healthyLivingData.productPrice = [productDataDict[@"price"] stringValue];
-            healthyLivingData.productName = productDataDict[@"name"];
-            if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
-                healthyLivingData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
-            }
-            healthyLivingData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
-            healthyLivingData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
-            [userData.healthyLivingArray addObject:healthyLivingData];
+            [userData.healthyLivingArray addObject:[self getDashboardParseData:[healthyLivingArray objectAtIndex:i]]];
         }
         userData.samplersDataArray=[[NSMutableArray alloc]init];
         NSArray *samplersArray=response[@"category_tab2"];
         for (int i =0; i<samplersArray.count; i++) {
-            NSDictionary * productDataDict =[samplersArray objectAtIndex:i];
-            DashboardDataModel * samplersArrayData = [[DashboardDataModel alloc]init];
-            samplersArrayData.productId = productDataDict[@"id"];
-            samplersArrayData.productPrice = [productDataDict[@"price"] stringValue];
-            samplersArrayData.productName = productDataDict[@"name"];
-            if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
-                samplersArrayData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
-            }
-            samplersArrayData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
-            samplersArrayData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
-            [userData.samplersDataArray addObject:samplersArrayData];
+            [userData.samplersDataArray addObject:[self getDashboardParseData:[samplersArray objectAtIndex:i]]];
         }
         userData.footerBannerImageArray=[[NSMutableArray alloc]init];
         NSArray *footerArray=response[@"footer_top_banners"];
@@ -243,7 +221,21 @@
     } onfailure:^(NSError *error) {
         failure(error);
     }] ;
-    
+}
+
+- (DashboardDataModel *)getDashboardParseData:(NSDictionary *)productDataDict {
+    DashboardDataModel * productData = [[DashboardDataModel alloc]init];
+    productData.productId = productDataDict[@"id"];
+    productData.productPrice = [productDataDict[@"price"] stringValue];
+    productData.productName = productDataDict[@"name"];
+    if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
+        productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+    }
+    productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+    productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
+    productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+    productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+    return productData;
 }
 #pragma mark - end
 
@@ -323,7 +315,10 @@
                 productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
+             productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+            productData.productType=[productDataDict objectForKey:@"type_id"];
             [searchData.searchProductListArray addObject:productData];
         }
         searchData.searchResultCount=response[@"total_count"];
@@ -416,7 +411,8 @@
             if ([[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 tempModel.productDescription=[self stringByStrippingHTML:[[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
-            
+            tempModel.specialPrice = [[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            tempModel.productQty = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"extension_attributes"]objectForKey:@"qty"];
             tempModel.productRating = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             [productData.productDataArray addObject:tempModel];
         }
@@ -431,29 +427,52 @@
     ProductService *productDetailData=[[ProductService alloc]init];
     [productDetailData getProductDetailService:productData success:^(id response) {
         //Parse data from server response and store in data model
-        DLog(@"category list response %@",response);
+        DLog(@"product list response %@",response);
         NSDictionary *customAttributeDict=[[[response objectForKey:@"custom_attribute"] objectAtIndex:0] copy];
         productData.productName=[response objectForKey:@"name"];
         productData.productPrice=[response objectForKey:@"price"];
         productData.categoryId=[[customAttributeDict objectForKey:@"category_ids"] objectAtIndex:0];
+        productData.productSubtitle=[customAttributeDict objectForKey:@"subtitle"];
+        productData.productUrlKey=[customAttributeDict objectForKey:@"url_key"];
         if ([customAttributeDict objectForKey:@"description"]!=nil) {
             productData.productDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"description"]];
         }
         if ([customAttributeDict objectForKey:@"short_description"]!=nil) {
             productData.productShortDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"short_description"]];
         }
-        if ([customAttributeDict objectForKey:@"benifits_usage"]!=nil) {
-            productData.productBenefitsUsage=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"benifits_usage"]];
+        if ([customAttributeDict objectForKey:@"benefits_usage"]!=nil) {
+            productData.productBenefitsUsage=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"benefits_usage"]];
         }
+        if ([customAttributeDict objectForKey:@"brand_story"]!=nil) {
+            productData.productBrandStory=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"brand_story"]];
+        }
+       productData.productWhereToBuy=[customAttributeDict objectForKey:@"where_buy"];
         //rating
         //        if ([customAttributeDict objectForKey:@"brand_story"]!=nil) {
         //            productData.productBrandStory=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"brand_story"]];
         //        }
+        productData.productMinQuantity=([[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"min_qty"] intValue]==0?@1:[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"min_qty"]);
         productData.productMaxQuantity=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
         productData.following=[[response objectForKey:@"is_following"] stringValue];
+        productData.wishlist=[[response objectForKey:@"is_in_wishlist"] stringValue];
+        productData.reviewAdded=[[response objectForKey:@"is_reviewed"] stringValue];
+        productData.reviewId=[response objectForKey:@"review_id"];
+        productData.productSku=[response objectForKey:@"sku"];
         //        productData.isWishlist=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
         
         productData.productMediaArray=[[response objectForKey:@"media"] mutableCopy];
+        success(productData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Add to cart service
+- (void)addToCartProductService:(ProductDataModel *)productData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
+    ProductService *productDetailData=[[ProductService alloc]init];
+    [productDetailData addToCartProduct:productData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"category list response %@",response);
         success(productData);
     } onfailure:^(NSError *error) {
     }];
@@ -477,7 +496,7 @@
             tempModel.reviewDescription=[dataDict objectForKey:@"detail"];
             tempModel.reviewTitle=[dataDict objectForKey:@"title"];
             tempModel.reviewId=[dataDict objectForKey:@"review_id"];
-            tempModel.ratingId = [[[dataDict objectForKey:@"rating_votes"] objectAtIndex:0] objectForKey:@"value"];
+            tempModel.ratingId = ([[dataDict objectForKey:@"rating_votes"] count]==0?@"0":[[[dataDict objectForKey:@"rating_votes"] objectAtIndex:0] objectForKey:@"value"]);
             [reviewData.reviewListArray addObject:tempModel];
         }
         success(reviewData);

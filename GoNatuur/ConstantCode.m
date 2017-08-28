@@ -11,7 +11,9 @@
 @implementation ConstantCode
 
 NSString * const iOS_Version = @"10.0";
-NSString * const productImageBaseUrl = @"http://dev.gonatuur.com/media/catalog/category";
+NSString * const BaseUrl = @"http://dev.gonatuur.com/";
+NSString * const productImageBaseUrl = @"media/catalog/category";
+NSString * const productDetailImageBaseUrl = @"media/catalog/product";
 
 //Check device type
 + (ConstantType)checkDeviceType {

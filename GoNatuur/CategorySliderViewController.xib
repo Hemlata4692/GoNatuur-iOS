@@ -12,16 +12,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategorySliderViewController">
             <connections>
                 <outlet property="categorySliderCollectionView" destination="onR-V4-zLO" id="qMx-fl-dSM"/>
+                <outlet property="shadowView" destination="h3c-vQ-Py7" id="nuw-vL-hy4"/>
                 <outlet property="view" destination="GYj-fa-Gmm" id="4pw-7H-rnS"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="GYj-fa-Gmm">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="onR-V4-zLO">
-                    <rect key="frame" x="0.0" y="33" width="320" height="35"/>
+                    <rect key="frame" x="0.0" y="34" width="320" height="35"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="Uwc-wJ-mXA"/>
@@ -37,9 +38,19 @@
                         <outlet property="delegate" destination="-1" id="2ab-fy-PLe"/>
                     </connections>
                 </collectionView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h3c-vQ-Py7">
+                    <rect key="frame" x="0.0" y="76" width="320" height="1"/>
+                    <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Jek-hN-wkd"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="h3c-vQ-Py7" secondAttribute="bottom" constant="-1" id="8yF-aZ-ONH"/>
+                <constraint firstAttribute="trailing" secondItem="h3c-vQ-Py7" secondAttribute="trailing" id="NuR-YP-NEu"/>
+                <constraint firstItem="h3c-vQ-Py7" firstAttribute="leading" secondItem="GYj-fa-Gmm" secondAttribute="leading" id="T2C-1n-ApG"/>
                 <constraint firstItem="onR-V4-zLO" firstAttribute="leading" secondItem="GYj-fa-Gmm" secondAttribute="leading" id="bR5-Df-35C"/>
                 <constraint firstAttribute="trailing" secondItem="onR-V4-zLO" secondAttribute="trailing" id="gQq-Do-cqc"/>
                 <constraint firstAttribute="bottom" secondItem="onR-V4-zLO" secondAttribute="bottom" constant="7" id="zRW-YC-Cka"/>

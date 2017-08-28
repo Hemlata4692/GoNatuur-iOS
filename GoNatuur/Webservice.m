@@ -25,7 +25,7 @@
 
 - (id)init {
     if (self = [super init]) {
-        manager = [[AFHTTPSessionManager manager] initWithBaseURL:[NSURL URLWithString:BASE_URL]];
+        manager = [[AFHTTPSessionManager manager] initWithBaseURL:[NSURL URLWithString:WEB_BASE_URL]];
     }
     return self;
 }
@@ -90,7 +90,7 @@
     if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
     }
-    path = [NSString stringWithFormat:@"%@%@",BASE_URL,path];
+    path = [NSString stringWithFormat:@"%@%@",WEB_BASE_URL,path];
     [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);

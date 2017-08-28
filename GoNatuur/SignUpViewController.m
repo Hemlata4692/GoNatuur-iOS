@@ -31,6 +31,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *swipeImageView;
 @property (strong, nonatomic) IBOutlet UIView *signUpBackView;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) IBOutlet UITextField *firstNameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *lastNameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
@@ -122,7 +124,7 @@
     //    signUpBackViewY=45+(scaleFactor*140.0)+29;
     signUpBackViewY=222;
     _mainView.translatesAutoresizingMaskIntoConstraints=true;
-    _mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, signUpBackViewY+538.0);
+    _mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, signUpBackViewY+628.0);
     _scrollView.contentSize = CGSizeMake(0,_mainView.frame.size.height);
     //Set privacy policy attributed text
     [self setAttributString];
@@ -196,11 +198,15 @@
 
 - (void)customizedTextField {
     //Adding textfield to keyboard controls array
-    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_emailTextField, _passwordTextField, _confirmPasswordTextField]]];
+    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameTextField, _lastNameTextField, _emailTextField, _passwordTextField, _confirmPasswordTextField]]];
     [_keyboardControls setDelegate:self];
+    [_firstNameTextField setTextBorder:_firstNameTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
+    [_lastNameTextField setTextBorder:_lastNameTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_emailTextField setTextBorder:_emailTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_passwordTextField setTextBorder:_passwordTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_confirmPasswordTextField setTextBorder:_confirmPasswordTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
+    [_firstNameTextField addTextFieldLeftRightPadding:_firstNameTextField];
+    [_lastNameTextField addTextFieldLeftRightPadding:_lastNameTextField];
     [_emailTextField addTextFieldLeftRightPadding:_emailTextField];
     [_passwordTextField addTextFieldLeftRightPadding:_passwordTextField];
     [_confirmPasswordTextField addTextFieldLeftRightPadding:_confirmPasswordTextField];
@@ -324,17 +330,17 @@
 - (void)privacyPolicy {
     //[_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("Privacy");
-    //    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
-    //    obj.isPrivacyPolicy=true;
-    //    [self.navigationController pushViewController:obj animated:true];
+    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
+    obj.isPrivacyPolicy=true;
+    [self.navigationController pushViewController:obj animated:true];
 }
 
 - (void)termsNCondition {
-   // [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
+    // [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     DLog("termsNCondition");
-    //    CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
-    //    obj.isPrivacyPolicy=false;
-    //    [self.navigationController pushViewController:obj animated:true];
+        CMSPageViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CMSPageViewController"];
+        obj.isPrivacyPolicy=false;
+        [self.navigationController pushViewController:obj animated:true];
 }
 
 - (void)logIn {
@@ -346,9 +352,8 @@
 
 #pragma mark - SignUp validation
 - (BOOL)performValidationsForSignUp {
-    if ([_emailTextField isEmpty] || [_passwordTextField isEmpty] || [_confirmPasswordTextField isEmpty]) {
+    if ([_firstNameTextField isEmpty] || [_lastNameTextField isEmpty] ||[_emailTextField isEmpty] || [_passwordTextField isEmpty] || [_confirmPasswordTextField isEmpty]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     }
@@ -437,12 +442,20 @@
     DLog(@"email:%@  userId:%@", [result objectForKey:@"email"],[result objectForKey:@"id"]);
     isSocialLogin=1;
     _emailTextField.text=[result objectForKey:@"email"];
-    firstName=[result objectForKey:@"firstName"];
-    lastName=[result objectForKey:@"lastName"];
+    _firstNameTextField.text=[result objectForKey:@"firstName"];
+    _lastNameTextField.text=[result objectForKey:@"lastName"];
     socialLoginID=[result objectForKey:@"id"];
     profilePic=[result objectForKey:@"imageUrl"];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(userSignUp) withObject:nil afterDelay:.1];
+    //Adding textfield to keyboard controls array
+    bool flag=false;
+    //Check first name
+    if ([_firstNameTextField isEmpty] || [_lastNameTextField isEmpty] || [_emailTextField isEmpty]) {
+        flag=true;
+    }
+    if (!flag) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(userSignUp) withObject:nil afterDelay:.1];
+    }
 }
 #pragma mark - end
 
@@ -451,8 +464,8 @@
     LoginModel *userLogin = [LoginModel sharedUser];
     userLogin.email = _emailTextField.text;
     userLogin.password = _passwordTextField.text;
-    userLogin.firstName=firstName;
-    userLogin.lastName=lastName;
+    userLogin.firstName=_firstNameTextField.text;
+    userLogin.lastName=_lastNameTextField.text;
     userLogin.socialUserId=socialLoginID;
     userLogin.isSocialLogin=[NSNumber numberWithInt:isSocialLogin];
     userLogin.profilePicture=profilePic;

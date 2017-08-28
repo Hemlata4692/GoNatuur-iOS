@@ -12,6 +12,7 @@
 #import "ReviewViewController.h"
 #import "GoNatuurPickerView.h"
 #import "ReviewTableViewCell.h"
+#import "DynamicHeightWidth.h"
 
 @interface ReviewListingViewController ()<GoNatuurPickerViewDelegate> {
 @private
@@ -19,7 +20,7 @@
     ReviewDataModel *reviewList;
     int selectedStarFilterIndex, selectedPickerIndex, selectedSortByFilterIndex, selectedSortFilterIndex, pageCount, totalCount;
     NSMutableArray *reviewListingDataAray, *sortByDataArray, *starFilterDataArray;
-    NSString *starFilter, *sortByFilter, *sortByValue;
+    NSString *starFilter, *sortByFilter, *sortByValue, *applyStarFilter;
     UIView *footerView;
 }
 @property (weak, nonatomic) IBOutlet UITableView *reviewListingTableView;
@@ -33,19 +34,21 @@
 
 @implementation ReviewListingViewController
 @synthesize productID;
+@synthesize reviewId;
+@synthesize reviewAdded;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    starFilterDataArray=[[NSMutableArray alloc]initWithObjects:@"1 Star",@"2 Stars",@"3 Stars",@"4 Stars",@"5 Stars", nil];
-    sortByDataArray=[[NSMutableArray alloc]initWithObjects:@"Most Recent",@"Ratng low to high",@"Rating high to low", nil];
+    starFilterDataArray=[[NSMutableArray alloc]initWithObjects:@"All",@"5 Stars",@"4 Stars",@"3 Stars",@"2 Stars",@"1 Star", nil];
+    sortByDataArray=[[NSMutableArray alloc]initWithObjects:@"Most Recent",@"Rating low to high",@"Rating high to low", nil];
     sortByFilter=@"created_at";
     sortByValue=@"DESC";
     starFilter=@"5";
     pageCount=1;
+    applyStarFilter=@"1";
     _noRecordLabel.hidden=YES;
-    reviewListingDataAray=[[NSMutableArray alloc]init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,6 +63,7 @@
     [self addLeftBarButtonWithImage:true];
     [self viewCustomisation];
     [self initFooterView];
+    reviewListingDataAray=[[NSMutableArray alloc]init];
     [myDelegate showIndicator];
     [self performSelector:@selector(getReviewListingData) withObject:nil afterDelay:.1];
 }
@@ -69,6 +73,11 @@
     [_writeReviewButton setCornerRadius:17.0];
     [_writeReviewButton addShadow:_writeReviewButton color:[UIColor blackColor]];
     [_searchTextField addTextFieldLeftRightPadding:_searchTextField];
+    _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
+    if ([reviewAdded isEqualToString:@"1"] || (nil==[UserDefaultManager getValue:@"userId"])) {
+        _writeReviewButton.enabled=false;
+         _writeReviewButton.alpha = 0.8;
+    }
     [self addCustomPickerView];
 }
 
@@ -76,8 +85,8 @@
 
 - (void)addCustomPickerView {
     //Set initial index of picker view and initialized picker view
-    selectedStarFilterIndex=0;
-    selectedPickerIndex=0;
+    selectedPickerIndex=-1;
+    selectedSortFilterIndex=-1;
     selectedSortByFilterIndex=0;
     sortingPickerView=[[GoNatuurPickerView alloc] initWithFrame:self.view.frame delegate:self pickerHeight:230];
     [self.view addSubview:sortingPickerView.goNatuurPickerViewObj];
@@ -90,17 +99,33 @@
             selectedPickerIndex=tempSelectedIndex;
             [_starFilterButton setTitle:[starFilterDataArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
             starFilter=[NSString stringWithFormat:@"%d",selectedPickerIndex+1];
+            if ([_starFilterButton.titleLabel.text isEqualToString:@"All"]) {
+                applyStarFilter=@"0";
+            }
+            else {
+                applyStarFilter=@"1";
+            }
         }
     }
     else if (option==2) {
         if (selectedSortFilterIndex!=tempSelectedIndex) {
             selectedSortFilterIndex=tempSelectedIndex;
             [_sortByFilterButton setTitle:[sortByDataArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
-            sortByFilter=@"created_at";
-            sortByValue=@"DESC";
+            if (selectedSortFilterIndex==0) {
+                sortByFilter=@"created_at";
+                sortByValue=@"DESC";
+            }
+            else if (selectedSortFilterIndex==1) {
+                sortByFilter=@"reviewvote.value";
+                sortByValue=@"ASC";
+            }
+            else {
+                sortByFilter=@"reviewvote.value";
+                sortByValue=@"DESC";
+            }
         }
     }
-    reviewListingDataAray=[NSMutableArray new];
+    reviewListingDataAray=[[NSMutableArray alloc]init];
     [myDelegate showIndicator];
     [self performSelector:@selector(getReviewListingData) withObject:nil afterDelay:.1];
 }
@@ -117,6 +142,7 @@
     reviewList.sortBy=sortByFilter;
     reviewList.starFilter=starFilter;
     reviewList.sortByValue=sortByValue;
+    reviewList.applyStarFilter=applyStarFilter;
     reviewList.pageCount=[NSNumber numberWithInt:pageCount];
     [reviewList getUserReviewListingData:^(ReviewDataModel *userData)  {
         [myDelegate stopIndicator];
@@ -124,6 +150,7 @@
         totalCount=[userData.totalCount intValue];
         if (reviewListingDataAray.count==0) {
             _noRecordLabel.hidden=NO;
+             [_reviewListingTableView reloadData];
         }
         else {
             _noRecordLabel.hidden=YES;
@@ -131,23 +158,27 @@
         }
     } onfailure:^(NSError *error) {
         _noRecordLabel.hidden=NO;
+        _reviewListingTableView.hidden=YES;
     }];
 }
 #pragma mark - end
 
 #pragma mark - IBActions
 - (IBAction)starFilterButtonAction:(id)sender {
-    [sortingPickerView showPickerView:starFilterDataArray selectedIndex:selectedPickerIndex option:1];
+    [_searchTextField resignFirstResponder];
+    [sortingPickerView showPickerView:starFilterDataArray selectedIndex:(selectedPickerIndex==-1?1:selectedPickerIndex) option:1];
 }
 
 - (IBAction)sortByFilterAction:(id)sender {
-    [sortingPickerView showPickerView:sortByDataArray selectedIndex:selectedSortFilterIndex option:2];
+    [_searchTextField resignFirstResponder];
+    [sortingPickerView showPickerView:sortByDataArray selectedIndex:(selectedSortFilterIndex==-1?0:selectedSortFilterIndex) option:2];
 }
 
 - (IBAction)writeReviewButtonAction:(id)sender {
     UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ReviewViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewViewController"];
     reviewView.selectedProductId=productID;
+    reviewView.isEditMode=@"0";
     [self.navigationController pushViewController:reviewView animated:YES];
 }
 #pragma mark - end
@@ -155,15 +186,21 @@
 #pragma mark Text Field Delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
+    reviewListingDataAray=[[NSMutableArray alloc]init];
     [myDelegate showIndicator];
     [self performSelector:@selector(getReviewListingData) withObject:nil afterDelay:.1];
     return YES;
 }
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     // add your method here
     return YES;
 }
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [sortingPickerView hidePickerView];
+}
+
 #pragma mark - end
 
 #pragma mark - Table view data source and delgate methods
@@ -175,13 +212,42 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *CellIdentifier = @"reviewCell";
     ReviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    [cell displayData:[reviewListingDataAray objectAtIndex:indexPath.row]];
+    cell.editReviewIcon.hidden=YES;
+    if ([[[reviewListingDataAray objectAtIndex:indexPath.row]reviewId] intValue]==[reviewId intValue]) {
+         [cell displayData:[reviewListingDataAray objectAtIndex:indexPath.row] reviewId:reviewId rectSize:_reviewListingTableView.frame.size];
+    }
+    else {
+         [cell displayData:[reviewListingDataAray objectAtIndex:indexPath.row] reviewId:@"0" rectSize:_reviewListingTableView.frame.size];
+    }
     return cell;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return UITableViewAutomaticDimension;
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([[[reviewListingDataAray objectAtIndex:indexPath.row]reviewId] intValue]==[reviewId intValue]) {
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ReviewViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewViewController"];
+    reviewView.selectedProductId=productID;
+    reviewView.isEditMode=@"1";
+    reviewView.reviewData=[reviewListingDataAray objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:reviewView animated:YES];
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //    float titleHeight =[DynamicHeightWidth getDynamicLabelHeight:[[reviewListingDataAray objectAtIndex:indexPath.row] reviewTitle] font:[UIFont montserratBoldWithSize:13] widthValue:tableView.frame.size.width-93];
+    float descriptionHeight =[DynamicHeightWidth getDynamicLabelHeight:[[reviewListingDataAray objectAtIndex:indexPath.row] reviewDescription] font:[UIFont montserratRegularWithSize:12] widthValue:tableView.frame.size.width-93];
+    
+    if (descriptionHeight<=16) {
+        return 120;
+    }
+    else if (descriptionHeight<=31) {
+        return 120;
+        
+    }
+    else {
+        return 120+descriptionHeight-35;
+    }
+}
 #pragma mark - end
 
 #pragma mark - Pagignation for table view
