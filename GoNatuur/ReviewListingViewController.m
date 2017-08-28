@@ -104,7 +104,7 @@
                 applyStarFilter=@"0";
             }
             else {
-                starFilter=[NSString stringWithFormat:@"%lu",([starFilterDataArray count]-(tempSelectedIndex+1))+1];
+                starFilter=[NSString stringWithFormat:@"%d",(int)([starFilterDataArray count]-(tempSelectedIndex+1))+1];
                 applyStarFilter=@"1";
             }
         }

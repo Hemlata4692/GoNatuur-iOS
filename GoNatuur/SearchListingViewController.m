@@ -123,7 +123,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if ([[[searchedProductsArray objectAtIndex:indexPath.item] productType] isEqualToString:@"ticket"]) {
+    if ([[[searchedProductsArray objectAtIndex:indexPath.item] productType] isEqualToString:eventIdentifier]) {
         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else {
