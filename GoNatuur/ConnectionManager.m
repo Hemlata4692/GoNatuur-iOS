@@ -194,53 +194,17 @@
         userData.bestSellerArray=[[NSMutableArray alloc]init];
         NSArray *productDataArray=response[@"best_seller_slider"];
         for (int i =0; i<productDataArray.count; i++) {
-            NSDictionary * productDataDict =[productDataArray objectAtIndex:i];
-            DashboardDataModel * productData = [[DashboardDataModel alloc]init];
-            productData.productId = productDataDict[@"id"];
-            productData.productPrice = [productDataDict[@"price"] stringValue];
-            productData.productName = productDataDict[@"name"];
-            if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
-                productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
-            }
-            productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
-            productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
-            productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
-            productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
-            [userData.bestSellerArray addObject:productData];
+            [userData.bestSellerArray addObject:[self getDashboardParseData:[productDataArray objectAtIndex:i]]];
         }
         userData.healthyLivingArray=[[NSMutableArray alloc]init];
         NSArray *healthyLivingArray=response[@"category_tab1"];
         for (int i =0; i<healthyLivingArray.count; i++) {
-            NSDictionary * productDataDict =[healthyLivingArray objectAtIndex:i];
-            DashboardDataModel * healthyLivingData = [[DashboardDataModel alloc]init];
-            healthyLivingData.productId = productDataDict[@"id"];
-            healthyLivingData.productPrice = [productDataDict[@"price"] stringValue];
-            healthyLivingData.productName = productDataDict[@"name"];
-            if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
-                healthyLivingData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
-            }
-            healthyLivingData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
-            healthyLivingData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
-            healthyLivingData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
-            healthyLivingData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
-            [userData.healthyLivingArray addObject:healthyLivingData];
+            [userData.healthyLivingArray addObject:[self getDashboardParseData:[healthyLivingArray objectAtIndex:i]]];
         }
         userData.samplersDataArray=[[NSMutableArray alloc]init];
         NSArray *samplersArray=response[@"category_tab2"];
         for (int i =0; i<samplersArray.count; i++) {
-            NSDictionary * productDataDict =[samplersArray objectAtIndex:i];
-            DashboardDataModel * samplersArrayData = [[DashboardDataModel alloc]init];
-            samplersArrayData.productId = productDataDict[@"id"];
-            samplersArrayData.productPrice = [productDataDict[@"price"] stringValue];
-            samplersArrayData.productName = productDataDict[@"name"];
-            if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
-                samplersArrayData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
-            }
-            samplersArrayData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
-            samplersArrayData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
-            samplersArrayData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
-            samplersArrayData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
-            [userData.samplersDataArray addObject:samplersArrayData];
+            [userData.samplersDataArray addObject:[self getDashboardParseData:[samplersArray objectAtIndex:i]]];
         }
         userData.footerBannerImageArray=[[NSMutableArray alloc]init];
         NSArray *footerArray=response[@"footer_top_banners"];
@@ -257,7 +221,21 @@
     } onfailure:^(NSError *error) {
         failure(error);
     }] ;
-    
+}
+
+- (DashboardDataModel *)getDashboardParseData:(NSDictionary *)productDataDict {
+    DashboardDataModel * productData = [[DashboardDataModel alloc]init];
+    productData.productId = productDataDict[@"id"];
+    productData.productPrice = [productDataDict[@"price"] stringValue];
+    productData.productName = productDataDict[@"name"];
+    if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
+        productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+    }
+    productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+    productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
+    productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+    productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+    return productData;
 }
 #pragma mark - end
 
