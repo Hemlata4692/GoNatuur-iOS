@@ -63,9 +63,19 @@
 }
 #pragma mark - end
 
+//crashlytics
+- (void)installUncaughtExceptionHandler {
+    InstallUncaughtExceptionHandler();
+}
+
 #pragma mark - Application life cycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+ 
+    //Call crashlytics method
+    [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
+
+    
     [NSThread sleepForTimeInterval:1.0];
         //Set navigation bar color
    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont montserratMediumWithSize:20], NSFontAttributeName, nil]];
@@ -84,17 +94,8 @@
         [self.window setBackgroundColor:[UIColor whiteColor]];
         [self.window makeKeyAndVisible];
     }
-    
-    //Call crashlytics method
-    [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
-    
     //[self registerForRemoteNotification];
     return YES;
-}
-
-//crashlytics
-- (void)installUncaughtExceptionHandler {
-    InstallUncaughtExceptionHandler();
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

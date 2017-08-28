@@ -28,6 +28,7 @@ typedef NS_ENUM (NSInteger, ConstantType) {
 extern NSString * const iOS_Version;
 extern NSString * const productImageBaseUrl;
 extern NSString * const productDetailImageBaseUrl;
+extern NSString * const eventIdentifier;
 //end
 
 + (ConstantType)checkDeviceType;

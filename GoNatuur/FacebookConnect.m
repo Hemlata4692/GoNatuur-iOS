@@ -34,7 +34,7 @@
 
 - (void)fetchFBDataWithReadPermission {
     NSString *fbAccessToken = [[FBSDKAccessToken currentAccessToken] tokenString];
-    DLog(@"fbAccessToken is %@", fbAccessToken);
+    NSLog(@"fbAccessToken is %@", fbAccessToken);
     [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
                                        parameters:@{@"fields": @"picture.type(large), name, first_name, last_name, age_range, gender, birthday, email, friends"}]
      startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
