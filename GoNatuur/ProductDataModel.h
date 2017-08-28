@@ -36,6 +36,8 @@
 @property (strong, nonatomic) NSMutableArray *productDataArray;
 @property (strong, nonatomic) NSMutableArray *productMediaArray;
 @property (strong, nonatomic) NSString *productSku;
+@property (strong, nonatomic) NSString *specialPrice;
+@property (strong, nonatomic) NSString *avg_rating_percent;
 
 //Singleton method
 + (instancetype)sharedUser;

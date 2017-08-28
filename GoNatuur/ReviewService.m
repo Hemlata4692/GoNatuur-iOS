@@ -17,35 +17,39 @@ static NSString *kAddReview=@"ranosys/addProductReview";
 
 - (void)getReviewListing:(ReviewDataModel *)reviewData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
-                                                         @{
-                                                             @"filters":@[
-                                                                     @{@"field":@"nickname",
-                                                                       @"value":[NSString stringWithFormat:@"%s%@%s","%",reviewData.username,"%"],
-                                                                       @"condition_type": @"like"
-                                                                       },
-                                                                     @{@"field":@"title",
-                                                                       @"value":[NSString stringWithFormat:@"%s%@%s","%",reviewData.reviewTitle,"%"],
-                                                                       @"condition_type": @"like"
-                                                                       },
-                                                                     @{@"field":@"detail",
-                                                                       @"value":[NSString stringWithFormat:@"%s%@%s","%",reviewData.reviewDescription,"%"],
-                                                                       @"condition_type": @"like"
-                                                                       },
-                                                                     @{@"field":@"status_id",
-                                                                       @"value":@"1",
-                                                                       @"condition_type": @"eq"
-                                                                       }
-                                                                     ]
-                                                             }
-                                                         ],
-                                                 @"sort_orders" : @[
-                                                         @{@"field":reviewData.sortBy,
-                                                           @"direction":reviewData.sortByValue
-                                                           },
-                                                         ],
-                                                 @"page_size" : @"10",
-                                                 @"current_page" : reviewData.pageCount
-                                                 },
+                                                               @{
+                                                                   @"filters":@[
+                                                                           @{@"field":@"nickname",
+                                                                             @"value":[NSString stringWithFormat:@"%s%@%s","%",reviewData.username,"%"],
+                                                                             @"condition_type": @"like"
+                                                                             },
+                                                                           @{@"field":@"title",
+                                                                             @"value":[NSString stringWithFormat:@"%s%@%s","%",reviewData.reviewTitle,"%"],
+                                                                             @"condition_type": @"like"
+                                                                             },
+                                                                           @{@"field":@"detail",
+                                                                             @"value":[NSString stringWithFormat:@"%s%@%s","%",reviewData.reviewDescription,"%"],
+                                                                             @"condition_type": @"like"
+                                                                             }
+                                                                           ]
+                                                                   },
+                                                               @{
+                                                                   @"filters":@[
+                                                                           @{@"field":@"status_id",
+                                                                             @"value":@"1",
+                                                                             @"condition_type": @"eq"
+                                                                             }
+                                                                           ]
+                                                                   }
+                                                               ],
+                                                       @"sort_orders" : @[
+                                                               @{@"field":reviewData.sortBy,
+                                                                 @"direction":reviewData.sortByValue
+                                                                 },
+                                                               ],
+                                                       @"page_size" : @"10",
+                                                       @"current_page" : reviewData.pageCount
+                                                       },
                                  @"productId": reviewData.productId,
                                  @"starFilter": reviewData.starFilter,
                                  @"applyStarFilter":reviewData.applyStarFilter

@@ -28,8 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _notificationTableView.estimatedRowHeight = 400.0;//set maximum row height
-    _notificationTableView.rowHeight = UITableViewAutomaticDimension;//set dynamic height of row according to text
     _notificationTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
     _notificationTableView.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
     _noRecordLabel.hidden=YES;
@@ -117,13 +115,15 @@
         sepImage.image=[UIImage imageNamed:@"notificationSep"];
     }
     notificationBadgeLabel.text=notiData.notificationMessage;
-    float newHeight =[DynamicHeightWidth getDynamicLabelHeight:notificationBadgeLabel.text font:[UIFont montserratLightWithSize:15] widthValue:_notificationTableView.frame.size.width-77];
-    notificationBadgeLabel.frame=CGRectMake(48, 7,_notificationTableView.frame.size.width-77, newHeight+1);
+    DLog(@"%@",notificationBadgeLabel.text);
+    float newHeight =[DynamicHeightWidth getDynamicLabelHeight:notificationBadgeLabel.text font:[UIFont montserratRegularWithSize:15] widthValue:[[UIScreen mainScreen] bounds].size.width-77]+30;
+    notificationBadgeLabel.frame=CGRectMake(48, 0,[[UIScreen mainScreen] bounds].size.width-77, newHeight);
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
+    float newHeight =[DynamicHeightWidth getDynamicLabelHeight:[[notificationArray objectAtIndex:indexPath.row] notificationMessage] font:[UIFont montserratRegularWithSize:15] widthValue:[[UIScreen mainScreen] bounds].size.width-77]+30;
+    return newHeight;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

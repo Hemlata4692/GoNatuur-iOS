@@ -13,6 +13,7 @@
 #import "LoginModel.h"
 #import "ProductDetailViewController.h"
 #import "ProductListingViewController.h"
+#import "UIView+Toast.h"
 
 @interface DashboardViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -136,12 +137,24 @@
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ProductDetailViewController * detailScreen=[sb instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
         if (buttonTag==1) {
+            if ([[[bestSellerDataArray objectAtIndex:indexPath.item] productType] isEqualToString:eventIdentifier]) {
+                [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+                return;
+            }
             detailScreen.selectedProductId=[[[bestSellerDataArray objectAtIndex:indexPath.item] productId] intValue];
         }
         else if (buttonTag==2) {
+            if ([[[healthyLivingDataArray objectAtIndex:indexPath.item] productType] isEqualToString:eventIdentifier]) {
+                [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+                return;
+            }
             detailScreen.selectedProductId=[[[healthyLivingDataArray objectAtIndex:indexPath.item] productId] intValue];
         }
         else {
+            if ([[[samplersProductDataArray objectAtIndex:indexPath.item] productType] isEqualToString:eventIdentifier]) {
+                [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+                return;
+            }
             detailScreen.selectedProductId=[[[samplersProductDataArray objectAtIndex:indexPath.item] productId] intValue];
         }
         [self.navigationController pushViewController:detailScreen animated:YES];

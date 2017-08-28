@@ -53,9 +53,11 @@
 }
 
 - (IBAction)loginWithWeChat:(id)sender {
+    [_delegate socialLoginResponse:WeChatLogin result:@{}];
 }
 
 - (IBAction)loginWithWiebo:(id)sender {
+    [_delegate socialLoginResponse:WeiboLogin result:@{}];
 }
 
 - (IBAction)loginWithGoogle:(id)sender {

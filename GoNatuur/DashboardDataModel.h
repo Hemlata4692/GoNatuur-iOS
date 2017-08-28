@@ -34,6 +34,9 @@
 @property (strong, nonatomic) NSNumber *notificationsCount;
 @property (strong, nonatomic) NSString *specialPrice;
 @property (strong, nonatomic) NSNumber *productQty;
+@property (strong, nonatomic) NSString *productType;
+@property (strong, nonatomic) NSString *firstName;
+@property (strong, nonatomic) NSString *lastName;
 
 //Singleton method
 + (instancetype)sharedUser;

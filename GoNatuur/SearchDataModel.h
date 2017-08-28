@@ -26,6 +26,7 @@
 @property (strong, nonatomic) NSString *specialPrice;
 @property (strong, nonatomic) NSString *productQty;
 @property (strong, nonatomic) NSString *productType;
+@property (strong, nonatomic) NSMutableArray *searchProductIds;
 
 //Singleton method
 + (instancetype)sharedUser;
@@ -35,4 +36,6 @@
 
 //Get search listing data
 - (void)getSearchProductListing:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Search list pagination data
+- (void)getProductListServiceOnSuccess:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

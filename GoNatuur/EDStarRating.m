@@ -232,32 +232,18 @@
                     CGRect rectClip;
                     rectClip.origin = starPoint;
                     rectClip.size = starSize;
-                    if( displayMode == EDStarRatingDisplayHalf && difference < halfStarThreshold )    // Draw half star image
-                    {
-                        rectClip.size.width/=2.0;
-                    }
-                    else if( displayMode == EDStarRatingDisplayAccurate )
-                    {
-                        rectClip.size.width*=difference;
-                    }
-                    else {
-                        rectClip.size.width = 0;
-                    }
+                    rectClip.size.width= rectClip.size.width*difference;
                     if( rectClip.size.width >0 )
                         CGContextClipToRect( ctx, rectClip);
-                    
                 }
-                
                 [self drawImage:self.tintedStarHighlightedImage atPosition:i];
             }
             CGContextRestoreGState(ctx);
         }
     }
-    
 }
+#pragma mark -end
 
-
-#pragma mark -
 #pragma mark Mouse/Touch Interaction
 -(float) starsForPoint:(CGPoint)point
 {

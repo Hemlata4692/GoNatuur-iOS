@@ -41,7 +41,7 @@
         productRating.hidden=NO;
         ratingStarImage.hidden=NO;
         float rating = (([productListData.productRating integerValue])*5.0)/100.0;
-        productRating.text=[NSString stringWithFormat:@"%.1f",rating];
+        productRating.text=[NSString stringWithFormat:@"(%.1f)",rating];
     }
     double productCalculatedPrice;
     if (nil!=productListData.specialPrice&&![productListData.specialPrice isEqualToString:@""]) {
@@ -50,7 +50,7 @@
         productCalculatedPrice =[productListData.specialPrice doubleValue]*[exchangeRates doubleValue];
     }
     else {
-        if ([productListData.productType isEqualToString:@"ticket"]&&(nil==productListData.productQty||NULL==productListData.productQty||[productListData.productQty intValue]<1)) {
+        if ([productListData.productType isEqualToString:eventIdentifier]&&(nil==productListData.productQty||NULL==productListData.productQty||[productListData.productQty intValue]<1)) {
             statusBannerImage.hidden=false;
             statusBannerImage.image=[UIImage imageNamed:@"soldout"];
         }

@@ -182,6 +182,8 @@
         userData.bannerImageArray=[[NSMutableArray alloc]init];
         userData.notificationsCount=response[@"notification_count"];
         userData.profilePicture=response[@"profile_pick"];
+        userData.firstName=response[@"firstname"];
+        userData.lastName=response[@"lastname"];
         NSArray *bannerArray=response[@"banner"];
         for (int i =0; i<bannerArray.count; i++) {
             NSDictionary * bannerDataDict =[bannerArray objectAtIndex:i];
@@ -322,6 +324,42 @@
             [searchData.searchProductListArray addObject:productData];
         }
         searchData.searchResultCount=response[@"total_count"];
+        searchData.searchProductIds=[response[@"relevance_items"] mutableCopy];
+        success(searchData);
+        
+    } onfailure:^(NSError *error) {
+        failure(error);
+    }] ;
+    
+}
+#pragma mark - end
+
+#pragma mark - Search list pagination data
+- (void)getProductListService:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    SearchService *serachSuggestions=[[SearchService alloc]init];
+    [serachSuggestions getProductListService:searchData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"SearchService list response %@",response);
+        searchData.searchProductListArray=[[NSMutableArray alloc]init];
+        NSArray *productDataArray=response[@"items"];
+        for (int i =0; i<productDataArray.count; i++) {
+            NSDictionary * productDataDict =[productDataArray objectAtIndex:i];
+            SearchDataModel * productData = [[SearchDataModel alloc]init];
+            productData.productId = productDataDict[@"id"];
+            productData.productPrice = [productDataDict[@"price"] stringValue];
+            productData.productName = productDataDict[@"name"];
+            if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
+                productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+            }
+            productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
+            productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+            productData.productType=[productDataDict objectForKey:@"type_id"];
+            [searchData.searchProductListArray addObject:productData];
+        }
+        searchData.searchResultCount=response[@"total_count"];
+        searchData.searchProductIds=[response[@"relevance_items"] mutableCopy];
         success(searchData);
         
     } onfailure:^(NSError *error) {
@@ -414,6 +452,7 @@
             tempModel.specialPrice = [[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             tempModel.productQty = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"extension_attributes"]objectForKey:@"qty"];
             tempModel.productRating = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+            tempModel.productType=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"type_id"];
             [productData.productDataArray addObject:tempModel];
         }
         success(productData);
@@ -429,13 +468,14 @@
         //Parse data from server response and store in data model
         DLog(@"product list response %@",response);
         NSDictionary *customAttributeDict=[[[response objectForKey:@"custom_attribute"] objectAtIndex:0] copy];
+        productData.productRating=[response objectForKey:@"avg_rating_percent"];
         productData.productName=[response objectForKey:@"name"];
         productData.productPrice=[response objectForKey:@"price"];
         productData.categoryId=[[customAttributeDict objectForKey:@"category_ids"] objectAtIndex:0];
         productData.productSubtitle=[customAttributeDict objectForKey:@"subtitle"];
         productData.productUrlKey=[customAttributeDict objectForKey:@"url_key"];
         if ([customAttributeDict objectForKey:@"description"]!=nil) {
-            productData.productDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"description"]];
+            productData.productDescription=[customAttributeDict objectForKey:@"description"];
         }
         if ([customAttributeDict objectForKey:@"short_description"]!=nil) {
             productData.productShortDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"short_description"]];
@@ -447,10 +487,6 @@
             productData.productBrandStory=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"brand_story"]];
         }
        productData.productWhereToBuy=[customAttributeDict objectForKey:@"where_buy"];
-        //rating
-        //        if ([customAttributeDict objectForKey:@"brand_story"]!=nil) {
-        //            productData.productBrandStory=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"brand_story"]];
-        //        }
         productData.productMinQuantity=([[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"min_qty"] intValue]==0?@1:[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"min_qty"]);
         productData.productMaxQuantity=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
         productData.following=[[response objectForKey:@"is_following"] stringValue];
@@ -458,9 +494,16 @@
         productData.reviewAdded=[[response objectForKey:@"is_reviewed"] stringValue];
         productData.reviewId=[response objectForKey:@"review_id"];
         productData.productSku=[response objectForKey:@"sku"];
-        //        productData.isWishlist=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
-        
-        productData.productMediaArray=[[response objectForKey:@"media"] mutableCopy];
+        productData.specialPrice = [customAttributeDict objectForKey:@"special_price"];
+        productData.productMediaArray=[NSMutableArray new];
+        for (NSDictionary *tempDict in [response objectForKey:@"media"]) {
+            if ([[tempDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
+                if ([[tempDict objectForKey:@"types"] count]>0&&[[tempDict objectForKey:@"types"] containsObject:@"video_360"]) {
+                    [tempDict setValue:@"video_360" forKey:@"media_type"];
+                }
+            }
+            [productData.productMediaArray addObject:tempDict];
+        }
         success(productData);
     } onfailure:^(NSError *error) {
     }];
