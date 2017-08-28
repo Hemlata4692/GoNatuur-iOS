@@ -44,7 +44,6 @@
     _starBackView.delegate = self;
     //        _starBackView.horizontalMargin = 10;
     _starBackView.editable=NO;
-    _starBackView.rating= [productRating floatValue];
     _starBackView.displayMode=EDStarRatingDisplayHalf;
     if ([productRating isEqualToString:@""] || productRating==nil || [productRating isEqualToString:@"0"]) {
         _starBackView.rating= 0.0;;

@@ -11,6 +11,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <GoogleSignIn/GoogleSignIn.h>
 #import <UserNotifications/UserNotifications.h>
+#import "UncaughtExceptionHandler.h"
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -84,8 +85,16 @@
         [self.window makeKeyAndVisible];
     }
     
+    //Call crashlytics method
+    [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
+    
     //[self registerForRemoteNotification];
     return YES;
+}
+
+//crashlytics
+- (void)installUncaughtExceptionHandler {
+    InstallUncaughtExceptionHandler();
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

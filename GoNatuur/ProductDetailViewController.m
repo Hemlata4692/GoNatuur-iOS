@@ -457,6 +457,9 @@
         currentQuantity+=1;
         cell.cartNumberItemLabel.text=[NSString stringWithFormat:@"%d",currentQuantity];
     }
+    else {
+        [self.view makeToast:[NSString stringWithFormat:@"%@ %@ %@",NSLocalizedText(@"maximuQtyAdded"),productDetailModelData.productMaxQuantity,NSLocalizedText(@"cart")]];//cart
+    }
 }
 
 - (IBAction)removeQuantityAction:(UIButton *)sender {

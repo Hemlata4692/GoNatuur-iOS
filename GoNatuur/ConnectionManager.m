@@ -511,10 +511,6 @@
             productData.productBrandStory=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"brand_story"]];
         }
        productData.productWhereToBuy=[customAttributeDict objectForKey:@"where_buy"];
-        //rating
-        //        if ([customAttributeDict objectForKey:@"brand_story"]!=nil) {
-        //            productData.productBrandStory=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"brand_story"]];
-        //        }
         productData.productMinQuantity=([[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"min_qty"] intValue]==0?@1:[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"min_qty"]);
         productData.productMaxQuantity=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
         productData.following=[[response objectForKey:@"is_following"] stringValue];
@@ -523,7 +519,6 @@
         productData.reviewId=[response objectForKey:@"review_id"];
         productData.productSku=[response objectForKey:@"sku"];
         productData.specialPrice = [customAttributeDict objectForKey:@"special_price"];
-        //        productData.isWishlist=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
         productData.productMediaArray=[NSMutableArray new];
         for (NSDictionary *tempDict in [response objectForKey:@"media"]) {
             if ([[tempDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
