@@ -10,9 +10,9 @@
 #import "AFNetworking.h"
 
 ////testing link
-//#define BASE_URL                          @"http://gonatuur.local/rest/default/V1/"
+//#define WEB_BASE_URL                          @"http://gonatuur.local/rest/default/V1/"
 //beta link
-#define BASE_URL                          @"http://dev.gonatuur.com/en/rest/en/V1/"
+#define WEB_BASE_URL                          [NSString stringWithFormat:@"%@en/rest/en/V1/",BaseUrl]
 
 //http://gonatuur.local/rest/default/V1/integration/admin/token
 //http://gonatuur.local/rest/default/V1/ranosys/customer/customer-login

@@ -262,7 +262,21 @@
     } onfailure:^(NSError *error) {
         failure(error);
     }] ;
-    
+}
+
+- (DashboardDataModel *)getDashboardParseData:(NSDictionary *)productDataDict {
+    DashboardDataModel * productData = [[DashboardDataModel alloc]init];
+    productData.productId = productDataDict[@"id"];
+    productData.productPrice = [productDataDict[@"price"] stringValue];
+    productData.productName = productDataDict[@"name"];
+    if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
+        productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+    }
+    productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+    productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
+    productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+    productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+    return productData;
 }
 #pragma mark - end
 

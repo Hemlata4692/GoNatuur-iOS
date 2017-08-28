@@ -22,6 +22,6 @@
 }
 
 - (void)displayBannerImage:(NSString *)bannerImageUrl {
-    [ImageCaching downloadImages:_bannerImage imageUrl:(![bannerImageUrl isEqualToString:@""]?[NSString stringWithFormat:@"%@/%@",productImageBaseUrl,bannerImageUrl]:@"") placeholderImage:@"banner_placeholder" isDashboardCell:true];
+    [ImageCaching downloadImages:_bannerImage imageUrl:(![bannerImageUrl isEqualToString:@""]?[NSString stringWithFormat:@"%@%@/%@",BaseUrl,productImageBaseUrl,bannerImageUrl]:@"") placeholderImage:@"banner_placeholder" isDashboardCell:true];
 }
 @end
