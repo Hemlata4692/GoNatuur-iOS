@@ -29,6 +29,7 @@ extern NSString * const iOS_Version;
 extern NSString * const BaseUrl;
 extern NSString * const productImageBaseUrl;
 extern NSString * const productDetailImageBaseUrl;
+extern NSString * const eventIdentifier;
 //end
 
 + (ConstantType)checkDeviceType;

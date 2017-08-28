@@ -25,6 +25,7 @@
 @synthesize searchProductListArray;
 @synthesize specialPrice;
 @synthesize productQty;
+@synthesize searchProductIds;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser {
@@ -52,6 +53,19 @@
 #pragma mark - Get search listing
 - (void)getSearchProductListing:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getSearchData:self success:^(SearchDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onfailure:^(NSError *error) {
+        
+    }] ;
+    
+}
+#pragma mark - end
+
+#pragma mark - Search list pagination data
+- (void)getProductListServiceOnSuccess:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getProductListService:self success:^(SearchDataModel *userData) {
         if (success) {
             success (userData);
         }

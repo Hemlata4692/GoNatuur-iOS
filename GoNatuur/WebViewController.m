@@ -34,25 +34,21 @@
     self.title=navigationTitle;
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
-    
+    _productDetailWebView.backgroundColor = [UIColor colorWithRed:253.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0];
+    _productDetailWebView.opaque=NO;
     if ([productDetaiData isEqualToString:@""] || productDetaiData==nil) {
-         _noDataLabel.hidden=NO;
+        _noDataLabel.hidden=NO;
         _productDetailWebView.hidden=YES;
     }
     else {
         _noDataLabel.hidden=YES;
-    productDetaiData = [NSString stringWithFormat:@"<span style=\"font-family: %@; font-size: %i\">%@</span>",
-                  @"Montserrat-Light",
-                  17,
-                  productDetaiData];
-    [myDelegate showIndicator];
-   // [_productDetailWebView loadHTMLString:productDetaiData baseURL: nil];
-    if ([navigationTitle isEqualToString:NSLocalizedText(@"Where to buy")]) {
-         [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body bgcolor=\"#FDF4F6\" text=\"#000000\" align='left'>%@</body></html>", productDetaiData] baseURL: nil];
-    }
-    else {
-    [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body bgcolor=\"#FDF4F6\" text=\"#000000\" align='justify'>%@</body></html>", productDetaiData] baseURL: nil];
-    }
+        [myDelegate showIndicator];
+        if ([navigationTitle isEqualToString:NSLocalizedText(@"Where to buy")]) {
+            [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' text-align:'%@' font-size:15'>%@</body></html>",@"left", productDetaiData] baseURL: nil];
+        }
+        else {
+            [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' text-align:'%@' font-size:15'>%@</body></html>",@"justify", productDetaiData] baseURL: nil];
+        }
     }
 }
 #pragma mark - end

@@ -13,6 +13,7 @@
 #import "BSKeyboardControls.h"
 #import "UITextField+Validations.h"
 #import "UITextField+Padding.h"
+#import "UIView+Toast.h"
 
 @interface LoginViewController ()<UIGestureRecognizerDelegate, SocialLoginDelegate, BSKeyboardControlsDelegate> {
 @private
@@ -326,11 +327,16 @@
 - (void)socialLoginResponse:(ConstantType)option result:(NSDictionary *)result {
     [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     [_keyboardControls.activeField resignFirstResponder];
-    isSocialLogin=1;
-    _emailTextField.text=[result objectForKey:@"email"];
-    if (![_emailTextField isEmpty]) {
-        [myDelegate showIndicator];
-        [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
+    if (option==FacebookLogin || option==GoogleLogin) {
+        isSocialLogin=1;
+        _emailTextField.text=[result objectForKey:@"email"];
+        if (![_emailTextField isEmpty]) {
+            [myDelegate showIndicator];
+            [self performSelector:@selector(userLogin) withObject:nil afterDelay:.1];
+        }
+    }
+    else {
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
 }
 #pragma mark - end

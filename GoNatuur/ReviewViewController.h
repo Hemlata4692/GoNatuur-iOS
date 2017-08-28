@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ReviewDataModel.h"
+#import "ReviewListingViewController.h"
 
 @interface ReviewViewController : GoNatuurViewController
 @property (nonatomic,strong) NSNumber *selectedProductId;
 @property (nonatomic,strong) ReviewDataModel *reviewData;
 @property (nonatomic,strong) NSString *isEditMode;
+@property (nonatomic,strong) ReviewListingViewController *reviewListObj;
 @end

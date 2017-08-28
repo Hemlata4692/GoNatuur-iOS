@@ -44,7 +44,7 @@
 "sideBarLogin"="LOG IN";
 "featureNotAvailable"="Feature is currently not available.";
 "guestUser"="Guest User";
-"dataNotAdded"="NA";
+"dataNotAdded"="N/A";
 "Notifications"="Notifications";
 "terms&Conditions"="Terms & Conditions";
 "privacyPolicy"="Privacy Policy";
@@ -71,3 +71,10 @@
 "Sortby"="Sort By";
 "Filter"="Filter";
 "RateProduct"="Please rate the product to submit a review.";"invalidOTP"="Invalid OTP.";
+"Write New Review"="Write New Review";
+"SUBMIT REVIEW"="SUBMIT REVIEW";
+"UPDATE REVIEW"="UPDATE REVIEW";
+"Update Your Review"="Update Your Review";
+"maximuQtyAdded"="You can not add more than";
+"cart"="items in the cart.";
+"ticket"="ticket";

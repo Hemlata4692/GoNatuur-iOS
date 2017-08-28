@@ -59,7 +59,7 @@
         _userEmailLabel.text=NSLocalizedText(@"guestUser");
     }
     else {
-        _userEmailLabel.text=[UserDefaultManager getValue:@"emailId"];
+       _userEmailLabel.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"firstname"],[UserDefaultManager getValue:@"lastname"]];
     }
     _userEmailLabel.numberOfLines=3;
     float newHeight =[DynamicHeightWidth getDynamicLabelHeight:_userEmailLabel.text font:[UIFont montserratLightWithSize:16] widthValue:[[UIScreen mainScreen] bounds].size.width-120];

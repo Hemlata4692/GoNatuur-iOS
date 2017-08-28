@@ -11,6 +11,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <GoogleSignIn/GoogleSignIn.h>
 #import <UserNotifications/UserNotifications.h>
+#import "UncaughtExceptionHandler.h"
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -62,9 +63,19 @@
 }
 #pragma mark - end
 
+//crashlytics
+- (void)installUncaughtExceptionHandler {
+    InstallUncaughtExceptionHandler();
+}
+
 #pragma mark - Application life cycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+ 
+    //Call crashlytics method
+    [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
+
+    
     [NSThread sleepForTimeInterval:1.0];
         //Set navigation bar color
    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont montserratMediumWithSize:20], NSFontAttributeName, nil]];
@@ -83,7 +94,6 @@
         [self.window setBackgroundColor:[UIColor whiteColor]];
         [self.window makeKeyAndVisible];
     }
-    
     //[self registerForRemoteNotification];
     return YES;
 }
@@ -238,6 +248,8 @@
     [UserDefaultManager removeValue:@"profilePicture"];
     [UserDefaultManager removeValue:@"enableNotification"];
     [UserDefaultManager removeValue:@"quoteId"];
+    [UserDefaultManager removeValue:@"firstname"];
+    [UserDefaultManager removeValue:@"lastname"];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     myDelegate.navigationController = [storyboard instantiateViewControllerWithIdentifier:@"mainNavController"];
     myDelegate.window.rootViewController = myDelegate.navigationController;

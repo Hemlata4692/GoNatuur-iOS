@@ -49,6 +49,8 @@
     pageCount=1;
     applyStarFilter=@"1";
     _noRecordLabel.hidden=YES;
+    [self addCustomPickerView];
+    [self initFooterView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,7 +64,6 @@
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
     [self viewCustomisation];
-    [self initFooterView];
     reviewListingDataAray=[[NSMutableArray alloc]init];
     [myDelegate showIndicator];
     [self performSelector:@selector(getReviewListingData) withObject:nil afterDelay:.1];
@@ -73,12 +74,12 @@
     [_writeReviewButton setCornerRadius:17.0];
     [_writeReviewButton addShadow:_writeReviewButton color:[UIColor blackColor]];
     [_searchTextField addTextFieldLeftRightPadding:_searchTextField];
-    _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
+    //Bring front view picker view
+    [self.view bringSubviewToFront:sortingPickerView.goNatuurPickerViewObj];
     if ([reviewAdded isEqualToString:@"1"] || (nil==[UserDefaultManager getValue:@"userId"])) {
         _writeReviewButton.enabled=false;
-         _writeReviewButton.alpha = 0.8;
+        _writeReviewButton.alpha = 0.8;
     }
-    [self addCustomPickerView];
 }
 
 #pragma mark - end
@@ -98,11 +99,12 @@
         if (selectedPickerIndex!=tempSelectedIndex) {
             selectedPickerIndex=tempSelectedIndex;
             [_starFilterButton setTitle:[starFilterDataArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
-            starFilter=[NSString stringWithFormat:@"%d",selectedPickerIndex+1];
-            if ([_starFilterButton.titleLabel.text isEqualToString:@"All"]) {
+            if (tempSelectedIndex==0) {
+                starFilter=[NSString stringWithFormat:@"5"];
                 applyStarFilter=@"0";
             }
             else {
+                starFilter=[NSString stringWithFormat:@"%d",(int)([starFilterDataArray count]-(tempSelectedIndex+1))+1];
                 applyStarFilter=@"1";
             }
         }
@@ -126,6 +128,7 @@
         }
     }
     reviewListingDataAray=[[NSMutableArray alloc]init];
+    pageCount=1;
     [myDelegate showIndicator];
     [self performSelector:@selector(getReviewListingData) withObject:nil afterDelay:.1];
 }
@@ -151,10 +154,12 @@
         if (reviewListingDataAray.count==0) {
             _noRecordLabel.hidden=NO;
              [_reviewListingTableView reloadData];
+                _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
         }
         else {
             _noRecordLabel.hidden=YES;
             [_reviewListingTableView reloadData];
+                _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
         }
     } onfailure:^(NSError *error) {
         _noRecordLabel.hidden=NO;
@@ -179,6 +184,7 @@
     ReviewViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewViewController"];
     reviewView.selectedProductId=productID;
     reviewView.isEditMode=@"0";
+    reviewView.reviewListObj=self;
     [self.navigationController pushViewController:reviewView animated:YES];
 }
 #pragma mark - end
@@ -187,6 +193,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     reviewListingDataAray=[[NSMutableArray alloc]init];
+    pageCount=1;
     [myDelegate showIndicator];
     [self performSelector:@selector(getReviewListingData) withObject:nil afterDelay:.1];
     return YES;
@@ -228,13 +235,14 @@
     ReviewViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewViewController"];
     reviewView.selectedProductId=productID;
     reviewView.isEditMode=@"1";
+    reviewView.reviewListObj=self;
     reviewView.reviewData=[reviewListingDataAray objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:reviewView animated:YES];
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    float titleHeight =[DynamicHeightWidth getDynamicLabelHeight:[[reviewListingDataAray objectAtIndex:indexPath.row] reviewTitle] font:[UIFont montserratBoldWithSize:13] widthValue:tableView.frame.size.width-93];
+    //float titleHeight =[DynamicHeightWidth getDynamicLabelHeight:[[reviewListingDataAray objectAtIndex:indexPath.row] reviewTitle] font:[UIFont montserratBoldWithSize:13] widthValue:tableView.frame.size.width-93];
     float descriptionHeight =[DynamicHeightWidth getDynamicLabelHeight:[[reviewListingDataAray objectAtIndex:indexPath.row] reviewDescription] font:[UIFont montserratRegularWithSize:12] widthValue:tableView.frame.size.width-93];
     
     if (descriptionHeight<=16) {
@@ -245,7 +253,7 @@
         
     }
     else {
-        return 120+descriptionHeight-35;
+        return 120+descriptionHeight-28;
     }
 }
 #pragma mark - end
@@ -255,6 +263,8 @@
     if (reviewListingDataAray.count ==totalCount) {
         [(UIActivityIndicatorView *)[footerView viewWithTag:10] stopAnimating];
         [(UILabel *)[footerView viewWithTag:11] setHidden:true];
+        [(UIActivityIndicatorView *)[footerView viewWithTag:10] setHidden:true];
+        _reviewListingTableView.tableFooterView = nil;
     }
     else if(indexPath.row==[reviewListingDataAray count]-1) {
         if(reviewListingDataAray.count < totalCount) {
@@ -272,13 +282,12 @@
 //Load footer view in table
 - (void)initFooterView {
     footerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, 40.0)];
-    UIActivityIndicatorView * actInd = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    actInd.color=[UIColor whiteColor];
+    UIActivityIndicatorView * actInd = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    actInd.color=[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0];
     actInd.tag = 10;
-    actInd.frame = CGRectMake(self.view.frame.size.width/2-10, 10.0, 20.0, 20.0);
+    actInd.frame = CGRectMake(self.view.frame.size.width/2-10, 0.0, 20.0, 20.0);
     actInd.hidesWhenStopped = YES;
     [footerView addSubview:actInd];
-    actInd = nil;
 }
 #pragma mark - end
 @end

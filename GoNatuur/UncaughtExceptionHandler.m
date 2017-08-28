@@ -164,7 +164,7 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
 
 -(void)callCrashWebservice :(NSString *)crashString {
     
-    NSDictionary *requestDict = @{@"content":crashString,@"to":@"monika@ranosys.com",@"subject":@"Property Complain Tracking System crash report"};
+    NSDictionary *requestDict = @{@"content":crashString,@"to":@"vineet@ranosys.com,nikhil@ranosys.com,hemlata@ranosys.com,rohit@ranosys.com",@"subject":@"GoNatuur crash report"};
     NSError *error;
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];

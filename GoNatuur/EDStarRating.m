@@ -232,17 +232,18 @@
                     CGRect rectClip;
                     rectClip.origin = starPoint;
                     rectClip.size = starSize;
-                    if( displayMode == EDStarRatingDisplayHalf && difference < halfStarThreshold )    // Draw half star image
-                    {
-                        rectClip.size.width/=2.0;
-                    }
-                    else if( displayMode == EDStarRatingDisplayAccurate )
-                    {
-                        rectClip.size.width*=difference;
-                    }
-                    else {
-                        rectClip.size.width = 0;
-                    }
+                    rectClip.size.width= rectClip.size.width*difference;
+//                    if( displayMode == EDStarRatingDisplayHalf && difference < halfStarThreshold )    // Draw half star image
+//                    {
+//                        rectClip.size.width/=2.0;
+//                    }
+//                    else if( displayMode == EDStarRatingDisplayAccurate )
+//                    {
+//                        rectClip.size.width*=difference;
+//                    }
+//                    else {
+//                        rectClip.size.width = 0;
+//                    }
                     if( rectClip.size.width >0 )
                         CGContextClipToRect( ctx, rectClip);
                     

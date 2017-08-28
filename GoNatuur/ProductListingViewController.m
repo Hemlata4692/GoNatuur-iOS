@@ -230,7 +230,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (!myDelegate.isProductList) {
+    if (!myDelegate.isProductList || [[[productListDataArray objectAtIndex:indexPath.row]productType] isEqualToString:eventIdentifier]) {
          [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else {
@@ -248,7 +248,12 @@
     DashboardDataModel *subCategoryList = [DashboardDataModel sharedUser];
     subCategoryList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
     [subCategoryList getCategoryListDataOnSuccess:^(DashboardDataModel *userData)  {
-        subCategoryDataList=[userData.categoryNameArray mutableCopy];
+        subCategoryDataList=[NSMutableArray new];
+        for (NSDictionary *tempDict in userData.categoryNameArray) {
+            if ([[tempDict objectForKey:@"is_active"] isEqual:@1]) {
+                [subCategoryDataList addObject:tempDict];
+            }
+        }
         //Set initial value come to default condition
         [subCategoryDataList insertObject:@{@"id":[NSNumber numberWithInt:currentCategoryId],
                                             @"name":NSLocalizedText(@"All")

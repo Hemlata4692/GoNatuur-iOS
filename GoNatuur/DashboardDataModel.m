@@ -33,6 +33,9 @@
 @synthesize profilePicture;
 @synthesize notificationsCount;
 @synthesize productQty;
+@synthesize productType;
+@synthesize firstName;
+@synthesize lastName;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -67,6 +70,8 @@
                 [UserDefaultManager removeValue:@"profilePicture"];
             }
             else {
+                [UserDefaultManager setValue:userData.firstName key:@"firstname"];
+                [UserDefaultManager setValue:userData.lastName key:@"lastname"];
                 [UserDefaultManager setValue:userData.profilePicture key:@"profilePicture"];
             }
             success (userData);
