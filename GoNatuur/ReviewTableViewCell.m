@@ -60,7 +60,9 @@
         _reviewTextLabel.frame=CGRectMake(_reviewTextLabel.frame.origin.x, _reviewTitleLabel.frame.origin.y+_reviewTitleLabel.frame.size.height+4+_ratingView.frame.size.height+15, rectSize.width-93, descriptionHeight);
     }
     else {
-        _reviewTextLabel.frame=CGRectMake(_reviewTextLabel.frame.origin.x, _reviewTitleLabel.frame.origin.y+_reviewTitleLabel.frame.size.height+4+_ratingView.frame.size.height+4, rectSize.width-93, descriptionHeight);
+        _ratingView.translatesAutoresizingMaskIntoConstraints=YES;
+        _ratingView.frame=CGRectMake(83, _reviewTitleLabel.frame.origin.y+_reviewTitleLabel.frame.size.height+8, _ratingView.frame.size.width, _ratingView.frame.size.height);
+        _reviewTextLabel.frame=CGRectMake(_reviewTextLabel.frame.origin.x, _reviewTitleLabel.frame.origin.y+_reviewTitleLabel.frame.size.height+4+_ratingView.frame.size.height+8, rectSize.width-93, descriptionHeight);
     }
     
     [self starRating:listData.ratingId];

@@ -35,7 +35,7 @@
          _videoIconImageView.hidden=true;
          _icon360ImageView.hidden=false;
          }
-        [ImageCaching downloadImages:_productthumbnailImageView imageUrl:[NSString stringWithFormat:@"%@%@",productDetailImageBaseUrl,[productImageDict objectForKey:@"file"]] placeholderImage:@"product_placeholder" isDashboardCell:true];
+        [ImageCaching downloadImages:_productthumbnailImageView imageUrl:[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,[productImageDict objectForKey:@"file"]] placeholderImage:@"product_placeholder" isDashboardCell:true];
     }
     if (currentIndex==selectedIndex) {
         if ([[productImageDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {

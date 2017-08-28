@@ -253,7 +253,7 @@
         
     }
     else {
-        return 120+descriptionHeight-35;
+        return 120+descriptionHeight-28;
     }
 }
 #pragma mark - end
