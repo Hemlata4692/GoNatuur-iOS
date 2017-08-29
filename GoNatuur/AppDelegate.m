@@ -73,7 +73,7 @@
     // Override point for customization after application launch.
  
     //Call crashlytics method
-    [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
+    //[self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
 
     
     [NSThread sleepForTimeInterval:1.0];
@@ -227,7 +227,7 @@
 #pragma mark - end
 
 #pragma mark - Guest access
-- (void)checkGuestAccess {
+- (BOOL)checkGuestAccess {
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
@@ -235,6 +235,10 @@
             [self logoutUser];
         }];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"guestUserAccess") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
+        return true;
+    }
+    else {
+        return false;
     }
 }
 #pragma mark - end
