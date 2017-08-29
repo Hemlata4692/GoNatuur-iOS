@@ -154,12 +154,11 @@
         if (reviewListingDataAray.count==0) {
             _noRecordLabel.hidden=NO;
              [_reviewListingTableView reloadData];
-                _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
         }
         else {
             _noRecordLabel.hidden=YES;
             [_reviewListingTableView reloadData];
-                _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
+            _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
         }
     } onfailure:^(NSError *error) {
         _noRecordLabel.hidden=NO;
