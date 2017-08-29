@@ -21,6 +21,7 @@
 		184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C385B1F3B0911008B8291 /* SideBarViewController.m */; };
 		184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C38641F3B328A008B8291 /* EnableNotificationViewController.m */; };
 		184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */; };
+		185F70691F5536BD007F49F7 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185F70681F5536BD007F49F7 /* ProfileViewController.m */; };
 		1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */; };
 		187129031F48CAAA00D16581 /* ProductDetailDownArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 187129021F48CAAA00D16581 /* ProductDetailDownArrow.png */; };
 		187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 187129061F48D5BC00D16581 /* UpdateCartItem.m */; };
@@ -154,6 +155,8 @@
 		184C38631F3B328A008B8291 /* EnableNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableNotificationViewController.h; sourceTree = "<group>"; };
 		184C38641F3B328A008B8291 /* EnableNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnableNotificationViewController.m; sourceTree = "<group>"; };
 		184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Regular.otf"; sourceTree = "<group>"; };
+		185F70671F5536BD007F49F7 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		185F70681F5536BD007F49F7 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		1870F0BC1F44185F008B2CE5 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		187129021F48CAAA00D16581 /* ProductDetailDownArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProductDetailDownArrow.png; sourceTree = "<group>"; };
@@ -470,6 +473,23 @@
 				180ECD341F486E6F003C936E /* ReviewListingViewController */,
 			);
 			name = ReviewListView;
+			sourceTree = "<group>";
+		};
+		185F70651F5535DF007F49F7 /* ProfileModule */ = {
+			isa = PBXGroup;
+			children = (
+				185F70661F5535F6007F49F7 /* ProfileViewController */,
+			);
+			name = ProfileModule;
+			sourceTree = "<group>";
+		};
+		185F70661F5535F6007F49F7 /* ProfileViewController */ = {
+			isa = PBXGroup;
+			children = (
+				185F70671F5536BD007F49F7 /* ProfileViewController.h */,
+				185F70681F5536BD007F49F7 /* ProfileViewController.m */,
+			);
+			name = ProfileViewController;
 			sourceTree = "<group>";
 		};
 		1870F0BB1F44184F008B2CE5 /* ToastView */ = {
@@ -1481,6 +1501,7 @@
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
 				1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */,
 				187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */,
+				185F70691F5536BD007F49F7 /* ProfileViewController.m in Sources */,
 				B7A4D3ED1F48278A00A28BBE /* ProductDetailViewController.m in Sources */,
 				B7A4D3FD1F4857C900A28BBE /* ProductService.m in Sources */,
 				1875618D1F469B2800F609AB /* NotificationService.m in Sources */,
