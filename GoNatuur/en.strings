@@ -79,3 +79,6 @@
 "maximuQtyAdded"="You can not add more than";
 "cart"="items in the cart.";
 "ticket"="ticket";
+"profileTitle"="My profile";
+"oldPasswordMatchMessage" = "Please type new password in order to change old password.";
+"changePasswordSuccessMessage" = "Password updated successfully.";

@@ -1,4 +1,4 @@
- //
+//
 //  ConnectionManager.m
 //  GoNatuur
 //
@@ -20,6 +20,8 @@
 #import "ReviewService.h"
 #import "ProductDataModel.h"
 #import "ProductService.h"
+#import "ProfileModel.h"
+#import "ProfileService.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -318,7 +320,7 @@
             }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
             productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
-             productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             productData.productType=[productDataDict objectForKey:@"type_id"];
             [searchData.searchProductListArray addObject:productData];
@@ -486,7 +488,7 @@
         if ([customAttributeDict objectForKey:@"brand_story"]!=nil) {
             productData.productBrandStory=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"brand_story"]];
         }
-       productData.productWhereToBuy=[customAttributeDict objectForKey:@"where_buy"];
+        productData.productWhereToBuy=[customAttributeDict objectForKey:@"where_buy"];
         productData.productMinQuantity=([[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"min_qty"] intValue]==0?@1:[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"min_qty"]);
         productData.productMaxQuantity=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
         productData.following=[[response objectForKey:@"is_following"] stringValue];
@@ -605,8 +607,8 @@
         DLog(@"remove wishlist response %@",response);
         success(wishlistData);
     }
-                              onfailure:^(NSError *error) {
-                              }];
+                                   onfailure:^(NSError *error) {
+                                   }];
     
 }
 #pragma mark - end
@@ -618,8 +620,8 @@
         DLog(@"follow response %@",response);
         success(followData);
     }
-                              onfailure:^(NSError *error) {
-                              }];
+                       onfailure:^(NSError *error) {
+                       }];
     
 }
 #pragma mark - end
@@ -631,9 +633,21 @@
         DLog(@"unfollow response %@",response);
         success(followData);
     }
-                       onfailure:^(NSError *error) {
-                       }];
+                         onfailure:^(NSError *error) {
+                         }];
     
+}
+#pragma mark - end
+
+#pragma mark - Change password service
+- (void)changePasswordService:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
+    ProfileService *profileService = [[ProfileService alloc] init];
+    [profileService changePasswordService:profileData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        success(profileData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
 }
 #pragma mark - end
 @end
