@@ -83,6 +83,9 @@
 		32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20901F25B1760054C344 /* ConnectionManager.m */; };
 		32CC20951F25B1D90054C344 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20941F25B1D90054C344 /* LoginModel.m */; };
 		32CC20991F25B1F80054C344 /* LoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20981F25B1F80054C344 /* LoginService.m */; };
+		5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC591F553A3500AECF40 /* ChangePasswordViewController.m */; };
+		5D27AC5E1F55649E00AECF40 /* ProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC5D1F55649E00AECF40 /* ProfileModel.m */; };
+		5D27AC621F55678C00AECF40 /* ProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC611F55678C00AECF40 /* ProfileService.m */; };
 		B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = B73A65371F3DF0630051E4C5 /* LocalizedString.m */; };
 		B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653A1F3DF07F0051E4C5 /* en.strings */; };
 		B73A653E1F3DF0870051E4C5 /* zh_Simplified.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653C1F3DF0870051E4C5 /* zh_Simplified.strings */; };
@@ -253,6 +256,12 @@
 		32CC20941F25B1D90054C344 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		32CC20971F25B1F80054C344 /* LoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginService.h; sourceTree = "<group>"; };
 		32CC20981F25B1F80054C344 /* LoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginService.m; sourceTree = "<group>"; };
+		5D27AC581F553A3500AECF40 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		5D27AC591F553A3500AECF40 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		5D27AC5C1F55649E00AECF40 /* ProfileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileModel.h; sourceTree = "<group>"; };
+		5D27AC5D1F55649E00AECF40 /* ProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileModel.m; sourceTree = "<group>"; };
+		5D27AC601F55678C00AECF40 /* ProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileService.h; sourceTree = "<group>"; };
+		5D27AC611F55678C00AECF40 /* ProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileService.m; sourceTree = "<group>"; };
 		B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.debug.xcconfig"; sourceTree = "<group>"; };
 		B73A65361F3DF0630051E4C5 /* LocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedString.h; sourceTree = "<group>"; };
 		B73A65371F3DF0630051E4C5 /* LocalizedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedString.m; sourceTree = "<group>"; };
@@ -714,7 +723,7 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				185F70651F5535DF007F49F7 /* ProfileModule */,
+				5D27AC571F553A0500AECF40 /* ChangePasswordView */,
 				180ECD381F489AAD003C936E /* ReviewModule */,
 				180ECD221F482A0C003C936E /* WebViewController */,
 				B7AA39BA1F47106600423121 /* ProductModule */,
@@ -729,6 +738,7 @@
 		320761601F1626F2001F1790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5D27AC5B1F55647700AECF40 /* ProfileModel */,
 				180ECD3D1F489E3F003C936E /* ReviewModel */,
 				B7A4D3F71F4854A500A28BBE /* ProductModel */,
 				1875618E1F469BCD00F609AB /* NotificationModel */,
@@ -817,6 +827,7 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				5D27AC5F1F55674E00AECF40 /* ProfileService */,
 				180ECD411F48A200003C936E /* ReviewService */,
 				B7A4D3F61F48549D00A28BBE /* ProductService */,
 				1875618A1F469B1C00F609AB /* NotificationService */,
@@ -1055,6 +1066,33 @@
 				BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5D27AC571F553A0500AECF40 /* ChangePasswordView */ = {
+			isa = PBXGroup;
+			children = (
+				5D27AC581F553A3500AECF40 /* ChangePasswordViewController.h */,
+				5D27AC591F553A3500AECF40 /* ChangePasswordViewController.m */,
+			);
+			name = ChangePasswordView;
+			sourceTree = "<group>";
+		};
+		5D27AC5B1F55647700AECF40 /* ProfileModel */ = {
+			isa = PBXGroup;
+			children = (
+				5D27AC5C1F55649E00AECF40 /* ProfileModel.h */,
+				5D27AC5D1F55649E00AECF40 /* ProfileModel.m */,
+			);
+			name = ProfileModel;
+			sourceTree = "<group>";
+		};
+		5D27AC5F1F55674E00AECF40 /* ProfileService */ = {
+			isa = PBXGroup;
+			children = (
+				5D27AC601F55678C00AECF40 /* ProfileService.h */,
+				5D27AC611F55678C00AECF40 /* ProfileService.m */,
+			);
+			name = ProfileService;
 			sourceTree = "<group>";
 		};
 		B73A65351F3DF0530051E4C5 /* LocalizedString */ = {
@@ -1455,6 +1493,7 @@
 				B745811D1F39BECC00A164D6 /* BSKeyboardControls.m in Sources */,
 				18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */,
 				18F7A9031F33044100430842 /* BottomTabViewController.m in Sources */,
+				5D27AC621F55678C00AECF40 /* ProfileService.m in Sources */,
 				B7A4D3F51F48294700A28BBE /* ProductDetailCollectionViewCell.m in Sources */,
 				B7AA39C81F47116E00423121 /* ProductListTableViewCell.m in Sources */,
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
@@ -1502,7 +1541,9 @@
 				188B2C131F41DFA50001A7AE /* SearchDataModel.m in Sources */,
 				B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */,
 				188B2C0A1F419E8B0001A7AE /* SearchListingViewController.m in Sources */,
+				5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */,
 				32CC20951F25B1D90054C344 /* LoginModel.m in Sources */,
+				5D27AC5E1F55649E00AECF40 /* ProfileModel.m in Sources */,
 				188B2C171F41DFFA0001A7AE /* SearchService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1644,8 +1685,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.GoNatuur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "52596806-52c6-4ca4-8ca4-e14557529bec";
-				PROVISIONING_PROFILE_SPECIFIER = GoNatuur_in_house_distribution_profile_27aug2017;
+				PROVISIONING_PROFILE = "5d36d161-4eab-49e9-b4bd-cc5088e93d30";
+				PROVISIONING_PROFILE_SPECIFIER = RanosysWildcard;
 			};
 			name = Debug;
 		};
@@ -1668,8 +1709,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.GoNatuur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "52596806-52c6-4ca4-8ca4-e14557529bec";
-				PROVISIONING_PROFILE_SPECIFIER = GoNatuur_in_house_distribution_profile_27aug2017;
+				PROVISIONING_PROFILE = "5d36d161-4eab-49e9-b4bd-cc5088e93d30";
+				PROVISIONING_PROFILE_SPECIFIER = RanosysWildcard;
 			};
 			name = Release;
 		};

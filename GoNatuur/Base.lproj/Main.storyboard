@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="j41-cQ-9tt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="j41-cQ-9tt">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1391,6 +1391,110 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z97-We-LxN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="695.625" y="1511.6197183098591"/>
+        </scene>
+        <!--Change Password View Controller-->
+        <scene sceneID="SrS-CN-cju">
+            <objects>
+                <viewController storyboardIdentifier="ChangePasswordViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="po3-33-eVu" customClass="ChangePasswordViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uBz-Jd-2rh"/>
+                        <viewControllerLayoutGuide type="bottom" id="bqV-B1-M8p"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aYM-gp-fMJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Current Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aMV-lT-jqY">
+                                <rect key="frame" x="40" y="143" width="240" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="vyr-cQ-Cpw"/>
+                                </constraints>
+                                <color key="textColor" red="0.4392156862745098" green="0.4392156862745098" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="po3-33-eVu" id="gw2-Ub-ZKf"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ABV-Ei-2hI">
+                                <rect key="frame" x="40" y="188" width="240" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="FgS-ql-yvj"/>
+                                </constraints>
+                                <color key="textColor" red="0.4392156862745098" green="0.4392156862745098" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="po3-33-eVu" id="ugd-cJ-dLL"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jvF-my-ief">
+                                <rect key="frame" x="40" y="233" width="240" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="YCh-ux-rEu"/>
+                                </constraints>
+                                <color key="textColor" red="0.4392156862745098" green="0.4392156862745098" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="po3-33-eVu" id="fKq-ow-Z5K"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nmc-zu-dEL">
+                                <rect key="frame" x="20" y="111" width="280" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="uSt-25-Ggc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xSQ-qs-xwt">
+                                <rect key="frame" x="40" y="283" width="240" height="35"/>
+                                <color key="backgroundColor" red="0.71372549019607845" green="0.14117647058823529" blue="0.27450980392156865" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="bqK-32-qFb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="15"/>
+                                <state key="normal" title="CHANGE PASSWORD">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changePasswordAction:" destination="po3-33-eVu" eventType="touchUpInside" id="6Kd-Ce-Hbq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jvF-my-ief" firstAttribute="leading" secondItem="aYM-gp-fMJ" secondAttribute="leading" constant="40" id="3jc-W0-AX2"/>
+                            <constraint firstItem="ABV-Ei-2hI" firstAttribute="top" secondItem="aMV-lT-jqY" secondAttribute="bottom" constant="10" id="Bfv-bh-YMJ"/>
+                            <constraint firstItem="Nmc-zu-dEL" firstAttribute="leading" secondItem="aYM-gp-fMJ" secondAttribute="leading" constant="20" id="DKW-ZB-Vbi"/>
+                            <constraint firstItem="xSQ-qs-xwt" firstAttribute="leading" secondItem="aYM-gp-fMJ" secondAttribute="leading" constant="40" id="EKs-w5-kCn"/>
+                            <constraint firstItem="jvF-my-ief" firstAttribute="top" secondItem="ABV-Ei-2hI" secondAttribute="bottom" constant="10" id="JoH-oY-xyh"/>
+                            <constraint firstAttribute="trailing" secondItem="ABV-Ei-2hI" secondAttribute="trailing" constant="40" id="JyU-81-apA"/>
+                            <constraint firstItem="aMV-lT-jqY" firstAttribute="leading" secondItem="aYM-gp-fMJ" secondAttribute="leading" constant="40" id="KCF-D0-oBY"/>
+                            <constraint firstAttribute="trailing" secondItem="xSQ-qs-xwt" secondAttribute="trailing" constant="40" id="MZb-z4-xsq"/>
+                            <constraint firstItem="Nmc-zu-dEL" firstAttribute="top" secondItem="uBz-Jd-2rh" secondAttribute="bottom" constant="47" id="a2e-hy-6Go"/>
+                            <constraint firstAttribute="trailing" secondItem="jvF-my-ief" secondAttribute="trailing" constant="40" id="fLm-nj-rCd"/>
+                            <constraint firstItem="ABV-Ei-2hI" firstAttribute="leading" secondItem="aYM-gp-fMJ" secondAttribute="leading" constant="40" id="gln-uS-Qr2"/>
+                            <constraint firstAttribute="trailing" secondItem="aMV-lT-jqY" secondAttribute="trailing" constant="40" id="kyw-0N-JCS"/>
+                            <constraint firstItem="xSQ-qs-xwt" firstAttribute="top" secondItem="jvF-my-ief" secondAttribute="bottom" constant="15" id="mU6-O4-TKG"/>
+                            <constraint firstItem="aMV-lT-jqY" firstAttribute="top" secondItem="Nmc-zu-dEL" secondAttribute="bottom" constant="2" id="qAo-bp-2Xf"/>
+                            <constraint firstAttribute="trailing" secondItem="Nmc-zu-dEL" secondAttribute="trailing" constant="20" id="z8q-Zc-Rrz"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="changePassword" destination="ABV-Ei-2hI" id="VE7-dY-geK"/>
+                        <outlet property="changePasswordButton" destination="xSQ-qs-xwt" id="57D-v7-A58"/>
+                        <outlet property="confirmPassword" destination="jvF-my-ief" id="uuT-AE-tp5"/>
+                        <outlet property="oldPassword" destination="aMV-lT-jqY" id="Fi7-nn-gl1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LDF-sp-KUP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="701" y="2208"/>
         </scene>
         <!--Review View Controller-->
         <scene sceneID="ygq-YX-Nvb">
