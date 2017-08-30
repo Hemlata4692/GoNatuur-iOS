@@ -33,7 +33,7 @@
     [[ZDCLoadingView appearance] setLoadingBackgroundColor:[UIColor colorWithRed:253.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0]];
     
     // Style loading errors/notifications
-    [[ZDCLoadingErrorView appearance] setIconImage:nil]; // provide an image name to override default image
+    [[ZDCLoadingErrorView appearance] setIconImage:nil]; //Provide an image name to override default image
     [[ZDCLoadingErrorView appearance] setErrorBackgroundColor:[UIColor colorWithRed:253.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0]];
     
     [[ZDCLoadingErrorView appearance] setTitleFont:[UIFont montserratBoldWithSize:15.0f]];
@@ -42,10 +42,10 @@
     [[ZDCLoadingErrorView appearance] setMessageColor:[UIColor grayColor]];
     [[ZDCLoadingErrorView appearance] setButtonFont:[UIFont sfuiDisplayRegularWithSize:15.0f]];
     [[ZDCLoadingErrorView appearance] setButtonTitleColor:[UIColor whiteColor]];
-    [[ZDCLoadingErrorView appearance] setButtonBackgroundColor:[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0]]; //leave message
-    [[ZDCLoadingErrorView appearance] setButtonImage:nil]; // provide an image name to override default image
+    [[ZDCLoadingErrorView appearance] setButtonBackgroundColor:[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0]]; //Leave message
+    [[ZDCLoadingErrorView appearance] setButtonImage:nil]; //Provide an image name to override default image
 
-    // Style the pre-chat form
+    //Style the pre-chat form
     insets = UIEdgeInsetsMake(10.0f, 15.0f, 0.0f, 15.0f);
     [[ZDCFormCellSingleLine appearance] setTextFrameInsets:[NSValue valueWithUIEdgeInsets:insets]];
     insets = UIEdgeInsetsMake(5.0f, 15.0f, 5.0f, 15.0f);
@@ -55,46 +55,47 @@
     [[ZDCFormCellSingleLine appearance] setTextFrameCornerRadius:@(3.0f)];
     [[ZDCFormCellSingleLine appearance] setTextFont:[UIFont montserratLightWithSize:13.0f]];
     [[ZDCFormCellSingleLine appearance] setTextColor:[UIColor grayColor]];
+    [[ZDCFormCellSingleLine appearance] setUserInteractionEnabled:false];
 //    [[ZDCFormCellSingleLine appearance] setHidden:YES];
 
     insets = UIEdgeInsetsMake(10.0f, 15.0f, 0.0f, 15.0f);
     [[ZDCFormCellDepartment appearance] setTextFrameInsets:[NSValue valueWithUIEdgeInsets:insets]];
     insets = UIEdgeInsetsMake(5.0f, 15.0f, 5.0f, 15.0f);
     [[ZDCFormCellDepartment appearance] setTextInsets:[NSValue valueWithUIEdgeInsets:insets]];
-    [[ZDCFormCellDepartment appearance] setTextFrameBorderColor:[UIColor colorWithWhite:0.9f alpha:1.0f]];
-    [[ZDCFormCellDepartment appearance] setTextFrameBackgroundColor:[UIColor whiteColor]];
+    [[ZDCFormCellDepartment appearance] setTextFrameBorderColor:[UIColor grayColor]];
+    [[ZDCFormCellDepartment appearance] setTextFrameBackgroundColor:[UIColor clearColor]];
     [[ZDCFormCellDepartment appearance] setTextFrameCornerRadius:@(3.0f)];
-    [[ZDCFormCellDepartment appearance] setTextFont:[UIFont systemFontOfSize:13.0f]];
-    [[ZDCFormCellDepartment appearance] setTextColor:[UIColor colorWithWhite:0.2f alpha:1.0f]];
+    [[ZDCFormCellDepartment appearance] setTextFont:[UIFont montserratLightWithSize:13.0f]];
+    [[ZDCFormCellDepartment appearance] setTextColor:[UIColor grayColor]];
 
     insets = UIEdgeInsetsMake(10.0f, 15.0f, 10.0f, 15.0f);
     [[ZDCFormCellMessage appearance] setTextFrameInsets:[NSValue valueWithUIEdgeInsets:insets]];
     insets = UIEdgeInsetsMake(5.0f, 10.0f, 5.0f, 10.0f);
     [[ZDCFormCellMessage appearance] setTextInsets:[NSValue valueWithUIEdgeInsets:insets]];
-    [[ZDCFormCellMessage appearance] setTextFrameBorderColor:[UIColor lightGrayColor]];
+    [[ZDCFormCellMessage appearance] setTextFrameBorderColor:[UIColor grayColor]];
     [[ZDCFormCellMessage appearance] setTextFrameBackgroundColor:[UIColor clearColor]];
     [[ZDCFormCellMessage appearance] setTextFrameCornerRadius:@(3.0f)];
-    [[ZDCFormCellMessage appearance] setTextFont:[UIFont systemFontOfSize:13.0f]];
-    [[ZDCFormCellMessage appearance] setTextColor:[UIColor whiteColor]];
+    [[ZDCFormCellMessage appearance] setTextFont:[UIFont montserratLightWithSize:13.0f]];
+    [[ZDCFormCellMessage appearance] setTextColor:[UIColor grayColor]];
 
     // Style the chat cells
     insets = UIEdgeInsetsMake(10.0f, 70.0f , 10.0f, 20.0f);
     [[ZDCJoinLeaveCell appearance] setTextInsets:[NSValue valueWithUIEdgeInsets:insets]];
-    [[ZDCJoinLeaveCell appearance] setTextColor:[UIColor colorWithWhite:0.26f alpha:1.0f]];
-    [[ZDCJoinLeaveCell appearance] setTextFont:[UIFont boldSystemFontOfSize:14]];
+    [[ZDCJoinLeaveCell appearance] setTextColor:[UIColor grayColor]];
+    [[ZDCJoinLeaveCell appearance] setTextFont:[UIFont montserratLightWithSize:14]];
 
     insets = UIEdgeInsetsMake(8.0f, 75.0f , 7.0f, 15.0f);
     [[ZDCVisitorChatCell appearance] setBubbleInsets:[NSValue valueWithUIEdgeInsets:insets]];
     insets = UIEdgeInsetsMake(12.0f, 15.0f, 12.0f, 15.0f);
     [[ZDCVisitorChatCell appearance] setTextInsets:[NSValue valueWithUIEdgeInsets:insets]];
-    [[ZDCVisitorChatCell appearance] setBubbleBorderColor:[ChatStyling darkerColorForColor:[ChatStyling navBarTintColor] by:0.2f]];
-    [[ZDCVisitorChatCell appearance] setBubbleColor:[ChatStyling navBarTintColor]];
+    [[ZDCVisitorChatCell appearance] setBubbleBorderColor:[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0]];
+    [[ZDCVisitorChatCell appearance] setBubbleColor:[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0]];
     [[ZDCVisitorChatCell appearance] setBubbleCornerRadius:@(3.0f)];
     [[ZDCVisitorChatCell appearance] setTextAlignment:@(NSTextAlignmentLeft)];
-    [[ZDCVisitorChatCell appearance] setTextColor:[ChatStyling navTintColor]];
-    [[ZDCVisitorChatCell appearance] setTextFont:[UIFont systemFontOfSize:14.0f]];
-    [[ZDCVisitorChatCell appearance] setUnsentTextColor:[UIColor colorWithWhite:0.26f alpha:1.0f]];
-    [[ZDCVisitorChatCell appearance] setUnsentTextFont:[UIFont systemFontOfSize:12.0f]];
+    [[ZDCVisitorChatCell appearance] setTextColor:[UIColor whiteColor]];
+    [[ZDCVisitorChatCell appearance] setTextFont:[UIFont montserratLightWithSize:14.0f]];
+    [[ZDCVisitorChatCell appearance] setUnsentTextColor:[UIColor whiteColor]];
+    [[ZDCVisitorChatCell appearance] setUnsentTextFont:[UIFont montserratLightWithSize:14.0f]];
     [[ZDCVisitorChatCell appearance] setUnsentMessageTopMargin:@(5.0f)];
     [[ZDCVisitorChatCell appearance] setUnsentIconLeftMargin:@(10.0f)];
 
@@ -102,27 +103,27 @@
     [[ZDCAgentChatCell appearance] setBubbleInsets:[NSValue valueWithUIEdgeInsets:insets]];
     insets = UIEdgeInsetsMake(12.0f, 15.0f, 12.0f, 15.0f);
     [[ZDCAgentChatCell appearance] setTextInsets:[NSValue valueWithUIEdgeInsets:insets]];
-    [[ZDCAgentChatCell appearance] setBubbleBorderColor:[UIColor colorWithWhite:0.90f alpha:1.0f]];
-    [[ZDCAgentChatCell appearance] setBubbleColor:[UIColor colorWithWhite:0.95f alpha:1.0f]];
+    [[ZDCAgentChatCell appearance] setBubbleBorderColor:[UIColor grayColor]];
+    [[ZDCAgentChatCell appearance] setBubbleColor:[UIColor grayColor]];
     [[ZDCAgentChatCell appearance] setBubbleCornerRadius:@(3.0f)];
     [[ZDCAgentChatCell appearance] setTextAlignment:@(NSTextAlignmentLeft)];
-    [[ZDCAgentChatCell appearance] setTextColor:[UIColor colorWithWhite:0.26f alpha:1.0f]];
-    [[ZDCAgentChatCell appearance] setTextFont:[UIFont systemFontOfSize:14.0f]];
+    [[ZDCAgentChatCell appearance] setTextColor:[UIColor whiteColor]];
+    [[ZDCAgentChatCell appearance] setTextFont:[UIFont montserratLightWithSize:14.0f]];
     [[ZDCAgentChatCell appearance] setAvatarHeight:@(30.0f)];
     [[ZDCAgentChatCell appearance] setAvatarLeftInset:@(14.0f)];
-    [[ZDCAgentChatCell appearance] setAuthorColor:[UIColor colorWithWhite:0.60f alpha:1.0f]];
-    [[ZDCAgentChatCell appearance] setAuthorFont:[UIFont systemFontOfSize:12]];
+    [[ZDCAgentChatCell appearance] setAuthorColor:[UIColor darkGrayColor]];
+    [[ZDCAgentChatCell appearance] setAuthorFont:[UIFont montserratLightWithSize:12.0f]];
     [[ZDCAgentChatCell appearance] setAuthorHeight:@(25.0f)];
 
     insets = UIEdgeInsetsMake(10.0f, 20.0f, 10.0f, 20.0f);
     [[ZDCSystemTriggerCell appearance] setTextInsets:[NSValue valueWithUIEdgeInsets:insets]];
-    [[ZDCSystemTriggerCell appearance] setTextColor:[UIColor whiteColor]]; //change apologize text color
-    [[ZDCSystemTriggerCell appearance] setTextFont:[UIFont boldSystemFontOfSize:14.0f]];
+    [[ZDCSystemTriggerCell appearance] setTextColor:[UIColor grayColor]]; //Change apologize text color
+    [[ZDCSystemTriggerCell appearance] setTextFont:[UIFont montserratLightWithSize:14]];
 
     insets = UIEdgeInsetsMake(10.0f, 20.0f, 10.0f, 20.0f);
     [[ZDCChatTimedOutCell appearance] setTextInsets:[NSValue valueWithUIEdgeInsets:insets]];
-    [[ZDCChatTimedOutCell appearance] setTextColor:[UIColor whiteColor]];
-    [[ZDCChatTimedOutCell appearance] setTextFont:[UIFont boldSystemFontOfSize:14.0f]];
+    [[ZDCChatTimedOutCell appearance] setTextColor:[UIColor grayColor]];
+    [[ZDCChatTimedOutCell appearance] setTextFont:[UIFont montserratLightWithSize:14]];
 
     [[ZDCRatingCell appearance] setTitleColor:[UIColor colorWithWhite:0.26f alpha:1.0f]];
     [[ZDCRatingCell appearance] setTitleFont:[UIFont boldSystemFontOfSize:14]];

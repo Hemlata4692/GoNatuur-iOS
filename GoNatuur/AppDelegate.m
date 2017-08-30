@@ -74,7 +74,7 @@
     // Override point for customization after application launch.
  
     //Call crashlytics method
-    [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
+//    [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
 
     [NSThread sleepForTimeInterval:1.0];
         //Set navigation bar color
