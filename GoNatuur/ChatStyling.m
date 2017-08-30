@@ -88,8 +88,8 @@
     [[ZDCVisitorChatCell appearance] setBubbleInsets:[NSValue valueWithUIEdgeInsets:insets]];
     insets = UIEdgeInsetsMake(12.0f, 15.0f, 12.0f, 15.0f);
     [[ZDCVisitorChatCell appearance] setTextInsets:[NSValue valueWithUIEdgeInsets:insets]];
-    [[ZDCVisitorChatCell appearance] setBubbleBorderColor:[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0]];
-    [[ZDCVisitorChatCell appearance] setBubbleColor:[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0]];
+    [[ZDCVisitorChatCell appearance] setBubbleBorderColor:[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]];
+    [[ZDCVisitorChatCell appearance] setBubbleColor:[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]];
     [[ZDCVisitorChatCell appearance] setBubbleCornerRadius:@(3.0f)];
     [[ZDCVisitorChatCell appearance] setTextAlignment:@(NSTextAlignmentLeft)];
     [[ZDCVisitorChatCell appearance] setTextColor:[UIColor whiteColor]];
@@ -103,11 +103,11 @@
     [[ZDCAgentChatCell appearance] setBubbleInsets:[NSValue valueWithUIEdgeInsets:insets]];
     insets = UIEdgeInsetsMake(12.0f, 15.0f, 12.0f, 15.0f);
     [[ZDCAgentChatCell appearance] setTextInsets:[NSValue valueWithUIEdgeInsets:insets]];
-    [[ZDCAgentChatCell appearance] setBubbleBorderColor:[UIColor grayColor]];
-    [[ZDCAgentChatCell appearance] setBubbleColor:[UIColor grayColor]];
+    [[ZDCAgentChatCell appearance] setBubbleBorderColor:[UIColor whiteColor]];
+    [[ZDCAgentChatCell appearance] setBubbleColor:[UIColor whiteColor]];
     [[ZDCAgentChatCell appearance] setBubbleCornerRadius:@(3.0f)];
     [[ZDCAgentChatCell appearance] setTextAlignment:@(NSTextAlignmentLeft)];
-    [[ZDCAgentChatCell appearance] setTextColor:[UIColor whiteColor]];
+    [[ZDCAgentChatCell appearance] setTextColor:[UIColor blackColor]];
     [[ZDCAgentChatCell appearance] setTextFont:[UIFont montserratLightWithSize:14.0f]];
     [[ZDCAgentChatCell appearance] setAvatarHeight:@(30.0f)];
     [[ZDCAgentChatCell appearance] setAvatarLeftInset:@(14.0f)];
