@@ -82,6 +82,12 @@
 		32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20901F25B1760054C344 /* ConnectionManager.m */; };
 		32CC20951F25B1D90054C344 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20941F25B1D90054C344 /* LoginModel.m */; };
 		32CC20991F25B1F80054C344 /* LoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20981F25B1F80054C344 /* LoginService.m */; };
+		B71F17B11F567F4B007B7BBC /* ZDCChat.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B71F17AF1F567F4B007B7BBC /* ZDCChat.bundle */; };
+		B71F17B21F567F4B007B7BBC /* ZDCChatStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B71F17B01F567F4B007B7BBC /* ZDCChatStrings.bundle */; };
+		B71F17B51F567FB4007B7BBC /* ZDCChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71F17B31F567FB4007B7BBC /* ZDCChat.framework */; };
+		B71F17B61F567FB4007B7BBC /* ZDCChatAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71F17B41F567FB4007B7BBC /* ZDCChatAPI.framework */; };
+		B71F17B91F567FCA007B7BBC /* ChatStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F17B81F567FCA007B7BBC /* ChatStyling.m */; };
+		B71F17BD1F56802A007B7BBC /* ZopimViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F17BC1F56802A007B7BBC /* ZopimViewController.m */; };
 		B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = B73A65371F3DF0630051E4C5 /* LocalizedString.m */; };
 		B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653A1F3DF07F0051E4C5 /* en.strings */; };
 		B73A653E1F3DF0870051E4C5 /* zh_Simplified.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653C1F3DF0870051E4C5 /* zh_Simplified.strings */; };
@@ -251,6 +257,14 @@
 		32CC20971F25B1F80054C344 /* LoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginService.h; sourceTree = "<group>"; };
 		32CC20981F25B1F80054C344 /* LoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginService.m; sourceTree = "<group>"; };
 		B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.debug.xcconfig"; sourceTree = "<group>"; };
+		B71F17AF1F567F4B007B7BBC /* ZDCChat.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZDCChat.bundle; sourceTree = "<group>"; };
+		B71F17B01F567F4B007B7BBC /* ZDCChatStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZDCChatStrings.bundle; sourceTree = "<group>"; };
+		B71F17B31F567FB4007B7BBC /* ZDCChat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZDCChat.framework; sourceTree = "<group>"; };
+		B71F17B41F567FB4007B7BBC /* ZDCChatAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZDCChatAPI.framework; sourceTree = "<group>"; };
+		B71F17B71F567FCA007B7BBC /* ChatStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatStyling.h; sourceTree = "<group>"; };
+		B71F17B81F567FCA007B7BBC /* ChatStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatStyling.m; sourceTree = "<group>"; };
+		B71F17BB1F56802A007B7BBC /* ZopimViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZopimViewController.h; sourceTree = "<group>"; };
+		B71F17BC1F56802A007B7BBC /* ZopimViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZopimViewController.m; sourceTree = "<group>"; };
 		B73A65361F3DF0630051E4C5 /* LocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedString.h; sourceTree = "<group>"; };
 		B73A65371F3DF0630051E4C5 /* LocalizedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedString.m; sourceTree = "<group>"; };
 		B73A653A1F3DF07F0051E4C5 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
@@ -309,6 +323,8 @@
 				E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */,
 				32A3D7051F1CD2E100062B86 /* FBSDKCoreKit.framework in Frameworks */,
 				32A3D7061F1CD2E100062B86 /* FBSDKLoginKit.framework in Frameworks */,
+				B71F17B51F567FB4007B7BBC /* ZDCChat.framework in Frameworks */,
+				B71F17B61F567FB4007B7BBC /* ZDCChatAPI.framework in Frameworks */,
 				32A3D7121F1CE3BB00062B86 /* GoogleAppUtilities.framework in Frameworks */,
 				32A3D7101F1CE3BB00062B86 /* GoogleSignInDependencies.framework in Frameworks */,
 				32A3D7041F1CD2E100062B86 /* Bolts.framework in Frameworks */,
@@ -694,6 +710,7 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B71F17AA1F567E5A007B7BBC /* ZopimModule */,
 				180ECD381F489AAD003C936E /* ReviewModule */,
 				180ECD221F482A0C003C936E /* WebViewController */,
 				B7AA39BA1F47106600423121 /* ProductModule */,
@@ -761,6 +778,7 @@
 		320761651F162733001F1790 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				B71F17AD1F567F10007B7BBC /* ZopimChat */,
 				B7DA71F01F5034E500F45439 /* HCYoutubeParser */,
 				180ECD2A1F484B5C003C936E /* StarRatingView */,
 				B7AA39AF1F470FFA00423121 /* GoNatuurPickerView */,
@@ -988,6 +1006,7 @@
 		32BAA6071F1360280015E355 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B71F17AE1F567F3A007B7BBC /* ZopimFiles */,
 				B73A65391F3DF0740051E4C5 /* LocalizableStringFiles */,
 				188605A61F39C8090005D1E2 /* Fonts */,
 				32A3D7001F1CD2CD00062B86 /* Framework */,
@@ -1029,11 +1048,48 @@
 		3C0B4A3E4E995FBB10C57627 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B71F17B31F567FB4007B7BBC /* ZDCChat.framework */,
+				B71F17B41F567FB4007B7BBC /* ZDCChatAPI.framework */,
 				187129081F48DD2A00D16581 /* MediaPlayer.framework */,
 				1886058F1F39AF320005D1E2 /* UserNotifications.framework */,
 				BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B71F17AA1F567E5A007B7BBC /* ZopimModule */ = {
+			isa = PBXGroup;
+			children = (
+				B71F17AB1F567E6F007B7BBC /* ZopimViewController */,
+			);
+			name = ZopimModule;
+			sourceTree = "<group>";
+		};
+		B71F17AB1F567E6F007B7BBC /* ZopimViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B71F17BB1F56802A007B7BBC /* ZopimViewController.h */,
+				B71F17BC1F56802A007B7BBC /* ZopimViewController.m */,
+			);
+			name = ZopimViewController;
+			sourceTree = "<group>";
+		};
+		B71F17AD1F567F10007B7BBC /* ZopimChat */ = {
+			isa = PBXGroup;
+			children = (
+				B71F17B71F567FCA007B7BBC /* ChatStyling.h */,
+				B71F17B81F567FCA007B7BBC /* ChatStyling.m */,
+			);
+			name = ZopimChat;
+			sourceTree = "<group>";
+		};
+		B71F17AE1F567F3A007B7BBC /* ZopimFiles */ = {
+			isa = PBXGroup;
+			children = (
+				B71F17AF1F567F4B007B7BBC /* ZDCChat.bundle */,
+				B71F17B01F567F4B007B7BBC /* ZDCChatStrings.bundle */,
+			);
+			name = ZopimFiles;
 			sourceTree = "<group>";
 		};
 		B73A65351F3DF0530051E4C5 /* LocalizedString */ = {
@@ -1351,12 +1407,14 @@
 				1875619D1F46AAC500F609AB /* dashboard_banner1.png in Resources */,
 				1886059C1F39C0FC0005D1E2 /* CategorySliderViewController.xib in Resources */,
 				188605AE1F39D7620005D1E2 /* Montserrat-Medium.otf in Resources */,
+				B71F17B21F567F4B007B7BBC /* ZDCChatStrings.bundle in Resources */,
 				B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
 				B73E00E31F4184DF001DEBA2 /* Montserrat-Bold.otf in Resources */,
 				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
 				1875619A1F469F8600F609AB /* Main.storyboard in Resources */,
 				B73A653E1F3DF0870051E4C5 /* zh_Simplified.strings in Resources */,
+				B71F17B11F567F4B007B7BBC /* ZDCChat.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1449,10 +1507,12 @@
 				180ECD401F48A1D1003C936E /* ReviewDataModel.m in Sources */,
 				B7AA39B31F47101400423121 /* GoNatuurFilterView.m in Sources */,
 				180ECD251F482A38003C936E /* WebViewController.m in Sources */,
+				B71F17BD1F56802A007B7BBC /* ZopimViewController.m in Sources */,
 				180ECD291F484A17003C936E /* ReviewViewController.m in Sources */,
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
+				B71F17B91F567FCA007B7BBC /* ChatStyling.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				B7DA71F31F5034F300F45439 /* HCYoutubeParser.m in Sources */,
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
@@ -1615,6 +1675,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoNatuur",
 					"$(PROJECT_DIR)/GoNatuur/GoNatuur",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = "GoNatuur/GoNatuur-Prefix.pch";
 				INFOPLIST_FILE = GoNatuur/Info.plist;
@@ -1639,6 +1700,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoNatuur",
 					"$(PROJECT_DIR)/GoNatuur/GoNatuur",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = "GoNatuur/GoNatuur-Prefix.pch";
 				INFOPLIST_FILE = GoNatuur/Info.plist;

@@ -12,6 +12,7 @@
 #import <GoogleSignIn/GoogleSignIn.h>
 #import <UserNotifications/UserNotifications.h>
 #import "UncaughtExceptionHandler.h"
+#import "ChatStyling.h"
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -75,7 +76,6 @@
     //Call crashlytics method
     [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
 
-    
     [NSThread sleepForTimeInterval:1.0];
         //Set navigation bar color
    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont montserratMediumWithSize:20], NSFontAttributeName, nil]];
@@ -194,6 +194,30 @@
         myDelegate.productCartItemsDetail=[NSMutableDictionary new];
     }
     selectedCategoryIndex=-1;
+    
+    // ZopimChat setup
+    [ChatStyling applyStyling];
+    // Configure account key and pre-chat form
+    [ZDCChat initializeWithAccountKey:@"54S60ESovtSg9glT9nUunk1oc7YKGWoi"];
+    [ZDCChat startChat:^(ZDCConfig *config){
+        config.preChatDataRequirements.name = ZDCPreChatDataNotRequired;
+        config.preChatDataRequirements.email = ZDCPreChatDataNotRequired;
+        config.preChatDataRequirements.phone = ZDCPreChatDataNotRequired;
+        config.preChatDataRequirements.department = ZDCPreChatDataNotRequired;
+        config.preChatDataRequirements.message = ZDCPreChatDataRequired;
+        //                        config.emailTranscriptAction = ZDCEmailTranscriptActionNeverSend;
+    }];
+    // To override the default avatar uncomment and complete the image name
+    //[[ZDCChatAvatar appearance] setDefaultAvatar:@"your_avatar_name_here"];
+    // Uncomment to disable visitor data persistence between application runs
+    //    [[ZDCChat instance].session visitorInfo].shouldPersist = YES;
+    
+    // Uncomment if you don't want open chat sessions to be automatically resumed on application launch
+    [ZDCChat instance].shouldResumeOnLaunch = YES;
+    
+    // Remember to switch off debug logging before app store submission!
+    [ZDCLog enable:YES];
+    [ZDCLog setLogLevel:ZDCLogLevelWarn];
 }
 #pragma mark - end
 

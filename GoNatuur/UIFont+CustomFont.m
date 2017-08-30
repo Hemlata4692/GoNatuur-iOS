@@ -60,4 +60,8 @@
     return font;
 }
 
++ (UIFont*)sfuiDisplayRegularWithSize:(int)size {
+    UIFont *font=[UIFont fontWithName:@"SFUIDisplay-Regular" size:size];
+    return font;
+}
 @end

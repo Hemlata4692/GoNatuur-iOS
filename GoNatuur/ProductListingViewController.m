@@ -230,6 +230,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    /* Code comment for zopim chat testing
     if (!myDelegate.isProductList || [[[productListDataArray objectAtIndex:indexPath.row]productType] isEqualToString:eventIdentifier]) {
          [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
@@ -238,7 +239,10 @@
         ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
         obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
         [self.navigationController pushViewController:obj animated:YES];
-    }
+    }*/
+    //StoryBoard navigation
+    UIViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ZopimViewController"];
+    [self.navigationController pushViewController:obj animated:YES];
 }
 #pragma mark - end
 
