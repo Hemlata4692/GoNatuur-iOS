@@ -82,4 +82,8 @@
 "profileTitle"="My profile";
 "oldPasswordMatchMessage" = "Please type new password in order to change old password.";
 "changePasswordSuccessMessage" = "Password updated successfully.";
-"profileDetailTitle"="Personal Details";
+"TakePhoto"="Take Photo";
+"Gallery"="Choose from Gallery";
+"noCamera"="Device has no camera.";
+"error"="Error";
+"personalDetails"="Personal Details";

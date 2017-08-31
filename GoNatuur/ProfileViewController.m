@@ -8,22 +8,28 @@
 
 #import "ProfileViewController.h"
 #import "DynamicHeightWidth.h"
-#import "CurrencyDataModel.h"
+#import "GoNatuurPickerView.h"
+#import "ProfileTableViewCell.h"
+#import "UIImage+UIImage_fixOrientation.h"
 
-@interface ProfileViewController () {
-    NSArray *menuItemsArray;
+@interface ProfileViewController ()<GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
+    NSArray *menuItemsArray, *customerSupportArray;
+    GoNatuurPickerView *customerSupportPicker;
+    int selectedPickerIndex;
 }
-
-
+@property (weak, nonatomic) IBOutlet UITableView *profileTableView;
 @end
 
 @implementation ProfileViewController
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"changeLanguageCell", @"currencyCell", @"customerSupportCell", @"changePasswordCell"];
-  }
+    menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"customerSupportCell", @"changePasswordCell"];
+    customerSupportArray=@[@"Chat with us",@"Raise a ticket"];
+    [self addCustomPickerView];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -35,8 +41,33 @@
     self.title=NSLocalizedText(@"profileTitle");
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:false];
+    [self.view bringSubviewToFront:customerSupportPicker.goNatuurPickerViewObj];
     [self showSelectedTab:4];
 }
+
+//add picker view
+- (void)addCustomPickerView {
+    selectedPickerIndex=-1;
+    //Set initial index of picker view and initialized picker view
+    customerSupportPicker=[[GoNatuurPickerView alloc] initWithFrame:self.view.frame delegate:self pickerHeight:230];
+    [self.view addSubview:customerSupportPicker.goNatuurPickerViewObj];
+}
+#pragma mark - end
+
+#pragma mark - Custom picker delegate method
+- (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {
+    if (option==1) {
+        //navigate to screen needed
+        if (tempSelectedIndex==0) {
+            //chat screen
+        }
+        else {
+            //raise ticket screen
+        }
+        selectedPickerIndex=tempSelectedIndex;
+    }
+}
+#pragma mark - end
 
 #pragma mark - Table view data source and delgate methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -46,7 +77,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *CellIdentifier = [menuItemsArray objectAtIndex:indexPath.row];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    ProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    [cell displayData:_profileTableView.frame.size];
+    [cell.editProfileImage addTarget:self action:@selector(editUserImageAction:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
@@ -55,8 +88,7 @@
         return 160;
     }
     else if (indexPath.row==1) {
-        //        return [DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.productShortDescription font:[UIFont montserratSemiBoldWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-80 heightValue:1000]+5;
-        return 35;
+        return [DynamicHeightWidth getDynamicLabelHeight:[UserDefaultManager getValue:@"emailId"] font:[UIFont montserratLightWithSize:16] widthValue:[[UIScreen mainScreen] bounds].size.width-50 heightValue:60]+10;
     }
     else if (indexPath.row==2) {
         return 80;
@@ -68,6 +100,73 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row==5) {
+        [customerSupportPicker showPickerView:customerSupportArray selectedIndex:selectedPickerIndex option:1 isCancelDelegate:false];
+    }
 }
 #pragma mark - end
+
+- (IBAction)editUserImageAction:(UIButton *)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedText(@"alertCancel")
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:NSLocalizedText(@"TakePhoto"), NSLocalizedText(@"Gallery"), nil];
+    [actionSheet showInView:self.view];
+}
+
+
+#pragma mark - Action sheet delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if (buttonIndex==0)
+    {
+        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedText(@"error")
+                                                                  message:NSLocalizedText(@"noCamera")
+                                                                 delegate:nil
+                                                        cancelButtonTitle:NSLocalizedText(@"alertOk")
+                                                        otherButtonTitles: nil];
+            [myAlertView show];
+        }
+        else
+        {
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            picker.allowsEditing = YES;
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:picker animated:YES completion:NULL];
+        }
+    }
+    if ([buttonTitle isEqualToString:NSLocalizedText(@"Gallery")]) {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        picker.navigationBar.translucent = NO;
+        picker.navigationBar.barTintColor = [UIColor colorWithRed:242.0/255.0 green:233.0/255.0 blue:237.0/255.0 alpha:1];
+        picker.navigationBar.tintColor = [UIColor blackColor];
+        picker.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor blackColor]};
+        [self presentViewController:picker animated:YES completion:NULL];
+    }
+}
+#pragma mark - end
+
+#pragma mark - Image picker controller delegate methods
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info {
+    NSIndexPath *index=[NSIndexPath indexPathForRow:0 inSection:0];
+    ProfileTableViewCell * cell = (ProfileTableViewCell *)[_profileTableView cellForRowAtIndexPath:index];
+    UIImage *correctOrientationImage = [image fixOrientation];
+    cell.userProfileImage.image=correctOrientationImage;
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+#pragma mark - end
+
 @end

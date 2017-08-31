@@ -8,7 +8,6 @@
 
 #import "ChangePasswordViewController.h"
 #import "BSKeyboardControls.h"
-#import "BSKeyboardControls.h"
 #import "UITextField+Validations.h"
 #import "UITextField+Padding.h"
 #import "ProfileModel.h"

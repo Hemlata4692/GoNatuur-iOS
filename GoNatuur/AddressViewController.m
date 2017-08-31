@@ -59,7 +59,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     countryCodeArray = [NSMutableArray new];
-    self.title=NSLocalizedText(@"profileDetailTitle");
+    self.title=NSLocalizedText(@"personalDetails");
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
     //Allocate keyboard notification
@@ -200,7 +200,7 @@
         //show language change picker
         [countryNameArray addObject:dataModel.countryLocale];
     }
-    [gNPickerViewObj showPickerView:countryNameArray selectedIndex:selectedCountryCodeIndex option:1];
+    [gNPickerViewObj showPickerView:countryNameArray selectedIndex:selectedCountryCodeIndex option:1 isCancelDelegate:false];
 }
 
 - (IBAction)saveAndUpdateButtonAction:(id)sender {

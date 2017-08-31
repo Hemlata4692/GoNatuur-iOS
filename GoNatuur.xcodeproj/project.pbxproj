@@ -15,6 +15,7 @@
 		180ECD3C1F489AF0003C936E /* ReviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD3B1F489AF0003C936E /* ReviewTableViewCell.m */; };
 		180ECD401F48A1D1003C936E /* ReviewDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD3F1F48A1D1003C936E /* ReviewDataModel.m */; };
 		180ECD441F48A215003C936E /* ReviewService.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD431F48A215003C936E /* ReviewService.m */; };
+		1813BDBC1F55E6F300D9C9BA /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813BDBB1F55E6F300D9C9BA /* ProfileTableViewCell.m */; };
 		181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181853261F3D833F00EEB73B /* DashboardDataModel.m */; };
 		1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532A1F3D8A7F00EEB73B /* DashboardService.m */; };
 		1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532E1F3DFED000EEB73B /* ImageCaching.m */; };
@@ -23,7 +24,6 @@
 		184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */; };
 		185F707F1F55A839007F49F7 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185F707E1F55A839007F49F7 /* ProfileViewController.m */; };
 		1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */; };
-		187129031F48CAAA00D16581 /* ProductDetailDownArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 187129021F48CAAA00D16581 /* ProductDetailDownArrow.png */; };
 		187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 187129061F48D5BC00D16581 /* UpdateCartItem.m */; };
 		187129091F48DD2B00D16581 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 187129081F48DD2A00D16581 /* MediaPlayer.framework */; };
 		1875618D1F469B2800F609AB /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875618C1F469B2800F609AB /* NotificationService.m */; };
@@ -50,6 +50,8 @@
 		188B2C171F41DFFA0001A7AE /* SearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C161F41DFFA0001A7AE /* SearchService.m */; };
 		188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C1A1F41F45A0001A7AE /* CurrencyDataModel.m */; };
 		18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */; };
+		18C418E01F56E9D500749654 /* UIImage+UIImage_fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418DF1F56E9D500749654 /* UIImage+UIImage_fixOrientation.m */; };
+		18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418E31F57266A00749654 /* EditProfileViewController.m */; };
 		18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */; };
 		18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F31F32E09800430842 /* GoNatuurViewController.m */; };
 		18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */; };
@@ -89,8 +91,8 @@
 		5D27AC621F55678C00AECF40 /* ProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC611F55678C00AECF40 /* ProfileService.m */; };
 		B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = B73A65371F3DF0630051E4C5 /* LocalizedString.m */; };
 		B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653A1F3DF07F0051E4C5 /* en.strings */; };
-		B73A653E1F3DF0870051E4C5 /* zh_Simplified.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653C1F3DF0870051E4C5 /* zh_Simplified.strings */; };
-		B73A653F1F3DF0870051E4C5 /* zh_Traditional.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653D1F3DF0870051E4C5 /* zh_Traditional.strings */; };
+		B73A653E1F3DF0870051E4C5 /* cn.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653C1F3DF0870051E4C5 /* cn.strings */; };
+		B73A653F1F3DF0870051E4C5 /* zh.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653D1F3DF0870051E4C5 /* zh.strings */; };
 		B73E00E31F4184DF001DEBA2 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B73E00E21F4184DF001DEBA2 /* Montserrat-Bold.otf */; };
 		B745811D1F39BECC00A164D6 /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = B745811C1F39BECC00A164D6 /* BSKeyboardControls.m */; };
 		B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = B74581201F39C8EA00A164D6 /* UIFont+CustomFont.m */; };
@@ -145,6 +147,8 @@
 		180ECD3F1F48A1D1003C936E /* ReviewDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewDataModel.m; sourceTree = "<group>"; };
 		180ECD421F48A215003C936E /* ReviewService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewService.h; sourceTree = "<group>"; };
 		180ECD431F48A215003C936E /* ReviewService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewService.m; sourceTree = "<group>"; };
+		1813BDBA1F55E6F300D9C9BA /* ProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewCell.h; sourceTree = "<group>"; };
+		1813BDBB1F55E6F300D9C9BA /* ProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewCell.m; sourceTree = "<group>"; };
 		181853251F3D833F00EEB73B /* DashboardDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardDataModel.h; sourceTree = "<group>"; };
 		181853261F3D833F00EEB73B /* DashboardDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardDataModel.m; sourceTree = "<group>"; };
 		181853291F3D8A7F00EEB73B /* DashboardService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardService.h; sourceTree = "<group>"; };
@@ -160,7 +164,6 @@
 		185F707E1F55A839007F49F7 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		1870F0BC1F44185F008B2CE5 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
-		187129021F48CAAA00D16581 /* ProductDetailDownArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProductDetailDownArrow.png; sourceTree = "<group>"; };
 		187129051F48D5BC00D16581 /* UpdateCartItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateCartItem.h; sourceTree = "<group>"; };
 		187129061F48D5BC00D16581 /* UpdateCartItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateCartItem.m; sourceTree = "<group>"; };
 		187129081F48DD2A00D16581 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -201,6 +204,10 @@
 		188B2C1A1F41F45A0001A7AE /* CurrencyDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyDataModel.m; sourceTree = "<group>"; };
 		18C1DF7C1F3CAE96000D9431 /* DasboardDataCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasboardDataCollectionViewCell.h; sourceTree = "<group>"; };
 		18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DasboardDataCollectionViewCell.m; sourceTree = "<group>"; };
+		18C418DE1F56E9D500749654 /* UIImage+UIImage_fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImage_fixOrientation.h"; sourceTree = "<group>"; };
+		18C418DF1F56E9D500749654 /* UIImage+UIImage_fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIImage_fixOrientation.m"; sourceTree = "<group>"; };
+		18C418E21F57266A00749654 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
+		18C418E31F57266A00749654 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		18E5D5831F342DE500829292 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
 		18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		18F7A8F21F32E09800430842 /* GoNatuurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurViewController.h; sourceTree = "<group>"; };
@@ -269,8 +276,8 @@
 		B73A65361F3DF0630051E4C5 /* LocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedString.h; sourceTree = "<group>"; };
 		B73A65371F3DF0630051E4C5 /* LocalizedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedString.m; sourceTree = "<group>"; };
 		B73A653A1F3DF07F0051E4C5 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
-		B73A653C1F3DF0870051E4C5 /* zh_Simplified.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = zh_Simplified.strings; sourceTree = "<group>"; };
-		B73A653D1F3DF0870051E4C5 /* zh_Traditional.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = zh_Traditional.strings; sourceTree = "<group>"; };
+		B73A653C1F3DF0870051E4C5 /* cn.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = cn.strings; sourceTree = "<group>"; };
+		B73A653D1F3DF0870051E4C5 /* zh.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = zh.strings; sourceTree = "<group>"; };
 		B73E00E21F4184DF001DEBA2 /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.otf"; sourceTree = "<group>"; };
 		B745811B1F39BECC00A164D6 /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
 		B745811C1F39BECC00A164D6 /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
@@ -406,6 +413,24 @@
 			name = ReviewService;
 			sourceTree = "<group>";
 		};
+		1813BDB91F55E6CA00D9C9BA /* ProfileViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				1813BDBA1F55E6F300D9C9BA /* ProfileTableViewCell.h */,
+				1813BDBB1F55E6F300D9C9BA /* ProfileTableViewCell.m */,
+			);
+			name = ProfileViewCell;
+			sourceTree = "<group>";
+		};
+		1813BDBD1F55E70100D9C9BA /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				1813BDB91F55E6CA00D9C9BA /* ProfileViewCell */,
+				185F70761F55A00A007F49F7 /* ProfileViewController */,
+			);
+			name = ProfileView;
+			sourceTree = "<group>";
+		};
 		181853241F3D832200EEB73B /* DashboardModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -483,6 +508,8 @@
 			children = (
 				5D1E5E351F56840A006E6C63 /* AddressViewController */,
 				185F70761F55A00A007F49F7 /* ProfileViewController */,
+				18C418E11F57263600749654 /* EditProfileView */,
+				1813BDBD1F55E70100D9C9BA /* ProfileView */,
 				5D27AC571F553A0500AECF40 /* ChangePasswordViewController */,
 			);
 			name = ProfileModule;
@@ -679,6 +706,24 @@
 			name = DashboardDataCell;
 			sourceTree = "<group>";
 		};
+		18C418DD1F56E9C400749654 /* ImageOrientationCategory */ = {
+			isa = PBXGroup;
+			children = (
+				18C418DE1F56E9D500749654 /* UIImage+UIImage_fixOrientation.h */,
+				18C418DF1F56E9D500749654 /* UIImage+UIImage_fixOrientation.m */,
+			);
+			name = ImageOrientationCategory;
+			sourceTree = "<group>";
+		};
+		18C418E11F57263600749654 /* EditProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				18C418E21F57266A00749654 /* EditProfileViewController.h */,
+				18C418E31F57266A00749654 /* EditProfileViewController.m */,
+			);
+			name = EditProfileView;
+			sourceTree = "<group>";
+		};
 		18E5D5821F342DAF00829292 /* ForgotPasswordViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -787,7 +832,6 @@
 		320761641F162724001F1790 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				187129021F48CAAA00D16581 /* ProductDetailDownArrow.png */,
 				1875619B1F46AAC500F609AB /* dashboard_banner1.png */,
 				1875619C1F46AAC500F609AB /* dashboard_banner2.png */,
 			);
@@ -818,6 +862,7 @@
 		320761661F162789001F1790 /* CategoryClasses */ = {
 			isa = PBXGroup;
 			children = (
+				18C418DD1F56E9C400749654 /* ImageOrientationCategory */,
 				187129041F48D54400D16581 /* UpdateCartItem */,
 				1870F0BB1F44184F008B2CE5 /* ToastView */,
 				B73A65351F3DF0530051E4C5 /* LocalizedString */,
@@ -1122,8 +1167,8 @@
 			isa = PBXGroup;
 			children = (
 				B73A653A1F3DF07F0051E4C5 /* en.strings */,
-				B73A653C1F3DF0870051E4C5 /* zh_Simplified.strings */,
-				B73A653D1F3DF0870051E4C5 /* zh_Traditional.strings */,
+				B73A653C1F3DF0870051E4C5 /* cn.strings */,
+				B73A653D1F3DF0870051E4C5 /* zh.strings */,
 			);
 			name = LocalizableStringFiles;
 			sourceTree = "<group>";
@@ -1411,11 +1456,10 @@
 				32A3D7131F1CE3BB00062B86 /* GoogleSignIn.bundle in Resources */,
 				184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */,
 				32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */,
-				B73A653F1F3DF0870051E4C5 /* zh_Traditional.strings in Resources */,
+				B73A653F1F3DF0870051E4C5 /* zh.strings in Resources */,
 				B7AA39B41F47101400423121 /* GoNatuurFilterView.xib in Resources */,
 				187561931F469E1000F609AB /* BottomTabViewController.xib in Resources */,
 				18FB17E41F4EA32200B5A4CD /* MONTSERRAT-LIGHTITALIC.TTF in Resources */,
-				187129031F48CAAA00D16581 /* ProductDetailDownArrow.png in Resources */,
 				32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */,
 				1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */,
 				B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */,
@@ -1429,7 +1473,7 @@
 				B73E00E31F4184DF001DEBA2 /* Montserrat-Bold.otf in Resources */,
 				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
 				1875619A1F469F8600F609AB /* Main.storyboard in Resources */,
-				B73A653E1F3DF0870051E4C5 /* zh_Simplified.strings in Resources */,
+				B73A653E1F3DF0870051E4C5 /* cn.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1521,11 +1565,13 @@
 				1875618D1F469B2800F609AB /* NotificationService.m in Sources */,
 				B7A4D3FA1F4854CC00A28BBE /* ProductDataModel.m in Sources */,
 				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,
+				18C418E01F56E9D500749654 /* UIImage+UIImage_fixOrientation.m in Sources */,
 				180ECD401F48A1D1003C936E /* ReviewDataModel.m in Sources */,
 				B7AA39B31F47101400423121 /* GoNatuurFilterView.m in Sources */,
 				180ECD251F482A38003C936E /* WebViewController.m in Sources */,
 				180ECD291F484A17003C936E /* ReviewViewController.m in Sources */,
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
+				18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
@@ -1558,6 +1604,7 @@
 				188B2C0A1F419E8B0001A7AE /* SearchListingViewController.m in Sources */,
 				5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */,
 				32CC20951F25B1D90054C344 /* LoginModel.m in Sources */,
+				1813BDBC1F55E6F300D9C9BA /* ProfileTableViewCell.m in Sources */,
 				5D27AC5E1F55649E00AECF40 /* ProfileModel.m in Sources */,
 				188B2C171F41DFFA0001A7AE /* SearchService.m in Sources */,
 			);
