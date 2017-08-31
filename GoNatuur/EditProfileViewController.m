@@ -14,7 +14,7 @@
 
 @interface EditProfileViewController ()<BSKeyboardControlsDelegate,GoNatuurPickerViewDelegate> {
     UITextField *currentSelectedTextField;
-    NSArray *changeCurrencyArray;
+    NSMutableArray *changeCurrencyArray;
     NSArray *changeLanguageArray;
     GoNatuurPickerView *gNPickerViewObj;
     int languagePickerIndex, currencyPickerIndex;
@@ -36,6 +36,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     changeLanguageArray = @[@"English", @"中國傳統的", @"简体中文"];
+    changeCurrencyArray = [[UserDefaultManager getValue:@"AvailableCurrencyCodes"] mutableCopy];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -163,7 +164,6 @@
 }
 
 - (IBAction)currencyPickerButtonActio:(id)sender {
-    changeCurrencyArray = [UserDefaultManager getValue:@"AvailableCurrencyCodes"];
     //show currency change picker
     currentSelectedTextField=_changeCurrencyTextField;
     [self scrollViewInsetes:230];
@@ -198,6 +198,7 @@
     }
     else {
         currencyPickerIndex=tempSelectedIndex;
+        _changeCurrencyTextField.text=[changeCurrencyArray objectAtIndex:tempSelectedIndex];
     }
 }
 

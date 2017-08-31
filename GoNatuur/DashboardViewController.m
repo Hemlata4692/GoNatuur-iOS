@@ -62,7 +62,6 @@
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
-    NSLog(@"%@",NSLocalizedText(@"GoNatuur"));
     [self addLeftBarButtonWithImage:false];
     myDelegate.selectedCategoryIndex=-1;
     [self showSelectedTab:1];
