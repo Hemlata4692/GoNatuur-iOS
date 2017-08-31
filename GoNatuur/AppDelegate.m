@@ -75,7 +75,7 @@
     //Call crashlytics method
     //[self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
 
-    
+    [UserDefaultManager setValue:@"en" key:@"Language"];
     [NSThread sleepForTimeInterval:1.0];
         //Set navigation bar color
    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont montserratMediumWithSize:20], NSFontAttributeName, nil]];

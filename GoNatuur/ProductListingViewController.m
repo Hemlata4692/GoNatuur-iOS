@@ -341,7 +341,7 @@
     DLog(@"%d",option);
     if (option==1) {
         if (subCategoryPickerArray.count>0) {
-            [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1];
+            [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false];
         }
     }
 }

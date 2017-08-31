@@ -67,7 +67,7 @@ static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
                                                                    }
                                                                ],
                                                        @"sort_orders" : @[
-                                                               @{@"field":@"entity_id",
+                                                               @{@"field":@"name",
                                                                  @"direction":@"ASC"
                                                                  }
                                                                ],

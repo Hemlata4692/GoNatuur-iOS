@@ -170,12 +170,12 @@
 #pragma mark - IBActions
 - (IBAction)starFilterButtonAction:(id)sender {
     [_searchTextField resignFirstResponder];
-    [sortingPickerView showPickerView:starFilterDataArray selectedIndex:(selectedPickerIndex==-1?1:selectedPickerIndex) option:1];
+    [sortingPickerView showPickerView:starFilterDataArray selectedIndex:(selectedPickerIndex==-1?1:selectedPickerIndex) option:1 isCancelDelegate:false];
 }
 
 - (IBAction)sortByFilterAction:(id)sender {
     [_searchTextField resignFirstResponder];
-    [sortingPickerView showPickerView:sortByDataArray selectedIndex:(selectedSortFilterIndex==-1?0:selectedSortFilterIndex) option:2];
+    [sortingPickerView showPickerView:sortByDataArray selectedIndex:(selectedSortFilterIndex==-1?0:selectedSortFilterIndex) option:2 isCancelDelegate:false];
 }
 
 - (IBAction)writeReviewButtonAction:(id)sender {
