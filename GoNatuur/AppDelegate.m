@@ -17,16 +17,6 @@
 #import <ZDCChat/ZDCChat.h>
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-#define RED_COLOR [UIColor colorWithRed:232.0f/255.f green:42.0f/255.0f blue:42.0f/255.0f alpha:1.0f]
-#define ORANGE_COLOR [UIColor colorWithRed:253.0f/255.f green:144.0f/255.0f blue:38.0f/255.0f alpha:1.0f]
-#define ORANGE_COLOR_40 [UIColor colorWithRed:253.0f/255.f green:144.0f/255.0f blue:38.0f/255.0f alpha:0.4f]
-
-#define TEXT_COLOR [UIColor colorWithRed:150.0f/255.f green:110.0f/255.0f blue:90.0f/255.0f alpha:1.0f]
-#define TEXT_COLOR_40 [UIColor colorWithRed:150.0f/255.f green:110.0f/255.0f blue:90.0f/255.0f alpha:.4f]
-
-#define PLACEHOLDER_COLOR [UIColor colorWithRed:217.0f/255.f green:205.0f/255.0f blue:200.0f/255.0f alpha:1.0f]
-#define NAVBAR_COLOR [UIColor colorWithRed:240.0f/255.f green:240.0f/255.0f blue:240.0f/255.0f alpha:1.0f]
-#define EMAIL_COLOR [UIColor colorWithRed:214.0f/255.f green:214.0f/255.0f blue:214.0f/255.0f alpha:1.0f]
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>{
     UIView *loaderView;
@@ -207,15 +197,11 @@
     }
     selectedCategoryIndex=-1;
     
+    //ZopimTicket setup
     [[ZDKConfig instance] initializeWithAppId:@"54S60ESovtSg9glT9nUunk1oc7YKGWoi"
                                    zendeskUrl:@"https://rememberthedate.zendesk.com"
                                      clientId:@"client_for_rtd_jwt_endpoint"];
-    
-    //
-    // Style the SDK
-    //
-    
-    [self setupSDKStyle];
+    [[ZDCChatOverlay appearance] setInsets:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsMake(75.0f, 15.0f, 70.0f, 15.0f)]];
     // ZopimChat setup
     [ChatStyling applyStyling];
     // Configure account key and pre-chat form
@@ -241,14 +227,6 @@
     [ZDCLog setLogLevel:ZDCLogLevelWarn];
 }
 #pragma mark - end
-
--(void) setupSDKStyle {
-    
-    [[ZDKRequestListTableCell appearance] setUnreadColor:RED_COLOR];
-    
-    // chat SDK
-    [[ZDCChatOverlay appearance] setInsets:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsMake(75.0f, 15.0f, 70.0f, 15.0f)]];
-}
 
 #pragma mark - Facebook open url connection
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
