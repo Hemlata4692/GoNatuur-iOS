@@ -11,6 +11,7 @@
 #import "BSKeyboardControls.h"
 #import "GoNatuurPickerView.h"
 #import "CurrencyDataModel.h"
+#import "ProfileModel.h"
 
 @interface EditProfileViewController ()<BSKeyboardControlsDelegate,GoNatuurPickerViewDelegate> {
     UITextField *currentSelectedTextField;
@@ -35,8 +36,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    changeLanguageArray = @[@"English", @"中國傳統的", @"简体中文"];
+    changeLanguageArray = @[NSLocalizedText(@"en"), NSLocalizedText(@"zh"), NSLocalizedText(@"cn")];
     changeCurrencyArray = [[UserDefaultManager getValue:@"AvailableCurrencyCodes"] mutableCopy];
+    
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getUserProfile) withObject:nil afterDelay:.1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -153,7 +157,7 @@
 }
 
 - (IBAction)manageAddressesButtionAction:(id)sender {
-    
+    ////4=> English,5=>traditional,6=>simplified
 }
 
 - (IBAction)languagePickerButtonActio:(id)sender {
@@ -208,4 +212,45 @@
 }
 #pragma mark - end
 
+#pragma mark - Web services
+//Get user profile
+- (void)getUserProfile {
+    ProfileModel *userData = [ProfileModel sharedUser];
+    [userData getUserProfile:^(ProfileModel *userData) {
+        [myDelegate stopIndicator];
+        //dispaly profile data
+        [self displayData:userData];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+//display profile data
+- (void)displayData:(ProfileModel *)data {
+    _firstNameTextField.text=data.firstName;
+    _lastNameTextField.text=data.lastName;
+    //zh for traditional and cn for simplified
+    //4=> English,5=>traditional,6=>simplified
+    if ([data.defaultLanguage isEqualToString:@""] || data.defaultLanguage==nil) {
+        _changeLaguageTextField.text=@"English";
+    }
+    else {
+        if ([data.defaultLanguage intValue] == 4) {
+            _changeLaguageTextField.text=NSLocalizedText(@"en");
+        }
+        else if ([data.defaultLanguage intValue] == 5) {
+            _changeLaguageTextField.text=NSLocalizedText(@"zh");
+        }
+        else if ([data.defaultLanguage intValue] == 6) {
+            _changeLaguageTextField.text=NSLocalizedText(@"cn");
+        }
+    }
+    if ([data.defaultCurrency isEqualToString:@""] || data.defaultCurrency==nil) {
+        _changeCurrencyTextField.text=@"INR";
+    }
+    else {
+        _changeCurrencyTextField.text=data.defaultCurrency;
+    }
+}
+#pragma mark - end
 @end

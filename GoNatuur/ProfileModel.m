@@ -15,6 +15,28 @@
 @synthesize countryLocale;
 @synthesize countryId;
 @synthesize countryCodeArray;
+@synthesize email;
+@synthesize firstName;
+@synthesize lastName;
+@synthesize defaultLanguage;
+@synthesize defaultCurrency;
+@synthesize addressArray;
+@synthesize city;
+@synthesize defaultBillingAddress;
+@synthesize defaultShippingAddress;
+@synthesize postalCode;
+@synthesize stateName;
+@synthesize stateCode;
+@synthesize stateID;
+@synthesize addressLine1;
+@synthesize addressLine2;
+@synthesize phoneNumber;
+@synthesize addreesFirstName;
+@synthesize addreesLastName;
+@synthesize addressCountry;
+@synthesize companyName;
+@synthesize fax;
+@synthesize addressId;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -25,6 +47,18 @@
     });
     
     return profileData;
+}
+#pragma mark - end
+
+#pragma mark - Get user profile
+- (void)getUserProfile:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getUserProfileData:self onSuccess:^(ProfileModel *profileData) {
+        if (success) {
+            success (profileData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }];
 }
 #pragma mark - end
 

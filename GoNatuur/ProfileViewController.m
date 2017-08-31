@@ -27,7 +27,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"customerSupportCell", @"changePasswordCell"];
-    customerSupportArray=@[@"Chat with us",@"Raise a ticket"];
+    customerSupportArray=@[@"Chat with us",@"View and raise tickets."];
     [self addCustomPickerView];
 }
 
