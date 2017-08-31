@@ -131,7 +131,7 @@
         _profileTabImageIcon.alpha=1.0;
         myDelegate.tabButtonTag=@"0";
     }*/
-    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    [self featureNotAvailable];
 }
 
 - (IBAction)wishlistTabAction:(id)sender {
@@ -147,7 +147,7 @@
         _profileTabImageIcon.alpha=1.0;
         myDelegate.tabButtonTag=@"0";
     }*/
-    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    [self featureNotAvailable];
 }
 
 - (IBAction)profileTabAction:(id)sender {
@@ -163,7 +163,13 @@
         _profileTabImageIcon.alpha=0.6;
         myDelegate.tabButtonTag=@"0";
     }*/
-    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    [self featureNotAvailable];
+}
+
+- (void)featureNotAvailable {
+    if (![myDelegate checkGuestAccess]) {
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    }
 }
 #pragma mark - end
 

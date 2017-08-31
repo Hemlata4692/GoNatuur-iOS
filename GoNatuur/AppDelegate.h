@@ -28,7 +28,7 @@
 
 - (void)registerForRemoteNotification;
 - (void)unregisterForRemoteNotifications;
-- (void)checkGuestAccess;
+- (BOOL)checkGuestAccess;
 - (void)logoutUser;
 @end
 

@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProductDetailViewController.h"
 
 @interface ReviewListingViewController : GoNatuurViewController
 @property (nonatomic,strong) NSNumber *productID;
 @property (nonatomic,strong) NSString *reviewAdded;
 @property (nonatomic,strong) NSString *reviewId;
+@property (nonatomic,strong) ProductDetailViewController *productDetailObj;
 @end
