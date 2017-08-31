@@ -12,6 +12,9 @@
 @implementation ProfileModel
 @synthesize currentPassword;
 @synthesize changePassword;
+@synthesize countryLocale;
+@synthesize countryId;
+@synthesize countryCodeArray;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -37,4 +40,15 @@
 }
 #pragma mark - end
 
+#pragma mark - Change password
+- (void)getCountryCodeService:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getCountryCodeService:self onSuccess:^(ProfileModel *profileData) {
+        if (success) {
+            success (profileData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
 @end
