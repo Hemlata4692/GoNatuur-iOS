@@ -35,6 +35,7 @@
         if (success) {
             [UserDefaultManager setValue:userData.userCurrency key:@"DefaultCurrency"];
             [UserDefaultManager setValue:userData.currentCurrencyCode key:@"DefaultCurrencyCode"];
+            [UserDefaultManager setValue:userData.availableCurrencyArray key:@"AvailableCurrencyCodes"];
             success (userData);
         }
     } onFailure:^(NSError *error) {

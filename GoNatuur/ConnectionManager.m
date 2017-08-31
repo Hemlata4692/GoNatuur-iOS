@@ -650,4 +650,35 @@
     }] ;
 }
 #pragma mark - end
+
+#pragma mark - Change password service
+- (void)getCountryCodeService:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
+    ProfileService *profileService = [[ProfileService alloc] init];
+    [profileService getCountryCodeService:profileData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"country code list response %@",response);
+        profileData.countryCodeArray=[[NSMutableArray alloc]init];
+        profileData.regionArray=[[NSMutableArray alloc]init];
+        NSArray *countryArray=response;
+        for (int i=0; i<countryArray.count; i++) {
+            NSDictionary * dataDict =[countryArray objectAtIndex:i];
+            ProfileModel *countryData=[[ProfileModel alloc] init];
+            countryData.countryLocale=[dataDict objectForKey:@"full_name_locale"];
+            countryData.countryId=[dataDict objectForKey:@"id"];
+            NSArray *regionListArray = [dataDict objectForKey:@"available_regions"];
+            for (int j=0; j<regionListArray.count; j++) {
+                NSDictionary * regionDict =[regionListArray objectAtIndex:j];
+                countryData.regionId=[regionDict objectForKey:@"id"];
+                countryData.regionCode=[regionDict objectForKey:@"code"];
+                countryData.regionName=[regionDict objectForKey:@"name"];
+                [profileData.regionArray addObject:countryData];
+            }
+            [profileData.countryCodeArray addObject:countryData];
+        }
+        success(profileData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
 @end
