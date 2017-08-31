@@ -1395,7 +1395,7 @@
         <!--Change Password View Controller-->
         <scene sceneID="SrS-CN-cju">
             <objects>
-                <viewController storyboardIdentifier="ChangePasswordViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="po3-33-eVu" customClass="ChangePasswordViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChangePasswordViewController" extendedLayoutIncludesOpaqueBars="YES" id="po3-33-eVu" customClass="ChangePasswordViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uBz-Jd-2rh"/>
                         <viewControllerLayoutGuide type="bottom" id="bqV-B1-M8p"/>
@@ -1445,7 +1445,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="uSt-25-Ggc"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1990,6 +1990,9 @@
                                             <constraint firstItem="cMD-uk-GRt" firstAttribute="leading" secondItem="TJU-w2-B1t" secondAttribute="leading" constant="10" id="XBD-gJ-BNn"/>
                                             <constraint firstAttribute="trailing" secondItem="cMD-uk-GRt" secondAttribute="trailing" constant="10" id="azi-Up-3fe"/>
                                         </constraints>
+                                        <connections>
+                                            <segue destination="po3-33-eVu" kind="show" id="3mH-2g-zlt"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -4773,6 +4776,7 @@
         <image name="reddempoint" width="26" height="26"/>
         <image name="review" width="28" height="28"/>
         <image name="review-placeholder" width="100" height="100"/>
+        <image name="selected" width="28" height="28"/>
         <image name="sep1" width="640" height="2"/>
         <image name="seprator" width="632" height="1"/>
         <image name="share" width="28" height="28"/>
@@ -4780,6 +4784,7 @@
         <image name="signout" width="26" height="26"/>
         <image name="soldout" width="261" height="258"/>
         <image name="star" width="22" height="22"/>
+        <image name="unselected" width="28" height="28"/>
         <image name="user" width="18" height="18"/>
         <image name="video-icon" width="28" height="28"/>
     </resources>

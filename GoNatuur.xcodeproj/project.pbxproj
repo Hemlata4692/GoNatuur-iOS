@@ -85,6 +85,7 @@
 		32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20901F25B1760054C344 /* ConnectionManager.m */; };
 		32CC20951F25B1D90054C344 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20941F25B1D90054C344 /* LoginModel.m */; };
 		32CC20991F25B1F80054C344 /* LoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20981F25B1F80054C344 /* LoginService.m */; };
+		5D1E5E3B1F56845D006E6C63 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D1E5E3A1F56845D006E6C63 /* AddressViewController.m */; };
 		5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC591F553A3500AECF40 /* ChangePasswordViewController.m */; };
 		5D27AC5E1F55649E00AECF40 /* ProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC5D1F55649E00AECF40 /* ProfileModel.m */; };
 		5D27AC621F55678C00AECF40 /* ProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC611F55678C00AECF40 /* ProfileService.m */; };
@@ -263,6 +264,8 @@
 		32CC20941F25B1D90054C344 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		32CC20971F25B1F80054C344 /* LoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginService.h; sourceTree = "<group>"; };
 		32CC20981F25B1F80054C344 /* LoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginService.m; sourceTree = "<group>"; };
+		5D1E5E391F56845D006E6C63 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
+		5D1E5E3A1F56845D006E6C63 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
 		5D27AC581F553A3500AECF40 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		5D27AC591F553A3500AECF40 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		5D27AC5C1F55649E00AECF40 /* ProfileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileModel.h; sourceTree = "<group>"; };
@@ -1113,6 +1116,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5D1E5E351F56840A006E6C63 /* AddressViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5D1E5E391F56845D006E6C63 /* AddressViewController.h */,
+				5D1E5E3A1F56845D006E6C63 /* AddressViewController.m */,
+			);
+			name = AddressViewController;
+			sourceTree = "<group>";
+		};
 		5D27AC571F553A0500AECF40 /* ChangePasswordViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1533,6 +1545,7 @@
 				187561971F469F3800F609AB /* NotificationViewController.m in Sources */,
 				B7AA39C01F47108D00423121 /* ProductListingViewController.m in Sources */,
 				1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */,
+				5D1E5E3B1F56845D006E6C63 /* AddressViewController.m in Sources */,
 				18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */,
 				B745811D1F39BECC00A164D6 /* BSKeyboardControls.m in Sources */,
 				18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */,
@@ -1732,8 +1745,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.GoNatuur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5d36d161-4eab-49e9-b4bd-cc5088e93d30";
-				PROVISIONING_PROFILE_SPECIFIER = RanosysWildcard;
+				PROVISIONING_PROFILE = "52596806-52c6-4ca4-8ca4-e14557529bec";
+				PROVISIONING_PROFILE_SPECIFIER = GoNatuur_in_house_distribution_profile_27aug2017;
 			};
 			name = Debug;
 		};
@@ -1756,8 +1769,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.GoNatuur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5d36d161-4eab-49e9-b4bd-cc5088e93d30";
-				PROVISIONING_PROFILE_SPECIFIER = RanosysWildcard;
+				PROVISIONING_PROFILE = "52596806-52c6-4ca4-8ca4-e14557529bec";
+				PROVISIONING_PROFILE_SPECIFIER = GoNatuur_in_house_distribution_profile_27aug2017;
 			};
 			name = Release;
 		};

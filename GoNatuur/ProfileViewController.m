@@ -38,8 +38,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+    self.title=NSLocalizedText(@"profileTitle");
     self.navigationController.navigationBarHidden=false;
-    //self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:false];
     [self.view bringSubviewToFront:customerSupportPicker.goNatuurPickerViewObj];
     [self showSelectedTab:4];

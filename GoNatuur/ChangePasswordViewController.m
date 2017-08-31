@@ -14,11 +14,12 @@
 
 @interface ChangePasswordViewController ()<BSKeyboardControlsDelegate>
 
-@property (strong, nonatomic) BSKeyboardControls *keyboardControls;
 @property (weak, nonatomic) IBOutlet UITextField *oldPassword;
 @property (weak, nonatomic) IBOutlet UITextField *changePassword;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPassword;
 @property (weak, nonatomic) IBOutlet UIButton *changePasswordButton;
+//Declare BSKeyboard variable
+@property (strong, nonatomic) BSKeyboardControls *keyboardControls;
 
 @end
 
