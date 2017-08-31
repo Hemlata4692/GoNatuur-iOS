@@ -113,6 +113,10 @@
 		B7AA39C81F47116E00423121 /* ProductListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AA39C71F47116E00423121 /* ProductListTableViewCell.m */; };
 		B7DA71F31F5034F300F45439 /* HCYoutubeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B7DA71F21F5034F300F45439 /* HCYoutubeParser.m */; };
 		B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */ = {isa = PBXBuildFile; fileRef = B7DDB1AD1F399D14009BB8A5 /* ConstantCode.m */; };
+		B7E9F3CC1F57BFAF008378BF /* ZendeskProviderSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E9F3CB1F57BFAF008378BF /* ZendeskProviderSDK.framework */; };
+		B7E9F3CE1F57C00C008378BF /* ZendeskSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7E9F3CD1F57C00C008378BF /* ZendeskSDK.framework */; };
+		B7E9F3D01F57CF82008378BF /* ZendeskSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B7E9F3CF1F57CF82008378BF /* ZendeskSDK.bundle */; };
+		B7E9F3D21F57CF8F008378BF /* ZendeskSDKStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B7E9F3D11F57CF8F008378BF /* ZendeskSDKStrings.bundle */; };
 		E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */; };
 /* End PBXBuildFile section */
 
@@ -308,6 +312,10 @@
 		B7DA71F21F5034F300F45439 /* HCYoutubeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCYoutubeParser.m; sourceTree = "<group>"; };
 		B7DDB1AC1F399D14009BB8A5 /* ConstantCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantCode.h; sourceTree = "<group>"; };
 		B7DDB1AD1F399D14009BB8A5 /* ConstantCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstantCode.m; sourceTree = "<group>"; };
+		B7E9F3CB1F57BFAF008378BF /* ZendeskProviderSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZendeskProviderSDK.framework; sourceTree = "<group>"; };
+		B7E9F3CD1F57C00C008378BF /* ZendeskSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZendeskSDK.framework; sourceTree = "<group>"; };
+		B7E9F3CF1F57CF82008378BF /* ZendeskSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZendeskSDK.bundle; sourceTree = "<group>"; };
+		B7E9F3D11F57CF8F008378BF /* ZendeskSDKStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZendeskSDKStrings.bundle; sourceTree = "<group>"; };
 		B83EEE6EC30D7C8806561F9A /* Pods-GoNatuur.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.release.xcconfig"; sourceTree = "<group>"; };
 		BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoNatuur.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -318,10 +326,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				187129091F48DD2B00D16581 /* MediaPlayer.framework in Frameworks */,
+				B7E9F3CC1F57BFAF008378BF /* ZendeskProviderSDK.framework in Frameworks */,
 				188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */,
 				32A3D7111F1CE3BB00062B86 /* GoogleSymbolUtilities.framework in Frameworks */,
 				E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */,
 				32A3D7051F1CD2E100062B86 /* FBSDKCoreKit.framework in Frameworks */,
+				B7E9F3CE1F57C00C008378BF /* ZendeskSDK.framework in Frameworks */,
 				32A3D7061F1CD2E100062B86 /* FBSDKLoginKit.framework in Frameworks */,
 				B71F17B51F567FB4007B7BBC /* ZDCChat.framework in Frameworks */,
 				B71F17B61F567FB4007B7BBC /* ZDCChatAPI.framework in Frameworks */,
@@ -1048,6 +1058,8 @@
 		3C0B4A3E4E995FBB10C57627 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B7E9F3CD1F57C00C008378BF /* ZendeskSDK.framework */,
+				B7E9F3CB1F57BFAF008378BF /* ZendeskProviderSDK.framework */,
 				B71F17B31F567FB4007B7BBC /* ZDCChat.framework */,
 				B71F17B41F567FB4007B7BBC /* ZDCChatAPI.framework */,
 				187129081F48DD2A00D16581 /* MediaPlayer.framework */,
@@ -1086,6 +1098,8 @@
 		B71F17AE1F567F3A007B7BBC /* ZopimFiles */ = {
 			isa = PBXGroup;
 			children = (
+				B7E9F3D11F57CF8F008378BF /* ZendeskSDKStrings.bundle */,
+				B7E9F3CF1F57CF82008378BF /* ZendeskSDK.bundle */,
 				B71F17AF1F567F4B007B7BBC /* ZDCChat.bundle */,
 				B71F17B01F567F4B007B7BBC /* ZDCChatStrings.bundle */,
 			);
@@ -1389,6 +1403,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7E9F3D21F57CF8F008378BF /* ZendeskSDKStrings.bundle in Resources */,
 				188605A11F39C1FA0005D1E2 /* CategorySliderCell.xib in Resources */,
 				B7AA39B91F47102100423121 /* GoNatuurPickerView.xib in Resources */,
 				32A3D7131F1CE3BB00062B86 /* GoogleSignIn.bundle in Resources */,
@@ -1408,6 +1423,7 @@
 				1886059C1F39C0FC0005D1E2 /* CategorySliderViewController.xib in Resources */,
 				188605AE1F39D7620005D1E2 /* Montserrat-Medium.otf in Resources */,
 				B71F17B21F567F4B007B7BBC /* ZDCChatStrings.bundle in Resources */,
+				B7E9F3D01F57CF82008378BF /* ZendeskSDK.bundle in Resources */,
 				B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
 				B73E00E31F4184DF001DEBA2 /* Montserrat-Bold.otf in Resources */,
