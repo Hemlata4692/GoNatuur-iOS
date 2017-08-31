@@ -171,6 +171,12 @@
         }
     }
 }
+
+- (void)featureNotAvailable {
+    if (![myDelegate checkGuestAccess]) {
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    }
+}
 #pragma mark - end
 
 @end
