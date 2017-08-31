@@ -651,7 +651,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Change password service
+#pragma mark - Country list service
 - (void)getCountryCodeService:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
     ProfileService *profileService = [[ProfileService alloc] init];
     [profileService getCountryCodeService:profileData onSuccess:^(id response) {
@@ -675,6 +675,33 @@
             }
             [profileData.countryCodeArray addObject:countryData];
         }
+        success(profileData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - User profile service
+- (void)getUserProfileData:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
+    ProfileService *profileService = [[ProfileService alloc] init];
+    [profileService getUserProfileServiceData:profileData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"user profile response %@",response);
+        profileData.firstName=response[@"firstname"];
+         profileData.lastName=response[@"lastname"];
+        profileData.email=response[@"email"];
+        for (NSDictionary *aDict in [response objectForKey:@"custom_attributes"]) {
+            if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultLanguage"]) {
+                profileData.defaultLanguage=[aDict objectForKey:@"value"];
+            }
+        }
+        for (NSDictionary *aDict in [response objectForKey:@"custom_attributes"]) {
+            if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultCurrency"]) {
+                profileData.defaultCurrency=[aDict objectForKey:@"value"];
+            }
+        }
+        profileData.addressArray=[response[@"addresses"]mutableCopy];
         success(profileData);
     } onFailure:^(NSError *error) {
         failure(error);

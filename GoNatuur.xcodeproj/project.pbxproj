@@ -425,8 +425,8 @@
 		1813BDBD1F55E70100D9C9BA /* ProfileView */ = {
 			isa = PBXGroup;
 			children = (
-				1813BDB91F55E6CA00D9C9BA /* ProfileViewCell */,
 				185F70761F55A00A007F49F7 /* ProfileViewController */,
+				1813BDB91F55E6CA00D9C9BA /* ProfileViewCell */,
 			);
 			name = ProfileView;
 			sourceTree = "<group>";
@@ -506,10 +506,9 @@
 		185F706A1F559D6B007F49F7 /* ProfileModule */ = {
 			isa = PBXGroup;
 			children = (
-				5D1E5E351F56840A006E6C63 /* AddressViewController */,
-				185F70761F55A00A007F49F7 /* ProfileViewController */,
-				18C418E11F57263600749654 /* EditProfileView */,
 				1813BDBD1F55E70100D9C9BA /* ProfileView */,
+				18C418E11F57263600749654 /* EditProfileView */,
+				5D1E5E351F56840A006E6C63 /* AddressViewController */,
 				5D27AC571F553A0500AECF40 /* ChangePasswordViewController */,
 			);
 			name = ProfileModule;

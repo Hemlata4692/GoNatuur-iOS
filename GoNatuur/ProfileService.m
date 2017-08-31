@@ -11,6 +11,7 @@
 
 static NSString *kChangePassword=@"customers/me/password";
 static NSString *kCountryCode=@"directory/countries";
+static NSString *kUserProfile=@"customers/me";
 
 @implementation ProfileService
 
@@ -23,9 +24,15 @@ static NSString *kCountryCode=@"directory/countries";
 }
 #pragma mark - end
 
-#pragma mark - Get cpuntry code service
+#pragma mark - Get country code service
 - (void)getCountryCodeService:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
     [super get:kCountryCode parameters:nil onSuccess:success onFailure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Get user service
+- (void)getUserProfileServiceData:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    [super get:kUserProfile parameters:nil onSuccess:success onFailure:failure];
 }
 #pragma mark - end
 @end

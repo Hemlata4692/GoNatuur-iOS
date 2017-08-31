@@ -126,6 +126,10 @@
     [_secondAddressField setTextBorder:_secondAddressField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_ZipcodeField setTextBorder:_ZipcodeField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_countryField setTextBorder:_countryField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
+    [self addPaddingShadow];
+}
+
+- (void)addPaddingShadow {
     [_firstNameField addTextFieldPaddingWithoutImages:_firstNameField];
     [_lastNameField addTextFieldPaddingWithoutImages:_lastNameField];
     [_phoneNumberField addTextFieldPaddingWithoutImages:_phoneNumberField];
@@ -261,4 +265,24 @@
     }
 }
 #pragma mark - end
+
+//NSArray *tempDataArray=response[@"addresses"];
+//for (int i=0; i<tempDataArray.count; i++) {
+//    NSDictionary * dataDict =[tempDataArray objectAtIndex:i];
+//    ProfileModel *addressData=[[ProfileModel alloc] init];
+//    addressData.city=[dataDict objectForKey:@"city"];
+//    addressData.companyName=[dataDict objectForKey:@"company"];
+//    addressData.addressCountry=[dataDict objectForKey:@"country_id"];
+//    addressData.defaultBillingAddress=[[dataDict objectForKey:@"default_billing"] stringValue];
+//    addressData.defaultShippingAddress=[[dataDict objectForKey:@"default_billing"]stringValue];
+//    addressData.addreesFirstName=[dataDict objectForKey:@"firstname"];
+//    addressData.addreesLastName=[dataDict objectForKey:@"lastname"];
+//    addressData.addressId=[dataDict objectForKey:@"id"];
+//    addressData.postalCode=[dataDict objectForKey:@"postcode"];
+//    addressData.addressLine1=[[dataDict objectForKey:@"street"]objectAtIndex:0];
+//    addressData.addressLine2=[[dataDict objectForKey:@"street"]objectAtIndex:1];
+//    //          //  addressData.stateID=[[[dataDict objectForKey:@"region"]objectAtIndex:2] objectForKey:@"region_id"];
+//    //            addressData.stateName=[[dataDict objectForKey:@"region"]objectAtIndex:0];
+//    //            addressData.stateCode=[[[dataDict objectForKey:@"region"]objectAtIndex:1] objectForKey:@"region_code"];
+//    addressData.phoneNumber=[dataDict objectForKey:@"telephone"];
 @end
