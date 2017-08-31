@@ -85,4 +85,16 @@
     }];
 }
 #pragma mark - end
+
+#pragma mark - Save address
+- (void)saveAndUpdateAddress:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] saveAndUpdateAddress:self onSuccess:^(ProfileModel *profileData) {
+        if (success) {
+            success (profileData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
 @end

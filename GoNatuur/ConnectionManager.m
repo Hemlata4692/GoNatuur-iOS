@@ -657,21 +657,23 @@
     [profileService getCountryCodeService:profileData onSuccess:^(id response) {
         //Parse data from server response and store in data model
         DLog(@"country code list response %@",response);
-        profileData.countryCodeArray=[[NSMutableArray alloc]init];
-        profileData.regionArray=[[NSMutableArray alloc]init];
         NSArray *countryArray=response;
+        profileData.countryCodeArray=[[NSMutableArray alloc]init];
         for (int i=0; i<countryArray.count; i++) {
-            NSDictionary * dataDict =[countryArray objectAtIndex:i];
             ProfileModel *countryData=[[ProfileModel alloc] init];
+            countryData.regionArray=[[NSMutableArray alloc]init];
+            NSDictionary * dataDict =[countryArray objectAtIndex:i];
             countryData.countryLocale=[dataDict objectForKey:@"full_name_locale"];
             countryData.countryId=[dataDict objectForKey:@"id"];
-            NSArray *regionListArray = [dataDict objectForKey:@"available_regions"];
-            for (int j=0; j<regionListArray.count; j++) {
-                NSDictionary * regionDict =[regionListArray objectAtIndex:j];
-                countryData.regionId=[regionDict objectForKey:@"id"];
-                countryData.regionCode=[regionDict objectForKey:@"code"];
-                countryData.regionName=[regionDict objectForKey:@"name"];
-                [profileData.regionArray addObject:countryData];
+            NSArray *regionListArray = [[NSArray alloc]init];
+            regionListArray = [dataDict objectForKey:@"available_regions"];
+            for (int i=0; i<regionListArray.count; i++) {
+                ProfileModel *regionData=[[ProfileModel alloc] init];
+                NSDictionary * regionDict =[regionListArray objectAtIndex:i];
+                regionData.regionId=[regionDict objectForKey:@"id"];
+                regionData.regionCode=[regionDict objectForKey:@"code"];
+                regionData.regionName=[regionDict objectForKey:@"name"];
+                [countryData.regionArray addObject:regionData];
             }
             [profileData.countryCodeArray addObject:countryData];
         }
@@ -689,7 +691,7 @@
         //Parse data from server response and store in data model
         DLog(@"user profile response %@",response);
         profileData.firstName=response[@"firstname"];
-         profileData.lastName=response[@"lastname"];
+        profileData.lastName=response[@"lastname"];
         profileData.email=response[@"email"];
         for (NSDictionary *aDict in [response objectForKey:@"custom_attributes"]) {
             if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultLanguage"]) {
@@ -702,6 +704,17 @@
             }
         }
         profileData.addressArray=[response[@"addresses"]mutableCopy];
+        success(profileData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - User profile service
+- (void)saveAndUpdateAddress:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
+    ProfileService *profileService = [[ProfileService alloc] init];
+    [profileService saveAndUpdateAddress:profileData onSuccess:^(id response) {
         success(profileData);
     } onFailure:^(NSError *error) {
         failure(error);

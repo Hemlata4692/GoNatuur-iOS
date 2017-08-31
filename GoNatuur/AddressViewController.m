@@ -19,9 +19,9 @@
 @private
     UITextField *currentSelectedTextField;
     NSMutableArray *countryCodeArray;
-    int selectedCountryCodeIndex;
+    int selectedCountryCodeIndex, selectedRegionIndex;
     GoNatuurPickerView *gNPickerViewObj;
-    NSString *selectedCountryId;
+    NSString *selectedCountryId, *selectedRegionId;
 }
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *addressContainerView;
@@ -31,15 +31,19 @@
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberField;
+@property (weak, nonatomic) IBOutlet UITextField *companyField;
 @property (weak, nonatomic) IBOutlet UITextField *firstAddressField;
 @property (weak, nonatomic) IBOutlet UITextField *secondAddressField;
 @property (weak, nonatomic) IBOutlet UITextField *countryField;
 @property (weak, nonatomic) IBOutlet UITextField *stateField;
 @property (weak, nonatomic) IBOutlet UITextField *cityField;
 @property (weak, nonatomic) IBOutlet UITextField *ZipcodeField;
+@property (weak, nonatomic) IBOutlet UITextField *faxField;
 @property (weak, nonatomic) IBOutlet UIButton *saveAddressButton;
 //Declare BSKeyboard variable
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
+@property (weak, nonatomic) IBOutlet UIImageView *stateDropDownArrowImage;
+@property (weak, nonatomic) IBOutlet UIButton *stateButton;
 
 @end
 
@@ -100,7 +104,7 @@
     _emailLabel.text = [UserDefaultManager getValue:@"emailId"];
     _emailLabel.frame=CGRectMake(40, _profileImageView.frame.origin.y + _profileImageView.frame.size.height + 10 ,[[UIScreen mainScreen] bounds].size.width-80, newHeight);
     _addressFieldsContainerView.frame=CGRectMake(0, _emailLabel.frame.origin.y + _emailLabel.frame.size.height + 10, [[UIScreen mainScreen]bounds].size.width,_addressFieldsContainerView.frame.size.height);
-    _addressContainerView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, 200+newHeight+_addressFieldsContainerView.frame.size.height);
+    _addressContainerView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, 290+newHeight+_addressFieldsContainerView.frame.size.height);
     _scrollView.contentSize = CGSizeMake(0,_addressContainerView.frame.size.height);
     //Customise
     [self customizedTextField];
@@ -115,7 +119,7 @@
 
 - (void)customizedTextField {
     //Adding textfield to keyboard controls array
-    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameField, _lastNameField, _phoneNumberField, _stateField, _cityField, _firstAddressField, _secondAddressField,_ZipcodeField]]];
+    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameField, _lastNameField, _phoneNumberField,_companyField, _stateField, _cityField, _firstAddressField, _secondAddressField,_ZipcodeField,_faxField]]];
     [_keyboardControls setDelegate:self];
     [_firstNameField setTextBorder:_firstNameField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_lastNameField setTextBorder:_lastNameField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
@@ -126,6 +130,8 @@
     [_secondAddressField setTextBorder:_secondAddressField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_ZipcodeField setTextBorder:_ZipcodeField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_countryField setTextBorder:_countryField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
+    [_companyField setTextBorder:_companyField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
+    [_faxField setTextBorder:_faxField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [self addPaddingShadow];
 }
 
@@ -139,6 +145,8 @@
     [_secondAddressField addTextFieldPaddingWithoutImages:_secondAddressField];
     [_ZipcodeField addTextFieldPaddingWithoutImages:_ZipcodeField];
     [_countryField addTextFieldPaddingWithoutImages:_countryField];
+    [_companyField addTextFieldPaddingWithoutImages:_companyField];
+    [_faxField addTextFieldPaddingWithoutImages:_faxField];
     //customisation of change password button
     [_saveAddressButton setCornerRadius:17.0];
     [_saveAddressButton addShadow:_saveAddressButton color:[UIColor blackColor]];
@@ -201,10 +209,25 @@
     NSMutableArray *countryNameArray = [NSMutableArray new];
     for (int i = 0; i < countryCodeArray.count; i++) {
         ProfileModel *dataModel=[countryCodeArray objectAtIndex:i];
-        //show language change picker
         [countryNameArray addObject:dataModel.countryLocale];
     }
     [gNPickerViewObj showPickerView:countryNameArray selectedIndex:selectedCountryCodeIndex option:1 isCancelDelegate:false];
+}
+- (IBAction)selectStateAction:(id)sender {
+    NSMutableArray *regionArray = [NSMutableArray new];
+    NSMutableArray *regionNameArray = [NSMutableArray new];
+    ProfileModel *dataModel=[countryCodeArray objectAtIndex:selectedCountryCodeIndex];
+    regionArray = dataModel.regionArray;
+    for (int i = 0; i < regionArray.count; i++) {
+        ProfileModel *dataModel=[regionArray objectAtIndex:i];
+        [regionNameArray addObject:dataModel.regionName];
+    }
+    if (regionNameArray.count > 0) {
+        [gNPickerViewObj showPickerView:regionNameArray selectedIndex:selectedRegionIndex option:2 isCancelDelegate:false];
+    } else {
+        _stateDropDownArrowImage.hidden = YES;
+        _stateButton.hidden = YES;
+    }
 }
 
 - (IBAction)saveAndUpdateButtonAction:(id)sender {
@@ -262,6 +285,11 @@
         ProfileModel *dataModel=[countryCodeArray objectAtIndex:tempSelectedIndex];
         selectedCountryId=dataModel.countryId;
         _countryField.text=dataModel.countryLocale;
+    } else {
+        selectedCountryCodeIndex=tempSelectedIndex;
+        ProfileModel *dataModel=[countryCodeArray objectAtIndex:tempSelectedIndex];
+        selectedCountryId=dataModel.regionId;
+        _stateField.text=dataModel.regionName;
     }
 }
 #pragma mark - end

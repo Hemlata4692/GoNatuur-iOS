@@ -35,4 +35,13 @@ static NSString *kUserProfile=@"customers/me";
     [super get:kUserProfile parameters:nil onSuccess:success onFailure:failure];
 }
 #pragma mark - end
+
+#pragma mark - Get user service
+- (void)saveAndUpdateAddress:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"currentPassword" : profileData.currentPassword,
+                                 @"newPassword" : profileData.changePassword
+                                 };
+    [super post:kUserProfile parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
 @end
