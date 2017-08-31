@@ -8,8 +8,9 @@
 
 #import "ProfileViewController.h"
 #import "DynamicHeightWidth.h"
+#import "CurrencyDataModel.h"
 
-@interface ProfileViewController (){
+@interface ProfileViewController () {
     NSArray *menuItemsArray;
 }
 
@@ -22,7 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"changeLanguageCell", @"currencyCell", @"customerSupportCell", @"changePasswordCell"];
-}
+  }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -31,8 +32,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+    self.title=NSLocalizedText(@"profileTitle");
     self.navigationController.navigationBarHidden=false;
-    //self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:false];
     [self showSelectedTab:4];
 }
@@ -68,4 +69,5 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
+#pragma mark - end
 @end
