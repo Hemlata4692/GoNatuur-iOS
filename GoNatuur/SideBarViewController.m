@@ -61,8 +61,8 @@
     else {
        _userEmailLabel.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"firstname"],[UserDefaultManager getValue:@"lastname"]];
     }
-    _userEmailLabel.numberOfLines=3;
-    float newHeight =[DynamicHeightWidth getDynamicLabelHeight:_userEmailLabel.text font:[UIFont montserratLightWithSize:16] widthValue:[[UIScreen mainScreen] bounds].size.width-120];
+    _userEmailLabel.numberOfLines=2;
+    float newHeight =[DynamicHeightWidth getDynamicLabelHeight:_userEmailLabel.text font:[UIFont montserratLightWithSize:16] widthValue:[[UIScreen mainScreen] bounds].size.width-120 heightValue:45];
     _userEmailLabel.frame=CGRectMake(30, _userEmailLabel.frame.origin.y,[[UIScreen mainScreen] bounds].size.width-120, newHeight+1);
     //remove extra lines from table view
     _sideBarTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -111,20 +111,20 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==0) {
-        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+         [self featureNotAvailable];
     }
     else if (indexPath.row==1) {
-        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+         [self featureNotAvailable];
     }
     else if (indexPath.row==2) {
-        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+         [self featureNotAvailable];
     }
     else if (indexPath.row==3) {
         myDelegate.selectedCategoryIndex=-1;
         myDelegate.isProductList=false;
     }
     else if (indexPath.row==4) {
-        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+        [self featureNotAvailable];
     }
     else if (indexPath.row==5) {
         myDelegate.selectedCategoryIndex=-1;
@@ -144,6 +144,12 @@
             }];
             [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"logoutUser") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
         }
+    }
+}
+
+- (void)featureNotAvailable {
+    if (![myDelegate checkGuestAccess]) {
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
 }
 #pragma mark - end

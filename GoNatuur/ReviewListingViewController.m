@@ -36,6 +36,7 @@
 @synthesize productID;
 @synthesize reviewId;
 @synthesize reviewAdded;
+@synthesize productDetailObj;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -168,6 +169,11 @@
 #pragma mark - end
 
 #pragma mark - IBActions
+- (void)backButtonAction :(id)sender {
+    productDetailObj.reviewAdded=reviewAdded;
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (IBAction)starFilterButtonAction:(id)sender {
     [_searchTextField resignFirstResponder];
     [sortingPickerView showPickerView:starFilterDataArray selectedIndex:(selectedPickerIndex==-1?1:selectedPickerIndex) option:1];
@@ -238,6 +244,10 @@
     reviewView.reviewData=[reviewListingDataAray objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:reviewView animated:YES];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.01;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
