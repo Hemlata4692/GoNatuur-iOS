@@ -106,15 +106,16 @@
 }
 #pragma mark - end
 
+#pragma mark - IBAction
 - (IBAction)editUserImageAction:(UIButton *)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedText(@"TakePhoto")
                                                              delegate:self
                                                     cancelButtonTitle:NSLocalizedText(@"alertCancel")
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:NSLocalizedText(@"TakePhoto"), NSLocalizedText(@"Gallery"), nil];
+                                                    otherButtonTitles:NSLocalizedText(@"Camera"), NSLocalizedText(@"Gallery"), nil];
     [actionSheet showInView:self.view];
 }
-
+#pragma mark - end
 
 #pragma mark - Action sheet delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

@@ -34,4 +34,14 @@ NSString * const eventIdentifier = @"ticket";
 + (NSString *)localeCountryCode {
     NSLocale *countryLocale = [NSLocale currentLocale];
     return [countryLocale objectForKey:NSLocaleCountryCode];
-}@end
+}
+
++ (NSString *)decimalFormatter:(double)number {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    numberFormatter.maximumFractionDigits = 2;
+    [numberFormatter setPositiveFormat:@",##,###.00"];
+    numberFormatter.numberStyle = kCFNumberFormatterDecimalStyle;
+    NSString *numberString = [numberFormatter stringFromNumber:@(number)];
+    return  numberString;
+}
+@end

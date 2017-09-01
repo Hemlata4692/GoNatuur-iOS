@@ -263,6 +263,7 @@
         userData.availableCurrencyArray=[response[@"available_currency_codes"] mutableCopy];
         userData.availableCurrencyRatesArray=[[NSMutableArray alloc]init];
         NSArray *ratesArray=response[@"exchange_rates"];
+        [UserDefaultManager setValue:response[@"exchange_rates"] key:@"availableCurrencyRatesArray"];
         for (int i =0; i<ratesArray.count; i++) {
             NSDictionary * footerDataDict =[ratesArray objectAtIndex:i];
             CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
@@ -689,19 +690,49 @@
         //Parse data from server response and store in data model
         DLog(@"user profile response %@",response);
         profileData.firstName=response[@"firstname"];
-         profileData.lastName=response[@"lastname"];
+        profileData.lastName=response[@"lastname"];
         profileData.email=response[@"email"];
-        for (NSDictionary *aDict in [response objectForKey:@"custom_attributes"]) {
-            if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultLanguage"]) {
-                profileData.defaultLanguage=[aDict objectForKey:@"value"];
-            }
-        }
-        for (NSDictionary *aDict in [response objectForKey:@"custom_attributes"]) {
-            if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultCurrency"]) {
-                profileData.defaultCurrency=[aDict objectForKey:@"value"];
-            }
-        }
+        profileData.groupId=response[@"group_id"];
+        profileData.storeId=response[@"store_id"];
+        profileData.websiteId=response[@"website_id"];
+        profileData.customAttributeArray=[response[@"custom_attributes"]mutableCopy];
         profileData.addressArray=[response[@"addresses"]mutableCopy];
+        success(profileData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Save user profile service
+- (void)saveUserProfileData:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
+    ProfileService *profileService = [[ProfileService alloc] init];
+    [profileService saveUserProfileServiceData:profileData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"save user profile response %@",response);
+        [UserDefaultManager setValue:response[@"firstname"] key:@"firstname"];
+        [UserDefaultManager setValue:response[@"lastname"] key:@"lastname"];
+        for (NSDictionary *aDict in response[@"custom_attributes"]) {
+            if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultLanguage"]) {
+                NSString *languageValue;
+                if ([[aDict objectForKey:@"value"] intValue] == 4) {
+                    languageValue=@"en";
+                }
+                else if ([[aDict objectForKey:@"value"] intValue] == 5) {
+                    languageValue=@"zh";
+                }
+                else if ([[aDict objectForKey:@"value"] intValue] == 6) {
+                    languageValue=@"cn";
+                }
+                [UserDefaultManager setValue:languageValue key:@"Language"];
+            }
+        }
+        for (NSDictionary *aDict in response[@"custom_attributes"]) {
+            if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultCurrency"]) {
+                [UserDefaultManager setValue:[aDict objectForKey:@"value"] key:@"DefaultCurrencyCode"];
+                
+            }
+        }
         success(profileData);
     } onFailure:^(NSError *error) {
         failure(error);

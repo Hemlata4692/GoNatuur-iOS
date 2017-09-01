@@ -10,6 +10,7 @@
 #import "DashboardViewController.h"
 #import "UIView+Toast.h"
 #import "ProfileViewController.h"
+#import "WishlistViewController.h"
 
 @interface BottomTabViewController ()
 @property (strong, nonatomic) IBOutlet UIView *bottomTabView;
@@ -148,7 +149,24 @@
         _profileTabImageIcon.alpha=1.0;
         myDelegate.tabButtonTag=@"0";
     }*/
-    [self featureNotAvailable];
+    if (![myDelegate checkGuestAccess]) {
+        if (!_wishlistTab.selected) {
+            _wishlistTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
+            _homeTab.backgroundColor=[UIColor blackColor];
+            _myCartTab.backgroundColor=[UIColor blackColor];
+            _profileTab.backgroundColor=[UIColor blackColor];
+            _myCartTabImageIcon.alpha=1.0;
+            _homeTabImageIcon.alpha=1.0;
+            _wishlistTabImageIcon.alpha=0.6;
+            _profileTabImageIcon.alpha=1.0;
+            myDelegate.tabButtonTag=@"0";
+            //Navigate to dashboard screen
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            WishlistViewController * loginView = [storyboard instantiateViewControllerWithIdentifier:@"WishlistViewController"];
+            [self.navigationController setViewControllers: [NSArray arrayWithObject:loginView]
+                                                 animated: NO];
+        }
+    }
 }
 
 - (IBAction)profileTabAction:(id)sender {

@@ -12,7 +12,7 @@
 ////testing link
 //#define WEB_BASE_URL                          @"http://gonatuur.local/rest/default/V1/"
 //beta link
-#define WEB_BASE_URL                          [NSString stringWithFormat:@"%@en/rest/en/V1/",BaseUrl]
+#define WEB_BASE_URL                          [NSString stringWithFormat:@"%@%@/rest/%@/V1/",BaseUrl,[UserDefaultManager getValue:@"Language"], [UserDefaultManager getValue:@"Language"]]
 
 //http://gonatuur.local/rest/default/V1/integration/admin/token
 //http://gonatuur.local/rest/default/V1/ranosys/customer/customer-login

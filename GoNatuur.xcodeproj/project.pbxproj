@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180409E01F58744B00EA3E17 /* NewsCentreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180409DF1F58744B00EA3E17 /* NewsCentreViewController.m */; };
+		180409E51F58888900EA3E17 /* WishlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180409E41F58888900EA3E17 /* WishlistViewController.m */; };
 		180ECD251F482A38003C936E /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD241F482A38003C936E /* WebViewController.m */; };
 		180ECD291F484A17003C936E /* ReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD281F484A17003C936E /* ReviewViewController.m */; };
 		180ECD301F484DE4003C936E /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD2F1F484DE4003C936E /* UIPlaceHolderTextView.m */; };
@@ -131,6 +133,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		180409DE1F58744B00EA3E17 /* NewsCentreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCentreViewController.h; sourceTree = "<group>"; };
+		180409DF1F58744B00EA3E17 /* NewsCentreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCentreViewController.m; sourceTree = "<group>"; };
+		180409E31F58888900EA3E17 /* WishlistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WishlistViewController.h; sourceTree = "<group>"; };
+		180409E41F58888900EA3E17 /* WishlistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WishlistViewController.m; sourceTree = "<group>"; };
 		180ECD231F482A38003C936E /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		180ECD241F482A38003C936E /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		180ECD271F484A17003C936E /* ReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewViewController.h; sourceTree = "<group>"; };
@@ -341,6 +347,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		180409DD1F58741800EA3E17 /* NewCentreModule */ = {
+			isa = PBXGroup;
+			children = (
+				180409E11F5887BE00EA3E17 /* NewsListingViewController */,
+			);
+			name = NewCentreModule;
+			sourceTree = "<group>";
+		};
+		180409E11F5887BE00EA3E17 /* NewsListingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				180409DE1F58744B00EA3E17 /* NewsCentreViewController.h */,
+				180409DF1F58744B00EA3E17 /* NewsCentreViewController.m */,
+			);
+			name = NewsListingViewController;
+			sourceTree = "<group>";
+		};
+		180409E21F58887100EA3E17 /* WishlistViewController */ = {
+			isa = PBXGroup;
+			children = (
+				180409E31F58888900EA3E17 /* WishlistViewController.h */,
+				180409E41F58888900EA3E17 /* WishlistViewController.m */,
+			);
+			name = WishlistViewController;
+			sourceTree = "<group>";
+		};
 		180ECD221F482A0C003C936E /* WebViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -772,6 +804,8 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				180409E21F58887100EA3E17 /* WishlistViewController */,
+				180409DD1F58741800EA3E17 /* NewCentreModule */,
 				185F706A1F559D6B007F49F7 /* ProfileModule */,
 				180ECD381F489AAD003C936E /* ReviewModule */,
 				180ECD221F482A0C003C936E /* WebViewController */,
@@ -1537,6 +1571,7 @@
 				180ECD301F484DE4003C936E /* UIPlaceHolderTextView.m in Sources */,
 				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
 				180ECD3C1F489AF0003C936E /* ReviewTableViewCell.m in Sources */,
+				180409E51F58888900EA3E17 /* WishlistViewController.m in Sources */,
 				32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */,
 				B7AA39B81F47102100423121 /* GoNatuurPickerView.m in Sources */,
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
@@ -1601,6 +1636,7 @@
 				188B2C131F41DFA50001A7AE /* SearchDataModel.m in Sources */,
 				B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */,
 				188B2C0A1F419E8B0001A7AE /* SearchListingViewController.m in Sources */,
+				180409E01F58744B00EA3E17 /* NewsCentreViewController.m in Sources */,
 				5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */,
 				32CC20951F25B1D90054C344 /* LoginModel.m in Sources */,
 				1813BDBC1F55E6F300D9C9BA /* ProfileTableViewCell.m in Sources */,
