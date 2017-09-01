@@ -165,13 +165,6 @@
 {
     ZDCChatViewController *controller = [ZDCChat instance].chatViewController;
     controller.navigationItem.title = NSLocalizedText(@"GoNatuur");
-//    //Make the navigation bar transparent and show only bar items.
-//    [controller.navigationController.navigationBar setBackgroundImage:[UIImage new]
-//                                                        forBarMetrics:UIBarMetricsDefault];
-////    controller.navigationController.navigationBar.shadowImage = [UIImage new];
-//    controller.navigationController.navigationBar.translucent = YES;
-//    controller.navigationController.view.backgroundColor = [UIColor clearColor];
-//    controller.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
 }
 
 + (void) chatLayout:(NSNotification*)notification

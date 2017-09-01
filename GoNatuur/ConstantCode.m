@@ -15,6 +15,10 @@ NSString * const BaseUrl = @"http://dev.gonatuur.com/";
 NSString * const productImageBaseUrl = @"media/catalog/category";
 NSString * const productDetailImageBaseUrl = @"media/catalog/product";
 NSString * const eventIdentifier = @"ticket";
+NSString * const zopimTicketAppId = @"e5dd7520b178e21212f5cc2751a28f4b5a7dc76698dc79bd";
+NSString * const zopimAppId = @"54S60ESovtSg9glT9nUunk1oc7YKGWoi";
+NSString * const zopimURL = @"https://rememberthedate.zendesk.com";
+NSString * const zopimClientId = @"client_for_rtd_jwt_endpoint";
 
 //Check device type
 + (ConstantType)checkDeviceType {

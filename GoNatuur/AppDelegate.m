@@ -198,14 +198,14 @@
     selectedCategoryIndex=-1;
     
     //ZopimTicket setup
-    [[ZDKConfig instance] initializeWithAppId:@"54S60ESovtSg9glT9nUunk1oc7YKGWoi"
-                                   zendeskUrl:@"https://rememberthedate.zendesk.com"
-                                     clientId:@"client_for_rtd_jwt_endpoint"];
+    [[ZDKConfig instance] initializeWithAppId:zopimTicketAppId
+                                   zendeskUrl:zopimURL
+                                     clientId:zopimClientId];
     [[ZDCChatOverlay appearance] setInsets:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsMake(75.0f, 15.0f, 70.0f, 15.0f)]];
     // ZopimChat setup
     [ChatStyling applyStyling];
     // Configure account key and pre-chat form
-    [ZDCChat initializeWithAccountKey:@"54S60ESovtSg9glT9nUunk1oc7YKGWoi"];
+    [ZDCChat initializeWithAccountKey:zopimAppId];
     [ZDCChat startChat:^(ZDCConfig *config){
         config.preChatDataRequirements.name = ZDCPreChatDataNotRequired;
         config.preChatDataRequirements.email = ZDCPreChatDataNotRequired;
