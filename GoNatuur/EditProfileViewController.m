@@ -33,11 +33,14 @@
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UIImageView *userImageView;
 @property (weak, nonatomic) IBOutlet UILabel *userEmailLabel;
-
+@property (weak, nonatomic) IBOutlet UILabel *detailsTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *settingsLabel;
+@property (weak, nonatomic) IBOutlet UIButton *manageAddButton;
 @end
 
 @implementation EditProfileViewController
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -69,6 +72,7 @@
                                                  name:UIKeyboardWillHideNotification object:nil];
     [self customizeViewFields];
     [self addCustomPickerView];
+    [self localizedText];
     //Bring front view picker view
     [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
 }
@@ -85,6 +89,18 @@
     _firstNameTextField.text=@"";
     _lastNameTextField.text=@"";
 }
+
+- (void)localizedText {
+    _firstNameTextField.placeholder=NSLocalizedText(@"firstName");
+    _lastNameTextField.placeholder=NSLocalizedText(@"lastName");
+    _changeLaguageTextField.placeholder=NSLocalizedText(@"changeLanguage");
+    _changeCurrencyTextField.placeholder=NSLocalizedText(@"changeCurrency");
+    _detailsTitleLabel.text=NSLocalizedText(@"personalDetails");
+    _settingsLabel.text=NSLocalizedText(@"personalSetting");
+    [_saveButton setTitle:NSLocalizedText(@"save") forState:UIControlStateNormal];
+    [_manageAddButton setTitle:NSLocalizedText(@"manageAddress") forState:UIControlStateNormal];
+}
+#pragma mark - end
 
 #pragma mark - Customise text fields
 - (void)customizeViewFields {

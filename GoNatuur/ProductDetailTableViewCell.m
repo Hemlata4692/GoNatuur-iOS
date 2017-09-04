@@ -108,6 +108,7 @@
     _addCartView.layer.borderColor=[UIColor blackColor].CGColor;
     _addCartView.layer.borderWidth=1.0;
     _cartNumberItemLabel.text=[NSString stringWithFormat:@"%d",currentQuantity];
+    _productPointsEarnLabel.text=NSLocalizedText(@"Points Earn");
 }
 
 - (void)displayProductInfo {
@@ -118,6 +119,7 @@
 }
 
 - (void)displayAddToCartButton {
+    [_addToCartButton setTitle:NSLocalizedText(@"addCart") forState:UIControlStateNormal];
     [_addToCartButton setCornerRadius:17.0];
     [_addToCartButton addShadow:_addToCartButton color:[UIColor blackColor]];
 }

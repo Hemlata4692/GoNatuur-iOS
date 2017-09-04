@@ -139,6 +139,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *CellIdentifier = [cellIdentifierArray objectAtIndex:indexPath.row];
     ProductDetailTableViewCell* cell = [_productDetailTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UILabel *cellLabel=(UILabel *)[cell viewWithTag:1];
     if (cell == nil){
         cell = [[ProductDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
@@ -174,6 +175,18 @@
         cell.addToCartButton.tag=indexPath.row;
         [cell.addToCartButton addTarget:self action:@selector(insertInCartItemAction:) forControlEvents:UIControlEventTouchUpInside];
     }
+    else if (indexPath.row==8) {
+        cellLabel.text=NSLocalizedText(@"Description");
+    }
+    else if (indexPath.row==9) {
+        cellLabel.text=NSLocalizedText(@"Benefits&Usage");
+    }
+    else if (indexPath.row==10) {
+        cellLabel.text=NSLocalizedText(@"BrandStory");
+    }
+    else if (indexPath.row==11) {
+        cellLabel.text=NSLocalizedText(@"Review");
+    }
     else if (indexPath.row==12) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
@@ -195,6 +208,12 @@
             cellLabel.text=NSLocalizedText(@"wishlist");
             cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
+    }
+    else if (indexPath.row==14) {
+        cellLabel.text=NSLocalizedText(@"socialMedia");
+    }
+    else if (indexPath.row==15) {
+        cellLabel.text=NSLocalizedText(@"Where to buy");
     }
     return cell;
 }
@@ -402,6 +421,7 @@
         [UserDefaultManager setValue:[NSNumber numberWithInt:[[UserDefaultManager getValue:@"quoteCount"] intValue]+currentQuantity] key:@"quoteCount"];
         [self updateCartBadge];
         [self.view makeToast:NSLocalizedText(@"Added to cart")];
+        
     } onfailure:^(NSError *error) {
         
     }];

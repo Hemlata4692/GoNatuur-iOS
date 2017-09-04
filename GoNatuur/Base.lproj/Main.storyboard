@@ -525,7 +525,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="87" y="273.5" width="146.5" height="21"/>
+                                <rect key="frame" x="87.5" y="273.5" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -2050,6 +2050,7 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="rateProductLabel" destination="rad-mM-kbH" id="HsV-QW-lSd"/>
                         <outlet property="reviewScreenTitle" destination="uEw-uc-uhf" id="HlH-PI-Hr6"/>
                         <outlet property="reviewTextView" destination="1cn-po-Y0o" id="VNS-pO-9GJ"/>
                         <outlet property="starRatingView" destination="lVi-de-gvu" id="Lzd-L6-bkJ"/>
@@ -2125,6 +2126,7 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="wfl-hC-bNl" secondAttribute="bottom" constant="-3" id="Ef5-Ta-Rk9"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="E1d-SA-t2v" secondAttribute="bottom" id="KBZ-Tb-pXe"/>
                                                 <constraint firstItem="wfl-hC-bNl" firstAttribute="centerX" secondItem="voU-Gt-eEz" secondAttribute="centerX" id="bkJ-Qi-nhS"/>
+                                                <constraint firstItem="wfl-hC-bNl" firstAttribute="top" secondItem="voU-Gt-eEz" secondAttribute="topMargin" constant="17" id="bp3-ip-0b6"/>
                                                 <constraint firstItem="E1d-SA-t2v" firstAttribute="centerX" secondItem="wfl-hC-bNl" secondAttribute="centerX" constant="55" id="zux-Pn-PUw"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -2246,8 +2248,10 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
+                                            <outlet property="recentTitle" destination="LSl-VM-9lz" id="68i-TP-Iip"/>
                                             <outlet property="recentlyEarnedLabel" destination="5qi-cq-k6p" id="d3B-47-vPS"/>
                                             <outlet property="totalPointsLabel" destination="xDP-wD-0Mj" id="O2F-6I-oUJ"/>
+                                            <outlet property="totalTitle" destination="azb-LK-uG1" id="fJH-WA-lVq"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="redeemPointCell" rowHeight="50" id="GdJ-8s-JHb" customClass="ProfileTableViewCell">
@@ -2335,6 +2339,7 @@
                                             <constraint firstItem="WRB-xS-X9t" firstAttribute="leading" secondItem="r9a-P9-VrH" secondAttribute="leading" constant="10" id="PBU-uP-ppO"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="personalDetailLabel" destination="Coj-81-64F" id="VRI-57-TtP"/>
                                             <segue destination="MYJ-RH-FRT" kind="show" id="o8v-e1-hFP"/>
                                         </connections>
                                     </tableViewCell>
@@ -2384,6 +2389,9 @@
                                             <constraint firstAttribute="bottom" secondItem="6Ku-o6-068" secondAttribute="bottom" id="PNG-te-ehC"/>
                                             <constraint firstAttribute="trailing" secondItem="6Ku-o6-068" secondAttribute="trailing" constant="10" id="x8t-cG-p8k"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="customerSupportLabel" destination="4C5-4b-mQB" id="odJ-Ti-t8S"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="changePasswordCell" rowHeight="50" id="TJU-w2-B1t" customClass="ProfileTableViewCell">
                                         <rect key="frame" x="0.0" y="416" width="320" height="50"/>
@@ -2432,6 +2440,7 @@
                                             <constraint firstAttribute="trailing" secondItem="cMD-uk-GRt" secondAttribute="trailing" constant="10" id="azi-Up-3fe"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="changePasswordLabel" destination="Rjm-iQ-8pq" id="TEX-U2-HjY"/>
                                             <segue destination="po3-33-eVu" kind="show" id="3mH-2g-zlt"/>
                                         </connections>
                                     </tableViewCell>
@@ -2520,6 +2529,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="S7e-aS-aco" secondAttribute="trailing" constant="25" id="OEF-Ak-9Qf"/>
                                                     <constraint firstItem="ITa-bL-Y26" firstAttribute="centerX" secondItem="rrn-GC-bZL" secondAttribute="centerX" id="RxM-i7-DkN"/>
                                                     <constraint firstItem="S7e-aS-aco" firstAttribute="leading" secondItem="rrn-GC-bZL" secondAttribute="leading" constant="25" id="cuI-s8-2SI"/>
+                                                    <constraint firstItem="ITa-bL-Y26" firstAttribute="top" secondItem="rrn-GC-bZL" secondAttribute="top" constant="25" id="evG-GV-rpK"/>
                                                     <constraint firstAttribute="bottom" secondItem="S7e-aS-aco" secondAttribute="bottom" constant="15" id="kKO-8L-gBU"/>
                                                     <constraint firstItem="S7e-aS-aco" firstAttribute="top" secondItem="gLM-W3-Y71" secondAttribute="bottom" constant="8" id="qWd-sC-HXT"/>
                                                 </constraints>
@@ -2736,11 +2746,14 @@
                     <connections>
                         <outlet property="changeCurrencyTextField" destination="aUl-ky-6BT" id="zrC-JA-Wlh"/>
                         <outlet property="changeLaguageTextField" destination="RQ0-Nu-wn6" id="tIJ-qR-7SZ"/>
+                        <outlet property="detailsTitleLabel" destination="GbR-dI-ddh" id="xDi-Oe-YXy"/>
                         <outlet property="firstNameTextField" destination="gEM-eV-riV" id="iH7-N3-qAa"/>
                         <outlet property="lastNameTextField" destination="hua-sT-bE9" id="zJo-uU-yGG"/>
                         <outlet property="mainView" destination="HbG-cS-sB4" id="OM3-Mk-NUJ"/>
+                        <outlet property="manageAddButton" destination="7Hz-fI-DOU" id="x0X-ay-iJM"/>
                         <outlet property="saveButton" destination="ITi-qM-iH9" id="GvE-Wp-4ZG"/>
                         <outlet property="scrollView" destination="L8C-74-pk5" id="7dD-xx-GcY"/>
+                        <outlet property="settingsLabel" destination="qqP-Li-ZSW" id="X9I-tO-12b"/>
                         <outlet property="userEmailLabel" destination="S7e-aS-aco" id="mb1-dC-hEj"/>
                         <outlet property="userImageView" destination="ITa-bL-Y26" id="uXT-xa-4Ve"/>
                     </connections>
@@ -4473,7 +4486,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXy-X5-47S">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXy-X5-47S">
                                                     <rect key="frame" x="54" y="15" width="190" height="20"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                     <color key="textColor" red="0.14724336139896377" green="0.14724336139896377" blue="0.14724336139896377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4529,7 +4542,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Benefits &amp; Usage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BEi-hl-h1K">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Benefits &amp; Usage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BEi-hl-h1K">
                                                     <rect key="frame" x="54" y="15" width="190" height="20"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                     <color key="textColor" red="0.14724336139999999" green="0.14724336139999999" blue="0.14724336139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4576,7 +4589,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brand Story" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGQ-ZE-6Em">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brand Story" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGQ-ZE-6Em">
                                                     <rect key="frame" x="54" y="15" width="190" height="20"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                     <color key="textColor" red="0.14724336139999999" green="0.14724336139999999" blue="0.14724336139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4623,7 +4636,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mwh-ou-Nhe">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mwh-ou-Nhe">
                                                     <rect key="frame" x="54" y="15" width="190" height="20"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                     <color key="textColor" red="0.14724336139999999" green="0.14724336139999999" blue="0.14724336139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4764,7 +4777,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share on Social Media" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWP-pL-ar3">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share on Social Media" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWP-pL-ar3">
                                                     <rect key="frame" x="54" y="15" width="223" height="20"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                     <color key="textColor" red="0.14724336139999999" green="0.14724336139999999" blue="0.14724336139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4811,7 +4824,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where To Buy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QjL-Pf-9dE">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where To Buy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QjL-Pf-9dE">
                                                     <rect key="frame" x="54" y="15" width="223" height="20"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                     <color key="textColor" red="0.14724336139999999" green="0.14724336139999999" blue="0.14724336139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -5235,9 +5248,12 @@
                         <outlet property="filterView" destination="wnd-Xd-Hb3" id="y8w-IC-4e7"/>
                         <outlet property="noRecordLabel" destination="0ia-vU-2tK" id="DCX-CE-NTo"/>
                         <outlet property="reviewListingTableView" destination="tbh-Se-GmI" id="sO0-fm-mm0"/>
+                        <outlet property="searchLabel" destination="Nni-Ex-Aev" id="co1-3w-0RZ"/>
                         <outlet property="searchTextField" destination="z1b-kC-QHI" id="F1n-hv-bxF"/>
                         <outlet property="sortByFilterButton" destination="ogN-ma-WQi" id="2PK-nI-XCv"/>
+                        <outlet property="sortByLabel" destination="T0Z-u5-wRs" id="GYF-Vq-uRp"/>
                         <outlet property="starFilterButton" destination="dbO-RJ-aip" id="kBc-fN-QWW"/>
+                        <outlet property="starFilterLabel" destination="DIg-EV-fsw" id="VMK-rS-DCe"/>
                         <outlet property="writeReviewButton" destination="SvQ-fs-ovN" id="tNO-xT-ADO"/>
                     </connections>
                 </viewController>
@@ -5689,7 +5705,7 @@
                                 </cells>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="87" y="273.5" width="146.5" height="21"/>
+                                <rect key="frame" x="87.5" y="273.5" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>
