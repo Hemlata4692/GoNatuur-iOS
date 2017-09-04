@@ -38,7 +38,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//        [self authenticationToken];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -271,19 +270,6 @@
 #pragma mark - end
 
 #pragma mark - Webservice
-//Community code webservice called
-- (void)authenticationToken {
-    //    [myDelegate showIndicator];
-    LoginModel *authToken = [LoginModel sharedUser];
-    authToken.username=@"";
-    authToken.password=@"";
-    [authToken accessToken:^(LoginModel *userData) {
-        //        [self userLogin];
-    } onfailure:^(NSError *error) {
-        
-    }];
-}
-
 //User login webservice called
 - (void)userLogin {
     LoginModel *userLogin = [LoginModel sharedUser];
