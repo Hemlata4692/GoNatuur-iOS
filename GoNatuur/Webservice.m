@@ -35,16 +35,18 @@
 //Request with parameters
 - (void)post:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+      DLog(@"%@",[NSString stringWithFormat:@"%@%@/rest/%@/V1/",BaseUrl,[UserDefaultManager getValue:@"Language"], [UserDefaultManager getValue:@"Language"]]);
+     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
     [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
         //[UserDefaultManager getValue:@"Authorization"]
+        DLog(@"%@",[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]]);
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
     }
-    manager.securityPolicy.allowInvalidCertificates = YES;
     [manager POST:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
@@ -52,13 +54,37 @@
         NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
         [myDelegate stopIndicator];
         [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
-        
+    }];
+}
+
+- (void)put:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(NSError *))failure {
+    path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+      DLog(@"%@",[NSString stringWithFormat:@"%@%@/rest/%@/V1/",BaseUrl,[UserDefaultManager getValue:@"Language"], [UserDefaultManager getValue:@"Language"]]);
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
+    [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
+        //[UserDefaultManager getValue:@"Authorization"]
+        DLog(@"%@",[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]]);
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
+    }
+    manager.securityPolicy.allowInvalidCertificates = YES;
+    [manager PUT:path parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
+        NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
+        [myDelegate stopIndicator];
+        [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
     }];
 }
 
 //Request with profile image
 - (void)postImage:(NSString *)path parameters:(NSDictionary *)parameters image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+      DLog(@"%@",[NSString stringWithFormat:@"%@%@/rest/%@/V1/",BaseUrl,[UserDefaultManager getValue:@"Language"], [UserDefaultManager getValue:@"Language"]]);
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
@@ -83,6 +109,7 @@
 
 //Get method for other services
 - (void)get:(NSString *)path parameters:(NSDictionary *)parameters onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    DLog(@"%@",[NSString stringWithFormat:@"%@%@/rest/%@/V1/",BaseUrl,[UserDefaultManager getValue:@"Language"], [UserDefaultManager getValue:@"Language"]]);
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -132,21 +159,21 @@
         [self showRetryAlertMessage:NSLocalizedText(@"RequestTimeout") path:path parameters:parameters success:success failure:failure error:error];
     }
     else {
-    NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-    NSInteger statusCode = [response statusCode];
-    if ((int)statusCode==200 && error) {
-        success(@{@"status":[NSNumber numberWithBool:true]});
-    }
-    else {
-        NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:kNilOptions error:&error] mutableCopy];
-        NSLog(@"json %@",json);
-        NSLog(@"error %ld",(long)error.code);
-        
-        [json setObject:[NSNumber numberWithInteger:statusCode] forKey:@"status"];
-        [self isStatusOK:json];
-        NSLog(@"error %ld",(long)statusCode);
-        failure(error);
-    }
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        NSInteger statusCode = [response statusCode];
+        if ((int)statusCode==200 && error) {
+            success(@{@"status":[NSNumber numberWithBool:true]});
+        }
+        else {
+            NSMutableDictionary* json = [[NSJSONSerialization JSONObjectWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:kNilOptions error:&error] mutableCopy];
+            NSLog(@"json %@",json);
+            NSLog(@"error %ld",(long)error.code);
+            
+            [json setObject:[NSNumber numberWithInteger:statusCode] forKey:@"status"];
+            [self isStatusOK:json];
+            NSLog(@"error %ld",(long)statusCode);
+            failure(error);
+        }
     }
 }
 

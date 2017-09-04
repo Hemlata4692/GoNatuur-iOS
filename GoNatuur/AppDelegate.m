@@ -34,6 +34,7 @@
 @synthesize tabButtonTag;
 @synthesize productCartItemsDetail;
 @synthesize productCartItemKeys;
+@synthesize firstTime;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -73,8 +74,14 @@
     // Override point for customization after application launch.
  
     //Call crashlytics method
-    [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
-
+    //[self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
+  
+    firstTime=true;
+    
+    //set default language to english
+    if (nil==[UserDefaultManager getValue:@"Language"]) {
+        [UserDefaultManager setValue:@"en" key:@"Language"];
+    }
     
     [NSThread sleepForTimeInterval:1.0];
         //Set navigation bar color

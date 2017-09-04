@@ -1,4 +1,4 @@
- //
+//
 //  ConnectionManager.m
 //  GoNatuur
 //
@@ -20,6 +20,8 @@
 #import "ReviewService.h"
 #import "ProductDataModel.h"
 #import "ProductService.h"
+#import "ProfileModel.h"
+#import "ProfileService.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -31,20 +33,6 @@
         connectionManager = [[[self class] alloc] init];
     });
     return connectionManager;
-}
-#pragma mark - end
-
-#pragma mark - Community code
-- (void)getAccessToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
-    LoginService *authToken = [[LoginService alloc] init];
-    //parse data from server response and store in datamodel
-    [authToken getAccessToken:userData onSuccess:^(id response) {
-        
-        
-        success(response);
-    } onFailure:^(NSError *error) {
-        failure(error);
-    }] ;
 }
 #pragma mark - end
 
@@ -261,6 +249,7 @@
         userData.availableCurrencyArray=[response[@"available_currency_codes"] mutableCopy];
         userData.availableCurrencyRatesArray=[[NSMutableArray alloc]init];
         NSArray *ratesArray=response[@"exchange_rates"];
+        [UserDefaultManager setValue:response[@"exchange_rates"] key:@"availableCurrencyRatesArray"];
         for (int i =0; i<ratesArray.count; i++) {
             NSDictionary * footerDataDict =[ratesArray objectAtIndex:i];
             CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
@@ -318,7 +307,7 @@
             }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
             productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
-             productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
             productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             productData.productType=[productDataDict objectForKey:@"type_id"];
             [searchData.searchProductListArray addObject:productData];
@@ -466,7 +455,7 @@
     ProductService *productDetailData=[[ProductService alloc]init];
     [productDetailData getProductDetailService:productData success:^(id response) {
         //Parse data from server response and store in data model
-        DLog(@"product list response %@",response);
+        DLog(@"product details response %@",response);
         NSDictionary *customAttributeDict=[[[response objectForKey:@"custom_attribute"] objectAtIndex:0] copy];
         productData.productRating=[response objectForKey:@"avg_rating_percent"];
         productData.productName=[response objectForKey:@"name"];
@@ -486,7 +475,7 @@
         if ([customAttributeDict objectForKey:@"brand_story"]!=nil) {
             productData.productBrandStory=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"brand_story"]];
         }
-       productData.productWhereToBuy=[customAttributeDict objectForKey:@"where_buy"];
+        productData.productWhereToBuy=[customAttributeDict objectForKey:@"where_buy"];
         productData.productMinQuantity=([[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"min_qty"] intValue]==0?@1:[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"min_qty"]);
         productData.productMaxQuantity=[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"qty"];
         productData.following=[[response objectForKey:@"is_following"] stringValue];
@@ -605,8 +594,8 @@
         DLog(@"remove wishlist response %@",response);
         success(wishlistData);
     }
-                              onfailure:^(NSError *error) {
-                              }];
+                                   onfailure:^(NSError *error) {
+                                   }];
     
 }
 #pragma mark - end
@@ -618,8 +607,8 @@
         DLog(@"follow response %@",response);
         success(followData);
     }
-                              onfailure:^(NSError *error) {
-                              }];
+                       onfailure:^(NSError *error) {
+                       }];
     
 }
 #pragma mark - end
@@ -631,9 +620,109 @@
         DLog(@"unfollow response %@",response);
         success(followData);
     }
-                       onfailure:^(NSError *error) {
-                       }];
+                         onfailure:^(NSError *error) {
+                         }];
     
+}
+#pragma mark - end
+
+#pragma mark - Change password service
+- (void)changePasswordService:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
+    ProfileService *profileService = [[ProfileService alloc] init];
+    [profileService changePasswordService:profileData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        success(profileData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Country list service
+- (void)getCountryCodeService:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
+    ProfileService *profileService = [[ProfileService alloc] init];
+    [profileService getCountryCodeService:profileData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"country code list response %@",response);
+        profileData.countryCodeArray=[[NSMutableArray alloc]init];
+        profileData.regionArray=[[NSMutableArray alloc]init];
+        NSArray *countryArray=response;
+        for (int i=0; i<countryArray.count; i++) {
+            NSDictionary * dataDict =[countryArray objectAtIndex:i];
+            ProfileModel *countryData=[[ProfileModel alloc] init];
+            countryData.countryLocale=[dataDict objectForKey:@"full_name_locale"];
+            countryData.countryId=[dataDict objectForKey:@"id"];
+            NSArray *regionListArray = [dataDict objectForKey:@"available_regions"];
+            for (int j=0; j<regionListArray.count; j++) {
+                NSDictionary * regionDict =[regionListArray objectAtIndex:j];
+                countryData.regionId=[regionDict objectForKey:@"id"];
+                countryData.regionCode=[regionDict objectForKey:@"code"];
+                countryData.regionName=[regionDict objectForKey:@"name"];
+                [profileData.regionArray addObject:countryData];
+            }
+            [profileData.countryCodeArray addObject:countryData];
+        }
+        success(profileData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - User profile service
+- (void)getUserProfileData:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
+    ProfileService *profileService = [[ProfileService alloc] init];
+    [profileService getUserProfileServiceData:profileData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"user profile response %@",response);
+        profileData.firstName=response[@"firstname"];
+        profileData.lastName=response[@"lastname"];
+        profileData.email=response[@"email"];
+        profileData.groupId=response[@"group_id"];
+        profileData.storeId=response[@"store_id"];
+        profileData.websiteId=response[@"website_id"];
+        profileData.customAttributeArray=[response[@"custom_attributes"]mutableCopy];
+        profileData.addressArray=[response[@"addresses"]mutableCopy];
+        success(profileData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Save user profile service
+- (void)saveUserProfileData:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
+    ProfileService *profileService = [[ProfileService alloc] init];
+    [profileService saveUserProfileServiceData:profileData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"save user profile response %@",response);
+        [UserDefaultManager setValue:response[@"firstname"] key:@"firstname"];
+        [UserDefaultManager setValue:response[@"lastname"] key:@"lastname"];
+        for (NSDictionary *aDict in response[@"custom_attributes"]) {
+            if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultLanguage"]) {
+                NSString *languageValue;
+                if ([[aDict objectForKey:@"value"] intValue] == 4) {
+                    languageValue=@"en";
+                }
+                else if ([[aDict objectForKey:@"value"] intValue] == 5) {
+                    languageValue=@"zh";
+                }
+                else if ([[aDict objectForKey:@"value"] intValue] == 6) {
+                    languageValue=@"cn";
+                }
+                [UserDefaultManager setValue:languageValue key:@"Language"];
+            }
+        }
+        for (NSDictionary *aDict in response[@"custom_attributes"]) {
+            if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultCurrency"]) {
+                [UserDefaultManager setValue:[aDict objectForKey:@"value"] key:@"DefaultCurrencyCode"];
+                
+            }
+        }
+        success(profileData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
 }
 #pragma mark - end
 @end

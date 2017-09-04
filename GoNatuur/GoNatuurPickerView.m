@@ -10,6 +10,7 @@
 
 @interface GoNatuurPickerView() {
     int tagValue;
+    BOOL isCancel;
 }
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
@@ -36,7 +37,7 @@
 #pragma mark - end
 
 #pragma mark - Hide/Show pickerView
-- (void)showPickerView:(NSArray *)tempPickerArray selectedIndex:(int)selectedIndex option:(int)option {
+- (void)showPickerView:(NSArray *)tempPickerArray selectedIndex:(int)selectedIndex option:(int)option isCancelDelegate:(BOOL)isCancelDelegate {
     _pickerArray=[tempPickerArray mutableCopy];
     tagValue=option;
     [_pickerView reloadAllComponents];
@@ -50,6 +51,7 @@
         
     }];
      _pickerView.showsSelectionIndicator = YES;
+    isCancel=isCancelDelegate;
 }
 
 - (void)hidePickerView {
@@ -71,7 +73,9 @@
 
 - (IBAction)cancel:(UIBarButtonItem *)sender {
     [self hidePickerView];
-//    [_delegate cancelDelegateMethod];
+    if (isCancel) {
+        [_delegate cancelDelegateMethod];
+    }
 }
 #pragma mark - end
 
@@ -87,6 +91,7 @@
     pickerLabel.text=[_pickerArray objectAtIndex:row];
     return pickerLabel;
 }
+
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;

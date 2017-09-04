@@ -11,7 +11,6 @@
 @implementation LocalizedString
 
 + (NSString*)changeLocalizedString:(NSString*)string {
-
-   return [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] ofType:@"strings"]] objectForKey:string];
+      return [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[[NSUserDefaults standardUserDefaults] objectForKey:@"Language"] ofType:@"strings"]] objectForKey:string];
 }
 @end
