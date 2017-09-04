@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSString *defaultLanguage;
 @property (strong, nonatomic) NSString *defaultCurrency;
 @property (strong, nonatomic) NSMutableArray *addressArray;
+@property (strong, nonatomic) NSMutableArray *customAttributeArray;
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *defaultBillingAddress;
 @property (strong, nonatomic) NSString *defaultShippingAddress;
@@ -44,6 +45,10 @@
 @property (strong, nonatomic) NSString *addressCountry;
 @property (strong, nonatomic) NSString *companyName;
 @property (strong, nonatomic) NSString *fax;
+@property (strong, nonatomic) NSString *storeId;
+@property (strong, nonatomic) NSString *websiteId;
+@property (strong, nonatomic) NSString *groupId;
+
 
 + (instancetype)sharedUser;
 //Login user
@@ -52,4 +57,6 @@
 - (void)getCountryCodeService:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;
 //Get user profile
 - (void)getUserProfile:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;
+//Save user profile
+- (void)saveUserProfile:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure ;
 @end

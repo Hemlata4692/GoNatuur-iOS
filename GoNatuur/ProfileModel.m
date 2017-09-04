@@ -37,6 +37,10 @@
 @synthesize companyName;
 @synthesize fax;
 @synthesize addressId;
+@synthesize customAttributeArray;
+@synthesize storeId;
+@synthesize groupId;
+@synthesize websiteId;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -53,6 +57,18 @@
 #pragma mark - Get user profile
 - (void)getUserProfile:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getUserProfileData:self onSuccess:^(ProfileModel *profileData) {
+        if (success) {
+            success (profileData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Save user profile
+- (void)saveUserProfile:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] saveUserProfileData:self onSuccess:^(ProfileModel *profileData) {
         if (success) {
             success (profileData);
         }

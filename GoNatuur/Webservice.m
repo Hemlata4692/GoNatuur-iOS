@@ -35,8 +35,10 @@
 //Request with parameters
 - (void)post:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+      DLog(@"%@",[NSString stringWithFormat:@"%@%@/rest/%@/V1/",BaseUrl,[UserDefaultManager getValue:@"Language"], [UserDefaultManager getValue:@"Language"]]);
+     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
     [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -52,12 +54,12 @@
         NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
         [myDelegate stopIndicator];
         [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
-        
     }];
 }
 
 - (void)put:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+      DLog(@"%@",[NSString stringWithFormat:@"%@%@/rest/%@/V1/",BaseUrl,[UserDefaultManager getValue:@"Language"], [UserDefaultManager getValue:@"Language"]]);
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
@@ -76,13 +78,13 @@
         NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
         [myDelegate stopIndicator];
         [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
-        
     }];
 }
 
 //Request with profile image
 - (void)postImage:(NSString *)path parameters:(NSDictionary *)parameters image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+      DLog(@"%@",[NSString stringWithFormat:@"%@%@/rest/%@/V1/",BaseUrl,[UserDefaultManager getValue:@"Language"], [UserDefaultManager getValue:@"Language"]]);
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
@@ -107,6 +109,7 @@
 
 //Get method for other services
 - (void)get:(NSString *)path parameters:(NSDictionary *)parameters onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    DLog(@"%@",[NSString stringWithFormat:@"%@%@/rest/%@/V1/",BaseUrl,[UserDefaultManager getValue:@"Language"], [UserDefaultManager getValue:@"Language"]]);
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];

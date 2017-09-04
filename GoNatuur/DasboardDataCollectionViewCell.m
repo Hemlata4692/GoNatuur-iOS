@@ -65,7 +65,7 @@
     else {
         productCalculatedPrice =[productListData.productPrice doubleValue]*[exchangeRates doubleValue];
     }
-    productPrice.text=[NSString stringWithFormat:@"%@ %.2f",[UserDefaultManager getValue:@"DefaultCurrency"],productCalculatedPrice];
+    productPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrency"],[ConstantCode decimalFormatter:productCalculatedPrice]];
 }
 
 //Footer image cell

@@ -12,13 +12,16 @@
 #import "GoNatuurPickerView.h"
 #import "CurrencyDataModel.h"
 #import "ProfileModel.h"
+#import "UIImage+UIImage_fixOrientation.h"
+#import "DynamicHeightWidth.h"
 
-@interface EditProfileViewController ()<BSKeyboardControlsDelegate,GoNatuurPickerViewDelegate> {
+@interface EditProfileViewController ()<BSKeyboardControlsDelegate,GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
     UITextField *currentSelectedTextField;
     NSMutableArray *changeCurrencyArray;
-    NSArray *changeLanguageArray;
+    NSMutableArray *changeLanguageArray;
     GoNatuurPickerView *gNPickerViewObj;
     int languagePickerIndex, currencyPickerIndex;
+    NSString *languageValue;
 }
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
@@ -28,6 +31,8 @@
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *mainView;
+@property (weak, nonatomic) IBOutlet UIImageView *userImageView;
+@property (weak, nonatomic) IBOutlet UILabel *userEmailLabel;
 
 @end
 
@@ -36,8 +41,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    changeLanguageArray = @[NSLocalizedText(@"en"), NSLocalizedText(@"zh"), NSLocalizedText(@"cn")];
+    changeLanguageArray=[[NSMutableArray alloc]initWithObjects:NSLocalizedText(@"en"), NSLocalizedText(@"zh"), NSLocalizedText(@"cn"), nil];
     changeCurrencyArray = [[UserDefaultManager getValue:@"AvailableCurrencyCodes"] mutableCopy];
+    languagePickerIndex=-1;
+    currencyPickerIndex=-1;
     
     [myDelegate showIndicator];
     [self performSelector:@selector(getUserProfile) withObject:nil afterDelay:.1];
@@ -96,6 +103,8 @@
     //customisation of change password button
     [_saveButton setCornerRadius:17.0];
     [_saveButton addShadow:_saveButton color:[UIColor blackColor]];
+    [_userImageView setBorder:_userImageView color:[UIColor colorWithRed:194.0/255.0 green:194.0/255.0 blue:194.0/255.0 alpha:1.0] borderWidth:3.0];
+    [_userImageView setCornerRadius:60.0];
 }
 #pragma mark - end
 
@@ -154,6 +163,8 @@
 
 #pragma mark - IBActions
 - (IBAction)saveButtonAction:(id)sender {
+    [myDelegate showIndicator];
+    [self performSelector:@selector(saveUserProfile) withObject:nil afterDelay:.1];
 }
 
 - (IBAction)manageAddressesButtionAction:(id)sender {
@@ -173,13 +184,71 @@
     [self scrollViewInsetes:230];
     [gNPickerViewObj showPickerView:changeCurrencyArray selectedIndex:currencyPickerIndex option:2 isCancelDelegate:true];
 }
+- (IBAction)editUserImageButtonAction:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedText(@"TakePhoto")
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedText(@"alertCancel")
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:NSLocalizedText(@"Camera"), NSLocalizedText(@"Gallery"), nil];
+    [actionSheet showInView:self.view];
+}
 #pragma mark - end
+
+#pragma mark - Action sheet delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if (buttonIndex==0)
+    {
+        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedText(@"error")
+                                                                  message:NSLocalizedText(@"noCamera")
+                                                                 delegate:nil
+                                                        cancelButtonTitle:NSLocalizedText(@"alertOk")
+                                                        otherButtonTitles: nil];
+            [myAlertView show];
+        }
+        else
+        {
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            picker.allowsEditing = YES;
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:picker animated:YES completion:NULL];
+        }
+    }
+    if ([buttonTitle isEqualToString:NSLocalizedText(@"Gallery")]) {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        picker.navigationBar.translucent = NO;
+        picker.navigationBar.barTintColor = [UIColor colorWithRed:242.0/255.0 green:233.0/255.0 blue:237.0/255.0 alpha:1];
+        picker.navigationBar.tintColor = [UIColor blackColor];
+        picker.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor blackColor]};
+        [self presentViewController:picker animated:YES completion:NULL];
+    }
+}
+#pragma mark - end
+
+#pragma mark - Image picker controller delegate methods
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info {
+    UIImage *correctOrientationImage = [image fixOrientation];
+    _userImageView.image=correctOrientationImage;
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+#pragma mark - end
+
 
 #pragma mark - Add picker
 - (void)addCustomPickerView {
     //Set initial index of picker view and initialized picker view
-    languagePickerIndex=-1;
-    currencyPickerIndex=-1;
     gNPickerViewObj=[[GoNatuurPickerView alloc] initWithFrame:self.view.frame delegate:self pickerHeight:230];
     [self.view addSubview:gNPickerViewObj.goNatuurPickerViewObj];
 }
@@ -193,10 +262,13 @@
         languagePickerIndex=tempSelectedIndex;
         if (tempSelectedIndex == 0) {
             [UserDefaultManager setValue:@"en" key:@"Language"];
+            languageValue=@"4";
         } else if (tempSelectedIndex == 1) {
             [UserDefaultManager setValue:@"zh" key:@"Language"];
+            languageValue=@"5";
         } else if (tempSelectedIndex == 2) {
             [UserDefaultManager setValue:@"cn" key:@"Language"];
+            languageValue=@"6";
         }
         _changeLaguageTextField.text=[changeLanguageArray objectAtIndex:tempSelectedIndex];
     }
@@ -219,6 +291,16 @@
     [userData getUserProfile:^(ProfileModel *userData) {
         [myDelegate stopIndicator];
         //dispaly profile data
+        for (NSDictionary *aDict in userData.customAttributeArray) {
+            if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultLanguage"]) {
+                userData.defaultLanguage=[aDict objectForKey:@"value"];
+            }
+        }
+        for (NSDictionary *aDict in userData.customAttributeArray) {
+            if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultCurrency"]) {
+                userData.defaultCurrency=[aDict objectForKey:@"value"];
+            }
+        }
         [self displayData:userData];
     } onfailure:^(NSError *error) {
         
@@ -229,20 +311,33 @@
 - (void)displayData:(ProfileModel *)data {
     _firstNameTextField.text=data.firstName;
     _lastNameTextField.text=data.lastName;
+    [ImageCaching downloadImages:_userImageView imageUrl:[UserDefaultManager getValue:@"profilePicture"] placeholderImage:@"profile_placeholder" isDashboardCell:true];
+    _userEmailLabel.text=[UserDefaultManager getValue:@"emailId"];
+    _userEmailLabel.translatesAutoresizingMaskIntoConstraints=YES;
+    _userEmailLabel.numberOfLines=2;
+    float newHeight =[DynamicHeightWidth getDynamicLabelHeight:_userEmailLabel.text font:[UIFont montserratSemiBoldWithSize:15] widthValue:[[UIScreen mainScreen] bounds].size.width-50 heightValue:50];
+    _userEmailLabel.frame=CGRectMake(25, _userEmailLabel.frame.origin.y,[[UIScreen mainScreen] bounds].size.width-50, newHeight);
     //zh for traditional and cn for simplified
     //4=> English,5=>traditional,6=>simplified
     if ([data.defaultLanguage isEqualToString:@""] || data.defaultLanguage==nil) {
         _changeLaguageTextField.text=@"English";
+        languageValue=@"4";
     }
     else {
         if ([data.defaultLanguage intValue] == 4) {
             _changeLaguageTextField.text=NSLocalizedText(@"en");
+            languagePickerIndex=0;
+            languageValue=@"4";
         }
         else if ([data.defaultLanguage intValue] == 5) {
             _changeLaguageTextField.text=NSLocalizedText(@"zh");
+            languagePickerIndex=1;
+            languageValue=@"5";
         }
         else if ([data.defaultLanguage intValue] == 6) {
             _changeLaguageTextField.text=NSLocalizedText(@"cn");
+            languagePickerIndex=2;
+            languageValue=@"6";
         }
     }
     if ([data.defaultCurrency isEqualToString:@""] || data.defaultCurrency==nil) {
@@ -251,6 +346,67 @@
     else {
         _changeCurrencyTextField.text=data.defaultCurrency;
     }
+    int indexValue = (int)[changeCurrencyArray indexOfObject:_changeCurrencyTextField.text];
+    currencyPickerIndex=indexValue;
+}
+
+//save user profile data
+- (void)saveUserProfile {
+    ProfileModel *userData = [ProfileModel sharedUser];
+    userData.firstName=_firstNameTextField.text;
+    userData.lastName=_lastNameTextField.text;
+    userData.email=[UserDefaultManager getValue:@"emailId"];
+    bool isLanguageExists=false;
+    bool isCurrencyExists=false;
+    for (NSDictionary *aDict in userData.customAttributeArray) {
+        if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultLanguage"]) {
+            [aDict setValue:languageValue forKey:@"value"];
+            isLanguageExists=true;
+            break;
+        }
+    }
+    if (!isLanguageExists) {
+        NSDictionary *dictionary= [NSDictionary dictionaryWithObjectsAndKeys:
+                                   @"DefaultLanguage", @"attribute_code",
+                                   languageValue, @"value", nil];
+        [userData.customAttributeArray addObject:dictionary];
+    }
+    for (NSDictionary *aDict in userData.customAttributeArray) {
+        if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultCurrency"]) {
+            [aDict setValue:_changeCurrencyTextField.text forKey:@"value"];
+            isCurrencyExists=true;
+            break;
+        }
+    }
+    if (!isCurrencyExists) {
+        NSDictionary *dictionary= [NSDictionary dictionaryWithObjectsAndKeys:
+                                   @"DefaultCurrency", @"attribute_code",
+                                   _changeCurrencyTextField.text, @"value", nil];
+        [userData.customAttributeArray addObject:dictionary];
+    }
+    
+    [userData saveUserProfile:^(ProfileModel *userData) {
+        NSMutableArray *ratesArray=[NSMutableArray new];
+        for (int i =0; i<[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] count]; i++) {
+            NSDictionary * footerDataDict =[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] objectAtIndex:i];
+            CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
+            exchangeData.currencyExchangeCode = footerDataDict[@"currency_to"];
+            exchangeData.currencyExchangeRates = footerDataDict[@"rate"];
+            [ratesArray addObject:exchangeData];
+        }
+        for (int i=0; i<ratesArray.count; i++) {
+            if ([[UserDefaultManager getValue:@"DefaultCurrencyCode"] containsString:[[ratesArray objectAtIndex:i] currencyExchangeCode]]) {
+                [UserDefaultManager setValue:[[ratesArray objectAtIndex:i] currencyExchangeRates] key:@"ExchangeRates"];
+                NSLog(@"%@",[UserDefaultManager getValue:@"ExchangeRates"]);
+            }
+        }
+        [myDelegate stopIndicator];
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"profileSuccess") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        
+    } onfailure:^(NSError *error) {
+        
+    }];
 }
 #pragma mark - end
 @end
