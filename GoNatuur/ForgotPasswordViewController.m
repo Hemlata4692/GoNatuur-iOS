@@ -20,6 +20,8 @@
     float forgotBackViewY;
     UIView *currentView;
 }
+@property (weak, nonatomic) IBOutlet UILabel *resetPasswordTitle;
+@property (weak, nonatomic) IBOutlet UILabel *descLabel;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UIView *forgotPasswordView;
 @property (strong, nonatomic) IBOutlet UILabel *forgotYourPasswordLabel;
@@ -27,7 +29,11 @@
 @property (strong, nonatomic) IBOutlet UITextField *otpTextField;
 @property (strong, nonatomic) IBOutlet UITextField *resetEmailTextField;
 @property (strong, nonatomic) IBOutlet UITextField *resetPasswordTextField;
+@property (weak, nonatomic) IBOutlet UIButton *goToLoginButton;
 @property (strong, nonatomic) IBOutlet UITextField *resetConfirmPasswordTextField;
+@property (weak, nonatomic) IBOutlet UIButton *sendOTPButton;
+@property (weak, nonatomic) IBOutlet UIButton *resetPasswordButton;
+@property (weak, nonatomic) IBOutlet UIButton *resendOTP;
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
 @end
 
@@ -72,6 +78,7 @@
 
 #pragma mark - View initialization
 - (void)initializedView {
+
     _forgotYourPasswordLabel.text=NSLocalizedText(@"forgotpassword");
     float scaleFactor = [[UIScreen mainScreen]bounds].size.height/568.0;
     forgotBackViewY=100*scaleFactor;
@@ -82,7 +89,22 @@
     _forgotPasswordView.hidden=false;
     _resetPasswordView.hidden=true;
     [self customizedTextField];
+    [self localizedText];
     currentView=_forgotPasswordView;
+}
+
+- (void) localizedText {
+    _emailTextField.placeholder=NSLocalizedText(@"Email");
+    _resetPasswordTextField.placeholder=NSLocalizedText(@"Password");
+    _otpTextField.placeholder=NSLocalizedText(@"otp");
+    _resetConfirmPasswordTextField.placeholder=NSLocalizedText(@"ConfirmPassword");
+    _descLabel.text=NSLocalizedText(@"forgotPasswordDesc");
+    _resetPasswordTitle.text=NSLocalizedText(@"resetPasswordTitle");
+    [_sendOTPButton setTitle:NSLocalizedText(@"sendOTP") forState:UIControlStateNormal];
+    [_goToLoginButton setTitle:NSLocalizedText(@"Log In") forState:UIControlStateNormal];
+    [_resendOTP setTitle:NSLocalizedText(@"resendOTP") forState:UIControlStateNormal];
+    [_resetPasswordButton setTitle:NSLocalizedText(@"resetPassword") forState:UIControlStateNormal];
+   
 }
 
 - (void)customizedTextField {

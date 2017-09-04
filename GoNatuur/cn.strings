@@ -93,7 +93,7 @@
 "sideBarRedeemPoints"="兑换点";
 "sideBarEvents"="活动";
 "sideBarNewsCentre"="新闻中心";
-"sideBarNotifications"="NOTIFICATIONS";
+"sideBarNotifications"="通知";
 "sideBarSignOut"="登出";
 "Home"="家";
 "MyCart"="我的车";
@@ -119,6 +119,7 @@
 "otp"="OTP";
 "resetPassword"="重设密码";
 "resendOTP"="重新发送OTP";
+"forgotPasswordDesc"="别担心，让我们帮助你。只需键入您的电子邮件地址，我们将向您发送OTP。您可以稍后更改。";
 "norecord"="没有找到记录。";
 "share"="分享到社交媒体";
 "firstName"="名字*";
@@ -174,3 +175,7 @@
 "next"="下一个";
 "continueShopping"="继续购物";
 "freeShipping"="*免运费订单$ 100及以上";
+"or"="要么";
+"enableNotification"="启用通知";
+"infoText"="不要错过！通知最新的";
+"descText"=" 优惠和促销您最喜欢的产品";

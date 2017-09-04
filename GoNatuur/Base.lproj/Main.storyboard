@@ -169,8 +169,12 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
+                        <outlet property="descLabel" destination="dFm-gp-3vb" id="Zlz-PH-Xxc"/>
                         <outlet property="infoTextLabel" destination="cvu-e9-ZcV" id="kNl-ZF-thU"/>
+                        <outlet property="notNowButton" destination="2Eo-Kl-jRo" id="qNg-4W-FJb"/>
+                        <outlet property="notiTitleLabel" destination="ucM-xS-Ycz" id="F7b-mz-1tr"/>
                         <outlet property="notificationBackgroundImage" destination="cHZ-4S-19m" id="0bQ-Kj-mtX"/>
+                        <outlet property="okayButton" destination="KCf-Z9-BLM" id="STt-gV-DJv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9u2-2q-ecu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -521,7 +525,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="87.5" y="273.5" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="273.5" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -1348,11 +1352,14 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="bannerImageView" destination="rfj-YW-5mr" id="BZH-9u-NQ5"/>
+                        <outlet property="bestSellerButton" destination="25c-g1-7yT" id="afX-Ry-7jS"/>
                         <outlet property="buttonSeperator" destination="SRB-3d-5xT" id="356-W2-MaE"/>
                         <outlet property="footerImageCollectionView" destination="jB2-oU-0N3" id="R1B-kk-y1w"/>
                         <outlet property="footerImageView" destination="qzV-Wz-yYc" id="dGc-Bd-YDP"/>
+                        <outlet property="healthyLivingButton" destination="F8K-nt-7hC" id="pWe-K6-aqR"/>
                         <outlet property="noRecordLabel" destination="axF-Jf-mo5" id="DBT-gE-Uw6"/>
                         <outlet property="productCollectionView" destination="2mk-W9-coR" id="LFX-8S-Hvx"/>
+                        <outlet property="samplers" destination="fJ0-9c-z5n" id="b7V-Qt-IIK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KQu-ih-xNU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3024,14 +3031,20 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="descLabel" destination="Pnt-re-pCc" id="3hK-Ml-EEN"/>
                         <outlet property="emailTextField" destination="gns-zX-ALu" id="L9d-ua-lnH"/>
                         <outlet property="forgotPasswordView" destination="WHJ-Uk-pB3" id="Jz7-Mg-NGU"/>
                         <outlet property="forgotYourPasswordLabel" destination="k5p-sA-hXE" id="r0c-zH-m2e"/>
+                        <outlet property="goToLoginButton" destination="XoJ-bb-4eB" id="D0Z-yo-ejA"/>
                         <outlet property="otpTextField" destination="Ig5-q0-YY4" id="AIq-5I-mxK"/>
+                        <outlet property="resendOTP" destination="UUM-Uc-Aod" id="35b-Pa-Gci"/>
                         <outlet property="resetConfirmPasswordTextField" destination="4O2-yO-3rS" id="Vus-oh-iC9"/>
                         <outlet property="resetEmailTextField" destination="Juu-2b-nsw" id="eEI-cJ-XpS"/>
+                        <outlet property="resetPasswordButton" destination="h9v-fc-MCs" id="kEB-YE-czD"/>
                         <outlet property="resetPasswordTextField" destination="Nvi-14-ihg" id="9mL-dZ-edX"/>
+                        <outlet property="resetPasswordTitle" destination="xQj-3R-2vV" id="Wfc-af-JLx"/>
                         <outlet property="resetPasswordView" destination="8vR-nQ-bNJ" id="FBr-iT-1Xp"/>
+                        <outlet property="sendOTPButton" destination="qf3-TZ-jUr" id="YWZ-xw-I1x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dzy-Z1-CYx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3397,15 +3410,18 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="confirmPasswordTextField" destination="7tx-AK-dEq" id="daT-NF-ywH"/>
+                        <outlet property="createAccountButton" destination="czv-uk-HtK" id="zC2-bW-Kpg"/>
                         <outlet property="emailTextField" destination="jgk-2R-Oim" id="SXl-Ks-jrT"/>
                         <outlet property="firstNameTextField" destination="uUs-ig-MXu" id="ESj-jc-gBT"/>
                         <outlet property="lastNameTextField" destination="yan-fk-rZK" id="h3s-Xo-eik"/>
                         <outlet property="mainView" destination="OpU-94-pVu" id="pef-La-hK9"/>
+                        <outlet property="orLabel" destination="xjJ-73-1l0" id="p2n-7z-pUf"/>
                         <outlet property="pageControl" destination="yuu-Pn-nGp" id="TSd-wq-DbZ"/>
                         <outlet property="passwordTextField" destination="8zu-1t-WUb" id="hMM-4g-4zG"/>
                         <outlet property="privacyPolicyLoginLabel" destination="C2p-t0-hqw" id="HQh-C8-GWI"/>
                         <outlet property="scrollView" destination="pgF-fo-zFf" id="2zR-QV-m3P"/>
                         <outlet property="signUpBackView" destination="C4d-5h-gyp" id="TzX-hG-bmC"/>
+                        <outlet property="skipContinueButton" destination="dAJ-Ba-mJq" id="eFg-SS-RmC"/>
                         <outlet property="swipeImageView" destination="IBR-QJ-eAN" id="6MI-6m-O6N"/>
                     </connections>
                 </viewController>
@@ -3633,11 +3649,15 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="emailTextField" destination="H8i-c4-FPk" id="Dgd-tG-g7W"/>
+                        <outlet property="forgotPasswordButton" destination="dc7-FY-3nv" id="8pf-nW-99e"/>
                         <outlet property="loginBackView" destination="2nh-XI-GCX" id="oNj-YH-U6T"/>
+                        <outlet property="loginbutton" destination="lsz-H5-gCb" id="2NJ-HI-YuX"/>
                         <outlet property="mainView" destination="Hwa-Qc-3ux" id="fsf-qJ-mPD"/>
+                        <outlet property="orSeperatorLabel" destination="uvu-Wg-GFB" id="y3p-gi-C2g"/>
                         <outlet property="passwordTextField" destination="joc-2A-7R7" id="x6o-aR-yuk"/>
                         <outlet property="registerLabel" destination="bnT-T6-JUe" id="ZVk-jk-4Xq"/>
                         <outlet property="scrollView" destination="NS1-wa-kck" id="jA7-gi-4an"/>
+                        <outlet property="skipButton" destination="Nir-Uv-A3q" id="dVd-uF-KZC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ubv-5c-hgX" sceneMemberID="firstResponder"/>
@@ -5669,7 +5689,7 @@
                                 </cells>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="87.5" y="273.5" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="273.5" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>

@@ -33,6 +33,9 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *productCollectionView;
 @property (weak, nonatomic) IBOutlet UIImageView *footerImageView;
 @property (weak, nonatomic) IBOutlet UICollectionView *footerImageCollectionView;
+@property (weak, nonatomic) IBOutlet UIButton *bestSellerButton;
+@property (weak, nonatomic) IBOutlet UIButton *healthyLivingButton;
+@property (weak, nonatomic) IBOutlet UIButton *samplers;
 
 @end
 
@@ -89,6 +92,11 @@
     flowLayout.itemSize = CGSizeMake(cellWidth, cellWidth);
     
     buttonTag=1;
+    
+    [_bestSellerButton setTitle:NSLocalizedText(@"bestseller") forState:UIControlStateNormal];
+    [_samplers setTitle:NSLocalizedText(@"Samplers") forState:UIControlStateNormal];
+    [_healthyLivingButton setTitle:NSLocalizedText(@"healthyliving") forState:UIControlStateNormal];
+    _noRecordLabel.text=NSLocalizedText(@"norecord");
 }
 #pragma mark - end
 

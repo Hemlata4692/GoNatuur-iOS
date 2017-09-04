@@ -51,6 +51,7 @@
     self.title=searchKeyword;
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
+    _noRecordLabel.text=NSLocalizedText(@"norecord");
 }
 #pragma mark - end
 

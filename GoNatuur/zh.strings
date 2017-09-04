@@ -118,6 +118,7 @@
 "sendOTP"="SEND MY OTP";
 "backToLogin"="Go back to Log in";
 "resetPasswordTitle"="Reset your password!!";
+"forgotPasswordDesc"="Don't worry, let us help you. Just key in your email address and we'll send you a OTP. You can change it later.";
 "otp"="OTP";
 "resetPassword"="RESET PASSWORD";
 "resendOTP"="Resend OTP";
@@ -177,3 +178,7 @@
 "next"="Next";
 "continueShopping"="CONTINUE SHOPPING";
 "freeShipping"="*FREE SHIPPING FOR ORDER $100 & ABOVE";
+"or"="or";
+"enableNotification"="Enable Notification";
+"infoText"="Don't miss out! Be notified about the latest";
+"descText"=" offers and promotions on your favourite products";
