@@ -34,4 +34,5 @@ extern NSString * const eventIdentifier;
 
 + (ConstantType)checkDeviceType;
 + (NSString *)localeCountryCode;
++ (NSString *)decimalFormatter:(double)number;
 @end

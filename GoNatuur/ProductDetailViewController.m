@@ -35,6 +35,7 @@
 
 @implementation ProductDetailViewController
 @synthesize selectedProductId;
+@synthesize reviewAdded;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -66,6 +67,7 @@
 
 #pragma mark - Initialized view
 - (void)viewInitialization {
+    reviewAdded=@"0";
     isServiceCalledMPMoviePlayerDone=true;
     isServiceCalled=false;
     productDetailCellHeight=0.0;
@@ -220,40 +222,34 @@
     }
     else if (indexPath.row==8) {
         //Description action
-        [self navigateToView:NSLocalizedText(@"Description") webViewData:productDetailModelData.productDescription viewIdentifier:@"webView" productId:0 reviewId:@"" reviewAdded:@""];
+        [self navigateToView:NSLocalizedText(@"Description") webViewData:productDetailModelData.productDescription viewIdentifier:@"webView" productId:0 reviewId:@""];
     }
     else if (indexPath.row==9) {
         //Benefit action
-        [self navigateToView:NSLocalizedText(@"Benefits&Usage") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0 reviewId:@"" reviewAdded:@""];
+        [self navigateToView:NSLocalizedText(@"Benefits&Usage") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0 reviewId:@""];
     }
     else if (indexPath.row==10) {
         //Brand action
-        [self navigateToView:NSLocalizedText(@"BrandStory") webViewData:productDetailModelData.productBrandStory viewIdentifier:@"webView" productId:0 reviewId:@"" reviewAdded:@""];
+        [self navigateToView:NSLocalizedText(@"BrandStory") webViewData:productDetailModelData.productBrandStory viewIdentifier:@"webView" productId:0 reviewId:@""];
     }
     else if (indexPath.row==11) {
         //Review action
-        [self navigateToView:@"" webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId] reviewId:productDetailModelData.reviewId reviewAdded:productDetailModelData.reviewAdded];
+        [self navigateToView:@"" webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId] reviewId:productDetailModelData.reviewId];
     }
     else if (indexPath.row==12) {
         //Follow action
-        if ((nil==[UserDefaultManager getValue:@"userId"])) {
-            [myDelegate checkGuestAccess];
-        }
-        else {
-        if ([productDetailModelData.following isEqualToString:@"1"]) {
-            [self unFollowProduct:(int)indexPath.row];
-        }
-        else {
-            [self followProduct:(int)indexPath.row];
-        }
+        if (![myDelegate checkGuestAccess]) {
+            if ([productDetailModelData.following isEqualToString:@"1"]) {
+                [self unFollowProduct:(int)indexPath.row];
+            }
+            else {
+                [self followProduct:(int)indexPath.row];
+            }
         }
     }
     else if (indexPath.row==13) {
         //Wishlist action
-        if ((nil==[UserDefaultManager getValue:@"userId"])) {
-            [myDelegate checkGuestAccess];
-        }
-        else {
+        if (![myDelegate checkGuestAccess]) {
             if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
                 [self.view makeToast:NSLocalizedText(@"alreadyAddedWishlist")];
             }
@@ -276,7 +272,7 @@
     }
 }
 
-- (void)navigateToView:(NSString *)navTitle webViewData:(NSString *)webViewData viewIdentifier:(NSString *)viewIdentifier productId:(NSNumber *)productId reviewId:(NSString *)reviewId reviewAdded:(NSString *)reviewAdded{
+- (void)navigateToView:(NSString *)navTitle webViewData:(NSString *)webViewData viewIdentifier:(NSString *)viewIdentifier productId:(NSNumber *)productId reviewId:(NSString *)reviewId {
     UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     if ([viewIdentifier isEqualToString:@"webView"]) {
         WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
@@ -289,6 +285,7 @@
         reviewView.productID =productId;
         reviewView.reviewId=reviewId;
         reviewView.reviewAdded=reviewAdded;
+        reviewView.productDetailObj=self;
         [self.navigationController pushViewController:reviewView animated:YES];
     }
 }
@@ -365,6 +362,7 @@
             }
         }
         [productDetailModelData.productMediaArray insertObject:@{@"media_type":@"QRCode"} atIndex:(tempIndex==-1?0:tempIndex)];
+        reviewAdded=productDetailModelData.reviewAdded;
         [myDelegate stopIndicator];
         isServiceCalled=true;
         currentQuantity=[productDetailData.productMinQuantity intValue];

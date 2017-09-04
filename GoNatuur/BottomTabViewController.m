@@ -9,6 +9,8 @@
 #import "BottomTabViewController.h"
 #import "DashboardViewController.h"
 #import "UIView+Toast.h"
+#import "ProfileViewController.h"
+#import "WishlistViewController.h"
 
 @interface BottomTabViewController ()
 @property (strong, nonatomic) IBOutlet UIView *bottomTabView;
@@ -131,7 +133,7 @@
         _profileTabImageIcon.alpha=1.0;
         myDelegate.tabButtonTag=@"0";
     }*/
-    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    [self featureNotAvailable];
 }
 
 - (IBAction)wishlistTabAction:(id)sender {
@@ -147,23 +149,51 @@
         _profileTabImageIcon.alpha=1.0;
         myDelegate.tabButtonTag=@"0";
     }*/
-    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    if (![myDelegate checkGuestAccess]) {
+        if (!_wishlistTab.selected) {
+            _wishlistTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
+            _homeTab.backgroundColor=[UIColor blackColor];
+            _myCartTab.backgroundColor=[UIColor blackColor];
+            _profileTab.backgroundColor=[UIColor blackColor];
+            _myCartTabImageIcon.alpha=1.0;
+            _homeTabImageIcon.alpha=1.0;
+            _wishlistTabImageIcon.alpha=0.6;
+            _profileTabImageIcon.alpha=1.0;
+            myDelegate.tabButtonTag=@"0";
+            //Navigate to dashboard screen
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            WishlistViewController * loginView = [storyboard instantiateViewControllerWithIdentifier:@"WishlistViewController"];
+            [self.navigationController setViewControllers: [NSArray arrayWithObject:loginView]
+                                                 animated: NO];
+        }
+    }
 }
 
 - (IBAction)profileTabAction:(id)sender {
-     /*Feature not available
-    if (!_profileTab.selected) {
-        _profileTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
-        _homeTab.backgroundColor=[UIColor blackColor];
-        _myCartTab.backgroundColor=[UIColor blackColor];
-        _wishlistTab.backgroundColor=[UIColor blackColor];
-        _myCartTabImageIcon.alpha=1.0;
-        _homeTabImageIcon.alpha=1.0;
-        _wishlistTabImageIcon.alpha=1.0;
-        _profileTabImageIcon.alpha=0.6;
-        myDelegate.tabButtonTag=@"0";
-    }*/
-    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    if (![myDelegate checkGuestAccess]) {
+        if (!_profileTab.selected) {
+            _profileTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
+            _homeTab.backgroundColor=[UIColor blackColor];
+            _myCartTab.backgroundColor=[UIColor blackColor];
+            _wishlistTab.backgroundColor=[UIColor blackColor];
+            _myCartTabImageIcon.alpha=1.0;
+            _homeTabImageIcon.alpha=1.0;
+            _wishlistTabImageIcon.alpha=1.0;
+            _profileTabImageIcon.alpha=0.6;
+            myDelegate.tabButtonTag=@"0";
+            //Navigate to dashboard screen
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ProfileViewController * loginView = [storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+            [self.navigationController setViewControllers: [NSArray arrayWithObject:loginView]
+                                                 animated: NO];
+        }
+    }
+}
+
+- (void)featureNotAvailable {
+    if (![myDelegate checkGuestAccess]) {
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    }
 }
 #pragma mark - end
 

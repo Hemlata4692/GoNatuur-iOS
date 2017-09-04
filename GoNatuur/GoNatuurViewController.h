@@ -18,4 +18,5 @@
 - (void)addSerachButtonWithImage:(UIImage *)searchButtonImage;
 - (void)showSelectedTab:(int)item;
 - (void)updateCartBadge;
+- (void)backButtonAction :(id)sender;
 @end

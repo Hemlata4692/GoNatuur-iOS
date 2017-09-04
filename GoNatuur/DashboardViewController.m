@@ -19,7 +19,6 @@
 @private
     int selectedIndex;
     int buttonTag;
-    BOOL firstTime;
     NSMutableArray *bannerImageArray;
     NSMutableArray *footerImageArray;
     NSMutableArray *bestSellerDataArray;
@@ -43,7 +42,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    firstTime=true;
     bannerImageArray=[[NSMutableArray alloc]init];
     bestSellerDataArray=[[NSMutableArray alloc]init];
     footerImageArray=[[NSMutableArray alloc]init];
@@ -65,7 +63,8 @@
     [self addLeftBarButtonWithImage:false];
     myDelegate.selectedCategoryIndex=-1;
     [self showSelectedTab:1];
-    if (firstTime) {
+    if (myDelegate.firstTime) {
+        myDelegate.firstTime=false;
         [myDelegate showIndicator];
         [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
     }
@@ -237,7 +236,6 @@
 - (void)getDashboardData {
     DashboardDataModel *dashboardData = [DashboardDataModel sharedUser];
     [dashboardData getDashboardData:^(DashboardDataModel *userData)  {
-        firstTime=false;
         bannerImageData=userData;
         [self displayData];
         if (nil!=[UserDefaultManager getValue:@"deviceToken"]&&NULL!=[UserDefaultManager getValue:@"deviceToken"]&&nil!=[UserDefaultManager getValue:@"enableNotification"]) {

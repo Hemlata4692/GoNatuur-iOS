@@ -23,12 +23,13 @@
 @property (nonatomic, strong) NSString *tabButtonTag;
 @property (strong, nonatomic) NSMutableArray *productCartItemKeys;
 @property (strong, nonatomic) NSMutableDictionary *productCartItemsDetail;
+@property (nonatomic)BOOL firstTime;
 - (void)showIndicator;
 - (void)stopIndicator;
 
 - (void)registerForRemoteNotification;
 - (void)unregisterForRemoteNotifications;
-- (void)checkGuestAccess;
+- (BOOL)checkGuestAccess;
 - (void)logoutUser;
 @end
 

@@ -36,6 +36,7 @@
 @synthesize productID;
 @synthesize reviewId;
 @synthesize reviewAdded;
+@synthesize productDetailObj;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -154,12 +155,11 @@
         if (reviewListingDataAray.count==0) {
             _noRecordLabel.hidden=NO;
              [_reviewListingTableView reloadData];
-                _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
         }
         else {
             _noRecordLabel.hidden=YES;
             [_reviewListingTableView reloadData];
-                _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
+            _reviewListingTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
         }
     } onfailure:^(NSError *error) {
         _noRecordLabel.hidden=NO;
@@ -169,14 +169,19 @@
 #pragma mark - end
 
 #pragma mark - IBActions
+- (void)backButtonAction :(id)sender {
+    productDetailObj.reviewAdded=reviewAdded;
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (IBAction)starFilterButtonAction:(id)sender {
     [_searchTextField resignFirstResponder];
-    [sortingPickerView showPickerView:starFilterDataArray selectedIndex:(selectedPickerIndex==-1?1:selectedPickerIndex) option:1];
+    [sortingPickerView showPickerView:starFilterDataArray selectedIndex:(selectedPickerIndex==-1?1:selectedPickerIndex) option:1 isCancelDelegate:false];
 }
 
 - (IBAction)sortByFilterAction:(id)sender {
     [_searchTextField resignFirstResponder];
-    [sortingPickerView showPickerView:sortByDataArray selectedIndex:(selectedSortFilterIndex==-1?0:selectedSortFilterIndex) option:2];
+    [sortingPickerView showPickerView:sortByDataArray selectedIndex:(selectedSortFilterIndex==-1?0:selectedSortFilterIndex) option:2 isCancelDelegate:false];
 }
 
 - (IBAction)writeReviewButtonAction:(id)sender {
@@ -239,6 +244,10 @@
     reviewView.reviewData=[reviewListingDataAray objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:reviewView animated:YES];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.01;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
