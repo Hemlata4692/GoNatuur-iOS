@@ -36,20 +36,6 @@
 }
 #pragma mark - end
 
-#pragma mark - Community code
-- (void)getAccessToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
-    LoginService *authToken = [[LoginService alloc] init];
-    //parse data from server response and store in datamodel
-    [authToken getAccessToken:userData onSuccess:^(id response) {
-        
-        
-        success(response);
-    } onFailure:^(NSError *error) {
-        failure(error);
-    }] ;
-}
-#pragma mark - end
-
 #pragma mark - Login user
 - (void)loginUser:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *loginService = [[LoginService alloc] init];

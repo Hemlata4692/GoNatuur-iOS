@@ -138,7 +138,7 @@
     [changePasswordModel changePasswordService:^(ProfileModel *userData) {
         [myDelegate stopIndicator];
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert addButton:@"Ok" actionBlock:^(void) {
+        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
             //Change password successful action
             [self.navigationController popViewControllerAnimated:true];
         }];
