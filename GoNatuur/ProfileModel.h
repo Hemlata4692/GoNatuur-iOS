@@ -44,7 +44,11 @@
 @property (strong, nonatomic) NSString *addressCountry;
 @property (strong, nonatomic) NSString *companyName;
 @property (strong, nonatomic) NSString *fax;
-
+//profile data
+@property (strong, nonatomic) NSString *websiteId;
+@property (strong, nonatomic) NSString *storeId;
+@property (strong, nonatomic) NSString *groupId;
+@property (strong, nonatomic) NSMutableArray *customAttributeArray;
 + (instancetype)sharedUser;
 //Login user
 - (void)changePasswordService:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;

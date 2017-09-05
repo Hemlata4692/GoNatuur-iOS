@@ -12,6 +12,8 @@
 #import "GoNatuurPickerView.h"
 #import "CurrencyDataModel.h"
 #import "ProfileModel.h"
+#import "AddressListingViewController.h"
+#import "AddressViewController.h"
 
 @interface EditProfileViewController ()<BSKeyboardControlsDelegate,GoNatuurPickerViewDelegate> {
     UITextField *currentSelectedTextField;
@@ -19,6 +21,7 @@
     NSArray *changeLanguageArray;
     GoNatuurPickerView *gNPickerViewObj;
     int languagePickerIndex, currencyPickerIndex;
+    ProfileModel *profileData;
 }
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
@@ -158,6 +161,10 @@
 
 - (IBAction)manageAddressesButtionAction:(id)sender {
     ////4=> English,5=>traditional,6=>simplified
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AddressListingViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"AddressListingViewController"];
+    nextView.profileData = profileData;
+    [self.navigationController pushViewController:nextView animated:YES];
 }
 
 - (IBAction)languagePickerButtonActio:(id)sender {
@@ -218,6 +225,7 @@
     ProfileModel *userData = [ProfileModel sharedUser];
     [userData getUserProfile:^(ProfileModel *userData) {
         [myDelegate stopIndicator];
+        profileData = userData;
         //dispaly profile data
         [self displayData:userData];
     } onfailure:^(NSError *error) {

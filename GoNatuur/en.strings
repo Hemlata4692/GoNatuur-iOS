@@ -87,6 +87,11 @@
 "noCamera"="Device has no camera.";
 "error"="Error";
 "personalDetails"="Personal Details";
+"addressType"="Please set default address.";
 "en"="English";
 "cn"="简体中文";
 "zh"="中國傳統的";
+"deleteAddressMessage"="Are you sure you want to delete this address?";
+"deleteAddressSuccess" = "Address deleted successfully.";
+"addAddressSuccessMessage" = "Address added successfully.";
+"updateAddressSuccessMessage" = "Address updated successfully.";

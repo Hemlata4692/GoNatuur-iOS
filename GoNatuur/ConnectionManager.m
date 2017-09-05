@@ -693,16 +693,10 @@
         profileData.firstName=response[@"firstname"];
         profileData.lastName=response[@"lastname"];
         profileData.email=response[@"email"];
-        for (NSDictionary *aDict in [response objectForKey:@"custom_attributes"]) {
-            if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultLanguage"]) {
-                profileData.defaultLanguage=[aDict objectForKey:@"value"];
-            }
-        }
-        for (NSDictionary *aDict in [response objectForKey:@"custom_attributes"]) {
-            if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultCurrency"]) {
-                profileData.defaultCurrency=[aDict objectForKey:@"value"];
-            }
-        }
+        profileData.groupId=response[@"group_id"];
+        profileData.storeId=response[@"store_id"];
+        profileData.websiteId=response[@"website_id"];
+        profileData.customAttributeArray=[response[@"custom_attributes"]mutableCopy];
         profileData.addressArray=[response[@"addresses"]mutableCopy];
         success(profileData);
     } onFailure:^(NSError *error) {

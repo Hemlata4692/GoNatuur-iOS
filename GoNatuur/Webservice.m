@@ -76,7 +76,6 @@
         NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
         [myDelegate stopIndicator];
         [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
-        
     }];
 }
 
