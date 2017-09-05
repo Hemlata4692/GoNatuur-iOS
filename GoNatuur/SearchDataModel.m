@@ -75,4 +75,17 @@
     
 }
 #pragma mark - end
+
+#pragma mark - Search list by name data
+- (void)getProductListByNameServiceOnSuccess:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getProductListByNameService:self success:^(SearchDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onfailure:^(NSError *error) {
+        
+    }] ;
+    
+}
+#pragma mark - end
 @end
