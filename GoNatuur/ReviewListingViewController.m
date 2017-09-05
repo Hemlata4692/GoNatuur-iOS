@@ -30,6 +30,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (weak, nonatomic) IBOutlet UIButton *sortByFilterButton;
 @property (weak, nonatomic) IBOutlet UILabel *noRecordLabel;
+@property (weak, nonatomic) IBOutlet UILabel *starFilterLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sortByLabel;
+@property (weak, nonatomic) IBOutlet UILabel *searchLabel;
 @end
 
 @implementation ReviewListingViewController
@@ -42,8 +45,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    starFilterDataArray=[[NSMutableArray alloc]initWithObjects:@"All",@"5 Stars",@"4 Stars",@"3 Stars",@"2 Stars",@"1 Star", nil];
-    sortByDataArray=[[NSMutableArray alloc]initWithObjects:@"Most Recent",@"Rating low to high",@"Rating high to low", nil];
+    starFilterDataArray=[[NSMutableArray alloc]initWithObjects:NSLocalizedText(@"All"),NSLocalizedText(@"5 Stars"),NSLocalizedText(@"4 Stars"),NSLocalizedText(@"3 Stars"),NSLocalizedText(@"2 Stars"),NSLocalizedText(@"1 Star"), nil];
+    sortByDataArray=[[NSMutableArray alloc]initWithObjects:NSLocalizedText(@"mostRecent"),NSLocalizedText(@"ratingLowHigh"),NSLocalizedText(@"ratingHighLow"), nil];
     sortByFilter=@"created_at";
     sortByValue=@"DESC";
     starFilter=@"5";
@@ -81,10 +84,21 @@
         _writeReviewButton.enabled=false;
         _writeReviewButton.alpha = 0.8;
     }
+    [self localizedText];
 }
 
+- (void)localizedText {
+    _noRecordLabel.text=NSLocalizedText(@"norecord");
+    _searchTextField.placeholder=NSLocalizedText(@"search");
+    _sortByLabel.text=NSLocalizedText(@"Sortby");
+    _starFilterLabel.text=NSLocalizedText(@"stars");
+    [_writeReviewButton setTitle:NSLocalizedText(@"writereview") forState:UIControlStateNormal];
+
+}
 #pragma mark - end
 
+
+#pragma mark - Custom picker delegate method
 - (void)addCustomPickerView {
     //Set initial index of picker view and initialized picker view
     selectedPickerIndex=-1;
@@ -94,7 +108,6 @@
     [self.view addSubview:sortingPickerView.goNatuurPickerViewObj];
 }
 
-#pragma mark - Custom picker delegate method
 - (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {
     if (option==1) {
         if (selectedPickerIndex!=tempSelectedIndex) {

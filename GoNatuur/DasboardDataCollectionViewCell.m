@@ -65,11 +65,28 @@
     else {
         productCalculatedPrice =[productListData.productPrice doubleValue]*[exchangeRates doubleValue];
     }
-    productPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrency"],[ConstantCode decimalFormatter:productCalculatedPrice]];
+    productPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
+    [self customizedCellObject:productListData];
 }
 
 //Footer image cell
 - (void)displayFooterBannerData :(DashboardDataModel *)footerBannerImage {
     [ImageCaching downloadImages:footerImageView imageUrl:footerBannerImage.banerImageUrl placeholderImage:@"product_placeholder" isDashboardCell:true];
+}
+
+- (void)customizedCellObject:(DashboardDataModel *)productListData {
+    float picDimension = 186.0;
+    if ([productListData.productRating isEqualToString:@""] || productListData.productRating==nil || [productListData.productRating isEqualToString:@"0"]) {
+        productRating.hidden=YES;
+        ratingStarImage.hidden=YES;
+        productPrice.translatesAutoresizingMaskIntoConstraints=true;
+        productPrice.frame=CGRectMake(12, ((picDimension+105)-8)-26, ((picDimension-5)-8)-24, 20);//width:((picDimension-5)-8(upperMainViewSpace 7-bottommainViewSpace 1))-24(leading and trailing)
+    }
+    else {
+        productRating.hidden=NO;
+        ratingStarImage.hidden=NO;
+        productPrice.translatesAutoresizingMaskIntoConstraints=true;
+        productPrice.frame=CGRectMake(12, ((picDimension+105)-8)-26, ((picDimension-5)-8)-12-74, 20);;//width:((picDimension-5)-8(upperMainViewSpace 7-bottommainViewSpace 1))-12(leading)-74(70+4)
+    }
 }
 @end

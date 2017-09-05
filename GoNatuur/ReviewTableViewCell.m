@@ -32,6 +32,7 @@
     [self removeAutolayouts];
     _userName.text=listData.username;
     _reviewTitleLabel.text=listData.reviewTitle;
+    _location.text=NSLocalizedText(@"dataNotAdded");
     float titleHeight =[DynamicHeightWidth getDynamicLabelHeight:_reviewTitleLabel.text font:[UIFont montserratBoldWithSize:14] widthValue:rectSize.width-93];
     _reviewTitleLabel.numberOfLines=2;
     
@@ -73,7 +74,6 @@
 - (void)starRating:(NSString *)rating {
     _ratingView.starImage = [UIImage imageNamed:@"star-unselected"];
     _ratingView.starHighlightedImage = [UIImage imageNamed:@"star"];
-    
     _ratingView.maxRating = 5.0;
     _ratingView.delegate = self;
     _ratingView.horizontalMargin = 6;

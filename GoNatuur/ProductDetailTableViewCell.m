@@ -98,9 +98,9 @@
     else {
         productCalculatedPrice =[productData.productPrice doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
     }
-    NSString *str=[NSString stringWithFormat:@"%@%@",[UserDefaultManager getValue:@"DefaultCurrency"],[ConstantCode decimalFormatter:productCalculatedPrice]];
+    NSString *str=[NSString stringWithFormat:@"%@%@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
-    NSRange currenyTextRange = [str rangeOfString:[UserDefaultManager getValue:@"DefaultCurrency"]];
+    NSRange currenyTextRange = [str rangeOfString:[UserDefaultManager getValue:@"DefaultCurrencySymbol"]];
     NSRange decimalTextRange = [str rangeOfString:[[str componentsSeparatedByString:@"."] objectAtIndex:1]];
     [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:18]} range:currenyTextRange];
     [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:18]} range:decimalTextRange];
@@ -108,6 +108,7 @@
     _addCartView.layer.borderColor=[UIColor blackColor].CGColor;
     _addCartView.layer.borderWidth=1.0;
     _cartNumberItemLabel.text=[NSString stringWithFormat:@"%d",currentQuantity];
+    _productPointsEarnLabel.text=NSLocalizedText(@"Points Earn");
 }
 
 - (void)displayProductInfo {
@@ -118,6 +119,7 @@
 }
 
 - (void)displayAddToCartButton {
+    [_addToCartButton setTitle:NSLocalizedText(@"addCart") forState:UIControlStateNormal];
     [_addToCartButton setCornerRadius:17.0];
     [_addToCartButton addShadow:_addToCartButton color:[UIColor blackColor]];
 }

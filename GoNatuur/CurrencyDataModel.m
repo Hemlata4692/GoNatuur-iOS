@@ -16,6 +16,7 @@
 @synthesize currentCurrencyCode;
 @synthesize currencyExchangeRates;
 @synthesize currencyExchangeCode;
+@synthesize currencysymbol;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -33,7 +34,6 @@
 - (void)getCurrencyData:(void (^)(CurrencyDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getDefaultCurrency:self onSuccess:^(CurrencyDataModel *userData) {
         if (success) {
-            [UserDefaultManager setValue:userData.userCurrency key:@"DefaultCurrency"];
             [UserDefaultManager setValue:userData.currentCurrencyCode key:@"DefaultCurrencyCode"];
             [UserDefaultManager setValue:userData.availableCurrencyArray key:@"AvailableCurrencyCodes"];
             success (userData);
