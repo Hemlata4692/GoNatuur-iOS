@@ -27,6 +27,9 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [continueShoppingOutlet setTitle:NSLocalizedText(@"cartListContinueShopping") forState:UIControlStateNormal];
+    [nextOutlet setTitle:NSLocalizedText(@"cartListNext") forState:UIControlStateNormal];
+    totalPriceLabel.text=NSLocalizedText(@"total");
     // Do any additional setup after loading the view.
 }
 
@@ -54,21 +57,21 @@
     UILabel *itemLabel=[[UILabel alloc] initWithFrame:CGRectMake(8, 0, 70, headerView.frame.size.height)];
     itemLabel.font=[UIFont montserratRegularWithSize:11];
     itemLabel.textAlignment=NSTextAlignmentCenter;
-    itemLabel.text=@"ITEMS";
+    itemLabel.text=NSLocalizedText(@"cartListitems");
     //Description label
     UILabel *descriptionLabel=[[UILabel alloc] initWithFrame:CGRectMake(88, 0, [[UIScreen mainScreen] bounds].size.width-228, headerView.frame.size.height)];
     descriptionLabel.textAlignment=NSTextAlignmentCenter;
     descriptionLabel.font=[UIFont montserratRegularWithSize:11];
-    descriptionLabel.text=@"DESCRIPTION";
+    descriptionLabel.text=NSLocalizedText(@"cartListDescription");
     //Total label
     UILabel *priceLabel=[[UILabel alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width-62, 0, 54, headerView.frame.size.height)];
     priceLabel.font=[UIFont montserratRegularWithSize:11];
-    priceLabel.text=@"TOTAL";
+    priceLabel.text=NSLocalizedText(@"cartListTotal");
     priceLabel.textAlignment=NSTextAlignmentCenter;
     //Quantity label
     UILabel *quantityLabel=[[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.origin.x-71, 0, 64, headerView.frame.size.height)];
     quantityLabel.font=[UIFont montserratRegularWithSize:11];
-    quantityLabel.text=@"QUANTITY";
+    quantityLabel.text=NSLocalizedText(@"cartListQuantity");
     quantityLabel.textAlignment=NSTextAlignmentCenter;
     [headerView addSubview:itemLabel];
     [headerView addSubview:descriptionLabel];
@@ -144,15 +147,4 @@
     [self performSelector:@selector(removeCartListData:) withObject:[NSNumber numberWithInt:(int)[sender tag]] afterDelay:.1];
 }
 #pragma mark - end
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

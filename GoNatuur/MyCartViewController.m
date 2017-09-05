@@ -63,7 +63,8 @@
 
 #pragma mark - View customisation
 - (void)viewInitialization {
-    _freeShippingLabel.text=@"*FREE SHIPPING FOR ORDER $100 & ABOVE";
+    _freeShippingLabel.text=NSLocalizedText(@"cartListFreeShipping");
+    _noRecordFountLabel.text= NSLocalizedText(@"norecord");
     _noRecordFountLabel.hidden=true;
     myDelegate.selectedCategoryIndex=-1;
     [self showSelectedTab:2];
@@ -148,7 +149,7 @@
     cartListObj.cartListDataArray=[cartListData mutableCopy];
     cartListObj.cartModelData=cartModelData;
     [cartListObj.cartListTableView reloadData];
-    cartListObj.totalPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrency"],(totalCartProductPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
+    cartListObj.totalPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(totalCartProductPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
     [cartListObj.continueShoppingOutlet addTarget:self action:@selector(cartListContinueShopping:) forControlEvents:UIControlEventTouchUpInside];
     [cartListObj.nextOutlet addTarget:self action:@selector(cartListNext:) forControlEvents:UIControlEventTouchUpInside];
     [self addChildViewController:cartListObj];
