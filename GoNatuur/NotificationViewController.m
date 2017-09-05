@@ -46,6 +46,7 @@
     self.title=NSLocalizedText(@"Notifications");
     [self addLeftBarButtonWithImage:false];
     [self initFooterView];
+    _noRecordLabel.text=NSLocalizedText(@"norecord");
     //call notification list webservice
     [myDelegate showIndicator];
     [self performSelector:@selector(getNotificationListing) withObject:nil afterDelay:.1];

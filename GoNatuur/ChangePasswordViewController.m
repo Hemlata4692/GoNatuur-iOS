@@ -65,6 +65,10 @@
     //customisation of change password button
     [_changePasswordButton setCornerRadius:17.0];
     [_changePasswordButton addShadow:_changePasswordButton color:[UIColor blackColor]];
+    [_changePasswordButton setTitle:NSLocalizedText(@"changePassword") forState:UIControlStateNormal];
+    _oldPassword.placeholder=NSLocalizedText(@"currentPasswordPlaceholder");
+    _changePassword.placeholder=NSLocalizedText(@"newPasswordPlaceholder");
+    _confirmPassword.placeholder=NSLocalizedText(@"ConfirmPassword");
 }
 #pragma mark - end
 
@@ -134,7 +138,7 @@
     [changePasswordModel changePasswordService:^(ProfileModel *userData) {
         [myDelegate stopIndicator];
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert addButton:@"Ok" actionBlock:^(void) {
+        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
             //Change password successful action
             [self.navigationController popViewControllerAnimated:true];
         }];

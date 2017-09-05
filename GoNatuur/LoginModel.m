@@ -41,18 +41,6 @@
 }
 #pragma mark - end
 
-#pragma mark - Get authorization token
-- (void)accessToken:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
-    [[ConnectionManager sharedManager] getAccessToken:self onSuccess:^(LoginModel *userData) {
-        if (success) {
-            success (userData);
-        }
-    } onFailure:^(NSError *error) {
-        
-    }] ;
-}
-#pragma mark - end
-
 #pragma mark - Login user
 - (void)loginUserOnSuccess:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] loginUser:self onSuccess:^(LoginModel *userData) {

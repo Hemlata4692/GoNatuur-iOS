@@ -22,8 +22,6 @@
 
 //Singleton method
 + (instancetype)sharedManager;
-//Authentication token
-- (void)getAccessToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure;
 //Login user
 - (void)loginUser:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure;
 //Save device token

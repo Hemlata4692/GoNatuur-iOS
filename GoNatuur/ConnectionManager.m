@@ -38,20 +38,6 @@
 }
 #pragma mark - end
 
-#pragma mark - Community code
-- (void)getAccessToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
-    LoginService *authToken = [[LoginService alloc] init];
-    //parse data from server response and store in datamodel
-    [authToken getAccessToken:userData onSuccess:^(id response) {
-        
-        
-        success(response);
-    } onFailure:^(NSError *error) {
-        failure(error);
-    }] ;
-}
-#pragma mark - end
-
 #pragma mark - Login user
 - (void)loginUser:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *loginService = [[LoginService alloc] init];
@@ -271,6 +257,7 @@
             CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
             exchangeData.currencyExchangeCode = footerDataDict[@"currency_to"];
             exchangeData.currencyExchangeRates = footerDataDict[@"rate"];
+            exchangeData.currencysymbol = footerDataDict[@"currency_symbol"];
             [userData.availableCurrencyRatesArray addObject:exchangeData];
         }
         success(userData);
@@ -732,7 +719,6 @@
         for (NSDictionary *aDict in response[@"custom_attributes"]) {
             if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultCurrency"]) {
                 [UserDefaultManager setValue:[aDict objectForKey:@"value"] key:@"DefaultCurrencyCode"];
-                
             }
         }
         success(profileData);

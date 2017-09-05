@@ -33,8 +33,6 @@
 + (instancetype)sharedUser;
 //Login user
 - (void)loginUserOnSuccess:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
-//Get community code
-- (void)accessToken:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
 //Save devcie token
 - (void)saveDeviceToken:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
 //Login as guest user

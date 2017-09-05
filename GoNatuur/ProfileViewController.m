@@ -27,7 +27,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"customerSupportCell", @"changePasswordCell"];
-    customerSupportArray=@[@"Chat with us",@"View and raise tickets."];
+    customerSupportArray=@[NSLocalizedText(@"chat"), NSLocalizedText(@"raiseTicket")];
     [self addCustomPickerView];
 }
 
@@ -43,6 +43,7 @@
     [self addLeftBarButtonWithImage:false];
     [self.view bringSubviewToFront:customerSupportPicker.goNatuurPickerViewObj];
     [self showSelectedTab:4];
+    [_profileTableView reloadData];
 }
 
 //add picker view

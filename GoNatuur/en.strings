@@ -13,16 +13,12 @@
 "alertCancel" = "Cancel";
 "alertRetry"="Retry";
 "alertSettings"="Settings";
-"validPassword" = "Password minimum 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.";
+"validPassword" = "Password minimum 8 characters, including one uppercase letter, one lowercase letter, one number and one special character.";
 "emptyFieldMessage" = "Please fill in all the required fields.";
 "invalidOTP"="Invalid OTP.";
 "validEmailMessage" = "Please enter valid Email Address.";
 "passwordMatchMessage" = "Password and Confirm Password does not match.";
 "somethingWrongMessage" = "Something went wrong, please try again later.";
-"Privacy Policy" = "Privacy Policy";
-"privacy policy" = "privacy policy";
-"Terms & Conditions" = "Terms & Conditions";
-"terms & conditions" = "terms & conditions";
 "Log In" = "Log In";
 "Internet connection" = "Internet connection error. Please try again later.";
 "specialCharacter" = "!~`@#$%^&*-+();:={}[],.<>?\\/\"\'";
@@ -47,6 +43,7 @@
 "guestUser"="Guest User";
 "dataNotAdded"="N/A";
 "Notifications"="Notifications";
+"forgotPasswordDesc"="Don't worry, let us help you. Just key in your email address and we'll send you a OTP. You can change it later.";
 "terms&Conditions"="Terms & Conditions";
 "privacyPolicy"="Privacy Policy";
 "Register"="Register";
@@ -68,6 +65,7 @@
 "Where to buy"="Where To Buy";
 "alreadyAddedWishlist"="Product already added to wishlist.";
 "Added to cart"="Added to cart";
+"addCart"="ADD TO CART";
 "All"="All";
 "Sortby"="Sort By";
 "Filter"="Filter";
@@ -87,7 +85,6 @@
 "Camera"="Camera";
 "noCamera"="Device has no camera.";
 "error"="Error";
-"personalDetails"="Personal Details";
 "en"="English";
 "cn"="简体中文";
 "zh"="中國傳統的";

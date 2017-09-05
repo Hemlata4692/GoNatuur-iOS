@@ -36,6 +36,7 @@
     [self addLeftBarButtonWithImage:true];
     _productDetailWebView.backgroundColor = [UIColor colorWithRed:253.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0];
     _productDetailWebView.opaque=NO;
+    _noDataLabel.text=NSLocalizedText(@"nodata");
     if ([productDetaiData isEqualToString:@""] || productDetaiData==nil) {
         _noDataLabel.hidden=NO;
         _productDetailWebView.hidden=YES;

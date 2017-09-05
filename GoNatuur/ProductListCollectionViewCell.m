@@ -45,7 +45,7 @@
         }
         productCalculatedPrice =[productListData.productPrice doubleValue]*[exchangeRates doubleValue];
     }
-    _productPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrency"],[ConstantCode decimalFormatter:productCalculatedPrice]];
+    _productPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
     [self customizedCellObject:productListData];
 }
 
