@@ -261,6 +261,8 @@
     [UserDefaultManager removeValue:@"quoteId"];
     [UserDefaultManager removeValue:@"firstname"];
     [UserDefaultManager removeValue:@"lastname"];
+    [UserDefaultManager setValue:@"" key:@"TotalPoints"];
+    [UserDefaultManager setValue:@"" key:@"RecentEarned"];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     myDelegate.navigationController = [storyboard instantiateViewControllerWithIdentifier:@"mainNavController"];
     myDelegate.window.rootViewController = myDelegate.navigationController;

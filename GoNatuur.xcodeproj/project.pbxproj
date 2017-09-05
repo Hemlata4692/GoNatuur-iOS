@@ -490,6 +490,14 @@
 			name = ImageCaching;
 			sourceTree = "<group>";
 		};
+		181AD48C1F5EADEB00AA3C3D /* WishlistModule */ = {
+			isa = PBXGroup;
+			children = (
+				180409E21F58887100EA3E17 /* WishlistViewController */,
+			);
+			name = WishlistModule;
+			sourceTree = "<group>";
+		};
 		184C38581F3B08DE008B8291 /* SWRevealViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -804,7 +812,7 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				180409E21F58887100EA3E17 /* WishlistViewController */,
+				181AD48C1F5EADEB00AA3C3D /* WishlistModule */,
 				180409DD1F58741800EA3E17 /* NewCentreModule */,
 				185F706A1F559D6B007F49F7 /* ProfileModule */,
 				180ECD381F489AAD003C936E /* ReviewModule */,

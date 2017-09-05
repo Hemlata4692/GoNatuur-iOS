@@ -27,6 +27,8 @@
 @property (strong, nonatomic) NSString *productQty;
 @property (strong, nonatomic) NSString *productType;
 @property (strong, nonatomic) NSMutableArray *searchProductIds;
+@property (strong, nonatomic) NSString *pageSize;
+@property (strong, nonatomic) NSString *wishlistItemId;
 
 //Singleton method
 + (instancetype)sharedUser;
@@ -38,4 +40,8 @@
 - (void)getSearchProductListing:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
 //Search list pagination data
 - (void)getProductListServiceOnSuccess:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Wishlist data
+- (void)getWishlistService:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
+//remove from wishlist
+- (void)removeFromWishlist:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

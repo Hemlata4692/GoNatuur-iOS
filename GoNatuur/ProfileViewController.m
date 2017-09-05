@@ -11,11 +11,13 @@
 #import "GoNatuurPickerView.h"
 #import "ProfileTableViewCell.h"
 #import "UIImage+UIImage_fixOrientation.h"
+#import "ProfileModel.h"
 
 @interface ProfileViewController ()<GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     NSArray *menuItemsArray, *customerSupportArray;
     GoNatuurPickerView *customerSupportPicker;
     int selectedPickerIndex;
+    UIImage *userProfileImage;
 }
 @property (weak, nonatomic) IBOutlet UITableView *profileTableView;
 @end
@@ -29,6 +31,8 @@
     menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"customerSupportCell", @"changePasswordCell"];
     customerSupportArray=@[NSLocalizedText(@"chat"), NSLocalizedText(@"raiseTicket")];
     [self addCustomPickerView];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getUserImapctPoints) withObject:nil afterDelay:.1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,7 +47,7 @@
     [self addLeftBarButtonWithImage:false];
     [self.view bringSubviewToFront:customerSupportPicker.goNatuurPickerViewObj];
     [self showSelectedTab:4];
-    [_profileTableView reloadData];
+   
 }
 
 //add picker view
@@ -52,6 +56,33 @@
     //Set initial index of picker view and initialized picker view
     customerSupportPicker=[[GoNatuurPickerView alloc] initWithFrame:self.view.frame delegate:self pickerHeight:230];
     [self.view addSubview:customerSupportPicker.goNatuurPickerViewObj];
+}
+#pragma mark - end
+
+#pragma mark - Web services
+//Get user profile
+- (void)getUserImapctPoints {
+    ProfileModel *userData = [ProfileModel sharedUser];
+    userData.pageCount=@"1";
+    userData.currentPage=@"1";
+    [userData getImpactPoints:^(ProfileModel *userData) {
+        [myDelegate stopIndicator];
+        [_profileTableView reloadData];
+        //dispaly profile data
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)editUserProfileImage {
+    ProfileModel *userData = [ProfileModel sharedUser];
+    userData.userImage=userProfileImage;
+    [userData updateUserProfileImage:^(ProfileModel *userData) {
+        [myDelegate stopIndicator];
+        //dispaly profile data
+    } onfailure:^(NSError *error) {
+        
+    }];
 }
 #pragma mark - end
 
@@ -161,9 +192,13 @@
     ProfileTableViewCell * cell = (ProfileTableViewCell *)[_profileTableView cellForRowAtIndexPath:index];
     UIImage *correctOrientationImage = [image fixOrientation];
     cell.userProfileImage.image=correctOrientationImage;
+    userProfileImage=cell.userProfileImage.image;
     [picker dismissViewControllerAnimated:YES completion:NULL];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(editUserProfileImage) withObject:nil afterDelay:.1];
+//    /editUserProfileImage
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

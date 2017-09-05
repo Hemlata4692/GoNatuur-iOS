@@ -346,6 +346,7 @@
         }
     }
 }
+#pragma mark - end
 
 #pragma mark - Custom picker delegate method
 - (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {

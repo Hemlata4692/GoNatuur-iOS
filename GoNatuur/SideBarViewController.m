@@ -142,7 +142,7 @@
             myDelegate.selectedCategoryIndex=-1;
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
             [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-                //logou1 user
+                //logout user
                 [myDelegate logoutUser];
             }];
             [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"logoutUser") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
