@@ -30,6 +30,10 @@
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UILabel *registerLabel;
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
+@property (weak, nonatomic) IBOutlet UILabel *orSeperatorLabel;
+@property (weak, nonatomic) IBOutlet UIButton *loginbutton;
+@property (weak, nonatomic) IBOutlet UIButton *skipButton;
+@property (weak, nonatomic) IBOutlet UIButton *forgotPasswordButton;
 @end
 
 @implementation LoginViewController
@@ -38,6 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //        [self authenticationToken];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -106,6 +111,16 @@
     //Set privacy policy attributed text
     [self setAttributString];
     [self customizedTextField];
+    [self localizedText];
+}
+
+- (void) localizedText {
+    _emailTextField.placeholder=NSLocalizedText(@"Email");
+    _passwordTextField.placeholder=NSLocalizedText(@"Password");
+    _orSeperatorLabel.text=NSLocalizedText(@"or");
+    [_loginbutton setTitle:NSLocalizedText(@"Log In") forState:UIControlStateNormal];
+    [_forgotPasswordButton setTitle:NSLocalizedText(@"ForgotPassword") forState:UIControlStateNormal];
+    [_skipButton setTitle:NSLocalizedText(@"Skip") forState:UIControlStateNormal];
 }
 
 - (void)setAttributString {

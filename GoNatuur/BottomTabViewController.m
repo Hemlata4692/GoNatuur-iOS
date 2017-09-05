@@ -54,6 +54,10 @@
     _myCartTabImageIcon.alpha=1.0;
     _wishlistTabImageIcon.alpha=1.0;
     _profileTabImageIcon.alpha=1.0;
+    [_homeTab setTitle:NSLocalizedText(@"Home") forState:UIControlStateNormal];
+    [_wishlistTab setTitle:NSLocalizedText(@"Wishlist") forState:UIControlStateNormal];
+    [_myCartTab setTitle:NSLocalizedText(@"MyCart") forState:UIControlStateNormal];
+    [_profileTab setTitle:NSLocalizedText(@"Profile") forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

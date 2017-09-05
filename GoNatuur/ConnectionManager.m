@@ -255,6 +255,7 @@
             CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
             exchangeData.currencyExchangeCode = footerDataDict[@"currency_to"];
             exchangeData.currencyExchangeRates = footerDataDict[@"rate"];
+            exchangeData.currencysymbol = footerDataDict[@"currency_symbol"];
             [userData.availableCurrencyRatesArray addObject:exchangeData];
         }
         success(userData);
@@ -716,7 +717,6 @@
         for (NSDictionary *aDict in response[@"custom_attributes"]) {
             if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultCurrency"]) {
                 [UserDefaultManager setValue:[aDict objectForKey:@"value"] key:@"DefaultCurrencyCode"];
-                
             }
         }
         success(profileData);
