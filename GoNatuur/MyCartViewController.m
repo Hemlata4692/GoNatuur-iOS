@@ -14,10 +14,11 @@
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
 
-@interface MyCartViewController () {
+@interface MyCartViewController ()<CartListDelegate> {
     CartListingViewController *cartListObj;
     NSMutableArray *cartListData;
     float totalCartProductPrice;
+    CartDataModel *cartModelData;
 }
 
 @property (strong, nonatomic) IBOutlet UILabel *freeShippingLabel;
@@ -143,7 +144,9 @@
    cartListObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CartListingViewController"];
     cartListObj.view.translatesAutoresizingMaskIntoConstraints=YES;
     cartListObj.view.frame=CGRectMake(0, 195, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-255);
+    cartListObj.delegate=self;
     cartListObj.cartListDataArray=[cartListData mutableCopy];
+    cartListObj.cartModelData=cartModelData;
     [cartListObj.cartListTableView reloadData];
     cartListObj.totalPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrency"],(totalCartProductPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
     [cartListObj.continueShoppingOutlet addTarget:self action:@selector(cartListContinueShopping:) forControlEvents:UIControlEventTouchUpInside];
@@ -152,17 +155,32 @@
     [self.view addSubview:cartListObj.view];
     [cartListObj didMoveToParentViewController:self];;
 }
+
+//Cart list delegate method
+- (void)removedItemDelegate:(NSMutableArray *)updatedCartList {
+    [self updateCartBadge];
+    if ([updatedCartList count]>0) {
+        [cartListObj.cartListTableView reloadData];
+    }
+    else {
+        _noRecordFountLabel.hidden=false;
+        [cartListObj.view removeFromSuperview];
+        [cartListObj removeFromParentViewController];
+    }
+}
 #pragma mark - end
 
 #pragma mark - Webservice
 - (void)getCartListData {
     CartDataModel *cartData = [CartDataModel sharedUser];
     [cartData getCartListingData:^(CartDataModel *userData)  {
+        cartModelData=userData;
         if (userData.itemList.count>0) {
             cartListData=[userData.itemList mutableCopy];
             [self getCartProductDetail];
         }
         else {
+            _noRecordFountLabel.hidden=false;
             [myDelegate stopIndicator];
         }
     } onfailure:^(NSError *error) {

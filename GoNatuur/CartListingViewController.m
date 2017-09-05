@@ -22,6 +22,7 @@
 @synthesize nextOutlet;
 @synthesize totalPriceLabel;
 @synthesize cartListTableView;
+@synthesize cartModelData;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -90,6 +91,8 @@
     if (cell == nil) {
         cell = [[CartListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
+    cell.removeItem.tag=(int)indexPath.row;
+    [cell.removeItem addTarget:self action:@selector(removeCartItem:) forControlEvents:UIControlEventTouchUpInside];
     [cell displayCartListData:[cartListDataArray objectAtIndex:indexPath.row]];
     return cell;
 }
@@ -104,6 +107,41 @@
         return 90;
     }
     return height;
+}
+#pragma mark - end
+
+#pragma mark - Webservice
+- (void)removeCartListData:(NSNumber *)index {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    cartData.itemId=[[cartListDataArray objectAtIndex:[index intValue]] itemId];
+    cartData.itemQuoteId=[[cartListDataArray objectAtIndex:[index intValue]] itemQuoteId];
+    [cartData removeItemFromCart:^(CartDataModel *userData)  {
+        [myDelegate stopIndicator];
+        NSMutableDictionary *cartTempDataDict=[cartModelData.cartListResponse mutableCopy];
+        if ((nil==[UserDefaultManager getValue:@"userId"])){
+            cartModelData.itemQty=[NSNumber numberWithInt:([cartModelData.itemQty intValue]-[[[cartListDataArray objectAtIndex:[index intValue]] itemQty] intValue])];
+            [UserDefaultManager setValue:cartModelData.itemQty key:@"quoteCount"];
+        }
+        else {
+            [cartTempDataDict setObject:[NSNumber numberWithInt:([cartTempDataDict[@"items_qty"] intValue]-[[[cartListDataArray objectAtIndex:[index intValue]] itemQty] intValue])] forKey:@"items_qty"];
+            [UserDefaultManager setValue:cartTempDataDict[@"items_qty"] key:@"quoteCount"];
+        }
+        cartModelData.cartListResponse=[cartTempDataDict mutableCopy];
+        [cartListDataArray removeObjectAtIndex:[index intValue]];
+        DLog(@"%@",[UserDefaultManager getValue:@"quoteCount"]);
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"removedProduct") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        [_delegate removedItemDelegate:[cartListDataArray mutableCopy]];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
+
+#pragma mark - IBAction
+- (IBAction)removeCartItem:(UIButton *)sender {
+    [myDelegate showIndicator];
+    [self performSelector:@selector(removeCartListData:) withObject:[NSNumber numberWithInt:(int)[sender tag]] afterDelay:.1];
 }
 #pragma mark - end
 

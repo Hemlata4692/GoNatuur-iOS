@@ -97,6 +97,9 @@
         _cartBadgeLabel.hidden=false;
         _cartBadgeLabel.text=[NSString stringWithFormat:@"%d",[[UserDefaultManager getValue:@"quoteCount"] intValue]];
     }
+    else {
+        _cartBadgeLabel.hidden=true;
+    }
 }
 #pragma mark - end
 

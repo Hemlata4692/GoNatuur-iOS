@@ -31,6 +31,7 @@
 //Request with parameters
 - (void)put:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(NSError *))failure;
 - (void)post:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(NSError *))failure;
+- (void)deleteService:(NSString *)path parameters:(NSDictionary *)parameters isBoolean:(BOOL)isBoolean success:(void (^)(id))success failure:(void (^)(NSError *))failure;
 //end
 
 //Request with profile image

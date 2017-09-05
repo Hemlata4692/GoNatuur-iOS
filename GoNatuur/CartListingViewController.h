@@ -7,9 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CartDataModel.h"
 
-@interface CartListingViewController : UIViewController
+@protocol CartListDelegate <NSObject>
+@optional
+- (void)removedItemDelegate:(NSMutableArray *)updatedCartList;
+@end
+
+@interface CartListingViewController : UIViewController {
+    id <CartListDelegate> _delegate;
+}
+
+@property (nonatomic,strong) id <CartListDelegate>delegate;
 @property (nonatomic, strong) NSMutableArray *cartListDataArray;
+@property (nonatomic, strong) CartDataModel *cartModelData;
 @property (strong, nonatomic) IBOutlet UIButton *continueShoppingOutlet;
 @property (strong, nonatomic) IBOutlet UIButton *nextOutlet;
 @property (strong, nonatomic) IBOutlet UILabel *totalPriceLabel;

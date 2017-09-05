@@ -18,10 +18,13 @@
 @property (strong, nonatomic) NSString *itemImageUrl;
 @property (strong, nonatomic) NSNumber *itemQuoteId;
 @property (strong, nonatomic) NSMutableArray *itemList;
+@property (strong, nonatomic) id cartListResponse;
 
 //Singleton instanse
 + (instancetype)sharedUser;
 
 //Cart listing data
 - (void)getCartListingData:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Remove item from cart
+- (void)removeItemFromCart:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

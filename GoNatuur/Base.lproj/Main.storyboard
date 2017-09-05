@@ -521,7 +521,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="87.5" y="273.5" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="273.5" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -5669,7 +5669,7 @@
                                 </cells>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="87.5" y="273.5" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="273.5" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>
@@ -5971,11 +5971,22 @@
                                                     <color key="textColor" red="0.71372549019999998" green="0.14117647059999999" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gLJ-Gg-Fmz">
+                                                    <rect key="frame" x="287" y="56" width="25" height="25"/>
+                                                    <color key="backgroundColor" red="0.71372549019999998" green="0.14117647059999999" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="US5-Wf-YhK"/>
+                                                        <constraint firstAttribute="height" constant="25" id="nFs-QP-oO4"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="OXz-8S-Wld" firstAttribute="leading" secondItem="Cbt-F6-ySv" secondAttribute="leading" id="2sP-0E-bAE"/>
                                                 <constraint firstItem="5Hm-ld-4Ue" firstAttribute="leading" secondItem="Cbt-F6-ySv" secondAttribute="leading" constant="8" id="FtJ-G8-bdk"/>
                                                 <constraint firstAttribute="bottom" secondItem="OXz-8S-Wld" secondAttribute="bottom" id="MOd-Qc-MSs"/>
+                                                <constraint firstItem="OXz-8S-Wld" firstAttribute="top" secondItem="gLJ-Gg-Fmz" secondAttribute="bottom" constant="8" id="NMb-wk-OoX"/>
+                                                <constraint firstAttribute="trailing" secondItem="gLJ-Gg-Fmz" secondAttribute="trailing" constant="8" id="OZ1-ed-zLK"/>
                                                 <constraint firstAttribute="trailing" secondItem="OXz-8S-Wld" secondAttribute="trailing" id="QDv-7m-dLF"/>
                                                 <constraint firstItem="5Hm-ld-4Ue" firstAttribute="top" secondItem="Cbt-F6-ySv" secondAttribute="top" constant="10" id="wOB-Lk-LuR"/>
                                             </constraints>
@@ -5987,6 +5998,7 @@
                                             <outlet property="productNameLabel" destination="i7k-V0-m2v" id="nQk-Ln-qxr"/>
                                             <outlet property="productPriceLabel" destination="N7f-uc-Jql" id="MaK-YV-huI"/>
                                             <outlet property="productQuantityLabel" destination="6Wb-rW-Hnf" id="UEk-Sd-cfb"/>
+                                            <outlet property="removeItem" destination="gLJ-Gg-Fmz" id="KN1-gX-jcm"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

@@ -15,5 +15,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *productDescriptionLabel;
 @property (strong, nonatomic) IBOutlet UILabel *productQuantityLabel;
 @property (strong, nonatomic) IBOutlet UILabel *productPriceLabel;
+@property (strong, nonatomic) IBOutlet UIButton *removeItem;
 - (void)displayCartListData:(CartDataModel *)cartData;
 @end

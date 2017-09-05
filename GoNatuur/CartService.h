@@ -12,4 +12,6 @@
 
 //Fetch cart listing
 - (void)getCartListing:(CartDataModel *)reviewData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
+//Remove item from cart
+- (void)removeItemFromCart:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 @end

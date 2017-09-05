@@ -17,6 +17,7 @@
 @synthesize itemSku;
 @synthesize itemQuoteId;
 @synthesize itemList;
+@synthesize cartListResponse;
 
 - (id)copyWithZone:(NSZone *)zone {
     CartDataModel *another = [[CartDataModel alloc] init];
@@ -27,6 +28,7 @@
     another.itemSku= [self.itemSku copyWithZone: zone];
     another.itemQuoteId= [self.itemQuoteId copyWithZone: zone];
     another.itemList= [self.itemList copyWithZone: zone];
+    another.cartListResponse= [self.cartListResponse copyWithZone: zone];
     return another;
 }
 
@@ -51,4 +53,17 @@
         
     }] ;
 }
+#pragma mark - end
+
+#pragma mark - Remove item from cart
+- (void)removeItemFromCart:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] removeItemFromCart:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
 @end
