@@ -31,7 +31,7 @@
     _totalTitle.text=NSLocalizedText(@"totalPoints");
     _recentTitle.text=NSLocalizedText(@"recentEarned");
     _personalDetailLabel.text=NSLocalizedText(@"personalDetails");
-    _changePasswordLabel.text=NSLocalizedText(@"changePassword");
+    _changePasswordLabel.text=NSLocalizedText(@"changePasswordProfile");
     _customerSupportLabel.text=NSLocalizedText(@"customerSupport");
     [_redeemPointButton setTitle:NSLocalizedText(@"sideBarRedeemPoints") forState:UIControlStateNormal];
     

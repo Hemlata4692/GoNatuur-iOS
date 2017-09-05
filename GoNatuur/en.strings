@@ -13,15 +13,12 @@
 "alertCancel" = "Cancel";
 "alertRetry"="Retry";
 "alertSettings"="Settings";
-"validPassword" = "Password minimum 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.";
+"validPassword" = "Password minimum 8 characters, including one uppercase letter, one lowercase letter, one number and one special character.";
 "emptyFieldMessage" = "Please fill in all the required fields.";
 "invalidOTP"="Invalid OTP.";
 "validEmailMessage" = "Please enter valid Email Address.";
 "passwordMatchMessage" = "Password and Confirm Password does not match.";
 "somethingWrongMessage" = "Something went wrong, please try again later.";
-"Privacy Policy" = "Privacy Policy";
-"privacy policy" = "privacy policy";
-"Terms & Conditions" = "Terms & Conditions";
 "Log In" = "Log In";
 "Internet connection" = "Internet connection error. Please try again later.";
 "specialCharacter" = "!~`@#$%^&*-+();:={}[],.<>?\\/\"\'";
@@ -68,7 +65,7 @@
 "Where to buy"="Where To Buy";
 "alreadyAddedWishlist"="Product already added to wishlist.";
 "Added to cart"="Added to cart";
-"addCart"="Add to cart";
+"addCart"="ADD TO CART";
 "All"="All";
 "Sortby"="Sort By";
 "Filter"="Filter";
@@ -151,7 +148,8 @@
 "personalDetails"="Personal Details";
 "changeCurrency"="Change Currency";
 "customerSupport"="Customer Support";
-"changePassword"="Change Password";
+"changePassword"="CHANGE PASSWORD";
+"changePasswordProfile"="Change Password";
 "currentPasswordPlaceholder"="Current Password*";
 "newPasswordPlaceholder"="New Password*";
 "shippingAddress"="Shipping Address";
@@ -164,11 +162,8 @@
 "personalSetting"="Personal Settings";
 "manageAddress"="Manage Addresses";
 "addAddress"="Add Address";
-"save"="Save";
+"save"="SAVE";
 "addressList"="Address List";
-"selectPhoto"="Select Photo";
-"gallery"="Gallery";
-"camera"="Camera";
 "thankYou"="THANK YOU!";
 "purchaseOrder"="Purchase order:";
 "chat"="Chat with us";

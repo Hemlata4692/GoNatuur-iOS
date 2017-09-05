@@ -19,11 +19,10 @@
 "validEmailMessage" = "请输入有效的电子邮件地址。";
 "passwordMatchMessage" = "密码和确认密码不匹配。";
 "somethingWrongMessage" = "发生错误。请稍后再试。";
-"Privacy Policy" = "隐私政策";
-"privacy policy" = "隐私政策";
-"Terms & Conditions" = "条款和条件";
+"privacyPolicy" = "隐私政策";
+"terms&Conditions" = "条款和条件";
 "Log In" = "登录";
-"Internet connection" = "Internet连接显示为脱机";
+"Internet connection"="互联网连接错误。请稍后再试。";
 "specialCharacter" = "!~`@#$%^&*-+();:={}[],.<>?\\/\"\'";
 "upperCaseCharacter" = "ABCDEFGHIJKLKMNOPQRSTUVWXYZ";
 "lowerCaseCharacter" = "abcdefghijklmnopqrstuvwxyz";
@@ -39,7 +38,7 @@
 "guestUserAccess"="请登录访问此模块。";
 "logoutUser"="您确定要退出吗？";
 "GoNatuur" = "GoNatuur";
-"forgotpassword"="哦noooo!!忘记密码了吗？？";
+"forgotpassword"="哦noooo!!\n忘记密码了吗？？";
 "sideBarLogin"="登录";
 "featureNotAvailable"="功能目前无法使用。";
 "guestUser"="访客用户";
@@ -53,7 +52,7 @@
 "Description"="描述";
 "Benefits&Usage"="利益与使用";
 "BrandStory"="品牌故事";
-"Shipping is free if the total purchase is above USD$100."="如果总价在100美元以上，则免运费。";
+"Shipping is free if the total purchase is above USD$100."="如果总购买额高于100美元，则免运费。";
 "Products can be returned within 30 days of purchase, subject to the following conditions."="产品可在购买后30天内退货，但须符合以下条件。";
 "PushNotificationAlertTitle"="“GoNatuur”想发送你的通知";
 "PushNotificationAlertMessage"="通知可能包括警报，声音和图标徽章。这些可以在“设置”中配置。";
@@ -79,8 +78,9 @@
 "cart"="购物车中的物品";
 "ticket"="票";
 "profileTitle"="我的简历";
-"oldPasswordMatchMessage" = "Please type new password in order to change old password.";
+"oldPasswordMatchMessage" = "请输入新密码以更改旧密码。";
 "changePasswordSuccessMessage" = "密码更新成功。";
+"resetPasswordSuccess" = "密码更新成功。";
 "TakePhoto"="选择照片";
 "noCamera"="设备没有相机。";
 "error"="错误";
@@ -149,6 +149,7 @@
 "changeCurrency"="更改货币";
 "customerSupport"="客户支持";
 "changePassword"="更改密码";
+"changePasswordProfile"="更改密码";
 "currentPasswordPlaceholder"="当前密码*";
 "newPasswordPlaceholder"="新密码*";
 "shippingAddress"="邮寄地址";
@@ -163,8 +164,8 @@
 "save"="保存";
 "addressList"="地址列表";
 "addAddress"="添加地址";
-"gallery"="画廊";
-"camera"="相机";
+"Gallery"="画廊";
+"Camera"="相机";
 "thankYou"="谢谢！";
 "purchaseOrder"="采购订单：";
 "chat"="和我们聊天";

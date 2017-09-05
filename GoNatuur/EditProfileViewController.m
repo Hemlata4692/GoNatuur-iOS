@@ -14,6 +14,7 @@
 #import "ProfileModel.h"
 #import "UIImage+UIImage_fixOrientation.h"
 #import "DynamicHeightWidth.h"
+#import "DashboardDataModel.h"
 
 @interface EditProfileViewController ()<BSKeyboardControlsDelegate,GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
     UITextField *currentSelectedTextField;
@@ -402,24 +403,46 @@
     }
     
     [userData saveUserProfile:^(ProfileModel *userData) {
+        [self getCategoryListData];
         NSMutableArray *ratesArray=[NSMutableArray new];
         for (int i =0; i<[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] count]; i++) {
             NSDictionary * footerDataDict =[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] objectAtIndex:i];
             CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
             exchangeData.currencyExchangeCode = footerDataDict[@"currency_to"];
             exchangeData.currencyExchangeRates = footerDataDict[@"rate"];
+            exchangeData.currencysymbol = footerDataDict[@"currency_symbol"];
             [ratesArray addObject:exchangeData];
         }
         for (int i=0; i<ratesArray.count; i++) {
             if ([[UserDefaultManager getValue:@"DefaultCurrencyCode"] containsString:[[ratesArray objectAtIndex:i] currencyExchangeCode]]) {
                 [UserDefaultManager setValue:[[ratesArray objectAtIndex:i] currencyExchangeRates] key:@"ExchangeRates"];
-                NSLog(@"%@",[UserDefaultManager getValue:@"ExchangeRates"]);
+                if ([[[ratesArray objectAtIndex:i] currencysymbol] isEqualToString:@""] || [[ratesArray objectAtIndex:i] currencysymbol]==nil) {
+                    [UserDefaultManager setValue:[UserDefaultManager getValue:@"DefaultCurrencyCode"] key:@"DefaultCurrencySymbol"];
+                }
+                else {
+                    [UserDefaultManager setValue:[[ratesArray objectAtIndex:i] currencysymbol] key:@"DefaultCurrencySymbol"];
+                }
             }
         }
-        [myDelegate stopIndicator];
-        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"profileSuccess") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+    } onfailure:^(NSError *error) {
         
+    }];
+}
+
+//Get category list data
+- (void)getCategoryListData {
+    DashboardDataModel *categoryList = [DashboardDataModel sharedUser];
+    categoryList.categoryId=@"2";
+    [categoryList getCategoryListDataOnSuccess:^(DashboardDataModel *userData)  {
+        myDelegate.categoryNameArray=[userData.categoryNameArray mutableCopy];
+        self.categorySliderObjc.categoryDataArray=[myDelegate.categoryNameArray mutableCopy];
+        [self.categorySliderObjc.categorySliderCollectionView reloadData];
+         [myDelegate stopIndicator];
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"profileSuccess")  closeButtonTitle:nil duration:0.0f];
     } onfailure:^(NSError *error) {
         
     }];

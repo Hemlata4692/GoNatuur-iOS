@@ -85,14 +85,7 @@
 
 #pragma mark - View customisation
 - (void)viewCustomisation {
-    //set 3 cells per row in collection view
-    UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout*)_footerImageCollectionView.collectionViewLayout;
-    CGFloat availableWidthForCells = CGRectGetWidth(self.view.frame) - flowLayout.sectionInset.left - flowLayout.sectionInset.right - flowLayout.minimumInteritemSpacing * (kCellsPerRow-3);
-    CGFloat cellWidth = (availableWidthForCells / kCellsPerRow)-3;
-    flowLayout.itemSize = CGSizeMake(cellWidth, cellWidth);
-    
     buttonTag=1;
-    
     [_bestSellerButton setTitle:NSLocalizedText(@"bestseller") forState:UIControlStateNormal];
     [_samplers setTitle:NSLocalizedText(@"Samplers") forState:UIControlStateNormal];
     [_healthyLivingButton setTitle:NSLocalizedText(@"healthyliving") forState:UIControlStateNormal];
@@ -219,6 +212,12 @@
         for (int i=0; i<exchangeCurrencyData.availableCurrencyRatesArray.count; i++) {
             if ([[UserDefaultManager getValue:@"DefaultCurrencyCode"] containsString:[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencyExchangeCode]]) {
                 [UserDefaultManager setValue:[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencyExchangeRates] key:@"ExchangeRates"];
+                if ([[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencysymbol] isEqualToString:@""] || [[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencysymbol]==nil) {
+                    [UserDefaultManager setValue:[UserDefaultManager getValue:@"DefaultCurrencyCode"] key:@"DefaultCurrencySymbol"];
+                }
+                else {
+                    [UserDefaultManager setValue:[[exchangeCurrencyData.availableCurrencyRatesArray objectAtIndex:i] currencysymbol] key:@"DefaultCurrencySymbol"];
+                }
             }
         }
         [self getDashboardData];

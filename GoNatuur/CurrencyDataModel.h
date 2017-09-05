@@ -15,6 +15,7 @@
 @property (strong, nonatomic) NSString *currentCurrencyCode;
 @property (strong, nonatomic) NSString *currencyExchangeRates;
 @property (strong, nonatomic) NSString *currencyExchangeCode;
+@property (strong, nonatomic) NSString *currencysymbol;
 
 //Singleton method
 + (instancetype)sharedUser;
