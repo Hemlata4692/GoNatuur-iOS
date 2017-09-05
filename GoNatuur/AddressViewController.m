@@ -23,7 +23,7 @@
     int selectedCountryCodeIndex, selectedRegionIndex;
     GoNatuurPickerView *gNPickerViewObj;
     NSString *selectedCountryId, *selectedRegionId, *selectedRegionCode;
-    BOOL isBilling, isShipping;
+    BOOL isBilling, isShipping, isPickerEnable;
 }
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *addressContainerView;
@@ -176,7 +176,6 @@
 }
 
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControl {
-    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [keyboardControl.activeField resignFirstResponder];
 }
 #pragma mark - end
@@ -189,12 +188,12 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [textField resignFirstResponder];
     return YES;
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
+    isPickerEnable = false;
     //Set field position after show keyboard
     NSDictionary* info = [notification userInfo];
     NSValue *aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
@@ -214,7 +213,9 @@
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     _scrollView.contentSize = CGSizeMake(0,_addressContainerView.frame.size.height);
-    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    if (!isPickerEnable) {
+        [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    }
 }
 #pragma mark - end
 
@@ -229,6 +230,7 @@
 }
 
 - (IBAction)selectCountryAction:(id)sender {
+    isPickerEnable = true;
     [self.keyboardControls.activeField resignFirstResponder];
     NSMutableArray *countryNameArray = [NSMutableArray new];
     for (int i = 0; i < countryCodeArray.count; i++) {
@@ -239,6 +241,7 @@
 }
 
 - (IBAction)selectStateAction:(id)sender {
+    isPickerEnable = true;
     [gNPickerViewObj showPickerView:regionNameArray selectedIndex:selectedRegionIndex option:2 isCancelDelegate:false];
 }
 
@@ -510,6 +513,7 @@
 
 #pragma mark - Image picker controller delegate methods
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info {
+    isPickerEnable = false;
     UIImage *correctOrientationImage = [image fixOrientation];
     _profileImageView.image=correctOrientationImage;
     [picker dismissViewControllerAnimated:YES completion:NULL];
@@ -518,6 +522,7 @@
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    isPickerEnable = false;
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 #pragma mark - end
