@@ -179,3 +179,10 @@
 "infoText"="Don't miss out! Be notified about the latest";
 "descText"=" offers and promotions on your favourite products";
 "socialMedia"="Share on Social Media";
+"cartListitems"="ITEMS";
+"cartListDescription"="DESCRIPTION";
+"cartListTotal"="TOTAL";
+"cartListQuantity"="QUANTITY";
+"cartListFreeShipping"="*FREE SHIPPING FOR ORDER $100 & ABOVE";
+"cartListContinueShopping"="CONTINUE SHOPPING";
+"cartListNext"="NEXT";

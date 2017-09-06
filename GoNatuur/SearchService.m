@@ -49,4 +49,24 @@ static NSString *kSearchListing=@"ranosys/getSearchList";
                                  };
     [super post:kProductListData parameters:parameters success:success failure:failure];
 }
+
+#pragma mark - Search list by name data
+- (void)getProductListByNameService:(SearchDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                               @{
+                                                                   @"filters":@[
+                                                                           @{@"field":@"name",
+                                                                             @"value":productData.productName,
+                                                                             @"condition_type": @"in"
+                                                                             }
+                                                                           ]
+                                                                   }
+                                                               ],
+                                                       @"page_size" : @0,
+                                                       @"current_page" : @0
+                                                       }
+                                 };
+    [super post:kProductListData parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
 @end
