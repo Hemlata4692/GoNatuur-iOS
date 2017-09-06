@@ -12,12 +12,14 @@
 #import "ProfileTableViewCell.h"
 #import "UIImage+UIImage_fixOrientation.h"
 #import "ProfileModel.h"
+#import "PayPalPaymentOption.h"
 
-@interface ProfileViewController ()<GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
+@interface ProfileViewController ()<GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,PayPalPaymentDelegate>{
     NSArray *menuItemsArray, *customerSupportArray;
     GoNatuurPickerView *customerSupportPicker;
     int selectedPickerIndex;
     UIImage *userProfileImage;
+    PayPalPaymentOption *payment;
 }
 @property (weak, nonatomic) IBOutlet UITableView *profileTableView;
 @end
@@ -31,6 +33,10 @@
     menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"customerSupportCell", @"changePasswordCell"];
     customerSupportArray=@[NSLocalizedText(@"chat"), NSLocalizedText(@"raiseTicket")];
     [self addCustomPickerView];
+    
+    payment=[[PayPalPaymentOption alloc]init];
+    [payment configPaypalPayment:PayPalEnvironmentSandbox];
+    
     [myDelegate showIndicator];
     [self performSelector:@selector(getUserImapctPoints) withObject:nil afterDelay:.1];
 }
@@ -147,6 +153,30 @@
                                                     otherButtonTitles:NSLocalizedText(@"Camera"), NSLocalizedText(@"Gallery"), nil];
     [actionSheet showInView:self.view];
 }
+
+- (IBAction)redeemPointsButtonAction:(id)sender {
+    [payment setPaymentDetails:[customerSupportArray mutableCopy] delegate:self];
+}
+
+//PayPalPaymentDelegate
+#pragma mark - PayPalPaymentDelegate methods
+- (void)payPalPaymentViewController:(PayPalPaymentViewController *)paymentViewController didCompletePayment:(PayPalPayment *)completedPayment {
+    NSLog(@"PayPal Payment Success!");
+   // self.resultText = [completedPayment description];
+    //[self showSuccess];
+
+    // [self sendCompletedPaymentToServer:completedPayment]; // Payment was processed successfully; send to server for verification and fulfillment
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)payPalPaymentDidCancel:(PayPalPaymentViewController *)paymentViewController {
+    NSLog(@"PayPal Payment Canceled");
+   // self.resultText = nil;
+    //self.successView.hidden = YES;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - end
 #pragma mark - end
 
 #pragma mark - Action sheet delegate

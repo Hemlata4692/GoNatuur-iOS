@@ -12,6 +12,7 @@
 #import <GoogleSignIn/GoogleSignIn.h>
 #import <UserNotifications/UserNotifications.h>
 #import "UncaughtExceptionHandler.h"
+#import "PayPalMobile.h"
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -101,6 +102,9 @@
         [self.window setBackgroundColor:[UIColor whiteColor]];
         [self.window makeKeyAndVisible];
     }
+    
+    //paypal config with client id //sandbox will be changed to live
+    [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentSandbox :     payPalClientId}];
     //[self registerForRemoteNotification];
     return YES;
 }
