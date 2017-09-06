@@ -744,44 +744,12 @@
 #pragma mark - end
 
 #pragma mark - User profile image
-//-(void)updateprofile:(NSString *)name image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure
-//{
-//    NSDictionary *requestDict = @{@"id":[[NSUserDefaults standardUserDefaults]objectForKey:@"UserId"],@"username":name};
-//    usedWebservice = kUrlUpdateprofile;
-//    [self postImage:kUrlUpdateprofile parameters:requestDict image:image success:^(id responseObject)
-//     {
-//         responseObject=(NSMutableDictionary *)[NullValueChecker checkDictionaryForNullValue:[responseObject mutableCopy]];
-//         
-//         if([self isStatusOK:responseObject])
-//         {
-//             success(responseObject);
-//         }
-//         else
-//         {
-//             [myDelegate StopIndicator];
-//             failure(nil);
-//         }
-//     } failure:^(NSError *error)
-//     {
-//         [myDelegate StopIndicator];
-//         failure(error);
-//     }];
-//    
-//}
-
 - (void)updateUserProfileImage:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
     ProfileService *profileService = [[ProfileService alloc] init];
     [profileService updateUserprofileImageService:profileData onSuccess:^(id response) {
         //Parse data from server response and store in data model
         DLog(@"user profile image %@",response);
-//        profileData.firstName=response[@"firstname"];
-//        profileData.lastName=response[@"lastname"];
-//        profileData.email=response[@"email"];
-//        profileData.groupId=response[@"group_id"];
-//        profileData.storeId=response[@"store_id"];
-//        profileData.websiteId=response[@"website_id"];
-//        profileData.customAttributeArray=[response[@"custom_attributes"]mutableCopy];
-//        profileData.addressArray=[response[@"addresses"]mutableCopy];
+        profileData.userImageURL=response[@"profile_pic"];
         success(profileData);
     } onFailure:^(NSError *error) {
         failure(error);

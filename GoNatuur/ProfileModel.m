@@ -76,6 +76,7 @@
 - (void)updateUserProfileImage:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] updateUserProfileImage:self onSuccess:^(ProfileModel *profileData) {
         if (success) {
+             [UserDefaultManager setValue:profileData.userImageURL key:@"profilePicture"];
             success (profileData);
         }
     } onFailure:^(NSError *error) {
