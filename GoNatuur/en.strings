@@ -186,3 +186,12 @@
 "cartListFreeShipping"="*FREE SHIPPING FOR ORDER $100 & ABOVE";
 "cartListContinueShopping"="CONTINUE SHOPPING";
 "cartListNext"="NEXT";
+"thanksText"="THANK YOU!";
+"purchaseOrderText"="Purchase Order:";
+"thankDescText"="Thank you for your purchase with GoNatuur. We are processing your order and will ship it to your shipping address as soon as it is ready. \n \n For any inquiries please don't hesitate to chat with us and our customer service executive will be in touch with you.";
+"purchaseText"="YOUR PURCHASE";
+"totalText"="Total:";
+"shippingIncludedFeeText"="Includes shipping fee:";
+"guestMessage"="You are not registered as a member. Please do sign up and enjoy special discount, offers and earn impact points to redeem rewards that will benefit you.";
+
+

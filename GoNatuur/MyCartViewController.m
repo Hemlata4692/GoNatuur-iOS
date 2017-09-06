@@ -10,12 +10,14 @@
 #import "CartDataModel.h"
 #import "CartListingViewController.h"
 #import "SearchDataModel.h"
+#import "ThankYouViewController.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
 
 @interface MyCartViewController ()<CartListDelegate> {
     CartListingViewController *cartListObj;
+    ThankYouViewController *thankYouViewObj;
     NSMutableArray *cartListData;
     float totalCartProductPrice;
     CartDataModel *cartModelData;
@@ -232,6 +234,23 @@
 
 - (IBAction)cartListNext:(UIButton *)sender {
     DLog(@"cart next");
+    [self viewCustomisation:4];
+}
+
+- (void)addThankYouScreen {
+    thankYouViewObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CartListingViewController"];
+    thankYouViewObj.view.translatesAutoresizingMaskIntoConstraints=YES;
+    thankYouViewObj.view.frame=CGRectMake(0, 195, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-255);
+//    thankYouViewObj.delegate=self;
+//    thankYouViewObj.cartListDataArray=[cartListData mutableCopy];
+//    thankYouViewObj.cartModelData=cartModelData;
+    [thankYouViewObj.thankYouTable reloadData];
+//    thankYouViewObj.totalPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(totalCartProductPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
+//    [thankYouViewObj.continueShoppingButton addTarget:self action:@selector(cartListContinueShopping:) forControlEvents:UIControlEventTouchUpInside];
+//    [thankYouViewObj.nextOutlet addTarget:self action:@selector(cartListNext:) forControlEvents:UIControlEventTouchUpInside];
+    [self addChildViewController:thankYouViewObj];
+    [self.view addSubview:thankYouViewObj.view];
+    [thankYouViewObj didMoveToParentViewController:self];;
 }
 //end
 #pragma mark - end

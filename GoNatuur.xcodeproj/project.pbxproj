@@ -91,6 +91,8 @@
 		5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC591F553A3500AECF40 /* ChangePasswordViewController.m */; };
 		5D27AC5E1F55649E00AECF40 /* ProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC5D1F55649E00AECF40 /* ProfileModel.m */; };
 		5D27AC621F55678C00AECF40 /* ProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC611F55678C00AECF40 /* ProfileService.m */; };
+		5D38A2301F5ED85F001CBCBC /* ThankYouViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D38A22F1F5ED85F001CBCBC /* ThankYouViewController.m */; };
+		5D38A2331F5ED95D001CBCBC /* ThankYouTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D38A2321F5ED95D001CBCBC /* ThankYouTableCell.m */; };
 		B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = B73A65371F3DF0630051E4C5 /* LocalizedString.m */; };
 		B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653A1F3DF07F0051E4C5 /* en.strings */; };
 		B73A653E1F3DF0870051E4C5 /* cn.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653C1F3DF0870051E4C5 /* cn.strings */; };
@@ -283,6 +285,10 @@
 		5D27AC5D1F55649E00AECF40 /* ProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileModel.m; sourceTree = "<group>"; };
 		5D27AC601F55678C00AECF40 /* ProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileService.h; sourceTree = "<group>"; };
 		5D27AC611F55678C00AECF40 /* ProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileService.m; sourceTree = "<group>"; };
+		5D38A22E1F5ED85F001CBCBC /* ThankYouViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThankYouViewController.h; sourceTree = "<group>"; };
+		5D38A22F1F5ED85F001CBCBC /* ThankYouViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThankYouViewController.m; sourceTree = "<group>"; };
+		5D38A2311F5ED95D001CBCBC /* ThankYouTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThankYouTableCell.h; sourceTree = "<group>"; };
+		5D38A2321F5ED95D001CBCBC /* ThankYouTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThankYouTableCell.m; sourceTree = "<group>"; };
 		B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.debug.xcconfig"; sourceTree = "<group>"; };
 		B73A65361F3DF0630051E4C5 /* LocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedString.h; sourceTree = "<group>"; };
 		B73A65371F3DF0630051E4C5 /* LocalizedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedString.m; sourceTree = "<group>"; };
@@ -819,6 +825,7 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5D38A22D1F5ED717001CBCBC /* CheckoutModule */,
 				B77D86DE1F5D83A40041D646 /* MyCartModule */,
 				180409E21F58887100EA3E17 /* WishlistViewController */,
 				180409DD1F58741800EA3E17 /* NewCentreModule */,
@@ -1203,6 +1210,33 @@
 				5D27AC611F55678C00AECF40 /* ProfileService.m */,
 			);
 			name = ProfileService;
+			sourceTree = "<group>";
+		};
+		5D38A22D1F5ED717001CBCBC /* CheckoutModule */ = {
+			isa = PBXGroup;
+			children = (
+				5D38A2341F5ED964001CBCBC /* ThankYouViewController */,
+				5D38A2351F5ED97C001CBCBC /* ThankYouTableCell */,
+			);
+			name = CheckoutModule;
+			sourceTree = "<group>";
+		};
+		5D38A2341F5ED964001CBCBC /* ThankYouViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5D38A22E1F5ED85F001CBCBC /* ThankYouViewController.h */,
+				5D38A22F1F5ED85F001CBCBC /* ThankYouViewController.m */,
+			);
+			name = ThankYouViewController;
+			sourceTree = "<group>";
+		};
+		5D38A2351F5ED97C001CBCBC /* ThankYouTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				5D38A2311F5ED95D001CBCBC /* ThankYouTableCell.h */,
+				5D38A2321F5ED95D001CBCBC /* ThankYouTableCell.m */,
+			);
+			name = ThankYouTableCell;
 			sourceTree = "<group>";
 		};
 		B73A65351F3DF0530051E4C5 /* LocalizedString */ = {
@@ -1703,6 +1737,7 @@
 				320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */,
 				32A3D6B81F1CBADB00062B86 /* LoginViewController.m in Sources */,
 				188605A51F39C6890005D1E2 /* DynamicHeightWidth.m in Sources */,
+				5D38A2331F5ED95D001CBCBC /* ThankYouTableCell.m in Sources */,
 				18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */,
 				B7AA39C51F47116700423121 /* ProductListCollectionViewCell.m in Sources */,
 				180ECD331F485B56003C936E /* EDStarRating.m in Sources */,
@@ -1722,6 +1757,7 @@
 				188B2C131F41DFA50001A7AE /* SearchDataModel.m in Sources */,
 				B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */,
 				188B2C0A1F419E8B0001A7AE /* SearchListingViewController.m in Sources */,
+				5D38A2301F5ED85F001CBCBC /* ThankYouViewController.m in Sources */,
 				180409E01F58744B00EA3E17 /* NewsCentreViewController.m in Sources */,
 				5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */,
 				32CC20951F25B1D90054C344 /* LoginModel.m in Sources */,
