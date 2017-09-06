@@ -117,7 +117,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==0) {
-        return 160;
+        return 150;
     }
     else if (indexPath.row==1) {
         return [DynamicHeightWidth getDynamicLabelHeight:[UserDefaultManager getValue:@"emailId"] font:[UIFont montserratLightWithSize:16] widthValue:[[UIScreen mainScreen] bounds].size.width-50 heightValue:60]+10;
@@ -198,7 +198,6 @@
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
     [myDelegate showIndicator];
     [self performSelector:@selector(editUserProfileImage) withObject:nil afterDelay:.1];
-//    /editUserProfileImage
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
