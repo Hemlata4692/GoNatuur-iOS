@@ -181,3 +181,10 @@
 "infoText"="不要错过！通知最新的";
 "descText"=" 优惠和促销您最喜欢的产品";
 "socialMedia"="分享到社交媒体";
+"cartListitems"="ITEMS";
+"cartListDescription"="DESCRIPTION";
+"cartListTotal"="TOTAL";
+"cartListQuantity"="QUANTITY";
+"cartListFreeShipping"="*FREE SHIPPING FOR ORDER $100 & ABOVE";
+"cartListContinueShopping"="CONTINUE SHOPPING";
+"cartListNext"="NEXT";

@@ -22,6 +22,8 @@
 #import "ProductService.h"
 #import "ProfileModel.h"
 #import "ProfileService.h"
+#import "CartDataModel.h"
+#import "CartService.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -723,6 +725,93 @@
     } onFailure:^(NSError *error) {
         failure(error);
     }] ;
+}
+#pragma mark - end
+
+#pragma mark - Cart module services
+//Cart listing service
+- (void)getCartListing:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList getCartListing:cartData success:^(id response) {
+        DLog(@"cart list response %@",response);
+        cartData.cartListResponse=[response mutableCopy];
+        cartData.itemList=[NSMutableArray new];
+        if ((nil==[UserDefaultManager getValue:@"userId"])){
+            int cartCount=0;
+            for (NSDictionary *tempDict in response) {
+                cartCount+=[tempDict[@"qty"] intValue];
+                [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
+            }
+            cartData.itemQty=[NSNumber numberWithInt:cartCount];
+        }
+        else {
+            for (NSDictionary *tempDict in response[@"items"]) {
+                [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
+            }
+        }
+        
+        success(cartData);
+    }
+                   onfailure:^(NSError *error) {
+                   }];
+}
+
+- (CartDataModel *)loadCartListData:(NSDictionary *)tempDict {
+    CartDataModel *listData = [[CartDataModel alloc]init];
+    listData.itemId=tempDict[@"item_id"];
+    listData.itemName=tempDict[@"name"];
+    listData.itemPrice=tempDict[@"price"];
+    listData.itemQty=tempDict[@"qty"];
+    listData.itemQuoteId=tempDict[@"quote_id"];
+    listData.itemSku=tempDict[@"sku"];
+    return listData;
+}
+#pragma mark - end
+
+#pragma mark - Remove item from cart
+- (void)removeItemFromCart:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList removeItemFromCart:cartData success:^(id response) {
+        DLog(@"cart list response %@",response);
+        success(cartData);
+    }
+                   onfailure:^(NSError *error) {
+                   }];
+}
+#pragma mark - end
+
+#pragma mark - Search list by name data
+- (void)getProductListByNameService:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    SearchService *serachSuggestions=[[SearchService alloc]init];
+    [serachSuggestions getProductListByNameService:searchData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"SearchService list response %@",response);
+        searchData.searchProductListArray=[[NSMutableArray alloc]init];
+        NSArray *productDataArray=response[@"items"];
+        for (int i =0; i<productDataArray.count; i++) {
+            NSDictionary * productDataDict =[productDataArray objectAtIndex:i];
+            SearchDataModel * productData = [[SearchDataModel alloc]init];
+            productData.productId = productDataDict[@"id"];
+            productData.productPrice = [productDataDict[@"price"] stringValue];
+            productData.productName = productDataDict[@"name"];
+            if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
+                productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+            }
+            productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
+            productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+            productData.productType=[productDataDict objectForKey:@"type_id"];
+            [searchData.searchProductListArray addObject:productData];
+        }
+        searchData.searchResultCount=response[@"total_count"];
+        searchData.searchProductIds=[response[@"relevance_items"] mutableCopy];
+        success(searchData);
+        
+    } onfailure:^(NSError *error) {
+        failure(error);
+    }] ;
+    
 }
 #pragma mark - end
 @end

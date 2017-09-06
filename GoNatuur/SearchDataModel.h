@@ -38,4 +38,6 @@
 - (void)getSearchProductListing:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
 //Search list pagination data
 - (void)getProductListServiceOnSuccess:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Search list by name data
+- (void)getProductListByNameServiceOnSuccess:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end
