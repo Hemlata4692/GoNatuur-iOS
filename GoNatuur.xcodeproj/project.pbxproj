@@ -102,6 +102,8 @@
 		5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC591F553A3500AECF40 /* ChangePasswordViewController.m */; };
 		5D27AC5E1F55649E00AECF40 /* ProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC5D1F55649E00AECF40 /* ProfileModel.m */; };
 		5D27AC621F55678C00AECF40 /* ProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC611F55678C00AECF40 /* ProfileService.m */; };
+		5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC39511F61783F00702F92 /* AddressListingViewController.m */; };
+		5DAC39551F61783F00702F92 /* AddressListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC39531F61783F00702F92 /* AddressListingCell.m */; };
 		B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = B73A65371F3DF0630051E4C5 /* LocalizedString.m */; };
 		B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653A1F3DF07F0051E4C5 /* en.strings */; };
 		B73A653E1F3DF0870051E4C5 /* cn.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653C1F3DF0870051E4C5 /* cn.strings */; };
@@ -313,6 +315,10 @@
 		5D27AC5D1F55649E00AECF40 /* ProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileModel.m; sourceTree = "<group>"; };
 		5D27AC601F55678C00AECF40 /* ProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileService.h; sourceTree = "<group>"; };
 		5D27AC611F55678C00AECF40 /* ProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileService.m; sourceTree = "<group>"; };
+		5DAC39501F61783F00702F92 /* AddressListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListingViewController.h; sourceTree = "<group>"; };
+		5DAC39511F61783F00702F92 /* AddressListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListingViewController.m; sourceTree = "<group>"; };
+		5DAC39521F61783F00702F92 /* AddressListingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListingCell.h; sourceTree = "<group>"; };
+		5DAC39531F61783F00702F92 /* AddressListingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListingCell.m; sourceTree = "<group>"; };
 		B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.debug.xcconfig"; sourceTree = "<group>"; };
 		B73A65361F3DF0630051E4C5 /* LocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedString.h; sourceTree = "<group>"; };
 		B73A65371F3DF0630051E4C5 /* LocalizedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedString.m; sourceTree = "<group>"; };
@@ -636,9 +642,9 @@
 		185F706A1F559D6B007F49F7 /* ProfileModule */ = {
 			isa = PBXGroup;
 			children = (
+				5DAC38201F6177DA00702F92 /* AddressModule */,
 				1813BDBD1F55E70100D9C9BA /* ProfileView */,
 				18C418E11F57263600749654 /* EditProfileView */,
-				5D1E5E351F56840A006E6C63 /* AddressViewController */,
 				5D27AC571F553A0500AECF40 /* ChangePasswordViewController */,
 			);
 			name = ProfileModule;
@@ -1297,6 +1303,42 @@
 			name = ProfileService;
 			sourceTree = "<group>";
 		};
+		5DAC38201F6177DA00702F92 /* AddressModule */ = {
+			isa = PBXGroup;
+			children = (
+				5DAC394F1F61783300702F92 /* AddressListingView */,
+				5D1E5E351F56840A006E6C63 /* AddressViewController */,
+			);
+			name = AddressModule;
+			sourceTree = "<group>";
+		};
+		5DAC394F1F61783300702F92 /* AddressListingView */ = {
+			isa = PBXGroup;
+			children = (
+				5DAC39571F61835F00702F92 /* AddressListingViewController */,
+				5DAC39561F61835D00702F92 /* AddressListingCell */,
+			);
+			name = AddressListingView;
+			sourceTree = "<group>";
+		};
+		5DAC39561F61835D00702F92 /* AddressListingCell */ = {
+			isa = PBXGroup;
+			children = (
+				5DAC39521F61783F00702F92 /* AddressListingCell.h */,
+				5DAC39531F61783F00702F92 /* AddressListingCell.m */,
+			);
+			name = AddressListingCell;
+			sourceTree = "<group>";
+		};
+		5DAC39571F61835F00702F92 /* AddressListingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5DAC39501F61783F00702F92 /* AddressListingViewController.h */,
+				5DAC39511F61783F00702F92 /* AddressListingViewController.m */,
+			);
+			name = AddressListingViewController;
+			sourceTree = "<group>";
+		};
 		B73A65351F3DF0530051E4C5 /* LocalizedString */ = {
 			isa = PBXGroup;
 			children = (
@@ -1742,6 +1784,7 @@
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
 				187561911F469BD500F609AB /* NotificationDataModel.m in Sources */,
 				180ECD301F484DE4003C936E /* UIPlaceHolderTextView.m in Sources */,
+				5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */,
 				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
 				180ECD3C1F489AF0003C936E /* ReviewTableViewCell.m in Sources */,
 				180409E51F58888900EA3E17 /* WishlistViewController.m in Sources */,
@@ -1791,6 +1834,7 @@
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
 				B77D86E51F5D83EB0041D646 /* MyCartViewController.m in Sources */,
 				184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */,
+				5DAC39551F61783F00702F92 /* AddressListingCell.m in Sources */,
 				188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */,
 				3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */,
 				320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */,
