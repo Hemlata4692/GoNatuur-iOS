@@ -102,6 +102,10 @@
     _settingsLabel.text=NSLocalizedText(@"personalSetting");
     [_saveButton setTitle:NSLocalizedText(@"save") forState:UIControlStateNormal];
     [_manageAddButton setTitle:NSLocalizedText(@"manageAddress") forState:UIControlStateNormal];
+    _manageAddButton.translatesAutoresizingMaskIntoConstraints=YES;
+    [_manageAddButton sizeToFit];
+    _manageAddButton.frame=CGRectMake(([[UIScreen mainScreen] bounds].origin.x+[[UIScreen mainScreen] bounds].size.width/2)-(_manageAddButton.frame.size.width/2), _saveButton.frame.origin.y+_saveButton.frame.size.height+8, _manageAddButton.frame.size.width, 22);
+    [_manageAddButton setBottomBorder:_manageAddButton color:[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0]];
 }
 #pragma mark - end
 
@@ -124,6 +128,7 @@
     [_saveButton addShadow:_saveButton color:[UIColor blackColor]];
     [_userImageView setBorder:_userImageView color:[UIColor colorWithRed:194.0/255.0 green:194.0/255.0 blue:194.0/255.0 alpha:1.0] borderWidth:3.0];
     [_userImageView setCornerRadius:60.0];
+    [ImageCaching downloadImages:_userImageView imageUrl:[UserDefaultManager getValue:@"profilePicture"] placeholderImage:@"profile_placeholder" isDashboardCell:true];
 }
 #pragma mark - end
 
@@ -258,11 +263,11 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info {
     UIImage *correctOrientationImage = [image fixOrientation];
     _userImageView.image=correctOrientationImage;
-    [picker dismissViewControllerAnimated:YES completion:NULL];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+    [picker dismissViewControllerAnimated:YES completion:NULL];
     [myDelegate showIndicator];
-    [self performSelector:@selector(editUserProfileImage) withObject:nil afterDelay:.1];
+    [self performSelector:@selector(editProfileImageData) withObject:nil afterDelay:.1];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -334,7 +339,7 @@
 }
 
 //edit profile
-- (void)editUserProfileImage {
+- (void)editProfileImageData {
     ProfileModel *userData = [ProfileModel sharedUser];
     userData.userImage=_userImageView.image;
     [userData updateUserProfileImage:^(ProfileModel *userData) {
@@ -345,12 +350,10 @@
     }];
 }
 
-
 //display profile data
 - (void)displayData:(ProfileModel *)data {
     _firstNameTextField.text=data.firstName;
     _lastNameTextField.text=data.lastName;
-    [ImageCaching downloadImages:_userImageView imageUrl:[UserDefaultManager getValue:@"profilePicture"] placeholderImage:@"profile_placeholder" isDashboardCell:true];
     _userEmailLabel.text=[UserDefaultManager getValue:@"emailId"];
     _userEmailLabel.translatesAutoresizingMaskIntoConstraints=YES;
     _userEmailLabel.numberOfLines=2;

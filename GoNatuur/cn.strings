@@ -102,7 +102,7 @@
 "Password"="密码";
 "ConfirmPassword"="确认密码";
 "Email"="电子邮件";
-"ForgotPassword"="忘记密码？";
+"ForgotPassword"="忘记密码?";
 "Skip"="跳过并继续";
 "placeholderConfirmPassword"="确认密码*";
 "createAccount"="创建帐号";
@@ -115,7 +115,7 @@
 "search"="搜索";
 "sendOTP"="发送我的OTP";
 "backToLogin"="返回登录";
-"resetPasswordTitle"="重置你的密码！！";
+"resetPasswordTitle"="重置你的密码！!";
 "otp"="OTP";
 "resetPassword"="重设密码";
 "resendOTP"="重新发送OTP";

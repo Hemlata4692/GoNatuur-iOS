@@ -221,11 +221,7 @@
 
 #pragma mark - IBActions
 - (IBAction)SelectProfilePhotoButtonAction:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:self
-                                                    cancelButtonTitle:NSLocalizedText(@"alertCancel")
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:NSLocalizedText(@"TakePhoto"), NSLocalizedText(@"Gallery"), nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedText(@"TakePhoto")                                                             delegate:self cancelButtonTitle:NSLocalizedText(@"alertCancel")destructiveButtonTitle:nil otherButtonTitles:NSLocalizedText(@"Camera"), NSLocalizedText(@"Gallery"), nil];
     [actionSheet showInView:self.view];
 }
 
@@ -418,6 +414,18 @@
         
     }];
 }
+
+//edit profile
+- (void)editProfileImage {
+    ProfileModel *userData = [ProfileModel sharedUser];
+    userData.userImage=_profileImageView.image;
+    [userData updateUserProfileImage:^(ProfileModel *userData) {
+        [myDelegate stopIndicator];
+        //dispaly profile data
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
 #pragma mark - end
 
 #pragma mark - Add picker
@@ -516,9 +524,11 @@
     isPickerEnable = false;
     UIImage *correctOrientationImage = [image fixOrientation];
     _profileImageView.image=correctOrientationImage;
-    [picker dismissViewControllerAnimated:YES completion:NULL];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(editProfileImage) withObject:nil afterDelay:.1];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

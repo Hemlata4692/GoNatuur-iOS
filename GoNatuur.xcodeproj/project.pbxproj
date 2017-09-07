@@ -649,7 +649,6 @@
 		185F706A1F559D6B007F49F7 /* ProfileModule */ = {
 			isa = PBXGroup;
 			children = (
-				5DAC38201F6177DA00702F92 /* AddressModule */,
 				1813BDBD1F55E70100D9C9BA /* ProfileView */,
 				18C418E11F57263600749654 /* EditProfileView */,
 				5D27AC571F553A0500AECF40 /* ChangePasswordViewController */,
@@ -948,6 +947,7 @@
 				181AD48C1F5EADEB00AA3C3D /* WishlistModule */,
 				B77D86DE1F5D83A40041D646 /* MyCartModule */,
 				180409DD1F58741800EA3E17 /* NewCentreModule */,
+				5DAC38201F6177DA00702F92 /* AddressModule */,
 				185F706A1F559D6B007F49F7 /* ProfileModule */,
 				180ECD381F489AAD003C936E /* ReviewModule */,
 				180ECD221F482A0C003C936E /* WebViewController */,
