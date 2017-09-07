@@ -12,12 +12,13 @@
 
 NSString * const iOS_Version = @"10.0";
 //Client
-NSString * const BaseUrl = @"http://dev.gonatuur.com/";
+//NSString * const BaseUrl = @"http://dev.gonatuur.com/";
 //Beta
-//NSString * const BaseUrl = @"http://192.121.166.226/gopurpose/";
+NSString * const BaseUrl = @"http://192.121.166.226/gopurpose/";
 NSString * const productImageBaseUrl = @"media/catalog/category";
 NSString * const productDetailImageBaseUrl = @"media/catalog/product";
 NSString * const eventIdentifier = @"ticket";
+NSString * const payPalClientId = @"AZR_diRWoS3qEWpUDyI6_K6iRHjKkOMwC93488tbFjugQIxL6OLjg6ces1FwsnR8Bv6F107if32vofmP";
 
 //Check device type
 + (ConstantType)checkDeviceType {

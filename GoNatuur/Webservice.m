@@ -120,8 +120,7 @@
 
 //Request with profile image
 - (void)postImage:(NSString *)path parameters:(NSDictionary *)parameters image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure {
-    path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-      DLog(@"%@",[NSString stringWithFormat:@"%@%@/rest/%@/V1/",BaseUrl,[UserDefaultManager getValue:@"Language"], [UserDefaultManager getValue:@"Language"]]);
+    path = [NSString stringWithFormat:@"http://dev.gonatuur.com/en/%@",path];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
@@ -134,7 +133,7 @@
     manager.securityPolicy.allowInvalidCertificates = YES;
     NSData *imageData = UIImageJPEGRepresentation(image, 0.3);
     [manager POST:path parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:imageData name:@"Images" fileName:@"files.jpg" mimeType:@"image/jpeg"];
+        [formData appendPartWithFileData:imageData name:@"avatar" fileName:@"files.jpg" mimeType:@"image/jpeg"];
     } progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         success(responseObject);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {

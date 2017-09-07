@@ -30,6 +30,7 @@ extern NSString * const BaseUrl;
 extern NSString * const productImageBaseUrl;
 extern NSString * const productDetailImageBaseUrl;
 extern NSString * const eventIdentifier;
+extern NSString * const payPalClientId;
 //end
 
 + (ConstantType)checkDeviceType;

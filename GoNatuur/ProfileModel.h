@@ -48,7 +48,12 @@
 @property (strong, nonatomic) NSString *storeId;
 @property (strong, nonatomic) NSString *websiteId;
 @property (strong, nonatomic) NSString *groupId;
-
+@property (strong, nonatomic) NSString *currentPage;
+@property (strong, nonatomic) NSString *pageCount;
+@property (strong, nonatomic) NSString *totalPoints;
+@property (strong, nonatomic) NSString *recentEarnedPoints;
+@property (strong, nonatomic) NSString *userImageURL;
+@property (strong, nonatomic) UIImage *userImage;
 
 + (instancetype)sharedUser;
 //Login user
@@ -59,4 +64,8 @@
 - (void)getUserProfile:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;
 //Save user profile
 - (void)saveUserProfile:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure ;
+//Get imapct points
+- (void)getImpactPoints:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;
+//Update user profile image
+- (void)updateUserProfileImage:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;
 @end
