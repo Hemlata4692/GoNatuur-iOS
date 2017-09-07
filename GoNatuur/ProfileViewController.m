@@ -155,6 +155,7 @@
 }
 
 - (IBAction)redeemPointsButtonAction:(id)sender {
+    //pay pal payment
     [payment setPaymentDetails:[customerSupportArray mutableCopy] delegate:self];
 }
 
