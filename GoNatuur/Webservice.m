@@ -81,6 +81,43 @@
     }];
 }
 
+- (void)deleteService:(NSString *)path parameters:(NSDictionary *)parameters isBoolean:(BOOL)isBoolean success:(void (^)(id))success failure:(void (^)(NSError *))failure {
+    path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    DLog(@"%@",WEB_BASE_URL);
+    if (!isBoolean) {
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    }
+    else {
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    }
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
+    [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
+        //[UserDefaultManager getValue:@"Authorization"]
+        DLog(@"%@",[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]]);
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
+    }
+    manager.securityPolicy.allowInvalidCertificates = YES;
+    [manager DELETE:path parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (isBoolean) {
+            NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            if ([string isEqualToString:@"true"]) {
+                success(@{@"status":[NSNumber numberWithBool:true]});
+            }
+        }
+        else {
+            responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
+            success(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
+        NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
+        [myDelegate stopIndicator];
+        [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
+    }];
+}
+
 //Request with profile image
 - (void)postImage:(NSString *)path parameters:(NSDictionary *)parameters image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     path = [NSString stringWithFormat:@"http://dev.gonatuur.com/en/%@",path];

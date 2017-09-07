@@ -112,6 +112,11 @@
 		B77A8A781F34388800233782 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A771F34388800233782 /* SignUpViewController.m */; };
 		B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */; };
 		B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */; };
+		B77D86E51F5D83EB0041D646 /* MyCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86E41F5D83EB0041D646 /* MyCartViewController.m */; };
+		B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86E71F5D83F50041D646 /* CartListingViewController.m */; };
+		B77D86EB1F5D84090041D646 /* CartListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86EA1F5D84090041D646 /* CartListTableViewCell.m */; };
+		B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86EE1F5D85190041D646 /* CartDataModel.m */; };
+		B77D86F31F5D85320041D646 /* CartService.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86F21F5D85320041D646 /* CartService.m */; };
 		B7A4D3ED1F48278A00A28BBE /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3EC1F48278900A28BBE /* ProductDetailViewController.m */; };
 		B7A4D3F01F4828E500A28BBE /* ProductDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3EF1F4828E500A28BBE /* ProductDetailTableViewCell.m */; };
 		B7A4D3F51F48294700A28BBE /* ProductDetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3F41F48294700A28BBE /* ProductDetailCollectionViewCell.m */; };
@@ -324,6 +329,16 @@
 		B77A8A7A1F346C1200233782 /* SocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
 		B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialLoginViewController.m; sourceTree = "<group>"; };
 		B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLoginViewController.xib; sourceTree = "<group>"; };
+		B77D86E31F5D83EB0041D646 /* MyCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCartViewController.h; sourceTree = "<group>"; };
+		B77D86E41F5D83EB0041D646 /* MyCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCartViewController.m; sourceTree = "<group>"; };
+		B77D86E61F5D83F50041D646 /* CartListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartListingViewController.h; sourceTree = "<group>"; };
+		B77D86E71F5D83F50041D646 /* CartListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartListingViewController.m; sourceTree = "<group>"; };
+		B77D86E91F5D84090041D646 /* CartListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartListTableViewCell.h; sourceTree = "<group>"; };
+		B77D86EA1F5D84090041D646 /* CartListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartListTableViewCell.m; sourceTree = "<group>"; };
+		B77D86ED1F5D85190041D646 /* CartDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartDataModel.h; sourceTree = "<group>"; };
+		B77D86EE1F5D85190041D646 /* CartDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartDataModel.m; sourceTree = "<group>"; };
+		B77D86F11F5D85320041D646 /* CartService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartService.h; sourceTree = "<group>"; };
+		B77D86F21F5D85320041D646 /* CartService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartService.m; sourceTree = "<group>"; };
 		B7A4D3EB1F48278900A28BBE /* ProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailViewController.h; sourceTree = "<group>"; };
 		B7A4D3EC1F48278900A28BBE /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
 		B7A4D3EE1F4828E500A28BBE /* ProductDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailTableViewCell.h; sourceTree = "<group>"; };
@@ -905,6 +920,7 @@
 		320761601F1626F2001F1790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B77D86EC1F5D850F0041D646 /* CartModel */,
 				5D27AC5B1F55647700AECF40 /* ProfileModel */,
 				180ECD3D1F489E3F003C936E /* ReviewModel */,
 				B7A4D3F71F4854A500A28BBE /* ProductModel */,
@@ -995,6 +1011,7 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				B77D86F01F5D85270041D646 /* CartService */,
 				5D27AC5F1F55674E00AECF40 /* ProfileService */,
 				180ECD411F48A200003C936E /* ReviewService */,
 				B7A4D3F61F48549D00A28BBE /* ProductService */,
@@ -1332,6 +1349,69 @@
 				B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */,
 			);
 			name = SocialLoginButttonView;
+			sourceTree = "<group>";
+		};
+		B77D86DE1F5D83A40041D646 /* MyCartModule */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E21F5D83CF0041D646 /* MyCartViewController */,
+				B77D86DF1F5D83AE0041D646 /* CartListingViewController */,
+			);
+			name = MyCartModule;
+			sourceTree = "<group>";
+		};
+		B77D86DF1F5D83AE0041D646 /* CartListingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E11F5D83C50041D646 /* CartListCell */,
+				B77D86E01F5D83BB0041D646 /* CartListViewController */,
+			);
+			name = CartListingViewController;
+			sourceTree = "<group>";
+		};
+		B77D86E01F5D83BB0041D646 /* CartListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E61F5D83F50041D646 /* CartListingViewController.h */,
+				B77D86E71F5D83F50041D646 /* CartListingViewController.m */,
+			);
+			name = CartListViewController;
+			sourceTree = "<group>";
+		};
+		B77D86E11F5D83C50041D646 /* CartListCell */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E91F5D84090041D646 /* CartListTableViewCell.h */,
+				B77D86EA1F5D84090041D646 /* CartListTableViewCell.m */,
+			);
+			name = CartListCell;
+			sourceTree = "<group>";
+		};
+		B77D86E21F5D83CF0041D646 /* MyCartViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E31F5D83EB0041D646 /* MyCartViewController.h */,
+				B77D86E41F5D83EB0041D646 /* MyCartViewController.m */,
+			);
+			name = MyCartViewController;
+			sourceTree = "<group>";
+		};
+		B77D86EC1F5D850F0041D646 /* CartModel */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86ED1F5D85190041D646 /* CartDataModel.h */,
+				B77D86EE1F5D85190041D646 /* CartDataModel.m */,
+			);
+			name = CartModel;
+			sourceTree = "<group>";
+		};
+		B77D86F01F5D85270041D646 /* CartService */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86F11F5D85320041D646 /* CartService.h */,
+				B77D86F21F5D85320041D646 /* CartService.m */,
+			);
+			name = CartService;
 			sourceTree = "<group>";
 		};
 		B7A4D3E81F4826AF00A28BBE /* ProductDetailViewController */ = {
@@ -1684,6 +1764,7 @@
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
 				181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
+				B77D86EB1F5D84090041D646 /* CartListTableViewCell.m in Sources */,
 				1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */,
 				187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */,
 				B7A4D3ED1F48278A00A28BBE /* ProductDetailViewController.m in Sources */,
@@ -1693,6 +1774,7 @@
 				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,
 				18C418E01F56E9D500749654 /* UIImage+UIImage_fixOrientation.m in Sources */,
 				180ECD401F48A1D1003C936E /* ReviewDataModel.m in Sources */,
+				B77D86F31F5D85320041D646 /* CartService.m in Sources */,
 				B7AA39B31F47101400423121 /* GoNatuurFilterView.m in Sources */,
 				180ECD251F482A38003C936E /* WebViewController.m in Sources */,
 				180ECD291F484A17003C936E /* ReviewViewController.m in Sources */,
@@ -1700,9 +1782,12 @@
 				18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
+				B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */,
+				B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				B7DA71F31F5034F300F45439 /* HCYoutubeParser.m in Sources */,
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
+				B77D86E51F5D83EB0041D646 /* MyCartViewController.m in Sources */,
 				184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */,
 				188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */,
 				3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */,

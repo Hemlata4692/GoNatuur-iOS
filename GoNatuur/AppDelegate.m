@@ -257,6 +257,7 @@
 #pragma mark - Logout user
 - (void)logoutUser {
     //Logout user
+    [UserDefaultManager removeValue:@"quoteCount"];
     [UserDefaultManager removeValue:@"userId"];
     [UserDefaultManager removeValue:@"emailId"];
     [UserDefaultManager removeValue:@"Authorization"];

@@ -90,7 +90,6 @@ static NSString *kLoginedAddToCartProduct=@"carts/mine";
                                                    }
                                      };
         DLog(@"Add to cart parameters: %@",parameters);
-        
         [super post:[NSString stringWithFormat:@"%@%@/items",kGuestAddToCartProduct,[UserDefaultManager getValue:@"quoteId"]] parameters:parameters success:success failure:failure];
     }
     else {
@@ -104,7 +103,7 @@ static NSString *kLoginedAddToCartProduct=@"carts/mine";
                                                 }
                                      };
         DLog(@"Add to cart parameters: %@",parameters);
-        [super post:kLoginedAddToCartProduct parameters:parameters success:success failure:failure];
+        [super put:kLoginedAddToCartProduct parameters:parameters success:success failure:failure];
     }
 }
 #pragma mark - end

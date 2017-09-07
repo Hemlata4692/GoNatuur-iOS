@@ -199,3 +199,10 @@
 "You are not a registered as a member. Please do sign up and enjoy special discount, offers and earn impact points to redeem rewards that will benefit you."="您没有注册成为会员。请注册，享受特价优惠，优惠和赚取积分，赎回奖励，使您受益。";
 "oldPasswordMatchMessage"="请输入新密码以更改旧密码。";
 "or"="要么";
+"cartListitems"="ITEMS";
+"cartListDescription"="DESCRIPTION";
+"cartListTotal"="TOTAL";
+"cartListQuantity"="QUANTITY";
+"cartListFreeShipping"="*FREE SHIPPING FOR ORDER $100 & ABOVE";
+"cartListContinueShopping"="CONTINUE SHOPPING";
+"cartListNext"="NEXT";

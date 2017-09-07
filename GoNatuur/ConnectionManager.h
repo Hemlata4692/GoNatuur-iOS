@@ -16,6 +16,7 @@
 @class ReviewDataModel;
 @class ProductDataModel;
 @class ProfileModel;
+@class CartDataModel;
 
 @interface ConnectionManager : NSObject
 
