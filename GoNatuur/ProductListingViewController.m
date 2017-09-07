@@ -86,7 +86,7 @@
     //Allocate footer view
     [self initializeFooterView];
     // Pull to refresh
-    _refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(160, 0, 20, 20)];
+    _refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-10, 0, 20, 20)];
     _refreshControl.tintColor=[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0];
     [_refreshControl addTarget:self action:@selector(refreshControlAction) forControlEvents:UIControlEventValueChanged];
     [_productListTableView addSubview:_refreshControl];
@@ -333,6 +333,7 @@
 #pragma mark - Pull to refresh
 - (void)refreshControlAction {
     isPullToRefresh=true;
+    currentpage=1;
     [self performSelector:@selector(getProductListData) withObject:nil afterDelay:.1];
 }
 #pragma mark - end
@@ -346,6 +347,7 @@
         }
     }
 }
+#pragma mark - end
 
 #pragma mark - Custom picker delegate method
 - (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {

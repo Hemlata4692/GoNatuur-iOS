@@ -138,7 +138,6 @@
         _noResultLabel.hidden=NO;
         _searchTableView.hidden=YES;
     }];
-    
 }
 #pragma mark - end
 

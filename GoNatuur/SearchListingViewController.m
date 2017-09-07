@@ -153,7 +153,6 @@
     _paginationView.hidden=YES;
     [_searchCollectionView reloadData];
 }
-
 #pragma mark - end
 
 @end
