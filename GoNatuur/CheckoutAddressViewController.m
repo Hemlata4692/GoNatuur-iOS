@@ -11,7 +11,7 @@
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
-#define borderColor [UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]
+#define borderRadioColor [UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]
 
 @interface CheckoutAddressViewController () {
     CartDataModel *cartModelData;
@@ -83,12 +83,14 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:true];
+    [self didLoadIntialization];
+    [self viewInitialization];
     // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    [self viewInitialization];
+    [self setInitailizedAddressData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -98,17 +100,46 @@
 #pragma mark - end
 
 #pragma mark - View customisation
+- (void)didLoadIntialization {
+    _noRadioLabel.layer.masksToBounds=true;
+    _yesRadioLabel.layer.masksToBounds=true;
+    _noRadioLabel.layer.cornerRadius=5.0;
+    _yesRadioLabel.layer.cornerRadius=5.0;
+    [self setRadioStyle:true];
+}
+
+- (void)setRadioStyle:(BOOL)isYes {
+    _noRadioLabel.layer.borderColor=[UIColor whiteColor].CGColor;
+    _yesRadioLabel.layer.borderColor=[UIColor whiteColor].CGColor;
+    _noRadioLabel.layer.borderWidth=1.0;
+    _yesRadioLabel.layer.borderWidth=1.0;
+    if (isYes) {
+        _yesRadioLabel.backgroundColor=selectedStepColor;
+        _noRadioLabel.backgroundColor=[UIColor whiteColor];
+        _noRadioLabel.layer.borderColor=unSelectedStepColor.CGColor;
+    }
+    else {
+        _noRadioLabel.backgroundColor=selectedStepColor;
+        _yesRadioLabel.backgroundColor=[UIColor whiteColor];
+        _yesRadioLabel.layer.borderColor=unSelectedStepColor.CGColor;
+    }
+}
+
 - (void)viewInitialization {
+    [self didLoadIntialization];
     myDelegate.selectedCategoryIndex=-1;
     _mainCheckoutAddressView.translatesAutoresizingMaskIntoConstraints=YES;
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
         _rewardBackView.hidden=true;
-        _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 900);
+        _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 900-42);
     }
     else {
+        [self setInitailizedAddressData];
         _rewardBackView.hidden=false;
-        _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 1076);
+        _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 1076-42);
     }
+    _shippmentMethodTableView.translatesAutoresizingMaskIntoConstraints=true;
+    _shippmentMethodTableView.frame=CGRectMake(20, 853, [[UIScreen mainScreen] bounds].size.width-40, 0);
     _scrollView.contentSize = CGSizeMake(0,_mainCheckoutAddressView.frame.size.height);
     [self showSelectedTab:2];
     //Customized steps
@@ -181,27 +212,27 @@
 
 - (void)setTextFieldBorder {
      //Set shipping address field border
-    [_shippingFirstNameTextField setTextBorder:_shippingFirstNameTextField color:borderColor];
-    [_shippingLastNameTextField setTextBorder:_shippingLastNameTextField color:borderColor];
-    [_shippingPhoneNumberTextField setTextBorder:_shippingPhoneNumberTextField color:borderColor];
-    [_shippingEmailTextField setTextBorder:_shippingEmailTextField color:borderColor];
-    [_shippingAddressLine1TextField setTextBorder:_shippingAddressLine1TextField color:borderColor];
-    [_shippingAddressLine2TextField setTextBorder:_shippingAddressLine2TextField color:borderColor];
-    [_shippingCountryTextField setTextBorder:_shippingCountryTextField color:borderColor];
-    [_shippingStateTextField setTextBorder:_shippingStateTextField color:borderColor];
-    [_shippingCityTextField setTextBorder:_shippingCityTextField color:borderColor];
-    [_shippingZipCodeTextField setTextBorder:_shippingZipCodeTextField color:borderColor];
+    [_shippingFirstNameTextField setTextBorder:_shippingFirstNameTextField color:borderRadioColor];
+    [_shippingLastNameTextField setTextBorder:_shippingLastNameTextField color:borderRadioColor];
+    [_shippingPhoneNumberTextField setTextBorder:_shippingPhoneNumberTextField color:borderRadioColor];
+    [_shippingEmailTextField setTextBorder:_shippingEmailTextField color:borderRadioColor];
+    [_shippingAddressLine1TextField setTextBorder:_shippingAddressLine1TextField color:borderRadioColor];
+    [_shippingAddressLine2TextField setTextBorder:_shippingAddressLine2TextField color:borderRadioColor];
+    [_shippingCountryTextField setTextBorder:_shippingCountryTextField color:borderRadioColor];
+    [_shippingStateTextField setTextBorder:_shippingStateTextField color:borderRadioColor];
+    [_shippingCityTextField setTextBorder:_shippingCityTextField color:borderRadioColor];
+    [_shippingZipCodeTextField setTextBorder:_shippingZipCodeTextField color:borderRadioColor];
     //Set billing address field border
-    [_billingFirstNameTextField setTextBorder:_billingFirstNameTextField color:borderColor];
-    [_billingLastNameTextField setTextBorder:_billingLastNameTextField color:borderColor];
-    [_billingPhoneNumberTextField setTextBorder:_billingPhoneNumberTextField color:borderColor];
-    [_billingEmailTextField setTextBorder:_billingEmailTextField color:borderColor];
-    [_billingAddressLine1TextField setTextBorder:_billingAddressLine1TextField color:borderColor];
-    [_billingAddressLine2TextField setTextBorder:_billingAddressLine2TextField color:borderColor];
-    [_billingCountryTextField setTextBorder:_billingCountryTextField color:borderColor];
-    [_billingStateTextField setTextBorder:_billingStateTextField color:borderColor];
-    [_billingCityTextField setTextBorder:_billingCityTextField color:borderColor];
-    [_billingZipCodeTextField setTextBorder:_billingZipCodeTextField color:borderColor];
+    [_billingFirstNameTextField setTextBorder:_billingFirstNameTextField color:borderRadioColor];
+    [_billingLastNameTextField setTextBorder:_billingLastNameTextField color:borderRadioColor];
+    [_billingPhoneNumberTextField setTextBorder:_billingPhoneNumberTextField color:borderRadioColor];
+    [_billingEmailTextField setTextBorder:_billingEmailTextField color:borderRadioColor];
+    [_billingAddressLine1TextField setTextBorder:_billingAddressLine1TextField color:borderRadioColor];
+    [_billingAddressLine2TextField setTextBorder:_billingAddressLine2TextField color:borderRadioColor];
+    [_billingCountryTextField setTextBorder:_billingCountryTextField color:borderRadioColor];
+    [_billingStateTextField setTextBorder:_billingStateTextField color:borderRadioColor];
+    [_billingCityTextField setTextBorder:_billingCityTextField color:borderRadioColor];
+    [_billingZipCodeTextField setTextBorder:_billingZipCodeTextField color:borderRadioColor];
 }
 
 - (void)removeAutolayout {
@@ -254,6 +285,37 @@
     _firstStepLabel.backgroundColor=selectedStepColor;
     _firstStepSeperetorLabel.backgroundColor=selectedStepColor;
     _secondStepLabel.backgroundColor=selectedStepColor;
+}
+
+-(void)setInitailizedAddressData {
+    //Set default shipping address
+    _shippingFirstNameTextField.text=cartModelData.shippingAddressDict[@"firstname"];
+    _shippingLastNameTextField.text=cartModelData.shippingAddressDict[@"lastname"];
+    _shippingPhoneNumberTextField.text=cartModelData.shippingAddressDict[@"telephone"];
+    _shippingEmailTextField.text=cartModelData.shippingAddressDict[@"email"];
+    _shippingAddressLine1TextField.text=[cartModelData.shippingAddressDict[@"street"] objectAtIndex:0];
+    _shippingAddressLine2TextField.text=([cartModelData.shippingAddressDict[@"street"] count]>1?[cartModelData.shippingAddressDict[@"street"] objectAtIndex:1]:@"");
+    _shippingCountryTextField.text=cartModelData.shippingAddressDict[@""];
+    _shippingStateTextField.text=cartModelData.shippingAddressDict[@"region"];
+    _shippingCityTextField.text=cartModelData.shippingAddressDict[@"city"];
+    _shippingZipCodeTextField.text=cartModelData.shippingAddressDict[@"postcode"];
+    //Set default billing address as shipping address bcz initially shipping address will be same.
+    _billingFirstNameTextField.text=cartModelData.shippingAddressDict[@"firstname"];
+    _billingLastNameTextField.text=cartModelData.shippingAddressDict[@"lastname"];
+    _billingPhoneNumberTextField.text=cartModelData.shippingAddressDict[@"telephone"];
+    _billingEmailTextField.text=cartModelData.shippingAddressDict[@"email"];
+    _billingAddressLine1TextField.text=[cartModelData.shippingAddressDict[@"street"] objectAtIndex:0];
+    _billingAddressLine2TextField.text=([cartModelData.shippingAddressDict[@"street"] count]>1?[cartModelData.shippingAddressDict[@"street"] objectAtIndex:1]:@"");
+    _billingCountryTextField.text=cartModelData.shippingAddressDict[@""];
+    _billingStateTextField.text=cartModelData.shippingAddressDict[@"region"];
+    _billingCityTextField.text=cartModelData.shippingAddressDict[@"city"];
+    _billingZipCodeTextField.text=cartModelData.shippingAddressDict[@"postcode"];
+    if (![cartModelData.shippingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.shippingAddressDict[@"region_id"] intValue]==0) {
+        _shippingStateDropDown.hidden=true;
+        [_shippingStateTextField addTextFieldLeftRightPadding:_shippingStateTextField];
+        _billingStateDropDown.hidden=true;
+        [_billingStateTextField addTextFieldLeftRightPadding:_shippingStateTextField];
+    }
 }
 #pragma mark - end
 
