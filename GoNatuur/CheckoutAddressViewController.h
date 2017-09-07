@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CartDataModel.h"
 
 @interface CheckoutAddressViewController : GoNatuurViewController
+@property (nonatomic, strong) NSMutableArray *cartListDataArray;
+@property (nonatomic, strong) CartDataModel *cartListModelData;
 @end

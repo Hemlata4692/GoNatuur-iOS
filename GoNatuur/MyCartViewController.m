@@ -9,6 +9,7 @@
 #import "MyCartViewController.h"
 #import "CartDataModel.h"
 #import "CartListingViewController.h"
+#import "CheckoutAddressViewController.h"
 #import "SearchDataModel.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
@@ -42,7 +43,6 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:false];
-    [self viewInitialization];
     [myDelegate showIndicator];
     [self performSelector:@selector(getCartListData) withObject:nil afterDelay:.1];
     // Do any additional setup after loading the view.
@@ -55,7 +55,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    
+    [self viewInitialization];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -122,27 +122,27 @@
     _fourthStepLabel.frame=CGRectMake(_thirdStepSeperetorLabel.frame.origin.x+_thirdStepSeperetorLabel.frame.size.width-2, 20, 22, 22);
     //Set default color at steps
     [self setDefaultStepColor];
-    [self viewCustomisation:1];
+    _firstStepLabel.backgroundColor=selectedStepColor;
 }
 
-- (void)viewCustomisation:(int)step {
-    switch (step) {
-        case 1:
-             _firstStepLabel.backgroundColor=selectedStepColor;
-            break;
-        case 2:
-            _firstStepSeperetorLabel.backgroundColor=selectedStepColor;
-            _secondStepLabel.backgroundColor=selectedStepColor;
-            break;
-        case 3:
-            _secondStepSeperetorLabel.backgroundColor=selectedStepColor;
-            _thirdStepLabel.backgroundColor=selectedStepColor;
-            break;
-        default:
-             _fourthStepLabel.backgroundColor=selectedStepColor;
-            break;
-    }
-}
+//- (void)viewCustomisation:(int)step {
+//    switch (step) {
+//        case 1:
+//            
+//            break;
+//        case 2:
+//            _firstStepSeperetorLabel.backgroundColor=selectedStepColor;
+//            _secondStepLabel.backgroundColor=selectedStepColor;
+//            break;
+//        case 3:
+//            _secondStepSeperetorLabel.backgroundColor=selectedStepColor;
+//            _thirdStepLabel.backgroundColor=selectedStepColor;
+//            break;
+//        default:
+//             _fourthStepLabel.backgroundColor=selectedStepColor;
+//            break;
+//    }
+//}
 
 - (void)addCartListView {
    cartListObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CartListingViewController"];
@@ -159,25 +159,6 @@
     [self.view addSubview:cartListObj.view];
     [cartListObj didMoveToParentViewController:self];;
 }
-
-//- (void)addCheckoutAddressView {
-//    [self viewCustomisation:2];
-//    checkoutAddressObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckoutAddressViewController"];
-//    checkoutAddressObj.view.translatesAutoresizingMaskIntoConstraints=YES;
-//    checkoutAddressObj.scrollView.translatesAutoresizingMaskIntoConstraints=YES;
-//     checkoutAddressObj.mainCheckoutAddressView.translatesAutoresizingMaskIntoConstraints=YES;
-//    checkoutAddressObj.view.frame=CGRectMake(0, 195, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-255);
-//    checkoutAddressObj.scrollView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, checkoutAddressObj.view.frame.size.height-60);
-//    checkoutAddressObj.mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 1016+60);//height:1016+60(bottom view height)
-//    checkoutAddressObj.scrollView.contentSize = CGSizeMake(0,checkoutAddressObj.mainCheckoutAddressView.frame.size.height);
-//    [checkoutAddressObj.continueShoppingOutlet addTarget:self action:@selector(checkoutAddressContinueShopping:) forControlEvents:UIControlEventTouchUpInside];
-//    [checkoutAddressObj.nextOutlet addTarget:self action:@selector(checkoutAddressNext:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [self swipeIntroImageLeft:2];
-//    [self addChildViewController:checkoutAddressObj];
-//    [self.view addSubview:checkoutAddressObj.view];
-//    [checkoutAddressObj didMoveToParentViewController:self];;
-//}
 #pragma mark - end
 
 #pragma mark - Webservice
@@ -241,27 +222,12 @@
 
 - (IBAction)cartListNext:(UIButton *)sender {
     DLog(@"cart next");
-    [cartListObj.view removeFromSuperview];
-    [cartListObj removeFromParentViewController];
-    [self addLeftBarButtonWithImage:true];
-//    [self addCheckoutAddressView];
+    //StoryBoard navigation
+    CheckoutAddressViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckoutAddressViewController"];
+    obj.cartListDataArray=[cartListData mutableCopy];
+    obj.cartListModelData=cartModelData;
+    [self.navigationController pushViewController:obj animated:YES];
 }
-//end
-
-//Checkout address IBActions
-//- (IBAction)checkoutAddressContinueShopping:(UIButton *)sender {
-//    UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-//    [myDelegate.window setRootViewController:objReveal];
-//    [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
-//    [myDelegate.window makeKeyAndVisible];
-//}
-//
-//- (IBAction)checkoutAddressNext:(UIButton *)sender {
-//    DLog(@"cart next");
-//    [checkoutAddressObj.view removeFromSuperview];
-//    [checkoutAddressObj removeFromParentViewController];
-//    [self addLeftBarButtonWithImage:true];
-//}
 //end
 #pragma mark - end
 
@@ -279,65 +245,4 @@
     }
 }
 #pragma mark - end
-
-//#pragma mark - Swipe Images
-////Adding left animation to banner images
-//- (void)addLeftAnimationPresentToView:(UIView *)viewTobeAnimatedLeft {
-//    CATransition *transition = [CATransition animation];
-//    transition.duration = 0.3;
-//    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-//    [transition setValue:@"IntroSwipeIn" forKey:@"IntroAnimation"];
-//    transition.fillMode=kCAFillModeForwards;
-//    transition.type = kCATransitionPush;
-//    transition.subtype =kCATransitionFromRight;
-//    [viewTobeAnimatedLeft.layer addAnimation:transition forKey:nil];
-//}
-//
-////Adding right animation to banner images
-//- (void)addRightAnimationPresentToView:(UIView *)viewTobeAnimatedRight {
-//    CATransition *transition = [CATransition animation];
-//    transition.duration = 0.3;
-//    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-//    [transition setValue:@"IntroSwipeIn" forKey:@"IntroAnimation"];
-//    transition.fillMode=kCAFillModeForwards;
-//    transition.type = kCATransitionPush;
-//    transition.subtype =kCATransitionFromLeft;
-//    [viewTobeAnimatedRight.layer addAnimation:transition forKey:nil];
-//}
-//
-////Swipe images in left direction
-//- (void)swipeIntroImageLeft:(int)screenIndex {
-//    UIView *nextScreenView;
-//    switch (screenIndex) {
-//        case 1:
-//            nextScreenView=cartListObj.view;
-//            break;
-//        case 2:
-//            nextScreenView=checkoutAddressObj.view;
-//            break;
-//            
-//        default:
-//            break;
-//    }
-//    [self addLeftAnimationPresentToView:nextScreenView];
-//}
-//
-////Swipe images in right direction
-//- (void)swipeIntroImageRight:(int)screenIndex {
-//    UIView *nextScreenView;
-//    switch (screenIndex) {
-//        case 1:
-//            nextScreenView=cartListObj.view;
-//            break;
-//        case 2:
-//            nextScreenView=checkoutAddressObj.view;
-//            break;
-//            
-//        default:
-//            break;
-//    }
-//    [self addRightAnimationPresentToView:nextScreenView];
-//
-//}
-//#pragma mark - end
 @end

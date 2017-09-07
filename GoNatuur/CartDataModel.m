@@ -18,6 +18,10 @@
 @synthesize itemQuoteId;
 @synthesize itemList;
 @synthesize cartListResponse;
+@synthesize billingAddressDict;
+@synthesize shippingAddressDict;
+@synthesize customerDict;
+@synthesize customerSavedAddressArray;
 
 - (id)copyWithZone:(NSZone *)zone {
     CartDataModel *another = [[CartDataModel alloc] init];
@@ -29,6 +33,10 @@
     another.itemQuoteId= [self.itemQuoteId copyWithZone: zone];
     another.itemList= [self.itemList copyWithZone: zone];
     another.cartListResponse= [self.cartListResponse copyWithZone: zone];
+    another.billingAddressDict= [self.billingAddressDict copyWithZone: zone];
+    another.shippingAddressDict= [self.shippingAddressDict copyWithZone: zone];
+    another.customerDict= [self.customerDict copyWithZone: zone];
+    another.customerSavedAddressArray= [self.customerSavedAddressArray copyWithZone: zone];
     return another;
 }
 

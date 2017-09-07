@@ -187,3 +187,16 @@
 "cartListContinueShopping"="CONTINUE SHOPPING";
 "cartListNext"="NEXT";
 "removedProduct"="Product removed successfully.";
+"checkoutPhoneNumber"="Phone Number*";
+"checkoutEmail"="Email*";
+"checkoutAddressLine1"="Address Line 1*";
+"checkoutAddressLine2"="Address Line 2";
+"checkoutCountry"="Country*";
+"checkoutState"="State*";
+"checkoutCity"="City*";
+"checkoutZipCode"="Zipcode*";
+"billingSameAddress"="Same as shipping address:";
+"no"="No";
+"yes"="Yes";
+"redeemPoint"="Redeem Points";
+"checkoutAddressImpactPoint"="My Available Impact Points:";
