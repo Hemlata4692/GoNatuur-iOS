@@ -127,7 +127,7 @@
 - (void)viewCustomisation:(int)step {
     switch (step) {
         case 1:
-             _firstStepLabel.backgroundColor=selectedStepColor;
+            _firstStepLabel.backgroundColor=selectedStepColor;
             break;
         case 2:
             _firstStepSeperetorLabel.backgroundColor=selectedStepColor;
@@ -138,13 +138,13 @@
             _thirdStepLabel.backgroundColor=selectedStepColor;
             break;
         default:
-             _fourthStepLabel.backgroundColor=selectedStepColor;
+            _fourthStepLabel.backgroundColor=selectedStepColor;
             break;
     }
 }
 
 - (void)addCartListView {
-   cartListObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CartListingViewController"];
+    cartListObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CartListingViewController"];
     cartListObj.view.translatesAutoresizingMaskIntoConstraints=YES;
     cartListObj.view.frame=CGRectMake(0, 195, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-255);
     cartListObj.delegate=self;
@@ -195,11 +195,11 @@
     SearchDataModel *searchData = [SearchDataModel sharedUser];
     NSString *productIds=[NSString stringWithFormat:@"%@",[[cartListData objectAtIndex:0] itemName]];
     for (int i=1; i<cartListData.count; i++) {
-       productIds=[NSString stringWithFormat:@"%@,%@",productIds,[[cartListData objectAtIndex:i] itemName]];
+        productIds=[NSString stringWithFormat:@"%@,%@",productIds,[[cartListData objectAtIndex:i] itemName]];
     }
     searchData.productName=productIds;
     [searchData getProductListByNameServiceOnSuccess:^(SearchDataModel *userData)  {
-       [myDelegate stopIndicator];
+        [myDelegate stopIndicator];
         totalCartProductPrice=0.0;
         //Add product image and description in already data stored data array
         for (int i=0; i<cartListData.count; i++) {
@@ -235,19 +235,14 @@
 - (IBAction)cartListNext:(UIButton *)sender {
     DLog(@"cart next");
     [self viewCustomisation:4];
+    [self addThankYouScreen];
 }
 
 - (void)addThankYouScreen {
-    thankYouViewObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CartListingViewController"];
+    thankYouViewObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
     thankYouViewObj.view.translatesAutoresizingMaskIntoConstraints=YES;
     thankYouViewObj.view.frame=CGRectMake(0, 195, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-255);
-//    thankYouViewObj.delegate=self;
-//    thankYouViewObj.cartListDataArray=[cartListData mutableCopy];
-//    thankYouViewObj.cartModelData=cartModelData;
-    [thankYouViewObj.thankYouTable reloadData];
-//    thankYouViewObj.totalPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(totalCartProductPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
-//    [thankYouViewObj.continueShoppingButton addTarget:self action:@selector(cartListContinueShopping:) forControlEvents:UIControlEventTouchUpInside];
-//    [thankYouViewObj.nextOutlet addTarget:self action:@selector(cartListNext:) forControlEvents:UIControlEventTouchUpInside];
+    thankYouViewObj.cartListDataArray=[cartListData mutableCopy];
     [self addChildViewController:thankYouViewObj];
     [self.view addSubview:thankYouViewObj.view];
     [thankYouViewObj didMoveToParentViewController:self];;

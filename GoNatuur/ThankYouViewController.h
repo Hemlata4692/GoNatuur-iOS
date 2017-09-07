@@ -11,5 +11,6 @@
 @interface ThankYouViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *thankYouTable;
 @property (weak, nonatomic) IBOutlet UIButton *continueShoppingButton;
+@property (nonatomic, strong) NSMutableArray *cartListDataArray;
 
 @end

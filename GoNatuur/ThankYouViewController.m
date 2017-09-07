@@ -8,12 +8,14 @@
 
 #import "ThankYouViewController.h"
 #import "ThankYouTableCell.h"
+#import "DynamicHeightWidth.h"
 
 @interface ThankYouViewController ()
 
 @end
 
 @implementation ThankYouViewController
+@synthesize cartListDataArray;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -29,7 +31,11 @@
 
 #pragma mark - Table view datasource delegate methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    if ([[UserDefaultManager getValue:@"userId"] isEqualToString:@""]) {
+        return 5+cartListDataArray.count;
+    } else {
+        return 4+cartListDataArray.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -38,31 +44,53 @@
         simpleTableIdentifier=@"ThankYouCell";
     } else if (indexPath.row == 1) {
         simpleTableIdentifier=@"PurchaseCell";
-    } else if (indexPath.row == 2) {
+    } else if (indexPath.row < cartListDataArray.count+2) {
         simpleTableIdentifier=@"ProductDetailCell";
-    } else if (indexPath.row == 3) {
+    } else if (indexPath.row == cartListDataArray.count+2) {
         simpleTableIdentifier=@"OrderTotalCell";
-    } else {
+    } else if (indexPath.row == cartListDataArray.count+3){
         simpleTableIdentifier=@"GuestInfoCell";
     }
     ThankYouTableCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     if (cell == nil) {
         cell = [[ThankYouTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
+    if (indexPath.row == 0) {
+        [cell displayData:_thankYouTable.frame.size];
+    } else if (indexPath.row == 1) {
+        [cell displayPurchaseData:_thankYouTable.frame.size];
+    } else if (indexPath.row < cartListDataArray.count+2) {
+        [cell displayCartListData:[cartListDataArray objectAtIndex:indexPath.row - 2] rectSize:_thankYouTable.frame.size];
+    }
+    else if (indexPath.row == cartListDataArray.count+2) {
+        [cell displayOrderTotalData:_thankYouTable.frame.size];
+    }
+    else if (indexPath.row == cartListDataArray.count+3) {
+        [cell displayData:_thankYouTable.frame.size];
+    }
     return cell;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    float height=10;
-//    height+=[DynamicHeightWidth getDynamicLabelHeight:[[cartListDataArray objectAtIndex:indexPath.row] itemName] font:[UIFont montserratRegularWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-228];
-//    height+=15;
-//    height+=[DynamicHeightWidth getDynamicLabelHeight:[[cartListDataArray objectAtIndex:indexPath.row] itemDescription] font:[UIFont montserratRegularWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-228];
-//    height+=10;
-//    if (height<90) {
-//        return 90;
-//    }
-//    return height;
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return [DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"thankDescText") font:[UIFont montserratRegularWithSize:12] widthValue:_thankYouTable.frame.size.width-20 heightValue:500]+70;
+    } else if (indexPath.row == 1) {
+        return 30;
+    } else if (indexPath.row < cartListDataArray.count+2) {
+        float height=10;
+        height+=[DynamicHeightWidth getDynamicLabelHeight:[[cartListDataArray objectAtIndex:indexPath.row -2] itemName] font:[UIFont montserratRegularWithSize:11] widthValue:[[UIScreen mainScreen] bounds].size.width-228];
+        height+=2;
+        if (height<80) {
+            return 80;
+        }
+        return height;
+    } else if (indexPath.row == cartListDataArray.count+2) {
+        return 30;
+    } else if (indexPath.row == cartListDataArray.count+3) {
+        return [DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"guestMessage") font:[UIFont montserratRegularWithSize:12] widthValue:_thankYouTable.frame.size.width-20 heightValue:500]+10;
+    }
+    return 1;
+}
 #pragma mark - end
 
 @end

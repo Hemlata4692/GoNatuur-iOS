@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CartDataModel.h"
 
 @interface ThankYouTableCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *thankYouLabel;
@@ -14,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *thankYouDescriptionLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *purchaseLabel;
+
 @property (weak, nonatomic) IBOutlet UIImageView *productImage;
 @property (weak, nonatomic) IBOutlet UILabel *productName;
 @property (weak, nonatomic) IBOutlet UILabel *productQuantityLabel;
@@ -25,5 +27,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *rewardInfoLabel;
 
 - (void)displayData:(CGSize)rectSize ;
+- (void)displayPurchaseData:(CGSize)rectSize ;
+- (void)displayOrderTotalData:(CGSize)rectSize;
+- (void)displayCartListData:(CartDataModel *)cartData rectSize:(CGSize)rectSize;
 
 @end
