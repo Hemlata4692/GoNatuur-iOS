@@ -66,4 +66,8 @@
 - (void)saveUserProfile:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure ;
 //Save address
 - (void)saveAndUpdateAddress:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;
+//Get imapct points
+- (void)getImpactPoints:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;
+//Update user profile image
+- (void)updateUserProfileImage:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;
 @end

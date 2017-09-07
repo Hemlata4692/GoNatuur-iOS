@@ -15,6 +15,7 @@
 #import "UIImage+UIImage_fixOrientation.h"
 #import "DynamicHeightWidth.h"
 #import "AddressListingViewController.h"
+#import "DashboardDataModel.h"
 
 @interface EditProfileViewController ()<BSKeyboardControlsDelegate,GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
     UITextField *currentSelectedTextField;
