@@ -186,3 +186,10 @@
 "cartListFreeShipping"="*FREE SHIPPING FOR ORDER $100 & ABOVE";
 "cartListContinueShopping"="CONTINUE SHOPPING";
 "cartListNext"="NEXT";
+"AddCard"="Add New Card";
+"cardholder"="Cardholder's Name*";
+"cardnumber"="Card Number*";
+"month"="Month*";
+"year"="Year*";
+"cvv"="CVV*";
+"emailPlaceholder"="Email*";

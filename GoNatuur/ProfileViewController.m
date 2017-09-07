@@ -53,6 +53,7 @@
     [self addLeftBarButtonWithImage:false];
     [self.view bringSubviewToFront:customerSupportPicker.goNatuurPickerViewObj];
     [self showSelectedTab:4];
+    [_profileTableView reloadData];
    
 }
 
