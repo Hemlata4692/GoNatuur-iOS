@@ -90,3 +90,7 @@
 "cn"="简体中文";
 "zh"="中國傳統的";
 "profileSuccess"="Data updated successfully.";
+"deleteAddressMessage"="Are you sure you want to delete this address?";
+"deleteAddressSuccess" = "Address deleted successfully.";
+"addAddressSuccessMessage" = "Address added successfully.";
+"updateAddressSuccessMessage" = "Address updated successfully.";

@@ -53,6 +53,22 @@ static NSString *kUserProfile=@"customers/me";
     DLog(@"save user profile request %@",parameters);
     [super put:kUserProfile parameters:parameters success:success failure:failure];
 }
+#pragma mark - end
 
+#pragma mark - Save/Update address service
+- (void)saveAndUpdateAddress:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"customer" : @{@"email" : profileData.email,
+                                                 @"lastname" : profileData.lastName,
+                                                 @"firstname" : profileData.firstName,
+                                                 @"id":[UserDefaultManager getValue:@"userId"],
+                                                 @"website_id":profileData.websiteId,
+                                                 @"store_id":profileData.storeId,
+                                                 @"group_id":profileData.groupId,
+                                                 @"addresses" : profileData.addressArray,
+                                                 @"custom_attributes":profileData.customAttributeArray
+                                                 }
+                                 };
+    [super put:kUserProfile parameters:parameters success:success failure:failure];
+}
 #pragma mark - end
 @end

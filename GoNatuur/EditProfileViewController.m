@@ -14,6 +14,7 @@
 #import "ProfileModel.h"
 #import "UIImage+UIImage_fixOrientation.h"
 #import "DynamicHeightWidth.h"
+#import "AddressListingViewController.h"
 
 @interface EditProfileViewController ()<BSKeyboardControlsDelegate,GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
     UITextField *currentSelectedTextField;
@@ -22,6 +23,7 @@
     GoNatuurPickerView *gNPickerViewObj;
     int languagePickerIndex, currencyPickerIndex;
     NSString *languageValue;
+    ProfileModel *profileData;
 }
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
@@ -169,6 +171,10 @@
 
 - (IBAction)manageAddressesButtionAction:(id)sender {
     ////4=> English,5=>traditional,6=>simplified
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AddressListingViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"AddressListingViewController"];
+    nextView.profileData = profileData;
+    [self.navigationController pushViewController:nextView animated:YES];
 }
 
 - (IBAction)languagePickerButtonActio:(id)sender {
@@ -289,6 +295,7 @@
 - (void)getUserProfile {
     ProfileModel *userData = [ProfileModel sharedUser];
     [userData getUserProfile:^(ProfileModel *userData) {
+        profileData = userData;
         [myDelegate stopIndicator];
         //dispaly profile data
         for (NSDictionary *aDict in userData.customAttributeArray) {

@@ -59,4 +59,6 @@
 - (void)getUserProfile:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;
 //Save user profile
 - (void)saveUserProfile:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure ;
+//Save address
+- (void)saveAndUpdateAddress:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;
 @end
