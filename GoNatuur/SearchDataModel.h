@@ -44,4 +44,6 @@
 - (void)getWishlistService:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
 //remove from wishlist
 - (void)removeFromWishlist:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Search list by name data
+- (void)getProductListByNameServiceOnSuccess:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

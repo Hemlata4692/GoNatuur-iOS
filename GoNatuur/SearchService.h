@@ -21,4 +21,6 @@
 - (void)getWishlistService:(SearchDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 //Remove from wishlist
 - (void)removeFromWishlistService:(SearchDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
+//Search list by name data
+- (void)getProductListByNameService:(SearchDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 @end

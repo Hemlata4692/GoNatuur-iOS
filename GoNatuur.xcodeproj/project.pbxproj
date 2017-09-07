@@ -905,6 +905,8 @@
 				181FD22B1F601F6300C5373C /* PaymentMethodModule */,
 				188605961F39C05A0005D1E2 /* GlobalViewModule */,
 				181AD48C1F5EADEB00AA3C3D /* WishlistModule */,
+				B77D86DE1F5D83A40041D646 /* MyCartModule */,
+				180409E21F58887100EA3E17 /* WishlistViewController */,
 				180409DD1F58741800EA3E17 /* NewCentreModule */,
 				185F706A1F559D6B007F49F7 /* ProfileModule */,
 				180ECD381F489AAD003C936E /* ReviewModule */,

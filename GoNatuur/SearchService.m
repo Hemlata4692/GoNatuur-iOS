@@ -82,10 +82,30 @@ static NSString *kRemoveWishlistService=@"ipwishlist/delete/wishlistItem";
 
 #pragma mark - Remove from wishlist
 - (void)removeFromWishlistService:(SearchDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-     NSDictionary *parameters = @{@"customerId":[UserDefaultManager getValue:@"userId"],@"wishlistItemId":productData.wishlistItemId};
+    NSDictionary *parameters = @{@"customerId":[UserDefaultManager getValue:@"userId"],@"wishlistItemId":productData.wishlistItemId};
     
     DLog(@"remove wishlist request %@",parameters);
     [super post:kRemoveWishlistService parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Search list by name data
+- (void)getProductListByNameService:(SearchDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                               @{
+                                                                   @"filters":@[
+                                                                           @{@"field":@"name",
+                                                                             @"value":productData.productName,
+                                                                             @"condition_type": @"in"
+                                                                             }
+                                                                           ]
+                                                                   }
+                                                               ],
+                                                       @"page_size" : @0,
+                                                       @"current_page" : @0
+                                                       }
+                                 };
+    [super post:kProductListData parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 @end
