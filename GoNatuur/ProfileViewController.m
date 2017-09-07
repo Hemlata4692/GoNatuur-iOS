@@ -157,7 +157,7 @@
 
 - (IBAction)redeemPointsButtonAction:(id)sender {
     //pay pal payment
-    [payment setPaymentDetails:[customerSupportArray mutableCopy] delegate:self];
+    //[payment setPaymentDetails:[customerSupportArray mutableCopy] delegate:self];
 }
 
 //PayPalPaymentDelegate
@@ -178,7 +178,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - end
 #pragma mark - end
 
 #pragma mark - Action sheet delegate

@@ -255,6 +255,8 @@
     [picker dismissViewControllerAnimated:YES completion:NULL];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(editUserProfileImage) withObject:nil afterDelay:.1];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -323,6 +325,19 @@
         
     }];
 }
+
+//edit profile
+- (void)editUserProfileImage {
+    ProfileModel *userData = [ProfileModel sharedUser];
+    userData.userImage=_userImageView.image;
+    [userData updateUserProfileImage:^(ProfileModel *userData) {
+        [myDelegate stopIndicator];
+        //dispaly profile data
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
 
 //display profile data
 - (void)displayData:(ProfileModel *)data {
