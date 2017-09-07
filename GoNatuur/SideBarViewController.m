@@ -13,7 +13,7 @@
 #import "NotificationViewController.h"
 
 @interface SideBarViewController () {
-    NSArray *menuItemsArray;
+    NSArray *menuItemsArray, *sideBarLabelArray;
 }
 @property (weak, nonatomic) IBOutlet UITableView *sideBarTableView;
 @property (weak, nonatomic) IBOutlet UILabel *userEmailLabel;
@@ -26,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     menuItemsArray = @[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications", @"Signout"];
+    sideBarLabelArray=@[NSLocalizedText(@"sideBarOrder"), NSLocalizedText(@"sideBarPayment"), NSLocalizedText(@"sideBarRedeemPoints"),NSLocalizedText(@"sideBarEvents"), NSLocalizedText(@"sideBarNewsCentre"), NSLocalizedText(@"sideBarNotifications"),NSLocalizedText(@"sideBarSignOut")];
     // Remove extra seperator from table view
     [self viewCustomisationAndData];
 }
@@ -100,7 +101,7 @@
         cellImage.image=[UIImage imageNamed:@"login"];
     }
     else {
-        cellLabel.text=[CellIdentifier uppercaseString];
+        cellLabel.text=[[sideBarLabelArray objectAtIndex:indexPath.row] uppercaseString];
     }
     return cell;
 }
@@ -141,7 +142,7 @@
             myDelegate.selectedCategoryIndex=-1;
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
             [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-                //logou1 user
+                //logout user
                 [myDelegate logoutUser];
             }];
             [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"logoutUser") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];

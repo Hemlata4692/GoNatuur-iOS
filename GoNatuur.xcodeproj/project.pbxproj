@@ -21,6 +21,17 @@
 		181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181853261F3D833F00EEB73B /* DashboardDataModel.m */; };
 		1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532A1F3D8A7F00EEB73B /* DashboardService.m */; };
 		1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532E1F3DFED000EEB73B /* ImageCaching.m */; };
+		181FD2181F6018C000C5373C /* libPayPalMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2171F6018C000C5373C /* libPayPalMobile.a */; };
+		181FD21C1F6018E400C5373C /* libCardIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2191F6018E400C5373C /* libCardIO.a */; };
+		181FD21D1F6018E400C5373C /* libopencv_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD21A1F6018E400C5373C /* libopencv_core.a */; };
+		181FD21E1F6018E400C5373C /* libopencv_imgproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD21B1F6018E400C5373C /* libopencv_imgproc.a */; };
+		181FD2201F60194700C5373C /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD21F1F60194700C5373C /* SafariServices.framework */; };
+		181FD2221F60194C00C5373C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2211F60194C00C5373C /* Security.framework */; };
+		181FD2241F60195200C5373C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2231F60195200C5373C /* SystemConfiguration.framework */; };
+		181FD2261F60195900C5373C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2251F60195900C5373C /* OpenGLES.framework */; };
+		181FD2281F60197800C5373C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2271F60197800C5373C /* Accelerate.framework */; };
+		181FD22A1F60198000C5373C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2291F60198000C5373C /* AudioToolbox.framework */; };
+		181FD2311F601FA900C5373C /* PayPalPaymentOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 181FD2301F601FA900C5373C /* PayPalPaymentOption.m */; };
 		184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C385B1F3B0911008B8291 /* SideBarViewController.m */; };
 		184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C38641F3B328A008B8291 /* EnableNotificationViewController.m */; };
 		184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */; };
@@ -103,6 +114,11 @@
 		B77A8A781F34388800233782 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A771F34388800233782 /* SignUpViewController.m */; };
 		B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */; };
 		B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */; };
+		B77D86E51F5D83EB0041D646 /* MyCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86E41F5D83EB0041D646 /* MyCartViewController.m */; };
+		B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86E71F5D83F50041D646 /* CartListingViewController.m */; };
+		B77D86EB1F5D84090041D646 /* CartListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86EA1F5D84090041D646 /* CartListTableViewCell.m */; };
+		B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86EE1F5D85190041D646 /* CartDataModel.m */; };
+		B77D86F31F5D85320041D646 /* CartService.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86F21F5D85320041D646 /* CartService.m */; };
 		B7A4D3ED1F48278A00A28BBE /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3EC1F48278900A28BBE /* ProductDetailViewController.m */; };
 		B7A4D3F01F4828E500A28BBE /* ProductDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3EF1F4828E500A28BBE /* ProductDetailTableViewCell.m */; };
 		B7A4D3F51F48294700A28BBE /* ProductDetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3F41F48294700A28BBE /* ProductDetailCollectionViewCell.m */; };
@@ -163,6 +179,25 @@
 		1818532A1F3D8A7F00EEB73B /* DashboardService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardService.m; sourceTree = "<group>"; };
 		1818532D1F3DFED000EEB73B /* ImageCaching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCaching.h; sourceTree = "<group>"; };
 		1818532E1F3DFED000EEB73B /* ImageCaching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCaching.m; sourceTree = "<group>"; };
+		181FD2101F6018C000C5373C /* PayPalMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalMobile.h; sourceTree = "<group>"; };
+		181FD2111F6018C000C5373C /* PayPalConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalConfiguration.h; sourceTree = "<group>"; };
+		181FD2121F6018C000C5373C /* PayPalPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalPayment.h; sourceTree = "<group>"; };
+		181FD2131F6018C000C5373C /* PayPalPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalPaymentViewController.h; sourceTree = "<group>"; };
+		181FD2141F6018C000C5373C /* PayPalFuturePaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalFuturePaymentViewController.h; sourceTree = "<group>"; };
+		181FD2151F6018C000C5373C /* PayPalProfileSharingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalProfileSharingViewController.h; sourceTree = "<group>"; };
+		181FD2161F6018C000C5373C /* PayPalOAuthScopes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalOAuthScopes.h; sourceTree = "<group>"; };
+		181FD2171F6018C000C5373C /* libPayPalMobile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPayPalMobile.a; sourceTree = "<group>"; };
+		181FD2191F6018E400C5373C /* libCardIO.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCardIO.a; sourceTree = "<group>"; };
+		181FD21A1F6018E400C5373C /* libopencv_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopencv_core.a; sourceTree = "<group>"; };
+		181FD21B1F6018E400C5373C /* libopencv_imgproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopencv_imgproc.a; sourceTree = "<group>"; };
+		181FD21F1F60194700C5373C /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		181FD2211F60194C00C5373C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		181FD2231F60195200C5373C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		181FD2251F60195900C5373C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		181FD2271F60197800C5373C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		181FD2291F60198000C5373C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		181FD22F1F601FA900C5373C /* PayPalPaymentOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalPaymentOption.h; sourceTree = "<group>"; };
+		181FD2301F601FA900C5373C /* PayPalPaymentOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayPalPaymentOption.m; sourceTree = "<group>"; };
 		184C385A1F3B0911008B8291 /* SideBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideBarViewController.h; sourceTree = "<group>"; };
 		184C385B1F3B0911008B8291 /* SideBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideBarViewController.m; sourceTree = "<group>"; };
 		184C38631F3B328A008B8291 /* EnableNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableNotificationViewController.h; sourceTree = "<group>"; };
@@ -300,6 +335,16 @@
 		B77A8A7A1F346C1200233782 /* SocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
 		B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialLoginViewController.m; sourceTree = "<group>"; };
 		B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLoginViewController.xib; sourceTree = "<group>"; };
+		B77D86E31F5D83EB0041D646 /* MyCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCartViewController.h; sourceTree = "<group>"; };
+		B77D86E41F5D83EB0041D646 /* MyCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCartViewController.m; sourceTree = "<group>"; };
+		B77D86E61F5D83F50041D646 /* CartListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartListingViewController.h; sourceTree = "<group>"; };
+		B77D86E71F5D83F50041D646 /* CartListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartListingViewController.m; sourceTree = "<group>"; };
+		B77D86E91F5D84090041D646 /* CartListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartListTableViewCell.h; sourceTree = "<group>"; };
+		B77D86EA1F5D84090041D646 /* CartListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartListTableViewCell.m; sourceTree = "<group>"; };
+		B77D86ED1F5D85190041D646 /* CartDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartDataModel.h; sourceTree = "<group>"; };
+		B77D86EE1F5D85190041D646 /* CartDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartDataModel.m; sourceTree = "<group>"; };
+		B77D86F11F5D85320041D646 /* CartService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartService.h; sourceTree = "<group>"; };
+		B77D86F21F5D85320041D646 /* CartService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartService.m; sourceTree = "<group>"; };
 		B7A4D3EB1F48278900A28BBE /* ProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailViewController.h; sourceTree = "<group>"; };
 		B7A4D3EC1F48278900A28BBE /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
 		B7A4D3EE1F4828E500A28BBE /* ProductDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailTableViewCell.h; sourceTree = "<group>"; };
@@ -337,14 +382,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				181FD22A1F60198000C5373C /* AudioToolbox.framework in Frameworks */,
+				181FD2281F60197800C5373C /* Accelerate.framework in Frameworks */,
+				181FD2261F60195900C5373C /* OpenGLES.framework in Frameworks */,
+				181FD2241F60195200C5373C /* SystemConfiguration.framework in Frameworks */,
+				181FD2221F60194C00C5373C /* Security.framework in Frameworks */,
+				181FD2201F60194700C5373C /* SafariServices.framework in Frameworks */,
 				187129091F48DD2B00D16581 /* MediaPlayer.framework in Frameworks */,
 				188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */,
+				181FD21D1F6018E400C5373C /* libopencv_core.a in Frameworks */,
 				32A3D7111F1CE3BB00062B86 /* GoogleSymbolUtilities.framework in Frameworks */,
 				E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */,
 				32A3D7051F1CD2E100062B86 /* FBSDKCoreKit.framework in Frameworks */,
+				181FD21E1F6018E400C5373C /* libopencv_imgproc.a in Frameworks */,
 				32A3D7061F1CD2E100062B86 /* FBSDKLoginKit.framework in Frameworks */,
 				32A3D7121F1CE3BB00062B86 /* GoogleAppUtilities.framework in Frameworks */,
+				181FD21C1F6018E400C5373C /* libCardIO.a in Frameworks */,
 				32A3D7101F1CE3BB00062B86 /* GoogleSignInDependencies.framework in Frameworks */,
+				181FD2181F6018C000C5373C /* libPayPalMobile.a in Frameworks */,
 				32A3D7041F1CD2E100062B86 /* Bolts.framework in Frameworks */,
 				32A3D7141F1CE3BB00062B86 /* GoogleSignIn.framework in Frameworks */,
 			);
@@ -494,6 +549,49 @@
 				1818532E1F3DFED000EEB73B /* ImageCaching.m */,
 			);
 			name = ImageCaching;
+			sourceTree = "<group>";
+		};
+		181AD48C1F5EADEB00AA3C3D /* WishlistModule */ = {
+			isa = PBXGroup;
+			children = (
+				180409E21F58887100EA3E17 /* WishlistViewController */,
+			);
+			name = WishlistModule;
+			sourceTree = "<group>";
+		};
+		181FD20F1F60188300C5373C /* PaypalSDK */ = {
+			isa = PBXGroup;
+			children = (
+				181FD2191F6018E400C5373C /* libCardIO.a */,
+				181FD21A1F6018E400C5373C /* libopencv_core.a */,
+				181FD21B1F6018E400C5373C /* libopencv_imgproc.a */,
+				181FD2101F6018C000C5373C /* PayPalMobile.h */,
+				181FD2111F6018C000C5373C /* PayPalConfiguration.h */,
+				181FD2121F6018C000C5373C /* PayPalPayment.h */,
+				181FD2131F6018C000C5373C /* PayPalPaymentViewController.h */,
+				181FD2141F6018C000C5373C /* PayPalFuturePaymentViewController.h */,
+				181FD2151F6018C000C5373C /* PayPalProfileSharingViewController.h */,
+				181FD2161F6018C000C5373C /* PayPalOAuthScopes.h */,
+				181FD2171F6018C000C5373C /* libPayPalMobile.a */,
+			);
+			name = PaypalSDK;
+			sourceTree = "<group>";
+		};
+		181FD22B1F601F6300C5373C /* PaymentMethodModule */ = {
+			isa = PBXGroup;
+			children = (
+				181FD22C1F601F6F00C5373C /* PayPal */,
+			);
+			name = PaymentMethodModule;
+			sourceTree = "<group>";
+		};
+		181FD22C1F601F6F00C5373C /* PayPal */ = {
+			isa = PBXGroup;
+			children = (
+				181FD22F1F601FA900C5373C /* PayPalPaymentOption.h */,
+				181FD2301F601FA900C5373C /* PayPalPaymentOption.m */,
+			);
+			name = PayPal;
 			sourceTree = "<group>";
 		};
 		184C38581F3B08DE008B8291 /* SWRevealViewController */ = {
@@ -810,13 +908,16 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				181FD22B1F601F6300C5373C /* PaymentMethodModule */,
+				188605961F39C05A0005D1E2 /* GlobalViewModule */,
+				181AD48C1F5EADEB00AA3C3D /* WishlistModule */,
+				B77D86DE1F5D83A40041D646 /* MyCartModule */,
 				180409E21F58887100EA3E17 /* WishlistViewController */,
 				180409DD1F58741800EA3E17 /* NewCentreModule */,
 				185F706A1F559D6B007F49F7 /* ProfileModule */,
 				180ECD381F489AAD003C936E /* ReviewModule */,
 				180ECD221F482A0C003C936E /* WebViewController */,
 				B7AA39BA1F47106600423121 /* ProductModule */,
-				188605961F39C05A0005D1E2 /* GlobalViewModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
 				188605911F39BB720005D1E2 /* DashboardModule */,
 				184C38611F3B3254008B8291 /* NotificationModule */,
@@ -827,6 +928,7 @@
 		320761601F1626F2001F1790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B77D86EC1F5D850F0041D646 /* CartModel */,
 				5D27AC5B1F55647700AECF40 /* ProfileModel */,
 				180ECD3D1F489E3F003C936E /* ReviewModel */,
 				B7A4D3F71F4854A500A28BBE /* ProductModel */,
@@ -880,6 +982,7 @@
 		320761651F162733001F1790 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				181FD20F1F60188300C5373C /* PaypalSDK */,
 				B7DA71F01F5034E500F45439 /* HCYoutubeParser */,
 				180ECD2A1F484B5C003C936E /* StarRatingView */,
 				B7AA39AF1F470FFA00423121 /* GoNatuurPickerView */,
@@ -916,6 +1019,7 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				B77D86F01F5D85270041D646 /* CartService */,
 				5D27AC5F1F55674E00AECF40 /* ProfileService */,
 				180ECD411F48A200003C936E /* ReviewService */,
 				B7A4D3F61F48549D00A28BBE /* ProductService */,
@@ -1150,6 +1254,12 @@
 		3C0B4A3E4E995FBB10C57627 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				181FD2291F60198000C5373C /* AudioToolbox.framework */,
+				181FD2271F60197800C5373C /* Accelerate.framework */,
+				181FD2251F60195900C5373C /* OpenGLES.framework */,
+				181FD2231F60195200C5373C /* SystemConfiguration.framework */,
+				181FD2211F60194C00C5373C /* Security.framework */,
+				181FD21F1F60194700C5373C /* SafariServices.framework */,
 				187129081F48DD2A00D16581 /* MediaPlayer.framework */,
 				1886058F1F39AF320005D1E2 /* UserNotifications.framework */,
 				BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */,
@@ -1283,6 +1393,69 @@
 				B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */,
 			);
 			name = SocialLoginButttonView;
+			sourceTree = "<group>";
+		};
+		B77D86DE1F5D83A40041D646 /* MyCartModule */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E21F5D83CF0041D646 /* MyCartViewController */,
+				B77D86DF1F5D83AE0041D646 /* CartListingViewController */,
+			);
+			name = MyCartModule;
+			sourceTree = "<group>";
+		};
+		B77D86DF1F5D83AE0041D646 /* CartListingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E11F5D83C50041D646 /* CartListCell */,
+				B77D86E01F5D83BB0041D646 /* CartListViewController */,
+			);
+			name = CartListingViewController;
+			sourceTree = "<group>";
+		};
+		B77D86E01F5D83BB0041D646 /* CartListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E61F5D83F50041D646 /* CartListingViewController.h */,
+				B77D86E71F5D83F50041D646 /* CartListingViewController.m */,
+			);
+			name = CartListViewController;
+			sourceTree = "<group>";
+		};
+		B77D86E11F5D83C50041D646 /* CartListCell */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E91F5D84090041D646 /* CartListTableViewCell.h */,
+				B77D86EA1F5D84090041D646 /* CartListTableViewCell.m */,
+			);
+			name = CartListCell;
+			sourceTree = "<group>";
+		};
+		B77D86E21F5D83CF0041D646 /* MyCartViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E31F5D83EB0041D646 /* MyCartViewController.h */,
+				B77D86E41F5D83EB0041D646 /* MyCartViewController.m */,
+			);
+			name = MyCartViewController;
+			sourceTree = "<group>";
+		};
+		B77D86EC1F5D850F0041D646 /* CartModel */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86ED1F5D85190041D646 /* CartDataModel.h */,
+				B77D86EE1F5D85190041D646 /* CartDataModel.m */,
+			);
+			name = CartModel;
+			sourceTree = "<group>";
+		};
+		B77D86F01F5D85270041D646 /* CartService */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86F11F5D85320041D646 /* CartService.h */,
+				B77D86F21F5D85320041D646 /* CartService.m */,
+			);
+			name = CartService;
 			sourceTree = "<group>";
 		};
 		B7A4D3E81F4826AF00A28BBE /* ProductDetailViewController */ = {
@@ -1618,6 +1791,7 @@
 				32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */,
 				B7AA39B81F47102100423121 /* GoNatuurPickerView.m in Sources */,
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
+				181FD2311F601FA900C5373C /* PayPalPaymentOption.m in Sources */,
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
 				B77A8A781F34388800233782 /* SignUpViewController.m in Sources */,
 				B7A86ECD1F3B3D85004DA530 /* CMSPageViewController.m in Sources */,
@@ -1635,6 +1809,7 @@
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
 				181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
+				B77D86EB1F5D84090041D646 /* CartListTableViewCell.m in Sources */,
 				1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */,
 				187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */,
 				B7A4D3ED1F48278A00A28BBE /* ProductDetailViewController.m in Sources */,
@@ -1644,6 +1819,7 @@
 				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,
 				18C418E01F56E9D500749654 /* UIImage+UIImage_fixOrientation.m in Sources */,
 				180ECD401F48A1D1003C936E /* ReviewDataModel.m in Sources */,
+				B77D86F31F5D85320041D646 /* CartService.m in Sources */,
 				B7AA39B31F47101400423121 /* GoNatuurFilterView.m in Sources */,
 				180ECD251F482A38003C936E /* WebViewController.m in Sources */,
 				180ECD291F484A17003C936E /* ReviewViewController.m in Sources */,
@@ -1651,9 +1827,12 @@
 				18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
+				B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */,
+				B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				B7DA71F31F5034F300F45439 /* HCYoutubeParser.m in Sources */,
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
+				B77D86E51F5D83EB0041D646 /* MyCartViewController.m in Sources */,
 				184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */,
 				5DAC39551F61783F00702F92 /* AddressListingCell.m in Sources */,
 				188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */,
@@ -1824,6 +2003,31 @@
 				INFOPLIST_FILE = GoNatuur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GoNatuur",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"SCLAlertView-Objective-C\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-lc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.GoNatuur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "52596806-52c6-4ca4-8ca4-e14557529bec";
@@ -1848,6 +2052,31 @@
 				INFOPLIST_FILE = GoNatuur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GoNatuur",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"SCLAlertView-Objective-C\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-lc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.GoNatuur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "52596806-52c6-4ca4-8ca4-e14557529bec";

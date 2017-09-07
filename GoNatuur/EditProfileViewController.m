@@ -35,11 +35,14 @@
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UIImageView *userImageView;
 @property (weak, nonatomic) IBOutlet UILabel *userEmailLabel;
-
+@property (weak, nonatomic) IBOutlet UILabel *detailsTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *settingsLabel;
+@property (weak, nonatomic) IBOutlet UIButton *manageAddButton;
 @end
 
 @implementation EditProfileViewController
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -71,6 +74,7 @@
                                                  name:UIKeyboardWillHideNotification object:nil];
     [self customizeViewFields];
     [self addCustomPickerView];
+    [self localizedText];
     //Bring front view picker view
     [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
 }
@@ -87,6 +91,18 @@
     _firstNameTextField.text=@"";
     _lastNameTextField.text=@"";
 }
+
+- (void)localizedText {
+    _firstNameTextField.placeholder=NSLocalizedText(@"firstName");
+    _lastNameTextField.placeholder=NSLocalizedText(@"lastName");
+    _changeLaguageTextField.placeholder=NSLocalizedText(@"changeLanguage");
+    _changeCurrencyTextField.placeholder=NSLocalizedText(@"changeCurrency");
+    _detailsTitleLabel.text=NSLocalizedText(@"personalDetails");
+    _settingsLabel.text=NSLocalizedText(@"personalSetting");
+    [_saveButton setTitle:NSLocalizedText(@"save") forState:UIControlStateNormal];
+    [_manageAddButton setTitle:NSLocalizedText(@"manageAddress") forState:UIControlStateNormal];
+}
+#pragma mark - end
 
 #pragma mark - Customise text fields
 - (void)customizeViewFields {
@@ -393,24 +409,46 @@
     }
     
     [userData saveUserProfile:^(ProfileModel *userData) {
+        [self getCategoryListData];
         NSMutableArray *ratesArray=[NSMutableArray new];
         for (int i =0; i<[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] count]; i++) {
             NSDictionary * footerDataDict =[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] objectAtIndex:i];
             CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
             exchangeData.currencyExchangeCode = footerDataDict[@"currency_to"];
             exchangeData.currencyExchangeRates = footerDataDict[@"rate"];
+            exchangeData.currencysymbol = footerDataDict[@"currency_symbol"];
             [ratesArray addObject:exchangeData];
         }
         for (int i=0; i<ratesArray.count; i++) {
             if ([[UserDefaultManager getValue:@"DefaultCurrencyCode"] containsString:[[ratesArray objectAtIndex:i] currencyExchangeCode]]) {
                 [UserDefaultManager setValue:[[ratesArray objectAtIndex:i] currencyExchangeRates] key:@"ExchangeRates"];
-                NSLog(@"%@",[UserDefaultManager getValue:@"ExchangeRates"]);
+                if ([[[ratesArray objectAtIndex:i] currencysymbol] isEqualToString:@""] || [[ratesArray objectAtIndex:i] currencysymbol]==nil) {
+                    [UserDefaultManager setValue:[UserDefaultManager getValue:@"DefaultCurrencyCode"] key:@"DefaultCurrencySymbol"];
+                }
+                else {
+                    [UserDefaultManager setValue:[[ratesArray objectAtIndex:i] currencysymbol] key:@"DefaultCurrencySymbol"];
+                }
             }
         }
-        [myDelegate stopIndicator];
-        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"profileSuccess") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+    } onfailure:^(NSError *error) {
         
+    }];
+}
+
+//Get category list data
+- (void)getCategoryListData {
+    DashboardDataModel *categoryList = [DashboardDataModel sharedUser];
+    categoryList.categoryId=@"2";
+    [categoryList getCategoryListDataOnSuccess:^(DashboardDataModel *userData)  {
+        myDelegate.categoryNameArray=[userData.categoryNameArray mutableCopy];
+        self.categorySliderObjc.categoryDataArray=[myDelegate.categoryNameArray mutableCopy];
+        [self.categorySliderObjc.categorySliderCollectionView reloadData];
+         [myDelegate stopIndicator];
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"profileSuccess")  closeButtonTitle:nil duration:0.0f];
     } onfailure:^(NSError *error) {
         
     }];

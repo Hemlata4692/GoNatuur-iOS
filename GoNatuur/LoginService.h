@@ -12,8 +12,6 @@
 
 @interface LoginService : Webservice
 
-//Get authorization token
-- (void)getAccessToken:(LoginModel *)accessToken onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 //Login user
 - (void)loginUser:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 //Login as guest user service

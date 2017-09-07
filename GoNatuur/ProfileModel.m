@@ -41,6 +41,12 @@
 @synthesize storeId;
 @synthesize groupId;
 @synthesize websiteId;
+@synthesize currentPage;
+@synthesize pageCount;
+@synthesize totalPoints;
+@synthesize recentEarnedPoints;
+@synthesize userImageURL;
+@synthesize userImage;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -65,6 +71,46 @@
     }];
 }
 #pragma mark - end
+
+#pragma mark - Update user image
+- (void)updateUserProfileImage:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] updateUserProfileImage:self onSuccess:^(ProfileModel *profileData) {
+        if (success) {
+             [UserDefaultManager setValue:profileData.userImageURL key:@"profilePicture"];
+            success (profileData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Get user imapct points data
+- (void)getImpactPoints:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getUserImpactPointsData:self onSuccess:^(ProfileModel *profileData) {
+        if (success) {
+            if ([profileData.totalPoints isEqualToString:@""] || profileData.totalPoints==nil) {
+                 [UserDefaultManager setValue:@"0" key:@"TotalPoints"];
+            }
+            else {
+                 [UserDefaultManager setValue:profileData.totalPoints key:@"TotalPoints"];
+            }
+            
+            if ([profileData.recentEarnedPoints isEqualToString:@""] || profileData.recentEarnedPoints==nil) {
+                profileData.recentEarnedPoints=@"0";
+                [UserDefaultManager setValue:profileData.recentEarnedPoints key:@"RecentEarned"];
+            }
+            else {
+                [UserDefaultManager setValue:profileData.recentEarnedPoints key:@"RecentEarned"];
+            }
+            success (profileData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
+
 
 #pragma mark - Save user profile
 - (void)saveUserProfile:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure {

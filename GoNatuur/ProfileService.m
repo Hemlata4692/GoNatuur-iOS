@@ -12,6 +12,8 @@
 static NSString *kChangePassword=@"customers/me/password";
 static NSString *kCountryCode=@"directory/countries";
 static NSString *kUserProfile=@"customers/me";
+static NSString *kUserImpactsPoints=@"ranosys/myimpactpoints";
+static NSString *kEditProfilePicture=@"customerprofile/index";
 
 @implementation ProfileService
 
@@ -33,6 +35,22 @@ static NSString *kUserProfile=@"customers/me";
 #pragma mark - Get user service
 - (void)getUserProfileServiceData:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
     [super get:kUserProfile parameters:nil onSuccess:success onFailure:failure];
+}
+#pragma mark - end
+
+#pragma mark - User profile image service
+- (void)updateUserprofileImageService:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"customerId":[UserDefaultManager getValue:@"userId"]};
+    [super postImage:kEditProfilePicture parameters:parameters image:profileData.userImage success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Get imapct points service
+- (void)getImpactsPointService:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"currentPage" : profileData.currentPage,
+                                 @"pageSize" : profileData.pageCount
+                                 };
+    [super post:kUserImpactsPoints parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 

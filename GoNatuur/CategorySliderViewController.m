@@ -24,25 +24,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
      [_shadowView addShadow:_shadowView color:[UIColor darkGrayColor]];
-    
-    categoryDataArray=[[NSMutableArray alloc]init];
-    categoryDataArray=[myDelegate.categoryNameArray mutableCopy];
-    //Load category slider cell xib
+
+//    //Load category slider cell xib
     [categorySliderCollectionView registerNib:[UINib nibWithNibName:@"CategorySliderCell" bundle:nil] forCellWithReuseIdentifier:@"categoryCell"];
-    [categorySliderCollectionView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    categoryDataArray=[[NSMutableArray alloc]init];
+    categoryDataArray=[myDelegate.categoryNameArray mutableCopy];
+    [categorySliderCollectionView reloadData];
     [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
     if ((categoryDataArray.count>0)&&(myDelegate.selectedCategoryIndex!=-1)) {
         [categorySliderCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:myDelegate.selectedCategoryIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
     }
-
 }
 
 - (void)didReceiveMemoryWarning {

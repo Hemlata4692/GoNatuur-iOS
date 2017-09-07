@@ -30,6 +30,10 @@
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UILabel *registerLabel;
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
+@property (weak, nonatomic) IBOutlet UILabel *orSeperatorLabel;
+@property (weak, nonatomic) IBOutlet UIButton *loginbutton;
+@property (weak, nonatomic) IBOutlet UIButton *skipButton;
+@property (weak, nonatomic) IBOutlet UIButton *forgotPasswordButton;
 @end
 
 @implementation LoginViewController
@@ -38,7 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//        [self authenticationToken];
+    //        [self authenticationToken];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -107,6 +111,16 @@
     //Set privacy policy attributed text
     [self setAttributString];
     [self customizedTextField];
+    [self localizedText];
+}
+
+- (void) localizedText {
+    _emailTextField.placeholder=NSLocalizedText(@"Email");
+    _passwordTextField.placeholder=NSLocalizedText(@"Password");
+    _orSeperatorLabel.text=NSLocalizedText(@"or");
+    [_loginbutton setTitle:NSLocalizedText(@"Log In") forState:UIControlStateNormal];
+    [_forgotPasswordButton setTitle:NSLocalizedText(@"ForgotPassword") forState:UIControlStateNormal];
+    [_skipButton setTitle:NSLocalizedText(@"Skip") forState:UIControlStateNormal];
 }
 
 - (void)setAttributString {
@@ -271,19 +285,6 @@
 #pragma mark - end
 
 #pragma mark - Webservice
-//Community code webservice called
-- (void)authenticationToken {
-    //    [myDelegate showIndicator];
-    LoginModel *authToken = [LoginModel sharedUser];
-    authToken.username=@"";
-    authToken.password=@"";
-    [authToken accessToken:^(LoginModel *userData) {
-        //        [self userLogin];
-    } onfailure:^(NSError *error) {
-        
-    }];
-}
-
 //User login webservice called
 - (void)userLogin {
     LoginModel *userLogin = [LoginModel sharedUser];

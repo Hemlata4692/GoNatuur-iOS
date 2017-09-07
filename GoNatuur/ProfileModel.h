@@ -48,7 +48,12 @@
 @property (strong, nonatomic) NSString *storeId;
 @property (strong, nonatomic) NSString *websiteId;
 @property (strong, nonatomic) NSString *groupId;
-
+@property (strong, nonatomic) NSString *currentPage;
+@property (strong, nonatomic) NSString *pageCount;
+@property (strong, nonatomic) NSString *totalPoints;
+@property (strong, nonatomic) NSString *recentEarnedPoints;
+@property (strong, nonatomic) NSString *userImageURL;
+@property (strong, nonatomic) UIImage *userImage;
 
 + (instancetype)sharedUser;
 //Login user
