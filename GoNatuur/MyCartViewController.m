@@ -16,6 +16,7 @@
 
 @interface MyCartViewController ()<CartListDelegate> {
     CartListingViewController *cartListObj;
+//    CheckoutAddressViewController *checkoutAddressObj;
     NSMutableArray *cartListData;
     float totalCartProductPrice;
     CartDataModel *cartModelData;
@@ -37,6 +38,13 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBarHidden=false;
+    self.title=NSLocalizedText(@"GoNatuur");
+    [self addLeftBarButtonWithImage:false];
+    [self viewInitialization];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getCartListData) withObject:nil afterDelay:.1];
     // Do any additional setup after loading the view.
 }
 
@@ -47,12 +55,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    self.navigationController.navigationBarHidden=false;
-    self.title=NSLocalizedText(@"GoNatuur");
-    [self addLeftBarButtonWithImage:false];
-    [self viewInitialization];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(getCartListData) withObject:nil afterDelay:.1];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -157,18 +160,24 @@
     [cartListObj didMoveToParentViewController:self];;
 }
 
-//Cart list delegate method
-- (void)removedItemDelegate:(NSMutableArray *)updatedCartList {
-    [self updateCartBadge];
-    if ([updatedCartList count]>0) {
-        [cartListObj.cartListTableView reloadData];
-    }
-    else {
-        _noRecordFountLabel.hidden=false;
-        [cartListObj.view removeFromSuperview];
-        [cartListObj removeFromParentViewController];
-    }
-}
+//- (void)addCheckoutAddressView {
+//    [self viewCustomisation:2];
+//    checkoutAddressObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckoutAddressViewController"];
+//    checkoutAddressObj.view.translatesAutoresizingMaskIntoConstraints=YES;
+//    checkoutAddressObj.scrollView.translatesAutoresizingMaskIntoConstraints=YES;
+//     checkoutAddressObj.mainCheckoutAddressView.translatesAutoresizingMaskIntoConstraints=YES;
+//    checkoutAddressObj.view.frame=CGRectMake(0, 195, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-255);
+//    checkoutAddressObj.scrollView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, checkoutAddressObj.view.frame.size.height-60);
+//    checkoutAddressObj.mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 1016+60);//height:1016+60(bottom view height)
+//    checkoutAddressObj.scrollView.contentSize = CGSizeMake(0,checkoutAddressObj.mainCheckoutAddressView.frame.size.height);
+//    [checkoutAddressObj.continueShoppingOutlet addTarget:self action:@selector(checkoutAddressContinueShopping:) forControlEvents:UIControlEventTouchUpInside];
+//    [checkoutAddressObj.nextOutlet addTarget:self action:@selector(checkoutAddressNext:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self swipeIntroImageLeft:2];
+//    [self addChildViewController:checkoutAddressObj];
+//    [self.view addSubview:checkoutAddressObj.view];
+//    [checkoutAddressObj didMoveToParentViewController:self];;
+//}
 #pragma mark - end
 
 #pragma mark - Webservice
@@ -232,7 +241,103 @@
 
 - (IBAction)cartListNext:(UIButton *)sender {
     DLog(@"cart next");
+    [cartListObj.view removeFromSuperview];
+    [cartListObj removeFromParentViewController];
+    [self addLeftBarButtonWithImage:true];
+//    [self addCheckoutAddressView];
 }
 //end
+
+//Checkout address IBActions
+//- (IBAction)checkoutAddressContinueShopping:(UIButton *)sender {
+//    UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+//    [myDelegate.window setRootViewController:objReveal];
+//    [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
+//    [myDelegate.window makeKeyAndVisible];
+//}
+//
+//- (IBAction)checkoutAddressNext:(UIButton *)sender {
+//    DLog(@"cart next");
+//    [checkoutAddressObj.view removeFromSuperview];
+//    [checkoutAddressObj removeFromParentViewController];
+//    [self addLeftBarButtonWithImage:true];
+//}
+//end
 #pragma mark - end
+
+#pragma mark - Cart list delegate method
+- (void)removedItemDelegate:(NSMutableArray *)updatedCartList {
+    [self updateCartBadge];
+    cartListData=[updatedCartList mutableCopy];
+    if ([updatedCartList count]>0) {
+        [cartListObj.cartListTableView reloadData];
+    }
+    else {
+        _noRecordFountLabel.hidden=false;
+        [cartListObj.view removeFromSuperview];
+        [cartListObj removeFromParentViewController];
+    }
+}
+#pragma mark - end
+
+//#pragma mark - Swipe Images
+////Adding left animation to banner images
+//- (void)addLeftAnimationPresentToView:(UIView *)viewTobeAnimatedLeft {
+//    CATransition *transition = [CATransition animation];
+//    transition.duration = 0.3;
+//    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+//    [transition setValue:@"IntroSwipeIn" forKey:@"IntroAnimation"];
+//    transition.fillMode=kCAFillModeForwards;
+//    transition.type = kCATransitionPush;
+//    transition.subtype =kCATransitionFromRight;
+//    [viewTobeAnimatedLeft.layer addAnimation:transition forKey:nil];
+//}
+//
+////Adding right animation to banner images
+//- (void)addRightAnimationPresentToView:(UIView *)viewTobeAnimatedRight {
+//    CATransition *transition = [CATransition animation];
+//    transition.duration = 0.3;
+//    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+//    [transition setValue:@"IntroSwipeIn" forKey:@"IntroAnimation"];
+//    transition.fillMode=kCAFillModeForwards;
+//    transition.type = kCATransitionPush;
+//    transition.subtype =kCATransitionFromLeft;
+//    [viewTobeAnimatedRight.layer addAnimation:transition forKey:nil];
+//}
+//
+////Swipe images in left direction
+//- (void)swipeIntroImageLeft:(int)screenIndex {
+//    UIView *nextScreenView;
+//    switch (screenIndex) {
+//        case 1:
+//            nextScreenView=cartListObj.view;
+//            break;
+//        case 2:
+//            nextScreenView=checkoutAddressObj.view;
+//            break;
+//            
+//        default:
+//            break;
+//    }
+//    [self addLeftAnimationPresentToView:nextScreenView];
+//}
+//
+////Swipe images in right direction
+//- (void)swipeIntroImageRight:(int)screenIndex {
+//    UIView *nextScreenView;
+//    switch (screenIndex) {
+//        case 1:
+//            nextScreenView=cartListObj.view;
+//            break;
+//        case 2:
+//            nextScreenView=checkoutAddressObj.view;
+//            break;
+//            
+//        default:
+//            break;
+//    }
+//    [self addRightAnimationPresentToView:nextScreenView];
+//
+//}
+//#pragma mark - end
 @end
