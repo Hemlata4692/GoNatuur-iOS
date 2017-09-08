@@ -120,6 +120,9 @@
     _orSeperatorLabel.text=NSLocalizedText(@"or");
     [_loginbutton setTitle:NSLocalizedText(@"Log In") forState:UIControlStateNormal];
     [_forgotPasswordButton setTitle:NSLocalizedText(@"ForgotPassword") forState:UIControlStateNormal];
+    [_forgotPasswordButton sizeToFit];
+    _forgotPasswordButton.frame=CGRectMake(([[UIScreen mainScreen] bounds].origin.x+[[UIScreen mainScreen] bounds].size.width/2)-(_forgotPasswordButton.frame.size.width/2), _loginbutton.frame.origin.y+_loginbutton.frame.size.height+8, _forgotPasswordButton.frame.size.width, 18);
+    [_forgotPasswordButton setBottomBorder:_forgotPasswordButton color:[UIColor blackColor]];
     [_skipButton setTitle:NSLocalizedText(@"Skip") forState:UIControlStateNormal];
 }
 
@@ -160,6 +163,7 @@
     [_passwordTextField setTextBorder:_passwordTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_emailTextField addTextFieldLeftRightPadding:_emailTextField];
     [_passwordTextField addTextFieldLeftRightPadding:_passwordTextField];
+    _forgotPasswordButton.translatesAutoresizingMaskIntoConstraints=YES;
 }
 #pragma mark - end
 
