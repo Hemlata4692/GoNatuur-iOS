@@ -736,6 +736,10 @@
         DLog(@"cart list response %@",response);
         cartData.cartListResponse=[response mutableCopy];
         cartData.itemList=[NSMutableArray new];
+        cartData.billingAddressDict=[NSMutableDictionary new];
+        cartData.shippingAddressDict=[NSMutableDictionary new];
+        cartData.customerDict=[NSMutableDictionary new];
+        cartData.customerSavedAddressArray=[NSMutableArray new];
         if ((nil==[UserDefaultManager getValue:@"userId"])){
             int cartCount=0;
             for (NSDictionary *tempDict in response) {
@@ -745,11 +749,14 @@
             cartData.itemQty=[NSNumber numberWithInt:cartCount];
         }
         else {
+            cartData.billingAddressDict=[response[@"billing_address"] mutableCopy];
+            cartData.customerDict=[response[@"customer"] mutableCopy];
+            cartData.customerSavedAddressArray=[cartData.customerDict[@"addresses"] mutableCopy];
+            cartData.shippingAddressDict=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"];
             for (NSDictionary *tempDict in response[@"items"]) {
                 [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
             }
         }
-        
         success(cartData);
     }
                    onfailure:^(NSError *error) {

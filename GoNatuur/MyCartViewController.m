@@ -9,6 +9,7 @@
 #import "MyCartViewController.h"
 #import "CartDataModel.h"
 #import "CartListingViewController.h"
+#import "CheckoutAddressViewController.h"
 #import "SearchDataModel.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
@@ -16,6 +17,7 @@
 
 @interface MyCartViewController ()<CartListDelegate> {
     CartListingViewController *cartListObj;
+//    CheckoutAddressViewController *checkoutAddressObj;
     NSMutableArray *cartListData;
     float totalCartProductPrice;
     CartDataModel *cartModelData;
@@ -37,6 +39,12 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBarHidden=false;
+    self.title=NSLocalizedText(@"GoNatuur");
+    [self addLeftBarButtonWithImage:false];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getCartListData) withObject:nil afterDelay:.1];
     // Do any additional setup after loading the view.
 }
 
@@ -47,12 +55,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    self.navigationController.navigationBarHidden=false;
-    self.title=NSLocalizedText(@"GoNatuur");
-    [self addLeftBarButtonWithImage:false];
     [self viewInitialization];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(getCartListData) withObject:nil afterDelay:.1];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -119,27 +122,27 @@
     _fourthStepLabel.frame=CGRectMake(_thirdStepSeperetorLabel.frame.origin.x+_thirdStepSeperetorLabel.frame.size.width-2, 20, 22, 22);
     //Set default color at steps
     [self setDefaultStepColor];
-    [self viewCustomisation:1];
+    _firstStepLabel.backgroundColor=selectedStepColor;
 }
 
-- (void)viewCustomisation:(int)step {
-    switch (step) {
-        case 1:
-             _firstStepLabel.backgroundColor=selectedStepColor;
-            break;
-        case 2:
-            _firstStepSeperetorLabel.backgroundColor=selectedStepColor;
-            _secondStepLabel.backgroundColor=selectedStepColor;
-            break;
-        case 3:
-            _secondStepSeperetorLabel.backgroundColor=selectedStepColor;
-            _thirdStepLabel.backgroundColor=selectedStepColor;
-            break;
-        default:
-             _fourthStepLabel.backgroundColor=selectedStepColor;
-            break;
-    }
-}
+//- (void)viewCustomisation:(int)step {
+//    switch (step) {
+//        case 1:
+//            
+//            break;
+//        case 2:
+//            _firstStepSeperetorLabel.backgroundColor=selectedStepColor;
+//            _secondStepLabel.backgroundColor=selectedStepColor;
+//            break;
+//        case 3:
+//            _secondStepSeperetorLabel.backgroundColor=selectedStepColor;
+//            _thirdStepLabel.backgroundColor=selectedStepColor;
+//            break;
+//        default:
+//             _fourthStepLabel.backgroundColor=selectedStepColor;
+//            break;
+//    }
+//}
 
 - (void)addCartListView {
    cartListObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CartListingViewController"];
@@ -155,19 +158,6 @@
     [self addChildViewController:cartListObj];
     [self.view addSubview:cartListObj.view];
     [cartListObj didMoveToParentViewController:self];;
-}
-
-//Cart list delegate method
-- (void)removedItemDelegate:(NSMutableArray *)updatedCartList {
-    [self updateCartBadge];
-    if ([updatedCartList count]>0) {
-        [cartListObj.cartListTableView reloadData];
-    }
-    else {
-        _noRecordFountLabel.hidden=false;
-        [cartListObj.view removeFromSuperview];
-        [cartListObj removeFromParentViewController];
-    }
 }
 #pragma mark - end
 
@@ -232,7 +222,27 @@
 
 - (IBAction)cartListNext:(UIButton *)sender {
     DLog(@"cart next");
+    //StoryBoard navigation
+    CheckoutAddressViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckoutAddressViewController"];
+    obj.cartListDataArray=[cartListData mutableCopy];
+    obj.cartListModelData=cartModelData;
+    [self.navigationController pushViewController:obj animated:YES];
 }
 //end
+#pragma mark - end
+
+#pragma mark - Cart list delegate method
+- (void)removedItemDelegate:(NSMutableArray *)updatedCartList {
+    [self updateCartBadge];
+    cartListData=[updatedCartList mutableCopy];
+    if ([updatedCartList count]>0) {
+        [cartListObj.cartListTableView reloadData];
+    }
+    else {
+        _noRecordFountLabel.hidden=false;
+        [cartListObj.view removeFromSuperview];
+        [cartListObj removeFromParentViewController];
+    }
+}
 #pragma mark - end
 @end

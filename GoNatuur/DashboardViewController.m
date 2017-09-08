@@ -67,7 +67,6 @@
     myDelegate.selectedCategoryIndex=-1;
     [self showSelectedTab:1];
     if (myDelegate.firstTime) {
-        myDelegate.firstTime=false;
         [myDelegate showIndicator];
         [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
     }

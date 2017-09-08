@@ -6,8 +6,10 @@
  Copyright © 2017 Hemlata Khajanchi. All rights reserved.
  */
 
-"loginNewUserText" = "如果您是新用户，您可以向我们注册一个帐户，并使用GoPurpose开始购物。";
-"privacyPolicyText" = "通过注册，您同意我们的条款和条件和隐私政策。如果您已经有帐户，请登录。";
+"loginNewUserText" = "If you are a new uesr, you can Register an account with us and start shopping with GoPurpose.";
+"privacyPolicyText" = "By signing up, you agree to our Terms & Conditions and Privacy Policy. If you already have an account, Log In here.";
+//"loginNewUserText" = "如果您是新用户，您可以向我们注册一个帐户，并使用GoPurpose开始购物。";
+//"privacyPolicyText" = "通过注册，您同意我们的条款和条件和隐私政策。如果您已经有帐户，请登录。";
 "alertTitle" = "警报";
 "alertOk" = "好";
 "alertCancel" = "取消";
@@ -19,9 +21,12 @@
 "validEmailMessage" = "请输入有效的电子邮件地址。";
 "passwordMatchMessage" = "密码和确认密码不匹配。";
 "somethingWrongMessage" = "发生错误。请稍后再试。";
-"privacyPolicy" = "隐私政策";
-"terms&Conditions" = "条款和条件";
-"Log In" = "登录";
+//"privacyPolicy" = "隐私政策";
+"privacyPolicy"="Privacy Policy";
+"terms&Conditions"="Terms & Conditions";
+//"terms&Conditions" = "条款和条件";
+"Log In" = "Log In";
+//"Log In" = "登录";
 "Internet connection"="互联网连接错误。请稍后再试。";
 "specialCharacter" = "!~`@#$%^&*-+();:={}[],.<>?\\/\"\'";
 "upperCaseCharacter" = "ABCDEFGHIJKLKMNOPQRSTUVWXYZ";
@@ -44,8 +49,8 @@
 "guestUser"="访客用户";
 "dataNotAdded"="不适用";
 "Notifications"="通知";
-"terms&Conditions"="条款和条件";
-"Register"="寄存器";
+"Register"="Register";
+//"Register"="寄存器";
 "Review"="评论";
 "Points Earn"="积分赚取";
 "Product"="产品";
@@ -102,7 +107,8 @@
 "Password"="密码";
 "ConfirmPassword"="确认密码";
 "Email"="电子邮件";
-"ForgotPassword"="忘记密码？";
+"ForgotPassword"="Forgot Password?";
+//"ForgotPassword"="忘记密码？";
 "Skip"="跳过并继续";
 "placeholderConfirmPassword"="确认密码*";
 "createAccount"="创建帐号";
@@ -181,6 +187,19 @@
 "infoText"="不要错过！通知最新的";
 "descText"=" 优惠和促销您最喜欢的产品";
 "socialMedia"="分享到社交媒体";
+"checkoutPhoneNumber"="电话号码*";
+"checkoutEmail"="电子邮件*";
+"checkoutAddressLine1"="地址栏1*";
+"checkoutAddressLine2"="地址行2";
+"checkoutCountry"="国家*";
+"checkoutState"="州*";
+"checkoutCity"="市*";
+"checkoutZipCode"="邮政编码*";
+"billingSameAddress"="Same as shipping address:";
+"no"="No";
+"yes"="Yes";
+"redeemPoint"="Redeem Points";
+"checkoutAddressImpactPoint"="My Available Impact Points:";
 "cartListitems"="ITEMS";
 "cartListDescription"="DESCRIPTION";
 "cartListTotal"="TOTAL";
@@ -188,3 +207,4 @@
 "cartListFreeShipping"="*FREE SHIPPING FOR ORDER $100 & ABOVE";
 "cartListContinueShopping"="CONTINUE SHOPPING";
 "cartListNext"="NEXT";
+"removedProduct"="Product removed successfully.";
