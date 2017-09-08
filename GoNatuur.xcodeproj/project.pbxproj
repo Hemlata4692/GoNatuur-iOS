@@ -62,6 +62,8 @@
 		188B2C131F41DFA50001A7AE /* SearchDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C121F41DFA50001A7AE /* SearchDataModel.m */; };
 		188B2C171F41DFFA0001A7AE /* SearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C161F41DFFA0001A7AE /* SearchService.m */; };
 		188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C1A1F41F45A0001A7AE /* CurrencyDataModel.m */; };
+		189162081F614CD2005ED12E /* CardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189162071F614CD2005ED12E /* CardListViewController.m */; };
+		1891620C1F614CEF005ED12E /* AddCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1891620B1F614CEF005ED12E /* AddCardViewController.m */; };
 		18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */; };
 		18C418E01F56E9D500749654 /* UIImage+UIImage_fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418DF1F56E9D500749654 /* UIImage+UIImage_fixOrientation.m */; };
 		18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418E31F57266A00749654 /* EditProfileViewController.m */; };
@@ -245,6 +247,11 @@
 		188B2C161F41DFFA0001A7AE /* SearchService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchService.m; sourceTree = "<group>"; };
 		188B2C191F41F45A0001A7AE /* CurrencyDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyDataModel.h; sourceTree = "<group>"; };
 		188B2C1A1F41F45A0001A7AE /* CurrencyDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyDataModel.m; sourceTree = "<group>"; };
+		189162061F614CD2005ED12E /* CardListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardListViewController.h; sourceTree = "<group>"; };
+		189162071F614CD2005ED12E /* CardListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardListViewController.m; sourceTree = "<group>"; };
+		1891620A1F614CEF005ED12E /* AddCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCardViewController.h; sourceTree = "<group>"; };
+		1891620B1F614CEF005ED12E /* AddCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCardViewController.m; sourceTree = "<group>"; };
+		1891620D1F617735005ED12E /* GoNatuur.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoNatuur.entitlements; sourceTree = "<group>"; };
 		18C1DF7C1F3CAE96000D9431 /* DasboardDataCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasboardDataCollectionViewCell.h; sourceTree = "<group>"; };
 		18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DasboardDataCollectionViewCell.m; sourceTree = "<group>"; };
 		18C418DE1F56E9D500749654 /* UIImage+UIImage_fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImage_fixOrientation.h"; sourceTree = "<group>"; };
@@ -642,7 +649,6 @@
 		185F706A1F559D6B007F49F7 /* ProfileModule */ = {
 			isa = PBXGroup;
 			children = (
-				5DAC38201F6177DA00702F92 /* AddressModule */,
 				1813BDBD1F55E70100D9C9BA /* ProfileView */,
 				18C418E11F57263600749654 /* EditProfileView */,
 				5D27AC571F553A0500AECF40 /* ChangePasswordViewController */,
@@ -832,6 +838,33 @@
 			name = CurrencyDataModel;
 			sourceTree = "<group>";
 		};
+		189162041F614C7C005ED12E /* PaymentDetails */ = {
+			isa = PBXGroup;
+			children = (
+				189162091F614CDE005ED12E /* AddCardViewController */,
+				189162051F614C8F005ED12E /* CardListViewController */,
+			);
+			name = PaymentDetails;
+			sourceTree = "<group>";
+		};
+		189162051F614C8F005ED12E /* CardListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				189162061F614CD2005ED12E /* CardListViewController.h */,
+				189162071F614CD2005ED12E /* CardListViewController.m */,
+			);
+			name = CardListViewController;
+			sourceTree = "<group>";
+		};
+		189162091F614CDE005ED12E /* AddCardViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1891620A1F614CEF005ED12E /* AddCardViewController.h */,
+				1891620B1F614CEF005ED12E /* AddCardViewController.m */,
+			);
+			name = AddCardViewController;
+			sourceTree = "<group>";
+		};
 		18C1DF7B1F3CAE51000D9431 /* DashboardDataCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -908,12 +941,13 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				189162041F614C7C005ED12E /* PaymentDetails */,
 				181FD22B1F601F6300C5373C /* PaymentMethodModule */,
 				188605961F39C05A0005D1E2 /* GlobalViewModule */,
 				181AD48C1F5EADEB00AA3C3D /* WishlistModule */,
 				B77D86DE1F5D83A40041D646 /* MyCartModule */,
-				180409E21F58887100EA3E17 /* WishlistViewController */,
 				180409DD1F58741800EA3E17 /* NewCentreModule */,
+				5DAC38201F6177DA00702F92 /* AddressModule */,
 				185F706A1F559D6B007F49F7 /* ProfileModule */,
 				180ECD381F489AAD003C936E /* ReviewModule */,
 				180ECD221F482A0C003C936E /* WebViewController */,
@@ -1199,6 +1233,7 @@
 		32BAA6061F1360280015E355 /* GoNatuur */ = {
 			isa = PBXGroup;
 			children = (
+				1891620D1F617735005ED12E /* GoNatuur.entitlements */,
 				320761621F162706001F1790 /* AppDelegate */,
 				320761631F162712001F1790 /* Classes */,
 				187561981F469F8600F609AB /* Main.storyboard */,
@@ -1672,6 +1707,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -1780,6 +1818,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				189162081F614CD2005ED12E /* CardListViewController.m in Sources */,
 				32A3D6FF1F1CD2B800062B86 /* FacebookConnect.m in Sources */,
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
 				187561911F469BD500F609AB /* NotificationDataModel.m in Sources */,
@@ -1844,6 +1883,7 @@
 				B7AA39C51F47116700423121 /* ProductListCollectionViewCell.m in Sources */,
 				180ECD331F485B56003C936E /* EDStarRating.m in Sources */,
 				32BAA6091F1360280015E355 /* main.m in Sources */,
+				1891620C1F614CEF005ED12E /* AddCardViewController.m in Sources */,
 				188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */,
 				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,
 				B7A4D3F01F4828E500A28BBE /* ProductDetailTableViewCell.m in Sources */,
@@ -1991,6 +2031,7 @@
 			baseConfigurationReference = B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GoNatuur/GoNatuur.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ranosys Technologies Pte Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ranosys Technologies Pte Ltd";
 				DEVELOPMENT_TEAM = M8A7BYS443;
@@ -2040,6 +2081,7 @@
 			baseConfigurationReference = B83EEE6EC30D7C8806561F9A /* Pods-GoNatuur.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GoNatuur/GoNatuur.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ranosys Technologies Pte Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ranosys Technologies Pte Ltd";
 				DEVELOPMENT_TEAM = M8A7BYS443;

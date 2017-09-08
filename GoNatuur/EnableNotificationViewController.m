@@ -46,8 +46,7 @@
 }
 
 - (void) localizedText {
-  
-_notiTitleLabel.text=NSLocalizedText(@"enableNotification");
+    _notiTitleLabel.text=NSLocalizedText(@"enableNotification");
     _descLabel.text=NSLocalizedText(@"descText");
     _infoTextLabel.text=NSLocalizedText(@"infoText");
     [_okayButton setTitle:NSLocalizedText(@"okay") forState:UIControlStateNormal];

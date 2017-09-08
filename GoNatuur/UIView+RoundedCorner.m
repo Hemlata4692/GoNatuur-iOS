@@ -33,7 +33,7 @@
 //set bottom border only
 - (void)setBottomBorder: (UIView *)view color:(UIColor *)color {
     CALayer *bottomBorder = [CALayer layer];
-    bottomBorder.frame = CGRectMake(0, view.frame.size.height-1, view.frame.size.width, 2.0f);
+    bottomBorder.frame = CGRectMake(0, view.frame.size.height-1, view.frame.size.width, 1.0f);
     bottomBorder.backgroundColor = color.CGColor;
     [view.layer addSublayer:bottomBorder];
 }

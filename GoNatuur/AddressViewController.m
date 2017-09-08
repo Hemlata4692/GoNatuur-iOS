@@ -119,7 +119,12 @@
     _cityField.placeholder=NSLocalizedText(@"city");
     _ZipcodeField.placeholder=NSLocalizedText(@"postal");
     _faxField.placeholder=NSLocalizedText(@"fax");
-    [_saveAddressButton setTitle:NSLocalizedText(@"updateSave") forState:UIControlStateNormal];
+    if (isEditScreen) {
+        [_saveAddressButton setTitle:NSLocalizedText(@"updateSave") forState:UIControlStateNormal];
+    }
+    else {
+        [_saveAddressButton setTitle:NSLocalizedText(@"save") forState:UIControlStateNormal];
+    }
     [_isBillingButton setTitle:NSLocalizedText(@"billing") forState:UIControlStateNormal];
     [_isShippingButton setTitle:NSLocalizedText(@"shipping") forState:UIControlStateNormal];
     _personalDetailsLabel.text=NSLocalizedText(@"personalDetails");
