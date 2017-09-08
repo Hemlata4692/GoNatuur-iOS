@@ -21,6 +21,17 @@
 		181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181853261F3D833F00EEB73B /* DashboardDataModel.m */; };
 		1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532A1F3D8A7F00EEB73B /* DashboardService.m */; };
 		1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532E1F3DFED000EEB73B /* ImageCaching.m */; };
+		181FD2181F6018C000C5373C /* libPayPalMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2171F6018C000C5373C /* libPayPalMobile.a */; };
+		181FD21C1F6018E400C5373C /* libCardIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2191F6018E400C5373C /* libCardIO.a */; };
+		181FD21D1F6018E400C5373C /* libopencv_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD21A1F6018E400C5373C /* libopencv_core.a */; };
+		181FD21E1F6018E400C5373C /* libopencv_imgproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD21B1F6018E400C5373C /* libopencv_imgproc.a */; };
+		181FD2201F60194700C5373C /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD21F1F60194700C5373C /* SafariServices.framework */; };
+		181FD2221F60194C00C5373C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2211F60194C00C5373C /* Security.framework */; };
+		181FD2241F60195200C5373C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2231F60195200C5373C /* SystemConfiguration.framework */; };
+		181FD2261F60195900C5373C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2251F60195900C5373C /* OpenGLES.framework */; };
+		181FD2281F60197800C5373C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2271F60197800C5373C /* Accelerate.framework */; };
+		181FD22A1F60198000C5373C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2291F60198000C5373C /* AudioToolbox.framework */; };
+		181FD2311F601FA900C5373C /* PayPalPaymentOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 181FD2301F601FA900C5373C /* PayPalPaymentOption.m */; };
 		184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C385B1F3B0911008B8291 /* SideBarViewController.m */; };
 		184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C38641F3B328A008B8291 /* EnableNotificationViewController.m */; };
 		184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */; };
@@ -91,6 +102,8 @@
 		5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC591F553A3500AECF40 /* ChangePasswordViewController.m */; };
 		5D27AC5E1F55649E00AECF40 /* ProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC5D1F55649E00AECF40 /* ProfileModel.m */; };
 		5D27AC621F55678C00AECF40 /* ProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC611F55678C00AECF40 /* ProfileService.m */; };
+		5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC39511F61783F00702F92 /* AddressListingViewController.m */; };
+		5DAC39551F61783F00702F92 /* AddressListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC39531F61783F00702F92 /* AddressListingCell.m */; };
 		B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = B73A65371F3DF0630051E4C5 /* LocalizedString.m */; };
 		B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653A1F3DF07F0051E4C5 /* en.strings */; };
 		B73A653E1F3DF0870051E4C5 /* cn.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653C1F3DF0870051E4C5 /* cn.strings */; };
@@ -167,6 +180,25 @@
 		1818532A1F3D8A7F00EEB73B /* DashboardService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardService.m; sourceTree = "<group>"; };
 		1818532D1F3DFED000EEB73B /* ImageCaching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCaching.h; sourceTree = "<group>"; };
 		1818532E1F3DFED000EEB73B /* ImageCaching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCaching.m; sourceTree = "<group>"; };
+		181FD2101F6018C000C5373C /* PayPalMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalMobile.h; sourceTree = "<group>"; };
+		181FD2111F6018C000C5373C /* PayPalConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalConfiguration.h; sourceTree = "<group>"; };
+		181FD2121F6018C000C5373C /* PayPalPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalPayment.h; sourceTree = "<group>"; };
+		181FD2131F6018C000C5373C /* PayPalPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalPaymentViewController.h; sourceTree = "<group>"; };
+		181FD2141F6018C000C5373C /* PayPalFuturePaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalFuturePaymentViewController.h; sourceTree = "<group>"; };
+		181FD2151F6018C000C5373C /* PayPalProfileSharingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalProfileSharingViewController.h; sourceTree = "<group>"; };
+		181FD2161F6018C000C5373C /* PayPalOAuthScopes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalOAuthScopes.h; sourceTree = "<group>"; };
+		181FD2171F6018C000C5373C /* libPayPalMobile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPayPalMobile.a; sourceTree = "<group>"; };
+		181FD2191F6018E400C5373C /* libCardIO.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCardIO.a; sourceTree = "<group>"; };
+		181FD21A1F6018E400C5373C /* libopencv_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopencv_core.a; sourceTree = "<group>"; };
+		181FD21B1F6018E400C5373C /* libopencv_imgproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopencv_imgproc.a; sourceTree = "<group>"; };
+		181FD21F1F60194700C5373C /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		181FD2211F60194C00C5373C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		181FD2231F60195200C5373C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		181FD2251F60195900C5373C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		181FD2271F60197800C5373C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		181FD2291F60198000C5373C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		181FD22F1F601FA900C5373C /* PayPalPaymentOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalPaymentOption.h; sourceTree = "<group>"; };
+		181FD2301F601FA900C5373C /* PayPalPaymentOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayPalPaymentOption.m; sourceTree = "<group>"; };
 		184C385A1F3B0911008B8291 /* SideBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideBarViewController.h; sourceTree = "<group>"; };
 		184C385B1F3B0911008B8291 /* SideBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideBarViewController.m; sourceTree = "<group>"; };
 		184C38631F3B328A008B8291 /* EnableNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableNotificationViewController.h; sourceTree = "<group>"; };
@@ -284,6 +316,10 @@
 		5D27AC5D1F55649E00AECF40 /* ProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileModel.m; sourceTree = "<group>"; };
 		5D27AC601F55678C00AECF40 /* ProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileService.h; sourceTree = "<group>"; };
 		5D27AC611F55678C00AECF40 /* ProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileService.m; sourceTree = "<group>"; };
+		5DAC39501F61783F00702F92 /* AddressListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListingViewController.h; sourceTree = "<group>"; };
+		5DAC39511F61783F00702F92 /* AddressListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListingViewController.m; sourceTree = "<group>"; };
+		5DAC39521F61783F00702F92 /* AddressListingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListingCell.h; sourceTree = "<group>"; };
+		5DAC39531F61783F00702F92 /* AddressListingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListingCell.m; sourceTree = "<group>"; };
 		B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.debug.xcconfig"; sourceTree = "<group>"; };
 		B73A65361F3DF0630051E4C5 /* LocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedString.h; sourceTree = "<group>"; };
 		B73A65371F3DF0630051E4C5 /* LocalizedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedString.m; sourceTree = "<group>"; };
@@ -349,14 +385,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				181FD22A1F60198000C5373C /* AudioToolbox.framework in Frameworks */,
+				181FD2281F60197800C5373C /* Accelerate.framework in Frameworks */,
+				181FD2261F60195900C5373C /* OpenGLES.framework in Frameworks */,
+				181FD2241F60195200C5373C /* SystemConfiguration.framework in Frameworks */,
+				181FD2221F60194C00C5373C /* Security.framework in Frameworks */,
+				181FD2201F60194700C5373C /* SafariServices.framework in Frameworks */,
 				187129091F48DD2B00D16581 /* MediaPlayer.framework in Frameworks */,
 				188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */,
+				181FD21D1F6018E400C5373C /* libopencv_core.a in Frameworks */,
 				32A3D7111F1CE3BB00062B86 /* GoogleSymbolUtilities.framework in Frameworks */,
 				E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */,
 				32A3D7051F1CD2E100062B86 /* FBSDKCoreKit.framework in Frameworks */,
+				181FD21E1F6018E400C5373C /* libopencv_imgproc.a in Frameworks */,
 				32A3D7061F1CD2E100062B86 /* FBSDKLoginKit.framework in Frameworks */,
 				32A3D7121F1CE3BB00062B86 /* GoogleAppUtilities.framework in Frameworks */,
+				181FD21C1F6018E400C5373C /* libCardIO.a in Frameworks */,
 				32A3D7101F1CE3BB00062B86 /* GoogleSignInDependencies.framework in Frameworks */,
+				181FD2181F6018C000C5373C /* libPayPalMobile.a in Frameworks */,
 				32A3D7041F1CD2E100062B86 /* Bolts.framework in Frameworks */,
 				32A3D7141F1CE3BB00062B86 /* GoogleSignIn.framework in Frameworks */,
 			);
@@ -508,6 +554,49 @@
 			name = ImageCaching;
 			sourceTree = "<group>";
 		};
+		181AD48C1F5EADEB00AA3C3D /* WishlistModule */ = {
+			isa = PBXGroup;
+			children = (
+				180409E21F58887100EA3E17 /* WishlistViewController */,
+			);
+			name = WishlistModule;
+			sourceTree = "<group>";
+		};
+		181FD20F1F60188300C5373C /* PaypalSDK */ = {
+			isa = PBXGroup;
+			children = (
+				181FD2191F6018E400C5373C /* libCardIO.a */,
+				181FD21A1F6018E400C5373C /* libopencv_core.a */,
+				181FD21B1F6018E400C5373C /* libopencv_imgproc.a */,
+				181FD2101F6018C000C5373C /* PayPalMobile.h */,
+				181FD2111F6018C000C5373C /* PayPalConfiguration.h */,
+				181FD2121F6018C000C5373C /* PayPalPayment.h */,
+				181FD2131F6018C000C5373C /* PayPalPaymentViewController.h */,
+				181FD2141F6018C000C5373C /* PayPalFuturePaymentViewController.h */,
+				181FD2151F6018C000C5373C /* PayPalProfileSharingViewController.h */,
+				181FD2161F6018C000C5373C /* PayPalOAuthScopes.h */,
+				181FD2171F6018C000C5373C /* libPayPalMobile.a */,
+			);
+			name = PaypalSDK;
+			sourceTree = "<group>";
+		};
+		181FD22B1F601F6300C5373C /* PaymentMethodModule */ = {
+			isa = PBXGroup;
+			children = (
+				181FD22C1F601F6F00C5373C /* PayPal */,
+			);
+			name = PaymentMethodModule;
+			sourceTree = "<group>";
+		};
+		181FD22C1F601F6F00C5373C /* PayPal */ = {
+			isa = PBXGroup;
+			children = (
+				181FD22F1F601FA900C5373C /* PayPalPaymentOption.h */,
+				181FD2301F601FA900C5373C /* PayPalPaymentOption.m */,
+			);
+			name = PayPal;
+			sourceTree = "<group>";
+		};
 		184C38581F3B08DE008B8291 /* SWRevealViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -556,9 +645,9 @@
 		185F706A1F559D6B007F49F7 /* ProfileModule */ = {
 			isa = PBXGroup;
 			children = (
+				5DAC38201F6177DA00702F92 /* AddressModule */,
 				1813BDBD1F55E70100D9C9BA /* ProfileView */,
 				18C418E11F57263600749654 /* EditProfileView */,
-				5D1E5E351F56840A006E6C63 /* AddressViewController */,
 				5D27AC571F553A0500AECF40 /* ChangePasswordViewController */,
 			);
 			name = ProfileModule;
@@ -822,6 +911,9 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				181FD22B1F601F6300C5373C /* PaymentMethodModule */,
+				188605961F39C05A0005D1E2 /* GlobalViewModule */,
+				181AD48C1F5EADEB00AA3C3D /* WishlistModule */,
 				B77D86DE1F5D83A40041D646 /* MyCartModule */,
 				180409E21F58887100EA3E17 /* WishlistViewController */,
 				180409DD1F58741800EA3E17 /* NewCentreModule */,
@@ -829,7 +921,6 @@
 				180ECD381F489AAD003C936E /* ReviewModule */,
 				180ECD221F482A0C003C936E /* WebViewController */,
 				B7AA39BA1F47106600423121 /* ProductModule */,
-				188605961F39C05A0005D1E2 /* GlobalViewModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
 				188605911F39BB720005D1E2 /* DashboardModule */,
 				184C38611F3B3254008B8291 /* NotificationModule */,
@@ -894,6 +985,7 @@
 		320761651F162733001F1790 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				181FD20F1F60188300C5373C /* PaypalSDK */,
 				B7DA71F01F5034E500F45439 /* HCYoutubeParser */,
 				180ECD2A1F484B5C003C936E /* StarRatingView */,
 				B7AA39AF1F470FFA00423121 /* GoNatuurPickerView */,
@@ -1165,6 +1257,12 @@
 		3C0B4A3E4E995FBB10C57627 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				181FD2291F60198000C5373C /* AudioToolbox.framework */,
+				181FD2271F60197800C5373C /* Accelerate.framework */,
+				181FD2251F60195900C5373C /* OpenGLES.framework */,
+				181FD2231F60195200C5373C /* SystemConfiguration.framework */,
+				181FD2211F60194C00C5373C /* Security.framework */,
+				181FD21F1F60194700C5373C /* SafariServices.framework */,
 				187129081F48DD2A00D16581 /* MediaPlayer.framework */,
 				1886058F1F39AF320005D1E2 /* UserNotifications.framework */,
 				BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */,
@@ -1206,6 +1304,42 @@
 				5D27AC611F55678C00AECF40 /* ProfileService.m */,
 			);
 			name = ProfileService;
+			sourceTree = "<group>";
+		};
+		5DAC38201F6177DA00702F92 /* AddressModule */ = {
+			isa = PBXGroup;
+			children = (
+				5DAC394F1F61783300702F92 /* AddressListingView */,
+				5D1E5E351F56840A006E6C63 /* AddressViewController */,
+			);
+			name = AddressModule;
+			sourceTree = "<group>";
+		};
+		5DAC394F1F61783300702F92 /* AddressListingView */ = {
+			isa = PBXGroup;
+			children = (
+				5DAC39571F61835F00702F92 /* AddressListingViewController */,
+				5DAC39561F61835D00702F92 /* AddressListingCell */,
+			);
+			name = AddressListingView;
+			sourceTree = "<group>";
+		};
+		5DAC39561F61835D00702F92 /* AddressListingCell */ = {
+			isa = PBXGroup;
+			children = (
+				5DAC39521F61783F00702F92 /* AddressListingCell.h */,
+				5DAC39531F61783F00702F92 /* AddressListingCell.m */,
+			);
+			name = AddressListingCell;
+			sourceTree = "<group>";
+		};
+		5DAC39571F61835F00702F92 /* AddressListingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5DAC39501F61783F00702F92 /* AddressListingViewController.h */,
+				5DAC39511F61783F00702F92 /* AddressListingViewController.m */,
+			);
+			name = AddressListingViewController;
 			sourceTree = "<group>";
 		};
 		B73A65351F3DF0530051E4C5 /* LocalizedString */ = {
@@ -1671,12 +1805,14 @@
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
 				187561911F469BD500F609AB /* NotificationDataModel.m in Sources */,
 				180ECD301F484DE4003C936E /* UIPlaceHolderTextView.m in Sources */,
+				5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */,
 				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
 				180ECD3C1F489AF0003C936E /* ReviewTableViewCell.m in Sources */,
 				180409E51F58888900EA3E17 /* WishlistViewController.m in Sources */,
 				32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */,
 				B7AA39B81F47102100423121 /* GoNatuurPickerView.m in Sources */,
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
+				181FD2311F601FA900C5373C /* PayPalPaymentOption.m in Sources */,
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
 				B77A8A781F34388800233782 /* SignUpViewController.m in Sources */,
 				B7A86ECD1F3B3D85004DA530 /* CMSPageViewController.m in Sources */,
@@ -1720,6 +1856,7 @@
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
 				B77D86E51F5D83EB0041D646 /* MyCartViewController.m in Sources */,
 				184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */,
+				5DAC39551F61783F00702F92 /* AddressListingCell.m in Sources */,
 				188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */,
 				3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */,
 				320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */,
@@ -1888,6 +2025,31 @@
 				INFOPLIST_FILE = GoNatuur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GoNatuur",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"SCLAlertView-Objective-C\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-lc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.GoNatuur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "52596806-52c6-4ca4-8ca4-e14557529bec";
@@ -1912,6 +2074,31 @@
 				INFOPLIST_FILE = GoNatuur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GoNatuur",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"SCLAlertView-Objective-C\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-lc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.GoNatuur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "52596806-52c6-4ca4-8ca4-e14557529bec";
