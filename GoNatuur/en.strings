@@ -210,7 +210,10 @@
 "deleteAddressSuccess" = "Address deleted successfully.";
 "addAddressSuccessMessage" = "Address added successfully.";
 "updateAddressSuccessMessage" = "Address updated successfully.";
-"bothAddressSelected"="Shiiping/Billing Address";
+"bothAddressSelected"="Shipping/Billing Address";
 "updateSave"="UPDATE AND SAVE";
 "addAddressButton"="ADD ADDRESS";
 "phoneText"="Phone Number:";
+"sideBarAboutUs"="ABOUT US";
+"sideBarContactUs"="CONTACT US";
+"sideBarNewsLetter"="NEWSLETTER SUBSCRIPTION";

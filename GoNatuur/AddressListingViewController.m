@@ -200,11 +200,11 @@
         
         NSString *addressType;
         if ([addressData[@"default_billing"]boolValue]==1 && [addressData[@"default_shipping"]boolValue]==1) {
-            addressType = @"Shipping/Billing Address";
+            addressType = NSLocalizedText(@"bothAddressSelected");
         } else if ([addressData[@"default_shipping"]boolValue]==1) {
-            addressType = @"Shipping Address";
+            addressType = NSLocalizedText(@"shippingAddress");
         } else if ([addressData[@"default_billing"]boolValue]==1) {
-            addressType = @"Billing Address";
+            addressType = NSLocalizedText(@"billingAddress");
         } else {
             addressType = @"";
         }

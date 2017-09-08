@@ -25,8 +25,8 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    menuItemsArray = @[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications", @"Signout"];
-    sideBarLabelArray=@[NSLocalizedText(@"sideBarOrder"), NSLocalizedText(@"sideBarPayment"), NSLocalizedText(@"sideBarRedeemPoints"),NSLocalizedText(@"sideBarEvents"), NSLocalizedText(@"sideBarNewsCentre"), NSLocalizedText(@"sideBarNotifications"),NSLocalizedText(@"sideBarSignOut")];
+    menuItemsArray = @[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications",@"AboutUs",@"ContactUs",@"NewsLetter", @"Signout"];
+    sideBarLabelArray=@[NSLocalizedText(@"sideBarOrder"), NSLocalizedText(@"sideBarPayment"), NSLocalizedText(@"sideBarRedeemPoints"),NSLocalizedText(@"sideBarEvents"), NSLocalizedText(@"sideBarNewsCentre"), NSLocalizedText(@"sideBarNotifications"), NSLocalizedText(@"sideBarAboutUs"), NSLocalizedText(@"sideBarContactUs"), NSLocalizedText(@"sideBarNewsLetter"),NSLocalizedText(@"sideBarSignOut")];
     // Remove extra seperator from table view
     [self viewCustomisationAndData];
 }
@@ -39,9 +39,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
-    if ([ConstantCode checkDeviceType]==Device5s) {
-        _sideBarTableView.scrollEnabled=YES;
-    }
+     _sideBarTableView.scrollEnabled=YES;
     [_sideBarTableView reloadData];
 }
 
@@ -134,6 +132,15 @@
         [myDelegate checkGuestAccess];
     }
     else if (indexPath.row==6) {
+        [self featureNotAvailable];
+    }
+    else if (indexPath.row==7) {
+       [self featureNotAvailable];
+    }
+    else if (indexPath.row==8) {
+        [self featureNotAvailable];
+    }
+    else if (indexPath.row==9) {
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
             myDelegate.selectedCategoryIndex=-1;
             [myDelegate logoutUser];
