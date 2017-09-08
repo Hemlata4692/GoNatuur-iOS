@@ -90,7 +90,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    [self setInitailizedAddressData];
+    [self setInitailizedShippingAddressData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -105,7 +105,7 @@
     _yesRadioLabel.layer.masksToBounds=true;
     _noRadioLabel.layer.cornerRadius=5.0;
     _yesRadioLabel.layer.cornerRadius=5.0;
-    [self setRadioStyle:true];
+    [self setRadioStyle:false];
 }
 
 - (void)setRadioStyle:(BOOL)isYes {
@@ -134,7 +134,6 @@
         _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 900-42);
     }
     else {
-        [self setInitailizedAddressData];
         _rewardBackView.hidden=false;
         _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 1076-42);
     }
@@ -287,7 +286,7 @@
     _secondStepLabel.backgroundColor=selectedStepColor;
 }
 
--(void)setInitailizedAddressData {
+-(void)setInitailizedShippingAddressData {
     //Set default shipping address
     _shippingFirstNameTextField.text=cartModelData.shippingAddressDict[@"firstname"];
     _shippingLastNameTextField.text=cartModelData.shippingAddressDict[@"lastname"];
@@ -299,22 +298,49 @@
     _shippingStateTextField.text=cartModelData.shippingAddressDict[@"region"];
     _shippingCityTextField.text=cartModelData.shippingAddressDict[@"city"];
     _shippingZipCodeTextField.text=cartModelData.shippingAddressDict[@"postcode"];
-    //Set default billing address as shipping address bcz initially shipping address will be same.
-    _billingFirstNameTextField.text=cartModelData.shippingAddressDict[@"firstname"];
-    _billingLastNameTextField.text=cartModelData.shippingAddressDict[@"lastname"];
-    _billingPhoneNumberTextField.text=cartModelData.shippingAddressDict[@"telephone"];
-    _billingEmailTextField.text=cartModelData.shippingAddressDict[@"email"];
-    _billingAddressLine1TextField.text=[cartModelData.shippingAddressDict[@"street"] objectAtIndex:0];
-    _billingAddressLine2TextField.text=([cartModelData.shippingAddressDict[@"street"] count]>1?[cartModelData.shippingAddressDict[@"street"] objectAtIndex:1]:@"");
-    _billingCountryTextField.text=cartModelData.shippingAddressDict[@""];
-    _billingStateTextField.text=cartModelData.shippingAddressDict[@"region"];
-    _billingCityTextField.text=cartModelData.shippingAddressDict[@"city"];
-    _billingZipCodeTextField.text=cartModelData.shippingAddressDict[@"postcode"];
+    
     if (![cartModelData.shippingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.shippingAddressDict[@"region_id"] intValue]==0) {
         _shippingStateDropDown.hidden=true;
         [_shippingStateTextField addTextFieldLeftRightPadding:_shippingStateTextField];
         _billingStateDropDown.hidden=true;
         [_billingStateTextField addTextFieldLeftRightPadding:_shippingStateTextField];
+    }
+}
+
+-(void)setInitailizedBillingAddressData:(BOOL)isYes {
+    if (isYes) {
+        //Set default billing address as shipping address bcz initially shipping address will be same.
+        _billingFirstNameTextField.text=cartModelData.shippingAddressDict[@"firstname"];
+        _billingLastNameTextField.text=cartModelData.shippingAddressDict[@"lastname"];
+        _billingPhoneNumberTextField.text=cartModelData.shippingAddressDict[@"telephone"];
+        _billingEmailTextField.text=cartModelData.shippingAddressDict[@"email"];
+        _billingAddressLine1TextField.text=[cartModelData.shippingAddressDict[@"street"] objectAtIndex:0];
+        _billingAddressLine2TextField.text=([cartModelData.shippingAddressDict[@"street"] count]>1?[cartModelData.shippingAddressDict[@"street"] objectAtIndex:1]:@"");
+        _billingCountryTextField.text=cartModelData.shippingAddressDict[@""];
+        _billingStateTextField.text=cartModelData.shippingAddressDict[@"region"];
+        _billingCityTextField.text=cartModelData.shippingAddressDict[@"city"];
+        _billingZipCodeTextField.text=cartModelData.shippingAddressDict[@"postcode"];
+        if (![cartModelData.shippingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.shippingAddressDict[@"region_id"] intValue]==0) {
+            _billingStateDropDown.hidden=true;
+            [_billingStateTextField addTextFieldLeftRightPadding:_shippingStateTextField];
+        }
+    }
+    else {
+        if (![cartModelData.billingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.billingAddressDict[@"region_id"] intValue]==0) {
+            _billingStateDropDown.hidden=true;
+            [_billingStateTextField addTextFieldLeftRightPadding:_shippingStateTextField];
+        }
+    }
+    
+}
+
+- (void)disableBillingAddress:(BOOL)isYes {
+    if (isYes) {
+        _billingEditAddressButton.hidden=true;
+        
+    }
+    else {
+    
     }
 }
 #pragma mark - end
