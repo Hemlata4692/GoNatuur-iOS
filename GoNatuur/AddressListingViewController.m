@@ -156,7 +156,7 @@
         CellIdentifier = @"addressListCell";
     }
     AddressListingCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-   
+    
     [cell.editProfileImageButton addTarget:self action:@selector(editProfileImageAction:) forControlEvents:UIControlEventTouchUpInside];
     if (indexPath.row <= 2) {
         [cell displayData:_addressTableView.frame.size];
