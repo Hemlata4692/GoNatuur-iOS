@@ -20,6 +20,8 @@
 - (void)getUserProfileServiceData:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 //Save user profile
 - (void)saveUserProfileServiceData:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
+//Save/Update user address
+- (void)saveAndUpdateAddress:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 //Impact point
 - (void)getImpactsPointService:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 //User profile image service
