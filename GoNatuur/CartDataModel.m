@@ -37,6 +37,9 @@
     another.shippingAddressDict= [self.shippingAddressDict copyWithZone: zone];
     another.customerDict= [self.customerDict copyWithZone: zone];
     another.customerSavedAddressArray= [self.customerSavedAddressArray copyWithZone: zone];
+    another.shippmentMethodsArray= [self.shippmentMethodsArray copyWithZone: zone];
+    another.checkoutPromosArray= [self.checkoutPromosArray copyWithZone: zone];
+    another.checkoutImpactPoint= [self.checkoutImpactPoint copyWithZone: zone];
     return another;
 }
 
@@ -54,6 +57,30 @@
 #pragma mark - Cart listing data
 - (void)getCartListingData:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure{
     [[ConnectionManager sharedManager] getCartListing:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Fetch shippment methods
+- (void)fetchShippmentMethodsOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] fetchShippmentMethods:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Fetch checkout promos
+- (void)fetchCheckoutPromosOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] fetchCheckoutPromos:self onSuccess:^(CartDataModel *userData) {
         if (success) {
             success (userData);
         }

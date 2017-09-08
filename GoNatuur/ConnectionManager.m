@@ -881,6 +881,69 @@
 }
 #pragma mark - end
 
+#pragma mark - Fetch shippment methods
+- (void)fetchShippmentMethods:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList fetchShippmentMethods:cartData success:^(id response) {
+        DLog(@"Fetch shippment methods response %@",response);
+        cartData.shippmentMethodsArray=[response mutableCopy];
+        success(cartData);
+    }
+                       onfailure:^(NSError *error) {
+                       }];
+}
+#pragma mark - end
+
+#pragma mark - Fetch checkout promos
+- (void)fetchCheckoutPromos:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList fetchCheckoutPromos:cartData success:^(id response) {
+        DLog(@"Fetch promos response %@",response);
+        cartData.checkoutPromosArray=[NSMutableArray new];
+        BOOL flag=false;
+        if (nil!=response[@"checkout_promo"]&&[response[@"checkout_promo"] count]>0) {
+            float ip=[cartData.checkoutImpactPoint floatValue];
+            NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"promo_points" ascending:YES];
+            NSArray *results = [response[@"checkout_promo"]
+                                sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
+            for (NSDictionary *tempDict in results) {
+                if ([tempDict[@"promo_status"] isEqualToString:@"draft"]) {
+                    continue;
+                }
+                //Uncomment code after added groupType form login service
+//                else if(nil==tempDict[[UserDefaultManager getValue:@"GroupType"]]||![tempDict[[UserDefaultManager getValue:@"GroupType"]] boolValue]) {//Group is not same
+//                    continue;
+//                }
+                else if(![tempDict[@"promo_category"] isEqualToString:@"rebate"]&&![tempDict[@"promo_category"] isEqualToString:@"percent_discount"]&&!flag) {  //During freeshipping include single entry
+                    flag=true;
+                    if ([tempDict[@"promo_points"] floatValue]<ip) {
+                        [tempDict setValue:[NSNumber numberWithBool:false] forKey:@"HidderPromo"];
+                    }
+                    else {
+                        [tempDict setValue:[NSNumber numberWithBool:true] forKey:@"HidderPromo"];
+                    }
+                    [cartData.checkoutPromosArray addObject:tempDict];
+                }
+                else if(![tempDict[@"promo_category"] isEqualToString:@"rebate"]&&![tempDict[@"promo_category"] isEqualToString:@"percent_discount"]&&flag) {
+                    continue;
+                }
+                else {
+                    if ([tempDict[@"promo_points"] floatValue]<=ip) {
+                        [tempDict setValue:[NSNumber numberWithBool:false] forKey:@"HidderPromo"];
+                    }
+                    else {
+                        [tempDict setValue:[NSNumber numberWithBool:true] forKey:@"HidderPromo"];
+                    }
+                    [cartData.checkoutPromosArray addObject:tempDict];
+                }
+            }
+        }
+        success(cartData);
+    }
+                          onfailure:^(NSError *error) {
+                          }];
+}
+#pragma mark - end
 #pragma mark - Search list by name data
 - (void)getProductListByNameService:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     SearchService *serachSuggestions=[[SearchService alloc]init];

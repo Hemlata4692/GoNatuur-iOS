@@ -8,13 +8,17 @@
 
 #import "CheckoutAddressViewController.h"
 #import "UITextField+Padding.h"
+#import "BSKeyboardControls.h"
+#import "ProfileModel.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
 #define borderRadioColor [UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]
 
-@interface CheckoutAddressViewController () {
+@interface CheckoutAddressViewController ()<BSKeyboardControlsDelegate> {
     CartDataModel *cartModelData;
+    UITextField *currentSelectedTextField;
+    NSMutableArray *countryCodeArray;
 }
 //Other view objects declaration
 @property (strong, nonatomic) IBOutlet UILabel *freeShippingLabel;
@@ -71,6 +75,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *yesRadioLabel;
 @property (strong, nonatomic) IBOutlet UIButton *yesSameAddressButton;
 @property (strong, nonatomic) IBOutlet UIView *rewardBackView;
+//BSKeyboard variable declaration
+@property (strong, nonatomic) BSKeyboardControls *keyboardControls;
 @end
 
 @implementation CheckoutAddressViewController
@@ -80,17 +86,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBarHidden=false;
-    self.title=NSLocalizedText(@"GoNatuur");
-    [self addLeftBarButtonWithImage:true];
     [self didLoadIntialization];
     [self viewInitialization];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getCountryCode) withObject:nil afterDelay:.1];
     // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    [self setInitailizedShippingAddressData];
+    self.navigationController.navigationBarHidden=false;
+    self.title=NSLocalizedText(@"GoNatuur");
+    [self addLeftBarButtonWithImage:true];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -186,7 +193,7 @@
 
 - (void)setTextFieldPadding {
     //Set shipping address field padding
-     [_shippingFirstNameTextField addTextFieldPaddingWithoutImages:_shippingFirstNameTextField];
+    [_shippingFirstNameTextField addTextFieldPaddingWithoutImages:_shippingFirstNameTextField];
     [_shippingLastNameTextField addTextFieldPaddingWithoutImages:_shippingLastNameTextField];
     [_shippingPhoneNumberTextField addTextFieldPaddingWithoutImages:_shippingPhoneNumberTextField];
     [_shippingEmailTextField addTextFieldPaddingWithoutImages:_shippingEmailTextField];
@@ -210,7 +217,7 @@
 }
 
 - (void)setTextFieldBorder {
-     //Set shipping address field border
+    //Set shipping address field border
     [_shippingFirstNameTextField setTextBorder:_shippingFirstNameTextField color:borderRadioColor];
     [_shippingLastNameTextField setTextBorder:_shippingLastNameTextField color:borderRadioColor];
     [_shippingPhoneNumberTextField setTextBorder:_shippingPhoneNumberTextField color:borderRadioColor];
@@ -298,12 +305,9 @@
     _shippingStateTextField.text=cartModelData.shippingAddressDict[@"region"];
     _shippingCityTextField.text=cartModelData.shippingAddressDict[@"city"];
     _shippingZipCodeTextField.text=cartModelData.shippingAddressDict[@"postcode"];
-    
     if (![cartModelData.shippingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.shippingAddressDict[@"region_id"] intValue]==0) {
         _shippingStateDropDown.hidden=true;
-        [_shippingStateTextField addTextFieldLeftRightPadding:_shippingStateTextField];
-        _billingStateDropDown.hidden=true;
-        [_billingStateTextField addTextFieldLeftRightPadding:_shippingStateTextField];
+        [_shippingStateTextField addTextFieldPaddingWithoutImages:_shippingStateTextField];
     }
 }
 
@@ -322,29 +326,94 @@
         _billingZipCodeTextField.text=cartModelData.shippingAddressDict[@"postcode"];
         if (![cartModelData.shippingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.shippingAddressDict[@"region_id"] intValue]==0) {
             _billingStateDropDown.hidden=true;
-            [_billingStateTextField addTextFieldLeftRightPadding:_shippingStateTextField];
+            [_billingStateTextField addTextFieldPaddingWithoutImages:_billingStateTextField];
         }
     }
     else {
+        _billingFirstNameTextField.text=cartModelData.billingAddressDict[@"firstname"];
+        _billingLastNameTextField.text=cartModelData.billingAddressDict[@"lastname"];
+        _billingPhoneNumberTextField.text=cartModelData.billingAddressDict[@"telephone"];
+        _billingEmailTextField.text=cartModelData.billingAddressDict[@"email"];
+        _billingAddressLine1TextField.text=[cartModelData.billingAddressDict[@"street"] objectAtIndex:0];
+        _billingAddressLine2TextField.text=([cartModelData.billingAddressDict[@"street"] count]>1?[cartModelData.billingAddressDict[@"street"] objectAtIndex:1]:@"");
+        _billingCountryTextField.text=cartModelData.billingAddressDict[@""];
+        _billingStateTextField.text=cartModelData.billingAddressDict[@"region"];
+        _billingCityTextField.text=cartModelData.billingAddressDict[@"city"];
+        _billingZipCodeTextField.text=cartModelData.billingAddressDict[@"postcode"];
         if (![cartModelData.billingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.billingAddressDict[@"region_id"] intValue]==0) {
             _billingStateDropDown.hidden=true;
-            [_billingStateTextField addTextFieldLeftRightPadding:_shippingStateTextField];
+            [_billingStateTextField addTextFieldPaddingWithoutImages:_billingStateTextField];
         }
     }
-    
+    [self disableBillingAddress:isYes];
 }
 
 - (void)disableBillingAddress:(BOOL)isYes {
     if (isYes) {
         _billingEditAddressButton.hidden=true;
-        
+        _billingFirstNameTextField.enabled=false;
+        _billingLastNameTextField.enabled=false;
+        _billingPhoneNumberTextField.enabled=false;
+        _billingEmailTextField.enabled=false;
+        _billingAddressLine1TextField.enabled=false;
+        _billingAddressLine2TextField.enabled=false;
+        _billingCountryTextField.enabled=false;
+        _billingStateTextField.enabled=false;
+        _billingCityTextField.enabled=false;
+        _billingZipCodeTextField.enabled=false;
+        _billingStateButton.enabled=false;
+        _billingCountryButton.enabled=false;
     }
     else {
-    
+        _billingEditAddressButton.hidden=false;
+        _billingFirstNameTextField.enabled=true;
+        _billingLastNameTextField.enabled=true;
+        _billingPhoneNumberTextField.enabled=true;
+        _billingEmailTextField.enabled=true;
+        _billingAddressLine1TextField.enabled=true;
+        _billingAddressLine2TextField.enabled=true;
+        _billingCountryTextField.enabled=true;
+        _billingStateTextField.enabled=true;
+        _billingCityTextField.enabled=true;
+        _billingZipCodeTextField.enabled=true;
+        _billingStateButton.enabled=true;
+        _billingCountryButton.enabled=true;
     }
+}
+
+- (void)setTextFieldKeyboard:(BOOL)isYes {
+    NSMutableArray *keyboardField;
+    if (isYes) {
+        keyboardField=[[NSMutableArray alloc] initWithObjects: _shippingFirstNameTextField,_shippingLastNameTextField,_shippingPhoneNumberTextField,_shippingEmailTextField,_shippingAddressLine1TextField,_shippingAddressLine2TextField, nil];
+        if (![cartModelData.shippingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.shippingAddressDict[@"region_id"] intValue]==0) {
+            [keyboardField addObject:_shippingStateTextField];
+        }
+        [keyboardField addObject:_shippingCityTextField];
+        [keyboardField addObject:_shippingZipCodeTextField];
+        //Add textfield to keyboard controls array
+        [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:keyboardField]];
+    }
+    else {
+        keyboardField=[[NSMutableArray alloc] initWithObjects: _shippingFirstNameTextField,_shippingLastNameTextField,_shippingPhoneNumberTextField,_shippingEmailTextField,_shippingAddressLine1TextField,_shippingAddressLine2TextField, nil];
+        if (![cartModelData.shippingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.shippingAddressDict[@"region_id"] intValue]==0) {
+            [keyboardField addObject:_shippingStateTextField];
+        }
+        [keyboardField addObject:_shippingCityTextField];
+        [keyboardField addObject:_shippingZipCodeTextField];
+        [keyboardField addObjectsFromArray:@[_billingFirstNameTextField,_billingLastNameTextField,_billingPhoneNumberTextField,_billingEmailTextField,_billingAddressLine1TextField,_billingAddressLine2TextField]];
+        if (![cartModelData.billingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.billingAddressDict[@"region_id"] intValue]==0) {
+            [keyboardField addObject:_billingStateTextField];
+        }
+        [keyboardField addObject:_billingCityTextField];
+        [keyboardField addObject:_billingZipCodeTextField];
+        //Add textfield to keyboard controls array
+        [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:keyboardField]];
+    }
+    [_keyboardControls setDelegate:self];
 }
 #pragma mark - end
 
+#pragma mark - IBActions
 //Checkout address IBActions
 - (IBAction)checkoutAddressContinueShopping:(UIButton *)sender {
     UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
@@ -379,14 +448,59 @@
 
 - (IBAction)yesSameAddress:(UIButton *)sender {
 }
-/*
-#pragma mark - Navigation
+#pragma mark - end
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - Webservice
+//Get country code listing
+- (void)getCountryCode {
+    ProfileModel *changePasswordModel = [ProfileModel sharedUser];
+    [changePasswordModel getCountryCodeService:^(ProfileModel *userData) {
+        countryCodeArray = userData.countryCodeArray;
+        [self setInitailizedShippingAddressData];
+        [self setInitailizedBillingAddressData:false];
+        [self getImpactPoints];
+    } onfailure:^(NSError *error) {
+        
+    }];
 }
-*/
 
+//Get imapact point
+- (void)getImpactPoints {
+    ProfileModel *userData = [ProfileModel sharedUser];
+    userData.pageCount=@"1";
+    userData.currentPage=@"1";
+    [userData getImpactPoints:^(ProfileModel *userData) {
+        cartModelData.checkoutImpactPoint=[NSNumber numberWithInt:[userData.recentEarnedPoints intValue]];
+        [self getCheckoutPromos];
+        //dispaly profile data
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+//Get checkout promos
+- (void)getCheckoutPromos {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    [cartData fetchCheckoutPromosOnSuccess:^(CartDataModel *shippmentDetailData)  {
+        [myDelegate stopIndicator];        
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+//Get shippment methods
+- (void)getShippmentMethodData {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    cartData=[cartListModelData copy];
+//    cartData.shippingAddressDict=[[cartListModelData.customerSavedAddressArray objectAtIndex:0] mutableCopy];
+    [cartData fetchShippmentMethodsOnSuccess:^(CartDataModel *shippmentDetailData)  {
+        [myDelegate stopIndicator];
+        [self setInitailizedShippingAddressData];
+        [self setInitailizedBillingAddressData:false];
+        
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
 @end
