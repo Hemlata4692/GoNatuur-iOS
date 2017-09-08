@@ -525,7 +525,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="87" y="273.5" width="146.5" height="21"/>
+                                <rect key="frame" x="87.5" y="273.5" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -5487,14 +5487,14 @@
                                                         <constraint firstAttribute="width" secondItem="S0A-1U-zyT" secondAttribute="height" multiplier="105:113" id="stT-hu-wzs"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YLF-mc-6au">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YLF-mc-6au">
                                                     <rect key="frame" x="158" y="0.0" width="28" height="28"/>
-                                                    <color key="backgroundColor" red="0.74117647060000003" green="0.23137254900000001" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="28" id="1HF-xe-8K6"/>
                                                         <constraint firstAttribute="height" constant="28" id="xWe-9v-flP"/>
                                                     </constraints>
-                                                    <state key="normal">
+                                                    <state key="normal" image="closeIcon">
                                                         <color key="titleColor" red="0.74117647060000003" green="0.23137254900000001" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                 </button>
@@ -5537,7 +5537,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="87" y="273.5" width="146.5" height="21"/>
+                                <rect key="frame" x="87.5" y="273.5" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>
@@ -5945,15 +5945,15 @@
                                 <rect key="frame" x="12" y="41" width="296" height="340"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profileImageCell" rowHeight="120" id="nkt-68-73Z" customClass="AddressListingCell">
-                                        <rect key="frame" x="0.0" y="1" width="296" height="120"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profileImageCell" rowHeight="131" id="nkt-68-73Z" customClass="AddressListingCell">
+                                        <rect key="frame" x="0.0" y="1" width="296" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nkt-68-73Z" id="Wym-G0-Dcg">
-                                            <rect key="frame" x="0.0" y="0.0" width="296" height="120"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="296" height="131"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circleprofile" translatesAutoresizingMaskIntoConstraints="NO" id="0Cr-R6-Pcc">
-                                                    <rect key="frame" x="89" y="5" width="120" height="120"/>
+                                                    <rect key="frame" x="89" y="10.5" width="120" height="120"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -5962,7 +5962,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aol-ou-JSq">
-                                                    <rect key="frame" x="182" y="83" width="50" height="50"/>
+                                                    <rect key="frame" x="182" y="88.5" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="hBN-4j-zld"/>
                                                         <constraint firstAttribute="width" constant="50" id="lLt-bB-jxH"/>
@@ -5986,15 +5986,15 @@
                                             <outlet property="profileImageView" destination="0Cr-R6-Pcc" id="EPf-Bi-6MO"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userEmailCell" rowHeight="35" id="qYV-5k-Atc" customClass="AddressListingCell">
-                                        <rect key="frame" x="0.0" y="121" width="296" height="35"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userEmailCell" rowHeight="24" id="qYV-5k-Atc" customClass="AddressListingCell">
+                                        <rect key="frame" x="0.0" y="132" width="296" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qYV-5k-Atc" id="gkU-PD-LfK">
-                                            <rect key="frame" x="0.0" y="0.0" width="296" height="35"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="296" height="24"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91a-vD-iGR">
-                                                    <rect key="frame" x="0.0" y="0.0" width="296" height="25"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="296" height="14.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="15"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -6181,7 +6181,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IMf-yv-bW7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1596" y="2212"/>
+            <point key="canvasLocation" x="-1597.5" y="2211.9718309859154"/>
         </scene>
         <!--Address View Controller-->
         <scene sceneID="ZEf-2P-CxR">

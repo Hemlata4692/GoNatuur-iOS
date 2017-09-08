@@ -43,7 +43,7 @@
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"AddCard");
-    [self addLeftBarButtonWithImage:false];
+    [self addLeftBarButtonWithImage:true];
     [self customizeViewFields];
 }
 

@@ -65,9 +65,6 @@
     [super viewDidLoad];
     countryCodeArray = [NSMutableArray new];
     regionArray = [NSMutableArray new];
-    self.title=NSLocalizedText(@"personalDetails");
-    self.navigationController.navigationBarHidden=false;
-    [self addLeftBarButtonWithImage:true];
     //View initialized
     [self initializedView];
     //Get country code listing
@@ -81,6 +78,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+    self.title=NSLocalizedText(@"personalDetails");
+    self.navigationController.navigationBarHidden=false;
+    [self addLeftBarButtonWithImage:true];
     //Allocate keyboard notification
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -106,6 +106,32 @@
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
 }
+
+- (void)localizedText {
+    _firstNameField.placeholder=NSLocalizedText(@"firstName");
+    _lastNameField.placeholder=NSLocalizedText(@"lastName");
+    _phoneNumberField.placeholder=NSLocalizedText(@"phoneNumber");
+    _companyField.placeholder=NSLocalizedText(@"companyPlaceholder");
+    _firstAddressField.placeholder=NSLocalizedText(@"address1");
+    _secondAddressField.placeholder=NSLocalizedText(@"address2");
+    _countryField.placeholder=NSLocalizedText(@"country");
+    _stateField.placeholder=NSLocalizedText(@"state");
+    _cityField.placeholder=NSLocalizedText(@"city");
+    _ZipcodeField.placeholder=NSLocalizedText(@"postal");
+    _faxField.placeholder=NSLocalizedText(@"fax");
+    if (isEditScreen) {
+        [_saveAddressButton setTitle:NSLocalizedText(@"updateSave") forState:UIControlStateNormal];
+    }
+    else {
+        [_saveAddressButton setTitle:NSLocalizedText(@"save") forState:UIControlStateNormal];
+    }
+    [_isBillingButton setTitle:NSLocalizedText(@"billing") forState:UIControlStateNormal];
+    [_isShippingButton setTitle:NSLocalizedText(@"shipping") forState:UIControlStateNormal];
+    _personalDetailsLabel.text=NSLocalizedText(@"personalDetails");
+    _addressDetailsLabel.text=NSLocalizedText(@"addressDetails");
+    _setAsDefaultLabel.text=NSLocalizedText(@"setAsDefault");
+    _staticAddressLabel.text=NSLocalizedText(@"address");
+}
 #pragma mark - end
 
 #pragma mark - View initialization
@@ -122,6 +148,8 @@
     _addressFieldsContainerView.frame=CGRectMake(0, _emailLabel.frame.origin.y + _emailLabel.frame.size.height + 10, [[UIScreen mainScreen]bounds].size.width,_addressFieldsContainerView.frame.size.height);
     _addressContainerView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, 180+newHeight+_addressFieldsContainerView.frame.size.height);
     _scrollView.contentSize = CGSizeMake(0,_addressContainerView.frame.size.height);
+    //set llocalized text
+    [self localizedText];
     //Customise view
     [self customizedTextField];
     [self viewCustomisation];
