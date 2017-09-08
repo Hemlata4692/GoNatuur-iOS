@@ -203,6 +203,7 @@
             _productListTableView.tableFooterView = footerView;
             [(UIActivityIndicatorView *)[footerView viewWithTag:10] startAnimating];
             currentpage+=1;
+            isPullToRefresh=false;
             [self getProductListData];
         }
         else

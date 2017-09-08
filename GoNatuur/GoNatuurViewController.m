@@ -36,9 +36,6 @@
     //add search button
     [self addSerachButtonWithImage:[UIImage imageNamed:@"search"]];
     
-//    //add bottom tab
-//    [self addBottomTab];
-    
     //add category slider
     [self addCategorySlideView];
 }

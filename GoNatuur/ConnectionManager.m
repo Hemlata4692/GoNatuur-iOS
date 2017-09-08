@@ -75,7 +75,7 @@
 #pragma mark - end
 
 #pragma mark - Send device token
-- (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
+- (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure
     {
         LoginService *loginService = [[LoginService alloc] init];
         [loginService saveDeviceTokenService:userData onSuccess:^(id response) {
@@ -85,7 +85,19 @@
         }] ;
         
     }
+
+#pragma mark - Subscribe newsletter
+- (void)newsLetterSubscribe:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
+    LoginService *loginService = [[LoginService alloc] init];
+    [loginService subscriptionNewsLetter:userData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"Subscribe response %@",response);
+        success(userData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
 }
+#pragma mark - end
 
 #pragma mark - CMS page service
 - (void)CMSPageService:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
@@ -140,6 +152,8 @@
     } onfailure:^(NSError *error) {
     }];
 }
+#pragma mark - end
+
 #pragma mark - SignUp user service
 - (void)signUpUserService:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *loginService = [[LoginService alloc] init];
@@ -500,6 +514,45 @@
             [productData.productDataArray addObject:tempModel];
         }
         success(productData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
+#pragma mark - News list data service
+- (void)getNewsCenterListService:(DashboardDataModel *)productData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    DashboardService *productList=[[DashboardService alloc]init];
+    [productList getNewsListService:productData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"news list response %@",response);
+        productData.totalProductCount=[response objectForKey:@"total_count"];
+        productData.productDataArray=[NSMutableArray new];
+        productData.banerImageUrl=@"";
+        for (int i=0; i<[[response objectForKey:@"items"] count]; i++) {
+            DashboardDataModel *tempModel=[[DashboardDataModel alloc] init];
+            tempModel.productId=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"post_id"];
+            tempModel.productName=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"title"];
+            tempModel.productImageThumbnail=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"featured_image"];
+            if ([[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"short_filtered_content"]!=nil) {
+                tempModel.productDescription=[self stringByStrippingHTML:[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"short_filtered_content"]];
+            }
+            [productData.productDataArray addObject:tempModel];
+        }
+        success(productData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
+#pragma mark - News category listing service
+- (void)getNewsCategoryListing:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    DashboardService *categoryList=[[DashboardService alloc]init];
+    [categoryList getNewsCategoryData:userData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"Nwes category list response %@",response);
+        //        myDelegate.categoryNameArray=[response[@"children_data"] mutableCopy];
+        userData.categoryNameArray=[response mutableCopy];
+        success(userData);
     } onfailure:^(NSError *error) {
     }];
 }
@@ -908,4 +961,5 @@
     
 }
 #pragma mark - end
+
 @end

@@ -37,6 +37,7 @@
 @property (strong, nonatomic) NSString *productType;
 @property (strong, nonatomic) NSString *firstName;
 @property (strong, nonatomic) NSString *lastName;
+@property (strong, nonatomic) NSString *newsType;
 
 //Singleton method
 + (instancetype)sharedUser;
@@ -50,4 +51,8 @@
 - (void)getProductListService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
 //Category banner service
 - (void)getCategoryBannerData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
+//News list
+- (void)getNewsListDataService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
+//News category list
+- (void)getNewsCategoryListDataOnSuccess:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

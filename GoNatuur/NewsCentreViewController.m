@@ -10,7 +10,9 @@
 #import "GoNatuurFilterView.h"
 #import "GoNatuurPickerView.h"
 #import "ProductListTableViewCell.h"
-
+#import "ProductListCollectionViewCell.h"
+#import "LoginModel.h"
+#import "SearchViewController.h"
 @interface NewsCentreViewController () <UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
     NSMutableArray *productListDataArray, *subCategoryDataList, *subCategoryPickerArray;
     int totalProductCount, currentpage;
@@ -52,9 +54,19 @@
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:false];
     [self viewInitialization];
-//    [myDelegate showIndicator];
-//    [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
+    productListDataArray=[[NSMutableArray alloc]init];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getNewsCategoryListData) withObject:nil afterDelay:.1];
 }
+
+- (void)serachButtonAction:(id)sender {
+    myDelegate.selectedCategoryIndex=-1;
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SearchViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"SearchViewController"];
+    searchView.screenType=@"News";
+    [self.navigationController pushViewController:searchView animated:YES];
+}
+
 #pragma mark - end
 
 #pragma mark - View initialization
@@ -71,7 +83,7 @@
     // Pull to refresh
     _refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-10, 0, 20, 20)];
     _refreshControl.tintColor=[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0];
-//    [_refreshControl addTarget:self action:@selector(refreshControlAction) forControlEvents:UIControlEventValueChanged];
+   [_refreshControl addTarget:self action:@selector(refreshControlAction) forControlEvents:UIControlEventValueChanged];
     [_newsListingTableView addSubview:_refreshControl];
 }
 
@@ -97,11 +109,6 @@
     filterViewObj.secondFilterButtonOutlet.alpha=0.5;
     filterViewObj.firstFilterArrowImageView.alpha=0.4;
     filterViewObj.secondFilterArrowImageView.alpha=0.4;
-    if (!myDelegate.isProductList) {
-        filterViewObj.subCategoryButtonOutlet.enabled=false;
-        filterViewObj.subCategoryButtonOutlet.alpha=0.5;
-        filterViewObj.subCategoryArrowImageView.alpha=0.4;
-    }
     //Set initial index of picker view and initialized picker view
     selectedFirstFilterIndex=0;
     selectedSubCategoryIndex=0;
@@ -155,7 +162,7 @@
         if (cell == nil){
             cell = [[ProductListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"productListCell"];
         }
-//        [cell.productListCollectionView reloadData];
+        [cell.productListCollectionView reloadData];
     }
     else {
         //No any use this cell to display data. This cell will be used for pagination in willDisplayCell
@@ -179,10 +186,170 @@
             _newsListingTableView.tableFooterView = footerView;
             [(UIActivityIndicatorView *)[footerView viewWithTag:10] startAnimating];
             currentpage+=1;
-//            [self getProductListData];
+            isPullToRefresh=false;
+//            [self getNewsListData];
         }
         else {
             _newsListingTableView.tableFooterView = nil;
+        }
+    }
+}
+#pragma mark - end
+
+#pragma mark - Collection view datasource methods
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    return productListDataArray.count;
+}
+
+- (ProductListCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    ProductListCollectionViewCell *productCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productCell" forIndexPath:indexPath];
+    [productCell displayProductListData:[productListDataArray objectAtIndex:indexPath.row] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
+    return productCell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    //You may want to create a divider to scale the size by the way.
+    float picDimension = (self.view.frame.size.width-20) / 2.0;
+    return CGSizeMake(picDimension-5, picDimension+80);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (!myDelegate.isProductList || [[[productListDataArray objectAtIndex:indexPath.row]productType] isEqualToString:eventIdentifier]) {
+       // [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    }
+    else {
+        //StoryBoard navigation
+       
+    }
+}
+#pragma mark - end
+
+#pragma mark - Webservice
+//Get sub category list data
+- (void)getNewsCategoryListData {
+    DashboardDataModel *subCategoryList = [DashboardDataModel sharedUser];
+    [subCategoryList getNewsCategoryListDataOnSuccess:^(DashboardDataModel *userData)  {
+        [self NewsCenterBanner:@"news-center-block"];
+        subCategoryDataList=[NSMutableArray new];
+        //Set initial value come to default condition
+        for (NSDictionary *tempDict in userData.categoryNameArray) {
+                [subCategoryDataList addObject:tempDict];
+        }
+        //Set initial value come to default condition
+        [subCategoryDataList insertObject:@{@"category_id":[NSNumber numberWithInt:currentCategoryId],
+                                            @"category_name":NSLocalizedText(@"All")
+                                            } atIndex:0];
+        if (subCategoryDataList.count>0) {
+            for (int i=0; i<subCategoryDataList.count; i++) {
+                [subCategoryPickerArray addObject:[[subCategoryDataList objectAtIndex:i] objectForKey:@"category_name"]];
+            }
+            [filterViewObj.subCategoryButtonOutlet setTitle:[subCategoryPickerArray objectAtIndex:0] forState:UIControlStateNormal];
+        }
+        
+    } onfailure:^(NSError *error) {
+    }];
+}
+
+- (void)NewsCenterBanner:(NSString *)identifier {
+    LoginModel *userLogin = [LoginModel sharedUser];
+    userLogin.cmsPageType=identifier;
+    [userLogin CMSPageService:^(LoginModel *userData) {
+        self.navigationItem.title=userData.cmsTitle;
+        //   [_webView loadHTMLString:userData.cmsContent baseURL: nil];
+//    bannerImageUrl
+        DLog(@"%@",[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; background-color:#FDF4F6 color:#000000 text-align:justify font-size:15'>%@</body></html>", userData.cmsContent]);
+        [self getNewsListData];
+        
+    } onfailure:^(NSError *error) {
+    }];
+}
+
+//Get product list service
+- (void)getNewsListData {
+    DashboardDataModel *productList = [DashboardDataModel sharedUser];
+    if (currentCategoryId==0) {
+        productList.newsType=@"All";
+    }
+    else {
+        productList.newsType=@"";
+    productList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
+    }
+    productList.pageSize=[NSNumber numberWithInt:12];
+    productList.currentPage=[NSNumber numberWithInt:currentpage];
+    [productList getNewsListDataService:^(DashboardDataModel *productData)  {
+        [myDelegate stopIndicator];
+        [self serviceDataHandling:productData];
+    } onfailure:^(NSError *error) {
+        [_refreshControl endRefreshing];
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Service handling
+- (void)serviceDataHandling:(DashboardDataModel *)productData {
+    if (isPullToRefresh) {
+        isPullToRefresh=false;
+        productListDataArray=[NSMutableArray new];
+        totalProductCount=0;
+        currentpage=1;
+    }
+    if (productListDataArray.count>0) {
+        [productListDataArray addObjectsFromArray:productData.productDataArray];
+    }
+    else {
+        productListDataArray=productData.productDataArray.mutableCopy;
+    }
+    
+    if (productListDataArray.count>0) {
+        _noRecordLabel.hidden=true;
+    }
+    else {
+        _noRecordLabel.hidden=false;
+    }
+    totalProductCount=[productData.totalProductCount intValue];
+    float picDimension = (self.view.frame.size.width-20) / 2.0;
+    int rowCount=(int)productListDataArray.count/2;
+    if (productListDataArray.count%2!=0) {
+        rowCount+=1;
+    }
+    [_refreshControl endRefreshing];
+    productListHeight=(rowCount*(picDimension+105))+35+((rowCount-1)*10);   //productListHeight: (rowCount*cellHeight)+35+((rowCount-1)*cellRowSpacing)
+    [_newsListingTableView reloadData];
+}
+#pragma mark - end
+
+#pragma mark - Pull to refresh
+- (void)refreshControlAction {
+    isPullToRefresh=true;
+    currentpage=1;
+    [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
+}
+#pragma mark - end
+
+#pragma mark - Filter delegate
+- (void)goNatuurFilterViewDelegateActionIndex:(int)option {
+    DLog(@"%d",option);
+    if (option==1) {
+        if (subCategoryPickerArray.count>0) {
+            [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false];
+        }
+    }
+}
+#pragma mark - end
+
+#pragma mark - Custom picker delegate method
+- (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {
+    if (option==1) {
+        if (selectedSubCategoryIndex!=tempSelectedIndex) {
+            selectedSubCategoryIndex=tempSelectedIndex;
+            [filterViewObj.subCategoryButtonOutlet setTitle:[subCategoryPickerArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
+            currentCategoryId=[[[subCategoryDataList objectAtIndex:selectedSubCategoryIndex] objectForKey:@"category_id"] intValue];
+            bannerImageUrl=@"";
+            productListDataArray=[NSMutableArray new];
+            totalProductCount=0;
+            currentpage=1;
+            [myDelegate showIndicator];
+            [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
         }
     }
 }

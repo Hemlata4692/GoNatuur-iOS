@@ -73,6 +73,8 @@
 		18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8FB1F32F46800430842 /* SearchViewController.m */; };
 		18F7A9031F33044100430842 /* BottomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A9011F33044100430842 /* BottomTabViewController.m */; };
 		18FB17E41F4EA32200B5A4CD /* MONTSERRAT-LIGHTITALIC.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 18FB17E31F4EA32200B5A4CD /* MONTSERRAT-LIGHTITALIC.TTF */; };
+		18FFBC821F629612006C088B /* NewsLetterSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFBC811F629611006C088B /* NewsLetterSubscriptionViewController.m */; };
+		18FFBC861F62CEBC006C088B /* NewsCenterSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFBC851F62CEBC006C088B /* NewsCenterSearchListViewController.m */; };
 		3207616E1F162820001F1790 /* NullValueChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3207616D1F162820001F1790 /* NullValueChecker.m */; };
 		320761721F162834001F1790 /* UserDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761711F162834001F1790 /* UserDefaultManager.m */; };
 		320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761751F163AB2001F1790 /* MMMaterialDesignSpinner.m */; };
@@ -269,6 +271,10 @@
 		18F7A9001F33044100430842 /* BottomTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomTabViewController.h; sourceTree = "<group>"; };
 		18F7A9011F33044100430842 /* BottomTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomTabViewController.m; sourceTree = "<group>"; };
 		18FB17E31F4EA32200B5A4CD /* MONTSERRAT-LIGHTITALIC.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MONTSERRAT-LIGHTITALIC.TTF"; sourceTree = "<group>"; };
+		18FFBC801F629611006C088B /* NewsLetterSubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsLetterSubscriptionViewController.h; sourceTree = "<group>"; };
+		18FFBC811F629611006C088B /* NewsLetterSubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsLetterSubscriptionViewController.m; sourceTree = "<group>"; };
+		18FFBC841F62CEBC006C088B /* NewsCenterSearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCenterSearchListViewController.h; sourceTree = "<group>"; };
+		18FFBC851F62CEBC006C088B /* NewsCenterSearchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCenterSearchListViewController.m; sourceTree = "<group>"; };
 		3207616C1F162820001F1790 /* NullValueChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullValueChecker.h; sourceTree = "<group>"; };
 		3207616D1F162820001F1790 /* NullValueChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullValueChecker.m; sourceTree = "<group>"; };
 		320761701F162834001F1790 /* UserDefaultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultManager.h; sourceTree = "<group>"; };
@@ -418,6 +424,8 @@
 		180409DD1F58741800EA3E17 /* NewCentreModule */ = {
 			isa = PBXGroup;
 			children = (
+				18FFBC831F62CE91006C088B /* NewsCenterSearchListing */,
+				18FFBC7E1F6295E1006C088B /* NewsLetterSubscription */,
 				180409E11F5887BE00EA3E17 /* NewsListingViewController */,
 			);
 			name = NewCentreModule;
@@ -936,6 +944,24 @@
 				187561921F469E1000F609AB /* BottomTabViewController.xib */,
 			);
 			name = BottomTabBarView;
+			sourceTree = "<group>";
+		};
+		18FFBC7E1F6295E1006C088B /* NewsLetterSubscription */ = {
+			isa = PBXGroup;
+			children = (
+				18FFBC801F629611006C088B /* NewsLetterSubscriptionViewController.h */,
+				18FFBC811F629611006C088B /* NewsLetterSubscriptionViewController.m */,
+			);
+			name = NewsLetterSubscription;
+			sourceTree = "<group>";
+		};
+		18FFBC831F62CE91006C088B /* NewsCenterSearchListing */ = {
+			isa = PBXGroup;
+			children = (
+				18FFBC841F62CEBC006C088B /* NewsCenterSearchListViewController.h */,
+				18FFBC851F62CEBC006C088B /* NewsCenterSearchListViewController.m */,
+			);
+			name = NewsCenterSearchListing;
 			sourceTree = "<group>";
 		};
 		3207615F1F1626E2001F1790 /* Controllers */ = {
@@ -1820,6 +1846,7 @@
 			files = (
 				189162081F614CD2005ED12E /* CardListViewController.m in Sources */,
 				32A3D6FF1F1CD2B800062B86 /* FacebookConnect.m in Sources */,
+				18FFBC821F629612006C088B /* NewsLetterSubscriptionViewController.m in Sources */,
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
 				187561911F469BD500F609AB /* NotificationDataModel.m in Sources */,
 				180ECD301F484DE4003C936E /* UIPlaceHolderTextView.m in Sources */,
@@ -1866,6 +1893,7 @@
 				18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
+				18FFBC861F62CEBC006C088B /* NewsCenterSearchListViewController.m in Sources */,
 				B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */,
 				B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,

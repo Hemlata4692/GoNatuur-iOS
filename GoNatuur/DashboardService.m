@@ -14,7 +14,9 @@ static NSString *kCategoryList=@"ranosys/categories";
 static NSString *kDashboardData=@"ranosys/dashboard";
 static NSString *kCurrencyData=@"directory/currency";
 static NSString *kProductListData=@"ranosys/productsList";
+static NSString *kNewsListData=@"ranosys/news/getList";
 static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
+static NSString *kNwesCategory=@"ranosys/news/getNewsCategory";
 
 @implementation DashboardService
 
@@ -40,7 +42,6 @@ static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
 
 #pragma mark - Get product list data
 - (void)getProductListService:(DashboardDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-//    [UserDefaultManager setValue:[UserDefaultManager getValue:@"Authorization"] key:@"Authorization"];
     NSString *typeId;
     if (!myDelegate.isProductList) {
         typeId=eventIdentifier;
@@ -79,11 +80,63 @@ static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
 }
 #pragma mark - end
 
+#pragma mark - Get News list data
+- (void)getNewsListService:(DashboardDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters;
+    if ([productData.newsType isEqualToString:@"All"]) {
+        parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                                   @{
+                                                                       @"filters":@[
+                                                                               @{@"field":@"is_active",
+                                                                                 @"value":@"1",
+                                                                                 @"condition_type": @"eq"
+                                                                                 },
+                                                                               ]
+                                                                       }
+                                                                   ],
+                                                           @"page_size" : productData.pageSize,
+                                                           @"current_page" : productData.currentPage
+                                                           }
+                                     };
+    }
+    else {
+        parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                     @{
+                                                         @"filters":@[
+                                                                 @{@"field":@"category",
+                                                                   @"value":productData.categoryId,
+                                                                   @"condition_type": @"eq"
+                                                                   },
+                                                                 ],
+                                                         @"filters":@[
+                                                                 @{@"field":@"is_active",
+                                                                   @"value":@"1",
+                                                                   @"condition_type": @"eq"
+                                                                   },
+                                                                 ]
+                                                         }
+                                                     ],
+                                             @"page_size" : productData.pageSize,
+                                             @"current_page" : productData.currentPage
+                                             }
+                       };
+    }
+    NSLog(@"news list request %@",parameters);
+       [super post:kNewsListData parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
 #pragma mark - Get category banner
 - (void)getCategoryBannerData:(DashboardDataModel *)categoryList success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{@"categoryId":categoryList.categoryId};
     NSLog(@"category list request %@",parameters);
     [super post:kCategoryBannerData parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Get news category listing
+- (void)getNewsCategoryData:(DashboardDataModel *)categoryList success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    [super post:kNwesCategory parameters:nil success:success failure:failure];
 }
 #pragma mark - end
 @end

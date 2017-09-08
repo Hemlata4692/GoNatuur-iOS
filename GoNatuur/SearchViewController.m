@@ -25,6 +25,7 @@
 @end
 
 @implementation SearchViewController
+@synthesize screenType;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -50,7 +51,13 @@
     UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 20)];
     statusBarView.backgroundColor = [UIColor colorWithRed:239.0/255.0 green:229.0/255.0 blue:233.0/255.0 alpha:1.0];
     [self.view addSubview:statusBarView];
-    _searchTextField.placeholder=NSLocalizedText(@"searchPlaceholder");
+    if (![screenType isEqualToString:@"News"]) {
+         _searchTextField.placeholder=NSLocalizedText(@"searchPlaceholder");
+    }
+    else {
+           _searchTextField.placeholder=NSLocalizedText(@"searchNewsPlaceholder");
+    }
+ 
     _noResultLabel.text=NSLocalizedText(@"norecord");
     //remove extra lines
     _searchTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
