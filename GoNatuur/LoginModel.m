@@ -92,7 +92,6 @@
 
 #pragma mark - Login as guest user
 - (void)loginGuestUserOnSuccess:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
-    
     [[ConnectionManager sharedManager] loginGuestUser:self onSuccess:^(LoginModel *userData) {
         if (success) {
             [UserDefaultManager setValue:userData.quoteId key:@"quoteId"];

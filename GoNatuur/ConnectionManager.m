@@ -66,7 +66,8 @@
     LoginService *loginService = [[LoginService alloc] init];
     [loginService loginGuestUser:^(id response) {
         //Parse data from server response and store in data model
-        userData.quoteId=[[response objectAtIndex:0] objectForKey:@"quote_id"];
+         DLog(@"guest login response %@",response);
+        userData.quoteId=response[@"quote_id"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);

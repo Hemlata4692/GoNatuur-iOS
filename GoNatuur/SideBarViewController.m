@@ -12,6 +12,7 @@
 #import "UIView+Toast.h"
 #import "NotificationViewController.h"
 #import "NewsLetterSubscriptionViewController.h"
+#import "WebPageViewController.h"
 
 @interface SideBarViewController () {
     NSArray *menuItemsArray, *sideBarLabelArray;
@@ -135,10 +136,10 @@
         [myDelegate checkGuestAccess];
     }
     else if (indexPath.row==6) {
-        [self featureNotAvailable];
+         myDelegate.selectedCategoryIndex=-1;
     }
     else if (indexPath.row==7) {
-        [self featureNotAvailable];
+         myDelegate.selectedCategoryIndex=-1;
     }
     else if (indexPath.row==8) {
         myDelegate.selectedCategoryIndex=-1;
@@ -176,28 +177,25 @@
 #pragma mark - end
 
 #pragma mark - Navigation segue identifier
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
-        if([identifier isEqualToString:@"My Orders"])
-        {
+        if([identifier isEqualToString:@"My Orders"]) {
             return NO;
         }
-        else if([identifier isEqualToString:@"Payment"])
-        {
+        else if([identifier isEqualToString:@"Payment"]) {
             return NO;
         }
-        else if([identifier isEqualToString:@"Redeem Points"])
-        {
+        else if([identifier isEqualToString:@"Redeem Points"]) {
             return NO;
         }
-        //        else if([identifier isEqualToString:@"News Centre"])
-        //        {
-        //            return NO;
-        //        }
-        else if([identifier isEqualToString:@"Notifications"])
-        {
+        else if([identifier isEqualToString:@"Notifications"]) {
             return NO;
+        }
+        else if([identifier isEqualToString:@"AboutUs"]) {
+            return YES;
+        }
+        else if([identifier isEqualToString:@"ContactUs"]) {
+            return YES;
         }
         else {
             return YES;
@@ -208,6 +206,20 @@
         return YES;
     }
 }
-#pragma mark - end
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"AboutUs"]) {
+        
+        UINavigationController *navController = [segue destinationViewController];
+        WebPageViewController *destViewController = (WebPageViewController *)navController.topViewController;
+        destViewController.pageIdentifier = @"AboutUs";
+    }
+    else if ([segue.identifier isEqualToString:@"ContactUs"]) {
+        
+        UINavigationController *navController = [segue destinationViewController];
+        WebPageViewController *destViewController = (WebPageViewController *)navController.topViewController;
+        destViewController.pageIdentifier = @"ContactUs";
+    }
+}
+#pragma mark - end
 @end

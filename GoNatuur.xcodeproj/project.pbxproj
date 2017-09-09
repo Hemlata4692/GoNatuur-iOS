@@ -65,6 +65,7 @@
 		189162081F614CD2005ED12E /* CardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189162071F614CD2005ED12E /* CardListViewController.m */; };
 		1891620C1F614CEF005ED12E /* AddCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1891620B1F614CEF005ED12E /* AddCardViewController.m */; };
 		18A442421F63EFB1002973F2 /* CardListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A442411F63EFB1002973F2 /* CardListTableViewCell.m */; };
+		18A442471F643600002973F2 /* WebPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A442461F643600002973F2 /* WebPageViewController.m */; };
 		18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */; };
 		18C418E01F56E9D500749654 /* UIImage+UIImage_fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418DF1F56E9D500749654 /* UIImage+UIImage_fixOrientation.m */; };
 		18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418E31F57266A00749654 /* EditProfileViewController.m */; };
@@ -257,6 +258,8 @@
 		1891620D1F617735005ED12E /* GoNatuur.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoNatuur.entitlements; sourceTree = "<group>"; };
 		18A442401F63EFB1002973F2 /* CardListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardListTableViewCell.h; sourceTree = "<group>"; };
 		18A442411F63EFB1002973F2 /* CardListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardListTableViewCell.m; sourceTree = "<group>"; };
+		18A442451F643600002973F2 /* WebPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPageViewController.h; sourceTree = "<group>"; };
+		18A442461F643600002973F2 /* WebPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebPageViewController.m; sourceTree = "<group>"; };
 		18C1DF7C1F3CAE96000D9431 /* DasboardDataCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasboardDataCollectionViewCell.h; sourceTree = "<group>"; };
 		18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DasboardDataCollectionViewCell.m; sourceTree = "<group>"; };
 		18C418DE1F56E9D500749654 /* UIImage+UIImage_fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImage_fixOrientation.h"; sourceTree = "<group>"; };
@@ -894,6 +897,23 @@
 			name = CardListViewController;
 			sourceTree = "<group>";
 		};
+		18A442431F643547002973F2 /* AboutUsWebPagesModule */ = {
+			isa = PBXGroup;
+			children = (
+				18A442441F6435B2002973F2 /* WebPageViewController */,
+			);
+			name = AboutUsWebPagesModule;
+			sourceTree = "<group>";
+		};
+		18A442441F6435B2002973F2 /* WebPageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18A442451F643600002973F2 /* WebPageViewController.h */,
+				18A442461F643600002973F2 /* WebPageViewController.m */,
+			);
+			name = WebPageViewController;
+			sourceTree = "<group>";
+		};
 		18C1DF7B1F3CAE51000D9431 /* DashboardDataCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -988,6 +1008,7 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				18A442431F643547002973F2 /* AboutUsWebPagesModule */,
 				189162041F614C7C005ED12E /* PaymentDetails */,
 				181FD22B1F601F6300C5373C /* PaymentMethodModule */,
 				188605961F39C05A0005D1E2 /* GlobalViewModule */,
@@ -1910,6 +1931,7 @@
 				B7AA39B31F47101400423121 /* GoNatuurFilterView.m in Sources */,
 				180ECD251F482A38003C936E /* WebViewController.m in Sources */,
 				180ECD291F484A17003C936E /* ReviewViewController.m in Sources */,
+				18A442471F643600002973F2 /* WebPageViewController.m in Sources */,
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
 				18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
