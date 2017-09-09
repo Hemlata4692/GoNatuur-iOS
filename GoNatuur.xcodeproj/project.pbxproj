@@ -64,6 +64,7 @@
 		188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C1A1F41F45A0001A7AE /* CurrencyDataModel.m */; };
 		189162081F614CD2005ED12E /* CardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189162071F614CD2005ED12E /* CardListViewController.m */; };
 		1891620C1F614CEF005ED12E /* AddCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1891620B1F614CEF005ED12E /* AddCardViewController.m */; };
+		18A442421F63EFB1002973F2 /* CardListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A442411F63EFB1002973F2 /* CardListTableViewCell.m */; };
 		18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */; };
 		18C418E01F56E9D500749654 /* UIImage+UIImage_fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418DF1F56E9D500749654 /* UIImage+UIImage_fixOrientation.m */; };
 		18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418E31F57266A00749654 /* EditProfileViewController.m */; };
@@ -254,6 +255,8 @@
 		1891620A1F614CEF005ED12E /* AddCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCardViewController.h; sourceTree = "<group>"; };
 		1891620B1F614CEF005ED12E /* AddCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCardViewController.m; sourceTree = "<group>"; };
 		1891620D1F617735005ED12E /* GoNatuur.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoNatuur.entitlements; sourceTree = "<group>"; };
+		18A442401F63EFB1002973F2 /* CardListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardListTableViewCell.h; sourceTree = "<group>"; };
+		18A442411F63EFB1002973F2 /* CardListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardListTableViewCell.m; sourceTree = "<group>"; };
 		18C1DF7C1F3CAE96000D9431 /* DasboardDataCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasboardDataCollectionViewCell.h; sourceTree = "<group>"; };
 		18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DasboardDataCollectionViewCell.m; sourceTree = "<group>"; };
 		18C418DE1F56E9D500749654 /* UIImage+UIImage_fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImage_fixOrientation.h"; sourceTree = "<group>"; };
@@ -850,18 +853,18 @@
 			isa = PBXGroup;
 			children = (
 				189162091F614CDE005ED12E /* AddCardViewController */,
-				189162051F614C8F005ED12E /* CardListViewController */,
+				189162051F614C8F005ED12E /* CardListView */,
 			);
 			name = PaymentDetails;
 			sourceTree = "<group>";
 		};
-		189162051F614C8F005ED12E /* CardListViewController */ = {
+		189162051F614C8F005ED12E /* CardListView */ = {
 			isa = PBXGroup;
 			children = (
-				189162061F614CD2005ED12E /* CardListViewController.h */,
-				189162071F614CD2005ED12E /* CardListViewController.m */,
+				18A4423F1F63EF92002973F2 /* CardListViewController */,
+				18A4423E1F63EF6C002973F2 /* CardListCell */,
 			);
-			name = CardListViewController;
+			name = CardListView;
 			sourceTree = "<group>";
 		};
 		189162091F614CDE005ED12E /* AddCardViewController */ = {
@@ -871,6 +874,24 @@
 				1891620B1F614CEF005ED12E /* AddCardViewController.m */,
 			);
 			name = AddCardViewController;
+			sourceTree = "<group>";
+		};
+		18A4423E1F63EF6C002973F2 /* CardListCell */ = {
+			isa = PBXGroup;
+			children = (
+				18A442401F63EFB1002973F2 /* CardListTableViewCell.h */,
+				18A442411F63EFB1002973F2 /* CardListTableViewCell.m */,
+			);
+			name = CardListCell;
+			sourceTree = "<group>";
+		};
+		18A4423F1F63EF92002973F2 /* CardListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				189162061F614CD2005ED12E /* CardListViewController.h */,
+				189162071F614CD2005ED12E /* CardListViewController.m */,
+			);
+			name = CardListViewController;
 			sourceTree = "<group>";
 		};
 		18C1DF7B1F3CAE51000D9431 /* DashboardDataCell */ = {
@@ -1923,6 +1944,7 @@
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
 				184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */,
 				185F707F1F55A839007F49F7 /* ProfileViewController.m in Sources */,
+				18A442421F63EFB1002973F2 /* CardListTableViewCell.m in Sources */,
 				180ECD371F486E89003C936E /* ReviewListingViewController.m in Sources */,
 				188B2C131F41DFA50001A7AE /* SearchDataModel.m in Sources */,
 				B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */,

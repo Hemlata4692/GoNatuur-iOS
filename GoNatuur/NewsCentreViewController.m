@@ -13,6 +13,8 @@
 #import "ProductListCollectionViewCell.h"
 #import "LoginModel.h"
 #import "SearchViewController.h"
+#import "WebViewController.h"
+
 @interface NewsCentreViewController () <UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
     NSMutableArray *productListDataArray, *subCategoryDataList, *subCategoryPickerArray;
     int totalProductCount, currentpage;
@@ -148,7 +150,7 @@
         if (cell == nil){
             cell = [[ProductListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BannerImageCell"];
         }
-        [cell displayBannerImage:bannerImageUrl];
+        [cell displayBannerImage:bannerImageUrl screenType:@"News"];
     }
     else if (indexPath.row==1) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell"];
@@ -214,13 +216,11 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (!myDelegate.isProductList || [[[productListDataArray objectAtIndex:indexPath.row]productType] isEqualToString:eventIdentifier]) {
-       // [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
-    }
-    else {
-        //StoryBoard navigation
-       
-    }
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
+    webView.navigationTitle=[[productListDataArray objectAtIndex:indexPath.item]productName];
+    webView.productDetaiData=[[productListDataArray objectAtIndex:indexPath.item]newsContent];
+    [self.navigationController pushViewController:webView animated:YES];
 }
 #pragma mark - end
 
@@ -250,18 +250,39 @@
     }];
 }
 
+//fetch news center banner
 - (void)NewsCenterBanner:(NSString *)identifier {
     LoginModel *userLogin = [LoginModel sharedUser];
     userLogin.cmsPageType=identifier;
     [userLogin CMSPageService:^(LoginModel *userData) {
         self.navigationItem.title=userData.cmsTitle;
-        //   [_webView loadHTMLString:userData.cmsContent baseURL: nil];
-//    bannerImageUrl
-        DLog(@"%@",[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; background-color:#FDF4F6 color:#000000 text-align:justify font-size:15'>%@</body></html>", userData.cmsContent]);
+        [self parseImageFromTag:userData.cmsContent];
         [self getNewsListData];
         
     } onfailure:^(NSError *error) {
     }];
+}
+
+//parse image from html tag
+- (void)parseImageFromTag:(NSString *)htmlString {
+    NSString *yourHTMLSourceCodeString = htmlString;
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(<img\\s[\\s\\S]*?src\\s*?=\\s*?['\"](.*?)['\"][\\s\\S]*?>)+?"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+        [regex enumerateMatchesInString:yourHTMLSourceCodeString
+                            options:0
+                              range:NSMakeRange(0, [yourHTMLSourceCodeString length])
+                         usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+                             
+                             NSString *img = [yourHTMLSourceCodeString substringWithRange:[result rangeAtIndex:2]];
+                             
+                             NSURL *candidateURL = [NSURL URLWithString:img];
+                             
+                             if (candidateURL && candidateURL.scheme && candidateURL.host) {
+                                 bannerImageUrl=img;
+                             }
+                         }];
 }
 
 //Get product list service

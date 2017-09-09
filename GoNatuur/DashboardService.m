@@ -85,29 +85,7 @@ static NSString *kNwesCategory=@"ranosys/news/getNewsCategory";
     NSDictionary *parameters;
     if ([productData.newsType isEqualToString:@"All"]) {
         parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
-                                                                   @{
-                                                                       @"filters":@[
-                                                                               @{@"field":@"is_active",
-                                                                                 @"value":@"1",
-                                                                                 @"condition_type": @"eq"
-                                                                                 },
-                                                                               ]
-                                                                       }
-                                                                   ],
-                                                           @"page_size" : productData.pageSize,
-                                                           @"current_page" : productData.currentPage
-                                                           }
-                                     };
-    }
-    else {
-        parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
                                                      @{
-                                                         @"filters":@[
-                                                                 @{@"field":@"category",
-                                                                   @"value":productData.categoryId,
-                                                                   @"condition_type": @"eq"
-                                                                   },
-                                                                 ],
                                                          @"filters":@[
                                                                  @{@"field":@"is_active",
                                                                    @"value":@"1",
@@ -121,8 +99,61 @@ static NSString *kNwesCategory=@"ranosys/news/getNewsCategory";
                                              }
                        };
     }
+    
+    else if ([productData.newsType isEqualToString:@"search"]) {
+        parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                     @{
+                                                         @"filters": @[
+                                                                 @{@"field":@"is_active",
+                                                                   @"value":@"1",
+                                                                   @"condition_type": @"eq"
+                                                                   },
+                                                                 @{@"field":@"title",
+                                                                   @"value": productData.categoryName,
+                                                                   @"condition_type":@"like"
+                                                                   },
+                                                                 @{@"field":@"content_heading",
+                                                                   @"value": productData.categoryName,
+                                                                   @"condition_type":@"like"
+                                                                   },
+                                                                 @{@"field":@"content",
+                                                                     @"value": productData.categoryName,
+                                                                     @"condition_type":@"like"
+                                                                     },
+                                                                 @{@"field":@"author_name",
+                                                                     @"value": productData.categoryName,
+                                                                     @"condition_type":@"like"
+                                                                     }
+                                                                 ]
+                                                         }
+                                                     ],
+                                             @"page_size" : productData.pageSize,
+                                             @"current_page" : productData.currentPage
+                                             }
+                       };
+    }
+    else {
+        parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                     @{
+                                                         @"filters":@[
+                                                                 @{@"field":@"category",
+                                                                   @"value":productData.categoryId,
+                                                                   @"condition_type": @"eq"
+                                                                   },
+                                                                 @{@"field":@"is_active",
+                                                                   @"value":@"1",
+                                                                   @"condition_type": @"eq"
+                                                                   }
+                                                                 ],
+                                                         }
+                                                     ],
+                                             @"page_size" : productData.pageSize,
+                                             @"current_page" : productData.currentPage
+                                             }
+                       };
+    }
     NSLog(@"news list request %@",parameters);
-       [super post:kNewsListData parameters:parameters success:success failure:failure];
+    [super post:kNewsListData parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 

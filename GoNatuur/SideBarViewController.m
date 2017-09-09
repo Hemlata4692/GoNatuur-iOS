@@ -114,7 +114,9 @@
         [self featureNotAvailable];
     }
     else if (indexPath.row==1) {
-        [self featureNotAvailable];
+        if (![myDelegate checkGuestAccess]) {
+            myDelegate.selectedCategoryIndex=-1;
+        }
     }
     else if (indexPath.row==2) {
         [self featureNotAvailable];

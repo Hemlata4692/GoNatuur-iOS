@@ -162,7 +162,7 @@
         if (cell == nil){
             cell = [[ProductListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BannerImageCell"];
         }
-        [cell displayBannerImage:bannerImageUrl];
+        [cell displayBannerImage:bannerImageUrl screenType:@"other"];
     }
     else if (indexPath.row==1) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell"];

@@ -37,6 +37,7 @@
 @synthesize firstName;
 @synthesize lastName;
 @synthesize newsType;
+@synthesize newsContent;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{

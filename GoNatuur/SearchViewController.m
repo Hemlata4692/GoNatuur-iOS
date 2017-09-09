@@ -9,6 +9,7 @@
 #import "SearchViewController.h"
 #import "SearchListingViewController.h"
 #import "SearchDataModel.h"
+#import "NewsCenterSearchListViewController.h"
 
 @interface SearchViewController () {
 @private
@@ -97,12 +98,14 @@
         [_searchTimer invalidate];
         _searchTimer = nil;
     }
+    if (![screenType isEqualToString:@"News"]) {
     // reschedule the search: in 1.0 second, call the searchForKeyword: method on the new textfield content
     _searchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                     target: self
                                                   selector: @selector(searchForKeyword:)
                                                   userInfo:_searchTextField.text
                                                    repeats: NO];
+    }
 }
 
 - (void) searchForKeyword:(NSTimer *)timer {
@@ -117,8 +120,15 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
+    if (![screenType isEqualToString:@"News"]) {
     if (![textField.text isEqualToString:@""]) {
         SearchListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListingViewController"];
+        obj.searchKeyword=_searchTextField.text;
+        [self.navigationController pushViewController:obj animated:true];
+    }
+    }
+    else {
+        NewsCenterSearchListViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NewsCenterSearchListViewController"];
         obj.searchKeyword=_searchTextField.text;
         [self.navigationController pushViewController:obj animated:true];
     }

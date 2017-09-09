@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewsCenterSearchListViewController : UIViewController
+@interface NewsCenterSearchListViewController : GoNatuurViewController
+@property (nonatomic, strong) NSString *searchKeyword;
 
 @end
