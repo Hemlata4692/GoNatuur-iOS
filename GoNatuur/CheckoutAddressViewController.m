@@ -10,15 +10,25 @@
 #import "UITextField+Padding.h"
 #import "BSKeyboardControls.h"
 #import "ProfileModel.h"
+#import "UITextField+Validations.h"
+#import "GoNatuurPickerView.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
 #define borderRadioColor [UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]
 
 @interface CheckoutAddressViewController ()<BSKeyboardControlsDelegate> {
-    CartDataModel *cartModelData;
     UITextField *currentSelectedTextField;
     NSMutableArray *countryCodeArray;
+    int shippingCountryIndex, billingCountryIndex;
+    int shippingStateIndex, billingStateIndex;
+    int selectedCheckoutPromoIndex, selectedShippingMethodIndex;
+    GoNatuurPickerView *gNPickerViewObj;
+    NSString *selectedShippingRegionCode,*selectedBillingRegionCode;
+    int selectedShippingRegionId, selectedBillingRegionId;
+    BOOL isPickerEnable;
+    NSMutableArray *countryNameArray,*shippingRegionNameArray,*billingRegionNameArray;
+    BOOL isShippingAddreesSame;
 }
 //Other view objects declaration
 @property (strong, nonatomic) IBOutlet UILabel *freeShippingLabel;
@@ -80,7 +90,8 @@
 @end
 
 @implementation CheckoutAddressViewController
-@synthesize cartListModelData, cartListDataArray;
+@synthesize cartModelData, cartListDataArray;
+@synthesize isEditService;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -98,6 +109,30 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:true];
+    //Allocate keyboard notification
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    //Deallocate keyboard notification
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    //Add custom picker view and initialized indexs
+    [self addCustomPickerView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -106,13 +141,94 @@
 }
 #pragma mark - end
 
+#pragma mark - Keyboard control delegate
+- (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction {
+    UIView *view;
+    view = field.superview.superview.superview;
+}
+
+- (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControl {
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [keyboardControl.activeField resignFirstResponder];
+}
+#pragma mark - end
+
+#pragma mark - Textfield delegates
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [gNPickerViewObj hidePickerView];
+    [_keyboardControls setActiveField:textField];
+    currentSelectedTextField=textField;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    isPickerEnable = false;
+    //Set field position after show keyboard
+    NSDictionary* info = [notification userInfo];
+    NSValue *aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
+    [self showKeyboardScrollView:[aValue CGRectValue].size.height];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    [self hideKeyboardScrollView];
+}
+
+- (void)showKeyboardScrollView:(float)keyboardHeight {
+    float backViewY=0;
+    if ((currentSelectedTextField==_shippingFirstNameTextField)||(currentSelectedTextField==_shippingLastNameTextField)||(currentSelectedTextField==_shippingPhoneNumberTextField)||(currentSelectedTextField==_shippingEmailTextField)||(currentSelectedTextField==_shippingAddressLine1TextField)||(currentSelectedTextField==_shippingStateTextField)||(currentSelectedTextField==_shippingCityTextField)||(currentSelectedTextField==_shippingZipCodeTextField)||(currentSelectedTextField==_shippingAddressLine2TextField)) {
+        backViewY=195;
+    }
+    else {
+        backViewY=599;
+    }
+    //Set condition according to check if current selected textfield is behind keyboard
+    if (backViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height<([UIScreen mainScreen].bounds.size.height)-keyboardHeight) {
+        [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    }
+    else {
+        [_scrollView setContentOffset:CGPointMake(0, ((backViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height)- ([UIScreen mainScreen].bounds.size.height-keyboardHeight))+10) animated:NO];
+    }
+    //Change content size of scroll view if current selected textfield is behind keyboard
+    if (keyboardHeight-([UIScreen mainScreen].bounds.size.height-(backViewY+824))>0) {
+        _scrollView.contentSize = CGSizeMake(0,[UIScreen mainScreen].bounds.size.height+(keyboardHeight-([UIScreen mainScreen].bounds.size.height-(backViewY+824)))-250);
+    }
+}
+
+- (void)hideKeyboardScrollView {
+    _scrollView.contentSize = CGSizeMake(0,_mainCheckoutAddressView.frame.size.height);
+    if (!isPickerEnable) {
+        [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    }
+}
+#pragma mark - end
+
+#pragma mark - Add picker
+- (void)addCustomPickerView {
+    //Set initial index of picker view and initialized picker view
+    shippingCountryIndex=-1;
+    billingCountryIndex=-1;
+    billingStateIndex=-1;
+    shippingStateIndex=-1;
+    gNPickerViewObj=[[GoNatuurPickerView alloc] initWithFrame:self.view.frame delegate:self pickerHeight:230];
+    [self.view addSubview:gNPickerViewObj.goNatuurPickerViewObj];
+}
+#pragma mark - end
+
 #pragma mark - View customisation
 - (void)didLoadIntialization {
+    selectedCheckoutPromoIndex=0;
+    selectedShippingMethodIndex=0;
     _noRadioLabel.layer.masksToBounds=true;
     _yesRadioLabel.layer.masksToBounds=true;
     _noRadioLabel.layer.cornerRadius=5.0;
     _yesRadioLabel.layer.cornerRadius=5.0;
-    [self setRadioStyle:false];
+    isShippingAddreesSame=false;
+    [self setRadioStyle:isShippingAddreesSame];
 }
 
 - (void)setRadioStyle:(BOOL)isYes {
@@ -192,6 +308,10 @@
 }
 
 - (void)setTextFieldPadding {
+    _shippingStateDropDown.hidden=false;
+    _billingStateDropDown.hidden=false;
+    _shippingStateButton.hidden=false;
+    _billingStateButton.hidden=false;
     //Set shipping address field padding
     [_shippingFirstNameTextField addTextFieldPaddingWithoutImages:_shippingFirstNameTextField];
     [_shippingLastNameTextField addTextFieldPaddingWithoutImages:_shippingLastNameTextField];
@@ -301,33 +421,93 @@
     _shippingEmailTextField.text=cartModelData.shippingAddressDict[@"email"];
     _shippingAddressLine1TextField.text=[cartModelData.shippingAddressDict[@"street"] objectAtIndex:0];
     _shippingAddressLine2TextField.text=([cartModelData.shippingAddressDict[@"street"] count]>1?[cartModelData.shippingAddressDict[@"street"] objectAtIndex:1]:@"");
-    _shippingCountryTextField.text=cartModelData.shippingAddressDict[@""];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"countryId == %@", cartModelData.shippingAddressDict[@"country_id"]];
+    NSArray *filteredarray = [countryCodeArray filteredArrayUsingPredicate:predicate];
+    if (filteredarray.count>0) {
+        NSUInteger index = [countryCodeArray indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
+            return [predicate evaluateWithObject:obj];
+        }];
+        ProfileModel *temp=[ProfileModel new];
+        temp=[countryCodeArray objectAtIndex:index];
+        shippingCountryIndex=(int)index;
+        _shippingCountryTextField.text=temp.countryLocale;
+        shippingRegionNameArray = [[countryCodeArray objectAtIndex:shippingCountryIndex] mutableCopy];
+        DLog(@"%@",temp.countryLocale);
+    }
+    else {
+        shippingCountryIndex=-1;
+        _shippingCountryTextField.text=@"";
+        shippingRegionNameArray=[NSMutableArray new];
+    }
     _shippingStateTextField.text=cartModelData.shippingAddressDict[@"region"];
     _shippingCityTextField.text=cartModelData.shippingAddressDict[@"city"];
     _shippingZipCodeTextField.text=cartModelData.shippingAddressDict[@"postcode"];
-    if (![cartModelData.shippingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.shippingAddressDict[@"region_id"] intValue]==0) {
-        _shippingStateDropDown.hidden=true;
-        [_shippingStateTextField addTextFieldPaddingWithoutImages:_shippingStateTextField];
+    if (shippingCountryIndex==-1) {
+        [self setShippingRegionDataNotExist];
     }
+    else {
+        if (([[[countryCodeArray objectAtIndex:shippingCountryIndex] regionArray] count]>0)&&(![cartModelData.shippingAddressDict[@"region_id"] isKindOfClass:[NSString class]]||[cartModelData.shippingAddressDict[@"region_id"] intValue]!=0)) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"regionId == %@", cartModelData.shippingAddressDict[@"region_id"]];
+            NSArray *filteredarray = [[[countryCodeArray objectAtIndex:shippingCountryIndex] regionArray] filteredArrayUsingPredicate:predicate];
+            if (filteredarray.count>0) {
+                NSUInteger index = [[[countryCodeArray objectAtIndex:shippingCountryIndex] regionArray] indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
+                    return [predicate evaluateWithObject:obj];
+                }];
+                ProfileModel *temp=[ProfileModel new];
+                temp=[[[countryCodeArray objectAtIndex:shippingCountryIndex] regionArray] objectAtIndex:index];
+                shippingStateIndex=(int)index;
+                _shippingStateDropDown.hidden=false;
+                _shippingStateButton.hidden=false;
+                selectedShippingRegionId=[[temp regionId] intValue];
+                selectedShippingRegionCode=[temp regionCode];
+                [_shippingStateTextField addTextFieldLeftRightPadding:_shippingStateTextField];
+            }
+            else {
+                [self setShippingRegionDataNotExist];
+            }
+        }
+        else {
+            [self setShippingRegionDataNotExist];
+        }
+    }
+}
+
+- (void)setShippingRegionDataNotExist {
+    _shippingStateDropDown.hidden=true;
+    _shippingStateButton.hidden=true;
+    selectedShippingRegionId=0;
+    shippingStateIndex=-1;
+    selectedShippingRegionCode=cartModelData.shippingAddressDict[@"region_code"];
+    [_shippingStateTextField addTextFieldPaddingWithoutImages:_shippingStateTextField];
 }
 
 -(void)setInitailizedBillingAddressData:(BOOL)isYes {
     if (isYes) {
         //Set default billing address as shipping address bcz initially shipping address will be same.
-        _billingFirstNameTextField.text=cartModelData.shippingAddressDict[@"firstname"];
-        _billingLastNameTextField.text=cartModelData.shippingAddressDict[@"lastname"];
-        _billingPhoneNumberTextField.text=cartModelData.shippingAddressDict[@"telephone"];
-        _billingEmailTextField.text=cartModelData.shippingAddressDict[@"email"];
-        _billingAddressLine1TextField.text=[cartModelData.shippingAddressDict[@"street"] objectAtIndex:0];
-        _billingAddressLine2TextField.text=([cartModelData.shippingAddressDict[@"street"] count]>1?[cartModelData.shippingAddressDict[@"street"] objectAtIndex:1]:@"");
-        _billingCountryTextField.text=cartModelData.shippingAddressDict[@""];
-        _billingStateTextField.text=cartModelData.shippingAddressDict[@"region"];
-        _billingCityTextField.text=cartModelData.shippingAddressDict[@"city"];
-        _billingZipCodeTextField.text=cartModelData.shippingAddressDict[@"postcode"];
-        if (![cartModelData.shippingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.shippingAddressDict[@"region_id"] intValue]==0) {
-            _billingStateDropDown.hidden=true;
-            [_billingStateTextField addTextFieldPaddingWithoutImages:_billingStateTextField];
+        _billingFirstNameTextField.text=_billingFirstNameTextField.text;
+        _billingLastNameTextField.text=_billingLastNameTextField.text;
+        _billingPhoneNumberTextField.text=_billingPhoneNumberTextField.text;
+        _billingEmailTextField.text=_billingEmailTextField.text;
+        _billingAddressLine1TextField.text=_billingAddressLine1TextField.text;
+        _billingAddressLine2TextField.text=_billingAddressLine2TextField.text;
+        _billingCountryTextField.text=_billingCountryTextField.text;
+        _billingStateTextField.text=_billingStateTextField.text;
+        _billingCityTextField.text=_billingCityTextField.text;
+        _billingZipCodeTextField.text=_billingZipCodeTextField.text;
+        if ([_shippingStateDropDown isHidden]) {
+            _billingStateDropDown.hidden=_shippingStateDropDown.hidden;
+            _billingStateButton.hidden=_shippingStateButton.hidden;
+            selectedBillingRegionId=selectedShippingRegionId;
+            selectedBillingRegionCode=selectedShippingRegionCode;
+            billingStateIndex=shippingStateIndex;
+            if (billingStateIndex==-1) {
+                [_billingStateTextField addTextFieldPaddingWithoutImages:_billingStateTextField];
+            }
+            else {
+                [_billingStateTextField addTextFieldLeftRightPadding:_billingStateTextField];
+            }
         }
+        billingRegionNameArray=[NSMutableArray new];
     }
     else {
         _billingFirstNameTextField.text=cartModelData.billingAddressDict[@"firstname"];
@@ -336,16 +516,66 @@
         _billingEmailTextField.text=cartModelData.billingAddressDict[@"email"];
         _billingAddressLine1TextField.text=[cartModelData.billingAddressDict[@"street"] objectAtIndex:0];
         _billingAddressLine2TextField.text=([cartModelData.billingAddressDict[@"street"] count]>1?[cartModelData.billingAddressDict[@"street"] objectAtIndex:1]:@"");
-        _billingCountryTextField.text=cartModelData.billingAddressDict[@""];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"countryId == %@", cartModelData.billingAddressDict[@"country_id"]];
+        NSArray *filteredarray = [countryCodeArray filteredArrayUsingPredicate:predicate];
+        if (filteredarray.count>0) {
+            NSUInteger index = [countryCodeArray indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
+                return [predicate evaluateWithObject:obj];
+            }];
+            ProfileModel *temp=[ProfileModel new];
+            temp=[countryCodeArray objectAtIndex:index];
+            billingCountryIndex=(int)index;
+            _billingCountryTextField.text=temp.countryLocale;
+             billingRegionNameArray = [[countryCodeArray objectAtIndex:billingCountryIndex] mutableCopy];
+            DLog(@"%@",temp.countryLocale);
+        }
+        else {
+             billingRegionNameArray=[NSMutableArray new];
+            billingCountryIndex=-1;
+            _billingCountryTextField.text=@"";
+        }
         _billingStateTextField.text=cartModelData.billingAddressDict[@"region"];
         _billingCityTextField.text=cartModelData.billingAddressDict[@"city"];
         _billingZipCodeTextField.text=cartModelData.billingAddressDict[@"postcode"];
-        if (![cartModelData.billingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.billingAddressDict[@"region_id"] intValue]==0) {
-            _billingStateDropDown.hidden=true;
-            [_billingStateTextField addTextFieldPaddingWithoutImages:_billingStateTextField];
+        if (billingCountryIndex==-1) {
+            [self setBillingRegionDataNotExist];
+        }
+        else {
+            if (([[[countryCodeArray objectAtIndex:billingCountryIndex] regionArray] count]>0)&&(![cartModelData.billingAddressDict[@"region_id"] isKindOfClass:[NSString class]]||[cartModelData.billingAddressDict[@"region_id"] intValue]!=0)) {
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"regionId == %@", cartModelData.billingAddressDict[@"region_id"]];
+                NSArray *filteredarray = [[[countryCodeArray objectAtIndex:billingCountryIndex] regionArray] filteredArrayUsingPredicate:predicate];
+                if (filteredarray.count>0) {
+                    NSUInteger index = [[[countryCodeArray objectAtIndex:billingCountryIndex] regionArray] indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
+                        return [predicate evaluateWithObject:obj];
+                    }];
+                    ProfileModel *temp=[ProfileModel new];
+                    temp=[[[countryCodeArray objectAtIndex:billingCountryIndex] regionArray] objectAtIndex:index];
+                    billingStateIndex=(int)index;
+                    _billingStateDropDown.hidden=false;
+                    _billingStateButton.hidden=false;
+                    selectedBillingRegionId=[[temp regionId] intValue];
+                    selectedBillingRegionCode=[temp regionCode];
+                    [_billingStateTextField addTextFieldLeftRightPadding:_billingStateTextField];
+                }
+                else {
+                    [self setBillingRegionDataNotExist];
+                }
+            }
+            else {
+                [self setBillingRegionDataNotExist];
+            }
         }
     }
     [self disableBillingAddress:isYes];
+}
+
+- (void)setBillingRegionDataNotExist {
+    _billingStateDropDown.hidden=true;
+    _billingStateButton.hidden=true;
+    selectedBillingRegionId=0;
+    billingStateIndex=-1;
+    selectedBillingRegionCode=cartModelData.billingAddressDict[@"region_code"];
+    [_billingStateTextField addTextFieldPaddingWithoutImages:_billingStateTextField];
 }
 
 - (void)disableBillingAddress:(BOOL)isYes {
@@ -357,7 +587,6 @@
         _billingEmailTextField.enabled=false;
         _billingAddressLine1TextField.enabled=false;
         _billingAddressLine2TextField.enabled=false;
-        _billingCountryTextField.enabled=false;
         _billingStateTextField.enabled=false;
         _billingCityTextField.enabled=false;
         _billingZipCodeTextField.enabled=false;
@@ -372,7 +601,6 @@
         _billingEmailTextField.enabled=true;
         _billingAddressLine1TextField.enabled=true;
         _billingAddressLine2TextField.enabled=true;
-        _billingCountryTextField.enabled=true;
         _billingStateTextField.enabled=true;
         _billingCityTextField.enabled=true;
         _billingZipCodeTextField.enabled=true;
@@ -385,7 +613,7 @@
     NSMutableArray *keyboardField;
     if (isYes) {
         keyboardField=[[NSMutableArray alloc] initWithObjects: _shippingFirstNameTextField,_shippingLastNameTextField,_shippingPhoneNumberTextField,_shippingEmailTextField,_shippingAddressLine1TextField,_shippingAddressLine2TextField, nil];
-        if (![cartModelData.shippingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.shippingAddressDict[@"region_id"] intValue]==0) {
+        if (shippingRegionNameArray.count==0) {
             [keyboardField addObject:_shippingStateTextField];
         }
         [keyboardField addObject:_shippingCityTextField];
@@ -395,13 +623,13 @@
     }
     else {
         keyboardField=[[NSMutableArray alloc] initWithObjects: _shippingFirstNameTextField,_shippingLastNameTextField,_shippingPhoneNumberTextField,_shippingEmailTextField,_shippingAddressLine1TextField,_shippingAddressLine2TextField, nil];
-        if (![cartModelData.shippingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.shippingAddressDict[@"region_id"] intValue]==0) {
+        if (shippingRegionNameArray.count==0) {
             [keyboardField addObject:_shippingStateTextField];
         }
         [keyboardField addObject:_shippingCityTextField];
         [keyboardField addObject:_shippingZipCodeTextField];
         [keyboardField addObjectsFromArray:@[_billingFirstNameTextField,_billingLastNameTextField,_billingPhoneNumberTextField,_billingEmailTextField,_billingAddressLine1TextField,_billingAddressLine2TextField]];
-        if (![cartModelData.billingAddressDict[@"region_id"] isKindOfClass:[NSString class]]&&[cartModelData.billingAddressDict[@"region_id"] intValue]==0) {
+        if (billingRegionNameArray.count==0) {
             [keyboardField addObject:_billingStateTextField];
         }
         [keyboardField addObject:_billingCityTextField];
@@ -423,6 +651,10 @@
 }
 
 - (IBAction)checkoutAddressNext:(UIButton *)sender {
+    if ([self shippingAddressFieldValidations:true]) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(setUpdatedAddressShippingMethods) withObject:nil afterDelay:.1];
+    }
 }
 
 - (IBAction)shippingEditAddress:(UIButton *)sender {
@@ -432,15 +664,22 @@
 }
 
 - (IBAction)shippingCountryAction:(UIButton *)sender {
+    isPickerEnable = true;
+    [self.view endEditing:true];
+    currentSelectedTextField=_shippingCountryTextField;
+    [gNPickerViewObj showPickerView:countryNameArray selectedIndex:(shippingCountryIndex==-1?0:shippingCountryIndex) option:1 isCancelDelegate:true];
 }
 
 - (IBAction)shippingStateAction:(UIButton *)sender {
+    isPickerEnable = true;
 }
 
 - (IBAction)billingCountryAction:(UIButton *)sender {
+    isPickerEnable = true;
 }
 
 - (IBAction)billingStateAction:(UIButton *)sender {
+    isPickerEnable = true;
 }
 
 - (IBAction)noSameAddress:(UIButton *)sender {
@@ -450,14 +689,42 @@
 }
 #pragma mark - end
 
+#pragma mark - Shipping address fields validation
+- (BOOL)shippingAddressFieldValidations:(BOOL)isAlertShow {
+    if ([_shippingFirstNameTextField isEmpty] || [_shippingLastNameTextField isEmpty] || [_shippingPhoneNumberTextField isEmpty] || [_shippingEmailTextField isEmpty] || [_shippingAddressLine1TextField isEmpty] || [_shippingStateTextField isEmpty] || [_shippingCityTextField isEmpty] || [_shippingZipCodeTextField isEmpty]) {
+        if (isAlertShow) {
+            SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        }
+        return NO;
+    }
+    else if (![_shippingEmailTextField isValidEmail]) {
+        if (isAlertShow) {
+            SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validEmailMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        }
+        return NO;
+    }else {
+        return YES;
+    }
+}
+
+#pragma mark - end
+
 #pragma mark - Webservice
 //Get country code listing
 - (void)getCountryCode {
+    countryCodeArray=[NSMutableArray new];
     ProfileModel *changePasswordModel = [ProfileModel sharedUser];
     [changePasswordModel getCountryCodeService:^(ProfileModel *userData) {
         countryCodeArray = userData.countryCodeArray;
+        countryNameArray = [NSMutableArray new];
+        for (ProfileModel *dataModel in countryCodeArray) {
+            [countryNameArray addObject:dataModel.countryLocale];
+        }
         [self setInitailizedShippingAddressData];
         [self setInitailizedBillingAddressData:false];
+        [self setTextFieldKeyboard:false];
         [self getImpactPoints];
     } onfailure:^(NSError *error) {
         
@@ -482,7 +749,25 @@
 - (void)getCheckoutPromos {
     CartDataModel *cartData = [CartDataModel sharedUser];
     [cartData fetchCheckoutPromosOnSuccess:^(CartDataModel *shippmentDetailData)  {
-        [myDelegate stopIndicator];        
+        if ([self shippingAddressFieldValidations:false]) {
+            [self setUpdatedAddressShippingMethods];
+        }
+        else {
+            [myDelegate stopIndicator];
+        }
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+//Set addresses and shipping methods
+- (void)setUpdatedAddressShippingMethods {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    cartData=[cartModelData copy];
+    cartData.shippingAddressDict=[[self setShippingAddressInCartModel] mutableCopy];
+    [cartData setUpdatedAddressShippingMethodsOnSuccess:^(CartDataModel *shippmentDetailData)  {
+        [myDelegate stopIndicator];
+        
     } onfailure:^(NSError *error) {
         
     }];
@@ -491,16 +776,97 @@
 //Get shippment methods
 - (void)getShippmentMethodData {
     CartDataModel *cartData = [CartDataModel sharedUser];
-    cartData=[cartListModelData copy];
+    cartData=[cartModelData copy];
+    
 //    cartData.shippingAddressDict=[[cartListModelData.customerSavedAddressArray objectAtIndex:0] mutableCopy];
     [cartData fetchShippmentMethodsOnSuccess:^(CartDataModel *shippmentDetailData)  {
         [myDelegate stopIndicator];
-        [self setInitailizedShippingAddressData];
-        [self setInitailizedBillingAddressData:false];
         
     } onfailure:^(NSError *error) {
         
     }];
+}
+#pragma mark - end
+
+- (NSDictionary *)setShippingAddressInCartModel {
+    NSMutableArray *streetTempArray=[NSMutableArray new];
+    [streetTempArray addObject:_shippingAddressLine1TextField.text];
+    if (![_shippingAddressLine2TextField isEmpty]) {
+        [streetTempArray addObject:_shippingAddressLine2TextField.text];
+    }
+    NSDictionary *shippingAddress = @{@"id" : [UserDefaultManager getNumberValue:@"id" dictData:[cartModelData.shippingAddressDict copy]],
+                                 @"region" : _shippingStateTextField.text,
+                                 @"region_id" : [NSNumber numberWithInt:selectedShippingRegionId],
+                                 @"region_code" : selectedShippingRegionCode,
+                                      @"country_id" : (shippingCountryIndex!=-1?[[countryCodeArray objectAtIndex:shippingCountryIndex] countryId]:@""),
+                                 @"company" : [UserDefaultManager checkStringNull:@"company" dictData:[cartModelData.shippingAddressDict copy]],
+                                 @"telephone" : _shippingPhoneNumberTextField.text,
+                                 @"fax" : [UserDefaultManager checkStringNull:@"fax" dictData:[cartModelData.shippingAddressDict copy]],
+                                 @"postcode" : _shippingZipCodeTextField.text,
+                                 @"city" : _shippingCityTextField.text,
+                                 @"firstname" : _shippingFirstNameTextField.text,
+                                 @"lastname" : _shippingLastNameTextField.text,
+                                 @"email" : _shippingEmailTextField.text,
+                                 @"customer_id": [UserDefaultManager getValue:@"userId"],
+                                 @"street":[streetTempArray copy]
+                                 };
+    return shippingAddress;
+}
+
+- (NSDictionary *)setBillingAddressInCartModel {
+    NSMutableArray *streetTempArray=[NSMutableArray new];
+    [streetTempArray addObject:_billingAddressLine1TextField.text];
+    if (![_billingAddressLine2TextField isEmpty]) {
+        [streetTempArray addObject:_billingAddressLine2TextField.text];
+    }
+    NSDictionary *shippingAddress = @{@"id" : [UserDefaultManager getNumberValue:@"id" dictData:[cartModelData.billingAddressDict copy]],
+                                      @"region" : _billingStateTextField.text,
+                                      @"region_id" : [NSNumber numberWithInt:selectedBillingRegionId],
+                                      @"region_code" : selectedBillingRegionCode,
+                                      @"country_id" : (billingCountryIndex!=-1?[[countryCodeArray objectAtIndex:billingCountryIndex] countryId]:@""),
+                                      @"company" : [UserDefaultManager checkStringNull:@"company" dictData:[cartModelData.billingAddressDict copy]],
+                                      @"telephone" : _billingPhoneNumberTextField.text,
+                                      @"fax" : [UserDefaultManager checkStringNull:@"fax" dictData:[cartModelData.billingAddressDict copy]],
+                                      @"postcode" : _billingZipCodeTextField.text,
+                                      @"city" : _billingCityTextField.text,
+                                      @"firstname" : _billingFirstNameTextField.text,
+                                      @"lastname" : _billingLastNameTextField.text,
+                                      @"email" : _billingEmailTextField.text,
+                                      @"customer_id": [UserDefaultManager getValue:@"userId"],
+                                      @"street":[streetTempArray copy]
+                                      };
+    return shippingAddress;
+}
+
+#pragma mark - Custom picker delegate method
+- (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {
+    if (option==1) {
+        shippingRegionNameArray = [[[countryCodeArray objectAtIndex:tempSelectedIndex] regionArray] mutableCopy];
+        ProfileModel *temp=[ProfileModel new];
+        temp=[countryCodeArray objectAtIndex:tempSelectedIndex];
+        shippingCountryIndex=tempSelectedIndex;
+        _shippingCountryTextField.text=temp.countryLocale;
+        if (shippingRegionNameArray.count>0) {
+            [self setShippingRegionDataNotExist];
+            _shippingStateDropDown.hidden=false;
+            _shippingStateButton.hidden=false;
+            selectedShippingRegionCode=@"";
+        }
+        else {
+            [self setShippingRegionDataNotExist];
+            selectedShippingRegionCode=@"";
+        }
+        [self setTextFieldKeyboard:isShippingAddreesSame];
+    } else {
+        
+    }
+    isPickerEnable = false;
+    [self hideKeyboardScrollView];
+}
+
+- (void)cancelDelegateMethod {
+    isPickerEnable = false;
+    [self hideKeyboardScrollView];
 }
 #pragma mark - end
 @end

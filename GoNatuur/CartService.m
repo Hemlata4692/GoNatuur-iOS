@@ -10,8 +10,9 @@
 #import "CartDataModel.h"
 
 static NSString *kCartListing=@"carts/mine";
-static NSString *kGetShippmentMethod=@"carts/mine/estimate-shipping-methods";
+static NSString *kGetLogindShippmentMethod=@"carts/mine/shipping-methods";
 static NSString *kFetchCheckoutPromos=@"ranosys/checkoutpromo";
+static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-information";
 
 @implementation CartService
 
@@ -45,28 +46,7 @@ static NSString *kFetchCheckoutPromos=@"ranosys/checkoutpromo";
 //        [super deleteService:[NSString stringWithFormat:@"guest-carts/%@/items/%@",cartData.itemQuoteId,cartData.itemId] parameters:nil isBoolean:true success:success failure:failure];
 //    }
 //    else {
-    NSMutableArray *streetTempArray=[NSMutableArray new];
-    for (NSString *street in cartData.shippingAddressDict[@"street"]) {
-        [streetTempArray addObject:street];
-    }
-    NSDictionary *parameters = @{@"id" : [self getNumberValue:@"id" dictData:cartData.shippingAddressDict],
-                                 @"region" : [cartData.shippingAddressDict[@"region"] objectForKey:@"region"],
-                                 @"region_id" : [cartData.shippingAddressDict[@"region"] objectForKey:@"region_id"],
-                                 @"region_code" : [cartData.shippingAddressDict[@"region"] objectForKey:@"region_code"],
-                                 @"country_id" : [self checkStringNull:@"country_id" dictData:cartData.shippingAddressDict],
-                                 @"company" : [self checkStringNull:@"company" dictData:cartData.shippingAddressDict],
-                                 @"telephone" : cartData.shippingAddressDict[@"telephone"],
-                                 @"fax" : [self checkStringNull:@"fax" dictData:cartData.shippingAddressDict],
-                                 @"postcode" : cartData.shippingAddressDict[@"postcode"],
-                                 @"city" : cartData.shippingAddressDict[@"city"],
-                                 @"firstname" : cartData.shippingAddressDict[@"firstname"],
-                                 @"lastname" : cartData.shippingAddressDict[@"lastname"],
-                                 @"email" : cartData.shippingAddressDict[@"email"],
-                                 @"customer_id": [self getNumberValue:@"customer_id" dictData:cartData.shippingAddressDict],
-                                 @"street":[streetTempArray copy]
-                                 };
-    DLog(@"%@",parameters);
-    [super post:kGetShippmentMethod parameters:@{@"address":[parameters copy]} success:success failure:failure];
+    [super post:kGetLogindShippmentMethod parameters:nil success:success failure:failure];
 //    }
 }
 #pragma mark - end
@@ -83,18 +63,41 @@ static NSString *kFetchCheckoutPromos=@"ranosys/checkoutpromo";
 }
 #pragma mark - end
 
-- (NSNumber *)getNumberValue:(NSString *)key dictData:(NSDictionary *)dictData {
-    if ((nil==dictData[key])||[dictData[key] isKindOfClass:[NSString class]]) {
-        return [NSNumber numberWithInt:0];
-    }
-    return [NSNumber numberWithInt:[dictData[key] intValue]];
+#pragma mark - Set addresses and shipping methods
+- (void)setUpdatedAddressShippingMethodsService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"addressInformation" : @{
+                                         @"shipping_address":[self setAddressMethod:[cartData.shippingAddressDict copy]],
+                                         @"billing_address":[self setAddressMethod:[cartData.billingAddressDict copy]],
+                                         @"shipping_method_code":cartData.selectedShippingMethod,
+                                         @"shipping_carrier_code":cartData.selectedShippingMethod
+                                         }
+                                 };
+        DLog(@"%@",parameters);
+    [super post:kcheckoutShippingInformationManagementV1 parameters:parameters success:success failure:failure];
 }
+#pragma mark - end
 
-- (NSString *)checkStringNull:(NSString *)key dictData:(NSDictionary *)dictData {
-    if (nil==dictData[key]) {
-        return @"";
+- (NSDictionary *)setAddressMethod:(NSDictionary *)tempDict {
+    NSMutableArray *streetTempArray=[NSMutableArray new];
+    for (NSString *street in tempDict[@"street"]) {
+        [streetTempArray addObject:street];
     }
-    return dictData[key];
+    NSDictionary *parameters = @{@"id" : [UserDefaultManager getNumberValue:@"id" dictData:tempDict],
+                                 @"region" : [tempDict[@"region"] objectForKey:@"region"],
+                                 @"region_id" : [tempDict[@"region"] objectForKey:@"region_id"],
+                                 @"region_code" : [tempDict[@"region"] objectForKey:@"region_code"],
+                                 @"country_id" : [UserDefaultManager checkStringNull:@"country_id" dictData:tempDict],
+                                 @"company" : [UserDefaultManager checkStringNull:@"company" dictData:tempDict],
+                                 @"telephone" : tempDict[@"telephone"],
+                                 @"fax" : [UserDefaultManager checkStringNull:@"fax" dictData:tempDict],
+                                 @"postcode" : tempDict[@"postcode"],
+                                 @"city" : tempDict[@"city"],
+                                 @"firstname" : tempDict[@"firstname"],
+                                 @"lastname" : tempDict[@"lastname"],
+                                 @"email" : tempDict[@"email"],
+                                 @"customer_id": [UserDefaultManager getValue:@"userId"],
+                                 @"street":[streetTempArray copy]
+                                 };
+    return parameters;
 }
-
 @end

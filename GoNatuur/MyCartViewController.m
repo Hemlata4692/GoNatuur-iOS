@@ -225,7 +225,7 @@
     //StoryBoard navigation
     CheckoutAddressViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckoutAddressViewController"];
     obj.cartListDataArray=[cartListData mutableCopy];
-    obj.cartListModelData=cartModelData;
+    obj.cartModelData=[cartModelData copy];
     [self.navigationController pushViewController:obj animated:YES];
 }
 //end

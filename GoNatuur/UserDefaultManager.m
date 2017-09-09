@@ -21,4 +21,18 @@
 + (void)removeValue:(NSString *)key {
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:key];
 }
+
++ (NSNumber *)getNumberValue:(NSString *)key dictData:(NSDictionary *)dictData {
+    if ((nil==dictData[key])||[dictData[key] isKindOfClass:[NSString class]]) {
+        return [NSNumber numberWithInt:0];
+    }
+    return [NSNumber numberWithInt:[dictData[key] intValue]];
+}
+
++ (NSString *)checkStringNull:(NSString *)key dictData:(NSDictionary *)dictData {
+    if (nil==dictData[key]) {
+        return @"";
+    }
+    return dictData[key];
+}
 @end

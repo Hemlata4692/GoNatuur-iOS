@@ -834,6 +834,7 @@
         cartData.shippingAddressDict=[NSMutableDictionary new];
         cartData.customerDict=[NSMutableDictionary new];
         cartData.customerSavedAddressArray=[NSMutableArray new];
+        cartData.selectedShippingMethod=@"";
         if ((nil==[UserDefaultManager getValue:@"userId"])){
             int cartCount=0;
             for (NSDictionary *tempDict in response) {
@@ -847,6 +848,7 @@
             cartData.customerDict=[response[@"customer"] mutableCopy];
             cartData.customerSavedAddressArray=[cartData.customerDict[@"addresses"] mutableCopy];
             cartData.shippingAddressDict=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"];
+            cartData.selectedShippingMethod=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"method"];
             for (NSDictionary *tempDict in response[@"items"]) {
                 [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
             }
@@ -944,6 +946,19 @@
                           }];
 }
 #pragma mark - end
+
+#pragma mark - Set addresses and shipping methods
+- (void)setUpdatedAddressShippingMethodsService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList setUpdatedAddressShippingMethodsService:cartData success:^(id response) {
+        DLog(@"Set addresses and shipping methods response %@",response);
+        success(cartData);
+    }
+                          onfailure:^(NSError *error) {
+                          }];
+}
+#pragma mark - end
+
 #pragma mark - Search list by name data
 - (void)getProductListByNameService:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     SearchService *serachSuggestions=[[SearchService alloc]init];

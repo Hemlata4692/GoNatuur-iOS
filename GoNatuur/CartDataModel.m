@@ -22,6 +22,10 @@
 @synthesize shippingAddressDict;
 @synthesize customerDict;
 @synthesize customerSavedAddressArray;
+@synthesize shippmentMethodsArray;
+@synthesize checkoutPromosArray;
+@synthesize checkoutImpactPoint;
+@synthesize selectedShippingMethod;
 
 - (id)copyWithZone:(NSZone *)zone {
     CartDataModel *another = [[CartDataModel alloc] init];
@@ -40,6 +44,7 @@
     another.shippmentMethodsArray= [self.shippmentMethodsArray copyWithZone: zone];
     another.checkoutPromosArray= [self.checkoutPromosArray copyWithZone: zone];
     another.checkoutImpactPoint= [self.checkoutImpactPoint copyWithZone: zone];
+    another.selectedShippingMethod= [self.selectedShippingMethod copyWithZone: zone];
     return another;
 }
 
@@ -81,6 +86,18 @@
 #pragma mark - Fetch checkout promos
 - (void)fetchCheckoutPromosOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] fetchCheckoutPromos:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Set addresses and shipping methods
+- (void)setUpdatedAddressShippingMethodsOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] setUpdatedAddressShippingMethodsService:self onSuccess:^(CartDataModel *userData) {
         if (success) {
             success (userData);
         }
