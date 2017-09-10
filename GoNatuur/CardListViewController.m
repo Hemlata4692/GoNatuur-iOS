@@ -55,15 +55,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if ([[[reviewListingDataAray objectAtIndex:indexPath.row]reviewId] intValue]==[reviewId intValue]) {
-//        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        ReviewViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewViewController"];
-//        reviewView.selectedProductId=productID;
-//        reviewView.isEditMode=@"1";
-//        reviewView.reviewListObj=self;
-//        reviewView.reviewData=[reviewListingDataAray objectAtIndex:indexPath.row];
-//        [self.navigationController pushViewController:reviewView animated:YES];
-//    }
 }
 #pragma mark - end
 
