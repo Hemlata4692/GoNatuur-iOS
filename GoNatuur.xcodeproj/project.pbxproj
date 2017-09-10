@@ -69,6 +69,7 @@
 		18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */; };
 		18C418E01F56E9D500749654 /* UIImage+UIImage_fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418DF1F56E9D500749654 /* UIImage+UIImage_fixOrientation.m */; };
 		18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418E31F57266A00749654 /* EditProfileViewController.m */; };
+		18D2AD281F659C6400B8F605 /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2AD271F659C6400B8F605 /* EventDetailViewController.m */; };
 		18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */; };
 		18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F31F32E09800430842 /* GoNatuurViewController.m */; };
 		18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */; };
@@ -266,6 +267,8 @@
 		18C418DF1F56E9D500749654 /* UIImage+UIImage_fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIImage_fixOrientation.m"; sourceTree = "<group>"; };
 		18C418E21F57266A00749654 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
 		18C418E31F57266A00749654 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
+		18D2AD261F659C6400B8F605 /* EventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailViewController.h; sourceTree = "<group>"; };
+		18D2AD271F659C6400B8F605 /* EventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailViewController.m; sourceTree = "<group>"; };
 		18E5D5831F342DE500829292 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
 		18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		18F7A8F21F32E09800430842 /* GoNatuurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurViewController.h; sourceTree = "<group>"; };
@@ -941,6 +944,23 @@
 			name = EditProfileView;
 			sourceTree = "<group>";
 		};
+		18D2AD241F659C3700B8F605 /* EventDetailsModule */ = {
+			isa = PBXGroup;
+			children = (
+				18D2AD251F659C4700B8F605 /* EventDetailViewController */,
+			);
+			name = EventDetailsModule;
+			sourceTree = "<group>";
+		};
+		18D2AD251F659C4700B8F605 /* EventDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18D2AD261F659C6400B8F605 /* EventDetailViewController.h */,
+				18D2AD271F659C6400B8F605 /* EventDetailViewController.m */,
+			);
+			name = EventDetailViewController;
+			sourceTree = "<group>";
+		};
 		18E5D5821F342DAF00829292 /* ForgotPasswordViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1020,6 +1040,7 @@
 				180ECD381F489AAD003C936E /* ReviewModule */,
 				180ECD221F482A0C003C936E /* WebViewController */,
 				B7AA39BA1F47106600423121 /* ProductModule */,
+				18D2AD241F659C3700B8F605 /* EventDetailsModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
 				188605911F39BB720005D1E2 /* DashboardModule */,
 				184C38611F3B3254008B8291 /* NotificationModule */,
@@ -1892,6 +1913,7 @@
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
 				187561911F469BD500F609AB /* NotificationDataModel.m in Sources */,
 				180ECD301F484DE4003C936E /* UIPlaceHolderTextView.m in Sources */,
+				18D2AD281F659C6400B8F605 /* EventDetailViewController.m in Sources */,
 				5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */,
 				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
 				180ECD3C1F489AF0003C936E /* ReviewTableViewCell.m in Sources */,

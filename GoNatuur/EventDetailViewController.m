@@ -1,12 +1,12 @@
 //
-//  ProductDetailViewController.m
+//  EventDetailViewController.m
 //  GoNatuur
 //
-//  Created by Ranosys on 19/08/17.
+//  Created by Ranosys-Mac on 10/09/17.
 //  Copyright © 2017 Hemlata Khajanchi. All rights reserved.
 //
 
-#import "ProductDetailViewController.h"
+#import "EventDetailViewController.h"
 #import "ProductDataModel.h"
 #import "DynamicHeightWidth.h"
 #import "ProductDetailCollectionViewCell.h"
@@ -20,7 +20,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "HCYoutubeParser.h"
 
-@interface ProductDetailViewController ()<UIGestureRecognizerDelegate> {
+@interface EventDetailViewController ()<UIGestureRecognizerDelegate> {
 @private
     ProductDataModel *productDetailModelData;
     float productDetailCellHeight;
@@ -31,9 +31,10 @@
     bool isServiceCalledMPMoviePlayerDone;
 }
 @property (strong, nonatomic) IBOutlet UITableView *productDetailTableView;
+
 @end
 
-@implementation ProductDetailViewController
+@implementation EventDetailViewController
 @synthesize selectedProductId;
 @synthesize reviewAdded;
 
@@ -54,9 +55,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
-    self.title=NSLocalizedText(@"Product");
+    self.title=NSLocalizedText(@"EventDetails");
     [self addLeftBarButtonWithImage:true];
-    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"productDetailPriceCell", @"productDetailInfoCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"benefitCell",@"brandCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
+    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"ticketingPriceCell",@"productDetailPriceCell", @"productDetailInfoCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"mapCell",@"attendingCell",@"ticketCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -101,7 +102,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     if (isServiceCalled) {
-        return 16;
+        return 18;
     }
     return 0;
 }
@@ -122,15 +123,15 @@
     else if (indexPath.row==4) {
         return 80;
     }
-    else if (indexPath.row==5) {
+    else if (indexPath.row==6) {
         return 75;
     }
-    else if (indexPath.row==6) {
+    else if (indexPath.row==7) {
         float tempHeight=[DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"Shipping is free if the total purchase is above USD$100.") font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80];
         tempHeight+=[DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"Products can be returned within 30 days of purchase, subject to the following conditions.") font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80];
         return tempHeight+5;
     }
-    else if (indexPath.row==7) {
+    else if (indexPath.row==8) {
         return 45;
     }
     return 50;
@@ -161,33 +162,40 @@
         [cell.productMediaCollectionView reloadData];
     }
     else if (indexPath.row==5) {
+        //[cell.productMediaCollectionView reloadData];
+    }
+    else if (indexPath.row==6) {
         [cell displayProductPrice:productDetailModelData currentQuantity:currentQuantity];
         cell.incrementCartButton.tag=indexPath.row;
         cell.removeFromCartButton.tag=indexPath.row;
         [cell.incrementCartButton addTarget:self action:@selector(increaseQuantityAction:) forControlEvents:UIControlEventTouchUpInside];
         [cell.removeFromCartButton addTarget:self action:@selector(removeQuantityAction:) forControlEvents:UIControlEventTouchUpInside];
     }
-    else if (indexPath.row==6) {
+    else if (indexPath.row==7) {
         [cell displayProductInfo];
     }
-    else if (indexPath.row==7) {
-        [cell displayAddToCartButton:@"ProductDetail"];
+    else if (indexPath.row==8) {
+        [cell displayAddToCartButton:@"EventDetail"];
         cell.addToCartButton.tag=indexPath.row;
         [cell.addToCartButton addTarget:self action:@selector(insertInCartItemAction:) forControlEvents:UIControlEventTouchUpInside];
     }
-    else if (indexPath.row==8) {
+    else if (indexPath.row==9) {
         cellLabel.text=NSLocalizedText(@"Description");
     }
-    else if (indexPath.row==9) {
-        cellLabel.text=NSLocalizedText(@"Benefits&Usage");
-    }
     else if (indexPath.row==10) {
-        cellLabel.text=NSLocalizedText(@"BrandStory");
+        cellLabel.text=NSLocalizedText(@"mapLocation");
     }
     else if (indexPath.row==11) {
-        cellLabel.text=NSLocalizedText(@"Review");
+        cellLabel.text=NSLocalizedText(@"attending");
     }
     else if (indexPath.row==12) {
+        cellLabel.text=NSLocalizedText(@"ticketing");
+    }
+
+    else if (indexPath.row==13) {
+        cellLabel.text=NSLocalizedText(@"Review");
+    }
+    else if (indexPath.row==14) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"unfollow");
@@ -198,7 +206,7 @@
             cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
     }
-    else if (indexPath.row==13) {
+    else if (indexPath.row==15) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:11];
         if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"wishlistAdded");
@@ -209,10 +217,10 @@
             cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
     }
-    else if (indexPath.row==14) {
+    else if (indexPath.row==16) {
         cellLabel.text=NSLocalizedText(@"socialMedia");
     }
-    else if (indexPath.row==15) {
+    else if (indexPath.row==17) {
         cellLabel.text=NSLocalizedText(@"Where to buy");
     }
     return cell;
@@ -239,23 +247,27 @@
         [myDelegate showIndicator];
         [self performSelector:@selector(showYouTubeVideo:) withObject:videoURL afterDelay:.1];
     }
-    else if (indexPath.row==8) {
+    else if (indexPath.row==9) {
         //Description action
         [self navigateToView:NSLocalizedText(@"Description") webViewData:productDetailModelData.productDescription viewIdentifier:@"webView" productId:0 reviewId:@""];
     }
-    else if (indexPath.row==9) {
-        //Benefit action
-        [self navigateToView:NSLocalizedText(@"Benefits&Usage") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0 reviewId:@""];
-    }
     else if (indexPath.row==10) {
-        //Brand action
-        [self navigateToView:NSLocalizedText(@"BrandStory") webViewData:productDetailModelData.productBrandStory viewIdentifier:@"webView" productId:0 reviewId:@""];
+        //map action
+        [self navigateToView:NSLocalizedText(@"mapLocation") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0 reviewId:@""];
     }
     else if (indexPath.row==11) {
+        //attending action
+        [self navigateToView:NSLocalizedText(@"attending") webViewData:productDetailModelData.productBrandStory viewIdentifier:@"webView" productId:0 reviewId:@""];
+    }
+    else if (indexPath.row==12) {
+        //ticket action
+        [self navigateToView:NSLocalizedText(@"ticketing") webViewData:productDetailModelData.productBrandStory viewIdentifier:@"webView" productId:0 reviewId:@""];
+    }
+    else if (indexPath.row==13) {
         //Review action
         [self navigateToView:@"" webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId] reviewId:productDetailModelData.reviewId];
     }
-    else if (indexPath.row==12) {
+    else if (indexPath.row==14) {
         //Follow action
         if (![myDelegate checkGuestAccess]) {
             if ([productDetailModelData.following isEqualToString:@"1"]) {
@@ -266,7 +278,7 @@
             }
         }
     }
-    else if (indexPath.row==13) {
+    else if (indexPath.row==15) {
         //Wishlist action
         if (![myDelegate checkGuestAccess]) {
             if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
@@ -277,11 +289,11 @@
             }
         }
     }
-    else if (indexPath.row==14) {
+    else if (indexPath.row==16) {
         //Share action
         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
-    else if (indexPath.row==15) {
+    else if (indexPath.row==17) {
         //Location action
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
@@ -304,7 +316,7 @@
         reviewView.productID =productId;
         reviewView.reviewId=reviewId;
         reviewView.reviewAdded=reviewAdded;
-        reviewView.productDetailObj=self;
+        reviewView.eventDetailObj=self;
         [self.navigationController pushViewController:reviewView animated:YES];
     }
 }
@@ -402,11 +414,11 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData addProductWishlistOnSuccess:^(ProductDataModel *productDetailData)  {
-    
+        
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"wishlist");
-         productDetailModelData.wishlist=@"0";
-         cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
+        productDetailModelData.wishlist=@"0";
+        cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
     }];
     
 }
@@ -441,7 +453,7 @@
         
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"follow");
-         cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
+        cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         productDetailModelData.following=@"0";
     }];
 }
@@ -457,10 +469,10 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData unFollowProductOnSuccess:^(ProductDataModel *productDetailData)  {
-       
+        
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"unfollow");
-         cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
+        cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
         productDetailModelData.following=@"1";
     }];
     

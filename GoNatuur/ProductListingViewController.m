@@ -13,6 +13,7 @@
 #import "GoNatuurFilterView.h"
 #import "GoNatuurPickerView.h"
 #import "ProductDetailViewController.h"
+#import "EventDetailViewController.h"
 #import "UIView+Toast.h"
 
 @interface ProductListingViewController ()<UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
@@ -233,7 +234,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!myDelegate.isProductList || [[[productListDataArray objectAtIndex:indexPath.row]productType] isEqualToString:eventIdentifier]) {
-         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+        //StoryBoard navigation
+        EventDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EventDetailViewController"];
+        obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
+        [self.navigationController pushViewController:obj animated:YES];
     }
     else {
         //StoryBoard navigation
