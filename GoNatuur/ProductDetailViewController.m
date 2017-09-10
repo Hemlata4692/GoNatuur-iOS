@@ -171,7 +171,7 @@
         [cell displayProductInfo];
     }
     else if (indexPath.row==7) {
-        [cell displayAddToCartButton];
+        [cell displayAddToCartButton:@"ProductDetail"];
         cell.addToCartButton.tag=indexPath.row;
         [cell.addToCartButton addTarget:self action:@selector(insertInCartItemAction:) forControlEvents:UIControlEventTouchUpInside];
     }

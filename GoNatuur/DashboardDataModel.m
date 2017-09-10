@@ -36,6 +36,8 @@
 @synthesize productType;
 @synthesize firstName;
 @synthesize lastName;
+@synthesize newsType;
+@synthesize newsContent;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -99,6 +101,30 @@
     [[ConnectionManager sharedManager] getProductListService:self onSuccess:^(DashboardDataModel *productData) {
         if (success) {
             success (productData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - News list data service
+- (void)getNewsListDataService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getNewsCenterListService:self onSuccess:^(DashboardDataModel *productData) {
+        if (success) {
+            success (productData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Get News category listing data
+- (void)getNewsCategoryListDataOnSuccess:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getNewsCategoryListing:self onSuccess:^(DashboardDataModel *userData) {
+        if (success) {
+            success (userData);
         }
     } onFailure:^(NSError *error) {
         

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CardListViewController : UIViewController
+@interface CardListViewController : GoNatuurViewController
+
 
 @end

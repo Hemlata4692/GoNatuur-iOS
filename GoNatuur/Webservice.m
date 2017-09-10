@@ -43,7 +43,6 @@
     [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
-        //[UserDefaultManager getValue:@"Authorization"]
         DLog(@"%@",[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]]);
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
     }
@@ -120,7 +119,7 @@
 
 //Request with profile image
 - (void)postImage:(NSString *)path parameters:(NSDictionary *)parameters image:(UIImage *)image success:(void (^)(id))success failure:(void (^)(NSError *))failure {
-    path = [NSString stringWithFormat:@"http://dev.gonatuur.com/en/%@",path];
+    path = [NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"], path]; //BaseUrl
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
@@ -135,7 +134,7 @@
 
     NSData *imageData = UIImageJPEGRepresentation(image, 0.3);
     [manager POST:path parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:imageData name:@"avatar" fileName:imageName mimeType:@"image/jpeg"];
+        [formData appendPartWithFileData:imageData name:@"avatar" fileName:[NSString stringWithFormat:@"%@.jpg",imageName] mimeType:@"image/jpeg"];
     } progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         success(responseObject);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -177,7 +176,7 @@
     if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
     }
-    path = [NSString stringWithFormat:@"http://dev.gonatuur.com/en/%@",path];
+    path = [NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"], path];
     [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);

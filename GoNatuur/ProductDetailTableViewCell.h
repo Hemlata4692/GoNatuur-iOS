@@ -28,6 +28,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *incrementCartButton;
 @property (strong, nonatomic) IBOutlet UILabel *cartNumberItemLabel;
 @property (strong, nonatomic) IBOutlet UIButton *addToCartButton;
+@property (weak, nonatomic) IBOutlet UIButton *selectTicketingButton;
+@property (weak, nonatomic) IBOutlet UITextField *ticketSelectionTypeField;
 
 - (void)displayProductName:(NSString *)productName;
 - (void)displayProductDescription:(NSString *)productDescription;
@@ -35,5 +37,6 @@
 - (void)displayProductMediaImage:(NSDictionary *)productImageDict qrCode:(UIImage *)qrCodeImage;
 - (void)displayProductPrice:(ProductDataModel *)productData currentQuantity:(int)currentQuantity;
 - (void)displayProductInfo;
-- (void)displayAddToCartButton;
+- (void)displayAddToCartButton:(NSString *)screenType;
+-(void)displayTicketingData;
 @end
