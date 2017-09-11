@@ -13,7 +13,7 @@
 #import "NotificationViewController.h"
 
 @interface SideBarViewController () {
-    NSArray *menuItemsArray;
+    NSArray *menuItemsArray, *sideBarLabelArray;
 }
 @property (weak, nonatomic) IBOutlet UITableView *sideBarTableView;
 @property (weak, nonatomic) IBOutlet UILabel *userEmailLabel;
@@ -25,7 +25,8 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    menuItemsArray = @[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications", @"Signout"];
+    menuItemsArray = @[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications",@"AboutUs",@"ContactUs",@"NewsLetter", @"Signout"];
+    sideBarLabelArray=@[NSLocalizedText(@"sideBarOrder"), NSLocalizedText(@"sideBarPayment"), NSLocalizedText(@"sideBarRedeemPoints"),NSLocalizedText(@"sideBarEvents"), NSLocalizedText(@"sideBarNewsCentre"), NSLocalizedText(@"sideBarNotifications"), NSLocalizedText(@"sideBarAboutUs"), NSLocalizedText(@"sideBarContactUs"), NSLocalizedText(@"sideBarNewsLetter"),NSLocalizedText(@"sideBarSignOut")];
     // Remove extra seperator from table view
     [self viewCustomisationAndData];
 }
@@ -38,9 +39,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
-    if ([ConstantCode checkDeviceType]==Device5s) {
-        _sideBarTableView.scrollEnabled=YES;
-    }
+     _sideBarTableView.scrollEnabled=YES;
     [_sideBarTableView reloadData];
 }
 
@@ -100,7 +99,7 @@
         cellImage.image=[UIImage imageNamed:@"login"];
     }
     else {
-        cellLabel.text=[CellIdentifier uppercaseString];
+        cellLabel.text=[[sideBarLabelArray objectAtIndex:indexPath.row] uppercaseString];
     }
     return cell;
 }
@@ -111,7 +110,8 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==0) {
-         [self featureNotAvailable];
+        myDelegate.selectedCategoryIndex=-1;
+        [myDelegate checkGuestAccess];
     }
     else if (indexPath.row==1) {
          [self featureNotAvailable];
@@ -133,6 +133,15 @@
         [myDelegate checkGuestAccess];
     }
     else if (indexPath.row==6) {
+        [self featureNotAvailable];
+    }
+    else if (indexPath.row==7) {
+       [self featureNotAvailable];
+    }
+    else if (indexPath.row==8) {
+        [self featureNotAvailable];
+    }
+    else if (indexPath.row==9) {
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
             myDelegate.selectedCategoryIndex=-1;
             [myDelegate logoutUser];
@@ -141,7 +150,7 @@
             myDelegate.selectedCategoryIndex=-1;
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
             [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-                //logou1 user
+                //logout user
                 [myDelegate logoutUser];
             }];
             [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"logoutUser") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];

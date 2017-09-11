@@ -40,6 +40,10 @@
 @property (strong, nonatomic) IBOutlet UILabel *privacyPolicyLoginLabel;
 //Declare BSKeyboard variable
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
+@property (weak, nonatomic) IBOutlet UILabel *orLabel;
+@property (weak, nonatomic) IBOutlet UIButton *createAccountButton;
+@property (weak, nonatomic) IBOutlet UIButton *skipContinueButton;
+
 @end
 
 @implementation SignUpViewController
@@ -120,9 +124,6 @@
     // Adding the swipe gesture on image view
     [[self swipeImageView] addGestureRecognizer:swipeImageLeft];
     [[self swipeImageView] addGestureRecognizer:swipeImageRight];
-    
-    //    float scaleFactor = [[UIScreen mainScreen]bounds].size.height/568.0;
-    //    signUpBackViewY=45+(scaleFactor*140.0)+29;
     signUpBackViewY=222;
     _mainView.translatesAutoresizingMaskIntoConstraints=true;
     _mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, signUpBackViewY+628.0);
@@ -130,6 +131,19 @@
     //Set privacy policy attributed text
     [self setAttributString];
     [self customizedTextField];
+    [self localizedText];
+}
+
+- (void) localizedText {
+    _firstNameTextField.placeholder=NSLocalizedText(@"firstName");
+    _lastNameTextField.placeholder=NSLocalizedText(@"lastName");
+    _emailTextField.placeholder=NSLocalizedText(@"Email");
+    _passwordTextField.placeholder=NSLocalizedText(@"Password");
+    _confirmPasswordTextField.placeholder=NSLocalizedText(@"ConfirmPassword");
+    _orLabel.text=NSLocalizedText(@"or");
+    [_createAccountButton setTitle:NSLocalizedText(@"createAccount") forState:UIControlStateNormal];
+
+    [_skipContinueButton setTitle:NSLocalizedText(@"Skip") forState:UIControlStateNormal];
 }
 
 - (void)setAttributString {

@@ -18,6 +18,10 @@
 }
 @property (weak, nonatomic) IBOutlet UIImageView *notificationBackgroundImage;
 @property (weak, nonatomic) IBOutlet UILabel *infoTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *notiTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descLabel;
+@property (weak, nonatomic) IBOutlet UIButton *okayButton;
+@property (weak, nonatomic) IBOutlet UIButton *notNowButton;
 @end
 
 @implementation EnableNotificationViewController
@@ -28,6 +32,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeInActiveState) name:UIApplicationWillEnterForegroundNotification object:nil];
     isClickEnable=0;
     // Do any additional setup after loading the view.
+    [self localizedText];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -38,6 +43,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) localizedText {
+    _notiTitleLabel.text=NSLocalizedText(@"enableNotification");
+    _descLabel.text=NSLocalizedText(@"descText");
+    _infoTextLabel.text=NSLocalizedText(@"infoText");
+    [_okayButton setTitle:NSLocalizedText(@"okay") forState:UIControlStateNormal];
+    [_notNowButton setTitle:NSLocalizedText(@"notnow") forState:UIControlStateNormal];
 }
 #pragma mark - end
 

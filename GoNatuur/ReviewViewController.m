@@ -28,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet EDStarRating *starRatingView;
 @property (weak, nonatomic) IBOutlet UIButton *submitReviewButton;
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
+@property (weak, nonatomic) IBOutlet UILabel *rateProductLabel;
 @end
 
 @implementation ReviewViewController
@@ -67,7 +68,8 @@
     [_reviewTextView setTextViewBorder:_reviewTextView color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_reviewTextView setPlaceholder:NSLocalizedText(@"textViewPlaceholder")];
     _reviewTextView.textContainer.lineFragmentPadding = 10;
-    
+    _titleTextField.placeholder=NSLocalizedText(@"title");
+    _rateProductLabel.text=NSLocalizedText(@"rateProductLabelText");
     if ([isEditMode isEqualToString:@"1"]) {
         [_submitReviewButton setTitle:NSLocalizedText(@"UPDATE REVIEW") forState:UIControlStateNormal];
         _reviewScreenTitle.text=NSLocalizedText(@"Update Your Review");

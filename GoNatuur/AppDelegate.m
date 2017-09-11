@@ -12,6 +12,7 @@
 #import <GoogleSignIn/GoogleSignIn.h>
 #import <UserNotifications/UserNotifications.h>
 #import "UncaughtExceptionHandler.h"
+#import "PayPalMobile.h"
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -101,6 +102,9 @@
         [self.window setBackgroundColor:[UIColor whiteColor]];
         [self.window makeKeyAndVisible];
     }
+    
+    //paypal config with client id //sandbox will be changed to live
+    [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentSandbox :     payPalClientId}];
     //[self registerForRemoteNotification];
     return YES;
 }
@@ -253,6 +257,7 @@
 #pragma mark - Logout user
 - (void)logoutUser {
     //Logout user
+    [UserDefaultManager removeValue:@"quoteCount"];
     [UserDefaultManager removeValue:@"userId"];
     [UserDefaultManager removeValue:@"emailId"];
     [UserDefaultManager removeValue:@"Authorization"];
@@ -261,6 +266,8 @@
     [UserDefaultManager removeValue:@"quoteId"];
     [UserDefaultManager removeValue:@"firstname"];
     [UserDefaultManager removeValue:@"lastname"];
+    [UserDefaultManager setValue:@"" key:@"TotalPoints"];
+    [UserDefaultManager setValue:@"" key:@"RecentEarned"];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     myDelegate.navigationController = [storyboard instantiateViewControllerWithIdentifier:@"mainNavController"];
     myDelegate.window.rootViewController = myDelegate.navigationController;

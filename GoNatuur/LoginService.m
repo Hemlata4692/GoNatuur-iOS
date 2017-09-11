@@ -20,16 +20,6 @@ static NSString *kResetPassword=@"ranosys/customer/resetPassword";
 
 @implementation LoginService
 
-#pragma mark - Get authorization token
-- (void)getAccessToken:(LoginModel *)accessToken onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
-    NSDictionary *parameters = @{@"username" : @"gpadmin",
-                                 @"password" : @"ranosys-1234",
-                                };
-    DLog(@"%@",parameters);
-    [super post:@"integration/admin/token" parameters:parameters success:success failure:failure];
-}
-#pragma mark - end
-
 #pragma mark - Login user service
 - (void)loginUser:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
     [UserDefaultManager removeValue:@"Authorization"];

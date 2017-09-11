@@ -11,11 +11,16 @@
 #import "GoNatuurPickerView.h"
 #import "ProfileTableViewCell.h"
 #import "UIImage+UIImage_fixOrientation.h"
+#import "ProfileModel.h"
+#import "PayPalPaymentOption.h"
 
-@interface ProfileViewController ()<GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
+@interface ProfileViewController ()<GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,PayPalPaymentDelegate>{
     NSArray *menuItemsArray, *customerSupportArray;
     GoNatuurPickerView *customerSupportPicker;
     int selectedPickerIndex;
+    UIImage *userProfileImage;
+    PayPalPaymentOption *payment;
+    BOOL isImagePicker;
 }
 @property (weak, nonatomic) IBOutlet UITableView *profileTableView;
 @end
@@ -27,8 +32,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"customerSupportCell", @"changePasswordCell"];
-    customerSupportArray=@[@"Chat with us",@"View and raise tickets."];
+    customerSupportArray=@[NSLocalizedText(@"chat"), NSLocalizedText(@"raiseTicket")];
     [self addCustomPickerView];
+    isImagePicker=false;
+    payment=[[PayPalPaymentOption alloc]init];
+    [payment configPaypalPayment:PayPalEnvironmentSandbox];
+    
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getUserImapctPoints) withObject:nil afterDelay:.1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,6 +54,9 @@
     [self addLeftBarButtonWithImage:false];
     [self.view bringSubviewToFront:customerSupportPicker.goNatuurPickerViewObj];
     [self showSelectedTab:4];
+    if (!isImagePicker) {
+        [_profileTableView reloadData];
+    }
 }
 
 //add picker view
@@ -51,6 +65,34 @@
     //Set initial index of picker view and initialized picker view
     customerSupportPicker=[[GoNatuurPickerView alloc] initWithFrame:self.view.frame delegate:self pickerHeight:230];
     [self.view addSubview:customerSupportPicker.goNatuurPickerViewObj];
+}
+#pragma mark - end
+
+#pragma mark - Web services
+//Get user profile
+- (void)getUserImapctPoints {
+    ProfileModel *userData = [ProfileModel sharedUser];
+    userData.pageCount=@"1";
+    userData.currentPage=@"1";
+    [userData getImpactPoints:^(ProfileModel *userData) {
+        [myDelegate stopIndicator];
+        [_profileTableView reloadData];
+        //dispaly profile data
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)editUserProfileImage {
+    ProfileModel *userData = [ProfileModel sharedUser];
+    userData.userImage=userProfileImage;
+    [userData updateUserProfileImage:^(ProfileModel *userData) {
+        isImagePicker=false;
+        [myDelegate stopIndicator];
+        //dispaly profile data
+    } onfailure:^(NSError *error) {
+        
+    }];
 }
 #pragma mark - end
 
@@ -85,7 +127,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==0) {
-        return 160;
+        return 150;
     }
     else if (indexPath.row==1) {
         return [DynamicHeightWidth getDynamicLabelHeight:[UserDefaultManager getValue:@"emailId"] font:[UIFont montserratLightWithSize:16] widthValue:[[UIScreen mainScreen] bounds].size.width-50 heightValue:60]+10;
@@ -115,6 +157,30 @@
                                                     otherButtonTitles:NSLocalizedText(@"Camera"), NSLocalizedText(@"Gallery"), nil];
     [actionSheet showInView:self.view];
 }
+
+- (IBAction)redeemPointsButtonAction:(id)sender {
+    //pay pal payment
+    //[payment setPaymentDetails:[customerSupportArray mutableCopy] delegate:self];
+}
+
+//PayPalPaymentDelegate
+#pragma mark - PayPalPaymentDelegate methods
+- (void)payPalPaymentViewController:(PayPalPaymentViewController *)paymentViewController didCompletePayment:(PayPalPayment *)completedPayment {
+    NSLog(@"PayPal Payment Success!");
+   // self.resultText = [completedPayment description];
+    //[self showSuccess];
+
+    // [self sendCompletedPaymentToServer:completedPayment]; // Payment was processed successfully; send to server for verification and fulfillment
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)payPalPaymentDidCancel:(PayPalPaymentViewController *)paymentViewController {
+    NSLog(@"PayPal Payment Canceled");
+   // self.resultText = nil;
+    //self.successView.hidden = YES;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - end
 
 #pragma mark - Action sheet delegate
@@ -160,9 +226,13 @@
     ProfileTableViewCell * cell = (ProfileTableViewCell *)[_profileTableView cellForRowAtIndexPath:index];
     UIImage *correctOrientationImage = [image fixOrientation];
     cell.userProfileImage.image=correctOrientationImage;
-    [picker dismissViewControllerAnimated:YES completion:NULL];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    userProfileImage=cell.userProfileImage.image;
+    isImagePicker=true;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(editUserProfileImage) withObject:nil afterDelay:.1];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

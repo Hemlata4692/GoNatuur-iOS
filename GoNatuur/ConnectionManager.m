@@ -22,6 +22,10 @@
 #import "ProductService.h"
 #import "ProfileModel.h"
 #import "ProfileService.h"
+#import "CartDataModel.h"
+#import "CartService.h"
+#import "OrderModel.h"
+#import "OrderService.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -33,20 +37,6 @@
         connectionManager = [[[self class] alloc] init];
     });
     return connectionManager;
-}
-#pragma mark - end
-
-#pragma mark - Community code
-- (void)getAccessToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
-    LoginService *authToken = [[LoginService alloc] init];
-    //parse data from server response and store in datamodel
-    [authToken getAccessToken:userData onSuccess:^(id response) {
-        
-        
-        success(response);
-    } onFailure:^(NSError *error) {
-        failure(error);
-    }] ;
 }
 #pragma mark - end
 
@@ -269,6 +259,7 @@
             CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
             exchangeData.currencyExchangeCode = footerDataDict[@"currency_to"];
             exchangeData.currencyExchangeRates = footerDataDict[@"rate"];
+            exchangeData.currencysymbol = footerDataDict[@"currency_symbol"];
             [userData.availableCurrencyRatesArray addObject:exchangeData];
         }
         success(userData);
@@ -370,6 +361,58 @@
     }] ;
     
 }
+#pragma mark - end
+
+#pragma mark - Wishlist data
+- (void)getWishlistData:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    SearchService *serachSuggestions=[[SearchService alloc]init];
+    [serachSuggestions getWishlistService:searchData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"wishlist service response %@",response);
+        searchData.searchProductListArray=[[NSMutableArray alloc]init];
+        NSArray *wishlistArray=response[@"items"];
+        for (int i =0; i<wishlistArray.count; i++) {
+            NSDictionary * dataDict =[[wishlistArray objectAtIndex:i]objectForKey:@"product"];
+            SearchDataModel * productData = [[SearchDataModel alloc]init];
+            productData.wishlistItemId=[[wishlistArray objectAtIndex:i]objectForKey:@"wishlist_item_id"];
+            productData.productId = dataDict[@"id"];
+            productData.productPrice = [dataDict[@"price"] stringValue];
+            
+            productData.productName = dataDict[@"name"];
+            if ([[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
+                productData.productDescription=[self stringByStrippingHTML:[[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+            }
+            productData.productImageThumbnail = [[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            productData.productQty = [[dataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
+            productData.specialPrice = [[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            productData.productRating = [[dataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+            productData.productType=[dataDict objectForKey:@"type_id"];
+            [searchData.searchProductListArray addObject:productData];
+        }
+        searchData.searchResultCount=response[@"total_count"];
+        success(searchData);
+        
+    } onfailure:^(NSError *error) {
+        failure(error);
+    }] ;
+    
+}
+#pragma mark - end
+
+#pragma mark - Remove from wishlist
+- (void)removeFromWishlistData:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    SearchService *serachSuggestions=[[SearchService alloc]init];
+    [serachSuggestions removeFromWishlistService:searchData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"wishlist service response %@",response);
+        success(searchData);
+        
+    } onfailure:^(NSError *error) {
+        failure(error);
+    }] ;
+    
+}
+
 #pragma mark - end
 
 #pragma mark - Notification listing
@@ -658,24 +701,37 @@
     [profileService getCountryCodeService:profileData onSuccess:^(id response) {
         //Parse data from server response and store in data model
         DLog(@"country code list response %@",response);
-        profileData.countryCodeArray=[[NSMutableArray alloc]init];
-        profileData.regionArray=[[NSMutableArray alloc]init];
         NSArray *countryArray=response;
+        profileData.countryCodeArray=[[NSMutableArray alloc]init];
         for (int i=0; i<countryArray.count; i++) {
-            NSDictionary * dataDict =[countryArray objectAtIndex:i];
             ProfileModel *countryData=[[ProfileModel alloc] init];
+            countryData.regionArray=[[NSMutableArray alloc]init];
+            NSDictionary * dataDict =[countryArray objectAtIndex:i];
             countryData.countryLocale=[dataDict objectForKey:@"full_name_locale"];
             countryData.countryId=[dataDict objectForKey:@"id"];
-            NSArray *regionListArray = [dataDict objectForKey:@"available_regions"];
-            for (int j=0; j<regionListArray.count; j++) {
-                NSDictionary * regionDict =[regionListArray objectAtIndex:j];
-                countryData.regionId=[regionDict objectForKey:@"id"];
-                countryData.regionCode=[regionDict objectForKey:@"code"];
-                countryData.regionName=[regionDict objectForKey:@"name"];
-                [profileData.regionArray addObject:countryData];
+            NSArray *regionListArray = [[NSArray alloc]init];
+            regionListArray = [dataDict objectForKey:@"available_regions"];
+            for (int i=0; i<regionListArray.count; i++) {
+                ProfileModel *regionData=[[ProfileModel alloc] init];
+                NSDictionary * regionDict =[regionListArray objectAtIndex:i];
+                regionData.regionId=[regionDict objectForKey:@"id"];
+                regionData.regionCode=[regionDict objectForKey:@"code"];
+                regionData.regionName=[regionDict objectForKey:@"name"];
+                [countryData.regionArray addObject:regionData];
             }
             [profileData.countryCodeArray addObject:countryData];
         }
+        success(profileData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - User profile service
+- (void)saveAndUpdateAddress:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
+    ProfileService *profileService = [[ProfileService alloc] init];
+    [profileService saveAndUpdateAddress:profileData onSuccess:^(id response) {
         success(profileData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -697,6 +753,35 @@
         profileData.websiteId=response[@"website_id"];
         profileData.customAttributeArray=[response[@"custom_attributes"]mutableCopy];
         profileData.addressArray=[response[@"addresses"]mutableCopy];
+        success(profileData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - User profile image
+- (void)updateUserProfileImage:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
+    ProfileService *profileService = [[ProfileService alloc] init];
+    [profileService updateUserprofileImageService:profileData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"user profile image %@",response);
+        profileData.userImageURL=response[@"profile_pic"];
+        success(profileData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - User imapct points
+- (void)getUserImpactPointsData:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
+    ProfileService *profileService = [[ProfileService alloc] init];
+    [profileService getImpactsPointService:profileData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"user imapct point response %@",response);
+        profileData.totalPoints=[response[@"balance_points"] stringValue];
+        profileData.recentEarnedPoints=response[@"recently_earned_points"];
         success(profileData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -730,7 +815,6 @@
         for (NSDictionary *aDict in response[@"custom_attributes"]) {
             if ([[aDict objectForKey:@"attribute_code"] isEqualToString:@"DefaultCurrency"]) {
                 [UserDefaultManager setValue:[aDict objectForKey:@"value"] key:@"DefaultCurrencyCode"];
-                
             }
         }
         success(profileData);
@@ -739,4 +823,118 @@
     }] ;
 }
 #pragma mark - end
+
+#pragma mark - Cart module services
+//Cart listing service
+- (void)getCartListing:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList getCartListing:cartData success:^(id response) {
+        DLog(@"cart list response %@",response);
+        cartData.cartListResponse=[response mutableCopy];
+        cartData.itemList=[NSMutableArray new];
+        if ((nil==[UserDefaultManager getValue:@"userId"])){
+            int cartCount=0;
+            for (NSDictionary *tempDict in response) {
+                cartCount+=[tempDict[@"qty"] intValue];
+                [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
+            }
+            cartData.itemQty=[NSNumber numberWithInt:cartCount];
+        }
+        else {
+            for (NSDictionary *tempDict in response[@"items"]) {
+                [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
+            }
+        }
+        
+        success(cartData);
+    }
+                   onfailure:^(NSError *error) {
+                   }];
+}
+
+- (CartDataModel *)loadCartListData:(NSDictionary *)tempDict {
+    CartDataModel *listData = [[CartDataModel alloc]init];
+    listData.itemId=tempDict[@"item_id"];
+    listData.itemName=tempDict[@"name"];
+    listData.itemPrice=tempDict[@"price"];
+    listData.itemQty=tempDict[@"qty"];
+    listData.itemQuoteId=tempDict[@"quote_id"];
+    listData.itemSku=tempDict[@"sku"];
+    return listData;
+}
+#pragma mark - end
+
+#pragma mark - Remove item from cart
+- (void)removeItemFromCart:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList removeItemFromCart:cartData success:^(id response) {
+        DLog(@"cart list response %@",response);
+        success(cartData);
+    }
+                       onfailure:^(NSError *error) {
+                       }];
+}
+#pragma mark - end
+
+#pragma mark - Search list by name data
+- (void)getProductListByNameService:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    SearchService *serachSuggestions=[[SearchService alloc]init];
+    [serachSuggestions getProductListByNameService:searchData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"SearchService list response %@",response);
+        searchData.searchProductListArray=[[NSMutableArray alloc]init];
+        NSArray *productDataArray=response[@"items"];
+        for (int i =0; i<productDataArray.count; i++) {
+            NSDictionary * productDataDict =[productDataArray objectAtIndex:i];
+            SearchDataModel * productData = [[SearchDataModel alloc]init];
+            productData.productId = productDataDict[@"id"];
+            productData.productPrice = [productDataDict[@"price"] stringValue];
+            productData.productName = productDataDict[@"name"];
+            if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
+                productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+            }
+            productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
+            productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+            productData.productType=[productDataDict objectForKey:@"type_id"];
+            [searchData.searchProductListArray addObject:productData];
+        }
+        searchData.searchResultCount=response[@"total_count"];
+        searchData.searchProductIds=[response[@"relevance_items"] mutableCopy];
+        success(searchData);
+        
+    } onfailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Get order listing
+- (void)getOrderListing:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure {
+    OrderService *orderService = [[OrderService alloc] init];
+    [orderService getOrderListing:orderData onSuccess:^(id response) {
+        DLog(@"order list response %@",response);
+        orderData.orderListingArray=[[NSMutableArray alloc]init];
+        NSArray *dataArray=response[@"items"];
+        for (int i =0; i<dataArray.count; i++) {
+            NSDictionary * orderDataDict =[dataArray objectAtIndex:i];
+            OrderModel * orderListData = [[OrderModel alloc]init];
+            orderListData.orderDate = [[orderDataDict[@"created_at"] componentsSeparatedByString:@" "] objectAtIndex:0];
+            orderListData.orderPrice = orderDataDict[@"grand_total"];
+            orderListData.currencyCode = orderDataDict[@"order_currency_code"];
+            orderListData.orderStatus = orderDataDict[@"status"];
+            orderListData.purchaseOrderId = orderDataDict[@"increment_id"];
+            orderListData.billingAddressId = orderDataDict[@"billing_address_id"];
+            orderListData.shippingAddress = [([[[[[orderDataDict[@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"] objectForKey:@"street"]) componentsJoinedByString:@" "];
+            orderListData.BillingAddress = [[orderDataDict[@"billing_address"] objectForKey:@"street"] componentsJoinedByString:@" "];
+            [orderData.orderListingArray addObject:orderListData];
+        }
+        success(orderData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
 @end

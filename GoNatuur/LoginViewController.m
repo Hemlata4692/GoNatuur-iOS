@@ -30,6 +30,10 @@
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UILabel *registerLabel;
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
+@property (weak, nonatomic) IBOutlet UILabel *orSeperatorLabel;
+@property (weak, nonatomic) IBOutlet UIButton *loginbutton;
+@property (weak, nonatomic) IBOutlet UIButton *skipButton;
+@property (weak, nonatomic) IBOutlet UIButton *forgotPasswordButton;
 @end
 
 @implementation LoginViewController
@@ -38,7 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//        [self authenticationToken];
+    //        [self authenticationToken];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -107,6 +111,19 @@
     //Set privacy policy attributed text
     [self setAttributString];
     [self customizedTextField];
+    [self localizedText];
+}
+
+- (void) localizedText {
+    _emailTextField.placeholder=NSLocalizedText(@"Email");
+    _passwordTextField.placeholder=NSLocalizedText(@"Password");
+    _orSeperatorLabel.text=NSLocalizedText(@"or");
+    [_loginbutton setTitle:NSLocalizedText(@"Log In") forState:UIControlStateNormal];
+    [_forgotPasswordButton setTitle:NSLocalizedText(@"ForgotPassword") forState:UIControlStateNormal];
+    [_forgotPasswordButton sizeToFit];
+    _forgotPasswordButton.frame=CGRectMake(([[UIScreen mainScreen] bounds].origin.x+[[UIScreen mainScreen] bounds].size.width/2)-(_forgotPasswordButton.frame.size.width/2), _loginbutton.frame.origin.y+_loginbutton.frame.size.height+8, _forgotPasswordButton.frame.size.width, 18);
+    [_forgotPasswordButton setBottomBorder:_forgotPasswordButton color:[UIColor blackColor]];
+    [_skipButton setTitle:NSLocalizedText(@"Skip") forState:UIControlStateNormal];
 }
 
 - (void)setAttributString {
@@ -146,6 +163,7 @@
     [_passwordTextField setTextBorder:_passwordTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_emailTextField addTextFieldLeftRightPadding:_emailTextField];
     [_passwordTextField addTextFieldLeftRightPadding:_passwordTextField];
+    _forgotPasswordButton.translatesAutoresizingMaskIntoConstraints=YES;
 }
 #pragma mark - end
 
@@ -271,19 +289,6 @@
 #pragma mark - end
 
 #pragma mark - Webservice
-//Community code webservice called
-- (void)authenticationToken {
-    //    [myDelegate showIndicator];
-    LoginModel *authToken = [LoginModel sharedUser];
-    authToken.username=@"";
-    authToken.password=@"";
-    [authToken accessToken:^(LoginModel *userData) {
-        //        [self userLogin];
-    } onfailure:^(NSError *error) {
-        
-    }];
-}
-
 //User login webservice called
 - (void)userLogin {
     LoginModel *userLogin = [LoginModel sharedUser];

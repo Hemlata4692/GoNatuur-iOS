@@ -21,6 +21,17 @@
 		181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181853261F3D833F00EEB73B /* DashboardDataModel.m */; };
 		1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532A1F3D8A7F00EEB73B /* DashboardService.m */; };
 		1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532E1F3DFED000EEB73B /* ImageCaching.m */; };
+		181FD2181F6018C000C5373C /* libPayPalMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2171F6018C000C5373C /* libPayPalMobile.a */; };
+		181FD21C1F6018E400C5373C /* libCardIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2191F6018E400C5373C /* libCardIO.a */; };
+		181FD21D1F6018E400C5373C /* libopencv_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD21A1F6018E400C5373C /* libopencv_core.a */; };
+		181FD21E1F6018E400C5373C /* libopencv_imgproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD21B1F6018E400C5373C /* libopencv_imgproc.a */; };
+		181FD2201F60194700C5373C /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD21F1F60194700C5373C /* SafariServices.framework */; };
+		181FD2221F60194C00C5373C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2211F60194C00C5373C /* Security.framework */; };
+		181FD2241F60195200C5373C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2231F60195200C5373C /* SystemConfiguration.framework */; };
+		181FD2261F60195900C5373C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2251F60195900C5373C /* OpenGLES.framework */; };
+		181FD2281F60197800C5373C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2271F60197800C5373C /* Accelerate.framework */; };
+		181FD22A1F60198000C5373C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2291F60198000C5373C /* AudioToolbox.framework */; };
+		181FD2311F601FA900C5373C /* PayPalPaymentOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 181FD2301F601FA900C5373C /* PayPalPaymentOption.m */; };
 		184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C385B1F3B0911008B8291 /* SideBarViewController.m */; };
 		184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C38641F3B328A008B8291 /* EnableNotificationViewController.m */; };
 		184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */; };
@@ -51,6 +62,8 @@
 		188B2C131F41DFA50001A7AE /* SearchDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C121F41DFA50001A7AE /* SearchDataModel.m */; };
 		188B2C171F41DFFA0001A7AE /* SearchService.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C161F41DFFA0001A7AE /* SearchService.m */; };
 		188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C1A1F41F45A0001A7AE /* CurrencyDataModel.m */; };
+		189162081F614CD2005ED12E /* CardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189162071F614CD2005ED12E /* CardListViewController.m */; };
+		1891620C1F614CEF005ED12E /* AddCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1891620B1F614CEF005ED12E /* AddCardViewController.m */; };
 		18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */; };
 		18C418E01F56E9D500749654 /* UIImage+UIImage_fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418DF1F56E9D500749654 /* UIImage+UIImage_fixOrientation.m */; };
 		18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418E31F57266A00749654 /* EditProfileViewController.m */; };
@@ -87,10 +100,18 @@
 		32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20901F25B1760054C344 /* ConnectionManager.m */; };
 		32CC20951F25B1D90054C344 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20941F25B1D90054C344 /* LoginModel.m */; };
 		32CC20991F25B1F80054C344 /* LoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20981F25B1F80054C344 /* LoginService.m */; };
+		5D0CB20E1F63FF16008043B6 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0CB20D1F63FF16008043B6 /* OrderDetailViewController.m */; };
 		5D1E5E3B1F56845D006E6C63 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D1E5E3A1F56845D006E6C63 /* AddressViewController.m */; };
+		5D2760A61F62767F00B6D0FF /* OrderListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D2760A31F62767F00B6D0FF /* OrderListingViewController.m */; };
+		5D2760A71F62767F00B6D0FF /* OrderListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D2760A51F62767F00B6D0FF /* OrderListingCell.m */; };
+		5D2760AD1F62795A00B6D0FF /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D2760AC1F62795A00B6D0FF /* OrderModel.m */; };
+		5D2760B11F627AEF00B6D0FF /* OrderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D2760B01F627AEF00B6D0FF /* OrderService.m */; };
 		5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC591F553A3500AECF40 /* ChangePasswordViewController.m */; };
 		5D27AC5E1F55649E00AECF40 /* ProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC5D1F55649E00AECF40 /* ProfileModel.m */; };
 		5D27AC621F55678C00AECF40 /* ProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC611F55678C00AECF40 /* ProfileService.m */; };
+		5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC39511F61783F00702F92 /* AddressListingViewController.m */; };
+		5DAC39551F61783F00702F92 /* AddressListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC39531F61783F00702F92 /* AddressListingCell.m */; };
+		5DC7840D1F6637160025CA4A /* OrderDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DC7840C1F6637160025CA4A /* OrderDetailCell.m */; };
 		B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = B73A65371F3DF0630051E4C5 /* LocalizedString.m */; };
 		B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653A1F3DF07F0051E4C5 /* en.strings */; };
 		B73A653E1F3DF0870051E4C5 /* cn.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653C1F3DF0870051E4C5 /* cn.strings */; };
@@ -101,6 +122,11 @@
 		B77A8A781F34388800233782 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A771F34388800233782 /* SignUpViewController.m */; };
 		B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */; };
 		B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */; };
+		B77D86E51F5D83EB0041D646 /* MyCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86E41F5D83EB0041D646 /* MyCartViewController.m */; };
+		B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86E71F5D83F50041D646 /* CartListingViewController.m */; };
+		B77D86EB1F5D84090041D646 /* CartListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86EA1F5D84090041D646 /* CartListTableViewCell.m */; };
+		B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86EE1F5D85190041D646 /* CartDataModel.m */; };
+		B77D86F31F5D85320041D646 /* CartService.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D86F21F5D85320041D646 /* CartService.m */; };
 		B7A4D3ED1F48278A00A28BBE /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3EC1F48278900A28BBE /* ProductDetailViewController.m */; };
 		B7A4D3F01F4828E500A28BBE /* ProductDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3EF1F4828E500A28BBE /* ProductDetailTableViewCell.m */; };
 		B7A4D3F51F48294700A28BBE /* ProductDetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3F41F48294700A28BBE /* ProductDetailCollectionViewCell.m */; };
@@ -161,6 +187,25 @@
 		1818532A1F3D8A7F00EEB73B /* DashboardService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardService.m; sourceTree = "<group>"; };
 		1818532D1F3DFED000EEB73B /* ImageCaching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCaching.h; sourceTree = "<group>"; };
 		1818532E1F3DFED000EEB73B /* ImageCaching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCaching.m; sourceTree = "<group>"; };
+		181FD2101F6018C000C5373C /* PayPalMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalMobile.h; sourceTree = "<group>"; };
+		181FD2111F6018C000C5373C /* PayPalConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalConfiguration.h; sourceTree = "<group>"; };
+		181FD2121F6018C000C5373C /* PayPalPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalPayment.h; sourceTree = "<group>"; };
+		181FD2131F6018C000C5373C /* PayPalPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalPaymentViewController.h; sourceTree = "<group>"; };
+		181FD2141F6018C000C5373C /* PayPalFuturePaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalFuturePaymentViewController.h; sourceTree = "<group>"; };
+		181FD2151F6018C000C5373C /* PayPalProfileSharingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalProfileSharingViewController.h; sourceTree = "<group>"; };
+		181FD2161F6018C000C5373C /* PayPalOAuthScopes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalOAuthScopes.h; sourceTree = "<group>"; };
+		181FD2171F6018C000C5373C /* libPayPalMobile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPayPalMobile.a; sourceTree = "<group>"; };
+		181FD2191F6018E400C5373C /* libCardIO.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCardIO.a; sourceTree = "<group>"; };
+		181FD21A1F6018E400C5373C /* libopencv_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopencv_core.a; sourceTree = "<group>"; };
+		181FD21B1F6018E400C5373C /* libopencv_imgproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopencv_imgproc.a; sourceTree = "<group>"; };
+		181FD21F1F60194700C5373C /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		181FD2211F60194C00C5373C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		181FD2231F60195200C5373C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		181FD2251F60195900C5373C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		181FD2271F60197800C5373C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		181FD2291F60198000C5373C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		181FD22F1F601FA900C5373C /* PayPalPaymentOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalPaymentOption.h; sourceTree = "<group>"; };
+		181FD2301F601FA900C5373C /* PayPalPaymentOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayPalPaymentOption.m; sourceTree = "<group>"; };
 		184C385A1F3B0911008B8291 /* SideBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideBarViewController.h; sourceTree = "<group>"; };
 		184C385B1F3B0911008B8291 /* SideBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideBarViewController.m; sourceTree = "<group>"; };
 		184C38631F3B328A008B8291 /* EnableNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableNotificationViewController.h; sourceTree = "<group>"; };
@@ -208,6 +253,11 @@
 		188B2C161F41DFFA0001A7AE /* SearchService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchService.m; sourceTree = "<group>"; };
 		188B2C191F41F45A0001A7AE /* CurrencyDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyDataModel.h; sourceTree = "<group>"; };
 		188B2C1A1F41F45A0001A7AE /* CurrencyDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyDataModel.m; sourceTree = "<group>"; };
+		189162061F614CD2005ED12E /* CardListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardListViewController.h; sourceTree = "<group>"; };
+		189162071F614CD2005ED12E /* CardListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardListViewController.m; sourceTree = "<group>"; };
+		1891620A1F614CEF005ED12E /* AddCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCardViewController.h; sourceTree = "<group>"; };
+		1891620B1F614CEF005ED12E /* AddCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCardViewController.m; sourceTree = "<group>"; };
+		1891620D1F617735005ED12E /* GoNatuur.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoNatuur.entitlements; sourceTree = "<group>"; };
 		18C1DF7C1F3CAE96000D9431 /* DasboardDataCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasboardDataCollectionViewCell.h; sourceTree = "<group>"; };
 		18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DasboardDataCollectionViewCell.m; sourceTree = "<group>"; };
 		18C418DE1F56E9D500749654 /* UIImage+UIImage_fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImage_fixOrientation.h"; sourceTree = "<group>"; };
@@ -270,14 +320,30 @@
 		32CC20941F25B1D90054C344 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		32CC20971F25B1F80054C344 /* LoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginService.h; sourceTree = "<group>"; };
 		32CC20981F25B1F80054C344 /* LoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginService.m; sourceTree = "<group>"; };
+		5D0CB20C1F63FF16008043B6 /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
+		5D0CB20D1F63FF16008043B6 /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
 		5D1E5E391F56845D006E6C63 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
 		5D1E5E3A1F56845D006E6C63 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
+		5D2760A21F62767F00B6D0FF /* OrderListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListingViewController.h; sourceTree = "<group>"; };
+		5D2760A31F62767F00B6D0FF /* OrderListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListingViewController.m; sourceTree = "<group>"; };
+		5D2760A41F62767F00B6D0FF /* OrderListingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListingCell.h; sourceTree = "<group>"; };
+		5D2760A51F62767F00B6D0FF /* OrderListingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListingCell.m; sourceTree = "<group>"; };
+		5D2760AB1F62795A00B6D0FF /* OrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderModel.h; sourceTree = "<group>"; };
+		5D2760AC1F62795A00B6D0FF /* OrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderModel.m; sourceTree = "<group>"; };
+		5D2760AF1F627AEF00B6D0FF /* OrderService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderService.h; sourceTree = "<group>"; };
+		5D2760B01F627AEF00B6D0FF /* OrderService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderService.m; sourceTree = "<group>"; };
 		5D27AC581F553A3500AECF40 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		5D27AC591F553A3500AECF40 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		5D27AC5C1F55649E00AECF40 /* ProfileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileModel.h; sourceTree = "<group>"; };
 		5D27AC5D1F55649E00AECF40 /* ProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileModel.m; sourceTree = "<group>"; };
 		5D27AC601F55678C00AECF40 /* ProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileService.h; sourceTree = "<group>"; };
 		5D27AC611F55678C00AECF40 /* ProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileService.m; sourceTree = "<group>"; };
+		5DAC39501F61783F00702F92 /* AddressListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListingViewController.h; sourceTree = "<group>"; };
+		5DAC39511F61783F00702F92 /* AddressListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListingViewController.m; sourceTree = "<group>"; };
+		5DAC39521F61783F00702F92 /* AddressListingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListingCell.h; sourceTree = "<group>"; };
+		5DAC39531F61783F00702F92 /* AddressListingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListingCell.m; sourceTree = "<group>"; };
+		5DC7840B1F6637160025CA4A /* OrderDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailCell.h; sourceTree = "<group>"; };
+		5DC7840C1F6637160025CA4A /* OrderDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailCell.m; sourceTree = "<group>"; };
 		B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.debug.xcconfig"; sourceTree = "<group>"; };
 		B73A65361F3DF0630051E4C5 /* LocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedString.h; sourceTree = "<group>"; };
 		B73A65371F3DF0630051E4C5 /* LocalizedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedString.m; sourceTree = "<group>"; };
@@ -294,6 +360,16 @@
 		B77A8A7A1F346C1200233782 /* SocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
 		B77A8A7B1F346C1200233782 /* SocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialLoginViewController.m; sourceTree = "<group>"; };
 		B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialLoginViewController.xib; sourceTree = "<group>"; };
+		B77D86E31F5D83EB0041D646 /* MyCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCartViewController.h; sourceTree = "<group>"; };
+		B77D86E41F5D83EB0041D646 /* MyCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCartViewController.m; sourceTree = "<group>"; };
+		B77D86E61F5D83F50041D646 /* CartListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartListingViewController.h; sourceTree = "<group>"; };
+		B77D86E71F5D83F50041D646 /* CartListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartListingViewController.m; sourceTree = "<group>"; };
+		B77D86E91F5D84090041D646 /* CartListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartListTableViewCell.h; sourceTree = "<group>"; };
+		B77D86EA1F5D84090041D646 /* CartListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartListTableViewCell.m; sourceTree = "<group>"; };
+		B77D86ED1F5D85190041D646 /* CartDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartDataModel.h; sourceTree = "<group>"; };
+		B77D86EE1F5D85190041D646 /* CartDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartDataModel.m; sourceTree = "<group>"; };
+		B77D86F11F5D85320041D646 /* CartService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartService.h; sourceTree = "<group>"; };
+		B77D86F21F5D85320041D646 /* CartService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartService.m; sourceTree = "<group>"; };
 		B7A4D3EB1F48278900A28BBE /* ProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailViewController.h; sourceTree = "<group>"; };
 		B7A4D3EC1F48278900A28BBE /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
 		B7A4D3EE1F4828E500A28BBE /* ProductDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailTableViewCell.h; sourceTree = "<group>"; };
@@ -331,14 +407,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				181FD22A1F60198000C5373C /* AudioToolbox.framework in Frameworks */,
+				181FD2281F60197800C5373C /* Accelerate.framework in Frameworks */,
+				181FD2261F60195900C5373C /* OpenGLES.framework in Frameworks */,
+				181FD2241F60195200C5373C /* SystemConfiguration.framework in Frameworks */,
+				181FD2221F60194C00C5373C /* Security.framework in Frameworks */,
+				181FD2201F60194700C5373C /* SafariServices.framework in Frameworks */,
 				187129091F48DD2B00D16581 /* MediaPlayer.framework in Frameworks */,
 				188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */,
+				181FD21D1F6018E400C5373C /* libopencv_core.a in Frameworks */,
 				32A3D7111F1CE3BB00062B86 /* GoogleSymbolUtilities.framework in Frameworks */,
 				E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */,
 				32A3D7051F1CD2E100062B86 /* FBSDKCoreKit.framework in Frameworks */,
+				181FD21E1F6018E400C5373C /* libopencv_imgproc.a in Frameworks */,
 				32A3D7061F1CD2E100062B86 /* FBSDKLoginKit.framework in Frameworks */,
 				32A3D7121F1CE3BB00062B86 /* GoogleAppUtilities.framework in Frameworks */,
+				181FD21C1F6018E400C5373C /* libCardIO.a in Frameworks */,
 				32A3D7101F1CE3BB00062B86 /* GoogleSignInDependencies.framework in Frameworks */,
+				181FD2181F6018C000C5373C /* libPayPalMobile.a in Frameworks */,
 				32A3D7041F1CD2E100062B86 /* Bolts.framework in Frameworks */,
 				32A3D7141F1CE3BB00062B86 /* GoogleSignIn.framework in Frameworks */,
 			);
@@ -490,6 +576,49 @@
 			name = ImageCaching;
 			sourceTree = "<group>";
 		};
+		181AD48C1F5EADEB00AA3C3D /* WishlistModule */ = {
+			isa = PBXGroup;
+			children = (
+				180409E21F58887100EA3E17 /* WishlistViewController */,
+			);
+			name = WishlistModule;
+			sourceTree = "<group>";
+		};
+		181FD20F1F60188300C5373C /* PaypalSDK */ = {
+			isa = PBXGroup;
+			children = (
+				181FD2191F6018E400C5373C /* libCardIO.a */,
+				181FD21A1F6018E400C5373C /* libopencv_core.a */,
+				181FD21B1F6018E400C5373C /* libopencv_imgproc.a */,
+				181FD2101F6018C000C5373C /* PayPalMobile.h */,
+				181FD2111F6018C000C5373C /* PayPalConfiguration.h */,
+				181FD2121F6018C000C5373C /* PayPalPayment.h */,
+				181FD2131F6018C000C5373C /* PayPalPaymentViewController.h */,
+				181FD2141F6018C000C5373C /* PayPalFuturePaymentViewController.h */,
+				181FD2151F6018C000C5373C /* PayPalProfileSharingViewController.h */,
+				181FD2161F6018C000C5373C /* PayPalOAuthScopes.h */,
+				181FD2171F6018C000C5373C /* libPayPalMobile.a */,
+			);
+			name = PaypalSDK;
+			sourceTree = "<group>";
+		};
+		181FD22B1F601F6300C5373C /* PaymentMethodModule */ = {
+			isa = PBXGroup;
+			children = (
+				181FD22C1F601F6F00C5373C /* PayPal */,
+			);
+			name = PaymentMethodModule;
+			sourceTree = "<group>";
+		};
+		181FD22C1F601F6F00C5373C /* PayPal */ = {
+			isa = PBXGroup;
+			children = (
+				181FD22F1F601FA900C5373C /* PayPalPaymentOption.h */,
+				181FD2301F601FA900C5373C /* PayPalPaymentOption.m */,
+			);
+			name = PayPal;
+			sourceTree = "<group>";
+		};
 		184C38581F3B08DE008B8291 /* SWRevealViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,7 +669,6 @@
 			children = (
 				1813BDBD1F55E70100D9C9BA /* ProfileView */,
 				18C418E11F57263600749654 /* EditProfileView */,
-				5D1E5E351F56840A006E6C63 /* AddressViewController */,
 				5D27AC571F553A0500AECF40 /* ChangePasswordViewController */,
 			);
 			name = ProfileModule;
@@ -728,6 +856,33 @@
 			name = CurrencyDataModel;
 			sourceTree = "<group>";
 		};
+		189162041F614C7C005ED12E /* PaymentDetails */ = {
+			isa = PBXGroup;
+			children = (
+				189162091F614CDE005ED12E /* AddCardViewController */,
+				189162051F614C8F005ED12E /* CardListViewController */,
+			);
+			name = PaymentDetails;
+			sourceTree = "<group>";
+		};
+		189162051F614C8F005ED12E /* CardListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				189162061F614CD2005ED12E /* CardListViewController.h */,
+				189162071F614CD2005ED12E /* CardListViewController.m */,
+			);
+			name = CardListViewController;
+			sourceTree = "<group>";
+		};
+		189162091F614CDE005ED12E /* AddCardViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1891620A1F614CEF005ED12E /* AddCardViewController.h */,
+				1891620B1F614CEF005ED12E /* AddCardViewController.m */,
+			);
+			name = AddCardViewController;
+			sourceTree = "<group>";
+		};
 		18C1DF7B1F3CAE51000D9431 /* DashboardDataCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -804,13 +959,18 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				180409E21F58887100EA3E17 /* WishlistViewController */,
+				5D2760A11F62765400B6D0FF /* OrderModule */,
+				189162041F614C7C005ED12E /* PaymentDetails */,
+				181FD22B1F601F6300C5373C /* PaymentMethodModule */,
+				188605961F39C05A0005D1E2 /* GlobalViewModule */,
+				181AD48C1F5EADEB00AA3C3D /* WishlistModule */,
+				B77D86DE1F5D83A40041D646 /* MyCartModule */,
 				180409DD1F58741800EA3E17 /* NewCentreModule */,
+				5DAC38201F6177DA00702F92 /* AddressModule */,
 				185F706A1F559D6B007F49F7 /* ProfileModule */,
 				180ECD381F489AAD003C936E /* ReviewModule */,
 				180ECD221F482A0C003C936E /* WebViewController */,
 				B7AA39BA1F47106600423121 /* ProductModule */,
-				188605961F39C05A0005D1E2 /* GlobalViewModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
 				188605911F39BB720005D1E2 /* DashboardModule */,
 				184C38611F3B3254008B8291 /* NotificationModule */,
@@ -821,6 +981,8 @@
 		320761601F1626F2001F1790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5D2760AA1F62793F00B6D0FF /* OrderModel */,
+				B77D86EC1F5D850F0041D646 /* CartModel */,
 				5D27AC5B1F55647700AECF40 /* ProfileModel */,
 				180ECD3D1F489E3F003C936E /* ReviewModel */,
 				B7A4D3F71F4854A500A28BBE /* ProductModel */,
@@ -874,6 +1036,7 @@
 		320761651F162733001F1790 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				181FD20F1F60188300C5373C /* PaypalSDK */,
 				B7DA71F01F5034E500F45439 /* HCYoutubeParser */,
 				180ECD2A1F484B5C003C936E /* StarRatingView */,
 				B7AA39AF1F470FFA00423121 /* GoNatuurPickerView */,
@@ -910,6 +1073,8 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				5D2760AE1F627AD800B6D0FF /* OrderService */,
+				B77D86F01F5D85270041D646 /* CartService */,
 				5D27AC5F1F55674E00AECF40 /* ProfileService */,
 				180ECD411F48A200003C936E /* ReviewService */,
 				B7A4D3F61F48549D00A28BBE /* ProductService */,
@@ -1089,6 +1254,7 @@
 		32BAA6061F1360280015E355 /* GoNatuur */ = {
 			isa = PBXGroup;
 			children = (
+				1891620D1F617735005ED12E /* GoNatuur.entitlements */,
 				320761621F162706001F1790 /* AppDelegate */,
 				320761631F162712001F1790 /* Classes */,
 				187561981F469F8600F609AB /* Main.storyboard */,
@@ -1144,11 +1310,35 @@
 		3C0B4A3E4E995FBB10C57627 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				181FD2291F60198000C5373C /* AudioToolbox.framework */,
+				181FD2271F60197800C5373C /* Accelerate.framework */,
+				181FD2251F60195900C5373C /* OpenGLES.framework */,
+				181FD2231F60195200C5373C /* SystemConfiguration.framework */,
+				181FD2211F60194C00C5373C /* Security.framework */,
+				181FD21F1F60194700C5373C /* SafariServices.framework */,
 				187129081F48DD2A00D16581 /* MediaPlayer.framework */,
 				1886058F1F39AF320005D1E2 /* UserNotifications.framework */,
 				BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5D0CB20A1F63FEE8008043B6 /* OrderListView */ = {
+			isa = PBXGroup;
+			children = (
+				5D2760A81F62790F00B6D0FF /* OrderListingViewController */,
+				5D2760A91F62792300B6D0FF /* OrderListCell */,
+			);
+			name = OrderListView;
+			sourceTree = "<group>";
+		};
+		5D0CB20B1F63FEF7008043B6 /* OrderDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				5D95200E1F6672C40036645F /* OrderDetailViewController */,
+				5D95200F1F6672E60036645F /* OrderDetailCell */,
+			);
+			name = OrderDetailView;
 			sourceTree = "<group>";
 		};
 		5D1E5E351F56840A006E6C63 /* AddressViewController */ = {
@@ -1158,6 +1348,51 @@
 				5D1E5E3A1F56845D006E6C63 /* AddressViewController.m */,
 			);
 			name = AddressViewController;
+			sourceTree = "<group>";
+		};
+		5D2760A11F62765400B6D0FF /* OrderModule */ = {
+			isa = PBXGroup;
+			children = (
+				5D0CB20A1F63FEE8008043B6 /* OrderListView */,
+				5D0CB20B1F63FEF7008043B6 /* OrderDetailView */,
+			);
+			name = OrderModule;
+			sourceTree = "<group>";
+		};
+		5D2760A81F62790F00B6D0FF /* OrderListingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5D2760A21F62767F00B6D0FF /* OrderListingViewController.h */,
+				5D2760A31F62767F00B6D0FF /* OrderListingViewController.m */,
+			);
+			name = OrderListingViewController;
+			sourceTree = "<group>";
+		};
+		5D2760A91F62792300B6D0FF /* OrderListCell */ = {
+			isa = PBXGroup;
+			children = (
+				5D2760A41F62767F00B6D0FF /* OrderListingCell.h */,
+				5D2760A51F62767F00B6D0FF /* OrderListingCell.m */,
+			);
+			name = OrderListCell;
+			sourceTree = "<group>";
+		};
+		5D2760AA1F62793F00B6D0FF /* OrderModel */ = {
+			isa = PBXGroup;
+			children = (
+				5D2760AB1F62795A00B6D0FF /* OrderModel.h */,
+				5D2760AC1F62795A00B6D0FF /* OrderModel.m */,
+			);
+			name = OrderModel;
+			sourceTree = "<group>";
+		};
+		5D2760AE1F627AD800B6D0FF /* OrderService */ = {
+			isa = PBXGroup;
+			children = (
+				5D2760AF1F627AEF00B6D0FF /* OrderService.h */,
+				5D2760B01F627AEF00B6D0FF /* OrderService.m */,
+			);
+			name = OrderService;
 			sourceTree = "<group>";
 		};
 		5D27AC571F553A0500AECF40 /* ChangePasswordViewController */ = {
@@ -1185,6 +1420,60 @@
 				5D27AC611F55678C00AECF40 /* ProfileService.m */,
 			);
 			name = ProfileService;
+			sourceTree = "<group>";
+		};
+		5D95200E1F6672C40036645F /* OrderDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5D0CB20C1F63FF16008043B6 /* OrderDetailViewController.h */,
+				5D0CB20D1F63FF16008043B6 /* OrderDetailViewController.m */,
+			);
+			name = OrderDetailViewController;
+			sourceTree = "<group>";
+		};
+		5D95200F1F6672E60036645F /* OrderDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+				5DC7840B1F6637160025CA4A /* OrderDetailCell.h */,
+				5DC7840C1F6637160025CA4A /* OrderDetailCell.m */,
+			);
+			name = OrderDetailCell;
+			sourceTree = "<group>";
+		};
+		5DAC38201F6177DA00702F92 /* AddressModule */ = {
+			isa = PBXGroup;
+			children = (
+				5DAC394F1F61783300702F92 /* AddressListingView */,
+				5D1E5E351F56840A006E6C63 /* AddressViewController */,
+			);
+			name = AddressModule;
+			sourceTree = "<group>";
+		};
+		5DAC394F1F61783300702F92 /* AddressListingView */ = {
+			isa = PBXGroup;
+			children = (
+				5DAC39571F61835F00702F92 /* AddressListingViewController */,
+				5DAC39561F61835D00702F92 /* AddressListingCell */,
+			);
+			name = AddressListingView;
+			sourceTree = "<group>";
+		};
+		5DAC39561F61835D00702F92 /* AddressListingCell */ = {
+			isa = PBXGroup;
+			children = (
+				5DAC39521F61783F00702F92 /* AddressListingCell.h */,
+				5DAC39531F61783F00702F92 /* AddressListingCell.m */,
+			);
+			name = AddressListingCell;
+			sourceTree = "<group>";
+		};
+		5DAC39571F61835F00702F92 /* AddressListingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5DAC39501F61783F00702F92 /* AddressListingViewController.h */,
+				5DAC39511F61783F00702F92 /* AddressListingViewController.m */,
+			);
+			name = AddressListingViewController;
 			sourceTree = "<group>";
 		};
 		B73A65351F3DF0530051E4C5 /* LocalizedString */ = {
@@ -1241,6 +1530,69 @@
 				B77A8A7C1F346C1200233782 /* SocialLoginViewController.xib */,
 			);
 			name = SocialLoginButttonView;
+			sourceTree = "<group>";
+		};
+		B77D86DE1F5D83A40041D646 /* MyCartModule */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E21F5D83CF0041D646 /* MyCartViewController */,
+				B77D86DF1F5D83AE0041D646 /* CartListingViewController */,
+			);
+			name = MyCartModule;
+			sourceTree = "<group>";
+		};
+		B77D86DF1F5D83AE0041D646 /* CartListingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E11F5D83C50041D646 /* CartListCell */,
+				B77D86E01F5D83BB0041D646 /* CartListViewController */,
+			);
+			name = CartListingViewController;
+			sourceTree = "<group>";
+		};
+		B77D86E01F5D83BB0041D646 /* CartListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E61F5D83F50041D646 /* CartListingViewController.h */,
+				B77D86E71F5D83F50041D646 /* CartListingViewController.m */,
+			);
+			name = CartListViewController;
+			sourceTree = "<group>";
+		};
+		B77D86E11F5D83C50041D646 /* CartListCell */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E91F5D84090041D646 /* CartListTableViewCell.h */,
+				B77D86EA1F5D84090041D646 /* CartListTableViewCell.m */,
+			);
+			name = CartListCell;
+			sourceTree = "<group>";
+		};
+		B77D86E21F5D83CF0041D646 /* MyCartViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86E31F5D83EB0041D646 /* MyCartViewController.h */,
+				B77D86E41F5D83EB0041D646 /* MyCartViewController.m */,
+			);
+			name = MyCartViewController;
+			sourceTree = "<group>";
+		};
+		B77D86EC1F5D850F0041D646 /* CartModel */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86ED1F5D85190041D646 /* CartDataModel.h */,
+				B77D86EE1F5D85190041D646 /* CartDataModel.m */,
+			);
+			name = CartModel;
+			sourceTree = "<group>";
+		};
+		B77D86F01F5D85270041D646 /* CartService */ = {
+			isa = PBXGroup;
+			children = (
+				B77D86F11F5D85320041D646 /* CartService.h */,
+				B77D86F21F5D85320041D646 /* CartService.m */,
+			);
+			name = CartService;
 			sourceTree = "<group>";
 		};
 		B7A4D3E81F4826AF00A28BBE /* ProductDetailViewController */ = {
@@ -1457,6 +1809,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -1565,16 +1920,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				189162081F614CD2005ED12E /* CardListViewController.m in Sources */,
 				32A3D6FF1F1CD2B800062B86 /* FacebookConnect.m in Sources */,
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
 				187561911F469BD500F609AB /* NotificationDataModel.m in Sources */,
+				5D2760A61F62767F00B6D0FF /* OrderListingViewController.m in Sources */,
 				180ECD301F484DE4003C936E /* UIPlaceHolderTextView.m in Sources */,
+				5DC7840D1F6637160025CA4A /* OrderDetailCell.m in Sources */,
+				5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */,
 				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
 				180ECD3C1F489AF0003C936E /* ReviewTableViewCell.m in Sources */,
 				180409E51F58888900EA3E17 /* WishlistViewController.m in Sources */,
 				32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */,
 				B7AA39B81F47102100423121 /* GoNatuurPickerView.m in Sources */,
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
+				181FD2311F601FA900C5373C /* PayPalPaymentOption.m in Sources */,
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
 				B77A8A781F34388800233782 /* SignUpViewController.m in Sources */,
 				B7A86ECD1F3B3D85004DA530 /* CMSPageViewController.m in Sources */,
@@ -1592,15 +1952,20 @@
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
 				181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
+				B77D86EB1F5D84090041D646 /* CartListTableViewCell.m in Sources */,
+				5D2760AD1F62795A00B6D0FF /* OrderModel.m in Sources */,
 				1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */,
 				187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */,
 				B7A4D3ED1F48278A00A28BBE /* ProductDetailViewController.m in Sources */,
+				5D0CB20E1F63FF16008043B6 /* OrderDetailViewController.m in Sources */,
 				B7A4D3FD1F4857C900A28BBE /* ProductService.m in Sources */,
 				1875618D1F469B2800F609AB /* NotificationService.m in Sources */,
 				B7A4D3FA1F4854CC00A28BBE /* ProductDataModel.m in Sources */,
 				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,
 				18C418E01F56E9D500749654 /* UIImage+UIImage_fixOrientation.m in Sources */,
 				180ECD401F48A1D1003C936E /* ReviewDataModel.m in Sources */,
+				B77D86F31F5D85320041D646 /* CartService.m in Sources */,
+				5D2760A71F62767F00B6D0FF /* OrderListingCell.m in Sources */,
 				B7AA39B31F47101400423121 /* GoNatuurFilterView.m in Sources */,
 				180ECD251F482A38003C936E /* WebViewController.m in Sources */,
 				180ECD291F484A17003C936E /* ReviewViewController.m in Sources */,
@@ -1608,10 +1973,14 @@
 				18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
+				B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */,
+				B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				B7DA71F31F5034F300F45439 /* HCYoutubeParser.m in Sources */,
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
+				B77D86E51F5D83EB0041D646 /* MyCartViewController.m in Sources */,
 				184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */,
+				5DAC39551F61783F00702F92 /* AddressListingCell.m in Sources */,
 				188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */,
 				3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */,
 				320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */,
@@ -1621,6 +1990,7 @@
 				B7AA39C51F47116700423121 /* ProductListCollectionViewCell.m in Sources */,
 				180ECD331F485B56003C936E /* EDStarRating.m in Sources */,
 				32BAA6091F1360280015E355 /* main.m in Sources */,
+				1891620C1F614CEF005ED12E /* AddCardViewController.m in Sources */,
 				188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */,
 				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,
 				B7A4D3F01F4828E500A28BBE /* ProductDetailTableViewCell.m in Sources */,
@@ -1628,6 +1998,7 @@
 				1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */,
 				180ECD441F48A215003C936E /* ReviewService.m in Sources */,
 				B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */,
+				5D2760B11F627AEF00B6D0FF /* OrderService.m in Sources */,
 				1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */,
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
 				184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */,
@@ -1768,6 +2139,7 @@
 			baseConfigurationReference = B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GoNatuur/GoNatuur.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ranosys Technologies Pte Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ranosys Technologies Pte Ltd";
 				DEVELOPMENT_TEAM = M8A7BYS443;
@@ -1780,6 +2152,31 @@
 				INFOPLIST_FILE = GoNatuur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GoNatuur",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"SCLAlertView-Objective-C\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-lc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.GoNatuur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "52596806-52c6-4ca4-8ca4-e14557529bec";
@@ -1792,6 +2189,7 @@
 			baseConfigurationReference = B83EEE6EC30D7C8806561F9A /* Pods-GoNatuur.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GoNatuur/GoNatuur.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ranosys Technologies Pte Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ranosys Technologies Pte Ltd";
 				DEVELOPMENT_TEAM = M8A7BYS443;
@@ -1804,6 +2202,31 @@
 				INFOPLIST_FILE = GoNatuur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GoNatuur",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"SCLAlertView-Objective-C\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-lc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ranosys.GoNatuur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "52596806-52c6-4ca4-8ca4-e14557529bec";

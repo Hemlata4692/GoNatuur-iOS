@@ -14,6 +14,8 @@
 #import "ProfileModel.h"
 #import "UIImage+UIImage_fixOrientation.h"
 #import "DynamicHeightWidth.h"
+#import "AddressListingViewController.h"
+#import "DashboardDataModel.h"
 
 @interface EditProfileViewController ()<BSKeyboardControlsDelegate,GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
     UITextField *currentSelectedTextField;
@@ -22,6 +24,7 @@
     GoNatuurPickerView *gNPickerViewObj;
     int languagePickerIndex, currencyPickerIndex;
     NSString *languageValue;
+    ProfileModel *profileData;
 }
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
@@ -33,11 +36,14 @@
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UIImageView *userImageView;
 @property (weak, nonatomic) IBOutlet UILabel *userEmailLabel;
-
+@property (weak, nonatomic) IBOutlet UILabel *detailsTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *settingsLabel;
+@property (weak, nonatomic) IBOutlet UIButton *manageAddButton;
 @end
 
 @implementation EditProfileViewController
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -69,6 +75,7 @@
                                                  name:UIKeyboardWillHideNotification object:nil];
     [self customizeViewFields];
     [self addCustomPickerView];
+    [self localizedText];
     //Bring front view picker view
     [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
 }
@@ -85,6 +92,22 @@
     _firstNameTextField.text=@"";
     _lastNameTextField.text=@"";
 }
+
+- (void)localizedText {
+    _firstNameTextField.placeholder=NSLocalizedText(@"firstName");
+    _lastNameTextField.placeholder=NSLocalizedText(@"lastName");
+    _changeLaguageTextField.placeholder=NSLocalizedText(@"changeLanguage");
+    _changeCurrencyTextField.placeholder=NSLocalizedText(@"changeCurrency");
+    _detailsTitleLabel.text=NSLocalizedText(@"personalDetails");
+    _settingsLabel.text=NSLocalizedText(@"personalSetting");
+    [_saveButton setTitle:NSLocalizedText(@"save") forState:UIControlStateNormal];
+    [_manageAddButton setTitle:NSLocalizedText(@"manageAddress") forState:UIControlStateNormal];
+    _manageAddButton.translatesAutoresizingMaskIntoConstraints=YES;
+    [_manageAddButton sizeToFit];
+    _manageAddButton.frame=CGRectMake(([[UIScreen mainScreen] bounds].origin.x+[[UIScreen mainScreen] bounds].size.width/2)-(_manageAddButton.frame.size.width/2), _saveButton.frame.origin.y+_saveButton.frame.size.height+8, _manageAddButton.frame.size.width, 22);
+    [_manageAddButton setBottomBorder:_manageAddButton color:[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0]];
+}
+#pragma mark - end
 
 #pragma mark - Customise text fields
 - (void)customizeViewFields {
@@ -105,6 +128,7 @@
     [_saveButton addShadow:_saveButton color:[UIColor blackColor]];
     [_userImageView setBorder:_userImageView color:[UIColor colorWithRed:194.0/255.0 green:194.0/255.0 blue:194.0/255.0 alpha:1.0] borderWidth:3.0];
     [_userImageView setCornerRadius:60.0];
+    [ImageCaching downloadImages:_userImageView imageUrl:[UserDefaultManager getValue:@"profilePicture"] placeholderImage:@"profile_placeholder" isDashboardCell:true];
 }
 #pragma mark - end
 
@@ -169,6 +193,10 @@
 
 - (IBAction)manageAddressesButtionAction:(id)sender {
     ////4=> English,5=>traditional,6=>simplified
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    AddressListingViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"AddressListingViewController"];
+    nextView.profileData = profileData;
+    [self.navigationController pushViewController:nextView animated:YES];
 }
 
 - (IBAction)languagePickerButtonActio:(id)sender {
@@ -235,9 +263,11 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info {
     UIImage *correctOrientationImage = [image fixOrientation];
     _userImageView.image=correctOrientationImage;
-    [picker dismissViewControllerAnimated:YES completion:NULL];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(editProfileImageData) withObject:nil afterDelay:.1];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -289,6 +319,7 @@
 - (void)getUserProfile {
     ProfileModel *userData = [ProfileModel sharedUser];
     [userData getUserProfile:^(ProfileModel *userData) {
+        profileData = userData;
         [myDelegate stopIndicator];
         //dispaly profile data
         for (NSDictionary *aDict in userData.customAttributeArray) {
@@ -307,11 +338,22 @@
     }];
 }
 
+//edit profile
+- (void)editProfileImageData {
+    ProfileModel *userData = [ProfileModel sharedUser];
+    userData.userImage=_userImageView.image;
+    [userData updateUserProfileImage:^(ProfileModel *userData) {
+        [myDelegate stopIndicator];
+        //dispaly profile data
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
 //display profile data
 - (void)displayData:(ProfileModel *)data {
     _firstNameTextField.text=data.firstName;
     _lastNameTextField.text=data.lastName;
-    [ImageCaching downloadImages:_userImageView imageUrl:[UserDefaultManager getValue:@"profilePicture"] placeholderImage:@"profile_placeholder" isDashboardCell:true];
     _userEmailLabel.text=[UserDefaultManager getValue:@"emailId"];
     _userEmailLabel.translatesAutoresizingMaskIntoConstraints=YES;
     _userEmailLabel.numberOfLines=2;
@@ -386,24 +428,46 @@
     }
     
     [userData saveUserProfile:^(ProfileModel *userData) {
+        [self getCategoryListData];
         NSMutableArray *ratesArray=[NSMutableArray new];
         for (int i =0; i<[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] count]; i++) {
             NSDictionary * footerDataDict =[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] objectAtIndex:i];
             CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
             exchangeData.currencyExchangeCode = footerDataDict[@"currency_to"];
             exchangeData.currencyExchangeRates = footerDataDict[@"rate"];
+            exchangeData.currencysymbol = footerDataDict[@"currency_symbol"];
             [ratesArray addObject:exchangeData];
         }
         for (int i=0; i<ratesArray.count; i++) {
             if ([[UserDefaultManager getValue:@"DefaultCurrencyCode"] containsString:[[ratesArray objectAtIndex:i] currencyExchangeCode]]) {
                 [UserDefaultManager setValue:[[ratesArray objectAtIndex:i] currencyExchangeRates] key:@"ExchangeRates"];
-                NSLog(@"%@",[UserDefaultManager getValue:@"ExchangeRates"]);
+                if ([[[ratesArray objectAtIndex:i] currencysymbol] isEqualToString:@""] || [[ratesArray objectAtIndex:i] currencysymbol]==nil) {
+                    [UserDefaultManager setValue:[UserDefaultManager getValue:@"DefaultCurrencyCode"] key:@"DefaultCurrencySymbol"];
+                }
+                else {
+                    [UserDefaultManager setValue:[[ratesArray objectAtIndex:i] currencysymbol] key:@"DefaultCurrencySymbol"];
+                }
             }
         }
-        [myDelegate stopIndicator];
-        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"profileSuccess") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+    } onfailure:^(NSError *error) {
         
+    }];
+}
+
+//Get category list data
+- (void)getCategoryListData {
+    DashboardDataModel *categoryList = [DashboardDataModel sharedUser];
+    categoryList.categoryId=@"2";
+    [categoryList getCategoryListDataOnSuccess:^(DashboardDataModel *userData)  {
+        myDelegate.categoryNameArray=[userData.categoryNameArray mutableCopy];
+        self.categorySliderObjc.categoryDataArray=[myDelegate.categoryNameArray mutableCopy];
+        [self.categorySliderObjc.categorySliderCollectionView reloadData];
+         [myDelegate stopIndicator];
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"profileSuccess")  closeButtonTitle:nil duration:0.0f];
     } onfailure:^(NSError *error) {
         
     }];

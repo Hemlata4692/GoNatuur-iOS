@@ -16,6 +16,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalPointsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *recentlyEarnedLabel;
 @property (weak, nonatomic) IBOutlet UIButton *redeemPointButton;
+@property (weak, nonatomic) IBOutlet UILabel *recentTitle;
+@property (weak, nonatomic) IBOutlet UILabel *totalTitle;
+@property (weak, nonatomic) IBOutlet UILabel *personalDetailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *customerSupportLabel;
+@property (weak, nonatomic) IBOutlet UILabel *changePasswordLabel;
 
 - (void)displayData:(CGSize)rectSize ;
 @end
