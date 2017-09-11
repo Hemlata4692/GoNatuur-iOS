@@ -14,6 +14,7 @@
 #import "GoNatuurPickerView.h"
 #import "CheckoutTableViewCell.h"
 #import "CheckoutCollectionViewCell.h"
+#import "AddressListingViewController.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
@@ -93,8 +94,9 @@
 
 @implementation CheckoutAddressViewController
 @synthesize cartModelData, cartListDataArray;
-@synthesize isEditService;
 @synthesize subTotalPrice;
+@synthesize isBillingAddress,isShippingAddress;
+@synthesize isEditService;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -104,6 +106,8 @@
     [self viewInitialization];
     //Add custom picker view and initialized indexs
     [self addCustomPickerView];
+    isBillingAddress=false;
+    isShippingAddress=false;
     [myDelegate showIndicator];
     [self performSelector:@selector(getCountryCode) withObject:nil afterDelay:.1];
     // Do any additional setup after loading the view.
@@ -121,6 +125,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
+    if ((isBillingAddress||isShippingAddress)&&isEditService) {
+        isBillingAddress=false;
+        isShippingAddress=false;
+        isEditService=false;
+        [self setInitailizedShippingAddressData];
+        [self setInitailizedBillingAddressData:isShippingAddreesSame];
+        if ([self shippingAddressFieldValidations:true]) {
+            [myDelegate showIndicator];
+            [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithBool:false] afterDelay:.1];
+        }
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -688,9 +703,24 @@
 }
 
 - (IBAction)shippingEditAddress:(UIButton *)sender {
+        
+    //StoryBoard navigation
+    isShippingAddress=true;
+    isEditService=false;
+    AddressListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"AddressListingViewController"];
+    obj.checkoutAddressViewObj=self;
+    obj.profileData.addressArray=[cartModelData.customerSavedAddressArray mutableCopy];
+    [self.navigationController pushViewController:obj animated:YES];
 }
 
 - (IBAction)billingEditAddress:(UIButton *)sender {
+    //StoryBoard navigation
+    isBillingAddress=true;
+    isEditService=false;
+    AddressListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"AddressListingViewController"];
+    obj.checkoutAddressViewObj=self;
+    obj.profileData.addressArray=[cartModelData.customerSavedAddressArray mutableCopy];
+    [self.navigationController pushViewController:obj animated:YES];
 }
 
 - (IBAction)shippingCountryAction:(UIButton *)sender {
