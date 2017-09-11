@@ -525,7 +525,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="87.5" y="273.5" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="273.5" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -5839,7 +5839,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="87.5" y="273.5" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="273.5" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>
@@ -7787,7 +7787,6 @@
         <image name="about" width="26" height="26"/>
         <image name="american-express" width="132" height="84"/>
         <image name="arrow" width="18" height="18"/>
-        <image name="attending" width="28" height="28"/>
         <image name="back" width="26" height="26"/>
         <image name="banner_placeholder" width="1000" height="500"/>
         <image name="benefits" width="28" height="28"/>
@@ -7798,7 +7797,6 @@
         <image name="circleprofile" width="219" height="219"/>
         <image name="close" width="20" height="20"/>
         <image name="closeIcon" width="28" height="28"/>
-        <image name="comments" width="28" height="28"/>
         <image name="contact" width="26" height="26"/>
         <image name="customer-service" width="28" height="28"/>
         <image name="dashboard_banner1.png" width="588" height="256"/>
@@ -7812,7 +7810,6 @@
         <image name="exmlatory-mark" width="26" height="26"/>
         <image name="follow" width="28" height="28"/>
         <image name="location" width="28" height="28"/>
-        <image name="map-location" width="28" height="28"/>
         <image name="mobile-view" width="450" height="569"/>
         <image name="myorder" width="26" height="26"/>
         <image name="navigation" width="1242" height="200"/>
