@@ -17,6 +17,7 @@
 @class ProductDataModel;
 @class ProfileModel;
 @class CartDataModel;
+@class OrderModel;
 
 @interface ConnectionManager : NSObject
 
@@ -98,4 +99,5 @@
 - (void)getProductListByNameService:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 //Remove item from cart
 - (void)removeItemFromCart:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure ;
+- (void)getOrderListing:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure;
 @end

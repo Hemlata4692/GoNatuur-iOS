@@ -235,3 +235,11 @@
 "sideBarAboutUs"="關於我們";
 "sideBarContactUs"="聯繫我們";
 "sideBarNewsLetter"="通訊訂閱";
+"orderTitle"="My Orders";
+"PurchaseOrderHeading"="Purchase Order:";
+"orderDateHeading"="Date:";
+"shipHeading"="Ship To:";
+"billHeading"="Bill To:";
+"statusHeading"="Status:";
+"priceHeading"="Price:";
+"trackShippingTitle"="TRACK SHIPPING";

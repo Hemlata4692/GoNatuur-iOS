@@ -110,7 +110,8 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==0) {
-         [self featureNotAvailable];
+        myDelegate.selectedCategoryIndex=-1;
+        [myDelegate checkGuestAccess];
     }
     else if (indexPath.row==1) {
          [self featureNotAvailable];

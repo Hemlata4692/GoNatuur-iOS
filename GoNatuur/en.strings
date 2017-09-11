@@ -217,3 +217,11 @@
 "sideBarAboutUs"="ABOUT US";
 "sideBarContactUs"="CONTACT US";
 "sideBarNewsLetter"="NEWSLETTER SUBSCRIPTION";
+"orderTitle"="My Orders";
+"PurchaseOrderHeading"="Purchase Order:";
+"orderDateHeading"="Date:";
+"shipHeading"="Ship To:";
+"billHeading"="Bill To:";
+"statusHeading"="Status:";
+"priceHeading"="Price:";
+"trackShippingTitle"="TRACK SHIPPING";

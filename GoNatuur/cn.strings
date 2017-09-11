@@ -218,3 +218,11 @@
 "sideBarAboutUs"="关于我们";
 "sideBarContactUs"="联系我们";
 "sideBarNewsLetter"="通讯订阅";
+"orderTitle"="My Orders";
+"PurchaseOrderHeading"="Purchase Order:";
+"orderDateHeading"="Date:";
+"shipHeading"="Ship To:";
+"billHeading"="Bill To:";
+"statusHeading"="Status:";
+"priceHeading"="Price:";
+"trackShippingTitle"="TRACK SHIPPING";
