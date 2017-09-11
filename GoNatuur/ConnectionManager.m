@@ -928,6 +928,19 @@
             orderListData.billingAddressId = orderDataDict[@"billing_address_id"];
             orderListData.shippingAddress = [([[[[[orderDataDict[@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"] objectForKey:@"street"]) componentsJoinedByString:@" "];
             orderListData.BillingAddress = [[orderDataDict[@"billing_address"] objectForKey:@"street"] componentsJoinedByString:@" "];
+            
+            orderListData.productListingArray=[[NSMutableArray alloc]init];
+            NSArray *productDataArray=[[[orderDataDict[@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"items"];
+            for (int i =0; i<productDataArray.count; i++) {
+                NSDictionary * orderDataDict =[productDataArray objectAtIndex:i];
+                OrderModel * productListData = [[OrderModel alloc]init];
+                productListData.productName = orderDataDict[@"name"];
+                productListData.productSku = orderDataDict[@"sku"];
+                productListData.productPrice = orderDataDict[@"price"];
+                productListData.productQuantity = orderDataDict[@"qty_ordered"];
+                productListData.productSubTotal = orderDataDict[@"row_total"];
+                [orderListData.productListingArray addObject:productListData];
+            }
             [orderData.orderListingArray addObject:orderListData];
         }
         success(orderData);

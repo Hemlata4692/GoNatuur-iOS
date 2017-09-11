@@ -19,6 +19,13 @@
 @property (strong, nonatomic) NSString *currencyCode;
 @property (strong, nonatomic) NSString *billingAddressId;
 @property (strong, nonatomic) NSMutableArray *orderListingArray;
+@property (strong, nonatomic) NSMutableArray *productListingArray;
+//Order detail
+@property (strong, nonatomic) NSString *productName;
+@property (strong, nonatomic) NSString *productSku;
+@property (strong, nonatomic) NSString *productPrice;
+@property (strong, nonatomic) NSString *productQuantity;
+@property (strong, nonatomic) NSString *productSubTotal;
 
 //Singleton instanse
 + (instancetype)sharedUser;
