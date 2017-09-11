@@ -46,7 +46,7 @@ static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-
 //        [super deleteService:[NSString stringWithFormat:@"guest-carts/%@/items/%@",cartData.itemQuoteId,cartData.itemId] parameters:nil isBoolean:true success:success failure:failure];
 //    }
 //    else {
-    [super post:kGetLogindShippmentMethod parameters:nil success:success failure:failure];
+    [self get:kGetLogindShippmentMethod parameters:nil onSuccess:success onFailure:failure];
 //    }
 }
 #pragma mark - end
@@ -65,6 +65,9 @@ static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-
 
 #pragma mark - Set addresses and shipping methods
 - (void)setUpdatedAddressShippingMethodsService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    if ([cartData.selectedShippingMethod containsString:@"_"]) {
+        cartData.selectedShippingMethod=[[cartData.selectedShippingMethod componentsSeparatedByString:@"_"] objectAtIndex:0];
+    }
     NSDictionary *parameters = @{@"addressInformation" : @{
                                          @"shipping_address":[self setAddressMethod:[cartData.shippingAddressDict copy]],
                                          @"billing_address":[self setAddressMethod:[cartData.billingAddressDict copy]],
@@ -83,9 +86,9 @@ static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-
         [streetTempArray addObject:street];
     }
     NSDictionary *parameters = @{@"id" : [UserDefaultManager getNumberValue:@"id" dictData:tempDict],
-                                 @"region" : [tempDict[@"region"] objectForKey:@"region"],
-                                 @"region_id" : [tempDict[@"region"] objectForKey:@"region_id"],
-                                 @"region_code" : [tempDict[@"region"] objectForKey:@"region_code"],
+                                 @"region" : [tempDict objectForKey:@"region"],
+                                 @"region_id" : [UserDefaultManager getNumberValue:[tempDict objectForKey:@"region_id"] dictData:tempDict],
+                                 @"region_code" : [tempDict objectForKey:@"region_code"],
                                  @"country_id" : [UserDefaultManager checkStringNull:@"country_id" dictData:tempDict],
                                  @"company" : [UserDefaultManager checkStringNull:@"company" dictData:tempDict],
                                  @"telephone" : tempDict[@"telephone"],

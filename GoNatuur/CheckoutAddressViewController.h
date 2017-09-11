@@ -13,4 +13,5 @@
 @property (nonatomic, strong) NSMutableArray *cartListDataArray;
 @property (nonatomic, assign) BOOL isEditService;
 @property (nonatomic, strong) CartDataModel *cartModelData;
+@property (nonatomic, assign) float subTotalPrice;
 @end

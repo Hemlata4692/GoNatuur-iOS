@@ -12,6 +12,8 @@
 #import "ProfileModel.h"
 #import "UITextField+Validations.h"
 #import "GoNatuurPickerView.h"
+#import "CheckoutTableViewCell.h"
+#import "CheckoutCollectionViewCell.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
@@ -47,6 +49,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *redeemPointLabel;
 @property (strong, nonatomic) IBOutlet UILabel *impactPointLabel;
 @property (strong, nonatomic) IBOutlet UICollectionView *offersCollectionView;
+@property (strong, nonatomic) IBOutlet UIView *rewardBackView;
 //Shipping address object declaration
 @property (strong, nonatomic) IBOutlet UILabel *shippingAddressTitleLabel;
 @property (strong, nonatomic) IBOutlet UIButton *shippingEditAddressButton;
@@ -84,7 +87,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *noSameAddressButton;
 @property (strong, nonatomic) IBOutlet UILabel *yesRadioLabel;
 @property (strong, nonatomic) IBOutlet UIButton *yesSameAddressButton;
-@property (strong, nonatomic) IBOutlet UIView *rewardBackView;
 //BSKeyboard variable declaration
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
 @end
@@ -92,6 +94,7 @@
 @implementation CheckoutAddressViewController
 @synthesize cartModelData, cartListDataArray;
 @synthesize isEditService;
+@synthesize subTotalPrice;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -99,6 +102,8 @@
     
     [self didLoadIntialization];
     [self viewInitialization];
+    //Add custom picker view and initialized indexs
+    [self addCustomPickerView];
     [myDelegate showIndicator];
     [self performSelector:@selector(getCountryCode) withObject:nil afterDelay:.1];
     // Do any additional setup after loading the view.
@@ -129,15 +134,14 @@
                                                   object:nil];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:YES];
-    //Add custom picker view and initialized indexs
-    [self addCustomPickerView];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
 }
 #pragma mark - end
 
@@ -179,8 +183,9 @@
 }
 
 - (void)showKeyboardScrollView:(float)keyboardHeight {
+    _nextOutlet.enabled=false;
     float backViewY=0;
-    if ((currentSelectedTextField==_shippingFirstNameTextField)||(currentSelectedTextField==_shippingLastNameTextField)||(currentSelectedTextField==_shippingPhoneNumberTextField)||(currentSelectedTextField==_shippingEmailTextField)||(currentSelectedTextField==_shippingAddressLine1TextField)||(currentSelectedTextField==_shippingStateTextField)||(currentSelectedTextField==_shippingCityTextField)||(currentSelectedTextField==_shippingZipCodeTextField)||(currentSelectedTextField==_shippingAddressLine2TextField)) {
+    if ((currentSelectedTextField==_shippingFirstNameTextField)||(currentSelectedTextField==_shippingLastNameTextField)||(currentSelectedTextField==_shippingPhoneNumberTextField)||(currentSelectedTextField==_shippingEmailTextField)||(currentSelectedTextField==_shippingAddressLine1TextField)||(currentSelectedTextField==_shippingStateTextField)||(currentSelectedTextField==_shippingCityTextField)||(currentSelectedTextField==_shippingZipCodeTextField)||(currentSelectedTextField==_shippingAddressLine2TextField)||(currentSelectedTextField==_shippingCountryTextField)) {
         backViewY=195;
     }
     else {
@@ -200,9 +205,18 @@
 }
 
 - (void)hideKeyboardScrollView {
-    _scrollView.contentSize = CGSizeMake(0,_mainCheckoutAddressView.frame.size.height);
     if (!isPickerEnable) {
+        _nextOutlet.enabled=true;
+         _scrollView.contentSize = CGSizeMake(0,_mainCheckoutAddressView.frame.size.height);
         [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        if ([self shippingAddressFieldValidations:false]&&[self isShippingAddressDifferent]) {
+            [self calledUpdateAddressServiceMethod];
+        }
+        if (isShippingAddreesSame) {
+            [self setRadioStyle:true];
+            [self setInitailizedBillingAddressData:true];
+            [self setTextFieldKeyboard:isShippingAddreesSame];
+        }
     }
 }
 #pragma mark - end
@@ -221,8 +235,10 @@
 
 #pragma mark - View customisation
 - (void)didLoadIntialization {
-    selectedCheckoutPromoIndex=0;
-    selectedShippingMethodIndex=0;
+    cartModelData.checkoutPromosArray=[NSMutableArray new];
+    cartModelData.shippmentMethodsArray=[NSMutableArray new];
+    selectedCheckoutPromoIndex=-1;
+    selectedShippingMethodIndex=-1;
     _noRadioLabel.layer.masksToBounds=true;
     _yesRadioLabel.layer.masksToBounds=true;
     _noRadioLabel.layer.cornerRadius=5.0;
@@ -251,24 +267,36 @@
 - (void)viewInitialization {
     [self didLoadIntialization];
     myDelegate.selectedCategoryIndex=-1;
-    _mainCheckoutAddressView.translatesAutoresizingMaskIntoConstraints=YES;
-    if ((nil==[UserDefaultManager getValue:@"userId"])) {
-        _rewardBackView.hidden=true;
-        _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 900-42);
-    }
-    else {
-        _rewardBackView.hidden=false;
-        _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 1076-42);
-    }
-    _shippmentMethodTableView.translatesAutoresizingMaskIntoConstraints=true;
-    _shippmentMethodTableView.frame=CGRectMake(20, 853, [[UIScreen mainScreen] bounds].size.width-40, 0);
-    _scrollView.contentSize = CGSizeMake(0,_mainCheckoutAddressView.frame.size.height);
+    [self viewObjectFraming];
     [self showSelectedTab:2];
     //Customized steps
     [self customizedSteps];
     [self setLocalizedText];
     [self setTextFieldPadding];
     [self setTextFieldBorder];
+}
+
+- (void)viewObjectFraming {
+    _mainCheckoutAddressView.translatesAutoresizingMaskIntoConstraints=true;
+    _shippmentMethodTableView.translatesAutoresizingMaskIntoConstraints=true;
+    _rewardBackView.translatesAutoresizingMaskIntoConstraints=true;
+    _shippmentMethodTableView.frame=CGRectMake(20, 853, [[UIScreen mainScreen] bounds].size.width-40, 50*cartModelData.shippmentMethodsArray.count);
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+        _rewardBackView.hidden=true;
+        _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 850+_shippmentMethodTableView.frame.size.height);
+    }
+    else {
+        _rewardBackView.hidden=false;
+        if (cartModelData.checkoutPromosArray.count>0) {
+            _rewardBackView.frame=CGRectMake(0, _shippmentMethodTableView.frame.origin.y+_shippmentMethodTableView.frame.size.height, [[UIScreen mainScreen] bounds].size.width, 160);
+        }
+        else {
+            _rewardBackView.frame=CGRectMake(0, _shippmentMethodTableView.frame.origin.y+_shippmentMethodTableView.frame.size.height, [[UIScreen mainScreen] bounds].size.width, 64);
+        }
+        _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 850+_shippmentMethodTableView.frame.size.height+_rewardBackView.frame.size.height);
+    }
+    
+    _scrollView.contentSize = CGSizeMake(0,_mainCheckoutAddressView.frame.size.height);
 }
 
 - (void)setLocalizedText {
@@ -431,7 +459,7 @@
         temp=[countryCodeArray objectAtIndex:index];
         shippingCountryIndex=(int)index;
         _shippingCountryTextField.text=temp.countryLocale;
-        shippingRegionNameArray = [[countryCodeArray objectAtIndex:shippingCountryIndex] mutableCopy];
+        shippingRegionNameArray = [[[countryCodeArray objectAtIndex:shippingCountryIndex] regionArray] mutableCopy];
         DLog(@"%@",temp.countryLocale);
     }
     else {
@@ -484,16 +512,16 @@
 -(void)setInitailizedBillingAddressData:(BOOL)isYes {
     if (isYes) {
         //Set default billing address as shipping address bcz initially shipping address will be same.
-        _billingFirstNameTextField.text=_billingFirstNameTextField.text;
-        _billingLastNameTextField.text=_billingLastNameTextField.text;
-        _billingPhoneNumberTextField.text=_billingPhoneNumberTextField.text;
-        _billingEmailTextField.text=_billingEmailTextField.text;
-        _billingAddressLine1TextField.text=_billingAddressLine1TextField.text;
-        _billingAddressLine2TextField.text=_billingAddressLine2TextField.text;
-        _billingCountryTextField.text=_billingCountryTextField.text;
-        _billingStateTextField.text=_billingStateTextField.text;
-        _billingCityTextField.text=_billingCityTextField.text;
-        _billingZipCodeTextField.text=_billingZipCodeTextField.text;
+        _billingFirstNameTextField.text=_shippingFirstNameTextField.text;
+        _billingLastNameTextField.text=_shippingLastNameTextField.text;
+        _billingPhoneNumberTextField.text=_shippingPhoneNumberTextField.text;
+        _billingEmailTextField.text=_shippingEmailTextField.text;
+        _billingAddressLine1TextField.text=_shippingAddressLine1TextField.text;
+        _billingAddressLine2TextField.text=_shippingAddressLine2TextField.text;
+        _billingCountryTextField.text=_shippingCountryTextField.text;
+        _billingStateTextField.text=_shippingStateTextField.text;
+        _billingCityTextField.text=_shippingCityTextField.text;
+        _billingZipCodeTextField.text=_shippingZipCodeTextField.text;
         if ([_shippingStateDropDown isHidden]) {
             _billingStateDropDown.hidden=_shippingStateDropDown.hidden;
             _billingStateButton.hidden=_shippingStateButton.hidden;
@@ -526,7 +554,7 @@
             temp=[countryCodeArray objectAtIndex:index];
             billingCountryIndex=(int)index;
             _billingCountryTextField.text=temp.countryLocale;
-             billingRegionNameArray = [[countryCodeArray objectAtIndex:billingCountryIndex] mutableCopy];
+             billingRegionNameArray = [[[countryCodeArray objectAtIndex:billingCountryIndex] regionArray] mutableCopy];
             DLog(@"%@",temp.countryLocale);
         }
         else {
@@ -591,7 +619,12 @@
         _billingCityTextField.enabled=false;
         _billingZipCodeTextField.enabled=false;
         _billingStateButton.enabled=false;
+        _billingCountryTextField.enabled=false;
         _billingCountryButton.enabled=false;
+        billingCountryIndex=shippingCountryIndex;
+        billingStateIndex=shippingStateIndex;
+        selectedBillingRegionId=selectedShippingRegionId;
+        selectedBillingRegionCode=selectedShippingRegionCode;
     }
     else {
         _billingEditAddressButton.hidden=false;
@@ -651,10 +684,7 @@
 }
 
 - (IBAction)checkoutAddressNext:(UIButton *)sender {
-    if ([self shippingAddressFieldValidations:true]) {
-        [myDelegate showIndicator];
-        [self performSelector:@selector(setUpdatedAddressShippingMethods) withObject:nil afterDelay:.1];
-    }
+    [self calledUpdateAddressServiceMethod];
 }
 
 - (IBAction)shippingEditAddress:(UIButton *)sender {
@@ -667,25 +697,60 @@
     isPickerEnable = true;
     [self.view endEditing:true];
     currentSelectedTextField=_shippingCountryTextField;
+    [self showKeyboardScrollView:230.0];
     [gNPickerViewObj showPickerView:countryNameArray selectedIndex:(shippingCountryIndex==-1?0:shippingCountryIndex) option:1 isCancelDelegate:true];
 }
 
 - (IBAction)shippingStateAction:(UIButton *)sender {
     isPickerEnable = true;
+    [self.view endEditing:true];
+    currentSelectedTextField=_shippingStateTextField;
+    [self showKeyboardScrollView:230.0];
+    [gNPickerViewObj showPickerView:shippingRegionNameArray selectedIndex:(shippingStateIndex==-1?0:shippingCountryIndex) option:2 isCancelDelegate:true];
 }
 
 - (IBAction)billingCountryAction:(UIButton *)sender {
     isPickerEnable = true;
+    [self.view endEditing:true];
+    currentSelectedTextField=_billingCountryTextField;
+    [self showKeyboardScrollView:230.0];
+    [gNPickerViewObj showPickerView:countryNameArray selectedIndex:(billingCountryIndex==-1?0:billingCountryIndex) option:3 isCancelDelegate:true];
 }
 
 - (IBAction)billingStateAction:(UIButton *)sender {
     isPickerEnable = true;
+    [self.view endEditing:true];
+    currentSelectedTextField=_billingStateTextField;
+    [self showKeyboardScrollView:230.0];
+    [gNPickerViewObj showPickerView:billingRegionNameArray selectedIndex:(billingStateIndex==-1?0:billingStateIndex) option:4 isCancelDelegate:true];
 }
 
 - (IBAction)noSameAddress:(UIButton *)sender {
+    isShippingAddreesSame=false;
+    [self setRadioStyle:false];
+    [self disableBillingAddress:false];
+    [self setTextFieldKeyboard:isShippingAddreesSame];
 }
 
 - (IBAction)yesSameAddress:(UIButton *)sender {
+    isShippingAddreesSame=true;
+    [self setRadioStyle:true];
+    [self setInitailizedBillingAddressData:true];
+    [self setTextFieldKeyboard:isShippingAddreesSame];
+}
+#pragma mark - end
+
+#pragma mark - Called update address service 
+- (void)calledUpdateAddressServiceMethod {
+    {
+        isPickerEnable=false;
+        [gNPickerViewObj hidePickerView];
+        [self.view endEditing:true];
+        if ([self shippingAddressFieldValidations:true]) {
+            [myDelegate showIndicator];
+            [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithBool:false] afterDelay:.1];
+        }
+    }
 }
 #pragma mark - end
 
@@ -709,6 +774,27 @@
     }
 }
 
+- (BOOL)isShippingAddressDifferent {
+    BOOL isStreetChange=false;
+    NSArray *streets=[cartModelData.shippingAddressDict[@"street"] copy];
+    if (![[streets objectAtIndex:0] isEqualToString:_shippingAddressLine1TextField.text]) {
+        isStreetChange=true;
+    }
+    if ([streets count]>1) {
+        if (![[streets objectAtIndex:1] isEqualToString:_shippingAddressLine2TextField.text]) {
+            isStreetChange=true;
+        }
+    }
+    else {
+        if (![_shippingAddressLine2TextField isEmpty]) {
+            isStreetChange=true;
+        }
+    }
+    if (![_shippingStateTextField.text isEqualToString:cartModelData.shippingAddressDict[@"region"]]||![_shippingPhoneNumberTextField.text isEqualToString:cartModelData.shippingAddressDict[@"telephone"]]||![_shippingZipCodeTextField.text isEqualToString:cartModelData.shippingAddressDict[@"postcode"]]||![_shippingCityTextField.text isEqualToString:cartModelData.shippingAddressDict[@"city"]]||![_shippingFirstNameTextField.text isEqualToString:cartModelData.shippingAddressDict[@"firstname"]]||![_shippingLastNameTextField.text isEqualToString:cartModelData.shippingAddressDict[@"lastname"]]||![_shippingEmailTextField.text isEqualToString:cartModelData.shippingAddressDict[@"email"]]||isStreetChange) {
+        return true;
+    }
+    return false;
+}
 #pragma mark - end
 
 #pragma mark - Webservice
@@ -738,6 +824,7 @@
     userData.currentPage=@"1";
     [userData getImpactPoints:^(ProfileModel *userData) {
         cartModelData.checkoutImpactPoint=[NSNumber numberWithInt:[userData.recentEarnedPoints intValue]];
+        _impactPointLabel.text=[NSString stringWithFormat:@"%@ %@ip",NSLocalizedText(@"checkoutAddressImpactPoint"),userData.recentEarnedPoints];
         [self getCheckoutPromos];
         //dispaly profile data
     } onfailure:^(NSError *error) {
@@ -749,8 +836,12 @@
 - (void)getCheckoutPromos {
     CartDataModel *cartData = [CartDataModel sharedUser];
     [cartData fetchCheckoutPromosOnSuccess:^(CartDataModel *shippmentDetailData)  {
+        cartModelData.checkoutPromosArray=[[shippmentDetailData checkoutPromosArray] mutableCopy];
+        if (cartModelData.checkoutPromosArray.count>0) {
+            [_offersCollectionView reloadData];
+        }
         if ([self shippingAddressFieldValidations:false]) {
-            [self setUpdatedAddressShippingMethods];
+            [self getShippmentMethodData];
         }
         else {
             [myDelegate stopIndicator];
@@ -761,13 +852,18 @@
 }
 
 //Set addresses and shipping methods
-- (void)setUpdatedAddressShippingMethods {
+- (void)setUpdatedAddressShippingMethods:(NSNumber *)isGetShippingMethodCalled {
     CartDataModel *cartData = [CartDataModel sharedUser];
     cartData=[cartModelData copy];
     cartData.shippingAddressDict=[[self setShippingAddressInCartModel] mutableCopy];
+    cartModelData.shippingAddressDict=[[self setShippingAddressInCartModel] mutableCopy];
     [cartData setUpdatedAddressShippingMethodsOnSuccess:^(CartDataModel *shippmentDetailData)  {
-        [myDelegate stopIndicator];
-        
+        if ([isGetShippingMethodCalled boolValue]) {
+            [self getShippmentMethodData];
+        }
+        else {
+            [myDelegate stopIndicator];
+        }
     } onfailure:^(NSError *error) {
         
     }];
@@ -777,11 +873,15 @@
 - (void)getShippmentMethodData {
     CartDataModel *cartData = [CartDataModel sharedUser];
     cartData=[cartModelData copy];
-    
-//    cartData.shippingAddressDict=[[cartListModelData.customerSavedAddressArray objectAtIndex:0] mutableCopy];
     [cartData fetchShippmentMethodsOnSuccess:^(CartDataModel *shippmentDetailData)  {
         [myDelegate stopIndicator];
-        
+        cartModelData.shippmentMethodsArray=[shippmentDetailData.shippmentMethodsArray
+                                             mutableCopy];
+        if (cartModelData.shippmentMethodsArray.count>0) {
+            [self viewObjectFraming];
+            selectedShippingMethodIndex=0;
+            [_shippmentMethodTableView reloadData];
+        }
     } onfailure:^(NSError *error) {
         
     }];
@@ -841,24 +941,68 @@
 #pragma mark - Custom picker delegate method
 - (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {
     if (option==1) {
-        shippingRegionNameArray = [[[countryCodeArray objectAtIndex:tempSelectedIndex] regionArray] mutableCopy];
-        ProfileModel *temp=[ProfileModel new];
-        temp=[countryCodeArray objectAtIndex:tempSelectedIndex];
-        shippingCountryIndex=tempSelectedIndex;
-        _shippingCountryTextField.text=temp.countryLocale;
-        if (shippingRegionNameArray.count>0) {
-            [self setShippingRegionDataNotExist];
-            _shippingStateDropDown.hidden=false;
-            _shippingStateButton.hidden=false;
-            selectedShippingRegionCode=@"";
+        if (tempSelectedIndex!=shippingCountryIndex) {
+            shippingRegionNameArray = [[[countryCodeArray objectAtIndex:tempSelectedIndex] regionArray] mutableCopy];
+            ProfileModel *temp=[ProfileModel new];
+            temp=[countryCodeArray objectAtIndex:tempSelectedIndex];
+            shippingCountryIndex=tempSelectedIndex;
+            _shippingCountryTextField.text=temp.countryLocale;
+            if (shippingRegionNameArray.count>0) {
+                [self setShippingRegionDataNotExist];
+                _shippingStateDropDown.hidden=false;
+                _shippingStateButton.hidden=false;
+                selectedShippingRegionCode=@"";
+            }
+            else {
+                [self setShippingRegionDataNotExist];
+                selectedShippingRegionCode=@"";
+            }
+            _shippingStateTextField.text=@"";
+            _shippingCityTextField.text=@"";
+            _shippingZipCodeTextField.text=@"";
+            [self setTextFieldKeyboard:isShippingAddreesSame];
         }
-        else {
-            [self setShippingRegionDataNotExist];
-            selectedShippingRegionCode=@"";
+    } else if (option==2) {
+        if (tempSelectedIndex!=shippingStateIndex) {
+            ProfileModel *temp=[ProfileModel new];
+            temp=[shippingRegionNameArray objectAtIndex:tempSelectedIndex];
+            shippingStateIndex=tempSelectedIndex;
+            _shippingStateTextField.text=temp.regionName;
+            selectedShippingRegionId=[temp.regionId intValue];
+            selectedShippingRegionCode=temp.regionCode;
         }
-        [self setTextFieldKeyboard:isShippingAddreesSame];
-    } else {
-        
+    }
+    else if (option==3) {
+        if (tempSelectedIndex!=billingCountryIndex) {
+            billingRegionNameArray = [[[countryCodeArray objectAtIndex:tempSelectedIndex] regionArray] mutableCopy];
+            ProfileModel *temp=[ProfileModel new];
+            temp=[countryCodeArray objectAtIndex:tempSelectedIndex];
+            billingCountryIndex=tempSelectedIndex;
+            _billingCountryTextField.text=temp.countryLocale;
+            if (billingRegionNameArray.count>0) {
+                [self setBillingRegionDataNotExist];
+                _billingStateDropDown.hidden=false;
+                _billingStateButton.hidden=false;
+                selectedBillingRegionCode=@"";
+            }
+            else {
+                [self setBillingRegionDataNotExist];
+                selectedBillingRegionCode=@"";
+            }
+            _billingStateTextField.text=@"";
+            _billingCityTextField.text=@"";
+            _billingZipCodeTextField.text=@"";
+            [self setTextFieldKeyboard:isShippingAddreesSame];
+        }
+    } else if (option==4) {
+        if (tempSelectedIndex!=billingStateIndex) {
+            ProfileModel *temp=[ProfileModel new];
+            temp=[billingRegionNameArray objectAtIndex:tempSelectedIndex];
+            billingStateIndex=tempSelectedIndex;
+            _billingStateTextField.text=temp.regionName;
+            selectedBillingRegionId=[temp.regionId intValue];
+            selectedBillingRegionCode=temp.regionCode;
+        }
     }
     isPickerEnable = false;
     [self hideKeyboardScrollView];
@@ -867,6 +1011,60 @@
 - (void)cancelDelegateMethod {
     isPickerEnable = false;
     [self hideKeyboardScrollView];
+}
+#pragma mark - end
+
+#pragma mark - Table view datasource delegate methods
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return cartModelData.shippmentMethodsArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.01;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *simpleTableIdentifier=@"shippingMethodCell";
+    CheckoutTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    if (cell == nil) {
+        cell = [[CheckoutTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+    }
+    [cell displayCellData:[cartModelData.shippmentMethodsArray objectAtIndex:indexPath.row] isSelected:(selectedShippingMethodIndex==(int)indexPath.row?true:false) totalPrice:subTotalPrice];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    selectedShippingMethodIndex=(int)indexPath.row;
+    [_shippmentMethodTableView reloadData];
+}
+#pragma mark - end
+
+#pragma mark - Collection view datasource methods
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    return cartModelData.checkoutPromosArray.count;
+}
+
+- (CheckoutCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+        CheckoutCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"checkoutPromoCell" forIndexPath:indexPath];
+    [cell displayPromoData:[cartModelData.checkoutPromosArray objectAtIndex:indexPath.row] isSelected:(selectedCheckoutPromoIndex==(int)indexPath.row?true:false)];
+    cell.backgroundColor=[UIColor lightGrayColor];
+    cell.promoInfoLabel.backgroundColor=[UIColor greenColor];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (![[[cartModelData.checkoutPromosArray objectAtIndex:indexPath.row] objectForKey:@"HiddenPromo"] boolValue]) {
+        selectedCheckoutPromoIndex=(int)indexPath.row;
+        [_offersCollectionView reloadData];
+    }
 }
 #pragma mark - end
 @end

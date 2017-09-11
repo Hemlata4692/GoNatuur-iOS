@@ -60,6 +60,17 @@
 }
 #pragma mark - end
 
+- (id)mutableCopyWithZone:(NSZone *)zone {
+    ProfileModel *another = [[ProfileModel alloc] init];
+    another.countryId= [self.countryId mutableCopyWithZone: zone];
+    another.countryLocale= [self.countryLocale mutableCopyWithZone: zone];
+    another.regionArray= [self.regionArray mutableCopyWithZone: zone];
+    another.regionId= [self.regionId mutableCopyWithZone: zone];
+    another.regionCode= [self.regionCode mutableCopyWithZone: zone];
+    another.regionName= [self.regionName mutableCopyWithZone: zone];
+    return another;
+}
+
 #pragma mark - Get user profile
 - (void)getUserProfile:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getUserProfileData:self onSuccess:^(ProfileModel *profileData) {

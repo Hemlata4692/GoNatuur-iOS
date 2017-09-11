@@ -834,7 +834,7 @@
         cartData.shippingAddressDict=[NSMutableDictionary new];
         cartData.customerDict=[NSMutableDictionary new];
         cartData.customerSavedAddressArray=[NSMutableArray new];
-        cartData.selectedShippingMethod=@"";
+        cartData.selectedShippingMethod=@"flatrate";
         if ((nil==[UserDefaultManager getValue:@"userId"])){
             int cartCount=0;
             for (NSDictionary *tempDict in response) {
@@ -849,6 +849,7 @@
             cartData.customerSavedAddressArray=[cartData.customerDict[@"addresses"] mutableCopy];
             cartData.shippingAddressDict=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"];
             cartData.selectedShippingMethod=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"method"];
+            cartData.selectedShippingMethod=([cartData.selectedShippingMethod isEqualToString:@""]?@"flatrate":cartData.selectedShippingMethod);
             for (NSDictionary *tempDict in response[@"items"]) {
                 [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
             }
@@ -909,20 +910,21 @@
             NSArray *results = [response[@"checkout_promo"]
                                 sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
             for (NSDictionary *tempDict in results) {
-                if ([tempDict[@"promo_status"] isEqualToString:@"draft"]) {
-                    continue;
-                }
+//                if ([tempDict[@"promo_status"] isEqualToString:@"draft"]) {
+//                    continue;
+//                }
                 //Uncomment code after added groupType form login service
 //                else if(nil==tempDict[[UserDefaultManager getValue:@"GroupType"]]||![tempDict[[UserDefaultManager getValue:@"GroupType"]] boolValue]) {//Group is not same
 //                    continue;
 //                }
-                else if(![tempDict[@"promo_category"] isEqualToString:@"rebate"]&&![tempDict[@"promo_category"] isEqualToString:@"percent_discount"]&&!flag) {  //During freeshipping include single entry
+//                else
+                    if(![tempDict[@"promo_category"] isEqualToString:@"rebate"]&&![tempDict[@"promo_category"] isEqualToString:@"percent_discount"]&&!flag) {  //During freeshipping include single entry
                     flag=true;
                     if ([tempDict[@"promo_points"] floatValue]<ip) {
-                        [tempDict setValue:[NSNumber numberWithBool:false] forKey:@"HidderPromo"];
+                        [tempDict setValue:[NSNumber numberWithBool:false] forKey:@"HiddenPromo"];
                     }
                     else {
-                        [tempDict setValue:[NSNumber numberWithBool:true] forKey:@"HidderPromo"];
+                        [tempDict setValue:[NSNumber numberWithBool:true] forKey:@"HiddenPromo"];
                     }
                     [cartData.checkoutPromosArray addObject:tempDict];
                 }
@@ -931,10 +933,10 @@
                 }
                 else {
                     if ([tempDict[@"promo_points"] floatValue]<=ip) {
-                        [tempDict setValue:[NSNumber numberWithBool:false] forKey:@"HidderPromo"];
+                        [tempDict setValue:[NSNumber numberWithBool:false] forKey:@"HiddenPromo"];
                     }
                     else {
-                        [tempDict setValue:[NSNumber numberWithBool:true] forKey:@"HidderPromo"];
+                        [tempDict setValue:[NSNumber numberWithBool:true] forKey:@"HiddenPromo"];
                     }
                     [cartData.checkoutPromosArray addObject:tempDict];
                 }
