@@ -9,6 +9,7 @@
 #import "ProductDetailTableViewCell.h"
 #import "DynamicHeightWidth.h"
 #import "ProductDataModel.h"
+#import "UITextField+Padding.h"
 
 
 @implementation ProductDetailTableViewCell
@@ -119,12 +120,20 @@
 }
 
 - (void)displayAddToCartButton:(NSString *)screenType {
-    [_addToCartButton setTitle:NSLocalizedText(@"addCart") forState:UIControlStateNormal];
+    if ([screenType isEqualToString:@"EventDetail"]) {
+      [_addToCartButton setTitle:NSLocalizedText(@"getTickets") forState:UIControlStateNormal];//Get tickets
+    }
+    else {
+        [_addToCartButton setTitle:NSLocalizedText(@"addCart") forState:UIControlStateNormal];
+    }
     [_addToCartButton setCornerRadius:17.0];
     [_addToCartButton addShadow:_addToCartButton color:[UIColor blackColor]];
 }
 
--(void)displayTicketingData {
-    
+- (void)displayTicketingData:(NSString *)ticket {
+    _ticketSelectionTypeField.placeholder=NSLocalizedText(@"ticketType");//Please Select Your Ticket
+    [_ticketSelectionTypeField addTextFieldPaddingWithoutImages:_ticketSelectionTypeField];
+    [_ticketSelectionTypeField setBorder:_ticketSelectionTypeField color:[UIColor blackColor] borderWidth:1.0];
+//    _ticketSelectionTypeField.text=ticket;
 }
 @end

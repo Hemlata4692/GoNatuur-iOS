@@ -240,3 +240,4 @@
 "searchNewsPlaceholder"="Search for news";
 "CardList"="Card List";
 "addCard"="ADD NEW CARD";
+"eventAddedWishlist"="Event already added to wishlist.";

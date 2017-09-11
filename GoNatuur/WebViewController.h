@@ -11,4 +11,6 @@
 @interface WebViewController : GoNatuurViewController
 @property (nonatomic, strong) NSString *productDetaiData;
 @property (nonatomic, strong) NSString *navigationTitle;
+@property (nonatomic, strong) NSMutableArray *locationArray;
+@property (nonatomic, strong) NSString *isLocation;
 @end

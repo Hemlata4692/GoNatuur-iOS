@@ -64,12 +64,17 @@
 		188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C1A1F41F45A0001A7AE /* CurrencyDataModel.m */; };
 		189162081F614CD2005ED12E /* CardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189162071F614CD2005ED12E /* CardListViewController.m */; };
 		1891620C1F614CEF005ED12E /* AddCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1891620B1F614CEF005ED12E /* AddCardViewController.m */; };
+		18A3B1161F669D8400A453A7 /* AddressAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3B1151F669D8400A453A7 /* AddressAnnotation.m */; };
 		18A442421F63EFB1002973F2 /* CardListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A442411F63EFB1002973F2 /* CardListTableViewCell.m */; };
 		18A442471F643600002973F2 /* WebPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A442461F643600002973F2 /* WebPageViewController.m */; };
 		18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */; };
 		18C418E01F56E9D500749654 /* UIImage+UIImage_fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418DF1F56E9D500749654 /* UIImage+UIImage_fixOrientation.m */; };
 		18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418E31F57266A00749654 /* EditProfileViewController.m */; };
 		18D2AD281F659C6400B8F605 /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2AD271F659C6400B8F605 /* EventDetailViewController.m */; };
+		18DA65CA1F663F520057B5B4 /* TicketingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DA65C91F663F520057B5B4 /* TicketingViewController.m */; };
+		18DA65CD1F663F5F0057B5B4 /* AttendeesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DA65CC1F663F5F0057B5B4 /* AttendeesViewController.m */; };
+		18DA65D41F665BB10057B5B4 /* AttendeesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DA65D31F665BB10057B5B4 /* AttendeesTableViewCell.m */; };
+		18DA65D71F665BCC0057B5B4 /* TicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DA65D61F665BCC0057B5B4 /* TicketTableViewCell.m */; };
 		18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */; };
 		18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F31F32E09800430842 /* GoNatuurViewController.m */; };
 		18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */; };
@@ -257,6 +262,8 @@
 		1891620A1F614CEF005ED12E /* AddCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCardViewController.h; sourceTree = "<group>"; };
 		1891620B1F614CEF005ED12E /* AddCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCardViewController.m; sourceTree = "<group>"; };
 		1891620D1F617735005ED12E /* GoNatuur.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoNatuur.entitlements; sourceTree = "<group>"; };
+		18A3B1141F669D8400A453A7 /* AddressAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressAnnotation.h; sourceTree = "<group>"; };
+		18A3B1151F669D8400A453A7 /* AddressAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressAnnotation.m; sourceTree = "<group>"; };
 		18A442401F63EFB1002973F2 /* CardListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardListTableViewCell.h; sourceTree = "<group>"; };
 		18A442411F63EFB1002973F2 /* CardListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardListTableViewCell.m; sourceTree = "<group>"; };
 		18A442451F643600002973F2 /* WebPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPageViewController.h; sourceTree = "<group>"; };
@@ -269,6 +276,14 @@
 		18C418E31F57266A00749654 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		18D2AD261F659C6400B8F605 /* EventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailViewController.h; sourceTree = "<group>"; };
 		18D2AD271F659C6400B8F605 /* EventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailViewController.m; sourceTree = "<group>"; };
+		18DA65C81F663F520057B5B4 /* TicketingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketingViewController.h; sourceTree = "<group>"; };
+		18DA65C91F663F520057B5B4 /* TicketingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketingViewController.m; sourceTree = "<group>"; };
+		18DA65CB1F663F5F0057B5B4 /* AttendeesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendeesViewController.h; sourceTree = "<group>"; };
+		18DA65CC1F663F5F0057B5B4 /* AttendeesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendeesViewController.m; sourceTree = "<group>"; };
+		18DA65D21F665BB10057B5B4 /* AttendeesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendeesTableViewCell.h; sourceTree = "<group>"; };
+		18DA65D31F665BB10057B5B4 /* AttendeesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendeesTableViewCell.m; sourceTree = "<group>"; };
+		18DA65D51F665BCC0057B5B4 /* TicketTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketTableViewCell.h; sourceTree = "<group>"; };
+		18DA65D61F665BCC0057B5B4 /* TicketTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketTableViewCell.m; sourceTree = "<group>"; };
 		18E5D5831F342DE500829292 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
 		18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		18F7A8F21F32E09800430842 /* GoNatuurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurViewController.h; sourceTree = "<group>"; };
@@ -882,6 +897,15 @@
 			name = AddCardViewController;
 			sourceTree = "<group>";
 		};
+		18A3B1131F669D7700A453A7 /* Annotation */ = {
+			isa = PBXGroup;
+			children = (
+				18A3B1141F669D8400A453A7 /* AddressAnnotation.h */,
+				18A3B1151F669D8400A453A7 /* AddressAnnotation.m */,
+			);
+			name = Annotation;
+			sourceTree = "<group>";
+		};
 		18A4423E1F63EF6C002973F2 /* CardListCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -947,6 +971,8 @@
 		18D2AD241F659C3700B8F605 /* EventDetailsModule */ = {
 			isa = PBXGroup;
 			children = (
+				18DA65D01F665B740057B5B4 /* AttendeesView */,
+				18DA65CF1F665B660057B5B4 /* TicketView */,
 				18D2AD251F659C4700B8F605 /* EventDetailViewController */,
 			);
 			name = EventDetailsModule;
@@ -959,6 +985,60 @@
 				18D2AD271F659C6400B8F605 /* EventDetailViewController.m */,
 			);
 			name = EventDetailViewController;
+			sourceTree = "<group>";
+		};
+		18DA65C61F663EFF0057B5B4 /* AttendeesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18DA65CB1F663F5F0057B5B4 /* AttendeesViewController.h */,
+				18DA65CC1F663F5F0057B5B4 /* AttendeesViewController.m */,
+			);
+			name = AttendeesViewController;
+			sourceTree = "<group>";
+		};
+		18DA65C71F663F390057B5B4 /* TicketingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18DA65C81F663F520057B5B4 /* TicketingViewController.h */,
+				18DA65C91F663F520057B5B4 /* TicketingViewController.m */,
+			);
+			name = TicketingViewController;
+			sourceTree = "<group>";
+		};
+		18DA65CE1F665B580057B5B4 /* TicketTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				18DA65D51F665BCC0057B5B4 /* TicketTableViewCell.h */,
+				18DA65D61F665BCC0057B5B4 /* TicketTableViewCell.m */,
+			);
+			name = TicketTableCell;
+			sourceTree = "<group>";
+		};
+		18DA65CF1F665B660057B5B4 /* TicketView */ = {
+			isa = PBXGroup;
+			children = (
+				18DA65C71F663F390057B5B4 /* TicketingViewController */,
+				18DA65CE1F665B580057B5B4 /* TicketTableCell */,
+			);
+			name = TicketView;
+			sourceTree = "<group>";
+		};
+		18DA65D01F665B740057B5B4 /* AttendeesView */ = {
+			isa = PBXGroup;
+			children = (
+				18DA65D11F665B870057B5B4 /* AttendeesTableCell */,
+				18DA65C61F663EFF0057B5B4 /* AttendeesViewController */,
+			);
+			name = AttendeesView;
+			sourceTree = "<group>";
+		};
+		18DA65D11F665B870057B5B4 /* AttendeesTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				18DA65D21F665BB10057B5B4 /* AttendeesTableViewCell.h */,
+				18DA65D31F665BB10057B5B4 /* AttendeesTableViewCell.m */,
+			);
+			name = AttendeesTableCell;
 			sourceTree = "<group>";
 		};
 		18E5D5821F342DAF00829292 /* ForgotPasswordViewController */ = {
@@ -1105,6 +1185,7 @@
 		320761651F162733001F1790 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				18A3B1131F669D7700A453A7 /* Annotation */,
 				181FD20F1F60188300C5373C /* PaypalSDK */,
 				B7DA71F01F5034E500F45439 /* HCYoutubeParser */,
 				180ECD2A1F484B5C003C936E /* StarRatingView */,
@@ -1915,6 +1996,7 @@
 				180ECD301F484DE4003C936E /* UIPlaceHolderTextView.m in Sources */,
 				18D2AD281F659C6400B8F605 /* EventDetailViewController.m in Sources */,
 				5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */,
+				18A3B1161F669D8400A453A7 /* AddressAnnotation.m in Sources */,
 				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
 				180ECD3C1F489AF0003C936E /* ReviewTableViewCell.m in Sources */,
 				180409E51F58888900EA3E17 /* WishlistViewController.m in Sources */,
@@ -1929,6 +2011,7 @@
 				B7AA39C01F47108D00423121 /* ProductListingViewController.m in Sources */,
 				1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */,
 				5D1E5E3B1F56845D006E6C63 /* AddressViewController.m in Sources */,
+				18DA65D41F665BB10057B5B4 /* AttendeesTableViewCell.m in Sources */,
 				18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */,
 				B745811D1F39BECC00A164D6 /* BSKeyboardControls.m in Sources */,
 				18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */,
@@ -1977,6 +2060,7 @@
 				180ECD331F485B56003C936E /* EDStarRating.m in Sources */,
 				32BAA6091F1360280015E355 /* main.m in Sources */,
 				1891620C1F614CEF005ED12E /* AddCardViewController.m in Sources */,
+				18DA65CA1F663F520057B5B4 /* TicketingViewController.m in Sources */,
 				188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */,
 				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,
 				B7A4D3F01F4828E500A28BBE /* ProductDetailTableViewCell.m in Sources */,
@@ -1992,12 +2076,14 @@
 				180ECD371F486E89003C936E /* ReviewListingViewController.m in Sources */,
 				188B2C131F41DFA50001A7AE /* SearchDataModel.m in Sources */,
 				B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */,
+				18DA65D71F665BCC0057B5B4 /* TicketTableViewCell.m in Sources */,
 				188B2C0A1F419E8B0001A7AE /* SearchListingViewController.m in Sources */,
 				180409E01F58744B00EA3E17 /* NewsCentreViewController.m in Sources */,
 				5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */,
 				32CC20951F25B1D90054C344 /* LoginModel.m in Sources */,
 				1813BDBC1F55E6F300D9C9BA /* ProfileTableViewCell.m in Sources */,
 				5D27AC5E1F55649E00AECF40 /* ProfileModel.m in Sources */,
+				18DA65CD1F663F5F0057B5B4 /* AttendeesViewController.m in Sources */,
 				188B2C171F41DFFA0001A7AE /* SearchService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
