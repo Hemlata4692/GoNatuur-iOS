@@ -11,6 +11,8 @@
 #import "DynamicHeightWidth.h"
 #import "UIView+Toast.h"
 #import "NotificationViewController.h"
+#import "NewsLetterSubscriptionViewController.h"
+#import "WebPageViewController.h"
 
 @interface SideBarViewController () {
     NSArray *menuItemsArray, *sideBarLabelArray;
@@ -39,7 +41,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
-     _sideBarTableView.scrollEnabled=YES;
+    _sideBarTableView.scrollEnabled=YES;
     [_sideBarTableView reloadData];
 }
 
@@ -58,7 +60,7 @@
         _userEmailLabel.text=NSLocalizedText(@"guestUser");
     }
     else {
-       _userEmailLabel.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"firstname"],[UserDefaultManager getValue:@"lastname"]];
+        _userEmailLabel.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"firstname"],[UserDefaultManager getValue:@"lastname"]];
     }
     _userEmailLabel.numberOfLines=2;
     float newHeight =[DynamicHeightWidth getDynamicLabelHeight:_userEmailLabel.text font:[UIFont montserratLightWithSize:16] widthValue:[[UIScreen mainScreen] bounds].size.width-120 heightValue:45];
@@ -94,7 +96,7 @@
     
     UILabel *cellLabel=(UILabel *) [cell viewWithTag:1];
     UIImageView *cellImage=(UIImageView *) [cell viewWithTag:20];
-    if (indexPath.row==6&&(nil==[UserDefaultManager getValue:@"userId"])) {
+    if (indexPath.row==9&&(nil==[UserDefaultManager getValue:@"userId"])) {
         cellLabel.text=NSLocalizedText(@"sideBarLogin");
         cellImage.image=[UIImage imageNamed:@"login"];
     }
@@ -114,32 +116,42 @@
         [myDelegate checkGuestAccess];
     }
     else if (indexPath.row==1) {
-         [self featureNotAvailable];
+        if (![myDelegate checkGuestAccess]) {
+            myDelegate.selectedCategoryIndex=-1;
+        }
     }
     else if (indexPath.row==2) {
-         [self featureNotAvailable];
+        [self featureNotAvailable];
     }
     else if (indexPath.row==3) {
         myDelegate.selectedCategoryIndex=-1;
         myDelegate.isProductList=false;
     }
     else if (indexPath.row==4) {
-//        if (![myDelegate checkGuestAccess]) {
-            myDelegate.selectedCategoryIndex=-1;
-//        }
+        //        if (![myDelegate checkGuestAccess]) {
+        myDelegate.selectedCategoryIndex=-1;
+        //        }
     }
     else if (indexPath.row==5) {
         myDelegate.selectedCategoryIndex=-1;
         [myDelegate checkGuestAccess];
     }
     else if (indexPath.row==6) {
-        [self featureNotAvailable];
+         myDelegate.selectedCategoryIndex=-1;
     }
     else if (indexPath.row==7) {
-       [self featureNotAvailable];
+         myDelegate.selectedCategoryIndex=-1;
     }
     else if (indexPath.row==8) {
-        [self featureNotAvailable];
+        myDelegate.selectedCategoryIndex=-1;
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        NewsLetterSubscriptionViewController *popView =
+        [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterSubscriptionViewController"];
+        popView.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4f];
+        [popView setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:popView animated:YES completion:nil];
+        });
     }
     else if (indexPath.row==9) {
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
@@ -166,28 +178,25 @@
 #pragma mark - end
 
 #pragma mark - Navigation segue identifier
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
-        if([identifier isEqualToString:@"My Orders"])
-        {
+        if([identifier isEqualToString:@"My Orders"]) {
             return NO;
         }
-        else if([identifier isEqualToString:@"Payment"])
-        {
+        else if([identifier isEqualToString:@"Payment"]) {
             return NO;
         }
-        else if([identifier isEqualToString:@"Redeem Points"])
-        {
+        else if([identifier isEqualToString:@"Redeem Points"]) {
             return NO;
         }
-//        else if([identifier isEqualToString:@"News Centre"])
-//        {
-//            return NO;
-//        }
-        else if([identifier isEqualToString:@"Notifications"])
-        {
+        else if([identifier isEqualToString:@"Notifications"]) {
             return NO;
+        }
+        else if([identifier isEqualToString:@"AboutUs"]) {
+            return YES;
+        }
+        else if([identifier isEqualToString:@"ContactUs"]) {
+            return YES;
         }
         else {
             return YES;
@@ -198,6 +207,20 @@
         return YES;
     }
 }
-#pragma mark - end
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"AboutUs"]) {
+        
+        UINavigationController *navController = [segue destinationViewController];
+        WebPageViewController *destViewController = (WebPageViewController *)navController.topViewController;
+        destViewController.pageIdentifier = @"AboutUs";
+    }
+    else if ([segue.identifier isEqualToString:@"ContactUs"]) {
+        
+        UINavigationController *navController = [segue destinationViewController];
+        WebPageViewController *destViewController = (WebPageViewController *)navController.topViewController;
+        destViewController.pageIdentifier = @"ContactUs";
+    }
+}
+#pragma mark - end
 @end

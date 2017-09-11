@@ -64,6 +64,20 @@
 }
 #pragma mark - end
 
+#pragma mark - Login user
+- (void)newsLetterSubscribe:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] newsLetterSubscribe:self onSuccess:^(LoginModel *userData) {
+        if (success) {
+           
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+
 #pragma mark - Save device token
 - (void)saveDeviceToken:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] sendDevcieToken:self onSuccess:^(LoginModel *userData) {
@@ -78,7 +92,6 @@
 
 #pragma mark - Login as guest user
 - (void)loginGuestUserOnSuccess:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure {
-    
     [[ConnectionManager sharedManager] loginGuestUser:self onSuccess:^(LoginModel *userData) {
         if (success) {
             [UserDefaultManager setValue:userData.quoteId key:@"quoteId"];

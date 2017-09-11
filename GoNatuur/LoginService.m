@@ -17,6 +17,7 @@ static NSString *kSaveDeviceToken=@"ranosys/saveDeviceToken";
 static NSString *kSignUp=@"ranosys/customer/customerSignup";
 static NSString *kForgotPassword=@"ranosys/customer/forgotPassword";
 static NSString *kResetPassword=@"ranosys/customer/resetPassword";
+static NSString *kNewsSubscription=@"ranosys/newsletter/subscribe";
 
 @implementation LoginService
 
@@ -36,6 +37,21 @@ static NSString *kResetPassword=@"ranosys/customer/resetPassword";
     [UserDefaultManager removeValue:@"Authorization"];
     NSDictionary *parameters = @{@"countryCode" : [ConstantCode localeCountryCode]};
     [super post:kLoginAsGuest parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Subscribe newsletter service
+- (void)subscriptionNewsLetter:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters;
+    if (nil==[UserDefaultManager getValue:@"userId"]) {
+        parameters = @{@"email" : loginData.email};
+    }
+    else {
+    parameters = @{@"email" : loginData.email,
+                                 @"customerId" : [UserDefaultManager getValue:@"userId"]};
+    }
+    DLog(@"news subscription %@",parameters);
+    [super post:kNewsSubscription parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 

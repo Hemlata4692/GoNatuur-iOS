@@ -118,9 +118,13 @@
     _productReturnLabel.frame=CGRectMake(40, _shippingFreeLabel.frame.origin.y+_shippingFreeLabel.frame.size.height, [[UIScreen mainScreen] bounds].size.width-80, [DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"Products can be returned within 30 days of purchase, subject to the following conditions.") font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80]);
 }
 
-- (void)displayAddToCartButton {
+- (void)displayAddToCartButton:(NSString *)screenType {
     [_addToCartButton setTitle:NSLocalizedText(@"addCart") forState:UIControlStateNormal];
     [_addToCartButton setCornerRadius:17.0];
     [_addToCartButton addShadow:_addToCartButton color:[UIColor blackColor]];
+}
+
+-(void)displayTicketingData {
+    
 }
 @end

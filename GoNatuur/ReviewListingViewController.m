@@ -40,6 +40,7 @@
 @synthesize reviewId;
 @synthesize reviewAdded;
 @synthesize productDetailObj;
+@synthesize eventDetailObj;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
