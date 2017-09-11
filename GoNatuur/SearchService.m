@@ -14,6 +14,7 @@ static NSString *kSearchSuggestions=@"search/ajax/suggest/?";
 static NSString *kSearchListing=@"ranosys/getSearchList";
 static NSString *kWishlistService=@"ipwishlist/items";
 static NSString *kRemoveWishlistService=@"ipwishlist/delete/wishlistItem";
+static NSString *kNewsSearchingService=@"ipwishlist/delete/wishlistItem";
 
 @implementation SearchService
 

@@ -64,15 +64,20 @@
 		188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188B2C1A1F41F45A0001A7AE /* CurrencyDataModel.m */; };
 		189162081F614CD2005ED12E /* CardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189162071F614CD2005ED12E /* CardListViewController.m */; };
 		1891620C1F614CEF005ED12E /* AddCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1891620B1F614CEF005ED12E /* AddCardViewController.m */; };
+		18A442421F63EFB1002973F2 /* CardListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A442411F63EFB1002973F2 /* CardListTableViewCell.m */; };
+		18A442471F643600002973F2 /* WebPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A442461F643600002973F2 /* WebPageViewController.m */; };
 		18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */; };
 		18C418E01F56E9D500749654 /* UIImage+UIImage_fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418DF1F56E9D500749654 /* UIImage+UIImage_fixOrientation.m */; };
 		18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C418E31F57266A00749654 /* EditProfileViewController.m */; };
+		18D2AD281F659C6400B8F605 /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2AD271F659C6400B8F605 /* EventDetailViewController.m */; };
 		18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */; };
 		18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F31F32E09800430842 /* GoNatuurViewController.m */; };
 		18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */; };
 		18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8FB1F32F46800430842 /* SearchViewController.m */; };
 		18F7A9031F33044100430842 /* BottomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A9011F33044100430842 /* BottomTabViewController.m */; };
 		18FB17E41F4EA32200B5A4CD /* MONTSERRAT-LIGHTITALIC.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 18FB17E31F4EA32200B5A4CD /* MONTSERRAT-LIGHTITALIC.TTF */; };
+		18FFBC821F629612006C088B /* NewsLetterSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFBC811F629611006C088B /* NewsLetterSubscriptionViewController.m */; };
+		18FFBC861F62CEBC006C088B /* NewsCenterSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFBC851F62CEBC006C088B /* NewsCenterSearchListViewController.m */; };
 		3207616E1F162820001F1790 /* NullValueChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3207616D1F162820001F1790 /* NullValueChecker.m */; };
 		320761721F162834001F1790 /* UserDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761711F162834001F1790 /* UserDefaultManager.m */; };
 		320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 320761751F163AB2001F1790 /* MMMaterialDesignSpinner.m */; };
@@ -252,12 +257,18 @@
 		1891620A1F614CEF005ED12E /* AddCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCardViewController.h; sourceTree = "<group>"; };
 		1891620B1F614CEF005ED12E /* AddCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCardViewController.m; sourceTree = "<group>"; };
 		1891620D1F617735005ED12E /* GoNatuur.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoNatuur.entitlements; sourceTree = "<group>"; };
+		18A442401F63EFB1002973F2 /* CardListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardListTableViewCell.h; sourceTree = "<group>"; };
+		18A442411F63EFB1002973F2 /* CardListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardListTableViewCell.m; sourceTree = "<group>"; };
+		18A442451F643600002973F2 /* WebPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPageViewController.h; sourceTree = "<group>"; };
+		18A442461F643600002973F2 /* WebPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebPageViewController.m; sourceTree = "<group>"; };
 		18C1DF7C1F3CAE96000D9431 /* DasboardDataCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasboardDataCollectionViewCell.h; sourceTree = "<group>"; };
 		18C1DF7D1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DasboardDataCollectionViewCell.m; sourceTree = "<group>"; };
 		18C418DE1F56E9D500749654 /* UIImage+UIImage_fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImage_fixOrientation.h"; sourceTree = "<group>"; };
 		18C418DF1F56E9D500749654 /* UIImage+UIImage_fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIImage_fixOrientation.m"; sourceTree = "<group>"; };
 		18C418E21F57266A00749654 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
 		18C418E31F57266A00749654 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
+		18D2AD261F659C6400B8F605 /* EventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailViewController.h; sourceTree = "<group>"; };
+		18D2AD271F659C6400B8F605 /* EventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailViewController.m; sourceTree = "<group>"; };
 		18E5D5831F342DE500829292 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
 		18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		18F7A8F21F32E09800430842 /* GoNatuurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurViewController.h; sourceTree = "<group>"; };
@@ -269,6 +280,10 @@
 		18F7A9001F33044100430842 /* BottomTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomTabViewController.h; sourceTree = "<group>"; };
 		18F7A9011F33044100430842 /* BottomTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomTabViewController.m; sourceTree = "<group>"; };
 		18FB17E31F4EA32200B5A4CD /* MONTSERRAT-LIGHTITALIC.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MONTSERRAT-LIGHTITALIC.TTF"; sourceTree = "<group>"; };
+		18FFBC801F629611006C088B /* NewsLetterSubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsLetterSubscriptionViewController.h; sourceTree = "<group>"; };
+		18FFBC811F629611006C088B /* NewsLetterSubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsLetterSubscriptionViewController.m; sourceTree = "<group>"; };
+		18FFBC841F62CEBC006C088B /* NewsCenterSearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCenterSearchListViewController.h; sourceTree = "<group>"; };
+		18FFBC851F62CEBC006C088B /* NewsCenterSearchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCenterSearchListViewController.m; sourceTree = "<group>"; };
 		3207616C1F162820001F1790 /* NullValueChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullValueChecker.h; sourceTree = "<group>"; };
 		3207616D1F162820001F1790 /* NullValueChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullValueChecker.m; sourceTree = "<group>"; };
 		320761701F162834001F1790 /* UserDefaultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultManager.h; sourceTree = "<group>"; };
@@ -418,6 +433,8 @@
 		180409DD1F58741800EA3E17 /* NewCentreModule */ = {
 			isa = PBXGroup;
 			children = (
+				18FFBC831F62CE91006C088B /* NewsCenterSearchListing */,
+				18FFBC7E1F6295E1006C088B /* NewsLetterSubscription */,
 				180409E11F5887BE00EA3E17 /* NewsListingViewController */,
 			);
 			name = NewCentreModule;
@@ -842,18 +859,18 @@
 			isa = PBXGroup;
 			children = (
 				189162091F614CDE005ED12E /* AddCardViewController */,
-				189162051F614C8F005ED12E /* CardListViewController */,
+				189162051F614C8F005ED12E /* CardListView */,
 			);
 			name = PaymentDetails;
 			sourceTree = "<group>";
 		};
-		189162051F614C8F005ED12E /* CardListViewController */ = {
+		189162051F614C8F005ED12E /* CardListView */ = {
 			isa = PBXGroup;
 			children = (
-				189162061F614CD2005ED12E /* CardListViewController.h */,
-				189162071F614CD2005ED12E /* CardListViewController.m */,
+				18A4423F1F63EF92002973F2 /* CardListViewController */,
+				18A4423E1F63EF6C002973F2 /* CardListCell */,
 			);
-			name = CardListViewController;
+			name = CardListView;
 			sourceTree = "<group>";
 		};
 		189162091F614CDE005ED12E /* AddCardViewController */ = {
@@ -863,6 +880,41 @@
 				1891620B1F614CEF005ED12E /* AddCardViewController.m */,
 			);
 			name = AddCardViewController;
+			sourceTree = "<group>";
+		};
+		18A4423E1F63EF6C002973F2 /* CardListCell */ = {
+			isa = PBXGroup;
+			children = (
+				18A442401F63EFB1002973F2 /* CardListTableViewCell.h */,
+				18A442411F63EFB1002973F2 /* CardListTableViewCell.m */,
+			);
+			name = CardListCell;
+			sourceTree = "<group>";
+		};
+		18A4423F1F63EF92002973F2 /* CardListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				189162061F614CD2005ED12E /* CardListViewController.h */,
+				189162071F614CD2005ED12E /* CardListViewController.m */,
+			);
+			name = CardListViewController;
+			sourceTree = "<group>";
+		};
+		18A442431F643547002973F2 /* AboutUsWebPagesModule */ = {
+			isa = PBXGroup;
+			children = (
+				18A442441F6435B2002973F2 /* WebPageViewController */,
+			);
+			name = AboutUsWebPagesModule;
+			sourceTree = "<group>";
+		};
+		18A442441F6435B2002973F2 /* WebPageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18A442451F643600002973F2 /* WebPageViewController.h */,
+				18A442461F643600002973F2 /* WebPageViewController.m */,
+			);
+			name = WebPageViewController;
 			sourceTree = "<group>";
 		};
 		18C1DF7B1F3CAE51000D9431 /* DashboardDataCell */ = {
@@ -890,6 +942,23 @@
 				18C418E31F57266A00749654 /* EditProfileViewController.m */,
 			);
 			name = EditProfileView;
+			sourceTree = "<group>";
+		};
+		18D2AD241F659C3700B8F605 /* EventDetailsModule */ = {
+			isa = PBXGroup;
+			children = (
+				18D2AD251F659C4700B8F605 /* EventDetailViewController */,
+			);
+			name = EventDetailsModule;
+			sourceTree = "<group>";
+		};
+		18D2AD251F659C4700B8F605 /* EventDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18D2AD261F659C6400B8F605 /* EventDetailViewController.h */,
+				18D2AD271F659C6400B8F605 /* EventDetailViewController.m */,
+			);
+			name = EventDetailViewController;
 			sourceTree = "<group>";
 		};
 		18E5D5821F342DAF00829292 /* ForgotPasswordViewController */ = {
@@ -938,9 +1007,28 @@
 			name = BottomTabBarView;
 			sourceTree = "<group>";
 		};
+		18FFBC7E1F6295E1006C088B /* NewsLetterSubscription */ = {
+			isa = PBXGroup;
+			children = (
+				18FFBC801F629611006C088B /* NewsLetterSubscriptionViewController.h */,
+				18FFBC811F629611006C088B /* NewsLetterSubscriptionViewController.m */,
+			);
+			name = NewsLetterSubscription;
+			sourceTree = "<group>";
+		};
+		18FFBC831F62CE91006C088B /* NewsCenterSearchListing */ = {
+			isa = PBXGroup;
+			children = (
+				18FFBC841F62CEBC006C088B /* NewsCenterSearchListViewController.h */,
+				18FFBC851F62CEBC006C088B /* NewsCenterSearchListViewController.m */,
+			);
+			name = NewsCenterSearchListing;
+			sourceTree = "<group>";
+		};
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				18A442431F643547002973F2 /* AboutUsWebPagesModule */,
 				189162041F614C7C005ED12E /* PaymentDetails */,
 				181FD22B1F601F6300C5373C /* PaymentMethodModule */,
 				188605961F39C05A0005D1E2 /* GlobalViewModule */,
@@ -952,6 +1040,7 @@
 				180ECD381F489AAD003C936E /* ReviewModule */,
 				180ECD221F482A0C003C936E /* WebViewController */,
 				B7AA39BA1F47106600423121 /* ProductModule */,
+				18D2AD241F659C3700B8F605 /* EventDetailsModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
 				188605911F39BB720005D1E2 /* DashboardModule */,
 				184C38611F3B3254008B8291 /* NotificationModule */,
@@ -1820,9 +1909,11 @@
 			files = (
 				189162081F614CD2005ED12E /* CardListViewController.m in Sources */,
 				32A3D6FF1F1CD2B800062B86 /* FacebookConnect.m in Sources */,
+				18FFBC821F629612006C088B /* NewsLetterSubscriptionViewController.m in Sources */,
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
 				187561911F469BD500F609AB /* NotificationDataModel.m in Sources */,
 				180ECD301F484DE4003C936E /* UIPlaceHolderTextView.m in Sources */,
+				18D2AD281F659C6400B8F605 /* EventDetailViewController.m in Sources */,
 				5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */,
 				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
 				180ECD3C1F489AF0003C936E /* ReviewTableViewCell.m in Sources */,
@@ -1862,10 +1953,12 @@
 				B7AA39B31F47101400423121 /* GoNatuurFilterView.m in Sources */,
 				180ECD251F482A38003C936E /* WebViewController.m in Sources */,
 				180ECD291F484A17003C936E /* ReviewViewController.m in Sources */,
+				18A442471F643600002973F2 /* WebPageViewController.m in Sources */,
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
 				18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
+				18FFBC861F62CEBC006C088B /* NewsCenterSearchListViewController.m in Sources */,
 				B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */,
 				B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
@@ -1895,6 +1988,7 @@
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
 				184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */,
 				185F707F1F55A839007F49F7 /* ProfileViewController.m in Sources */,
+				18A442421F63EFB1002973F2 /* CardListTableViewCell.m in Sources */,
 				180ECD371F486E89003C936E /* ReviewListingViewController.m in Sources */,
 				188B2C131F41DFA50001A7AE /* SearchDataModel.m in Sources */,
 				B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */,

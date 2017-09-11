@@ -7,8 +7,11 @@
 //
 
 #import "CardListViewController.h"
+#import "CardListTableViewCell.h"
 
 @interface CardListViewController ()
+@property (weak, nonatomic) IBOutlet UITableView *cardsListTableView;
+@property (weak, nonatomic) IBOutlet UIButton *addCardButton;
 
 @end
 
@@ -24,14 +27,36 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    self.navigationController.navigationBarHidden=false;
+    self.title=NSLocalizedText(@"CardList");
+    [self addLeftBarButtonWithImage:false];
+    
+    [_addCardButton setTitle:NSLocalizedText(@"addCard") forState:UIControlStateNormal];
+    [_addCardButton setCornerRadius:17.0];
+    [_addCardButton addShadow:_addCardButton color:[UIColor blackColor]];
+    
+    //remove extra lines from table view
+    _cardsListTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
-*/
+
+#pragma mark - Table view data source and delgate methods
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return 4;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *CellIdentifier = @"cardCell";
+    CardListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+   // [cell displayData:[reviewListingDataAray objectAtIndex:indexPath.row] reviewId:@"0" rectSize:_reviewListingTableView.frame.size];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+}
+#pragma mark - end
+
 
 @end

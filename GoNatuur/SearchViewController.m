@@ -9,6 +9,7 @@
 #import "SearchViewController.h"
 #import "SearchListingViewController.h"
 #import "SearchDataModel.h"
+#import "NewsCenterSearchListViewController.h"
 
 @interface SearchViewController () {
 @private
@@ -25,6 +26,7 @@
 @end
 
 @implementation SearchViewController
+@synthesize screenType;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -50,7 +52,13 @@
     UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 20)];
     statusBarView.backgroundColor = [UIColor colorWithRed:239.0/255.0 green:229.0/255.0 blue:233.0/255.0 alpha:1.0];
     [self.view addSubview:statusBarView];
-    _searchTextField.placeholder=NSLocalizedText(@"searchPlaceholder");
+    if (![screenType isEqualToString:@"News"]) {
+         _searchTextField.placeholder=NSLocalizedText(@"searchPlaceholder");
+    }
+    else {
+           _searchTextField.placeholder=NSLocalizedText(@"searchNewsPlaceholder");
+    }
+ 
     _noResultLabel.text=NSLocalizedText(@"norecord");
     //remove extra lines
     _searchTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -90,12 +98,14 @@
         [_searchTimer invalidate];
         _searchTimer = nil;
     }
+    if (![screenType isEqualToString:@"News"]) {
     // reschedule the search: in 1.0 second, call the searchForKeyword: method on the new textfield content
     _searchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                     target: self
                                                   selector: @selector(searchForKeyword:)
                                                   userInfo:_searchTextField.text
                                                    repeats: NO];
+    }
 }
 
 - (void) searchForKeyword:(NSTimer *)timer {
@@ -110,8 +120,15 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
+    if (![screenType isEqualToString:@"News"]) {
     if (![textField.text isEqualToString:@""]) {
         SearchListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListingViewController"];
+        obj.searchKeyword=_searchTextField.text;
+        [self.navigationController pushViewController:obj animated:true];
+    }
+    }
+    else {
+        NewsCenterSearchListViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NewsCenterSearchListViewController"];
         obj.searchKeyword=_searchTextField.text;
         [self.navigationController pushViewController:obj animated:true];
     }

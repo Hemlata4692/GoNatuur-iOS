@@ -13,6 +13,7 @@
 #import "GoNatuurFilterView.h"
 #import "GoNatuurPickerView.h"
 #import "ProductDetailViewController.h"
+#import "EventDetailViewController.h"
 #import "UIView+Toast.h"
 
 @interface ProductListingViewController ()<UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
@@ -162,7 +163,7 @@
         if (cell == nil){
             cell = [[ProductListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BannerImageCell"];
         }
-        [cell displayBannerImage:bannerImageUrl];
+        [cell displayBannerImage:bannerImageUrl screenType:@"other"];
     }
     else if (indexPath.row==1) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell"];
@@ -203,6 +204,7 @@
             _productListTableView.tableFooterView = footerView;
             [(UIActivityIndicatorView *)[footerView viewWithTag:10] startAnimating];
             currentpage+=1;
+            isPullToRefresh=false;
             [self getProductListData];
         }
         else
@@ -232,7 +234,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!myDelegate.isProductList || [[[productListDataArray objectAtIndex:indexPath.row]productType] isEqualToString:eventIdentifier]) {
-         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+        //StoryBoard navigation
+        EventDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EventDetailViewController"];
+        obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
+        [self.navigationController pushViewController:obj animated:YES];
     }
     else {
         //StoryBoard navigation
