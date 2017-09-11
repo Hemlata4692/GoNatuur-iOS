@@ -12,6 +12,7 @@
 #import "DynamicHeightWidth.h"
 #import "UIImage+UIImage_fixOrientation.h"
 #import "ProfileModel.h"
+#import "OrderDetailViewController.h"
 
 @interface OrderListingViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
@@ -99,7 +100,10 @@
         }
     }
     else  {
-        return 140;
+        float height =[DynamicHeightWidth getDynamicLabelHeight:orderDataModel.shippingAddress font:[UIFont montserratRegularWithSize:14] widthValue:_orderListTableView.frame.size.width-132 heightValue:50];
+        
+        float billHeight =[DynamicHeightWidth getDynamicLabelHeight:orderDataModel.BillingAddress font:[UIFont montserratRegularWithSize:14] widthValue:_orderListTableView.frame.size.width-132 heightValue:50];
+        return 100 + height + billHeight;
     }
     return 0;
 }
@@ -128,12 +132,6 @@
         [cell displayData:_orderListTableView.frame.size];
         [cell.editProfileImage addTarget:self action:@selector(editUserImageAction:) forControlEvents:UIControlEventTouchUpInside];
     } else {
-        if ([[selectedSecArray objectAtIndex:indexPath.section-1] boolValue]) {
-            arrowView.transform = CGAffineTransformMakeRotation(M_PI_2);
-        }
-        else {
-            arrowView.transform = CGAffineTransformMakeRotation(M_PI);
-        }
         orderDataModel = [orderListArray objectAtIndex:indexPath.section - 1];
         [cell displayOrderData:_orderListTableView.frame.size orderData:orderDataModel];
     }
@@ -150,7 +148,6 @@
         sectionView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320,62)];
         sectionView.tag=section;
         sectionView.backgroundColor = [UIColor whiteColor];
-        
         //Add order Id label
         UILabel *orderIdLabel=[[UILabel alloc]initWithFrame:CGRectMake(10, 3, _orderListTableView.frame.size.width-20, 30)];
         orderIdLabel.font = [UIFont montserratRegularWithSize:16];
@@ -175,9 +172,14 @@
         UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(15, 61, 288, 1)];
         separatorLineView.backgroundColor = [UIColor lightGrayColor];
         [sectionView addSubview:separatorLineView];
-        sectionView.backgroundColor = [UIColor redColor];
         arrowView = [[UIImageView alloc] initWithFrame:CGRectMake(_orderListTableView.frame.size.width - 25, (sectionView.frame.size.height/2) - 6, 12, 12)];
-        arrowView.image = [UIImage imageNamed:@"arrow"];
+        arrowView.image = [UIImage imageNamed:@"arrowGrey"];
+        if ([[selectedSecArray objectAtIndex:section-1] boolValue]) {
+            arrowView.transform = CGAffineTransformMakeRotation(M_PI_2);
+        }
+        else {
+            arrowView.transform = CGAffineTransformMakeRotation(M_PI*2);
+        }
         [sectionView addSubview:arrowView];
         //Add UITapGestureRecognizer to SectionView
         UITapGestureRecognizer  *headerTapped   = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sectionHeaderTapped:)];
@@ -189,9 +191,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
     } else {
-        //Close the section, once the data is selected
-        [selectedSecArray replaceObjectAtIndex:indexPath.section-1 withObject:[NSNumber numberWithBool:NO]];
-        [_orderListTableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section-1] withRowAnimation:UITableViewRowAnimationAutomatic];
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        OrderDetailViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
+        [self.navigationController pushViewController:nextView animated:YES];
     }
 }
 #pragma mark - end
@@ -208,7 +210,6 @@
                 if (indexPath.section - 1 == i) {
                     [selectedSecArray replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:!collapsed]];
                 } else {
-                    // [selectedSecArray replaceObjectAtIndex:i withObject:[NSNumber numberWithBool:collapsed]];
                 }
             }
             [_orderListTableView reloadSections:[NSIndexSet indexSetWithIndex:gestureRecognizer.view.tag] withRowAnimation:UITableViewRowAnimationAutomatic];

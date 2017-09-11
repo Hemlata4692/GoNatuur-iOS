@@ -225,3 +225,5 @@
 "statusHeading"="Status:";
 "priceHeading"="Price:";
 "trackShippingTitle"="TRACK SHIPPING";
+"orderInfoLbael"="Order Information";
+"orderDetailTitle"="Order Details";

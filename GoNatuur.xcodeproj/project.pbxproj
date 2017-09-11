@@ -1335,10 +1335,8 @@
 		5D0CB20B1F63FEF7008043B6 /* OrderDetailView */ = {
 			isa = PBXGroup;
 			children = (
-				5DC7840B1F6637160025CA4A /* OrderDetailCell.h */,
-				5DC7840C1F6637160025CA4A /* OrderDetailCell.m */,
-				5D0CB20C1F63FF16008043B6 /* OrderDetailViewController.h */,
-				5D0CB20D1F63FF16008043B6 /* OrderDetailViewController.m */,
+				5D95200E1F6672C40036645F /* OrderDetailViewController */,
+				5D95200F1F6672E60036645F /* OrderDetailCell */,
 			);
 			name = OrderDetailView;
 			sourceTree = "<group>";
@@ -1355,8 +1353,8 @@
 		5D2760A11F62765400B6D0FF /* OrderModule */ = {
 			isa = PBXGroup;
 			children = (
-				5D0CB20B1F63FEF7008043B6 /* OrderDetailView */,
 				5D0CB20A1F63FEE8008043B6 /* OrderListView */,
+				5D0CB20B1F63FEF7008043B6 /* OrderDetailView */,
 			);
 			name = OrderModule;
 			sourceTree = "<group>";
@@ -1422,6 +1420,24 @@
 				5D27AC611F55678C00AECF40 /* ProfileService.m */,
 			);
 			name = ProfileService;
+			sourceTree = "<group>";
+		};
+		5D95200E1F6672C40036645F /* OrderDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5D0CB20C1F63FF16008043B6 /* OrderDetailViewController.h */,
+				5D0CB20D1F63FF16008043B6 /* OrderDetailViewController.m */,
+			);
+			name = OrderDetailViewController;
+			sourceTree = "<group>";
+		};
+		5D95200F1F6672E60036645F /* OrderDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+				5DC7840B1F6637160025CA4A /* OrderDetailCell.h */,
+				5DC7840C1F6637160025CA4A /* OrderDetailCell.m */,
+			);
+			name = OrderDetailCell;
 			sourceTree = "<group>";
 		};
 		5DAC38201F6177DA00702F92 /* AddressModule */ = {

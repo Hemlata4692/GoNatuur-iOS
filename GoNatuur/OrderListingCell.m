@@ -28,10 +28,8 @@
     _totalPointsHeadingLabel.text=NSLocalizedText(@"totalPoints");
     _recentlyEarnedHeadingLabel.text=NSLocalizedText(@"recentEarned");
     [_trackShippingButton setTitle:NSLocalizedText(@"trackShippingTitle") forState:UIControlStateNormal];
-    
     _totalPointsLabel.attributedText=[self setAttributesText:[NSString stringWithFormat:@"%@ip",[UserDefaultManager getValue:@"TotalPoints"]]];
     _recentlyEarnedLabel.attributedText=[self setAttributesText:[NSString stringWithFormat:@"%@ip",[UserDefaultManager getValue:@"RecentEarned"]]];
-    
     [_userProfileImage setBorder:_userProfileImage color:[UIColor colorWithRed:203/255.0 green:203/255.0 blue:203/255.0 alpha:1.0] borderWidth:3.0];
     [_userProfileImage setCornerRadius:60.0];
     [ImageCaching downloadImages:_userProfileImage imageUrl:[UserDefaultManager getValue:@"profilePicture"] placeholderImage:@"profile_placeholder" isDashboardCell:true];
@@ -44,13 +42,7 @@
 
 - (void)displayOrderData:(CGSize)rectSize orderData:(OrderModel *)orderData {
     [self setHeadingData];
-    //    [self removeAutolayouts];
-    //    _shippingAddressLabel.text = orderData.shippingAddress;
-    //    _shippingAddressLabel.numberOfLines=0;
-    //    float height =[DynamicHeightWidth getDynamicLabelHeight:_shippingAddressLabel.text font:[UIFont montserratRegularWithSize:12] widthValue:rectSize.width-100 heightValue:50];
-    //    _shippingAddressLabel.frame=CGRectMake(15, 10,rectSize.width-130, height);
-    //    _shippingAddressLabel.backgroundColor = [UIColor redColor];
-    
+    [self removeAutolayouts];
     if ((nil==orderData.shippingAddress)||[orderData.shippingAddress isEqualToString:@""]) {
         _shippingAddressLabel.text = NSLocalizedText(@"dataNotAdded");
     } else {
@@ -61,9 +53,16 @@
     } else {
         _billingAddressLabel.text = orderData.BillingAddress;
     }
-    _orderStatusLabel.text = orderData.orderStatus;
+    _shippingAddressLabel.numberOfLines=0;
+    float height =[DynamicHeightWidth getDynamicLabelHeight:_shippingAddressLabel.text font:[UIFont montserratRegularWithSize:14] widthValue:rectSize.width-132 heightValue:50];
+    _shippingAddressLabel.frame=CGRectMake(10, 45,rectSize.width-132, height);
+    _billingAddressHeadingLabel.frame=CGRectMake(10, _shippingAddressLabel.frame.origin.y + _shippingAddressLabel.frame.size.height + 10 ,rectSize.width-132, 20);
+    _priceHeadingLabel.frame=CGRectMake(rectSize.width - 110, _shippingAddressLabel.frame.origin.y + _shippingAddressLabel.frame.size.height + 10 ,100, 20);
+    _billingAddressLabel.numberOfLines=0;
+    height =[DynamicHeightWidth getDynamicLabelHeight:_billingAddressLabel.text font:[UIFont montserratRegularWithSize:14] widthValue:rectSize.width-132 heightValue:50];
+    _billingAddressLabel.frame=CGRectMake(10, _billingAddressHeadingLabel.frame.origin.y + _billingAddressHeadingLabel.frame.size.height + 5,rectSize.width-132, height);
+    _orderStatusLabel.text = [orderData.orderStatus capitalizedString];
     _priceLabel.text = [NSString stringWithFormat:@"%@",orderData.orderPrice];
-    
     NSMutableArray *ratesArray=[NSMutableArray new];
     for (int i =0; i<[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] count]; i++) {
         NSDictionary * footerDataDict =[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] objectAtIndex:i];
@@ -75,7 +74,6 @@
     }
     for (int i=0; i<ratesArray.count; i++) {
         if ([orderData.currencyCode containsString:[[ratesArray objectAtIndex:i] currencyExchangeCode]]) {
-            //            [UserDefaultManager setValue:[[ratesArray objectAtIndex:i] currencyExchangeRates] key:@"ExchangeRates"];
             if ([[[ratesArray objectAtIndex:i] currencysymbol] isEqualToString:@""] || [[ratesArray objectAtIndex:i] currencysymbol]==nil) {
                 _priceLabel.text = [NSString stringWithFormat:@"%@ %@",[[UserDefaultManager getValue:@"DefaultCurrencyCode"] currencysymbol],orderData.orderPrice];
             }
@@ -86,6 +84,7 @@
     }
 }
 
+//Set heading label data
 - (void)setHeadingData {
     _shippingAddressHeadingLabel.text = NSLocalizedText(@"shipHeading");
     _billingAddressHeadingLabel.text = NSLocalizedText(@"billHeading");
@@ -93,11 +92,12 @@
     _priceHeadingLabel.text = NSLocalizedText(@"priceHeading");
 }
 
+//Remove autolayouts
 - (void)removeAutolayouts {
     _shippingAddressLabel.translatesAutoresizingMaskIntoConstraints=YES;
-    //    _orderStatusLabel.translatesAutoresizingMaskIntoConstraints=YES;
-    //    _shippingAddressLabel.translatesAutoresizingMaskIntoConstraints=YES;
-    //    _shippingAddressLabel.translatesAutoresizingMaskIntoConstraints=YES;
+    _billingAddressHeadingLabel.translatesAutoresizingMaskIntoConstraints=YES;
+    _billingAddressLabel.translatesAutoresizingMaskIntoConstraints=YES;
+    _priceHeadingLabel.translatesAutoresizingMaskIntoConstraints=YES;
 }
 
 //set attributed string
@@ -107,7 +107,6 @@
     [string setAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName: [UIFont montserratRegularWithSize:14]} range:registerTextRange];
     return string;
 }
-
 #pragma mark - end
 
 @end
