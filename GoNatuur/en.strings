@@ -223,3 +223,13 @@
 "CardList"="Card List";
 "addCard"="ADD NEW CARD";
 "eventAddedWishlist"="Event already added to wishlist.";
+"orderTitle"="My Orders";
+"PurchaseOrderHeading"="Purchase Order:";
+"orderDateHeading"="Date:";
+"shipHeading"="Ship To:";
+"billHeading"="Bill To:";
+"statusHeading"="Status:";
+"priceHeading"="Price:";
+"trackShippingTitle"="TRACK SHIPPING";
+"orderInfoLbael"="Order Information";
+"orderDetailTitle"="Order Details";
