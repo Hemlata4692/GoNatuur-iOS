@@ -59,12 +59,18 @@
 
 @implementation AddressViewController
 @synthesize profileData,isEditScreen,addressIndex;
+@synthesize checkoutAddressViewObj;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     countryCodeArray = [NSMutableArray new];
     regionArray = [NSMutableArray new];
+    self.title=NSLocalizedText(@"personalDetails");
+    self.navigationController.navigationBarHidden=false;
+    [self addLeftBarButtonWithImage:true];
+    selectedRegionCode=@"";
+    selectedRegionId=@"0";
     //View initialized
     [self initializedView];
     //Get country code listing
@@ -411,6 +417,10 @@
                                 @"telephone":_phoneNumberField.text,
                                 @"fax":_faxField.text
                                 };
+    if (nil!=checkoutAddressViewObj) {
+        [self popToCheckoutAddressScreen:[dataDict copy]];
+        return;
+    }
     if (isEditScreen) {
         NSDictionary *addressDict = [NSDictionary new];
         addressDict = [profileData.addressArray objectAtIndex:[addressIndex longValue]];
@@ -455,6 +465,45 @@
     }];
 }
 #pragma mark - end
+
+- (void)popToCheckoutAddressScreen:(NSDictionary *)tempDict {
+        NSMutableArray *streetTempArray=[NSMutableArray new];
+        for (NSString *street in tempDict[@"street"]) {
+            [streetTempArray addObject:street];
+        }
+        NSDictionary *parameters = @{@"id" : [UserDefaultManager getNumberValue:@"id" dictData:tempDict],
+                                     @"region" : [tempDict[@"region"] objectForKey:@"region"],
+                                     @"region_id" : [UserDefaultManager getNumberValue:[tempDict objectForKey:@"region_id"] dictData:tempDict],
+                                     @"region_code" : [tempDict[@"region"] objectForKey:@"region_code"],
+                                     @"country_id" : [UserDefaultManager checkStringNull:@"country_id" dictData:tempDict],
+                                     @"company" : [UserDefaultManager checkStringNull:@"company" dictData:tempDict],
+                                     @"telephone" : tempDict[@"telephone"],
+                                     @"fax" : [UserDefaultManager checkStringNull:@"fax" dictData:tempDict],
+                                     @"postcode" : tempDict[@"postcode"],
+                                     @"city" : tempDict[@"city"],
+                                     @"firstname" : tempDict[@"firstname"],
+                                     @"lastname" : tempDict[@"lastname"],
+                                     @"email" : [UserDefaultManager getValue:@"emailId"],
+                                     @"customer_id": [UserDefaultManager getValue:@"userId"],
+                                     @"street":[streetTempArray copy]
+                                     };
+        if (checkoutAddressViewObj.isBillingAddress) {
+            checkoutAddressViewObj.cartModelData.billingAddressDict=[parameters mutableCopy];
+        }
+        else {
+            checkoutAddressViewObj.cartModelData.shippingAddressDict=[parameters mutableCopy];
+        }
+        checkoutAddressViewObj.isEditService=true;
+    for (UIViewController *controller in self.navigationController.viewControllers)
+    {
+        if ([controller isKindOfClass:[CheckoutAddressViewController class]])
+        {
+            [self.navigationController popToViewController:controller animated:YES];
+            
+            break;
+        }
+    }
+}
 
 #pragma mark - Add picker
 - (void)addCustomPickerView {
