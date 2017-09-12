@@ -223,7 +223,7 @@
     if (!isPickerEnable) {
         _nextOutlet.enabled=true;
          _scrollView.contentSize = CGSizeMake(0,_mainCheckoutAddressView.frame.size.height);
-        [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
         if ([self shippingAddressFieldValidations:false]&&[self isShippingAddressDifferent]) {
             [self calledUpdateAddressServiceMethod];
         }
@@ -876,6 +876,7 @@
         else {
             [myDelegate stopIndicator];
         }
+        [self viewObjectFraming];
     } onfailure:^(NSError *error) {
         
     }];
@@ -1085,8 +1086,6 @@
 - (CheckoutCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
         CheckoutCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"checkoutPromoCell" forIndexPath:indexPath];
     [cell displayPromoData:[cartModelData.checkoutPromosArray objectAtIndex:indexPath.row] isSelected:(selectedCheckoutPromoIndex==(int)indexPath.row?true:false)];
-    cell.backgroundColor=[UIColor lightGrayColor];
-    cell.promoInfoLabel.backgroundColor=[UIColor greenColor];
     return cell;
 }
 
