@@ -20,6 +20,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "HCYoutubeParser.h"
 
+
 @interface ProductDetailViewController ()<UIGestureRecognizerDelegate> {
 @private
     ProductDataModel *productDetailModelData;
@@ -29,6 +30,7 @@
     int selectedMediaIndex, currentQuantity;
     NSArray *cellIdentifierArray;
     bool isServiceCalledMPMoviePlayerDone;
+   
 }
 @property (strong, nonatomic) IBOutlet UITableView *productDetailTableView;
 @end
@@ -171,7 +173,7 @@
         [cell displayProductInfo];
     }
     else if (indexPath.row==7) {
-        [cell displayAddToCartButton];
+        [cell displayAddToCartButton:@"ProductDetail"];
         cell.addToCartButton.tag=indexPath.row;
         [cell.addToCartButton addTarget:self action:@selector(insertInCartItemAction:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -297,6 +299,7 @@
         WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
         webView.navigationTitle=navTitle;
         webView.productDetaiData=webViewData;
+        webView.isLocation=@"No";
         [self.navigationController pushViewController:webView animated:YES];
     }
     else {

@@ -17,6 +17,7 @@
 @class ProductDataModel;
 @class ProfileModel;
 @class CartDataModel;
+@class OrderModel;
 
 @interface ConnectionManager : NSObject
 

@@ -20,6 +20,7 @@
     int selectedPickerIndex;
     UIImage *userProfileImage;
     PayPalPaymentOption *payment;
+    BOOL isImagePicker;
 }
 @property (weak, nonatomic) IBOutlet UITableView *profileTableView;
 @end
@@ -33,7 +34,7 @@
     menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"customerSupportCell", @"changePasswordCell"];
     customerSupportArray=@[NSLocalizedText(@"chat"), NSLocalizedText(@"raiseTicket")];
     [self addCustomPickerView];
-    
+    isImagePicker=false;
     payment=[[PayPalPaymentOption alloc]init];
     [payment configPaypalPayment:PayPalEnvironmentSandbox];
     
@@ -53,7 +54,9 @@
     [self addLeftBarButtonWithImage:false];
     [self.view bringSubviewToFront:customerSupportPicker.goNatuurPickerViewObj];
     [self showSelectedTab:4];
-   
+    if (!isImagePicker) {
+        [_profileTableView reloadData];
+    }
 }
 
 //add picker view
@@ -84,6 +87,7 @@
     ProfileModel *userData = [ProfileModel sharedUser];
     userData.userImage=userProfileImage;
     [userData updateUserProfileImage:^(ProfileModel *userData) {
+        isImagePicker=false;
         [myDelegate stopIndicator];
         //dispaly profile data
     } onfailure:^(NSError *error) {
@@ -156,7 +160,7 @@
 
 - (IBAction)redeemPointsButtonAction:(id)sender {
     //pay pal payment
-    [payment setPaymentDetails:[customerSupportArray mutableCopy] delegate:self];
+    //[payment setPaymentDetails:[customerSupportArray mutableCopy] delegate:self];
 }
 
 //PayPalPaymentDelegate
@@ -177,7 +181,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - end
 #pragma mark - end
 
 #pragma mark - Action sheet delegate
@@ -224,9 +227,10 @@
     UIImage *correctOrientationImage = [image fixOrientation];
     cell.userProfileImage.image=correctOrientationImage;
     userProfileImage=cell.userProfileImage.image;
-    [picker dismissViewControllerAnimated:YES completion:NULL];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    isImagePicker=true;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+    [picker dismissViewControllerAnimated:YES completion:NULL];
     [myDelegate showIndicator];
     [self performSelector:@selector(editUserProfileImage) withObject:nil afterDelay:.1];
 }

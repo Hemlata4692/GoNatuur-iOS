@@ -36,17 +36,18 @@
 
 //Display address data
 - (void)displayAddressData:(CGSize)rectSize addressData:(NSDictionary *)addressData {
+    _addressLabel.text=NSLocalizedText(@"addressList");
     _userNameLabel.text = [NSString stringWithFormat:@"%@ %@",addressData[@"firstname"],addressData[@"lastname"]];
     _userNameLabel.translatesAutoresizingMaskIntoConstraints=YES;
     _userNameLabel.numberOfLines=0;
     float newHeight =[DynamicHeightWidth getDynamicLabelHeight:_userNameLabel.text font:[UIFont montserratRegularWithSize:12] widthValue:rectSize.width-100 heightValue:500];
     NSString *addressType;
     if ([addressData[@"default_billing"]boolValue]==1 && [addressData[@"default_shipping"]boolValue]==1) {
-        addressType = @"Shipping/Billing Address";
+        addressType = NSLocalizedText(@"bothAddressSelected");
     } else if ([addressData[@"default_shipping"]boolValue]==1) {
-        addressType = @"Shipping Address";
+        addressType = NSLocalizedText(@"shippingAddress");
     } else if ([addressData[@"default_billing"]boolValue]==1) {
-        addressType = @"Billing Address";
+        addressType = NSLocalizedText(@"billingAddress");
     } else {
         addressType = @"";
     }
@@ -74,7 +75,7 @@
     _secondAddressLabel.frame=CGRectMake(15, _addressLabel.frame.origin.y+_addressLabel.frame.size.height +5,rectSize.width-100, secondAddressHeight);
     _phoneNumberLabel.translatesAutoresizingMaskIntoConstraints=YES;
     _phoneNumberLabel.numberOfLines=0;
-    _phoneNumberLabel.text =  [NSString stringWithFormat:@"Phone Number: %@",addressData[@"telephone"]];
+    _phoneNumberLabel.text =  [NSString stringWithFormat:@"%@ %@",[NSString stringWithFormat:@"%@",NSLocalizedText(@"phoneText")],addressData[@"telephone"]];
     float phoneNumberHeight =[DynamicHeightWidth getDynamicLabelHeight:_phoneNumberLabel.text font:[UIFont montserratRegularWithSize:12] widthValue:rectSize.width-100 heightValue:500];
     _phoneNumberLabel.frame=CGRectMake(15, _secondAddressLabel.frame.origin.y+_secondAddressLabel.frame.size.height +2,rectSize.width-100, phoneNumberHeight);
 }

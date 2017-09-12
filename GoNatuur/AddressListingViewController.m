@@ -16,10 +16,11 @@
 {
 @private
     NSArray *addressArray;
+    UIImage *userProfileImage;
+    BOOL isImagePicker;
 }
 @property (weak, nonatomic) IBOutlet UIButton *addAddressButton;
 @property (weak, nonatomic) IBOutlet UITableView *addressTableView;
-
 @end
 
 @implementation AddressListingViewController
@@ -29,12 +30,7 @@
 #pragma mark - View lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title=NSLocalizedText(@"personalDetails");
-    self.navigationController.navigationBarHidden=false;
-    [self addLeftBarButtonWithImage:true];
-    //customisation of change password button
-    [_addAddressButton setCornerRadius:17.0];
-    [_addAddressButton addShadow:_addAddressButton color:[UIColor blackColor]];
+    isImagePicker=false;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,7 +40,16 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    [_addressTableView reloadData];
+    self.title=NSLocalizedText(@"personalDetails");
+    self.navigationController.navigationBarHidden=false;
+    [self addLeftBarButtonWithImage:true];
+    //customisation of change password button
+    [_addAddressButton setCornerRadius:17.0];
+    [_addAddressButton addShadow:_addAddressButton color:[UIColor blackColor]];
+    [_addAddressButton setTitle:NSLocalizedText(@"addAddressButton") forState:UIControlStateNormal];
+    if (!isImagePicker) {
+        [_addressTableView reloadData];
+    }
 }
 #pragma mark - end
 
@@ -61,7 +66,7 @@
 }
 
 - (IBAction)editProfileImageAction:(UIButton *)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil                                                             delegate:self cancelButtonTitle:NSLocalizedText(@"alertCancel")destructiveButtonTitle:nil otherButtonTitles:NSLocalizedText(@"TakePhoto"), NSLocalizedText(@"Gallery"), nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedText(@"TakePhoto")                                                             delegate:self cancelButtonTitle:NSLocalizedText(@"alertCancel")destructiveButtonTitle:nil otherButtonTitles:NSLocalizedText(@"Camera"), NSLocalizedText(@"Gallery"), nil];
     [actionSheet showInView:self.view];
 }
 
@@ -123,9 +128,13 @@
     AddressListingCell * cell = (AddressListingCell *)[_addressTableView cellForRowAtIndexPath:index];
     UIImage *correctOrientationImage = [image fixOrientation];
     cell.profileImageView.image=correctOrientationImage;
-    [picker dismissViewControllerAnimated:YES completion:NULL];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    isImagePicker=true;
+    userProfileImage=cell.profileImageView.image;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(editProfileImage) withObject:nil afterDelay:.1];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -154,7 +163,7 @@
         CellIdentifier = @"addressListCell";
     }
     AddressListingCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-   
+    
     [cell.editProfileImageButton addTarget:self action:@selector(editProfileImageAction:) forControlEvents:UIControlEventTouchUpInside];
     if (indexPath.row <= 2) {
         [cell displayData:_addressTableView.frame.size];
@@ -224,11 +233,11 @@
         
         NSString *addressType;
         if ([addressData[@"default_billing"]boolValue]==1 && [addressData[@"default_shipping"]boolValue]==1) {
-            addressType = @"Shipping/Billing Address";
+            addressType = NSLocalizedText(@"bothAddressSelected");
         } else if ([addressData[@"default_shipping"]boolValue]==1) {
-            addressType = @"Shipping Address";
+            addressType = NSLocalizedText(@"shippingAddress");
         } else if ([addressData[@"default_billing"]boolValue]==1) {
-            addressType = @"Billing Address";
+            addressType = NSLocalizedText(@"billingAddress");
         } else {
             addressType = @"";
         }
@@ -300,6 +309,18 @@
         
     }];
 }
-#pragma mark - end
 
+//edit profile
+- (void)editProfileImage {
+    ProfileModel *userData = [ProfileModel sharedUser];
+    userData.userImage=userProfileImage;
+    [userData updateUserProfileImage:^(ProfileModel *userData) {
+        [myDelegate stopIndicator];
+        isImagePicker=false;
+        //dispaly profile data
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
 @end

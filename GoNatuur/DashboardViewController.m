@@ -84,6 +84,12 @@
 
 #pragma mark - View customisation
 - (void)viewCustomisation {
+    //set 3 cells per row in collection view
+    UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout*)_footerImageCollectionView.collectionViewLayout;
+    CGFloat availableWidthForCells = CGRectGetWidth(self.view.frame) - flowLayout.sectionInset.left - flowLayout.sectionInset.right - flowLayout.minimumInteritemSpacing * (kCellsPerRow-3);
+    CGFloat cellWidth = (availableWidthForCells / kCellsPerRow)-3;
+    flowLayout.itemSize = CGSizeMake(cellWidth, cellWidth);
+    
     buttonTag=1;
     [_bestSellerButton setTitle:NSLocalizedText(@"bestseller") forState:UIControlStateNormal];
     [_samplers setTitle:NSLocalizedText(@"Samplers") forState:UIControlStateNormal];

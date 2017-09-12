@@ -33,7 +33,7 @@
 //set bottom border only
 - (void)setBottomBorder: (UIView *)view color:(UIColor *)color {
     CALayer *bottomBorder = [CALayer layer];
-    bottomBorder.frame = CGRectMake(0, view.frame.size.height-1, view.frame.size.width, 2.0f);
+    bottomBorder.frame = CGRectMake(0, view.frame.size.height-1, view.frame.size.width, 1.0f);
     bottomBorder.backgroundColor = color.CGColor;
     [view.layer addSublayer:bottomBorder];
 }
@@ -41,7 +41,7 @@
 - (void)addShadow: (UIView *)view color:(UIColor *)color {
     view.layer.shadowColor = color.CGColor;
     view.layer.shadowOffset = CGSizeMake(1.0, 1.0);
-    view.layer.shadowOpacity = 0.6;
+    view.layer.shadowOpacity = 0.5;
     view.layer.shadowRadius = 2.0;
     view.layer.masksToBounds=NO;
 }

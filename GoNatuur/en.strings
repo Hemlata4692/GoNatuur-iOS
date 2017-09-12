@@ -156,7 +156,6 @@
 "address1"="Address Line 1";
 "address2"="Address Line 2";
 "country"="Country";
-"phoneNumber"="Phone Number";
 "postalCode"="Postal Code";
 "billingAddress"="Billing Address";
 "personalSetting"="Personal Settings";

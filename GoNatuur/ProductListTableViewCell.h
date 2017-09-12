@@ -12,5 +12,5 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *bannerImage;
 @property (strong, nonatomic) IBOutlet UICollectionView *productListCollectionView;
-- (void)displayBannerImage:(NSString *)bannerImageUrl;
+- (void)displayBannerImage:(NSString *)bannerImageUrl screenType:(NSString *)screenType;
 @end

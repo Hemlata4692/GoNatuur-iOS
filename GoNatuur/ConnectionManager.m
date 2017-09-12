@@ -24,6 +24,8 @@
 #import "ProfileService.h"
 #import "CartDataModel.h"
 #import "CartService.h"
+#import "OrderModel.h"
+#import "OrderService.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -76,7 +78,7 @@
 #pragma mark - end
 
 #pragma mark - Send device token
-- (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
+- (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure
     {
         LoginService *loginService = [[LoginService alloc] init];
         [loginService saveDeviceTokenService:userData onSuccess:^(id response) {
@@ -86,7 +88,19 @@
         }] ;
         
     }
+
+#pragma mark - Subscribe newsletter
+- (void)newsLetterSubscribe:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
+    LoginService *loginService = [[LoginService alloc] init];
+    [loginService subscriptionNewsLetter:userData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"Subscribe response %@",response);
+        success(userData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
 }
+#pragma mark - end
 
 #pragma mark - CMS page service
 - (void)CMSPageService:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
@@ -141,6 +155,8 @@
     } onfailure:^(NSError *error) {
     }];
 }
+#pragma mark - end
+
 #pragma mark - SignUp user service
 - (void)signUpUserService:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *loginService = [[LoginService alloc] init];
@@ -396,7 +412,7 @@
             productData.wishlistItemId=[[wishlistArray objectAtIndex:i]objectForKey:@"wishlist_item_id"];
             productData.productId = dataDict[@"id"];
             productData.productPrice = [dataDict[@"price"] stringValue];
-           
+            
             productData.productName = dataDict[@"name"];
             if ([[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 productData.productDescription=[self stringByStrippingHTML:[[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
@@ -526,6 +542,46 @@
 }
 #pragma mark - end
 
+#pragma mark - News list data service
+- (void)getNewsCenterListService:(DashboardDataModel *)productData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    DashboardService *productList=[[DashboardService alloc]init];
+    [productList getNewsListService:productData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"news list response %@",response);
+        productData.totalProductCount=[response objectForKey:@"total_count"];
+        productData.productDataArray=[NSMutableArray new];
+        productData.banerImageUrl=@"";
+        for (int i=0; i<[[response objectForKey:@"items"] count]; i++) {
+            DashboardDataModel *tempModel=[[DashboardDataModel alloc] init];
+            tempModel.productId=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"post_id"];
+            tempModel.productName=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"title"];
+            tempModel.productImageThumbnail=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"featured_image"];
+            tempModel.newsContent=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"content"];
+            if ([[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"short_filtered_content"]!=nil) {
+                tempModel.productDescription=[self stringByStrippingHTML:[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"short_filtered_content"]];
+            }
+            [productData.productDataArray addObject:tempModel];
+        }
+        success(productData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
+#pragma mark - News category listing service
+- (void)getNewsCategoryListing:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    DashboardService *categoryList=[[DashboardService alloc]init];
+    [categoryList getNewsCategoryData:userData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"Nwes category list response %@",response);
+        //        myDelegate.categoryNameArray=[response[@"children_data"] mutableCopy];
+        userData.categoryNameArray=[response mutableCopy];
+        success(userData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
 #pragma mark - Product detail service
 - (void)getProductDetail:(ProductDataModel *)productData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
     ProductService *productDetailData=[[ProductService alloc]init];
@@ -569,6 +625,13 @@
             }
             [productData.productMediaArray addObject:tempDict];
         }
+        NSDictionary *eventDetailsDict=[response objectForKey:@"ticket"];
+        productData.attendiesArray=[NSMutableArray new];
+        productData.locationDataArray=[NSMutableArray new];
+        productData.ticketingArray=[NSMutableArray new];
+        productData.attendiesArray=[[[eventDetailsDict objectForKey:@"attending"] objectForKey:@"attendies"] mutableCopy];
+        productData.ticketingArray=[[eventDetailsDict objectForKey:@"ticketing"] mutableCopy];
+        productData.locationDataArray=[[eventDetailsDict objectForKey:@"location"]mutableCopy];
         success(productData);
     } onfailure:^(NSError *error) {
     }];
@@ -902,8 +965,8 @@
         DLog(@"cart list response %@",response);
         success(cartData);
     }
-                   onfailure:^(NSError *error) {
-                   }];
+                       onfailure:^(NSError *error) {
+                       }];
 }
 #pragma mark - end
 
@@ -1014,7 +1077,34 @@
     } onfailure:^(NSError *error) {
         failure(error);
     }] ;
-    
 }
 #pragma mark - end
+
+#pragma mark - Get order listing
+- (void)getOrderListing:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure {
+    OrderService *orderService = [[OrderService alloc] init];
+    [orderService getOrderListing:orderData onSuccess:^(id response) {
+        DLog(@"order list response %@",response);
+        orderData.orderListingArray=[[NSMutableArray alloc]init];
+        NSArray *dataArray=response[@"items"];
+        for (int i =0; i<dataArray.count; i++) {
+            NSDictionary * orderDataDict =[dataArray objectAtIndex:i];
+            OrderModel * orderListData = [[OrderModel alloc]init];
+            orderListData.orderDate = [[orderDataDict[@"created_at"] componentsSeparatedByString:@" "] objectAtIndex:0];
+            orderListData.orderPrice = orderDataDict[@"grand_total"];
+            orderListData.currencyCode = orderDataDict[@"order_currency_code"];
+            orderListData.orderStatus = orderDataDict[@"status"];
+            orderListData.purchaseOrderId = orderDataDict[@"increment_id"];
+            orderListData.billingAddressId = orderDataDict[@"billing_address_id"];
+            orderListData.shippingAddress = [([[[[[orderDataDict[@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"] objectForKey:@"street"]) componentsJoinedByString:@" "];
+            orderListData.BillingAddress = [[orderDataDict[@"billing_address"] objectForKey:@"street"] componentsJoinedByString:@" "];
+            [orderData.orderListingArray addObject:orderListData];
+        }
+        success(orderData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
 @end

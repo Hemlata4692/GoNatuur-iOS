@@ -9,6 +9,7 @@
 #import "ProductDetailTableViewCell.h"
 #import "DynamicHeightWidth.h"
 #import "ProductDataModel.h"
+#import "UITextField+Padding.h"
 
 
 @implementation ProductDetailTableViewCell
@@ -118,9 +119,21 @@
     _productReturnLabel.frame=CGRectMake(40, _shippingFreeLabel.frame.origin.y+_shippingFreeLabel.frame.size.height, [[UIScreen mainScreen] bounds].size.width-80, [DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"Products can be returned within 30 days of purchase, subject to the following conditions.") font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80]);
 }
 
-- (void)displayAddToCartButton {
-    [_addToCartButton setTitle:NSLocalizedText(@"addCart") forState:UIControlStateNormal];
+- (void)displayAddToCartButton:(NSString *)screenType {
+    if ([screenType isEqualToString:@"EventDetail"]) {
+      [_addToCartButton setTitle:NSLocalizedText(@"getTickets") forState:UIControlStateNormal];//Get tickets
+    }
+    else {
+        [_addToCartButton setTitle:NSLocalizedText(@"addCart") forState:UIControlStateNormal];
+    }
     [_addToCartButton setCornerRadius:17.0];
     [_addToCartButton addShadow:_addToCartButton color:[UIColor blackColor]];
+}
+
+- (void)displayTicketingData:(NSString *)ticket {
+    _ticketSelectionTypeField.placeholder=NSLocalizedText(@"ticketType");//Please Select Your Ticket
+    [_ticketSelectionTypeField addTextFieldPaddingWithoutImages:_ticketSelectionTypeField];
+    [_ticketSelectionTypeField setBorder:_ticketSelectionTypeField color:[UIColor blackColor] borderWidth:1.0];
+//    _ticketSelectionTypeField.text=ticket;
 }
 @end

@@ -39,6 +39,9 @@
 @synthesize productSku;
 @synthesize specialPrice;
 @synthesize avg_rating_percent;
+@synthesize attendiesArray;
+@synthesize ticketingArray;
+@synthesize locationDataArray;
 
 - (id)copyWithZone:(NSZone *)zone {
     ProductDataModel *another = [[ProductDataModel alloc] init];
@@ -63,6 +66,9 @@
     another.productMinQuantity= [self.productMinQuantity copyWithZone: zone];
     another.productSku= [self.productSku copyWithZone: zone];
     another.specialPrice= [self.specialPrice copyWithZone: zone];
+    another.attendiesArray= [self.attendiesArray copyWithZone: zone];
+    another.ticketingArray= [self.ticketingArray copyWithZone: zone];
+    another.locationDataArray= [self.locationDataArray copyWithZone: zone];
     return another;
 }
 

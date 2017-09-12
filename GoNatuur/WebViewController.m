@@ -8,15 +8,22 @@
 
 #import "WebViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import <MapKit/MapKit.h>
+#import "AddressAnnotation.h"
 
-@interface WebViewController ()
+@interface WebViewController ()<MKMapViewDelegate> {
+    AddressAnnotation *addAnnotation;
+}
 @property (weak, nonatomic) IBOutlet UIWebView *productDetailWebView;
 @property (weak, nonatomic) IBOutlet UILabel *noDataLabel;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @end
 
 @implementation WebViewController
 @synthesize navigationTitle;
 @synthesize productDetaiData;
+@synthesize isLocation;
+@synthesize locationArray;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -34,9 +41,25 @@
     self.title=navigationTitle;
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
+    _noDataLabel.text=NSLocalizedText(@"nodata");
+    if ([isLocation isEqualToString:@"Yes"]) {
+        _productDetailWebView.hidden=YES;
+        NSDictionary *tempDict=[locationArray objectAtIndex:0];
+        if (locationArray.count==0 || [tempDict objectForKey:@"location_lat"]==nil || [tempDict objectForKey:@"location_long"] ==nil || [[tempDict objectForKey:@"location_lat"]isEqualToString:@""] || [[tempDict objectForKey:@"location_long"]isEqualToString:@""]) {
+            _noDataLabel.hidden=NO;
+            _mapView.hidden=YES;
+        }
+        else {
+        _noDataLabel.hidden=YES;
+        _mapView.hidden=NO;
+            [self addMapPoints:tempDict];
+        }
+    }
+    else {
+    _mapView.hidden=YES;
     _productDetailWebView.backgroundColor = [UIColor colorWithRed:253.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0];
     _productDetailWebView.opaque=NO;
-    _noDataLabel.text=NSLocalizedText(@"nodata");
+    
     if ([productDetaiData isEqualToString:@""] || productDetaiData==nil) {
         _noDataLabel.hidden=NO;
         _productDetailWebView.hidden=YES;
@@ -51,6 +74,26 @@
             [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' text-align:'%@' font-size:15'>%@</body></html>",@"justify", productDetaiData] baseURL: nil];
         }
     }
+    }
+}
+
+- (void)addMapPoints:(NSDictionary *)locationDict {
+    [_mapView setDelegate:self];
+    _mapView.showsUserLocation=NO;
+    MKCoordinateRegion region;
+    MKCoordinateSpan span;
+    span.latitudeDelta =0.05;     // 0.0 is min value u van provide for zooming
+    span.longitudeDelta=0.05;
+    CLLocationCoordinate2D coordinate;
+    coordinate.latitude = [[locationDict objectForKey:@"location_lat"] floatValue];
+    coordinate.longitude = [[locationDict objectForKey:@"location_long"] floatValue];
+    region.span=span;
+    region.center =coordinate;
+    addAnnotation = [[AddressAnnotation alloc] initWithCoordinate:coordinate];
+    [_mapView addAnnotation:addAnnotation];
+    addAnnotation.myPinColor=MKPinAnnotationColorRed;
+    [_mapView setRegion:region animated:TRUE];
+    [_mapView regionThatFits:region];
 }
 #pragma mark - end
 

@@ -121,7 +121,7 @@
 "search"="搜索";
 "sendOTP"="发送我的OTP";
 "backToLogin"="返回登录";
-"resetPasswordTitle"="重置你的密码！！";
+"resetPasswordTitle"="重置你的密码！!";
 "otp"="OTP";
 "resetPassword"="重设密码";
 "resendOTP"="重新发送OTP";
@@ -162,7 +162,7 @@
 "address1"="地址栏1";
 "address2"="地址行2";
 "country"="国家";
-"phoneNumber"="电话号码";
+"phoneNumber"="电话号码*";
 "postalCode"="邮政编码";
 "billingAddress"="帐单地址";
 "personalSetting"="个人设置";

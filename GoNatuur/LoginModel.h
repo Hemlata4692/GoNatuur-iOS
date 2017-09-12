@@ -45,4 +45,6 @@
 - (void)forgotPasswordService:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
 //Reset password service
 - (void)resetPasswordService:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
+//Subscribe for news letter
+- (void)newsLetterSubscribe:(void (^)(LoginModel *))success onfailure:(void (^)(NSError *))failure;
 @end
