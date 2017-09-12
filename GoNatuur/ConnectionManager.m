@@ -66,7 +66,8 @@
     LoginService *loginService = [[LoginService alloc] init];
     [loginService loginGuestUser:^(id response) {
         //Parse data from server response and store in data model
-        userData.quoteId=[[response objectAtIndex:0] objectForKey:@"quote_id"];
+//        userData.quoteId=[[response objectAtIndex:0] objectForKey:@"quote_id"];
+        userData.quoteId=[response objectForKey:@"quote_id"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -207,6 +208,26 @@
             bannerData.banerImageId = footerDataDict[@"action_id"];
             bannerData.bannerImageType = footerDataDict[@"action"];
             [userData.footerBannerImageArray addObject:bannerData];
+        }
+        //Check login/guest group
+        if ([response[@"group_id"] isKindOfClass:[NSString class]]) {
+            [UserDefaultManager setValue:@"promo_apply_Guest" key:@"GroupType"];
+        }
+        else {
+            switch ([response[@"group_id"] intValue]) {
+                case 1:
+                    [UserDefaultManager setValue:@"promo_apply_b2_ccustomer_check" key:@"GroupType"];
+                    break;
+                case 3:
+                    [UserDefaultManager setValue:@"promo_apply_b2_breseller_check" key:@"GroupType"];
+                    break;
+                case 4:
+                    [UserDefaultManager setValue:@"promo_apply_b2_bfranchise_check" key:@"GroupType"];
+                    break;
+                default:
+                    [UserDefaultManager setValue:@"promo_apply_Guest" key:@"GroupType"];
+                    break;
+            }
         }
         success(userData);
         
@@ -830,6 +851,11 @@
         DLog(@"cart list response %@",response);
         cartData.cartListResponse=[response mutableCopy];
         cartData.itemList=[NSMutableArray new];
+        cartData.billingAddressDict=[NSMutableDictionary new];
+        cartData.shippingAddressDict=[NSMutableDictionary new];
+        cartData.customerDict=[NSMutableDictionary new];
+        cartData.customerSavedAddressArray=[NSMutableArray new];
+        cartData.selectedShippingMethod=@"flatrate";
         if ((nil==[UserDefaultManager getValue:@"userId"])){
             int cartCount=0;
             for (NSDictionary *tempDict in response) {
@@ -837,13 +863,20 @@
                 [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
             }
             cartData.itemQty=[NSNumber numberWithInt:cartCount];
+            cartData.selectedShippingMethod=@"flatrate";
         }
         else {
+            cartData.billingAddressDict=[response[@"billing_address"] mutableCopy];
+            cartData.customerDict=[response[@"customer"] mutableCopy];
+            cartData.customerSavedAddressArray=[cartData.customerDict[@"addresses"] mutableCopy];
+            if ([[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] count]>0) {
+                 cartData.shippingAddressDict=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"];
+            }
+            cartData.selectedShippingMethod=([cartData.selectedShippingMethod isEqualToString:@""]?@"flatrate":cartData.selectedShippingMethod);
             for (NSDictionary *tempDict in response[@"items"]) {
                 [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
             }
         }
-        
         success(cartData);
     }
                    onfailure:^(NSError *error) {
@@ -871,6 +904,82 @@
     }
                    onfailure:^(NSError *error) {
                    }];
+}
+#pragma mark - end
+
+#pragma mark - Fetch shippment methods
+- (void)fetchShippmentMethods:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList fetchShippmentMethods:cartData success:^(id response) {
+        DLog(@"Fetch shippment methods response %@",response);
+        cartData.shippmentMethodsArray=[response mutableCopy];
+        success(cartData);
+    }
+                       onfailure:^(NSError *error) {
+                       }];
+}
+#pragma mark - end
+
+#pragma mark - Fetch checkout promos
+- (void)fetchCheckoutPromos:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList fetchCheckoutPromos:cartData success:^(id response) {
+        DLog(@"Fetch promos response %@",response);
+        cartData.checkoutPromosArray=[NSMutableArray new];
+        BOOL flag=false;
+        if (nil!=response[@"checkout_promo"]&&[response[@"checkout_promo"] count]>0) {
+            float ip=[cartData.checkoutImpactPoint floatValue];
+            NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"promo_points" ascending:YES];
+            NSArray *results = [response[@"checkout_promo"]
+                                sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
+            for (NSDictionary *tempDict in results) {
+                if ([tempDict[@"promo_status"] isEqualToString:@"draft"]) {
+                    continue;
+                }
+                //Uncomment code after added groupType form login service
+                else if(nil==tempDict[[UserDefaultManager getValue:@"GroupType"]]||![tempDict[[UserDefaultManager getValue:@"GroupType"]] boolValue]) {//Group is not same
+                    continue;
+                }
+                else if(![tempDict[@"promo_category"] isEqualToString:@"rebate"]&&![tempDict[@"promo_category"] isEqualToString:@"percent_discount"]&&!flag) {  //During freeshipping include single entry
+                    flag=true;
+                    if ([tempDict[@"promo_points"] floatValue]<ip) {
+                        [tempDict setValue:[NSNumber numberWithBool:false] forKey:@"HiddenPromo"];
+                    }
+                    else {
+                        [tempDict setValue:[NSNumber numberWithBool:true] forKey:@"HiddenPromo"];
+                    }
+                    [cartData.checkoutPromosArray addObject:tempDict];
+                }
+                else if(![tempDict[@"promo_category"] isEqualToString:@"rebate"]&&![tempDict[@"promo_category"] isEqualToString:@"percent_discount"]&&flag) {
+                    continue;
+                }
+                else {
+                    if ([tempDict[@"promo_points"] floatValue]<=ip) {
+                        [tempDict setValue:[NSNumber numberWithBool:false] forKey:@"HiddenPromo"];
+                    }
+                    else {
+                        [tempDict setValue:[NSNumber numberWithBool:true] forKey:@"HiddenPromo"];
+                    }
+                    [cartData.checkoutPromosArray addObject:tempDict];
+                }
+            }
+        }
+        success(cartData);
+    }
+                          onfailure:^(NSError *error) {
+                          }];
+}
+#pragma mark - end
+
+#pragma mark - Set addresses and shipping methods
+- (void)setUpdatedAddressShippingMethodsService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList setUpdatedAddressShippingMethodsService:cartData success:^(id response) {
+        DLog(@"Set addresses and shipping methods response %@",response);
+        success(cartData);
+    }
+                          onfailure:^(NSError *error) {
+                          }];
 }
 #pragma mark - end
 
