@@ -17,6 +17,7 @@
 
 @implementation CardListViewController
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -40,6 +41,7 @@
     //remove extra lines from table view
     _cardsListTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
+#pragma mark - end
 
 #pragma mark - Table view data source and delgate methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -57,6 +59,4 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 #pragma mark - end
-
-
 @end

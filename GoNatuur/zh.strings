@@ -235,6 +235,12 @@
 "sideBarAboutUs"="關於我們";
 "sideBarContactUs"="聯繫我們";
 "sideBarNewsLetter"="通訊訂閱";
+"newlettersubscription"="Newsletter Subscription";
+"subscribe"="SUBSCRIBE";
+"searchNewsPlaceholder"="Search for news";
+"CardList"="Card List";
+"addCard"="ADD NEW CARD";
+"eventAddedWishlist"="Event already added to wishlist.";
 "orderTitle"="My Orders";
 "PurchaseOrderHeading"="Purchase Order:";
 "orderDateHeading"="Date:";

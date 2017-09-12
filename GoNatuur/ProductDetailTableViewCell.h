@@ -38,5 +38,5 @@
 - (void)displayProductPrice:(ProductDataModel *)productData currentQuantity:(int)currentQuantity;
 - (void)displayProductInfo;
 - (void)displayAddToCartButton:(NSString *)screenType;
--(void)displayTicketingData;
+- (void)displayTicketingData:(NSString *)ticket;
 @end

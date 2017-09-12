@@ -218,6 +218,12 @@
 "sideBarAboutUs"="关于我们";
 "sideBarContactUs"="联系我们";
 "sideBarNewsLetter"="通讯订阅";
+"newlettersubscription"="Newsletter Subscription";
+"subscribe"="SUBSCRIBE";
+"searchNewsPlaceholder"="Search for news";
+"CardList"="Card List";
+"addCard"="ADD NEW CARD";
+"eventAddedWishlist"="Event already added to wishlist.";
 "orderTitle"="My Orders";
 "PurchaseOrderHeading"="Purchase Order:";
 "orderDateHeading"="Date:";

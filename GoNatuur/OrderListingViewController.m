@@ -293,7 +293,7 @@
 - (void)getOrderListing {
     orderDataModel = [OrderModel sharedUser];
     [orderDataModel getOrderListing:^(OrderModel *userData) {
-        orderListArray = userData.orderListingArray;
+    orderListArray = userData.orderListingArray;
         if (orderListArray.count > 0) {
             for (int i=0; i<[orderListArray count]; i++) {
                 [selectedSecArray addObject:[NSNumber numberWithBool:NO]];
