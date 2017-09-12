@@ -24,6 +24,8 @@
 #import "ProfileService.h"
 #import "CartDataModel.h"
 #import "CartService.h"
+#import "OrderModel.h"
+#import "OrderService.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -390,7 +392,7 @@
             productData.wishlistItemId=[[wishlistArray objectAtIndex:i]objectForKey:@"wishlist_item_id"];
             productData.productId = dataDict[@"id"];
             productData.productPrice = [dataDict[@"price"] stringValue];
-           
+            
             productData.productName = dataDict[@"name"];
             if ([[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 productData.productDescription=[self stringByStrippingHTML:[[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
@@ -931,8 +933,8 @@
         DLog(@"cart list response %@",response);
         success(cartData);
     }
-                   onfailure:^(NSError *error) {
-                   }];
+                       onfailure:^(NSError *error) {
+                       }];
 }
 #pragma mark - end
 
@@ -967,7 +969,33 @@
     } onfailure:^(NSError *error) {
         failure(error);
     }] ;
-    
+}
+#pragma mark - end
+
+#pragma mark - Get order listing
+- (void)getOrderListing:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure {
+    OrderService *orderService = [[OrderService alloc] init];
+    [orderService getOrderListing:orderData onSuccess:^(id response) {
+        DLog(@"order list response %@",response);
+        orderData.orderListingArray=[[NSMutableArray alloc]init];
+        NSArray *dataArray=response[@"items"];
+        for (int i =0; i<dataArray.count; i++) {
+            NSDictionary * orderDataDict =[dataArray objectAtIndex:i];
+            OrderModel * orderListData = [[OrderModel alloc]init];
+            orderListData.orderDate = [[orderDataDict[@"created_at"] componentsSeparatedByString:@" "] objectAtIndex:0];
+            orderListData.orderPrice = orderDataDict[@"grand_total"];
+            orderListData.currencyCode = orderDataDict[@"order_currency_code"];
+            orderListData.orderStatus = orderDataDict[@"status"];
+            orderListData.purchaseOrderId = orderDataDict[@"increment_id"];
+            orderListData.billingAddressId = orderDataDict[@"billing_address_id"];
+            orderListData.shippingAddress = [([[[[[orderDataDict[@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"] objectForKey:@"street"]) componentsJoinedByString:@" "];
+            orderListData.BillingAddress = [[orderDataDict[@"billing_address"] objectForKey:@"street"] componentsJoinedByString:@" "];
+            [orderData.orderListingArray addObject:orderListData];
+        }
+        success(orderData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
 }
 #pragma mark - end
 
