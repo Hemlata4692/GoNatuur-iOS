@@ -102,7 +102,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self didLoadIntialization];
     [self viewInitialization];
     //Add custom picker view and initialized indexs
     [self addCustomPickerView];
@@ -289,6 +288,14 @@
     [self setLocalizedText];
     [self setTextFieldPadding];
     [self setTextFieldBorder];
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+        _shippingEditAddressButton.hidden=true;
+        _billingEditAddressButton.hidden=true;
+    }
+    else {
+        _shippingEditAddressButton.hidden=false;
+        _billingEditAddressButton.hidden=false;
+    }
 }
 
 - (void)viewObjectFraming {
@@ -623,7 +630,13 @@
 
 - (void)disableBillingAddress:(BOOL)isYes {
     if (isYes) {
-        _billingEditAddressButton.hidden=true;
+        if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            _shippingEditAddressButton.hidden=true;
+            _billingEditAddressButton.hidden=true;
+        }
+        else {
+            _billingEditAddressButton.hidden=true;
+        }
         _billingFirstNameTextField.enabled=false;
         _billingLastNameTextField.enabled=false;
         _billingPhoneNumberTextField.enabled=false;
@@ -642,7 +655,13 @@
         selectedBillingRegionCode=selectedShippingRegionCode;
     }
     else {
-        _billingEditAddressButton.hidden=false;
+        if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            _shippingEditAddressButton.hidden=true;
+            _billingEditAddressButton.hidden=true;
+        }
+        else {
+            _billingEditAddressButton.hidden=false;
+        }
         _billingFirstNameTextField.enabled=true;
         _billingLastNameTextField.enabled=true;
         _billingPhoneNumberTextField.enabled=true;
@@ -841,7 +860,12 @@
         [self setInitailizedShippingAddressData];
         [self setInitailizedBillingAddressData:false];
         [self setTextFieldKeyboard:false];
-        [self getImpactPoints];
+        if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            [myDelegate stopIndicator];
+        }
+        else {
+            [self getImpactPoints];
+        }
     } onfailure:^(NSError *error) {
         
     }];
@@ -938,7 +962,7 @@
                                  @"firstname" : _shippingFirstNameTextField.text,
                                  @"lastname" : _shippingLastNameTextField.text,
                                  @"email" : _shippingEmailTextField.text,
-                                 @"customer_id": [UserDefaultManager getValue:@"userId"],
+                                 @"customer_id": (nil!=[UserDefaultManager getValue:@"userId"]?[UserDefaultManager getValue:@"userId"]:[NSNumber numberWithInt:0]),
                                  @"street":[streetTempArray copy]
                                  };
     return shippingAddress;
@@ -963,7 +987,7 @@
                                       @"firstname" : _billingFirstNameTextField.text,
                                       @"lastname" : _billingLastNameTextField.text,
                                       @"email" : _billingEmailTextField.text,
-                                      @"customer_id": [UserDefaultManager getValue:@"userId"],
+                                      @"customer_id": (nil!=[UserDefaultManager getValue:@"userId"]?[UserDefaultManager getValue:@"userId"]:[NSNumber numberWithInt:0]),
                                       @"street":[streetTempArray copy]
                                       };
     return shippingAddress;

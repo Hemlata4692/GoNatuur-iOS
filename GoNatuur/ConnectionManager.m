@@ -625,13 +625,15 @@
             }
             [productData.productMediaArray addObject:tempDict];
         }
-        NSDictionary *eventDetailsDict=[response objectForKey:@"ticket"];
-        productData.attendiesArray=[NSMutableArray new];
-        productData.locationDataArray=[NSMutableArray new];
-        productData.ticketingArray=[NSMutableArray new];
-        productData.attendiesArray=[[[eventDetailsDict objectForKey:@"attending"] objectForKey:@"attendies"] mutableCopy];
-        productData.ticketingArray=[[eventDetailsDict objectForKey:@"ticketing"] mutableCopy];
-        productData.locationDataArray=[[eventDetailsDict objectForKey:@"location"]mutableCopy];
+        if (![response[@"type_id"] isEqualToString:@"simple"]) {
+            NSDictionary *eventDetailsDict=[response objectForKey:@"ticket"];
+            productData.attendiesArray=[NSMutableArray new];
+            productData.locationDataArray=[NSMutableArray new];
+            productData.ticketingArray=[NSMutableArray new];
+            productData.attendiesArray=[[[eventDetailsDict objectForKey:@"attending"] objectForKey:@"attendies"] mutableCopy];
+            productData.ticketingArray=[[eventDetailsDict objectForKey:@"ticketing"] mutableCopy];
+            productData.locationDataArray=[[eventDetailsDict objectForKey:@"location"]mutableCopy];
+        }
         success(productData);
     } onfailure:^(NSError *error) {
     }];

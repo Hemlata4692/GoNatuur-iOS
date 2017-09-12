@@ -42,12 +42,12 @@ static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-
 #pragma mark - Fetch shippment methods
 - (void)fetchShippmentMethods:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     
-//    if ((nil==[UserDefaultManager getValue:@"userId"])){
-//        [super deleteService:[NSString stringWithFormat:@"guest-carts/%@/items/%@",cartData.itemQuoteId,cartData.itemId] parameters:nil isBoolean:true success:success failure:failure];
-//    }
-//    else {
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+        [self get:[NSString stringWithFormat:@"carts/%@/shipping-methods",[UserDefaultManager getValue:@"quoteId"]] parameters:nil onSuccess:success onFailure:failure];
+    }
+    else {
     [self get:kGetLogindShippmentMethod parameters:nil onSuccess:success onFailure:failure];
-//    }
+    }
 }
 #pragma mark - end
 
@@ -75,8 +75,14 @@ static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-
                                          @"shipping_carrier_code":cartData.selectedShippingMethod
                                          }
                                  };
-        DLog(@"%@",parameters);
-    [super post:kcheckoutShippingInformationManagementV1 parameters:parameters success:success failure:failure];
+    DLog(@"%@",parameters);
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+        [super post:[NSString stringWithFormat:@"guest-carts/%@/shipping-information",[UserDefaultManager getValue:@"quoteId"]] parameters:parameters success:success failure:failure];
+    }
+    else {
+        [super post:kcheckoutShippingInformationManagementV1 parameters:parameters success:success failure:failure];
+    }
+    
 }
 #pragma mark - end
 
@@ -85,20 +91,23 @@ static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-
     for (NSString *street in tempDict[@"street"]) {
         [streetTempArray addObject:street];
     }
-    NSDictionary *parameters = @{@"id" : [UserDefaultManager getNumberValue:@"id" dictData:tempDict],
-                                 @"region" : [tempDict objectForKey:@"region"],
+    if (streetTempArray.count<1) {
+        [streetTempArray addObject:@""];
+    }
+    
+    NSDictionary *parameters = @{@"region" : [UserDefaultManager checkStringNull:@"region" dictData:tempDict],
                                  @"region_id" : [UserDefaultManager getNumberValue:[tempDict objectForKey:@"region_id"] dictData:tempDict],
-                                 @"region_code" : [tempDict objectForKey:@"region_code"],
+                                 @"region_code" : [UserDefaultManager checkStringNull:@"region_code" dictData:tempDict],
                                  @"country_id" : [UserDefaultManager checkStringNull:@"country_id" dictData:tempDict],
                                  @"company" : [UserDefaultManager checkStringNull:@"company" dictData:tempDict],
-                                 @"telephone" : tempDict[@"telephone"],
+                                 @"telephone" : [UserDefaultManager checkStringNull:@"telephone" dictData:tempDict],
                                  @"fax" : [UserDefaultManager checkStringNull:@"fax" dictData:tempDict],
-                                 @"postcode" : tempDict[@"postcode"],
-                                 @"city" : tempDict[@"city"],
-                                 @"firstname" : tempDict[@"firstname"],
-                                 @"lastname" : tempDict[@"lastname"],
-                                 @"email" : tempDict[@"email"],
-                                 @"customer_id": [UserDefaultManager getValue:@"userId"],
+                                 @"postcode" : [UserDefaultManager checkStringNull:@"postcode" dictData:tempDict],
+                                 @"city" : [UserDefaultManager checkStringNull:@"city" dictData:tempDict],
+                                 @"firstname" : [UserDefaultManager checkStringNull:@"firstname" dictData:tempDict],
+                                 @"lastname" : [UserDefaultManager checkStringNull:@"lastname" dictData:tempDict],
+                                 @"email" : [UserDefaultManager checkStringNull:@"email" dictData:tempDict],
+                                 @"customer_id": (nil!=[UserDefaultManager getValue:@"userId"]?[UserDefaultManager getValue:@"userId"]:[NSNumber numberWithInt:0]),
                                  @"street":[streetTempArray copy]
                                  };
     return parameters;
