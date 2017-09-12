@@ -225,7 +225,8 @@
     //StoryBoard navigation
     CheckoutAddressViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckoutAddressViewController"];
     obj.cartListDataArray=[cartListData mutableCopy];
-    obj.cartListModelData=cartModelData;
+    obj.cartModelData=[cartModelData copy];
+    obj.subTotalPrice=totalCartProductPrice;
     [self.navigationController pushViewController:obj animated:YES];
 }
 //end
@@ -243,6 +244,19 @@
         [cartListObj.view removeFromSuperview];
         [cartListObj removeFromParentViewController];
     }
+    [self getTotalCartItemPrice];
+}
+#pragma mark - end
+
+#pragma mark - Calculation for total cart item price
+- (void)getTotalCartItemPrice {
+    totalCartProductPrice=0.0;
+    //Add product image and description in already data stored data array
+    for (int i=0; i<cartListData.count; i++) {
+        CartDataModel *cartDataTemp=[cartListData objectAtIndex:i];
+        totalCartProductPrice+=([[cartDataTemp itemPrice] floatValue]*[cartDataTemp.itemQty floatValue]);
+    }
+    cartListObj.totalPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(totalCartProductPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
 }
 #pragma mark - end
 @end
