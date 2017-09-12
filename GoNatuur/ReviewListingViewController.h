@@ -16,5 +16,5 @@
 @property (nonatomic,strong) NSString *reviewId;
 @property (nonatomic,strong) ProductDetailViewController *productDetailObj;
 @property (nonatomic,strong) EventDetailViewController *eventDetailObj;
-
+@property (nonatomic, strong) NSString *navigationHeading;
 @end

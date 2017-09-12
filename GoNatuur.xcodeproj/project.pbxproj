@@ -37,6 +37,8 @@
 		184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */; };
 		185036E51F67A0850008C0F1 /* WebPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185036E41F67A0850008C0F1 /* WebPageViewController.m */; };
 		185036E61F67A7510008C0F1 /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2AD271F659C6400B8F605 /* EventDetailViewController.m */; };
+		185036EA1F67D9860008C0F1 /* NewsCentreDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185036E91F67D9860008C0F1 /* NewsCentreDetailViewController.m */; };
+		185036EE1F67E3830008C0F1 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185036ED1F67E3830008C0F1 /* ShareViewController.m */; };
 		185F707F1F55A839007F49F7 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185F707E1F55A839007F49F7 /* ProfileViewController.m */; };
 		1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */; };
 		187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 187129061F48D5BC00D16581 /* UpdateCartItem.m */; };
@@ -223,6 +225,10 @@
 		184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Regular.otf"; sourceTree = "<group>"; };
 		185036E31F67A0850008C0F1 /* WebPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPageViewController.h; sourceTree = "<group>"; };
 		185036E41F67A0850008C0F1 /* WebPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebPageViewController.m; sourceTree = "<group>"; };
+		185036E81F67D9860008C0F1 /* NewsCentreDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCentreDetailViewController.h; sourceTree = "<group>"; };
+		185036E91F67D9860008C0F1 /* NewsCentreDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCentreDetailViewController.m; sourceTree = "<group>"; };
+		185036EC1F67E3830008C0F1 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
+		185036ED1F67E3830008C0F1 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		185F707D1F55A839007F49F7 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		185F707E1F55A839007F49F7 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		1870F0BC1F44185F008B2CE5 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
@@ -466,6 +472,7 @@
 		180409DD1F58741800EA3E17 /* NewCentreModule */ = {
 			isa = PBXGroup;
 			children = (
+				185036E71F67D94F0008C0F1 /* NewsCentreDetailView */,
 				18FFBC831F62CE91006C088B /* NewsCenterSearchListing */,
 				18FFBC7E1F6295E1006C088B /* NewsLetterSubscription */,
 				180409E11F5887BE00EA3E17 /* NewsListingViewController */,
@@ -694,6 +701,24 @@
 				185036E41F67A0850008C0F1 /* WebPageViewController.m */,
 			);
 			name = WebPageViewController;
+			sourceTree = "<group>";
+		};
+		185036E71F67D94F0008C0F1 /* NewsCentreDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				185036E81F67D9860008C0F1 /* NewsCentreDetailViewController.h */,
+				185036E91F67D9860008C0F1 /* NewsCentreDetailViewController.m */,
+			);
+			name = NewsCentreDetailView;
+			sourceTree = "<group>";
+		};
+		185036EB1F67E36C0008C0F1 /* ShareViewController */ = {
+			isa = PBXGroup;
+			children = (
+				185036EC1F67E3830008C0F1 /* ShareViewController.h */,
+				185036ED1F67E3830008C0F1 /* ShareViewController.m */,
+			);
+			name = ShareViewController;
 			sourceTree = "<group>";
 		};
 		185693CD1F4AA10D00D1EE0F /* ReviewListView */ = {
@@ -1118,6 +1143,7 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				185036EB1F67E36C0008C0F1 /* ShareViewController */,
 				185036DB1F679E710008C0F1 /* WebPageViewController */,
 				5D2760A11F62765400B6D0FF /* OrderModule */,
 				189162041F614C7C005ED12E /* PaymentDetails */,
@@ -2120,6 +2146,7 @@
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
 				B77D86EB1F5D84090041D646 /* CartListTableViewCell.m in Sources */,
 				5D2760AD1F62795A00B6D0FF /* OrderModel.m in Sources */,
+				185036EA1F67D9860008C0F1 /* NewsCentreDetailViewController.m in Sources */,
 				1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */,
 				187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */,
 				B7A4D3ED1F48278A00A28BBE /* ProductDetailViewController.m in Sources */,
@@ -2169,6 +2196,7 @@
 				B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */,
 				5D2760B11F627AEF00B6D0FF /* OrderService.m in Sources */,
 				1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */,
+				185036EE1F67E3830008C0F1 /* ShareViewController.m in Sources */,
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,
 				184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */,
 				185F707F1F55A839007F49F7 /* ProfileViewController.m in Sources */,

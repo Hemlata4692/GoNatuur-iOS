@@ -32,7 +32,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
-    self.title=NSLocalizedText(@"Attending");
+    self.title=NSLocalizedText(@"attending");
     [self addLeftBarButtonWithImage:true];
     if (attendeesArray.count==0) {
         _noRecordLabel.hidden=NO;

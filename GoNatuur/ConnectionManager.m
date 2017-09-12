@@ -108,8 +108,10 @@
     [loginService CMSPageService:userData onSuccess:^(id response) {
         //Parse data from server response and store in data model
         DLog(@"CMS page response %@",response);
-        userData.cmsTitle=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"title"];
-        userData.cmsContent=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"content"];
+        if ([[response objectForKey:@"items"] count]!=0) {
+            userData.cmsTitle=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"title"];
+            userData.cmsContent=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"content"];
+        }
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);

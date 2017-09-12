@@ -42,7 +42,12 @@ NSString * const payPalClientId = @"AZR_diRWoS3qEWpUDyI6_K6iRHjKkOMwC93488tbFjug
 + (NSString *)decimalFormatter:(double)number {
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     numberFormatter.maximumFractionDigits = 2;
+    if (number==0) {
+       [numberFormatter setPositiveFormat:@"0.00"];
+    }
+    else {
     [numberFormatter setPositiveFormat:@",##,###.00"];
+    }
     numberFormatter.numberStyle = kCFNumberFormatterDecimalStyle;
     NSString *numberString = [numberFormatter stringFromNumber:@(number)];
     return  numberString;

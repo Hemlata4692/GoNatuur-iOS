@@ -22,6 +22,7 @@
 #import "AttendeesViewController.h"
 #import "TicketingViewController.h"
 #import "GoNatuurPickerView.h"
+#import "ShareViewController.h"
 
 @interface EventDetailViewController ()<UIGestureRecognizerDelegate,GoNatuurPickerViewDelegate> {
 @private
@@ -47,7 +48,6 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    ticketArray=[[NSMutableArray alloc]init];
     [self viewInitialization];
     // Do any additional setup after loading the view.
     if (isServiceCalledMPMoviePlayerDone) {
@@ -172,7 +172,6 @@
     }
     else if (indexPath.row==5) {
         [cell displayTicketingData:@""];
-       // cell.ticketSelectionTypeField.text=[ticketArray objectAtIndex:selectedPickerIndex];
          [cell.selectTicketingButton addTarget:self action:@selector(selectTicketType:) forControlEvents:UIControlEventTouchUpInside];
         cell.selectTicketingButton.tag=indexPath.row;
     }
@@ -283,7 +282,7 @@
     }
     else if (indexPath.row==13) {
         //Review action
-        [self navigateToView:@"" webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId] reviewId:productDetailModelData.reviewId isLocation:@"No"];
+        [self navigateToView:NSLocalizedText(@"Comments") webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId] reviewId:productDetailModelData.reviewId isLocation:@"No"];
     }
     else if (indexPath.row==14) {
         //Follow action
@@ -309,7 +308,15 @@
     }
     else if (indexPath.row==16) {
         //Share action
-        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ShareViewController *popView =
+        [storyboard instantiateViewControllerWithIdentifier:@"ShareViewController"];
+        popView.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4f];
+        [popView setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:popView animated:YES completion:nil];
+        });
+
     }
     else if (indexPath.row==17) {
         //Location action
@@ -335,6 +342,7 @@
         ReviewListingViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewListingViewController"];
         reviewView.productID =productId;
         reviewView.reviewId=reviewId;
+        reviewView.navigationHeading=navTitle;
         reviewView.reviewAdded=reviewAdded;
         reviewView.eventDetailObj=self;
         [self.navigationController pushViewController:reviewView animated:YES];
@@ -529,12 +537,14 @@
 
 - (IBAction)selectTicketType:(UIButton *)sender {
     ticketBtnTag=(int)[sender tag];
+    ticketArray=[NSMutableArray new];
     NSMutableDictionary *tempDict=[productDetailModelData.ticketingArray objectAtIndex:0];
     NSArray *dataArray=[[[tempDict objectForKey:@"event_option_type"]objectForKey:@"event_option_options"] mutableCopy];
-   
     for (int i=0; i<dataArray.count; i++) {
         NSDictionary *ticketDict=[dataArray objectAtIndex:i];
-        [ticketArray addObject:[NSString stringWithFormat:@"%@ + %@",[ticketDict objectForKey:@"title"],[ticketDict objectForKey:@"price"]]];
+        double productCalculatedPrice =[[ticketDict objectForKey:@"price"] doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+        NSString *price=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
+        [ticketArray addObject:[NSString stringWithFormat:@"%@ + %@",[ticketDict objectForKey:@"title"],price]];
     }
     [customerTicketPicker showPickerView:ticketArray selectedIndex:selectedPickerIndex option:1 isCancelDelegate:false];
 }
@@ -543,7 +553,6 @@
 #pragma mark - Custom picker delegate method
 //add picker view
 - (void)addCustomPickerView {
-    
     selectedPickerIndex=-1;
     //Set initial index of picker view and initialized picker view
     customerTicketPicker=[[GoNatuurPickerView alloc] initWithFrame:self.view.frame delegate:self pickerHeight:230];
