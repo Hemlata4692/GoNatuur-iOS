@@ -156,6 +156,8 @@
 		B7E7EE521F669F5C00AD12E7 /* CheckoutCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E7EE511F669F5C00AD12E7 /* CheckoutCollectionViewCell.m */; };
 		B7F570F01F67B4B20006C9BB /* WishlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F570EF1F67B4B20006C9BB /* WishlistViewController.m */; };
 		B7F570F11F67B4D10006C9BB /* WishlistViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = B7F570EE1F67B4B20006C9BB /* WishlistViewController.h */; };
+		B7F570F51F67FA220006C9BB /* FinalCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F570F41F67FA220006C9BB /* FinalCheckoutViewController.m */; };
+		B7F570FA1F67FA7F0006C9BB /* FinalCheckoutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F570F91F67FA7F0006C9BB /* FinalCheckoutTableViewCell.m */; };
 		E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */; };
 /* End PBXBuildFile section */
 
@@ -438,6 +440,10 @@
 		B7E7EE511F669F5C00AD12E7 /* CheckoutCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckoutCollectionViewCell.m; sourceTree = "<group>"; };
 		B7F570EE1F67B4B20006C9BB /* WishlistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WishlistViewController.h; sourceTree = "<group>"; };
 		B7F570EF1F67B4B20006C9BB /* WishlistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WishlistViewController.m; sourceTree = "<group>"; };
+		B7F570F31F67FA220006C9BB /* FinalCheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalCheckoutViewController.h; sourceTree = "<group>"; };
+		B7F570F41F67FA220006C9BB /* FinalCheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinalCheckoutViewController.m; sourceTree = "<group>"; };
+		B7F570F81F67FA7F0006C9BB /* FinalCheckoutTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalCheckoutTableViewCell.h; sourceTree = "<group>"; };
+		B7F570F91F67FA7F0006C9BB /* FinalCheckoutTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinalCheckoutTableViewCell.m; sourceTree = "<group>"; };
 		B83EEE6EC30D7C8806561F9A /* Pods-GoNatuur.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.release.xcconfig"; sourceTree = "<group>"; };
 		BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoNatuur.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1699,6 +1705,7 @@
 		B77D86DE1F5D83A40041D646 /* MyCartModule */ = {
 			isa = PBXGroup;
 			children = (
+				B7F570F21F67F4EB0006C9BB /* FinalCheckoutView */,
 				B7D100661F5FC94300D964D8 /* CheckoutAddressView */,
 				B77D86E21F5D83CF0041D646 /* MyCartViewController */,
 				B77D86DF1F5D83AE0041D646 /* CartListingViewController */,
@@ -1961,6 +1968,33 @@
 			name = CheckoutCollectionVeiwCell;
 			sourceTree = "<group>";
 		};
+		B7F570F21F67F4EB0006C9BB /* FinalCheckoutView */ = {
+			isa = PBXGroup;
+			children = (
+				B7F570F71F67FA600006C9BB /* FinalCheckoutCell */,
+				B7F570F61F67FA320006C9BB /* FinalCheckoutViewController */,
+			);
+			name = FinalCheckoutView;
+			sourceTree = "<group>";
+		};
+		B7F570F61F67FA320006C9BB /* FinalCheckoutViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B7F570F31F67FA220006C9BB /* FinalCheckoutViewController.h */,
+				B7F570F41F67FA220006C9BB /* FinalCheckoutViewController.m */,
+			);
+			name = FinalCheckoutViewController;
+			sourceTree = "<group>";
+		};
+		B7F570F71F67FA600006C9BB /* FinalCheckoutCell */ = {
+			isa = PBXGroup;
+			children = (
+				B7F570F81F67FA7F0006C9BB /* FinalCheckoutTableViewCell.h */,
+				B7F570F91F67FA7F0006C9BB /* FinalCheckoutTableViewCell.m */,
+			);
+			name = FinalCheckoutCell;
+			sourceTree = "<group>";
+		};
 		E2BA2CD89648C4DC2D21544A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2185,6 +2219,7 @@
 				18FFBC861F62CEBC006C088B /* NewsCenterSearchListViewController.m in Sources */,
 				B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */,
 				B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */,
+				B7F570F51F67FA220006C9BB /* FinalCheckoutViewController.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				B7DA71F31F5034F300F45439 /* HCYoutubeParser.m in Sources */,
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
@@ -2204,6 +2239,7 @@
 				18DA65CA1F663F520057B5B4 /* TicketingViewController.m in Sources */,
 				188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */,
 				320761761F163AB2001F1790 /* MMMaterialDesignSpinner.m in Sources */,
+				B7F570FA1F67FA7F0006C9BB /* FinalCheckoutTableViewCell.m in Sources */,
 				B7A4D3F01F4828E500A28BBE /* ProductDetailTableViewCell.m in Sources */,
 				18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */,
 				1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */,
