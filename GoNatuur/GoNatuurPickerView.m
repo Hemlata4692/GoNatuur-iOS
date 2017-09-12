@@ -39,6 +39,7 @@
 #pragma mark - Hide/Show pickerView
 - (void)showPickerView:(NSArray *)tempPickerArray selectedIndex:(int)selectedIndex option:(int)option isCancelDelegate:(BOOL)isCancelDelegate {
     _pickerArray=[tempPickerArray mutableCopy];
+    _pickerView.showsSelectionIndicator = YES;
     tagValue=option;
     [_pickerView reloadAllComponents];
     [_pickerView selectRow:selectedIndex inComponent:0 animated:YES];
@@ -50,7 +51,6 @@
     } completion:^(BOOL completed) {
         
     }];
-     _pickerView.showsSelectionIndicator = YES;
     isCancel=isCancelDelegate;
 }
 

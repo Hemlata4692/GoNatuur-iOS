@@ -112,7 +112,8 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==0) {
-        [self featureNotAvailable];
+        myDelegate.selectedCategoryIndex=-1;
+        [myDelegate checkGuestAccess];
     }
     else if (indexPath.row==1) {
         if (![myDelegate checkGuestAccess]) {
@@ -209,7 +210,6 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"AboutUs"]) {
-        
         UINavigationController *navController = [segue destinationViewController];
         WebPageViewController *destViewController = (WebPageViewController *)navController.topViewController;
         destViewController.pageIdentifier = @"AboutUs";

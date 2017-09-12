@@ -23,7 +23,6 @@ static NSString *kNewsSubscription=@"ranosys/newsletter/subscribe";
 
 #pragma mark - Login user service
 - (void)loginUser:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
-    [UserDefaultManager removeValue:@"Authorization"];
     NSDictionary *parameters = @{@"email" : loginData.email,
                                  @"password" : loginData.password,
                                  @"isSocialLogin" : loginData.isSocialLogin,
@@ -34,7 +33,6 @@ static NSString *kNewsSubscription=@"ranosys/newsletter/subscribe";
 
 #pragma mark - Login as guest user service
 - (void)loginGuestUser:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
-    [UserDefaultManager removeValue:@"Authorization"];
     NSDictionary *parameters = @{@"countryCode" : [ConstantCode localeCountryCode]};
     [super post:kLoginAsGuest parameters:parameters success:success failure:failure];
 }
@@ -57,7 +55,6 @@ static NSString *kNewsSubscription=@"ranosys/newsletter/subscribe";
 
 #pragma mark - CMS page service
 - (void)CMSPageService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
-    [UserDefaultManager removeValue:@"Authorization"];
     NSDictionary *parameters = @{@"searchCriteria" : @{@"filter_groups":@[@{@"filters":@[@{@"field":@"identifier",
                                                                                            @"value":loginData.cmsPageType,
                                                                                            @"condition_type":@"eq"
@@ -84,7 +81,6 @@ static NSString *kNewsSubscription=@"ranosys/newsletter/subscribe";
 
 #pragma mark - SignUp user service
 - (void)signUpUserService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
-    [UserDefaultManager removeValue:@"Authorization"];
     NSDictionary *parameters;
     if ([loginData.isSocialLogin isEqual:@0]) {
         parameters = @{@"customer" : @{@"email" : loginData.email,
@@ -118,7 +114,6 @@ static NSString *kNewsSubscription=@"ranosys/newsletter/subscribe";
 
 #pragma mark - Forgot password service
 - (void)forgotPasswordService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
-    [UserDefaultManager removeValue:@"Authorization"];
     NSDictionary *parameters = @{@"email" : loginData.email,
                                  @"template" : @"email"
                                  };
@@ -128,7 +123,6 @@ static NSString *kNewsSubscription=@"ranosys/newsletter/subscribe";
 
 #pragma mark - Reset password service
 - (void)resetPasswordService:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
-    [UserDefaultManager removeValue:@"Authorization"];
     NSDictionary *parameters = @{@"email" : loginData.email,
                                  @"password" : loginData.password,
                                  @"requestOTP" : loginData.otpNumber

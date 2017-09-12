@@ -19,8 +19,11 @@
 #import "UIView+Toast.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "HCYoutubeParser.h"
+#import "AttendeesViewController.h"
+#import "TicketingViewController.h"
+#import "GoNatuurPickerView.h"
 
-@interface EventDetailViewController ()<UIGestureRecognizerDelegate> {
+@interface EventDetailViewController ()<UIGestureRecognizerDelegate,GoNatuurPickerViewDelegate> {
 @private
     ProductDataModel *productDetailModelData;
     float productDetailCellHeight;
@@ -29,6 +32,9 @@
     int selectedMediaIndex, currentQuantity;
     NSArray *cellIdentifierArray;
     bool isServiceCalledMPMoviePlayerDone;
+    GoNatuurPickerView *customerTicketPicker;
+    int selectedPickerIndex, ticketBtnTag;
+    NSMutableArray *ticketArray;
 }
 @property (strong, nonatomic) IBOutlet UITableView *productDetailTableView;
 
@@ -41,11 +47,12 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    ticketArray=[[NSMutableArray alloc]init];
     [self viewInitialization];
     // Do any additional setup after loading the view.
     if (isServiceCalledMPMoviePlayerDone) {
         [myDelegate showIndicator];
-        [self performSelector:@selector(getProductDetailData) withObject:nil afterDelay:.1];
+        [self performSelector:@selector(getEventDetailData) withObject:nil afterDelay:.1];
     }
     else {
         isServiceCalledMPMoviePlayerDone=true;
@@ -58,12 +65,14 @@
     self.title=NSLocalizedText(@"EventDetails");
     [self addLeftBarButtonWithImage:true];
     cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"ticketingPriceCell",@"productDetailPriceCell", @"productDetailInfoCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"mapCell",@"attendingCell",@"ticketCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
+    [self addCustomPickerView];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 #pragma mark - end
 
 #pragma mark - Initialized view
@@ -162,7 +171,10 @@
         [cell.productMediaCollectionView reloadData];
     }
     else if (indexPath.row==5) {
-        //[cell.productMediaCollectionView reloadData];
+        [cell displayTicketingData:@""];
+       // cell.ticketSelectionTypeField.text=[ticketArray objectAtIndex:selectedPickerIndex];
+         [cell.selectTicketingButton addTarget:self action:@selector(selectTicketType:) forControlEvents:UIControlEventTouchUpInside];
+        cell.selectTicketingButton.tag=indexPath.row;
     }
     else if (indexPath.row==6) {
         [cell displayProductPrice:productDetailModelData currentQuantity:currentQuantity];
@@ -193,7 +205,7 @@
     }
 
     else if (indexPath.row==13) {
-        cellLabel.text=NSLocalizedText(@"Review");
+        cellLabel.text=NSLocalizedText(@"Comments");//Comments
     }
     else if (indexPath.row==14) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
@@ -249,23 +261,29 @@
     }
     else if (indexPath.row==9) {
         //Description action
-        [self navigateToView:NSLocalizedText(@"Description") webViewData:productDetailModelData.productDescription viewIdentifier:@"webView" productId:0 reviewId:@""];
+        [self navigateToView:NSLocalizedText(@"Description") webViewData:productDetailModelData.productDescription viewIdentifier:@"webView" productId:0 reviewId:@"" isLocation:@"No"];
     }
     else if (indexPath.row==10) {
         //map action
-        [self navigateToView:NSLocalizedText(@"mapLocation") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0 reviewId:@""];
+        [self navigateToView:NSLocalizedText(@"mapLocation") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0 reviewId:@"" isLocation:@"Yes"];
     }
     else if (indexPath.row==11) {
         //attending action
-        [self navigateToView:NSLocalizedText(@"attending") webViewData:productDetailModelData.productBrandStory viewIdentifier:@"webView" productId:0 reviewId:@""];
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        AttendeesViewController * attendeeView=[sb instantiateViewControllerWithIdentifier:@"AttendeesViewController"];
+        attendeeView.attendeesArray=[productDetailModelData.attendiesArray mutableCopy];
+        [self.navigationController pushViewController:attendeeView animated:YES];
     }
     else if (indexPath.row==12) {
         //ticket action
-        [self navigateToView:NSLocalizedText(@"ticketing") webViewData:productDetailModelData.productBrandStory viewIdentifier:@"webView" productId:0 reviewId:@""];
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        TicketingViewController * ticketView=[sb instantiateViewControllerWithIdentifier:@"TicketingViewController"];
+        ticketView.ticketingArray=[productDetailModelData.ticketingArray mutableCopy];
+        [self.navigationController pushViewController:ticketView animated:YES];
     }
     else if (indexPath.row==13) {
         //Review action
-        [self navigateToView:@"" webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId] reviewId:productDetailModelData.reviewId];
+        [self navigateToView:@"" webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId] reviewId:productDetailModelData.reviewId isLocation:@"No"];
     }
     else if (indexPath.row==14) {
         //Follow action
@@ -282,7 +300,7 @@
         //Wishlist action
         if (![myDelegate checkGuestAccess]) {
             if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
-                [self.view makeToast:NSLocalizedText(@"alreadyAddedWishlist")];
+                [self.view makeToast:NSLocalizedText(@"eventAddedWishlist")];
             }
             else {
                 [self addToWishlist:(int)indexPath.row];
@@ -303,12 +321,14 @@
     }
 }
 
-- (void)navigateToView:(NSString *)navTitle webViewData:(NSString *)webViewData viewIdentifier:(NSString *)viewIdentifier productId:(NSNumber *)productId reviewId:(NSString *)reviewId {
+- (void)navigateToView:(NSString *)navTitle webViewData:(NSString *)webViewData viewIdentifier:(NSString *)viewIdentifier productId:(NSNumber *)productId reviewId:(NSString *)reviewId isLocation:(NSString *)isLocation{
     UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     if ([viewIdentifier isEqualToString:@"webView"]) {
         WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
         webView.navigationTitle=navTitle;
         webView.productDetaiData=webViewData;
+        webView.isLocation=isLocation;
+        webView.locationArray=[productDetailModelData.locationDataArray mutableCopy];
         [self.navigationController pushViewController:webView animated:YES];
     }
     else {
@@ -376,7 +396,7 @@
 
 #pragma mark - Webservice
 //Get product detail
-- (void)getProductDetailData {
+- (void)getEventDetailData {
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData getProductDetailOnSuccess:^(ProductDataModel *productDetailData)  {
@@ -505,6 +525,40 @@
     productDetailModelData.productQuantity=[NSNumber numberWithInt:currentQuantity];
     [myDelegate showIndicator];
     [self performSelector:@selector(addToCartProductService) withObject:nil afterDelay:.1];
+}
+
+- (IBAction)selectTicketType:(UIButton *)sender {
+    ticketBtnTag=(int)[sender tag];
+    NSMutableDictionary *tempDict=[productDetailModelData.ticketingArray objectAtIndex:0];
+    NSArray *dataArray=[[[tempDict objectForKey:@"event_option_type"]objectForKey:@"event_option_options"] mutableCopy];
+   
+    for (int i=0; i<dataArray.count; i++) {
+        NSDictionary *ticketDict=[dataArray objectAtIndex:i];
+        [ticketArray addObject:[NSString stringWithFormat:@"%@ + %@",[ticketDict objectForKey:@"title"],[ticketDict objectForKey:@"price"]]];
+    }
+    [customerTicketPicker showPickerView:ticketArray selectedIndex:selectedPickerIndex option:1 isCancelDelegate:false];
+}
+#pragma mark - end
+
+#pragma mark - Custom picker delegate method
+//add picker view
+- (void)addCustomPickerView {
+    
+    selectedPickerIndex=-1;
+    //Set initial index of picker view and initialized picker view
+    customerTicketPicker=[[GoNatuurPickerView alloc] initWithFrame:self.view.frame delegate:self pickerHeight:230];
+    [self.view addSubview:customerTicketPicker.goNatuurPickerViewObj];
+    //Bring front view picker view
+    [self.view bringSubviewToFront:customerTicketPicker.goNatuurPickerViewObj];
+}
+
+- (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {
+    if (option==1) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:ticketBtnTag inSection:0];
+        ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
+        cell.ticketSelectionTypeField.text=[ticketArray objectAtIndex:tempSelectedIndex];
+        selectedPickerIndex=tempSelectedIndex;
+    }
 }
 #pragma mark - end
 
