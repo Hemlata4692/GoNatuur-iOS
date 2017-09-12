@@ -28,17 +28,15 @@
     _ticketPrice.translatesAutoresizingMaskIntoConstraints=YES;
     [_mainView setCornerRadius:2.0];
     [_mainView addShadow:_mainView color:[UIColor blackColor]];
-//    _ticketName.text=[ticketDict objectForKey:@"title"];
-    _ticketName.text=@"gewuefue fyuer ereu ererjhjerhrekj er kerj vkerjvkej vkejv eh vjfh vjvg vegvev ervher kvjekjvkerjvkerlj vkrej vjv";
+    _ticketName.text=[ticketDict objectForKey:@"title"];
    
     float nameHeight=[DynamicHeightWidth getDynamicLabelHeight:_ticketName.text font:[UIFont montserratLightWithSize:13] widthValue:_mainView.frame.size.width-144];
     _ticketName.frame=CGRectMake(16, 25, _mainView.frame.size.width-144, nameHeight);
     _ticketName.backgroundColor=[UIColor redColor];
    
-//    double productCalculatedPrice =[[ticketDict objectForKey:@"price"] doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
-//    _ticketPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
+    double productCalculatedPrice =[[ticketDict objectForKey:@"price"] doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+    _ticketPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
     
-    _ticketPrice.text=@"MYR 1,23,45,67,89,056.78";
     float priceHeight=[DynamicHeightWidth getDynamicLabelHeight:_ticketPrice.text font:[UIFont montserratLightWithSize:13] widthValue:_mainView.frame.size.width-144];
     _ticketPrice.frame=CGRectMake(_ticketName.frame.size.width+19, 25, _mainView.frame.size.width-116, priceHeight);
     _ticketPrice.backgroundColor=[UIColor blueColor];
