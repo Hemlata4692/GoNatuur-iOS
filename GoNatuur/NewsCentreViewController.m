@@ -13,7 +13,7 @@
 #import "ProductListCollectionViewCell.h"
 #import "LoginModel.h"
 #import "SearchViewController.h"
-#import "WebViewController.h"
+#import "NewsCentreDetailViewController.h"
 
 @interface NewsCentreViewController () <UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
     NSMutableArray *productListDataArray, *subCategoryDataList, *subCategoryPickerArray;
@@ -189,7 +189,7 @@
             [(UIActivityIndicatorView *)[footerView viewWithTag:10] startAnimating];
             currentpage+=1;
             isPullToRefresh=false;
-//            [self getNewsListData];
+            [self getNewsListData];
         }
         else {
             _newsListingTableView.tableFooterView = nil;
@@ -206,6 +206,7 @@
 - (ProductListCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProductListCollectionViewCell *productCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productCell" forIndexPath:indexPath];
     [productCell displayProductListData:[productListDataArray objectAtIndex:indexPath.row] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
+    
     return productCell;
 }
 
@@ -217,9 +218,9 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
+    NewsCentreDetailViewController * webView=[sb instantiateViewControllerWithIdentifier:@"NewsCentreDetailViewController"];
     webView.navigationTitle=[[productListDataArray objectAtIndex:indexPath.item]productName];
-    webView.productDetaiData=[[productListDataArray objectAtIndex:indexPath.item]newsContent];
+    webView.newsPostId=[[productListDataArray objectAtIndex:indexPath.item]productId];
     [self.navigationController pushViewController:webView animated:YES];
 }
 #pragma mark - end

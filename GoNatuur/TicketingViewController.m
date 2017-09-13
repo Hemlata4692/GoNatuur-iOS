@@ -45,7 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
-    self.title=NSLocalizedText(@"Ticketing");
+    self.title=NSLocalizedText(@"ticketing");
     [self addLeftBarButtonWithImage:true];
 }
 #pragma mark - end
@@ -53,7 +53,15 @@
 #pragma mark - Table view data source and delgate methods
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    return 71;
+      NSDictionary *ticketDict=[ticketArray objectAtIndex:indexPath.row];
+    float nameHeight=[DynamicHeightWidth getDynamicLabelHeight:[ticketDict objectForKey:@"title"] font:[UIFont montserratLightWithSize:13] widthValue:(_ticketTableView.frame.size.width-20)/2-16];
+    float priceHeight=[DynamicHeightWidth getDynamicLabelHeight:[ticketDict objectForKey:@"price"] font:[UIFont montserratLightWithSize:13] widthValue:(_ticketTableView.frame.size.width-20)/2-16];
+    if (nameHeight<=25 && priceHeight<=25) {
+        return 71;
+    }
+    else {
+    return 50+nameHeight;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -65,7 +73,7 @@
     NSString *CellIdentifier = @"ticketCell";
     TicketTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     NSDictionary *ticketDict=[ticketArray objectAtIndex:indexPath.row];
-    [cell displayData:ticketDict];
+    [cell displayData:ticketDict rectSize:cell.contentView.frame.size];
     return cell;
 }
 

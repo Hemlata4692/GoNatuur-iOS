@@ -131,9 +131,7 @@
 }
 
 - (void)displayTicketingData:(NSString *)ticket {
-    _ticketSelectionTypeField.placeholder=NSLocalizedText(@"ticketType");//Please Select Your Ticket
-    [_ticketSelectionTypeField addTextFieldPaddingWithoutImages:_ticketSelectionTypeField];
+    _ticketSelectionTypeField.placeholder=NSLocalizedText(@"ticketType");    [_ticketSelectionTypeField addTextFieldPaddingWithoutImages:_ticketSelectionTypeField];
     [_ticketSelectionTypeField setBorder:_ticketSelectionTypeField color:[UIColor blackColor] borderWidth:1.0];
-//    _ticketSelectionTypeField.text=ticket;
 }
 @end

@@ -56,6 +56,26 @@
         userData.wishlistCount=[response objectForKey:@"wishlist_count"];
         userData.firstName=[[response objectForKey:@"customer"] objectForKey:@"firstname"];
         userData.lastName=[[response objectForKey:@"customer"] objectForKey:@"lastname"];
+        if (([[[response objectForKey:@"customer"] objectForKey:@"default_currency"] isEqualToString:@""]||[[response objectForKey:@"customer"] objectForKey:@"default_currency"]==nil) ) {
+             [UserDefaultManager setValue:[response objectForKey:@"local_currency_code"] key:@"DefaultCurrencyCode"];
+        }
+        else {
+             [UserDefaultManager setValue:[[response objectForKey:@"customer"] objectForKey:@"default_currency"] key:@"DefaultCurrencyCode"];
+        }
+        if (([[[response objectForKey:@"customer"] objectForKey:@"default_language"] isEqualToString:@""]||[[response objectForKey:@"customer"] objectForKey:@"default_language"]==nil) ) {
+            [UserDefaultManager setValue:[response objectForKey:@"local_language"] key:@"Language"];
+            }
+        else {
+            if ([[[response objectForKey:@"customer"] objectForKey:@"default_language"] isEqualToString:@"4"]) {
+                [UserDefaultManager setValue:@"en" key:@"Language"];
+            }
+            else if ([[[response objectForKey:@"customer"] objectForKey:@"default_language"] isEqualToString:@"5"]) {
+                [UserDefaultManager setValue:@"zh" key:@"Language"];
+            }
+            else if ([[[response objectForKey:@"customer"] objectForKey:@"default_language"] isEqualToString:@"6"]) {
+                [UserDefaultManager setValue:@"cn" key:@"Language"];
+            }
+        }
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -68,8 +88,10 @@
     LoginService *loginService = [[LoginService alloc] init];
     [loginService loginGuestUser:^(id response) {
         //Parse data from server response and store in data model
-//        userData.quoteId=[[response objectAtIndex:0] objectForKey:@"quote_id"];
+         DLog(@"guest login response %@",response);
         userData.quoteId=[response objectForKey:@"quote_id"];
+        [UserDefaultManager setValue:[response objectForKey:@"local_language"] key:@"Language"];
+        [UserDefaultManager setValue:[response objectForKey:@"local_currency_code"] key:@"DefaultCurrencyCode"];
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -88,6 +110,7 @@
         }] ;
         
     }
+#pragma mark - end
 
 #pragma mark - Subscribe newsletter
 - (void)newsLetterSubscribe:(LoginModel *)userData onSuccess:(void (^)(id userData))success onFailure:(void (^)(NSError *))failure {
@@ -108,8 +131,10 @@
     [loginService CMSPageService:userData onSuccess:^(id response) {
         //Parse data from server response and store in data model
         DLog(@"CMS page response %@",response);
-        userData.cmsTitle=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"title"];
-        userData.cmsContent=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"content"];
+        if ([[response objectForKey:@"items"] count]!=0) {
+            userData.cmsTitle=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"title"];
+            userData.cmsContent=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"content"];
+        }
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -149,7 +174,6 @@
     [categoryList getCategoryListData:userData success:^(id response) {
         //Parse data from server response and store in data model
         DLog(@"category list response %@",response);
-        //        myDelegate.categoryNameArray=[response[@"children_data"] mutableCopy];
         userData.categoryNameArray=[response[@"children_data"] mutableCopy];
         success(userData);
     } onfailure:^(NSError *error) {
@@ -173,6 +197,26 @@
         userData.firstName=[[response objectForKey:@"customer"] objectForKey:@"firstname"];
         userData.lastName=[[response objectForKey:@"customer"] objectForKey:@"lastname"];
         userData.wishlistCount=[response objectForKey:@"wishlist_count"];
+        if (([[[response objectForKey:@"customer"] objectForKey:@"default_currency"] isEqualToString:@""]||[[response objectForKey:@"customer"] objectForKey:@"default_currency"]==nil) ) {
+            [UserDefaultManager setValue:[response objectForKey:@"local_currency_code"] key:@"DefaultCurrencyCode"];
+        }
+        else {
+            [UserDefaultManager setValue:[[response objectForKey:@"customer"] objectForKey:@"default_currency"] key:@"DefaultCurrencyCode"];
+        }
+        if (([[[response objectForKey:@"customer"] objectForKey:@"default_language"] isEqualToString:@""]||[[response objectForKey:@"customer"] objectForKey:@"default_language"]==nil) ) {
+            [UserDefaultManager setValue:[response objectForKey:@"local_language"] key:@"Language"];
+        }
+        else {
+            if ([[[response objectForKey:@"customer"] objectForKey:@"default_language"] isEqualToString:@"4"]) {
+                [UserDefaultManager setValue:@"en" key:@"Language"];
+            }
+            else if ([[[response objectForKey:@"customer"] objectForKey:@"default_language"] isEqualToString:@"5"]) {
+                [UserDefaultManager setValue:@"zh" key:@"Language"];
+            }
+            else if ([[[response objectForKey:@"customer"] objectForKey:@"default_language"] isEqualToString:@"6"]) {
+                [UserDefaultManager setValue:@"cn" key:@"Language"];
+            }
+        }
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -243,6 +287,22 @@
                 default:
                     [UserDefaultManager setValue:@"promo_apply_Guest" key:@"GroupType"];
                     break;
+            }
+        }
+        //language and code
+        if (![[response objectForKey:@"default_currency"] isEqualToString:@""]||[response objectForKey:@"default_currency"]!=nil) {
+            [UserDefaultManager setValue:[response objectForKey:@"default_currency"] key:@"DefaultCurrencyCode"];
+        }
+
+        if (![[response objectForKey:@"default_language"] isEqualToString:@""]||[response objectForKey:@"default_language"]!=nil) {
+            if ([[[response objectForKey:@"customer"] objectForKey:@"default_language"] isEqualToString:@"4"]) {
+                [UserDefaultManager setValue:@"en" key:@"Language"];
+            }
+            else if ([[[response objectForKey:@"customer"] objectForKey:@"default_language"] isEqualToString:@"5"]) {
+                [UserDefaultManager setValue:@"zh" key:@"Language"];
+            }
+            else if ([[[response objectForKey:@"customer"] objectForKey:@"default_language"] isEqualToString:@"6"]) {
+                [UserDefaultManager setValue:@"cn" key:@"Language"];
             }
         }
         success(userData);
@@ -542,6 +602,19 @@
 }
 #pragma mark - end
 
+#pragma mark - News detail data service
+- (void)getNewsCenterDetailService:(DashboardDataModel *)productData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    DashboardService *productList=[[DashboardService alloc]init];
+    [productList getNewsDetailService:productData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"news list response %@",response);
+        productData.productDataArray=[response[@"news"]mutableCopy];
+        success(productData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
 #pragma mark - News list data service
 - (void)getNewsCenterListService:(DashboardDataModel *)productData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     DashboardService *productList=[[DashboardService alloc]init];
@@ -616,6 +689,12 @@
         productData.reviewId=[response objectForKey:@"review_id"];
         productData.productSku=[response objectForKey:@"sku"];
         productData.specialPrice = [customAttributeDict objectForKey:@"special_price"];
+        if (![productData.specialPrice isEqualToString:@""] && nil!=productData.specialPrice) {
+            productData.eventPrice=productData.specialPrice;
+        }
+        else {
+             productData.eventPrice=[NSString stringWithFormat:@"%@",productData.productPrice];
+        }
         productData.productMediaArray=[NSMutableArray new];
         for (NSDictionary *tempDict in [response objectForKey:@"media"]) {
             if ([[tempDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {

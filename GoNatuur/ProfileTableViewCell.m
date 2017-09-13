@@ -32,9 +32,17 @@
     _recentTitle.text=NSLocalizedText(@"recentEarned");
     _personalDetailLabel.text=NSLocalizedText(@"personalDetails");
     _changePasswordLabel.text=NSLocalizedText(@"changePasswordProfile");
+    _notificationLabel.text=NSLocalizedText(@"Notifications");
     _customerSupportLabel.text=NSLocalizedText(@"customerSupport");
     [_redeemPointButton setTitle:NSLocalizedText(@"sideBarRedeemPoints") forState:UIControlStateNormal];
-    
+    _notificationSwitch.backgroundColor = [UIColor colorWithRed:194.0/255.0 green:194.0/255.0 blue:194.0/255.0 alpha:1.0];
+    [_notificationSwitch setCornerRadius:16.0];
+    if ( [myDelegate. notificationStatus isEqualToString:@"1"]) {
+        [_notificationSwitch setOn:true animated:true];
+    }
+    else {
+        [_notificationSwitch setOn:false animated:true];
+    }
    _totalPointsLabel.attributedText=[self setAttributesText:[NSString stringWithFormat:@"%@ip",[UserDefaultManager getValue:@"TotalPoints"]]];
     _recentlyEarnedLabel.attributedText=[self setAttributesText:[NSString stringWithFormat:@"%@ip",[UserDefaultManager getValue:@"RecentEarned"]]];
     

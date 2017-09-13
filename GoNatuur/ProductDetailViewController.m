@@ -19,7 +19,7 @@
 #import "UIView+Toast.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "HCYoutubeParser.h"
-
+#import "ShareViewController.h"
 
 @interface ProductDetailViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -255,7 +255,7 @@
     }
     else if (indexPath.row==11) {
         //Review action
-        [self navigateToView:@"" webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId] reviewId:productDetailModelData.reviewId];
+        [self navigateToView:NSLocalizedText(@"Review") webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId] reviewId:productDetailModelData.reviewId];
     }
     else if (indexPath.row==12) {
         //Follow action
@@ -281,7 +281,14 @@
     }
     else if (indexPath.row==14) {
         //Share action
-        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ShareViewController *popView =
+        [storyboard instantiateViewControllerWithIdentifier:@"ShareViewController"];
+        popView.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4f];
+        [popView setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:popView animated:YES completion:nil];
+        });
     }
     else if (indexPath.row==15) {
         //Location action
@@ -306,6 +313,7 @@
         ReviewListingViewController * reviewView=[sb instantiateViewControllerWithIdentifier:@"ReviewListingViewController"];
         reviewView.productID =productId;
         reviewView.reviewId=reviewId;
+        reviewView.navigationHeading=navTitle;
         reviewView.reviewAdded=reviewAdded;
         reviewView.productDetailObj=self;
         [self.navigationController pushViewController:reviewView animated:YES];
