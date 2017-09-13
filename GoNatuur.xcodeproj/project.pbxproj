@@ -78,6 +78,8 @@
 		18DA65D41F665BB10057B5B4 /* AttendeesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DA65D31F665BB10057B5B4 /* AttendeesTableViewCell.m */; };
 		18DA65D71F665BCC0057B5B4 /* TicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DA65D61F665BCC0057B5B4 /* TicketTableViewCell.m */; };
 		18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */; };
+		18F464EC1F698FFC001006EB /* RedeemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F464EB1F698FFC001006EB /* RedeemViewController.m */; };
+		18F464EF1F69902B001006EB /* RedeemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F464EE1F69902B001006EB /* RedeemTableViewCell.m */; };
 		18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F31F32E09800430842 /* GoNatuurViewController.m */; };
 		18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */; };
 		18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8FB1F32F46800430842 /* SearchViewController.m */; };
@@ -158,7 +160,6 @@
 		B7E7EE4D1F66931F00AD12E7 /* CheckoutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E7EE4C1F66931F00AD12E7 /* CheckoutTableViewCell.m */; };
 		B7E7EE521F669F5C00AD12E7 /* CheckoutCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E7EE511F669F5C00AD12E7 /* CheckoutCollectionViewCell.m */; };
 		B7F570F01F67B4B20006C9BB /* WishlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F570EF1F67B4B20006C9BB /* WishlistViewController.m */; };
-		B7F570F11F67B4D10006C9BB /* WishlistViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = B7F570EE1F67B4B20006C9BB /* WishlistViewController.h */; };
 		B7F570F51F67FA220006C9BB /* FinalCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F570F41F67FA220006C9BB /* FinalCheckoutViewController.m */; };
 		B7F570FA1F67FA7F0006C9BB /* FinalCheckoutTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F570F91F67FA7F0006C9BB /* FinalCheckoutTableViewCell.m */; };
 		E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE133AF54860E181BFA3389D /* libPods-GoNatuur.a */; };
@@ -305,6 +306,10 @@
 		18DA65D61F665BCC0057B5B4 /* TicketTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketTableViewCell.m; sourceTree = "<group>"; };
 		18E5D5831F342DE500829292 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
 		18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
+		18F464EA1F698FFC001006EB /* RedeemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedeemViewController.h; sourceTree = "<group>"; };
+		18F464EB1F698FFC001006EB /* RedeemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedeemViewController.m; sourceTree = "<group>"; };
+		18F464ED1F69902B001006EB /* RedeemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedeemTableViewCell.h; sourceTree = "<group>"; };
+		18F464EE1F69902B001006EB /* RedeemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedeemTableViewCell.m; sourceTree = "<group>"; };
 		18F7A8F21F32E09800430842 /* GoNatuurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurViewController.h; sourceTree = "<group>"; };
 		18F7A8F31F32E09800430842 /* GoNatuurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoNatuurViewController.m; sourceTree = "<group>"; };
 		18F7A8F61F32E2EA00430842 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
@@ -951,13 +956,13 @@
 			name = CurrencyDataModel;
 			sourceTree = "<group>";
 		};
-		189162041F614C7C005ED12E /* PaymentDetails */ = {
+		189162041F614C7C005ED12E /* PaymentDetailsModule */ = {
 			isa = PBXGroup;
 			children = (
 				189162091F614CDE005ED12E /* AddCardViewController */,
 				189162051F614C8F005ED12E /* CardListView */,
 			);
-			name = PaymentDetails;
+			name = PaymentDetailsModule;
 			sourceTree = "<group>";
 		};
 		189162051F614C8F005ED12E /* CardListView */ = {
@@ -1114,6 +1119,42 @@
 			name = ForgotPasswordViewController;
 			sourceTree = "<group>";
 		};
+		18F464E61F698EB9001006EB /* RedeemModule */ = {
+			isa = PBXGroup;
+			children = (
+				18F464E91F698FA5001006EB /* RedeemTableViewCell */,
+				18F464E81F698F99001006EB /* RedeemViewController */,
+			);
+			name = RedeemModule;
+			sourceTree = "<group>";
+		};
+		18F464E71F698F18001006EB /* WebPagesModule */ = {
+			isa = PBXGroup;
+			children = (
+				180ECD221F482A0C003C936E /* WebViewController */,
+				185036DB1F679E710008C0F1 /* WebPageViewController */,
+			);
+			name = WebPagesModule;
+			sourceTree = "<group>";
+		};
+		18F464E81F698F99001006EB /* RedeemViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18F464EA1F698FFC001006EB /* RedeemViewController.h */,
+				18F464EB1F698FFC001006EB /* RedeemViewController.m */,
+			);
+			name = RedeemViewController;
+			sourceTree = "<group>";
+		};
+		18F464E91F698FA5001006EB /* RedeemTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				18F464ED1F69902B001006EB /* RedeemTableViewCell.h */,
+				18F464EE1F69902B001006EB /* RedeemTableViewCell.m */,
+			);
+			name = RedeemTableViewCell;
+			sourceTree = "<group>";
+		};
 		18F7A8F11F32E06C00430842 /* GlobalViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1172,10 +1213,11 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				18F464E71F698F18001006EB /* WebPagesModule */,
+				18F464E61F698EB9001006EB /* RedeemModule */,
 				185036EB1F67E36C0008C0F1 /* ShareViewController */,
-				185036DB1F679E710008C0F1 /* WebPageViewController */,
 				5D2760A11F62765400B6D0FF /* OrderModule */,
-				189162041F614C7C005ED12E /* PaymentDetails */,
+				189162041F614C7C005ED12E /* PaymentDetailsModule */,
 				181FD22B1F601F6300C5373C /* PaymentMethodModule */,
 				188605961F39C05A0005D1E2 /* GlobalViewModule */,
 				181AD48C1F5EADEB00AA3C3D /* WishlistModule */,
@@ -1184,7 +1226,6 @@
 				5DAC38201F6177DA00702F92 /* AddressModule */,
 				185F706A1F559D6B007F49F7 /* ProfileModule */,
 				180ECD381F489AAD003C936E /* ReviewModule */,
-				180ECD221F482A0C003C936E /* WebViewController */,
 				B7AA39BA1F47106600423121 /* ProductModule */,
 				18D2AD241F659C3700B8F605 /* EventDetailsModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
@@ -2203,11 +2244,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7F570F11F67B4D10006C9BB /* WishlistViewController.h in Sources */,
 				185036E61F67A7510008C0F1 /* EventDetailViewController.m in Sources */,
 				189162081F614CD2005ED12E /* CardListViewController.m in Sources */,
 				32A3D6FF1F1CD2B800062B86 /* FacebookConnect.m in Sources */,
 				18FFBC821F629612006C088B /* NewsLetterSubscriptionViewController.m in Sources */,
+				18F464EF1F69902B001006EB /* RedeemTableViewCell.m in Sources */,
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
 				187561911F469BD500F609AB /* NotificationDataModel.m in Sources */,
 				5D2760A61F62767F00B6D0FF /* OrderListingViewController.m in Sources */,
@@ -2268,6 +2309,7 @@
 				18FFBC861F62CEBC006C088B /* NewsCenterSearchListViewController.m in Sources */,
 				B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */,
 				B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */,
+				18F464EC1F698FFC001006EB /* RedeemViewController.m in Sources */,
 				B7F570F51F67FA220006C9BB /* FinalCheckoutViewController.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				B7DA71F31F5034F300F45439 /* HCYoutubeParser.m in Sources */,

@@ -13,6 +13,7 @@
 #import "UIImage+UIImage_fixOrientation.h"
 #import "ProfileModel.h"
 #import "PayPalPaymentOption.h"
+#import "RedeemViewController.h"
 
 @interface ProfileViewController ()<GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,PayPalPaymentDelegate>{
     NSArray *menuItemsArray, *customerSupportArray;
@@ -69,7 +70,7 @@
 #pragma mark - end
 
 #pragma mark - Web services
-//Get user profile
+//Get user impact points
 - (void)getUserImapctPoints {
     ProfileModel *userData = [ProfileModel sharedUser];
     userData.pageCount=@"1";
@@ -162,6 +163,9 @@
 - (IBAction)redeemPointsButtonAction:(id)sender {
     //pay pal payment
     //[payment setPaymentDetails:[customerSupportArray mutableCopy] delegate:self];
+    RedeemViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RedeemViewController"];
+    obj.visitedFromScreen=@"profile";
+    [self.navigationController pushViewController:obj animated:YES];
 }
 
 - (IBAction)enableDisableNotification:(id)sender {
@@ -251,5 +255,4 @@
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 #pragma mark - end
-
 @end

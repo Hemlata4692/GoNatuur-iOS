@@ -283,11 +283,6 @@
 "yes"="Yes";
 "redeemPoint"="Redeem Points";
 "checkoutAddressImpactPoint"="My Available Impact Points:";
-"cartListitems"="ITEMS";
-"cartListDescription"="DESCRIPTION";
-"cartListTotal"="TOTAL";
-"cartListQuantity"="QUANTITY";
-"cartListFreeShipping"="*FREE SHIPPING FOR ORDER $100 & ABOVE";
-"cartListContinueShopping"="CONTINUE SHOPPING";
-"cartListNext"="NEXT";
 "removedProduct"="Product removed successfully.";
+"impactPointsOverview"="IMPACTS POINT OVERVIEW";
+"redeemCenter"="Redeem Center";

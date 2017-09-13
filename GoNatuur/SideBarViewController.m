@@ -121,7 +121,9 @@
         }
     }
     else if (indexPath.row==2) {
-        [self featureNotAvailable];
+        if (![myDelegate checkGuestAccess]) {
+            myDelegate.selectedCategoryIndex=-1;
+        }
     }
     else if (indexPath.row==3) {
         myDelegate.selectedCategoryIndex=-1;
