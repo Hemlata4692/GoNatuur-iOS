@@ -161,8 +161,7 @@
 }
 
 - (IBAction)redeemPointsButtonAction:(id)sender {
-    //pay pal payment
-    //[payment setPaymentDetails:[customerSupportArray mutableCopy] delegate:self];
+ 
     RedeemViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RedeemViewController"];
     obj.visitedFromScreen=@"profile";
     [self.navigationController pushViewController:obj animated:YES];
@@ -182,18 +181,10 @@
 //PayPalPaymentDelegate
 #pragma mark - PayPalPaymentDelegate methods
 - (void)payPalPaymentViewController:(PayPalPaymentViewController *)paymentViewController didCompletePayment:(PayPalPayment *)completedPayment {
-    NSLog(@"PayPal Payment Success!");
-   // self.resultText = [completedPayment description];
-    //[self showSuccess];
-
-    // [self sendCompletedPaymentToServer:completedPayment]; // Payment was processed successfully; send to server for verification and fulfillment
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)payPalPaymentDidCancel:(PayPalPaymentViewController *)paymentViewController {
-    NSLog(@"PayPal Payment Canceled");
-   // self.resultText = nil;
-    //self.successView.hidden = YES;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

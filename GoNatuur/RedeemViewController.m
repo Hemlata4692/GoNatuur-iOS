@@ -15,6 +15,7 @@
 #import "DynamicHeightWidth.h"
 #import "UIImage+UIImage_fixOrientation.h"
 #import "ProfileModel.h"
+#import "ProductDetailViewController.h"
 
 @interface RedeemViewController ()<UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
     NSMutableArray *productListDataArray, *subCategoryDataList, *subCategoryPickerArray;
@@ -69,9 +70,6 @@
     [myDelegate showIndicator];
     [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
     _noRecordLabel.text=NSLocalizedText(@"norecord");
-//    if (!isImagePicker) {
-//        [_profileTableView reloadData];
-//    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -200,13 +198,6 @@
     else if (indexPath.row==5) {
          [cell.productListCollectionView reloadData];
     }
-//    else {
-//        //No any use this cell to display data. This cell will be used for pagination in willDisplayCell
-//        cell = [tableView dequeueReusableCellWithIdentifier:@"refreshCell"];
-//        if (cell == nil){
-//            cell = [[RedeemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"refreshCell"];
-//        }
-//    }
     return cell;
 }
 
@@ -250,18 +241,11 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (!myDelegate.isProductList || [[[productListDataArray objectAtIndex:indexPath.row]productType] isEqualToString:eventIdentifier]) {
         //StoryBoard navigation
-//        EventDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EventDetailViewController"];
-//        obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
-//        [self.navigationController pushViewController:obj animated:YES];
-    }
-    else {
-        //StoryBoard navigation
-//        ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
-//        obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
-//        [self.navigationController pushViewController:obj animated:YES];
-    }
+    ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+    obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
+    [self.navigationController pushViewController:obj animated:YES];
+
 }
 #pragma mark - end
 
