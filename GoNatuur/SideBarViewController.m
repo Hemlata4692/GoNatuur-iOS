@@ -28,7 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     menuItemsArray = @[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications",@"AboutUs",@"ContactUs",@"NewsLetter", @"Signout"];
-    sideBarLabelArray=@[NSLocalizedText(@"sideBarOrder"), NSLocalizedText(@"sideBarPayment"), NSLocalizedText(@"sideBarRedeemPoints"),NSLocalizedText(@"sideBarEvents"), NSLocalizedText(@"sideBarNewsCentre"), NSLocalizedText(@"sideBarNotifications"), NSLocalizedText(@"sideBarAboutUs"), NSLocalizedText(@"sideBarContactUs"), NSLocalizedText(@"sideBarNewsLetter"),NSLocalizedText(@"sideBarSignOut")];
     // Remove extra seperator from table view
     [self viewCustomisationAndData];
 }
@@ -42,6 +41,7 @@
     [super viewWillAppear:animated];
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
     _sideBarTableView.scrollEnabled=YES;
+     sideBarLabelArray=@[NSLocalizedText(@"sideBarOrder"), NSLocalizedText(@"sideBarPayment"), NSLocalizedText(@"sideBarRedeemPoints"),NSLocalizedText(@"sideBarEvents"), NSLocalizedText(@"sideBarNewsCentre"), NSLocalizedText(@"sideBarNotifications"), NSLocalizedText(@"sideBarAboutUs"), NSLocalizedText(@"sideBarContactUs"), NSLocalizedText(@"sideBarNewsLetter"),NSLocalizedText(@"sideBarSignOut")];
     [_sideBarTableView reloadData];
 }
 
