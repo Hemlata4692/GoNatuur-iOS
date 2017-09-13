@@ -132,7 +132,7 @@
         [self setInitailizedBillingAddressData:isShippingAddreesSame];
         if ([self shippingAddressFieldValidations:true]) {
             [myDelegate showIndicator];
-            [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithBool:true] afterDelay:.1];
+            [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithInt:1] afterDelay:.1];
         }
     }
 }
@@ -196,6 +196,7 @@
 
 - (void)showKeyboardScrollView:(float)keyboardHeight {
     _nextOutlet.enabled=false;
+    _nextOutlet.alpha=0.7;
     float backViewY=0;
     if ((currentSelectedTextField==_shippingFirstNameTextField)||(currentSelectedTextField==_shippingLastNameTextField)||(currentSelectedTextField==_shippingPhoneNumberTextField)||(currentSelectedTextField==_shippingEmailTextField)||(currentSelectedTextField==_shippingAddressLine1TextField)||(currentSelectedTextField==_shippingStateTextField)||(currentSelectedTextField==_shippingCityTextField)||(currentSelectedTextField==_shippingZipCodeTextField)||(currentSelectedTextField==_shippingAddressLine2TextField)||(currentSelectedTextField==_shippingCountryTextField)) {
         backViewY=195;
@@ -219,6 +220,7 @@
 - (void)hideKeyboardScrollView {
     if (!isPickerEnable) {
         _nextOutlet.enabled=true;
+        _nextOutlet.alpha=1.0;
          _scrollView.contentSize = CGSizeMake(0,_mainCheckoutAddressView.frame.size.height);
         if ([self shippingAddressFieldValidations:false]&&[self isShippingAddressDifferent]) {
             [self calledUpdateAddressServiceMethod];
@@ -278,6 +280,10 @@
 - (void)viewInitialization {
     [self didLoadIntialization];
     myDelegate.selectedCategoryIndex=-1;
+    selectedBillingRegionCode=@"";
+    selectedShippingRegionCode=@"";
+    selectedShippingRegionId=0;
+    selectedBillingRegionId=0;
     [self viewObjectFraming];
     [self showSelectedTab:2];
     //Customized steps
@@ -524,7 +530,7 @@
     _shippingStateButton.hidden=true;
     selectedShippingRegionId=0;
     shippingStateIndex=-1;
-    selectedShippingRegionCode=cartModelData.shippingAddressDict[@"region_code"];
+    selectedShippingRegionCode=(nil!=cartModelData.shippingAddressDict[@"region_code"]?cartModelData.shippingAddressDict[@"region_code"]:@"");
     [_shippingStateTextField addTextFieldPaddingWithoutImages:_shippingStateTextField];
 }
 
@@ -621,7 +627,7 @@
     _billingStateButton.hidden=true;
     selectedBillingRegionId=0;
     billingStateIndex=-1;
-    selectedBillingRegionCode=cartModelData.billingAddressDict[@"region_code"];
+    selectedBillingRegionCode=(nil!=cartModelData.billingAddressDict[@"region_code"]?cartModelData.billingAddressDict[@"region_code"]:@"");
     [_billingStateTextField addTextFieldPaddingWithoutImages:_billingStateTextField];
 }
 
@@ -720,7 +726,7 @@
     [self.view endEditing:true];
     if ([self shippingAddressFieldValidations:true]&&[self billingAddressFieldValidations]) {
         [myDelegate showIndicator];
-        [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithBool:false] afterDelay:.1];
+        [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithInt:0] afterDelay:.1];
     }
 }
 
@@ -794,15 +800,13 @@
 
 #pragma mark - Called update address service 
 - (void)calledUpdateAddressServiceMethod {
-    {
         isPickerEnable=false;
         [gNPickerViewObj hidePickerView];
         [self.view endEditing:true];
         if ([self shippingAddressFieldValidations:true]) {
             [myDelegate showIndicator];
-            [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithBool:true] afterDelay:.1];
+            [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithInt:1] afterDelay:.1];
         }
-    }
 }
 #pragma mark - end
 
@@ -895,7 +899,8 @@
     userData.pageCount=@"1";
     userData.currentPage=@"1";
     [userData getImpactPoints:^(ProfileModel *userData) {
-        cartModelData.checkoutImpactPoint=[NSNumber numberWithInt:[userData.recentEarnedPoints intValue]];
+//        cartModelData.checkoutImpactPoint=[NSNumber numberWithInt:[userData.recentEarnedPoints intValue]];
+        cartModelData.checkoutImpactPoint=[NSNumber numberWithInt:10];
         _impactPointLabel.text=[NSString stringWithFormat:@"%@ %@ip",NSLocalizedText(@"checkoutAddressImpactPoint"),userData.recentEarnedPoints];
         [self getCheckoutPromos];
         //dispaly profile data
@@ -907,6 +912,7 @@
 //Get checkout promos
 - (void)getCheckoutPromos {
     CartDataModel *cartData = [CartDataModel sharedUser];
+    cartData.checkoutImpactPoint=cartModelData.checkoutImpactPoint;
     [cartData fetchCheckoutPromosOnSuccess:^(CartDataModel *shippmentDetailData)  {
         cartModelData.checkoutPromosArray=[[shippmentDetailData checkoutPromosArray] mutableCopy];
         if (cartModelData.checkoutPromosArray.count>0) {
@@ -925,7 +931,7 @@
 }
 
 //Set addresses and shipping methods
-- (void)setUpdatedAddressShippingMethods:(NSNumber *)isGetShippingMethodCalled {
+- (void)setUpdatedAddressShippingMethods:(NSNumber *)serviceType {
     CartDataModel *cartData = [CartDataModel sharedUser];
     cartData=[cartModelData copy];
     cartData.shippingAddressDict=[[self setShippingAddressInCartModel] mutableCopy];
@@ -933,19 +939,29 @@
     cartModelData.shippingAddressDict=[cartData.shippingAddressDict mutableCopy];
     cartModelData.billingAddressDict=[cartData.billingAddressDict mutableCopy];
     [cartData setUpdatedAddressShippingMethodsOnSuccess:^(CartDataModel *shippmentDetailData)  {
-        if ([isGetShippingMethodCalled boolValue]) {
+        if ([serviceType intValue]==1) {
             [self getShippmentMethodData:false];
         }
-        else {
+        else if ([serviceType intValue]==0) {
             if (selectedShippingMethodIndex==-1) {
                 [self getShippmentMethodData:true];
-                SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-                [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
             }
             else {
+                DLog(@"called checkout promo");
+                if (selectedCheckoutPromoIndex==-1||(nil==[UserDefaultManager getValue:@"userId"])) {
+                    [myDelegate stopIndicator];
+                    //Navigate to step3
+                }
+                else {
+                    [self setCheckoutPromos];
+                }
                 //Called checkout promo
             }
+        }
+        else if ([serviceType intValue]==2) {
+            
             [myDelegate stopIndicator];
+             //Navigate to step3
         }
     } onfailure:^(NSError *error) {
         
@@ -953,19 +969,17 @@
 }
 
 //Get shippment methods
-- (void)getShippmentMethodData:(BOOL)servceType {
+- (void)getShippmentMethodData:(BOOL)serviceType {
     CartDataModel *cartData = [CartDataModel sharedUser];
     cartData=[cartModelData copy];
     [cartData fetchShippmentMethodsOnSuccess:^(CartDataModel *shippmentDetailData)  {
         [myDelegate stopIndicator];
         cartModelData.shippmentMethodsArray=[shippmentDetailData.shippmentMethodsArray
                                              mutableCopy];
-        if (selectedShippingMethodIndex==-1) {
-            [self getShippmentMethodData:true];
+        if (serviceType) {
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"ShippingMethodAlert") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         }
-        
         [self viewObjectFraming];
         selectedShippingMethodIndex=-1;
         [_shippmentMethodTableView reloadData];
@@ -973,6 +987,31 @@
         
     }];
 }
+
+//Set checkout promos
+- (void)setCheckoutPromos {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    NSDictionary *tempDict=[[cartModelData.checkoutPromosArray objectAtIndex:selectedCheckoutPromoIndex] copy];
+    cartData.promoPoints=tempDict[@"promo_points"];
+    if ([tempDict[@"promo_category"] isEqualToString:@"rebate"]) {
+        cartData.promoDiscountValue=[NSString stringWithFormat:@"%f",[tempDict[@"promo_discount_value"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue]];
+    }
+    else if ([tempDict[@"promo_category"] isEqualToString:@"percent_discount"]) {
+        
+        cartData.promoDiscountValue=[NSString stringWithFormat:@"%f",(subTotalPrice*[tempDict[@"promo_discount_value"] floatValue]/100)*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue]];
+        DLog(@"%@",cartData.promoDiscountValue);
+    }
+    else {
+        cartData.promoDiscountValue=[NSString stringWithFormat:@"%f",[[cartModelData.shippmentMethodsArray[selectedShippingMethodIndex] objectForKey:@"base_amount"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue]];
+    }
+    [cartData setCheckoutPromosOnSuccess:^(CartDataModel *shippmentDetailData)  {
+        [self setUpdatedAddressShippingMethods:[NSNumber numberWithInt:2]];
+        //Navigate to step3
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
 #pragma mark - end
 
 - (NSDictionary *)setShippingAddressInCartModel {

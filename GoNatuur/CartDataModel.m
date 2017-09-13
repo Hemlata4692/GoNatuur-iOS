@@ -26,6 +26,8 @@
 @synthesize checkoutPromosArray;
 @synthesize checkoutImpactPoint;
 @synthesize selectedShippingMethod;
+@synthesize promoPoints;
+@synthesize promoDiscountValue;
 
 - (id)copyWithZone:(NSZone *)zone {
     CartDataModel *another = [[CartDataModel alloc] init];
@@ -45,6 +47,8 @@
     another.checkoutPromosArray= [self.checkoutPromosArray copyWithZone: zone];
     another.checkoutImpactPoint= [self.checkoutImpactPoint copyWithZone: zone];
     another.selectedShippingMethod= [self.selectedShippingMethod copyWithZone: zone];
+    another.promoPoints= [self.promoPoints copyWithZone: zone];
+    another.promoDiscountValue= [self.promoDiscountValue copyWithZone: zone];
     return another;
 }
 
@@ -110,6 +114,18 @@
 #pragma mark - Remove item from cart
 - (void)removeItemFromCart:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] removeItemFromCart:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Set checkout promo
+- (void)setCheckoutPromosOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] setCheckoutPromosService:self onSuccess:^(CartDataModel *userData) {
         if (success) {
             success (userData);
         }

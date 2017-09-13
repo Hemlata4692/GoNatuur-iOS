@@ -27,6 +27,8 @@
 @property (strong, nonatomic) NSMutableArray *shippmentMethodsArray;
 @property (strong, nonatomic) NSMutableArray *checkoutPromosArray;
 @property (strong, nonatomic) id cartListResponse;
+@property (strong, nonatomic) NSString *promoPoints;
+@property (strong, nonatomic) NSString *promoDiscountValue;
 
 //Singleton instanse
 + (instancetype)sharedUser;
@@ -41,4 +43,6 @@
 - (void)fetchCheckoutPromosOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 //Set addresses and shipping methods
 - (void)setUpdatedAddressShippingMethodsOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Set checkout promo
+- (void)setCheckoutPromosOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

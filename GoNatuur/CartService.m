@@ -13,6 +13,7 @@ static NSString *kCartListing=@"carts/mine";
 static NSString *kGetLogindShippmentMethod=@"carts/mine/shipping-methods";
 static NSString *kFetchCheckoutPromos=@"ranosys/checkoutpromo";
 static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-information";
+static NSString *kGetCheckoutPromo=@"ranosys/setcheckoutpromo";
 
 @implementation CartService
 
@@ -43,7 +44,7 @@ static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-
 - (void)fetchShippmentMethods:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     
     if ((nil==[UserDefaultManager getValue:@"userId"])){
-        [self get:[NSString stringWithFormat:@"carts/%@/shipping-methods",[UserDefaultManager getValue:@"quoteId"]] parameters:nil onSuccess:success onFailure:failure];
+        [self get:[NSString stringWithFormat:@"guest-carts/%@/shipping-methods",[UserDefaultManager getValue:@"quoteId"]] parameters:nil onSuccess:success onFailure:failure];
     }
     else {
     [self get:kGetLogindShippmentMethod parameters:nil onSuccess:success onFailure:failure];
@@ -60,6 +61,17 @@ static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-
     //    else {
     [self get:kFetchCheckoutPromos parameters:nil onSuccess:success onFailure:failure];
     //    }
+}
+#pragma mark - end
+
+#pragma mark - Set checkout promo
+- (void)setCheckoutPromos:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{
+                                 @"promoPoints":cartData.promoPoints,
+                                 @"promoDiscountValue":cartData.promoDiscountValue
+                                 };
+    DLog(@"%@",parameters);
+    [super post:kGetCheckoutPromo parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 

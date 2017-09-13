@@ -260,3 +260,4 @@
 "cartListContinueShopping"="CONTINUE SHOPPING";
 "cartListNext"="NEXT";
 "removedProduct"="Product removed successfully.";
+"ShippingMethodAlert"="Need to select one shipping method.";
