@@ -1041,6 +1041,7 @@
     CartService *cartList=[[CartService alloc]init];
     [cartList setUpdatedAddressShippingMethodsService:cartData success:^(id response) {
         DLog(@"Set addresses and shipping methods response %@",response);
+        cartData.checkoutFinalData=[response mutableCopy];
         success(cartData);
     }
                           onfailure:^(NSError *error) {
@@ -1118,6 +1119,18 @@
     }
                                             onfailure:^(NSError *error) {
                                             }];
+}
+#pragma mark - end
+
+#pragma mark - Set payment method
+- (void)setPaymentMethodService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList setPaymentMethodService:cartData success:^(id response) {
+        DLog(@"Set checkout promo response %@",response);
+        success(cartData);
+    }
+                      onfailure:^(NSError *error) {
+                      }];
 }
 #pragma mark - end
 @end

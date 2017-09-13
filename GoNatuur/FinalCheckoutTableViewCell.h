@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CartDataModel.h"
 
 @interface FinalCheckoutTableViewCell : UITableViewCell
-
+@property (strong, nonatomic) IBOutlet UIImageView *productImageView;
+@property (strong, nonatomic) IBOutlet UILabel *productNameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *productQuantityLabel;
+@property (strong, nonatomic) IBOutlet UILabel *productPriceLabel;
+- (void)displayCartListData:(CartDataModel *)cartData;
 @end

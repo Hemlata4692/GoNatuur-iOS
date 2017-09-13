@@ -15,6 +15,7 @@
 #import "CheckoutTableViewCell.h"
 #import "CheckoutCollectionViewCell.h"
 #import "AddressListingViewController.h"
+#import "FinalCheckoutViewController.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
@@ -939,6 +940,7 @@
     cartModelData.shippingAddressDict=[cartData.shippingAddressDict mutableCopy];
     cartModelData.billingAddressDict=[cartData.billingAddressDict mutableCopy];
     [cartData setUpdatedAddressShippingMethodsOnSuccess:^(CartDataModel *shippmentDetailData)  {
+        cartModelData.checkoutFinalData=[shippmentDetailData.checkoutFinalData mutableCopy];
         if ([serviceType intValue]==1) {
             [self getShippmentMethodData:false];
         }
@@ -951,17 +953,18 @@
                 if (selectedCheckoutPromoIndex==-1||(nil==[UserDefaultManager getValue:@"userId"])) {
                     [myDelegate stopIndicator];
                     //Navigate to step3
+                    [self navigateToFinalCheckout];
                 }
                 else {
                     [self setCheckoutPromos];
                 }
-                //Called checkout promo
             }
         }
         else if ([serviceType intValue]==2) {
             
             [myDelegate stopIndicator];
              //Navigate to step3
+            [self navigateToFinalCheckout];
         }
     } onfailure:^(NSError *error) {
         
@@ -1006,7 +1009,6 @@
     }
     [cartData setCheckoutPromosOnSuccess:^(CartDataModel *shippmentDetailData)  {
         [self setUpdatedAddressShippingMethods:[NSNumber numberWithInt:2]];
-        //Navigate to step3
     } onfailure:^(NSError *error) {
         
     }];
@@ -1198,22 +1200,12 @@
 }
 #pragma mark - end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#pragma mark - Navigate to checkout step3 screen
+- (void)navigateToFinalCheckout {
+    FinalCheckoutViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FinalCheckoutViewController"];
+    obj.cartModelData=[cartModelData copy];
+    obj.cartListDataArray=[cartListDataArray mutableCopy];
+    [self.navigationController pushViewController:obj animated:YES];
+}
+#pragma mark - end
 @end

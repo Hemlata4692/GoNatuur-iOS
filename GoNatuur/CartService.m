@@ -14,6 +14,7 @@ static NSString *kGetLogindShippmentMethod=@"carts/mine/shipping-methods";
 static NSString *kFetchCheckoutPromos=@"ranosys/checkoutpromo";
 static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-information";
 static NSString *kGetCheckoutPromo=@"ranosys/setcheckoutpromo";
+static NSString *kGetPaymentMethod=@"carts/mine/selected-payment-method";
 
 @implementation CartService
 
@@ -72,6 +73,18 @@ static NSString *kGetCheckoutPromo=@"ranosys/setcheckoutpromo";
                                  };
     DLog(@"%@",parameters);
     [super post:kGetCheckoutPromo parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Set payment method
+- (void)setPaymentMethodService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{
+                                 @"method":@{
+                                         @"method":cartData.paymentMethod
+                                        }
+                                 };
+    DLog(@"%@",parameters);
+    [super put:kGetPaymentMethod parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 
