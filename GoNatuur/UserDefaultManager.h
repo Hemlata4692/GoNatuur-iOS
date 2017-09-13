@@ -11,4 +11,6 @@
 + (void)setValue : (id)value key :(NSString *)key;
 + (id)getValue : (NSString *)key;
 + (void)removeValue : (NSString *)key;
++ (NSNumber *)getNumberValue:(NSString *)key dictData:(NSDictionary *)dictData;
++ (NSString *)checkStringNull:(NSString *)key dictData:(NSDictionary *)dictData;
 @end

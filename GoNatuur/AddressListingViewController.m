@@ -25,6 +25,7 @@
 
 @implementation AddressListingViewController
 @synthesize profileData;
+@synthesize checkoutAddressViewObj;
 
 #pragma mark - View lifecycle
 - (void)viewDidLoad {
@@ -58,6 +59,9 @@
     AddressViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"AddressViewController"];
     nextView.profileData = profileData;
     nextView.isEditScreen = NO;
+    if (nil!=checkoutAddressViewObj) {
+        nextView.checkoutAddressViewObj=checkoutAddressViewObj;
+    }
     [self.navigationController pushViewController:nextView animated:YES];
 }
 
@@ -141,6 +145,9 @@
 #pragma mark - Table view data source and delgate methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
+    if (nil!=checkoutAddressViewObj) {
+        return checkoutAddressViewObj.cartModelData.customerSavedAddressArray.count+3;
+    }
     return profileData.addressArray.count+3;
 }
 
@@ -164,16 +171,36 @@
         cell.editAddressButton.tag = indexPath.row-3;
         cell.deleteAddressButton.tag = indexPath.row-3;
         NSDictionary *addressDict = [NSDictionary new];
-        addressDict = [profileData.addressArray objectAtIndex:indexPath.row-3];
+        if (nil!=checkoutAddressViewObj) {
+            addressDict= [checkoutAddressViewObj.cartModelData.customerSavedAddressArray objectAtIndex:indexPath.row-3];
+        }
+        else {
+            addressDict = [profileData.addressArray objectAtIndex:indexPath.row-3];
+        }
+        
         [cell displayAddressData:_addressTableView.frame.size addressData:addressDict];
+        if (nil!=checkoutAddressViewObj) {
+            cell.editAddressButton.hidden=true;
+            cell.deleteAddressButton.hidden=true;
+            //Hide cell separator
+            if (indexPath.row == checkoutAddressViewObj.cartModelData.customerSavedAddressArray.count+2) {
+                cell.listingSeparatorLabel.hidden = YES;
+            } else {
+                cell.listingSeparatorLabel.hidden = NO;
+            }
+        }
+        else {
+            cell.editAddressButton.hidden=false;
+            cell.deleteAddressButton.hidden=false;
+            //Hide cell separator
+            if (indexPath.row == profileData.addressArray.count+2) {
+                cell.listingSeparatorLabel.hidden = YES;
+            } else {
+                cell.listingSeparatorLabel.hidden = NO;
+            }
+        }
         [cell.editAddressButton addTarget:self action:@selector(editUserAddress:) forControlEvents:UIControlEventTouchUpInside];
         [cell.deleteAddressButton addTarget:self action:@selector(deleteUserAddress:) forControlEvents:UIControlEventTouchUpInside];
-        //Hide cell separator
-        if (indexPath.row == profileData.addressArray.count+2) {
-            cell.listingSeparatorLabel.hidden = YES;
-        } else {
-            cell.listingSeparatorLabel.hidden = NO;
-        }
     }
     return cell;
 }
@@ -189,7 +216,13 @@
         return 30;
     }
     else {
-        NSDictionary *addressData = [profileData.addressArray objectAtIndex:indexPath.row-3];
+        NSDictionary *addressData;
+        if (nil!=checkoutAddressViewObj) {
+            addressData = [checkoutAddressViewObj.cartModelData.customerSavedAddressArray objectAtIndex:indexPath.row-3];
+        }
+        else {
+            addressData = [profileData.addressArray objectAtIndex:indexPath.row-3];
+        }
         float newHeight =[DynamicHeightWidth getDynamicLabelHeight:[NSString stringWithFormat:@"%@ %@",addressData[@"firstname"],addressData[@"lastname"]] font:[UIFont montserratRegularWithSize:12] widthValue:_addressTableView.frame.size.width-100 heightValue:500];
         NSString *streetString = [addressData[@"street"] componentsJoinedByString:@","];
         float addressHeight =[DynamicHeightWidth getDynamicLabelHeight:streetString font:[UIFont montserratRegularWithSize:12] widthValue:_addressTableView.frame.size.width-30 heightValue:500];
@@ -214,6 +247,41 @@
         } else {
             return 60+newHeight+addressHeight+secondAddressHeight+phoneNumberHeight;
         }
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (nil!=checkoutAddressViewObj) {
+        NSDictionary *tempDict=[checkoutAddressViewObj.cartModelData.customerSavedAddressArray objectAtIndex:indexPath.row-3];
+        NSMutableArray *streetTempArray=[NSMutableArray new];
+        for (NSString *street in tempDict[@"street"]) {
+            [streetTempArray addObject:street];
+        }
+        NSDictionary *parameters = @{@"id" : [UserDefaultManager getNumberValue:@"id" dictData:tempDict],
+                                     @"region" : [tempDict[@"region"] objectForKey:@"region"],
+                                     @"region_id" : [UserDefaultManager getNumberValue:[tempDict objectForKey:@"region_id"] dictData:tempDict],
+                                     @"region_code" : [tempDict[@"region"] objectForKey:@"region_code"],
+                                     @"country_id" : [UserDefaultManager checkStringNull:@"country_id" dictData:tempDict],
+                                     @"company" : [UserDefaultManager checkStringNull:@"company" dictData:tempDict],
+                                     @"telephone" : tempDict[@"telephone"],
+                                     @"fax" : [UserDefaultManager checkStringNull:@"fax" dictData:tempDict],
+                                     @"postcode" : tempDict[@"postcode"],
+                                     @"city" : tempDict[@"city"],
+                                     @"firstname" : tempDict[@"firstname"],
+                                     @"lastname" : tempDict[@"lastname"],
+                                     @"email" : [UserDefaultManager getValue:@"emailId"],
+                                     @"customer_id": [UserDefaultManager getValue:@"userId"],
+                                     @"street":[streetTempArray copy]
+                                     };
+        if (checkoutAddressViewObj.isBillingAddress) {
+            checkoutAddressViewObj.cartModelData.billingAddressDict=[parameters mutableCopy];
+        }
+        else {
+            checkoutAddressViewObj.cartModelData.shippingAddressDict=[parameters mutableCopy];
+        }
+        checkoutAddressViewObj.isEditService=true;
+        [self.navigationController popViewControllerAnimated:true];
+        DLog(@"%@",tempDict);
     }
 }
 #pragma mark - end

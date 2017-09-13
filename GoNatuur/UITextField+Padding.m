@@ -24,7 +24,7 @@
 
 - (void)addTextFieldLeftRightPadding: (UITextField *)textfield {
     UIView *leftPadding;
-    leftPadding = [[UIView alloc] initWithFrame:CGRectMake(0, 0,10, 20)];
+    leftPadding = [[UIView alloc] initWithFrame:CGRectMake(0, 0,10, 10)];
     textfield.leftView = leftPadding;
     textfield.leftViewMode = UITextFieldViewModeAlways;
     
