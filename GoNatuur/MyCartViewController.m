@@ -125,25 +125,6 @@
     _firstStepLabel.backgroundColor=selectedStepColor;
 }
 
-//- (void)viewCustomisation:(int)step {
-//    switch (step) {
-//        case 1:
-//            
-//            break;
-//        case 2:
-//            _firstStepSeperetorLabel.backgroundColor=selectedStepColor;
-//            _secondStepLabel.backgroundColor=selectedStepColor;
-//            break;
-//        case 3:
-//            _secondStepSeperetorLabel.backgroundColor=selectedStepColor;
-//            _thirdStepLabel.backgroundColor=selectedStepColor;
-//            break;
-//        default:
-//             _fourthStepLabel.backgroundColor=selectedStepColor;
-//            break;
-//    }
-//}
-
 - (void)addCartListView {
    cartListObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CartListingViewController"];
     cartListObj.view.translatesAutoresizingMaskIntoConstraints=YES;
