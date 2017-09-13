@@ -132,7 +132,7 @@
         [self setInitailizedBillingAddressData:isShippingAddreesSame];
         if ([self shippingAddressFieldValidations:true]) {
             [myDelegate showIndicator];
-            [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithBool:false] afterDelay:.1];
+            [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithBool:true] afterDelay:.1];
         }
     }
 }
@@ -166,7 +166,6 @@
 }
 
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControl {
-    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [keyboardControl.activeField resignFirstResponder];
 }
 #pragma mark - end
@@ -179,7 +178,6 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [textField resignFirstResponder];
     return YES;
 }
@@ -222,7 +220,6 @@
     if (!isPickerEnable) {
         _nextOutlet.enabled=true;
          _scrollView.contentSize = CGSizeMake(0,_mainCheckoutAddressView.frame.size.height);
-        [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
         if ([self shippingAddressFieldValidations:false]&&[self isShippingAddressDifferent]) {
             [self calledUpdateAddressServiceMethod];
         }
@@ -718,7 +715,13 @@
 }
 
 - (IBAction)checkoutAddressNext:(UIButton *)sender {
-    [self calledUpdateAddressServiceMethod];
+    isPickerEnable=false;
+    [gNPickerViewObj hidePickerView];
+    [self.view endEditing:true];
+    if ([self shippingAddressFieldValidations:true]&&[self billingAddressFieldValidations]) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithBool:false] afterDelay:.1];
+    }
 }
 
 - (IBAction)shippingEditAddress:(UIButton *)sender {
@@ -797,13 +800,13 @@
         [self.view endEditing:true];
         if ([self shippingAddressFieldValidations:true]) {
             [myDelegate showIndicator];
-            [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithBool:false] afterDelay:.1];
+            [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithBool:true] afterDelay:.1];
         }
     }
 }
 #pragma mark - end
 
-#pragma mark - Shipping address fields validation
+#pragma mark - Address fields validation
 - (BOOL)shippingAddressFieldValidations:(BOOL)isAlertShow {
     if ([_shippingFirstNameTextField isEmpty] || [_shippingLastNameTextField isEmpty] || [_shippingPhoneNumberTextField isEmpty] || [_shippingEmailTextField isEmpty] || [_shippingAddressLine1TextField isEmpty] || [_shippingStateTextField isEmpty] || [_shippingCityTextField isEmpty] || [_shippingZipCodeTextField isEmpty]) {
         if (isAlertShow) {
@@ -817,6 +820,21 @@
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
             [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validEmailMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         }
+        return NO;
+    }else {
+        return YES;
+    }
+}
+
+- (BOOL)billingAddressFieldValidations {
+    if ([_billingFirstNameTextField isEmpty] || [_billingLastNameTextField isEmpty] || [_billingPhoneNumberTextField isEmpty] || [_billingEmailTextField isEmpty] || [_billingAddressLine1TextField isEmpty] || [_billingStateTextField isEmpty] || [_billingCityTextField isEmpty] || [_billingZipCodeTextField isEmpty]) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        return NO;
+    }
+    else if (![_billingEmailTextField isValidEmail]) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validEmailMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     }else {
         return YES;
@@ -895,7 +913,7 @@
             [_offersCollectionView reloadData];
         }
         if ([self shippingAddressFieldValidations:false]) {
-            [self getShippmentMethodData];
+            [self getShippmentMethodData:false];
         }
         else {
             [myDelegate stopIndicator];
@@ -911,12 +929,22 @@
     CartDataModel *cartData = [CartDataModel sharedUser];
     cartData=[cartModelData copy];
     cartData.shippingAddressDict=[[self setShippingAddressInCartModel] mutableCopy];
-    cartModelData.shippingAddressDict=[[self setShippingAddressInCartModel] mutableCopy];
+    cartData.billingAddressDict=[[self setBillingAddressInCartModel] mutableCopy];
+    cartModelData.shippingAddressDict=[cartData.shippingAddressDict mutableCopy];
+    cartModelData.billingAddressDict=[cartData.billingAddressDict mutableCopy];
     [cartData setUpdatedAddressShippingMethodsOnSuccess:^(CartDataModel *shippmentDetailData)  {
         if ([isGetShippingMethodCalled boolValue]) {
-            [self getShippmentMethodData];
+            [self getShippmentMethodData:false];
         }
         else {
+            if (selectedShippingMethodIndex==-1) {
+                [self getShippmentMethodData:true];
+                SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+                [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+            }
+            else {
+                //Called checkout promo
+            }
             [myDelegate stopIndicator];
         }
     } onfailure:^(NSError *error) {
@@ -925,18 +953,22 @@
 }
 
 //Get shippment methods
-- (void)getShippmentMethodData {
+- (void)getShippmentMethodData:(BOOL)servceType {
     CartDataModel *cartData = [CartDataModel sharedUser];
     cartData=[cartModelData copy];
     [cartData fetchShippmentMethodsOnSuccess:^(CartDataModel *shippmentDetailData)  {
         [myDelegate stopIndicator];
         cartModelData.shippmentMethodsArray=[shippmentDetailData.shippmentMethodsArray
                                              mutableCopy];
-        if (cartModelData.shippmentMethodsArray.count>0) {
-            [self viewObjectFraming];
-            selectedShippingMethodIndex=0;
-            [_shippmentMethodTableView reloadData];
+        if (selectedShippingMethodIndex==-1) {
+            [self getShippmentMethodData:true];
+            SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         }
+        
+        [self viewObjectFraming];
+        selectedShippingMethodIndex=-1;
+        [_shippmentMethodTableView reloadData];
     } onfailure:^(NSError *error) {
         
     }];
@@ -974,7 +1006,7 @@
     if (![_billingAddressLine2TextField isEmpty]) {
         [streetTempArray addObject:_billingAddressLine2TextField.text];
     }
-    NSDictionary *shippingAddress = @{@"id" : [UserDefaultManager getNumberValue:@"id" dictData:[cartModelData.billingAddressDict copy]],
+    NSDictionary *billingAddress = @{@"id" : [UserDefaultManager getNumberValue:@"id" dictData:[cartModelData.billingAddressDict copy]],
                                       @"region" : _billingStateTextField.text,
                                       @"region_id" : [NSNumber numberWithInt:selectedBillingRegionId],
                                       @"region_code" : selectedBillingRegionCode,
@@ -990,7 +1022,7 @@
                                       @"customer_id": (nil!=[UserDefaultManager getValue:@"userId"]?[UserDefaultManager getValue:@"userId"]:[NSNumber numberWithInt:0]),
                                       @"street":[streetTempArray copy]
                                       };
-    return shippingAddress;
+    return billingAddress;
 }
 
 #pragma mark - Custom picker delegate method
@@ -1098,6 +1130,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     selectedShippingMethodIndex=(int)indexPath.row;
+    cartModelData.selectedShippingMethod=[cartModelData.shippmentMethodsArray[selectedShippingMethodIndex] objectForKey:@"method_code"];
     [_shippmentMethodTableView reloadData];
 }
 #pragma mark - end
@@ -1115,9 +1148,33 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (![[[cartModelData.checkoutPromosArray objectAtIndex:indexPath.row] objectForKey:@"HiddenPromo"] boolValue]) {
-        selectedCheckoutPromoIndex=(int)indexPath.row;
+        if (selectedCheckoutPromoIndex==(int)indexPath.row) {
+            selectedCheckoutPromoIndex=-1;
+        }
+        else {
+            selectedCheckoutPromoIndex=(int)indexPath.row;
+        }
         [_offersCollectionView reloadData];
     }
 }
 #pragma mark - end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end

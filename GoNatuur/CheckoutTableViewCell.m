@@ -36,6 +36,6 @@
         _radioLabel.layer.borderColor=unSelectedStepColor.CGColor;
     }
     _shippingMethodLabel.text=[NSString stringWithFormat:@"%@\n%@",shippingMethodData[@"method_title"],shippingMethodData[@"method_title"]];
-    _shippingMethodPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([shippingMethodData[@"amount"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
+    _shippingMethodPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([shippingMethodData[@"base_amount"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
 }
 @end
