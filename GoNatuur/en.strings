@@ -196,6 +196,16 @@
 "billing"="Billing";
 "setAsDefault"="Set as default";
 "yes"="Yes";
+"removedProduct"="Product removed successfully.";
+"checkoutPhoneNumber"="Phone Number*";
+"checkoutEmail"="Email*";
+"checkoutAddressLine1"="Address Line 1*";
+"checkoutAddressLine2"="Address Line 2";
+"checkoutCountry"="Country*";
+"checkoutState"="State*";
+"checkoutCity"="City*";
+"checkoutZipCode"="Zipcode*";
+"billingSameAddress"="Same as shipping address:";
 "no"="No";
 "addressDetails"="Address Details";
 "companyPlaceholder"="Company";

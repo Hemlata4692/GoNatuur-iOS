@@ -189,7 +189,7 @@
 }
 
 - (void)parseHeaderData:(NSURLSessionDataTask *)task error:(NSError *)error  path:(NSString *)path parameters:(NSDictionary *)parameters onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
-    if (error.code == -1009) {
+    if ((error.code == -1009)||(error.code == -1005)) {
         [self showRetryAlertMessage:NSLocalizedText(@"Internet connection") path:path parameters:parameters success:success failure:failure error:error];
     }
     else if (error.code == -1001) {

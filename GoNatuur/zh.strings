@@ -121,8 +121,10 @@
 "nodata"="没有找到数据.";
 "maximuQtyAdded"="你不能添加多于";
 "cart"="購物車中的物品";
-"terms&Conditions"="条款和条件";
-"privacyPolicy"="隐私政策";
+"terms&Conditions"="Terms & Conditions";
+//"terms&Conditions"="条款和条件";
+"privacyPolicy"="Privacy Policy";
+//"privacyPolicy"="隐私政策";
 "All"="所有";
 "5 Stars"="5颗星";
 "4 Stars"="4颗星";
@@ -158,7 +160,8 @@
 "Gallery"="画廊";
 "Camera"="相机";
 "ticket"="票";
-"Register"="寄存器";
+"Register"="Register";
+//"Register"="寄存器";
 "Points Earn"="積分賺取";
 "freeShipping"="*免运费订单$ 100及以上";
 "thankYou"="谢谢！";

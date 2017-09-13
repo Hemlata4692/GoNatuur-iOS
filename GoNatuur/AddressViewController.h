@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "ProfileModel.h"
 #import "AddressListingViewController.h"
+#import "CheckoutAddressViewController.h"
 
 @interface AddressViewController : GoNatuurViewController
 @property(nonatomic,strong)AddressListingViewController *addressListView;
 @property(nonatomic,strong)ProfileModel *profileData;
 @property(nonatomic)BOOL isEditScreen;
 @property(nonatomic)NSNumber *addressIndex;
-
+@property(nonatomic,strong)CheckoutAddressViewController *checkoutAddressViewObj;
 @end
