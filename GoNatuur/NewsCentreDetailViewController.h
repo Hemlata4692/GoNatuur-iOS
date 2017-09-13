@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface NewsCentreDetailViewController : GoNatuurViewController
-
+@property (nonatomic, strong) NSString *newsPostId;
+@property (nonatomic, strong) NSString *navigationTitle;
 @end

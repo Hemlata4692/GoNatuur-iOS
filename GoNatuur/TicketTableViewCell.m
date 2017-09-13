@@ -38,7 +38,7 @@
     _ticketingHeading.frame=CGRectMake(10, 5, 88, 19);
    
     double productCalculatedPrice =[[ticketDict objectForKey:@"price"] doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
-    _ticketPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
+    _ticketPrice.text=[NSString stringWithFormat:@"+%@ %@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
     float priceHeight=[DynamicHeightWidth getDynamicLabelHeight:_ticketPrice.text font:[UIFont montserratLightWithSize:13] widthValue:rectSize.width/2-16];
     _ticketPrice.frame=CGRectMake((rectSize.width-20)/2+8, 30, (rectSize.width-20)/2-16, priceHeight);
     _priceHeading.frame=CGRectMake(((rectSize.width-20)/2)+8, 5, 88, 19);

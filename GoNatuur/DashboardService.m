@@ -15,6 +15,7 @@ static NSString *kDashboardData=@"ranosys/dashboard";
 static NSString *kCurrencyData=@"directory/currency";
 static NSString *kProductListData=@"ranosys/productsList";
 static NSString *kNewsListData=@"ranosys/news/getList";
+static NSString *kNewsDetailData=@"ranosys/news/getById";
 static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
 static NSString *kNwesCategory=@"ranosys/news/getNewsCategory";
 
@@ -117,13 +118,13 @@ static NSString *kNwesCategory=@"ranosys/news/getNewsCategory";
                                                                    @"condition_type":@"like"
                                                                    },
                                                                  @{@"field":@"content",
-                                                                     @"value": productData.categoryName,
-                                                                     @"condition_type":@"like"
-                                                                     },
+                                                                   @"value": productData.categoryName,
+                                                                   @"condition_type":@"like"
+                                                                   },
                                                                  @{@"field":@"author_name",
-                                                                     @"value": productData.categoryName,
-                                                                     @"condition_type":@"like"
-                                                                     }
+                                                                   @"value": productData.categoryName,
+                                                                   @"condition_type":@"like"
+                                                                   }
                                                                  ]
                                                          }
                                                      ],
@@ -154,6 +155,14 @@ static NSString *kNwesCategory=@"ranosys/news/getNewsCategory";
     }
     NSLog(@"news list request %@",parameters);
     [super post:kNewsListData parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Get News detail data
+- (void)getNewsDetailService:(DashboardDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"postId":productData.productId};
+    NSLog(@"news details request %@",parameters);
+    [super post:kNewsDetailData parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 

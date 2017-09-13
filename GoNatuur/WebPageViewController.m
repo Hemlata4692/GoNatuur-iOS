@@ -82,7 +82,7 @@
         }
         else {
             _noDataLabel.hidden=YES;
-        [_aboutUsWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' text-align:'justify' font-size:15'>%@</body></html>", userData.cmsContent] baseURL: nil];
+        [_aboutUsWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' link='#B62546' text-align:'justify' font-size:15'>%@</body></html>", userData.cmsContent] baseURL: nil];
         }
         
     } onfailure:^(NSError *error) {

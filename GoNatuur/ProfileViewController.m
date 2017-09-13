@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"customerSupportCell", @"changePasswordCell"];
+    menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"customerSupportCell", @"changePasswordCell", @"notificationCell"];
     customerSupportArray=@[NSLocalizedText(@"chat"), NSLocalizedText(@"raiseTicket")];
     [self addCustomPickerView];
     isImagePicker=false;
@@ -122,6 +122,7 @@
     ProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     [cell displayData:_profileTableView.frame.size];
     [cell.editProfileImage addTarget:self action:@selector(editUserImageAction:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.notificationSwitch addTarget:self action:@selector(enableDisableNotification:) forControlEvents:UIControlEventValueChanged];
     return cell;
 }
 
@@ -162,6 +163,17 @@
     //pay pal payment
     //[payment setPaymentDetails:[customerSupportArray mutableCopy] delegate:self];
 }
+
+- (IBAction)enableDisableNotification:(id)sender {
+    UISwitch *switchStatus = (UISwitch *) sender;
+    if (switchStatus.on) {
+        [myDelegate registerForRemoteNotification];
+    }
+    else {
+        [myDelegate unregisterForRemoteNotifications];
+    }
+}
+#pragma mark - end
 
 //PayPalPaymentDelegate
 #pragma mark - PayPalPaymentDelegate methods

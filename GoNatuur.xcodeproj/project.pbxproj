@@ -39,6 +39,7 @@
 		185036E61F67A7510008C0F1 /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2AD271F659C6400B8F605 /* EventDetailViewController.m */; };
 		185036EA1F67D9860008C0F1 /* NewsCentreDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185036E91F67D9860008C0F1 /* NewsCentreDetailViewController.m */; };
 		185036EE1F67E3830008C0F1 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185036ED1F67E3830008C0F1 /* ShareViewController.m */; };
+		185C58021F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185C58011F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m */; };
 		185F707F1F55A839007F49F7 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185F707E1F55A839007F49F7 /* ProfileViewController.m */; };
 		1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */; };
 		187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 187129061F48D5BC00D16581 /* UpdateCartItem.m */; };
@@ -229,6 +230,8 @@
 		185036E91F67D9860008C0F1 /* NewsCentreDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCentreDetailViewController.m; sourceTree = "<group>"; };
 		185036EC1F67E3830008C0F1 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
 		185036ED1F67E3830008C0F1 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		185C58001F68E41E0027E7BC /* NewsCentreDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCentreDetailTableViewCell.h; sourceTree = "<group>"; };
+		185C58011F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCentreDetailTableViewCell.m; sourceTree = "<group>"; };
 		185F707D1F55A839007F49F7 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		185F707E1F55A839007F49F7 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		1870F0BC1F44185F008B2CE5 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
@@ -706,8 +709,8 @@
 		185036E71F67D94F0008C0F1 /* NewsCentreDetailView */ = {
 			isa = PBXGroup;
 			children = (
-				185036E81F67D9860008C0F1 /* NewsCentreDetailViewController.h */,
-				185036E91F67D9860008C0F1 /* NewsCentreDetailViewController.m */,
+				185C57FF1F68E3F50027E7BC /* NewsCentreDetailCell */,
+				185C57FE1F68E3D90027E7BC /* NewsCentreDetailViewcontroller */,
 			);
 			name = NewsCentreDetailView;
 			sourceTree = "<group>";
@@ -728,6 +731,24 @@
 				180ECD341F486E6F003C936E /* ReviewListingViewController */,
 			);
 			name = ReviewListView;
+			sourceTree = "<group>";
+		};
+		185C57FE1F68E3D90027E7BC /* NewsCentreDetailViewcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				185036E81F67D9860008C0F1 /* NewsCentreDetailViewController.h */,
+				185036E91F67D9860008C0F1 /* NewsCentreDetailViewController.m */,
+			);
+			name = NewsCentreDetailViewcontroller;
+			sourceTree = "<group>";
+		};
+		185C57FF1F68E3F50027E7BC /* NewsCentreDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+				185C58001F68E41E0027E7BC /* NewsCentreDetailTableViewCell.h */,
+				185C58011F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m */,
+			);
+			name = NewsCentreDetailCell;
 			sourceTree = "<group>";
 		};
 		185F706A1F559D6B007F49F7 /* ProfileModule */ = {
@@ -2152,6 +2173,7 @@
 				B7A4D3ED1F48278A00A28BBE /* ProductDetailViewController.m in Sources */,
 				5D0CB20E1F63FF16008043B6 /* OrderDetailViewController.m in Sources */,
 				B7A4D3FD1F4857C900A28BBE /* ProductService.m in Sources */,
+				185C58021F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m in Sources */,
 				1875618D1F469B2800F609AB /* NotificationService.m in Sources */,
 				B7A4D3FA1F4854CC00A28BBE /* ProductDataModel.m in Sources */,
 				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,

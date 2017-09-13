@@ -244,3 +244,8 @@
 "price"="Price";
 "AboutUs"="About Us";
 "ContactUs"="Contact Us";
+"locationDetails"="Location Details";
+"dateHeading"="Date:";
+"categoryHeading"="Categories:";
+"tagsHeading"="Tags:";
+"byHeading"="By:";

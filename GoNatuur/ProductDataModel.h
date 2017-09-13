@@ -37,6 +37,7 @@
 @property (strong, nonatomic) NSMutableArray *productMediaArray;
 @property (strong, nonatomic) NSString *productSku;
 @property (strong, nonatomic) NSString *specialPrice;
+@property (strong, nonatomic) NSString *eventPrice;
 @property (strong, nonatomic) NSString *avg_rating_percent;
 @property (strong, nonatomic) NSMutableArray *attendiesArray;
 @property (strong, nonatomic) NSMutableArray *ticketingArray;

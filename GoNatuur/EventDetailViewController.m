@@ -38,7 +38,6 @@
     NSMutableArray *ticketArray;
 }
 @property (strong, nonatomic) IBOutlet UITableView *productDetailTableView;
-
 @end
 
 @implementation EventDetailViewController
@@ -57,6 +56,7 @@
     else {
         isServiceCalledMPMoviePlayerDone=true;
     }
+    [self addCustomPickerView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -65,7 +65,12 @@
     self.title=NSLocalizedText(@"EventDetails");
     [self addLeftBarButtonWithImage:true];
     cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"ticketingPriceCell",@"productDetailPriceCell", @"productDetailInfoCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"mapCell",@"attendingCell",@"ticketCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
-    [self addCustomPickerView];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    //Bring front view picker view
+    [self.view bringSubviewToFront:customerTicketPicker.goNatuurPickerViewObj];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -557,8 +562,6 @@
     //Set initial index of picker view and initialized picker view
     customerTicketPicker=[[GoNatuurPickerView alloc] initWithFrame:self.view.frame delegate:self pickerHeight:230];
     [self.view addSubview:customerTicketPicker.goNatuurPickerViewObj];
-    //Bring front view picker view
-    [self.view bringSubviewToFront:customerTicketPicker.goNatuurPickerViewObj];
 }
 
 - (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {
@@ -566,7 +569,24 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:ticketBtnTag inSection:0];
         ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
         cell.ticketSelectionTypeField.text=[ticketArray objectAtIndex:tempSelectedIndex];
+        
+        NSMutableDictionary *tempDict=[productDetailModelData.ticketingArray objectAtIndex:0];
+        NSArray *dataArray=[[[tempDict objectForKey:@"event_option_type"]objectForKey:@"event_option_options"] mutableCopy];
+        NSDictionary *ticketDict=[dataArray objectAtIndex:tempSelectedIndex];
+       
+        double productCalculatedPrice =[[ticketDict objectForKey:@"price"] doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+        if (nil!=productDetailModelData.specialPrice&&![productDetailModelData.specialPrice isEqualToString:@""]) {
+            double price1 = [productDetailModelData.eventPrice doubleValue];
+             productDetailModelData.specialPrice = [NSString stringWithFormat:@"%f",productCalculatedPrice+price1];
+        }
+        else {
+            double price1 = [productDetailModelData.eventPrice doubleValue];
+             productDetailModelData.productPrice = [NSNumber numberWithDouble:productCalculatedPrice+price1];
+        }
+
+        [cell displayProductPrice:productDetailModelData currentQuantity:currentQuantity];
         selectedPickerIndex=tempSelectedIndex;
+        [_productDetailTableView reloadData];
     }
 }
 #pragma mark - end

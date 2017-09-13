@@ -17,6 +17,9 @@
 @property (weak, nonatomic) IBOutlet UIWebView *productDetailWebView;
 @property (weak, nonatomic) IBOutlet UILabel *noDataLabel;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIView *locationView;
+@property (weak, nonatomic) IBOutlet UILabel *locationHeading;
+@property (weak, nonatomic) IBOutlet UITextView *addressTextView;
 @end
 
 @implementation WebViewController
@@ -42,38 +45,41 @@
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
     _noDataLabel.text=NSLocalizedText(@"nodata");
+    _locationHeading.text=NSLocalizedText(@"locationDetails");
     if ([isLocation isEqualToString:@"Yes"]) {
         _productDetailWebView.hidden=YES;
         NSDictionary *tempDict=[locationArray objectAtIndex:0];
         if (locationArray.count==0 || [tempDict objectForKey:@"location_lat"]==nil || [tempDict objectForKey:@"location_long"] ==nil || [[tempDict objectForKey:@"location_lat"]isEqualToString:@""] || [[tempDict objectForKey:@"location_long"]isEqualToString:@""]) {
             _noDataLabel.hidden=NO;
-            _mapView.hidden=YES;
+            _locationView.hidden=YES;
         }
         else {
-        _noDataLabel.hidden=YES;
-        _mapView.hidden=NO;
+            _noDataLabel.hidden=YES;
+            _locationView.hidden=NO;
+            [_mapView setCornerRadius:2.0];
+            _addressTextView.text=[tempDict objectForKey:@"location_detail"];
             [self addMapPoints:tempDict];
         }
     }
     else {
-    _mapView.hidden=YES;
-    _productDetailWebView.backgroundColor = [UIColor colorWithRed:253.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0];
-    _productDetailWebView.opaque=NO;
-    
-    if ([productDetaiData isEqualToString:@""] || productDetaiData==nil) {
-        _noDataLabel.hidden=NO;
-        _productDetailWebView.hidden=YES;
-    }
-    else {
-        _noDataLabel.hidden=YES;
-        [myDelegate showIndicator];
-        if ([navigationTitle isEqualToString:NSLocalizedText(@"Where to buy")]) {
-            [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' text-align:'%@' font-size:15'>%@</body></html>",@"left", productDetaiData] baseURL: nil];
+        _locationView.hidden=YES;
+        _productDetailWebView.backgroundColor = [UIColor colorWithRed:253.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0];
+        _productDetailWebView.opaque=NO;
+        
+        if ([productDetaiData isEqualToString:@""] || productDetaiData==nil) {
+            _noDataLabel.hidden=NO;
+            _productDetailWebView.hidden=YES;
         }
         else {
-            [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' text-align:'%@' font-size:15'>%@</body></html>",@"justify", productDetaiData] baseURL: nil];
+            _noDataLabel.hidden=YES;
+            [myDelegate showIndicator];
+            if ([navigationTitle isEqualToString:NSLocalizedText(@"Where to buy")]) {
+                [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' link='#B62546' text-align:'%@' font-size:15'>%@</body></html>",@"left", productDetaiData] baseURL: nil];
+            }
+            else {
+                [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' link='#B62546' text-align:'%@' font-size:15'>%@</body></html>",@"justify", productDetaiData] baseURL: nil];
+            }
         }
-    }
     }
 }
 
@@ -89,7 +95,7 @@
     coordinate.longitude = [[locationDict objectForKey:@"location_long"] floatValue];
     region.span=span;
     region.center =coordinate;
-    addAnnotation = [[AddressAnnotation alloc] initWithCoordinate:coordinate];
+    addAnnotation = [[AddressAnnotation alloc] initWithTitle:[locationDict objectForKey:@"location_title"] andCoordinate:coordinate];
     [_mapView addAnnotation:addAnnotation];
     addAnnotation.myPinColor=MKPinAnnotationColorRed;
     [_mapView setRegion:region animated:TRUE];

@@ -524,6 +524,19 @@
 }
 #pragma mark - end
 
+#pragma mark - News detail data service
+- (void)getNewsCenterDetailService:(DashboardDataModel *)productData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    DashboardService *productList=[[DashboardService alloc]init];
+    [productList getNewsDetailService:productData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"news list response %@",response);
+        productData.productDataArray=[response[@"news"]mutableCopy];
+        success(productData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
 #pragma mark - News list data service
 - (void)getNewsCenterListService:(DashboardDataModel *)productData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     DashboardService *productList=[[DashboardService alloc]init];
@@ -598,6 +611,13 @@
         productData.reviewId=[response objectForKey:@"review_id"];
         productData.productSku=[response objectForKey:@"sku"];
         productData.specialPrice = [customAttributeDict objectForKey:@"special_price"];
+        if (![productData.specialPrice isEqualToString:@""] && nil!=productData.specialPrice) {
+            productData.eventPrice=productData.specialPrice;
+        }
+        else {
+             productData.eventPrice=[NSString stringWithFormat:@"%@",productData.productPrice];
+        }
+        
         productData.productMediaArray=[NSMutableArray new];
         for (NSDictionary *tempDict in [response objectForKey:@"media"]) {
             if ([[tempDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {

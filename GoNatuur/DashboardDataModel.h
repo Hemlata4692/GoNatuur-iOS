@@ -56,4 +56,6 @@
 - (void)getNewsListDataService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
 //News category list
 - (void)getNewsCategoryListDataOnSuccess:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
+///News detail data
+- (void)getNewsDetailDataService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

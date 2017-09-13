@@ -120,6 +120,18 @@
 }
 #pragma mark - end
 
+#pragma mark - News detail data service
+- (void)getNewsDetailDataService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getNewsCenterDetailService:self onSuccess:^(DashboardDataModel *productData) {
+        if (success) {
+            success (productData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
 #pragma mark - Get News category listing data
 - (void)getNewsCategoryListDataOnSuccess:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getNewsCategoryListing:self onSuccess:^(DashboardDataModel *userData) {
