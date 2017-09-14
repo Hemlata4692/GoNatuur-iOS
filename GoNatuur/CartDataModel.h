@@ -49,4 +49,6 @@
 - (void)setCheckoutPromosOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 //Set payment method
 - (void)setPaymentMethodOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Set checkout order
+- (void)setCheckoutOrderOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

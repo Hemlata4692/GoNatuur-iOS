@@ -52,7 +52,7 @@
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:true];
     [myDelegate showIndicator];
-    [self performSelector:@selector(setPaymentMethod) withObject:nil afterDelay:.1];
+    [self performSelector:@selector(setCheckoutOrder) withObject:nil afterDelay:.1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -186,6 +186,16 @@
     CartDataModel *cartData = [CartDataModel sharedUser];
     cartData.paymentMethod=[[paymentMethodArray objectAtIndex:0] objectForKey:@"code"];
     [cartData setPaymentMethodOnSuccess:^(CartDataModel *shippmentDetailData)  {
+        [myDelegate stopIndicator];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)setCheckoutOrder {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    cartData.paymentMethod=[[paymentMethodArray objectAtIndex:0] objectForKey:@"code"];
+    [cartData setCheckoutOrderOnSuccess:^(CartDataModel *shippmentDetailData)  {
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
         

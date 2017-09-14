@@ -150,4 +150,16 @@
     }] ;
 }
 #pragma mark - end
+
+#pragma mark - Set checkout order
+- (void)setCheckoutOrderOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] setCheckoutOrderService:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
 @end

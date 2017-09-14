@@ -117,4 +117,6 @@
 - (void)setCheckoutPromosService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 //Set payment method
 - (void)setPaymentMethodService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure;
+//Set checkout order
+- (void)setCheckoutOrderService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure ;
 @end
