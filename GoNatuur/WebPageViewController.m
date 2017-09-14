@@ -36,10 +36,12 @@
     _aboutUsWebView.backgroundColor = [UIColor colorWithRed:253.0/255.0 green:244.0/255.0 blue:246.0/255.0 alpha:1.0];
     _aboutUsWebView.opaque=NO;
     if ([pageIdentifier isEqualToString:@"AboutUs"]) {
+        self.navigationItem.title=NSLocalizedText(@"AboutUs");
         [myDelegate showIndicator];
         [self performSelector:@selector(CMSPageService:) withObject:@"about-us-block" afterDelay:.1];
     }
     else {
+        self.navigationItem.title=NSLocalizedText(@"ContactUs");
         [myDelegate showIndicator];
         [self performSelector:@selector(CMSPageService:) withObject:@"contact-us-block" afterDelay:.1];
     }
@@ -72,15 +74,15 @@
     LoginModel *userLogin = [LoginModel sharedUser];
     userLogin.cmsPageType=cmsPageType;
     [userLogin CMSPageService:^(LoginModel *userData) {
-        self.navigationItem.title=userData.cmsTitle;
         _noDataLabel.text=NSLocalizedText(@"nodata");
         if ([userData.cmsContent isEqualToString:@""] || userData.cmsContent==nil) {
+            [myDelegate stopIndicator];
             _noDataLabel.hidden=NO;
             _aboutUsWebView.hidden=YES;
         }
         else {
             _noDataLabel.hidden=YES;
-        [_aboutUsWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' text-align:'justify' font-size:15'>%@</body></html>", userData.cmsContent] baseURL: nil];
+        [_aboutUsWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' link='#B62546' text-align:'justify' font-size:15'>%@</body></html>", userData.cmsContent] baseURL: nil];
         }
         
     } onfailure:^(NSError *error) {

@@ -36,6 +36,7 @@
 @synthesize productCartItemsDetail;
 @synthesize productCartItemKeys;
 @synthesize firstTime;
+@synthesize notificationStatus;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -147,10 +148,12 @@
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
+    notificationStatus=@"1";
 }
 
 - (void)unregisterForRemoteNotifications {
     [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+    notificationStatus=@"0";
 }
 #pragma mark - end
 

@@ -42,6 +42,7 @@
 @synthesize attendiesArray;
 @synthesize ticketingArray;
 @synthesize locationDataArray;
+@synthesize eventPrice;
 
 - (id)copyWithZone:(NSZone *)zone {
     ProductDataModel *another = [[ProductDataModel alloc] init];
@@ -69,6 +70,7 @@
     another.attendiesArray= [self.attendiesArray copyWithZone: zone];
     another.ticketingArray= [self.ticketingArray copyWithZone: zone];
     another.locationDataArray= [self.locationDataArray copyWithZone: zone];
+    another.eventPrice= [self.eventPrice copyWithZone: zone];
     return another;
 }
 

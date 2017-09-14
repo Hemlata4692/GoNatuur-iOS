@@ -34,7 +34,7 @@
 - (void)getCurrencyData:(void (^)(CurrencyDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getDefaultCurrency:self onSuccess:^(CurrencyDataModel *userData) {
         if (success) {
-            [UserDefaultManager setValue:userData.currentCurrencyCode key:@"DefaultCurrencyCode"];
+            //[UserDefaultManager setValue:userData.currentCurrencyCode key:@"DefaultCurrencyCode"];
             [UserDefaultManager setValue:userData.availableCurrencyArray key:@"AvailableCurrencyCodes"];
             success (userData);
         }

@@ -15,5 +15,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *ticketName;
 @property (weak, nonatomic) IBOutlet UILabel *ticketPrice;
 
-- (void) displayData:(NSDictionary *)dataDict;
+- (void) displayData:(NSDictionary *)dataDict rectSize:(CGSize)rectSize;
 @end

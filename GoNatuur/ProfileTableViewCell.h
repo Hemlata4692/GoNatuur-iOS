@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *personalDetailLabel;
 @property (weak, nonatomic) IBOutlet UILabel *customerSupportLabel;
 @property (weak, nonatomic) IBOutlet UILabel *changePasswordLabel;
+@property (weak, nonatomic) IBOutlet UILabel *notificationLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *notificationSwitch;
 
 - (void)displayData:(CGSize)rectSize ;
 @end

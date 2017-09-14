@@ -41,6 +41,7 @@
 @synthesize reviewAdded;
 @synthesize productDetailObj;
 @synthesize eventDetailObj;
+@synthesize navigationHeading;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -65,7 +66,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    self.title=NSLocalizedText(@"Review");
+    self.title=navigationHeading;
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
     [self viewCustomisation];

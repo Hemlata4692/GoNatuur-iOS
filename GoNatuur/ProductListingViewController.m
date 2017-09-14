@@ -141,7 +141,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (indexPath.row==0) {
         return 180.0;
     }
@@ -276,7 +275,7 @@
     }];
 }
 
-//Get sub category list data
+//Get category banner data
 - (void)getCategoryBannerData {
     DashboardDataModel *bannerData = [DashboardDataModel sharedUser];
     bannerData.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];

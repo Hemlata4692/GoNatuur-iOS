@@ -24,6 +24,7 @@
 @property (strong, nonatomic) NSMutableArray *productCartItemKeys;
 @property (strong, nonatomic) NSMutableDictionary *productCartItemsDetail;
 @property (nonatomic)BOOL firstTime;
+@property (nonatomic,strong) NSString *notificationStatus;
 - (void)showIndicator;
 - (void)stopIndicator;
 

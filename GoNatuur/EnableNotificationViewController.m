@@ -15,6 +15,7 @@
     @private
     BOOL isNotificationAllowed;
     int isClickEnable;
+    BOOL isNotificationScreen;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *notificationBackgroundImage;
 @property (weak, nonatomic) IBOutlet UILabel *infoTextLabel;
@@ -31,12 +32,14 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeInActiveState) name:UIApplicationWillEnterForegroundNotification object:nil];
     isClickEnable=0;
+    isNotificationScreen=true;
     // Do any additional setup after loading the view.
     [self localizedText];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+     isNotificationScreen=false;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
@@ -66,12 +69,14 @@
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification * _Nonnull note) {
+                                                      if (isNotificationScreen) {
                                                       if ([[UIApplication sharedApplication] isRegisteredForRemoteNotifications]) {
                                                           //User tapped "Allow"
                                                             [UserDefaultManager setValue:[NSNumber numberWithBool:true] key:@"enableNotification"];
                                                           }
                                                         [UserDefaultManager setValue:@1 key:@"allowNotification"];
                                                         [self navigateToDashboard];
+                                                      }
                                                   }];
     }
 }
