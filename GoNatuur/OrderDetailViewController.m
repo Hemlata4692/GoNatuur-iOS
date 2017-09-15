@@ -41,8 +41,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    self.title=NSLocalizedText(@"orderDetailTitle");
-    _noRecordLabel.text=NSLocalizedText(@"norecord");
+    [self setLocalisedText];
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
 }
@@ -361,4 +360,12 @@
 }
 #pragma mark - end
 
+#pragma mark - Set localised text
+- (void)setLocalisedText {
+    [_invoiceButton setTitle:NSLocalizedText(@"invoiceTitle") forState:UIControlStateNormal];
+    [_orderShipmentButton setTitle:NSLocalizedText(@"orderShipmentTitle") forState:UIControlStateNormal];
+    self.title=NSLocalizedText(@"orderDetailTitle");
+    _noRecordLabel.text=NSLocalizedText(@"norecord");
+}
+#pragma mark - end
 @end

@@ -68,6 +68,7 @@
 }
 
 - (void)displayTotalAmountData:(CGSize)rectSize orderData:(OrderModel *)orderData {
+    [self setLocalisedText];
     _orderSubtotalLabel.text = orderData.orderSubTotal;
     _shippingTotalLabel.text = orderData.shippingAmount;
     _discountLabel.text = orderData.discountAmount;
@@ -193,6 +194,7 @@
 
 #pragma mark - Remove autolayouts
 - (void)removeAutolayouts {
+    [self setLocalisedText];
     _eventView.translatesAutoresizingMaskIntoConstraints=YES;
     _productView.translatesAutoresizingMaskIntoConstraints=YES;
     _productNameLabel.translatesAutoresizingMaskIntoConstraints=YES;
@@ -211,6 +213,28 @@
     _shippingAddressPhoneNumberLabel.translatesAutoresizingMaskIntoConstraints=YES;
     _shippingMethodLabel.translatesAutoresizingMaskIntoConstraints=YES;
     _paymentMethodLabel.translatesAutoresizingMaskIntoConstraints=YES;
+}
+#pragma mark - end
+
+#pragma mark - Set localised text
+- (void)setLocalisedText {
+    //Product list labels
+    _productNameHeadingLabel.text = NSLocalizedText(@"productNameTitle");
+    _skuHeadingLabel.text = NSLocalizedText(@"skuTitle");
+    _eventSkuHeadingLabel.text = NSLocalizedText(@"skuTitle");
+    _ticketOptionHeadingLanbel.text = NSLocalizedText(@"optionSelectTitle");
+    _priceHeadingLabel.text = NSLocalizedText(@"price");
+    _quantityHeadingLabel.text = NSLocalizedText(@"QtyTitle");
+    _subtotalHeadingLabel.text = NSLocalizedText(@"totalAmountTitle");
+    // Order total label
+    _orderSubTotalHeadingLabel.text = NSLocalizedText(@"subtotalTitle");
+    _shippingTotalHeadingLabel.text = NSLocalizedText(@"ShippingChargeTitle");
+    _taxHeadingLabel.text = NSLocalizedText(@"taxTitle");
+    _grangTotalHeadingLabel.text = NSLocalizedText(@"grandtotalTitle");
+    //Payment method label
+    _paymentMethodHeadingLabel.text = NSLocalizedText(@"paymentMethodTitle");
+    //Shipping method label
+    _shippingMethodHeadingLabel.text = NSLocalizedText(@"shippingMethodTitle");
 }
 #pragma mark - end
 

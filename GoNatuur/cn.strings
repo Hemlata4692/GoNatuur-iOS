@@ -279,3 +279,16 @@
 "complete"="complete";
 "close"="close";
 "return"="return";
+"productNameTitle"="Product Name:";
+"skuTitle"="SKU";
+"optionSelectTitle"="Option Select:";
+"QtyTitle"="Qty:";
+"totalAmountTitle"="Total Amount";
+"subtotalTitle"="Subtotal";
+"ShippingChargeTitle"="Shipping & Handling";
+"taxTitle"="Tax";
+"grandtotalTitle"="Grand Total";
+"shippingMethodTitle"="Shipping Method";
+"paymentMethodTitle"="Payment Method";
+"orderShipmentTitle"="ORDER SHIPMENTS";
+"invoiceTitle"="INVOICES";
