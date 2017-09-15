@@ -27,7 +27,7 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    menuItemsArray = @[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications",@"AboutUs",@"ContactUs",@"NewsLetter", @"Signout"];
+    menuItemsArray = @[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications",@"AboutUs",@"ContactUs",@"NewsLetter",@"ProductGuide", @"Signout"];
     // Remove extra seperator from table view
     [self viewCustomisationAndData];
 }
@@ -41,7 +41,7 @@
     [super viewWillAppear:animated];
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
     _sideBarTableView.scrollEnabled=YES;
-     sideBarLabelArray=@[NSLocalizedText(@"sideBarOrder"), NSLocalizedText(@"sideBarPayment"), NSLocalizedText(@"sideBarRedeemPoints"),NSLocalizedText(@"sideBarEvents"), NSLocalizedText(@"sideBarNewsCentre"), NSLocalizedText(@"sideBarNotifications"), NSLocalizedText(@"sideBarAboutUs"), NSLocalizedText(@"sideBarContactUs"), NSLocalizedText(@"sideBarNewsLetter"),NSLocalizedText(@"sideBarSignOut")];
+     sideBarLabelArray=@[NSLocalizedText(@"sideBarOrder"), NSLocalizedText(@"sideBarPayment"), NSLocalizedText(@"sideBarRedeemPoints"),NSLocalizedText(@"sideBarEvents"), NSLocalizedText(@"sideBarNewsCentre"), NSLocalizedText(@"sideBarNotifications"), NSLocalizedText(@"sideBarAboutUs"), NSLocalizedText(@"sideBarContactUs"), NSLocalizedText(@"sideBarNewsLetter"),NSLocalizedText(@"sideBarProductGuide"),NSLocalizedText(@"sideBarSignOut")];
     [_sideBarTableView reloadData];
 }
 
@@ -96,7 +96,7 @@
     
     UILabel *cellLabel=(UILabel *) [cell viewWithTag:1];
     UIImageView *cellImage=(UIImageView *) [cell viewWithTag:20];
-    if (indexPath.row==9&&(nil==[UserDefaultManager getValue:@"userId"])) {
+    if (indexPath.row==10&&(nil==[UserDefaultManager getValue:@"userId"])) {
         cellLabel.text=NSLocalizedText(@"sideBarLogin");
         cellImage.image=[UIImage imageNamed:@"login"];
     }
@@ -156,6 +156,9 @@
         });
     }
     else if (indexPath.row==9) {
+        myDelegate.selectedCategoryIndex=-1;
+    }
+    else if (indexPath.row==10) {
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
             myDelegate.selectedCategoryIndex=-1;
             [myDelegate logoutUser];

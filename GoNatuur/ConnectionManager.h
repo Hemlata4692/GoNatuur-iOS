@@ -18,6 +18,7 @@
 @class ProfileModel;
 @class CartDataModel;
 @class OrderModel;
+@class ProductGuideDataModel;
 
 @interface ConnectionManager : NSObject
 
@@ -115,4 +116,8 @@
 - (void)fetchCheckoutPromos:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 //Set addresses and shipping methods
 - (void)setUpdatedAddressShippingMethodsService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure;
+//Guide category data
+- (void)getGuideCategory:(ProductGuideDataModel *)guideData onSuccess:(void (^)(ProductGuideDataModel *guideData))success onFailure:(void (^)(NSError *))failure;
+//Guide category details data
+- (void)getGuideDetailsCategory:(ProductGuideDataModel *)guideData onSuccess:(void (^)(ProductGuideDataModel *guideData))success onFailure:(void (^)(NSError *))failure ;
 @end

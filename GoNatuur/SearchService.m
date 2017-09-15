@@ -50,6 +50,7 @@ static NSString *kNewsSearchingService=@"ipwishlist/delete/wishlistItem";
                                                        @"current_page" : @0
                                                        }
                                  };
+     NSLog(@"search pagination  request %@",parameters);
     [super post:kProductListData parameters:parameters success:success failure:failure];
 }
 #pragma mark - end

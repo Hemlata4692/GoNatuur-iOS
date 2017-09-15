@@ -15,7 +15,7 @@ static NSString *kFollowProduct=@"ranosys/product/follow/mine";
 static NSString *kRemoveWishlist=@"ipwishlist/delete/wishlistItem";
 static NSString *kUnFollowProduct=@"ranosys/product/unfollow/mine";
 static NSString *kGuestAddToCartProduct=@"guest-carts/";
-static NSString *kLoginedAddToCartProduct=@"carts/mine";
+static NSString *kLoginedAddToCartProduct=@"carts/mine/items";
 
 @implementation ProductService
 
@@ -71,7 +71,7 @@ static NSString *kLoginedAddToCartProduct=@"carts/mine";
 #pragma mark - end
 
 #pragma mark - Unfollow product
-//follow product
+//unfollow product
 - (void)unFollowProduct:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{@"productId":productDetail.productId,
                                  @"customerId":[UserDefaultManager getValue:@"userId"]
@@ -93,17 +93,14 @@ static NSString *kLoginedAddToCartProduct=@"carts/mine";
         [super post:[NSString stringWithFormat:@"%@%@/items",kGuestAddToCartProduct,[UserDefaultManager getValue:@"quoteId"]] parameters:parameters success:success failure:failure];
     }
     else {
-        NSDictionary *parameters = @{@"quote":@{@"id":[UserDefaultManager getValue:@"quoteId"],
-                                                @"items":@[@{
-                                                               @"sku":productDetail.productSku,
-                                                               @"qty":productDetail.productQuantity,
-                                                               @"quote_id":[UserDefaultManager getValue:@"quoteId"]
-                                                               }
-                                                           ]
-                                                }
+        NSDictionary *parameters = @{@"cartItem":@{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
+                                                   @"sku":productDetail.productSku,
+                                                   @"qty":@"10000"
+                                                   }
                                      };
+        
         DLog(@"Add to cart parameters: %@",parameters);
-        [super put:kLoginedAddToCartProduct parameters:parameters success:success failure:failure];
+        [super post:kLoginedAddToCartProduct parameters:parameters success:success failure:failure];
     }
 }
 #pragma mark - end
