@@ -62,26 +62,7 @@
     height =[DynamicHeightWidth getDynamicLabelHeight:_billingAddressLabel.text font:[UIFont montserratRegularWithSize:14] widthValue:rectSize.width-132 heightValue:50];
     _billingAddressLabel.frame=CGRectMake(10, _billingAddressHeadingLabel.frame.origin.y + _billingAddressHeadingLabel.frame.size.height + 5,rectSize.width-132, height);
     _orderStatusLabel.text = [orderData.orderStatus capitalizedString];
-    _priceLabel.text = [NSString stringWithFormat:@"%@",orderData.orderPrice];
-    NSMutableArray *ratesArray=[NSMutableArray new];
-    for (int i =0; i<[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] count]; i++) {
-        NSDictionary * footerDataDict =[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] objectAtIndex:i];
-        CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
-        exchangeData.currencyExchangeCode = footerDataDict[@"currency_to"];
-        exchangeData.currencyExchangeRates = footerDataDict[@"rate"];
-        exchangeData.currencysymbol = footerDataDict[@"currency_symbol"];
-        [ratesArray addObject:exchangeData];
-    }
-    for (int i=0; i<ratesArray.count; i++) {
-        if ([orderData.currencyCode containsString:[[ratesArray objectAtIndex:i] currencyExchangeCode]]) {
-            if ([[[ratesArray objectAtIndex:i] currencysymbol] isEqualToString:@""] || [[ratesArray objectAtIndex:i] currencysymbol]==nil) {
-                _priceLabel.text = [NSString stringWithFormat:@"%@ %@",[[UserDefaultManager getValue:@"DefaultCurrencyCode"] currencysymbol],orderData.orderPrice];
-            }
-            else {
-                _priceLabel.text = [NSString stringWithFormat:@"%@ %@",[[ratesArray objectAtIndex:i] currencysymbol],orderData.orderPrice];
-            }
-        }
-    }
+    _priceLabel.text = orderData.orderPrice;
 }
 
 //Set heading label data

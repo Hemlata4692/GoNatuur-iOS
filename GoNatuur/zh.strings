@@ -286,3 +286,11 @@
 "removedProduct"="Product removed successfully.";
 "impactPointsOverview"="IMPACTS POINT OVERVIEW";
 "redeemCenter"="Redeem Center";
+"baseGrandTotal"="Grand Total to be Charged";
+"cancelOrderMessage"="Are you sure you want to cancel this order?";
+"cancelOrderSuccessMessage"="Your order cancelled successfully.";
+"cancelOrder"="CANCEL ORDER";
+"returnOrder"="RETURN ORDER";
+"complete"="complete";
+"close"="close";
+"return"="return";

@@ -37,7 +37,31 @@
             success (orderData);
         }
     } onFailure:^(NSError *error) {
-        
+        failure(error);
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Cancel order
+- (void)cancelOrderService:(void (^)(OrderModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] cancelOrderService:self onSuccess:^(OrderModel *orderData) {
+        if (success) {
+            success (orderData);
+        }
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Get ticket option
+- (void)getTicketOption:(void (^)(OrderModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getTicketOption:self onSuccess:^(OrderModel *orderData) {
+        if (success) {
+            success (orderData);
+        }
+    } onFailure:^(NSError *error) {
+        failure(error);
     }];
 }
 #pragma mark - end
