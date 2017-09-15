@@ -24,6 +24,8 @@
     BOOL isImagePicker;
     UIView *sectionView;
     UIImageView* arrowView;
+    int totalProductCount, currentpage;
+    UIView *footerView;
 }
 @property (weak, nonatomic) IBOutlet UITableView *orderListTableView;
 @property (weak, nonatomic) IBOutlet UILabel *noRecordLabel;
@@ -39,7 +41,7 @@
     selectedSecArray = [NSMutableArray new];
     isImagePicker = false;
     [myDelegate showIndicator];
-    [self performSelector:@selector(getOrderListing) withObject:nil afterDelay:.1];
+    [self performSelector:@selector(getUserImapctPoints) withObject:nil afterDelay:.1];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -47,9 +49,24 @@
     self.title=NSLocalizedText(@"orderTitle");
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:false];
+    totalProductCount=0;
+    currentpage=1;
+    _orderListTableView.tableFooterView=nil;
+    //Allocate footer view
+    [self initializeFooterView];
     if (!isImagePicker) {
         [_orderListTableView reloadData];
     }
+}
+
+- (void)initializeFooterView {
+    footerView=[[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, [[UIScreen mainScreen] bounds].size.width, 40.0)];
+    UIActivityIndicatorView *activityIndicatorObject = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicatorObject.color=[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0];
+    activityIndicatorObject.tag = 10;
+    activityIndicatorObject.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-10, 0.0, 20.0, 20.0);
+    activityIndicatorObject.hidesWhenStopped = YES;
+    [footerView addSubview:activityIndicatorObject];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,7 +102,6 @@
     }
     else
         return 62;
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -102,9 +118,8 @@
     }
     else  {
         float height =[DynamicHeightWidth getDynamicLabelHeight:orderDataModel.shippingAddress font:[UIFont montserratRegularWithSize:14] widthValue:_orderListTableView.frame.size.width-132 heightValue:50];
-        
         float billHeight =[DynamicHeightWidth getDynamicLabelHeight:orderDataModel.BillingAddress font:[UIFont montserratRegularWithSize:14] widthValue:_orderListTableView.frame.size.width-132 heightValue:50];
-        return 100 + height + billHeight;
+        return 105 + height + billHeight;
     }
     return 0;
 }
@@ -170,7 +185,7 @@
         orderDateLabel.attributedText=string;
         [sectionView addSubview:orderDateLabel];
         //Add a custom Separator with Section view
-        UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(15, 61, 288, 1)];
+        UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(15, 61, _orderListTableView.frame.size.width - 30, 1)];
         separatorLineView.backgroundColor = [UIColor lightGrayColor];
         [sectionView addSubview:separatorLineView];
         arrowView = [[UIImageView alloc] initWithFrame:CGRectMake(_orderListTableView.frame.size.width - 25, (sectionView.frame.size.height/2) - 6, 12, 12)];
@@ -194,7 +209,37 @@
     } else {
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         OrderDetailViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
+        nextView.selectedIndex = indexPath.section - 1;
         [self.navigationController pushViewController:nextView animated:YES];
+    }
+}
+#pragma mark - end
+
+#pragma mark - Pagination
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    float endScrolling = scrollView.contentOffset.y + scrollView.frame.size.height;
+    if (endScrolling >= scrollView.contentSize.height)
+    {
+        if (orderListArray.count == totalProductCount)
+        {
+            [(UIActivityIndicatorView *)[footerView viewWithTag:10] stopAnimating];
+            [(UILabel *)[footerView viewWithTag:11] setHidden:true];
+            [(UIActivityIndicatorView *)[footerView viewWithTag:10] setHidden:true];
+            _orderListTableView.tableFooterView = nil;
+        }
+        else {
+            if(orderListArray.count <= totalProductCount)
+            {
+                _orderListTableView.tableFooterView = footerView;
+                [(UIActivityIndicatorView *)[footerView viewWithTag:10] startAnimating];
+                currentpage+=1;
+                [self getOrderListing];
+            }
+            else
+            {
+                _orderListTableView.tableFooterView = nil;
+            }
+        }
     }
 }
 #pragma mark - end
@@ -283,9 +328,8 @@
     userData.pageCount=@"1";
     userData.currentPage=@"1";
     [userData getImpactPoints:^(ProfileModel *userData) {
-        [myDelegate stopIndicator];
+        [self performSelector:@selector(getOrderListing) withObject:nil afterDelay:.1];
         [_orderListTableView reloadData];
-        //dispaly profile data
     } onfailure:^(NSError *error) {
         
     }];
@@ -293,8 +337,10 @@
 
 - (void)getOrderListing {
     orderDataModel = [OrderModel sharedUser];
+    orderDataModel.pageSize=[NSNumber numberWithInt:12];
+    orderDataModel.currentPage=[NSNumber numberWithInt:currentpage];
     [orderDataModel getOrderListing:^(OrderModel *userData) {
-    orderListArray = userData.orderListingArray;
+        [orderListArray addObjectsFromArray:userData.orderListingArray];
         if (orderListArray.count > 0) {
             for (int i=0; i<[orderListArray count]; i++) {
                 [selectedSecArray addObject:[NSNumber numberWithBool:NO]];
@@ -303,10 +349,17 @@
         } else {
             _noRecordLabel.hidden = NO;
         }
+        totalProductCount=[userData.totalProductCount intValue];
+        if (orderListArray.count == totalProductCount) {
+            [(UIActivityIndicatorView *)[footerView viewWithTag:10] stopAnimating];
+            [(UILabel *)[footerView viewWithTag:11] setHidden:true];
+            [(UIActivityIndicatorView *)[footerView viewWithTag:10] setHidden:true];
+            _orderListTableView.tableFooterView = nil;
+        }
         [_orderListTableView reloadData];
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
-        
+        _noRecordLabel.hidden=NO;
     }];
 }
 
