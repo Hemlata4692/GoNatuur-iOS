@@ -21,6 +21,11 @@
 @synthesize postImage;
 @synthesize postDataArray;
 @synthesize categoryId;
+@synthesize searchKeywod;
+@synthesize isSearch;
+@synthesize totalProductCount;
+@synthesize pageSize;
+@synthesize currentPage;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser {

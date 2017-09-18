@@ -10,6 +10,7 @@
 
 @interface ProductGuideTableViewCell : UITableViewCell
 //product collection view
+@property (weak, nonatomic) IBOutlet UILabel *noRecordLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *productCollectionView;
 //product heading cell
 @property (weak, nonatomic) IBOutlet UILabel *productHeading;

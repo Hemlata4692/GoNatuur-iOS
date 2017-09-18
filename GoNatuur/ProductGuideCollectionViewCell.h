@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SearchDataModel.h"
+#import "ProductGuideDataModel.h"
 
 @interface ProductGuideCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
@@ -20,4 +22,6 @@
 - (void)displaySubCategoryData:(NSString *)productName productImage:(NSString *)productImage selectedIndex:(int)selectedIndex currentIndex:(int)currentIndex;
 
 - (void)displayCategoryData:(NSString *)productName selectedIndex:(int)selectedIndex currentIndex:(int)currentIndex;
+- (void)displayProductListData:(SearchDataModel *)productListData;
+- (void)displayProductListSearchData:(ProductGuideDataModel *)productListSearchData;
 @end

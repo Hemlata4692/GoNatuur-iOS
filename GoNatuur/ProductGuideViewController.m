@@ -12,22 +12,25 @@
 #import "ProductGuideCollectionViewCell.h"
 #import "ProductGuideDataModel.h"
 #import "SearchDataModel.h"
+#import "SearchViewController.h"
 
 @interface ProductGuideViewController () {
     @private
     NSArray *productGuideMenuArray;
     NSMutableArray *productGuideCategoryArray;
-    NSMutableArray *guideDetailDataArray;
+    NSMutableArray *guideDetailDataArray, *staticProductsArray;
     NSString *categoryHeading;
-    BOOL isServiceCalled, categoryServiceCalled;
+    BOOL isServiceCalled, categoryServiceCalled, isProductServiceCalled;
     int cellIndex, categoryIndex;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *categoryCollectionView;
 @property (weak, nonatomic) IBOutlet UITableView *productGuideTableView;
-
+@property (weak, nonatomic) IBOutlet UILabel *noRecordLabel;
 @end
 
 @implementation ProductGuideViewController
+@synthesize selectedPostId;
+@synthesize screenType;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -36,6 +39,7 @@
      productGuideMenuArray = @[@"headingCell", @"subCategoryCell", @"nameCell", @"taglineCell", @"shortDescriptionCell", @"webViewCell", @"productHeadingCell", @"productCell"];
     productGuideCategoryArray=[[NSMutableArray alloc]init];
     guideDetailDataArray=[[NSMutableArray alloc]init];
+    staticProductsArray=[[NSMutableArray alloc]init];
     categoryIndex=0;
     cellIndex=0;
 }
@@ -49,12 +53,34 @@
     [super viewWillAppear:YES];
     self.title=NSLocalizedText(@"productGuide");
     self.navigationController.navigationBarHidden=false;
-    [self addLeftBarButtonWithImage:false];
     isServiceCalled=false;
     categoryServiceCalled=false;
-    [myDelegate showIndicator];
-    [self performSelector:@selector(getProductGuideCategoryListData) withObject:nil afterDelay:.1];
+    isProductServiceCalled=false;
+    isProductServiceCalled=false;
+    _noRecordLabel.hidden=true;
+    _noRecordLabel.text=NSLocalizedText(@"norecord");
+    if ([screenType isEqualToString:@"searchGuide"]) {
+        [self addLeftBarButtonWithImage:true];
+        [myDelegate showIndicator];
+        [self getProductGuideCategoryDetials:selectedPostId];
+        _categoryCollectionView.translatesAutoresizingMaskIntoConstraints=YES;
+        _categoryCollectionView.frame=CGRectMake(0, 105, _categoryCollectionView.frame.size.width, 0);
+    }
+    else {
+        [self addLeftBarButtonWithImage:false];
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getProductGuideCategoryListData) withObject:nil afterDelay:.1];
+    }
 }
+
+- (void)serachButtonAction:(id)sender {
+    myDelegate.selectedCategoryIndex=-1;
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SearchViewController * searchView=[sb instantiateViewControllerWithIdentifier:@"SearchViewController"];
+    searchView.screenType=@"Product Guide";
+    [self.navigationController pushViewController:searchView animated:YES];
+}
+
 #pragma mark - end
 
 #pragma mark - Webservice
@@ -65,6 +91,8 @@
         categoryServiceCalled=true;
         productGuideCategoryArray=[userData.guideCategoryDataArray mutableCopy];
         categoryHeading=[[productGuideCategoryArray objectAtIndex:0]categoryDescription];
+        //set collection view items in centre
+        [_categoryCollectionView setContentInset:UIEdgeInsetsMake(0, ([[UIScreen mainScreen] bounds].size.width)/2-53-(53*(productGuideCategoryArray.count-1))+2, 0, 0)];
         [_categoryCollectionView reloadData];
         [self getProductGuideCategoryDetials:[[productGuideCategoryArray objectAtIndex:0]categoryId]];
     } onfailure:^(NSError *error) {
@@ -74,18 +102,22 @@
 - (void)getProductGuideCategoryDetials:(NSString *)categoryId {
     ProductGuideDataModel *categoryList = [ProductGuideDataModel sharedUser];
     categoryList.categoryId=categoryId;
+    categoryList.isSearch=@"No";
+    categoryList.screenType=screenType;
     [categoryList getProductGuideDetailsCategoryData:^(ProductGuideDataModel *userData)  {
         isServiceCalled=true;
         if (userData.postDataArray.count!=0) {
+             _productGuideTableView.hidden=false;
+            _noRecordLabel.hidden=true;
             guideDetailDataArray=[userData.postDataArray mutableCopy];
             [_productGuideTableView reloadData];
             [self getStaticProductListing];
         }
         else {
-            //no recoed label
+            [myDelegate stopIndicator];
+            _productGuideTableView.hidden=true;
+            _noRecordLabel.hidden=false;
         }
-       // [myDelegate stopIndicator];
-        
     } onfailure:^(NSError *error) {
     }];
 }
@@ -96,20 +128,12 @@
     searchData.searchPageCount=@"3";
     [searchData getSearchProductListing:^(SearchDataModel *userData)  {
         [myDelegate stopIndicator];
-//        totalProducts=[userData.searchResultCount intValue];
-//        if (userData.searchProductListArray.count==0) {
-//            _noRecordLabel.hidden=NO;
-//        }
-//        else {
-//            searchListIds=[[userData searchProductIds] mutableCopy];
-//            [self removeObectsFromSearchListWithLimit];
-//            _noRecordLabel.hidden=YES;
-//            [searchedProductsArray addObjectsFromArray:userData.searchProductListArray];
-//            [_searchCollectionView reloadData];
-       /// }
+        isProductServiceCalled=true;
+        if (userData.searchProductListArray.count!=0) {
+            staticProductsArray=[userData.searchProductListArray mutableCopy];
+    }
     } onfailure:^(NSError *error) {
-//        _noRecordLabel.hidden=NO;
-//        _searchCollectionView.hidden=YES;
+    
     }];
 }
 #pragma mark - end
@@ -159,7 +183,7 @@
             return 0;
         }
         else {
-            return [DynamicHeightWidth getDynamicLabelHeight:[[guideDetailDataArray objectAtIndex:cellIndex] postContent] font:[UIFont montserratLightWithSize:14] widthValue:[[UIScreen mainScreen] bounds].size.width-50]+3;
+            return [DynamicHeightWidth getDynamicLabelHeight:[[guideDetailDataArray objectAtIndex:cellIndex] postContent] font:[UIFont montserratLightWithSize:14] widthValue:[[UIScreen mainScreen] bounds].size.width-50];
         }
     }
     else if (indexPath.row==6) {
@@ -171,7 +195,12 @@
         }
     }
     else if (indexPath.row==7) {
+        if (staticProductsArray.count==0) {
+            return 40;
+        }
+        else {
        return 200;
+        }
     }
     else {
         return 0;
@@ -202,13 +231,21 @@
     else if (indexPath.row==5) {
         cell.productGuideWebView.scrollView.scrollEnabled = NO;
         cell.productGuideWebView.scrollView.bounces = NO;
+        [cell.productGuideWebView setBorder:cell.productGuideWebView color:[UIColor whiteColor] borderWidth:2.0];
         [cell.productGuideWebView loadHTMLString:[[guideDetailDataArray objectAtIndex:cellIndex] postContent] baseURL: nil];
     }
     else if (indexPath.row==6) {
         [cell displayProductBottomHeadingData:[NSString stringWithFormat:@"%@ %@",NSLocalizedText(@"productGuideText"),[[[guideDetailDataArray objectAtIndex:cellIndex] postName] uppercaseString]]];
     }
     else if (indexPath.row==7) {
-        [cell.productCollectionView reloadData];
+        if (staticProductsArray.count!=0) {
+            cell.noRecordLabel.hidden=false;
+            [cell.productCollectionView reloadData];
+        }
+        else {
+             cell.noRecordLabel.hidden=false;
+            cell.noRecordLabel.text=NSLocalizedText(@"noSimilarProducts");
+        }
     }
     return cell;
 }
@@ -243,12 +280,14 @@
         }
     }
     if (isServiceCalled) {
-    if (view.tag==20) {
+        if (view.tag==20) {
         return guideDetailDataArray.count;
+        }
     }
-    else {
-        return 3;
-    }
+    if (isProductServiceCalled) {
+        if (view.tag==30) {
+            return staticProductsArray.count;
+        }
     }
     return 0;
 }
@@ -266,10 +305,12 @@
     }
     else  {
          ProductGuideCollectionViewCell *productCollectionCell = [cv dequeueReusableCellWithReuseIdentifier:@"productCollectionCell" forIndexPath:indexPath];
-        
+        [productCollectionCell.contentView setBorder:productCollectionCell.contentView color:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0] borderWidth:1.0];
+        [productCollectionCell.contentView setCornerRadius:5.0];
+        [productCollectionCell displayProductListData:[staticProductsArray objectAtIndex:indexPath.row]];
+       
         return productCollectionCell;
     }
-//    [productCell displayProductListData:[productListDataArray objectAtIndex:indexPath.row] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
 }
 
 //- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -280,7 +321,6 @@
 
 - (void)collectionView:(UICollectionView *)cv didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (cv.tag==10) {
-        
         NSIndexPath *tempIndex=[NSIndexPath indexPathForRow:categoryIndex inSection:0];
         ProductGuideCollectionViewCell *tempCategoryCell = (ProductGuideCollectionViewCell *)[cv cellForItemAtIndexPath:tempIndex];
         tempCategoryCell.categoryLabel.textColor=[UIColor blackColor];
@@ -294,6 +334,7 @@
     }
     else if (cv.tag==20) {
         cellIndex=(int)indexPath.item;
+        [self getStaticProductListing];
         [_productGuideTableView reloadData];
     }
     else {
@@ -305,5 +346,20 @@
 //    [self.navigationController pushViewController:obj animated:YES];
     
 }
+//
+//- (UIEdgeInsets)collectionView:(UICollectionView *)cv layout:(nonnull UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+//    if (cv.tag==10) {
+//    CGFloat totalCellWidth = 53 * productGuideCategoryArray.count;
+//    CGFloat totalSpacingWidth = (53 * productGuideCategoryArray.count-1)+2;
+//    CGFloat leftInset = ([[UIScreen mainScreen] bounds].size.width - (totalCellWidth + totalSpacingWidth)) / 2;
+//   // CGFloat rightInset = leftInset;
+//    UIEdgeInsets sectionInset = UIEdgeInsetsMake(0, leftInset, 0, 0);
+//    return sectionInset;
+//    }
+//    else {
+//        UIEdgeInsets sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+//        return sectionInset;
+//    }
+//}
 #pragma mark - end
 @end

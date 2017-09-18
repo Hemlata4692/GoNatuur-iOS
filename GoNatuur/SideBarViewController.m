@@ -112,8 +112,9 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==0) {
-        myDelegate.selectedCategoryIndex=-1;
-        [myDelegate checkGuestAccess];
+        if (![myDelegate checkGuestAccess]) {
+             myDelegate.selectedCategoryIndex=-1;
+        }
     }
     else if (indexPath.row==1) {
         if (![myDelegate checkGuestAccess]) {
@@ -185,13 +186,13 @@
 #pragma mark - Navigation segue identifier
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
-        if([identifier isEqualToString:@"My Orders"]) {
+        if([identifier isEqualToString:@"MyOrders"]) {
             return NO;
         }
         else if([identifier isEqualToString:@"Payment"]) {
             return NO;
         }
-        else if([identifier isEqualToString:@"Redeem Points"]) {
+        else if([identifier isEqualToString:@"RedeemPoints"]) {
             return NO;
         }
         else if([identifier isEqualToString:@"Notifications"]) {

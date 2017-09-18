@@ -31,4 +31,18 @@
         [_subCategoryImageView setBorder:_subCategoryImageView color:[UIColor colorWithRed:123.0/255.0 green:123.0/255.0 blue:123.0/255.0 alpha:1.0] borderWidth:1.5];
     }
 }
+
+//product cell
+- (void)displayProductListData :(SearchDataModel *)productListData {
+//    [borderView setBorder:borderView color:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0] borderWidth:1.0];
+//    [borderView setCornerRadius:5.0];
+//    [productCellMainView addShadow:productCellMainView color:[UIColor colorWithRed:222.0/255.0 green:222.0/255.0 blue:222.0/255.0 alpha:1.0]];
+    _productNameLabel.text=productListData.productName;
+    [ImageCaching downloadImages:_productImageView imageUrl:productListData.productImageThumbnail placeholderImage:@"product_placeholder" isDashboardCell:true];
+}
+
+- (void)displayProductListSearchData:(ProductGuideDataModel *)productListSearchData {
+    _productNameLabel.text=productListSearchData.postName;
+    [ImageCaching downloadImages:_productImageView imageUrl:productListSearchData.postImage placeholderImage:@"product_placeholder" isDashboardCell:true];
+}
 @end

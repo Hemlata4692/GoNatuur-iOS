@@ -50,6 +50,7 @@
 		1875619A1F469F8600F609AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187561981F469F8600F609AB /* Main.storyboard */; };
 		1875619D1F46AAC500F609AB /* dashboard_banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619B1F46AAC500F609AB /* dashboard_banner1.png */; };
 		1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619C1F46AAC500F609AB /* dashboard_banner2.png */; };
+		187A89B91F6F93EB00E7431A /* ProductGuideSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */; };
 		188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1886058F1F39AF320005D1E2 /* UserNotifications.framework */; };
 		188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605941F39BC430005D1E2 /* DashboardViewController.m */; };
 		1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605991F39C0FC0005D1E2 /* CategorySliderViewController.m */; };
@@ -259,6 +260,8 @@
 		187561991F469F8600F609AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1875619B1F46AAC500F609AB /* dashboard_banner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner1.png; sourceTree = "<group>"; };
 		1875619C1F46AAC500F609AB /* dashboard_banner2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner2.png; sourceTree = "<group>"; };
+		187A89B71F6F93EB00E7431A /* ProductGuideSearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGuideSearchListViewController.h; sourceTree = "<group>"; };
+		187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGuideSearchListViewController.m; sourceTree = "<group>"; };
 		1886058F1F39AF320005D1E2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		188605931F39BC430005D1E2 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		188605941F39BC430005D1E2 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
@@ -843,6 +846,15 @@
 			name = NotificationListViewController;
 			sourceTree = "<group>";
 		};
+		187A89B61F6F93B900E7431A /* ProductGuideSearchListing */ = {
+			isa = PBXGroup;
+			children = (
+				187A89B71F6F93EB00E7431A /* ProductGuideSearchListViewController.h */,
+				187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */,
+			);
+			name = ProductGuideSearchListing;
+			sourceTree = "<group>";
+		};
 		188605911F39BB720005D1E2 /* DashboardModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -1210,6 +1222,7 @@
 		18FA11FE1F6A83AA0001A3B0 /* ProdutGuideModule */ = {
 			isa = PBXGroup;
 			children = (
+				187A89B61F6F93B900E7431A /* ProductGuideSearchListing */,
 				18FA12041F6A84590001A3B0 /* ProductGuideCollectionCell */,
 				18FA12031F6A84310001A3B0 /* ProductGuideTableViewCell */,
 				18FA11FF1F6A83E50001A3B0 /* ProductGuideViewController */,
@@ -2372,6 +2385,7 @@
 				185C58021F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m in Sources */,
 				1875618D1F469B2800F609AB /* NotificationService.m in Sources */,
 				B7A4D3FA1F4854CC00A28BBE /* ProductDataModel.m in Sources */,
+				187A89B91F6F93EB00E7431A /* ProductGuideSearchListViewController.m in Sources */,
 				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,
 				18C418E01F56E9D500749654 /* UIImage+UIImage_fixOrientation.m in Sources */,
 				180ECD401F48A1D1003C936E /* ReviewDataModel.m in Sources */,

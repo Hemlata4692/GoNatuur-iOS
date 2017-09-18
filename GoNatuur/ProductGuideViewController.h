@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ProductGuideViewController : GoNatuurViewController
-
+@property (nonatomic, strong) NSString *selectedPostId;
+@property (nonatomic, strong) NSString *screenType;
 @end

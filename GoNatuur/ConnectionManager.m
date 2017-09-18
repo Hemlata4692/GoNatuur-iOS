@@ -1219,6 +1219,7 @@
     [guideService getGuideCategoryDetailsService:guideData onSuccess:^(id response) {
         //Parse data from server response and store in data model
         guideData.postDataArray=[[NSMutableArray alloc]init];
+        guideData.totalProductCount=response[@"total_count"];
         NSArray *dataArray=[response[@"items"] mutableCopy];
         DLog(@"response %@",response);
         for (int i =0; i<dataArray.count; i++) {
