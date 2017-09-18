@@ -285,3 +285,5 @@
 "paymentMethodTitle"="Payment Method";
 "orderShipmentTitle"="ORDER SHIPMENTS";
 "invoiceTitle"="INVOICES";
+"invoice"="Invoice:";
+"shipment"="Shipment:";

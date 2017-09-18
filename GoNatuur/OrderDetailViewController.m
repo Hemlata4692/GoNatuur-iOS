@@ -12,6 +12,7 @@
 #import "DynamicHeightWidth.h"
 #import "CurrencyDataModel.h"
 #import "UIView+Toast.h"
+#import "OrderInvoiceViewController.h"
 
 @interface OrderDetailViewController ()
 {
@@ -320,7 +321,11 @@
     [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
 }
 - (IBAction)invoiceButtonAction:(id)sender {
+    UIStoryboard *storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    OrderInvoiceViewController * nextView=[storyBoard instantiateViewControllerWithIdentifier:@"OrderInvoiceViewController"];
+    [self.navigationController pushViewController:nextView animated:YES];
 }
+
 - (IBAction)cancelOrderButtonAction:(id)sender {
     if ([_cancelOrderButton.titleLabel.text isEqualToString:NSLocalizedText(@"cancelOrder")]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
