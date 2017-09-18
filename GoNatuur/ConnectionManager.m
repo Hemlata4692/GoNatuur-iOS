@@ -1228,6 +1228,7 @@
 }
 #pragma mark - end
 
+#pragma mark - Order data handling
 - (OrderModel *)orderDetailHandling:(NSDictionary *)orderDataDict orderDataModel:(OrderModel *)orderListData isOrderInvoice:(BOOL)isOrderInvoice {
     orderListData.discountDescription = orderDataDict[@"discount_description"];
     NSMutableArray *ratesArray=[NSMutableArray new];
