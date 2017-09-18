@@ -54,6 +54,7 @@
     float height =[DynamicHeightWidth getDynamicLabelHeight:_discountHeadingLabel.text font:[UIFont montserratRegularWithSize:14] widthValue:rectSizeWidth-120 heightValue:500];
     _discountHeadingLabel.frame=CGRectMake(10, 5,rectSizeWidth-120, height);
     
+    _grandTotalChargedHeadingLabel.text = NSLocalizedText(@"baseGrandTotal");
     _grandTotalChargedHeadingLabel.translatesAutoresizingMaskIntoConstraints=YES;
     _grandTotalChargedHeadingLabel.numberOfLines = 0;
     height =[DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"baseGrandTotal") font:[UIFont montserratRegularWithSize:14] widthValue:rectSizeWidth-120 heightValue:500];

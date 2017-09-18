@@ -307,3 +307,5 @@
 "paymentMethodTitle"="付款方法";
 "orderShipmentTitle"="訂單運輸";
 "invoiceTitle"="發票";
+"invoice"="發票:";
+"shipment"="裝船:";

@@ -52,7 +52,7 @@
         _eventSkuLabel.frame=CGRectMake(0, 20,(rectSize.width/2)-10, height);
         _ticketOptionLabel.numberOfLines=0;
         height =[DynamicHeightWidth getDynamicLabelHeight:_ticketOptionLabel.text font:[UIFont montserratLightWithSize:13] widthValue:(rectSize.width/2)-10 heightValue:500];
-        _ticketOptionLabel.frame=CGRectMake(_eventSkuLabel.frame.origin.x + _eventSkuLabel.frame.size.width +8, 20,(rectSize.width/2)-10, height);
+        _ticketOptionLabel.frame=CGRectMake(_eventSkuLabel.frame.origin.x + _eventSkuLabel.frame.size.width +10, 20,(rectSize.width/2)-10, height);
         _eventView.frame=CGRectMake(10, 0,rectSize.width-10, height);
         
         

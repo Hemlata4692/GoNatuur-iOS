@@ -1301,6 +1301,8 @@
                 }
             }
         }
+        productListData.productId = orderDetailDataDict[@"quote_item_id"];
+        productListData.productType = orderDetailDataDict[@"product_type"];
         productListData.productName = orderDetailDataDict[@"name"];
         productListData.productSku = orderDetailDataDict[@"sku"];
         if (isOrderInvoice) {

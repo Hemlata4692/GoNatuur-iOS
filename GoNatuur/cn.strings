@@ -292,3 +292,5 @@
 "paymentMethodTitle"="付款方法";
 "orderShipmentTitle"="订单运输";
 "invoiceTitle"="发票";
+"invoice"="发票:";
+"shipment"="装船:";

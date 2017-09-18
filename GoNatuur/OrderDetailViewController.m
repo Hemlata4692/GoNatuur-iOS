@@ -76,11 +76,15 @@
     if (section == 0) {
         return 40;
     } else if (section < productListArray.count+1) {
-        return 0;
+        return 0.01;
     } else if (section == productListArray.count+1) {
-        return 0;
+        return 0.01;
     } else
         return 40;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.01;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -193,7 +197,7 @@
             NSArray *numbers = @[descNumber, amountNumber];
             numbers = [numbers sortedArrayUsingSelector:@selector(compare:)];
             float totalHeight = [[numbers lastObject] floatValue];
-            return totalHeight + 40;
+            return totalHeight + 45;
         }
     }
     else {
@@ -213,7 +217,7 @@
             if ((nil==orderDataModel.shippingMethod)||[orderDataModel.shippingMethod isEqualToString:@""]) {
                 return 55;
             } else {
-                return [DynamicHeightWidth getDynamicLabelHeight:orderDataModel.shippingMethod font:[UIFont montserratLightWithSize:13] widthValue:(_orderDetailTable.frame.size.width/2)-15 heightValue:500]+30;
+                return [DynamicHeightWidth getDynamicLabelHeight:orderDataModel.shippingMethod font:[UIFont montserratLightWithSize:13] widthValue:(_orderDetailTable.frame.size.width/2)-15 heightValue:500]+45;
             }
         }
     }
