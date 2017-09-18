@@ -1185,78 +1185,8 @@
             orderListData.shippingMethod = orderDataDict[@"shipping_description"];
             orderListData.paymentMethod = [[orderDataDict[@"payment"] objectForKey:@"additional_information"] objectAtIndex:0];
             orderListData.tax = orderDataDict[@"tax_amount"];
-            orderListData.discountDescription = orderDataDict[@"discount_description"];
-            NSMutableArray *ratesArray=[NSMutableArray new];
-            for (int i =0; i<[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] count]; i++) {
-                NSDictionary * footerDataDict =[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] objectAtIndex:i];
-                CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
-                exchangeData.currencyExchangeCode = footerDataDict[@"currency_to"];
-                exchangeData.currencyExchangeRates = footerDataDict[@"rate"];
-                exchangeData.currencysymbol = footerDataDict[@"currency_symbol"];
-                [ratesArray addObject:exchangeData];
-            }
-            for (int i=0; i<ratesArray.count; i++) {
-                if ([orderDataDict[@"order_currency_code"] containsString:[[ratesArray objectAtIndex:i] currencyExchangeCode]]) {
-                    if ([[[ratesArray objectAtIndex:i] currencysymbol] isEqualToString:@""] || [[ratesArray objectAtIndex:i] currencysymbol]==nil) {
-                        orderListData.orderSubTotal = [NSString stringWithFormat:@"%@%@",orderDataDict[@"order_currency_code"],orderDataDict[@"subtotal"]];
-                        orderListData.shippingAmount = [NSString stringWithFormat:@"%@%@",orderDataDict[@"order_currency_code"],orderDataDict[@"shipping_amount"]];
-                        orderListData.discountAmount = [NSString stringWithFormat:@"-%@%@",orderDataDict[@"order_currency_code"],[NSNumber numberWithDouble:fabs([orderDataDict[@"discount_amount"] doubleValue])]];
-                        orderListData.taxAmount = [NSString stringWithFormat:@"%@ %@",orderDataDict[@"order_currency_code"],orderDataDict[@"tax_amount"]];
-                        orderListData.orderPrice = [NSString stringWithFormat:@"%@%@",orderDataDict[@"order_currency_code"],orderDataDict[@"grand_total"]];
-                    }
-                    else {
-                        orderListData.orderSubTotal = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],orderDataDict[@"subtotal"]];
-                        orderListData.shippingAmount = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],orderDataDict[@"shipping_amount"]];
-                        orderListData.discountAmount = [NSString stringWithFormat:@"-%@%@",[[ratesArray objectAtIndex:i] currencysymbol],[NSNumber numberWithDouble:fabs([orderDataDict[@"discount_amount"] doubleValue])]];
-                        orderListData.taxAmount = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],orderDataDict[@"tax_amount"]];
-                        orderListData.orderPrice = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],orderDataDict[@"grand_total"]];
-                    }
-                }
-                
-                if ([orderDataDict[@"base_currency_code"] containsString:[[ratesArray objectAtIndex:i] currencyExchangeCode]]) {
-                    if ([[[ratesArray objectAtIndex:i] currencysymbol] isEqualToString:@""] || [[ratesArray objectAtIndex:i] currencysymbol]==nil) {
-                        orderListData.baseGrandTotal = [NSString stringWithFormat:@"%@%@",orderDataDict[@"base_currency_code"],orderDataDict[@"base_grand_total"]];
-                    }
-                    else {
-                        orderListData.baseGrandTotal = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],orderDataDict[@"base_grand_total"]];
-                    }
-                }
-            }
-            orderListData.productListingArray=[[NSMutableArray alloc]init];
-            NSArray *productDataArray=[[[orderDataDict[@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"items"];
-            for (int i =0; i<productDataArray.count; i++) {
-                NSDictionary * orderDetailDataDict =[productDataArray objectAtIndex:i];
-                OrderModel * productListData = [[OrderModel alloc]init];
-                
-                NSMutableArray *ratesArray=[NSMutableArray new];
-                for (int i =0; i<[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] count]; i++) {
-                    NSDictionary * footerDataDict =[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] objectAtIndex:i];
-                    CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
-                    exchangeData.currencyExchangeCode = footerDataDict[@"currency_to"];
-                    exchangeData.currencyExchangeRates = footerDataDict[@"rate"];
-                    exchangeData.currencysymbol = footerDataDict[@"currency_symbol"];
-                    [ratesArray addObject:exchangeData];
-                }
-                for (int i=0; i<ratesArray.count; i++) {
-                    if ([orderDataDict[@"order_currency_code"] containsString:[[ratesArray objectAtIndex:i] currencyExchangeCode]]) {
-                        if ([[[ratesArray objectAtIndex:i] currencysymbol] isEqualToString:@""] || [[ratesArray objectAtIndex:i] currencysymbol]==nil) {
-                            productListData.productPrice = [NSString stringWithFormat:@"%@%@",orderDetailDataDict[@"order_currency_code"],orderDetailDataDict[@"price"]];
-                            productListData.productSubTotal = [NSString stringWithFormat:@"%@%@",orderDetailDataDict[@"order_currency_code"],orderDetailDataDict[@"row_total"]];
-                        }
-                        else {
-                            productListData.productPrice = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],orderDetailDataDict[@"price"]];
-                            productListData.productSubTotal = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],orderDetailDataDict[@"row_total"]];
-                        }
-                    }
-                }
-                productListData.productId = orderDetailDataDict[@"quote_item_id"];
-                productListData.productType = orderDetailDataDict[@"product_type"];
-                productListData.productName = orderDetailDataDict[@"name"];
-                productListData.productSku = orderDetailDataDict[@"sku"];
-                productListData.productQuantity = orderDetailDataDict[@"qty_ordered"];
-                [orderListData.productListingArray addObject:productListData];
-            }
-            [orderData.orderListingArray addObject:orderListData];
+            //Use reusable code order detail handling
+            [orderData.orderListingArray addObject:[self orderDetailHandling:orderDataDict orderDataModel:orderListData isOrderInvoice:false]];
         }
         success(orderData);
     } onFailure:^(NSError *error) {
@@ -1290,6 +1220,138 @@
             orderListData.ticketProductId = orderDataDict[@"quote_item_id"];
             orderListData.ticketName = orderDataDict[@"selected_option"];
             [orderData.ticketListingArray addObject:orderListData];
+        }
+        success(orderData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+- (OrderModel *)orderDetailHandling:(NSDictionary *)orderDataDict orderDataModel:(OrderModel *)orderListData isOrderInvoice:(BOOL)isOrderInvoice {
+    orderListData.discountDescription = orderDataDict[@"discount_description"];
+    NSMutableArray *ratesArray=[NSMutableArray new];
+    for (int i =0; i<[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] count]; i++) {
+        NSDictionary * footerDataDict =[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] objectAtIndex:i];
+        CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
+        exchangeData.currencyExchangeCode = footerDataDict[@"currency_to"];
+        exchangeData.currencyExchangeRates = footerDataDict[@"rate"];
+        exchangeData.currencysymbol = footerDataDict[@"currency_symbol"];
+        [ratesArray addObject:exchangeData];
+    }
+    for (int i=0; i<ratesArray.count; i++) {
+        if ([orderDataDict[@"order_currency_code"] containsString:[[ratesArray objectAtIndex:i] currencyExchangeCode]]) {
+            if ([[[ratesArray objectAtIndex:i] currencysymbol] isEqualToString:@""] || [[ratesArray objectAtIndex:i] currencysymbol]==nil) {
+                orderListData.orderSubTotal = [NSString stringWithFormat:@"%@%@",orderDataDict[@"order_currency_code"],[ConstantCode decimalFormatter:[orderDataDict[@"subtotal"] doubleValue]]];
+                orderListData.shippingAmount = [NSString stringWithFormat:@"%@%@",orderDataDict[@"order_currency_code"],[ConstantCode decimalFormatter:[orderDataDict[@"shipping_amount"] doubleValue]]];
+                orderListData.discountAmount = [NSString stringWithFormat:@"-%@%@",orderDataDict[@"order_currency_code"],[ConstantCode decimalFormatter:fabs([orderDataDict[@"discount_amount"] doubleValue])]];
+                orderListData.taxAmount = [NSString stringWithFormat:@"%@ %@",orderDataDict[@"order_currency_code"],[ConstantCode decimalFormatter:[orderDataDict[@"tax_amount"] doubleValue]]];
+                orderListData.orderPrice = [NSString stringWithFormat:@"%@%@",orderDataDict[@"order_currency_code"],[ConstantCode decimalFormatter:[orderDataDict[@"grand_total"] doubleValue]]];
+            }
+            else {
+                orderListData.orderSubTotal = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],[ConstantCode decimalFormatter:[orderDataDict[@"subtotal"] doubleValue]]];
+                orderListData.shippingAmount = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],[ConstantCode decimalFormatter:[orderDataDict[@"shipping_amount"] doubleValue]]];
+                orderListData.discountAmount = [NSString stringWithFormat:@"-%@%@",[[ratesArray objectAtIndex:i] currencysymbol],[ConstantCode decimalFormatter:fabs([orderDataDict[@"discount_amount"] doubleValue])]];
+                orderListData.taxAmount = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],[ConstantCode decimalFormatter:[orderDataDict[@"tax_amount"] doubleValue]]];
+                orderListData.orderPrice = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],[ConstantCode decimalFormatter:[orderDataDict[@"grand_total"] doubleValue]]];
+            }
+        }
+        
+        if ([orderDataDict[@"base_currency_code"] containsString:[[ratesArray objectAtIndex:i] currencyExchangeCode]]) {
+            if ([[[ratesArray objectAtIndex:i] currencysymbol] isEqualToString:@""] || [[ratesArray objectAtIndex:i] currencysymbol]==nil) {
+                orderListData.baseGrandTotal = [NSString stringWithFormat:@"%@%@",orderDataDict[@"base_currency_code"],[ConstantCode decimalFormatter:[orderDataDict[@"base_grand_total"] doubleValue]]];
+            }
+            else {
+                NSLog(@"sysbol %@",[[ratesArray objectAtIndex:i] currencysymbol]);
+                
+                orderListData.baseGrandTotal = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],[ConstantCode decimalFormatter:[orderDataDict[@"base_grand_total"] doubleValue]]];
+            }
+        }
+    }
+    orderListData.productListingArray=[[NSMutableArray alloc]init];
+    NSArray *productDataArray;
+    if (isOrderInvoice) {
+        productDataArray=orderDataDict[@"items"];
+    }
+    else{
+        productDataArray=[[[orderDataDict[@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"items"];
+    }
+    for (int i =0; i<productDataArray.count; i++) {
+        NSDictionary * orderDetailDataDict =[productDataArray objectAtIndex:i];
+        OrderModel * productListData = [[OrderModel alloc]init];
+        
+        NSMutableArray *ratesArray=[NSMutableArray new];
+        for (int i =0; i<[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] count]; i++) {
+            NSDictionary * footerDataDict =[[UserDefaultManager getValue:@"availableCurrencyRatesArray"] objectAtIndex:i];
+            CurrencyDataModel * exchangeData = [[CurrencyDataModel alloc]init];
+            exchangeData.currencyExchangeCode = footerDataDict[@"currency_to"];
+            exchangeData.currencyExchangeRates = footerDataDict[@"rate"];
+            exchangeData.currencysymbol = footerDataDict[@"currency_symbol"];
+            [ratesArray addObject:exchangeData];
+        }
+        for (int i=0; i<ratesArray.count; i++) {
+            if ([orderDataDict[@"order_currency_code"] containsString:[[ratesArray objectAtIndex:i] currencyExchangeCode]]) {
+                if ([[[ratesArray objectAtIndex:i] currencysymbol] isEqualToString:@""] || [[ratesArray objectAtIndex:i] currencysymbol]==nil) {
+                    productListData.productPrice = [NSString stringWithFormat:@"%@%@",orderDetailDataDict[@"order_currency_code"],[ConstantCode decimalFormatter:[orderDetailDataDict[@"price"] doubleValue]]];
+                    productListData.productSubTotal = [NSString stringWithFormat:@"%@%@",orderDetailDataDict[@"order_currency_code"],[ConstantCode decimalFormatter:[orderDetailDataDict[@"row_total"] doubleValue]]];
+                }
+                else {
+                    productListData.productPrice = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],[ConstantCode decimalFormatter:[orderDetailDataDict[@"price"] doubleValue]]];
+                    productListData.productSubTotal = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],[ConstantCode decimalFormatter:[orderDetailDataDict[@"row_total"] doubleValue]]];
+                }
+            }
+        }
+        productListData.productId = orderDetailDataDict[@"quote_item_id"];
+        productListData.productType = orderDetailDataDict[@"product_type"];
+        productListData.productName = orderDetailDataDict[@"name"];
+        productListData.productSku = orderDetailDataDict[@"sku"];
+        if (isOrderInvoice) {
+            productListData.productQuantity = orderDetailDataDict[@"qty"];
+        }
+        else{
+            productListData.productQuantity = orderDetailDataDict[@"qty_ordered"];
+        }
+        [orderListData.productListingArray addObject:productListData];
+    }
+    return orderListData;
+}
+
+#pragma mark - Get order invoice
+- (void)getOrderInvoice:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure {
+    OrderService *orderService = [[OrderService alloc] init];
+    [orderService getOrderInvoice:orderData onSuccess:^(id response) {
+        DLog(@"order invoice response %@",response);
+        if (orderData.isOrderInvoice) {
+            orderData.orderInvoiceArray=[[NSMutableArray alloc]init];
+            NSArray *dataArray=response[@"items"];
+            for (int i =0; i<dataArray.count; i++) {
+                NSDictionary * orderDataDict =[dataArray objectAtIndex:i];
+                OrderModel * orderListData = [[OrderModel alloc]init];
+                orderListData.orderDate = [[orderDataDict[@"created_at"] componentsSeparatedByString:@" "] objectAtIndex:0];
+                orderListData.orderStatus = orderDataDict[@"status"];
+                orderListData.purchaseOrderId = orderDataDict[@"increment_id"];
+                //Use reusable code order detail handling
+                [orderData.orderInvoiceArray addObject:[self orderDetailHandling:orderDataDict orderDataModel:orderListData isOrderInvoice:true]];
+            }
+        }
+        else {
+            NSArray *dataArray=response[@"items"];
+            orderData.trackArray=[NSMutableArray new];
+            for (int i =0; i<dataArray.count; i++) {
+                NSDictionary * orderDataDict =[dataArray objectAtIndex:i];
+                OrderModel * orderListData = [[OrderModel alloc]init];
+                orderListData.purchaseOrderId = orderDataDict[@"increment_id"];
+                orderListData.trackArray=[NSMutableArray new];
+                for (NSDictionary *tempDict in orderDataDict[@"tracks"]) {
+                    OrderModel * orderTempTrack = [[OrderModel alloc]init];
+                    orderTempTrack.productName=tempDict[@"title"];
+                    orderTempTrack.trackNumber=tempDict[@"track_number"];
+                    [orderListData.trackArray addObject:orderTempTrack];
+                }
+                if (nil!=orderDataDict[@"tracks"]&&[orderDataDict[@"tracks"] count]>0) {
+                    [orderData.trackArray addObject:orderListData];
+                }
+            }
         }
         success(orderData);
     } onFailure:^(NSError *error) {

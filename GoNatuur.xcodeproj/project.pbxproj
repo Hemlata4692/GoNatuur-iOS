@@ -146,6 +146,8 @@
 		B7A4D3F51F48294700A28BBE /* ProductDetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3F41F48294700A28BBE /* ProductDetailCollectionViewCell.m */; };
 		B7A4D3FA1F4854CC00A28BBE /* ProductDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3F91F4854CC00A28BBE /* ProductDataModel.m */; };
 		B7A4D3FD1F4857C900A28BBE /* ProductService.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A4D3FC1F4857C900A28BBE /* ProductService.m */; };
+		B7A73B8B1F6F915E00412656 /* OrderInvoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A73B8A1F6F915E00412656 /* OrderInvoiceViewController.m */; };
+		B7A73B8E1F6F916600412656 /* OrderInvoiceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A73B8D1F6F916600412656 /* OrderInvoiceTableViewCell.m */; };
 		B7A86ECD1F3B3D85004DA530 /* CMSPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A86ECC1F3B3D85004DA530 /* CMSPageViewController.m */; };
 		B7AA39B31F47101400423121 /* GoNatuurFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AA39B11F47101400423121 /* GoNatuurFilterView.m */; };
 		B7AA39B41F47101400423121 /* GoNatuurFilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7AA39B21F47101400423121 /* GoNatuurFilterView.xib */; };
@@ -428,6 +430,10 @@
 		B7A4D3F91F4854CC00A28BBE /* ProductDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDataModel.m; sourceTree = "<group>"; };
 		B7A4D3FB1F4857C900A28BBE /* ProductService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductService.h; sourceTree = "<group>"; };
 		B7A4D3FC1F4857C900A28BBE /* ProductService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductService.m; sourceTree = "<group>"; };
+		B7A73B891F6F915E00412656 /* OrderInvoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderInvoiceViewController.h; sourceTree = "<group>"; };
+		B7A73B8A1F6F915E00412656 /* OrderInvoiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderInvoiceViewController.m; sourceTree = "<group>"; };
+		B7A73B8C1F6F916600412656 /* OrderInvoiceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderInvoiceTableViewCell.h; sourceTree = "<group>"; };
+		B7A73B8D1F6F916600412656 /* OrderInvoiceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderInvoiceTableViewCell.m; sourceTree = "<group>"; };
 		B7A86ECB1F3B3D85004DA530 /* CMSPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSPageViewController.h; sourceTree = "<group>"; };
 		B7A86ECC1F3B3D85004DA530 /* CMSPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSPageViewController.m; sourceTree = "<group>"; };
 		B7AA39B01F47101400423121 /* GoNatuurFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurFilterView.h; sourceTree = "<group>"; };
@@ -1611,6 +1617,7 @@
 		5D2760A11F62765400B6D0FF /* OrderModule */ = {
 			isa = PBXGroup;
 			children = (
+				B7A73B861F6F912700412656 /* OrderInvoiceView */,
 				5D0CB20A1F63FEE8008043B6 /* OrderListView */,
 				5D0CB20B1F63FEF7008043B6 /* OrderDetailView */,
 			);
@@ -1916,6 +1923,33 @@
 				B7A4D3F91F4854CC00A28BBE /* ProductDataModel.m */,
 			);
 			name = ProductModel;
+			sourceTree = "<group>";
+		};
+		B7A73B861F6F912700412656 /* OrderInvoiceView */ = {
+			isa = PBXGroup;
+			children = (
+				B7A73B881F6F913D00412656 /* OrderInvoiceCell */,
+				B7A73B871F6F913700412656 /* OrderInvoiceViewController */,
+			);
+			name = OrderInvoiceView;
+			sourceTree = "<group>";
+		};
+		B7A73B871F6F913700412656 /* OrderInvoiceViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B7A73B891F6F915E00412656 /* OrderInvoiceViewController.h */,
+				B7A73B8A1F6F915E00412656 /* OrderInvoiceViewController.m */,
+			);
+			name = OrderInvoiceViewController;
+			sourceTree = "<group>";
+		};
+		B7A73B881F6F913D00412656 /* OrderInvoiceCell */ = {
+			isa = PBXGroup;
+			children = (
+				B7A73B8C1F6F916600412656 /* OrderInvoiceTableViewCell.h */,
+				B7A73B8D1F6F916600412656 /* OrderInvoiceTableViewCell.m */,
+			);
+			name = OrderInvoiceCell;
 			sourceTree = "<group>";
 		};
 		B7A86ECA1F3B3D5A004DA530 /* CMSPageViewController */ = {
@@ -2255,6 +2289,7 @@
 				180ECD301F484DE4003C936E /* UIPlaceHolderTextView.m in Sources */,
 				5DC7840D1F6637160025CA4A /* OrderDetailCell.m in Sources */,
 				5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */,
+				B7A73B8B1F6F915E00412656 /* OrderInvoiceViewController.m in Sources */,
 				18A3B1161F669D8400A453A7 /* AddressAnnotation.m in Sources */,
 				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
 				180ECD3C1F489AF0003C936E /* ReviewTableViewCell.m in Sources */,
@@ -2305,6 +2340,7 @@
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
 				18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
+				B7A73B8E1F6F916600412656 /* OrderInvoiceTableViewCell.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
 				18FFBC861F62CEBC006C088B /* NewsCenterSearchListViewController.m in Sources */,
 				B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */,

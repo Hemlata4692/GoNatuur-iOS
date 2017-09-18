@@ -52,7 +52,7 @@
         _eventSkuLabel.frame=CGRectMake(0, 20,(rectSize.width/2)-10, height);
         _ticketOptionLabel.numberOfLines=0;
         height =[DynamicHeightWidth getDynamicLabelHeight:_ticketOptionLabel.text font:[UIFont montserratLightWithSize:13] widthValue:(rectSize.width/2)-10 heightValue:500];
-        _ticketOptionLabel.frame=CGRectMake(_eventSkuLabel.frame.origin.x + _eventSkuLabel.frame.size.width +8, 20,(rectSize.width/2)-10, height);
+        _ticketOptionLabel.frame=CGRectMake(_eventSkuLabel.frame.origin.x + _eventSkuLabel.frame.size.width +10, 20,(rectSize.width/2)-10, height);
         _eventView.frame=CGRectMake(10, 0,rectSize.width-10, height);
         
         
@@ -68,13 +68,15 @@
 }
 
 - (void)displayTotalAmountData:(CGSize)rectSize orderData:(OrderModel *)orderData {
+    [self setLocalisedText];
     _orderSubtotalLabel.text = orderData.orderSubTotal;
     _shippingTotalLabel.text = orderData.shippingAmount;
     _discountLabel.text = orderData.discountAmount;
     _taxLabel.text = orderData.taxAmount;
     _grandTotalLabel.text = orderData.orderPrice;
     _grandTotalChargedLabel.text = orderData.baseGrandTotal;
-    
+    _grandTotalChargedHeadingLabel.text = NSLocalizedText(@"baseGrandTotal");
+
     _discountHeadingLabel.text = orderData.discountDescription;
     _discountHeadingLabel.translatesAutoresizingMaskIntoConstraints=YES;
     _discountHeadingLabel.numberOfLines = 0;
@@ -193,6 +195,7 @@
 
 #pragma mark - Remove autolayouts
 - (void)removeAutolayouts {
+    [self setLocalisedText];
     _eventView.translatesAutoresizingMaskIntoConstraints=YES;
     _productView.translatesAutoresizingMaskIntoConstraints=YES;
     _productNameLabel.translatesAutoresizingMaskIntoConstraints=YES;
@@ -211,6 +214,28 @@
     _shippingAddressPhoneNumberLabel.translatesAutoresizingMaskIntoConstraints=YES;
     _shippingMethodLabel.translatesAutoresizingMaskIntoConstraints=YES;
     _paymentMethodLabel.translatesAutoresizingMaskIntoConstraints=YES;
+}
+#pragma mark - end
+
+#pragma mark - Set localised text
+- (void)setLocalisedText {
+    //Product list labels
+    _productNameHeadingLabel.text = NSLocalizedText(@"productNameTitle");
+    _skuHeadingLabel.text = NSLocalizedText(@"skuTitle");
+    _eventSkuHeadingLabel.text = NSLocalizedText(@"skuTitle");
+    _ticketOptionHeadingLanbel.text = NSLocalizedText(@"optionSelectTitle");
+    _priceHeadingLabel.text = NSLocalizedText(@"price");
+    _quantityHeadingLabel.text = NSLocalizedText(@"QtyTitle");
+    _subtotalHeadingLabel.text = NSLocalizedText(@"totalAmountTitle");
+    // Order total label
+    _orderSubTotalHeadingLabel.text = NSLocalizedText(@"subtotalTitle");
+    _shippingTotalHeadingLabel.text = NSLocalizedText(@"ShippingChargeTitle");
+    _taxHeadingLabel.text = NSLocalizedText(@"taxTitle");
+    _grangTotalHeadingLabel.text = NSLocalizedText(@"grandtotalTitle");
+    //Payment method label
+    _paymentMethodHeadingLabel.text = NSLocalizedText(@"paymentMethodTitle");
+    //Shipping method label
+    _shippingMethodHeadingLabel.text = NSLocalizedText(@"shippingMethodTitle");
 }
 #pragma mark - end
 

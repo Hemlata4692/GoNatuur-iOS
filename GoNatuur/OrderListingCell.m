@@ -69,7 +69,7 @@
 - (void)setHeadingData {
     _shippingAddressHeadingLabel.text = NSLocalizedText(@"shipHeading");
     _billingAddressHeadingLabel.text = NSLocalizedText(@"billHeading");
-    _orderStatusLabel.text = NSLocalizedText(@"statusHeading");
+    _orderStatusHeadingLabel.text = NSLocalizedText(@"statusHeading");
     _priceHeadingLabel.text = NSLocalizedText(@"priceHeading");
 }
 
@@ -89,5 +89,4 @@
     return string;
 }
 #pragma mark - end
-
 @end

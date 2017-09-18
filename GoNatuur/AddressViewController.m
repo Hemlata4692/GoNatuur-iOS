@@ -19,7 +19,8 @@
 {
 @private
     UITextField *currentSelectedTextField;
-    NSMutableArray *countryCodeArray, *regionNameArray, *regionArray;
+    NSMutableArray *regionNameArray, *regionArray;
+    NSArray *countryCodeArray;
     int selectedCountryCodeIndex, selectedRegionIndex;
     GoNatuurPickerView *gNPickerViewObj;
     NSString *selectedCountryId, *selectedRegionId, *selectedRegionCode;
@@ -64,7 +65,7 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    countryCodeArray = [NSMutableArray new];
+    countryCodeArray = [NSArray new];
     regionArray = [NSMutableArray new];
     self.title=NSLocalizedText(@"personalDetails");
     self.navigationController.navigationBarHidden=false;
@@ -169,7 +170,7 @@
 
 - (void)customizedTextField {
     //Adding textfield to keyboard controls array
-    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameField, _lastNameField, _phoneNumberField,_companyField, _stateField, _cityField, _firstAddressField, _secondAddressField,_ZipcodeField,_faxField]]];
+    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameField, _lastNameField, _phoneNumberField,_companyField, _stateField, _cityField,_ZipcodeField, _firstAddressField, _secondAddressField,_faxField]]];
     [_keyboardControls setDelegate:self];
     [_firstNameField setTextBorder:_firstNameField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_lastNameField setTextBorder:_lastNameField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
@@ -240,8 +241,8 @@
         [_scrollView setContentOffset:CGPointMake(0, ((addressViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height)- ([UIScreen mainScreen].bounds.size.height-[aValue CGRectValue].size.height))+10) animated:NO];
     }
     //Change content size of scroll view if current selected textfield is behind keyboard
-    if ([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(addressViewY+_ZipcodeField.frame.origin.y+_ZipcodeField.frame.size.height))>0) {
-        _scrollView.contentSize = CGSizeMake(0,[UIScreen mainScreen].bounds.size.height+([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(addressViewY+_ZipcodeField.frame.origin.y+_ZipcodeField.frame.size.height))));
+    if ([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(addressViewY+_faxField.frame.origin.y+_faxField.frame.size.height))>0) {
+        _scrollView.contentSize = CGSizeMake(0,[UIScreen mainScreen].bounds.size.height+([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(addressViewY+_faxField.frame.origin.y+_faxField.frame.size.height))));
     }
 }
 
@@ -388,7 +389,9 @@
     ProfileModel *changePasswordModel = [ProfileModel sharedUser];
     [changePasswordModel getCountryCodeService:^(ProfileModel *userData) {
         [myDelegate stopIndicator];
-        countryCodeArray = userData.countryCodeArray;
+        NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"countryId" ascending:YES];
+        countryCodeArray = [userData.countryCodeArray
+                            sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
         if (isEditScreen) {
             [self displayEditAddressData];
         }
@@ -467,33 +470,33 @@
 #pragma mark - end
 
 - (void)popToCheckoutAddressScreen:(NSDictionary *)tempDict {
-        NSMutableArray *streetTempArray=[NSMutableArray new];
-        for (NSString *street in tempDict[@"street"]) {
-            [streetTempArray addObject:street];
-        }
-        NSDictionary *parameters = @{@"id" : [UserDefaultManager getNumberValue:@"id" dictData:tempDict],
-                                     @"region" : [tempDict[@"region"] objectForKey:@"region"],
-                                     @"region_id" : [UserDefaultManager getNumberValue:[tempDict objectForKey:@"region_id"] dictData:tempDict],
-                                     @"region_code" : [tempDict[@"region"] objectForKey:@"region_code"],
-                                     @"country_id" : [UserDefaultManager checkStringNull:@"country_id" dictData:tempDict],
-                                     @"company" : [UserDefaultManager checkStringNull:@"company" dictData:tempDict],
-                                     @"telephone" : tempDict[@"telephone"],
-                                     @"fax" : [UserDefaultManager checkStringNull:@"fax" dictData:tempDict],
-                                     @"postcode" : tempDict[@"postcode"],
-                                     @"city" : tempDict[@"city"],
-                                     @"firstname" : tempDict[@"firstname"],
-                                     @"lastname" : tempDict[@"lastname"],
-                                     @"email" : [UserDefaultManager getValue:@"emailId"],
-                                     @"customer_id": [UserDefaultManager getValue:@"userId"],
-                                     @"street":[streetTempArray copy]
-                                     };
-        if (checkoutAddressViewObj.isBillingAddress) {
-            checkoutAddressViewObj.cartModelData.billingAddressDict=[parameters mutableCopy];
-        }
-        else {
-            checkoutAddressViewObj.cartModelData.shippingAddressDict=[parameters mutableCopy];
-        }
-        checkoutAddressViewObj.isEditService=true;
+    NSMutableArray *streetTempArray=[NSMutableArray new];
+    for (NSString *street in tempDict[@"street"]) {
+        [streetTempArray addObject:street];
+    }
+    NSDictionary *parameters = @{@"id" : [UserDefaultManager getNumberValue:@"id" dictData:tempDict],
+                                 @"region" : [tempDict[@"region"] objectForKey:@"region"],
+                                 @"region_id" : [UserDefaultManager getNumberValue:[tempDict objectForKey:@"region_id"] dictData:tempDict],
+                                 @"region_code" : [tempDict[@"region"] objectForKey:@"region_code"],
+                                 @"country_id" : [UserDefaultManager checkStringNull:@"country_id" dictData:tempDict],
+                                 @"company" : [UserDefaultManager checkStringNull:@"company" dictData:tempDict],
+                                 @"telephone" : tempDict[@"telephone"],
+                                 @"fax" : [UserDefaultManager checkStringNull:@"fax" dictData:tempDict],
+                                 @"postcode" : tempDict[@"postcode"],
+                                 @"city" : tempDict[@"city"],
+                                 @"firstname" : tempDict[@"firstname"],
+                                 @"lastname" : tempDict[@"lastname"],
+                                 @"email" : [UserDefaultManager getValue:@"emailId"],
+                                 @"customer_id": [UserDefaultManager getValue:@"userId"],
+                                 @"street":[streetTempArray copy]
+                                 };
+    if (checkoutAddressViewObj.isBillingAddress) {
+        checkoutAddressViewObj.cartModelData.billingAddressDict=[parameters mutableCopy];
+    }
+    else {
+        checkoutAddressViewObj.cartModelData.shippingAddressDict=[parameters mutableCopy];
+    }
+    checkoutAddressViewObj.isEditService=true;
     for (UIViewController *controller in self.navigationController.viewControllers)
     {
         if ([controller isKindOfClass:[CheckoutAddressViewController class]])
@@ -553,13 +556,13 @@
         _stateDropDownArrowImage.hidden = NO;
         _stateButton.hidden = NO;
         //Adding textfield to keyboard controls array
-        [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameField, _lastNameField, _phoneNumberField,_companyField, _cityField, _firstAddressField, _secondAddressField,_ZipcodeField,_faxField]]];
+        [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameField, _lastNameField, _phoneNumberField,_companyField, _cityField,_ZipcodeField, _firstAddressField, _secondAddressField,_faxField]]];
         [_keyboardControls setDelegate:self];
     } else {
         _stateDropDownArrowImage.hidden = YES;
         _stateButton.hidden = YES;
         //Adding textfield to keyboard controls array
-        [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameField, _lastNameField, _phoneNumberField,_companyField, _stateField, _cityField, _firstAddressField, _secondAddressField,_ZipcodeField,_faxField]]];
+        [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameField, _lastNameField, _phoneNumberField,_companyField, _stateField, _cityField,_ZipcodeField, _firstAddressField, _secondAddressField,_faxField]]];
         [_keyboardControls setDelegate:self];
     }
 }

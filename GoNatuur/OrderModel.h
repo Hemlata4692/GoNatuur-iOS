@@ -55,6 +55,14 @@
 @property (strong, nonatomic) NSString *ticketProductId;
 @property (strong, nonatomic) NSString *ticketName;
 @property (strong, nonatomic) NSMutableArray *ticketListingArray;
+
+//Order invoice
+@property (assign, nonatomic) BOOL isOrderInvoice;
+@property (assign, nonatomic) BOOL isTrackShippment;
+@property (strong, nonatomic) NSMutableArray *orderInvoiceArray;
+@property (strong, nonatomic) NSMutableArray *trackArray;
+@property (strong, nonatomic) NSString *trackNumber;
+
 //Singleton instanse
 + (instancetype)sharedUser;
 
@@ -64,5 +72,6 @@
 - (void)cancelOrderService:(void (^)(OrderModel *))success onfailure:(void (^)(NSError *))failure;
 //Get ticket option
 - (void)getTicketOption:(void (^)(OrderModel *))success onfailure:(void (^)(NSError *))failure;
-
+//Get order invoice
+- (void)getOrderInvoiceOnSuccess:(void (^)(OrderModel *))success onfailure:(void (^)(NSError *))failure;
 @end

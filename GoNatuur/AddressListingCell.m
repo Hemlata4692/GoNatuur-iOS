@@ -24,6 +24,7 @@
 
 //Display profile data
 - (void)displayData:(CGSize)rectSize {
+    _addressListLabel.text = NSLocalizedText(@"addressList");
     [_profileImageView setBorder:_profileImageView color:[UIColor colorWithRed:203/255.0 green:203/255.0 blue:203/255.0 alpha:1.0] borderWidth:3.0];
     [_profileImageView setCornerRadius:60.0];
     [ImageCaching downloadImages:_profileImageView imageUrl:[UserDefaultManager getValue:@"profilePicture"] placeholderImage:@"profile_placeholder" isDashboardCell:true];
@@ -36,7 +37,7 @@
 
 //Display address data
 - (void)displayAddressData:(CGSize)rectSize addressData:(NSDictionary *)addressData {
-    _addressLabel.text=NSLocalizedText(@"addressList");
+    _addressListLabel.text = NSLocalizedText(@"addressList");
     _userNameLabel.text = [NSString stringWithFormat:@"%@ %@",addressData[@"firstname"],addressData[@"lastname"]];
     _userNameLabel.translatesAutoresizingMaskIntoConstraints=YES;
     _userNameLabel.numberOfLines=0;
