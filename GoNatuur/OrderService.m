@@ -12,6 +12,9 @@
 static NSString *kOrderListing=@"orders";
 static NSString *kCancelOrder=@"ranosys/orders";
 static NSString *kGetTicketOption=@"ranosys/customer/getOrderTicketOptions?orderId=";
+static NSString *kOrderInvoice=@"invoices";
+static NSString *kTrackShippment=@"shipments";
+
 @implementation OrderService
 
 #pragma mark - Get order listing
@@ -72,4 +75,34 @@ static NSString *kGetTicketOption=@"ranosys/customer/getOrderTicketOptions?order
 }
 #pragma mark - end
 
+#pragma mark - Get order invoice
+- (void)getOrderInvoice:(OrderModel *)orderData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                               @{
+                                                                   @"filters":@[
+                                                                           @{@"field":@"order_id",
+                                                                             @"value":orderData.orderId,
+                                                                             @"condition_type": @"eq"
+                                                                             }
+                                                                           ]
+                                                                   }
+                                                               ],
+                                                       @"sort_orders" : @[
+                                                               @{@"field":@"entity_id",
+                                                                 @"direction":@"DESC"
+                                                                 }
+                                                               ],
+                                                       @"page_size" : @"0",
+                                                       @"current_page" : @"0"
+                                                       }
+                                 };
+    NSLog(@"order invoice request %@",parameters);
+    if (orderData.isTrackShippment) {
+        [super post:kTrackShippment parameters:parameters success:success failure:failure];
+    }
+    else {
+        [super post:kOrderInvoice parameters:parameters success:success failure:failure];
+    }
+}
+#pragma mark - end
 @end
