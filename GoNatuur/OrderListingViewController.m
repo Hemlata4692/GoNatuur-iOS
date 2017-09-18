@@ -84,7 +84,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 4;
+        return 5;
     }
     else {
         if ([[selectedSecArray objectAtIndex:section-1] boolValue]) {
@@ -101,7 +101,7 @@
         return 0.0;
     }
     else
-        return 62;
+        return 70;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -114,6 +114,8 @@
             return 80;
         } else if (indexPath.row==3) {
             return 55;
+        } else if (indexPath.row==4) {
+            return 12;
         }
     }
     else  {
@@ -135,6 +137,8 @@
             simpleTableIdentifier=@"impactPointCell";
         } else if (indexPath.row == 3) {
             simpleTableIdentifier=@"TrackShippingCell";
+        } else if (indexPath.row == 4) {
+            simpleTableIdentifier=@"bottomArrowCell";
         }
     }
     else {
@@ -145,8 +149,11 @@
         cell = [[OrderListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     if (indexPath.section == 0) {
-        [cell displayData:_orderListTableView.frame.size];
-        [cell.editProfileImage addTarget:self action:@selector(editUserImageAction:) forControlEvents:UIControlEventTouchUpInside];
+        if (indexPath.row == 4) {
+        } else {
+            [cell displayData:_orderListTableView.frame.size];
+            [cell.editProfileImage addTarget:self action:@selector(editUserImageAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
     } else {
         orderDataModel = [orderListArray objectAtIndex:indexPath.section - 1];
         [cell displayOrderData:_orderListTableView.frame.size orderData:orderDataModel];
@@ -161,7 +168,7 @@
     }
     else {
         orderDataModel = [orderListArray objectAtIndex:section-1];
-        sectionView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320,62)];
+        sectionView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320,70)];
         sectionView.tag=section;
         sectionView.backgroundColor = [UIColor whiteColor];
         //Add order Id label
@@ -185,7 +192,7 @@
         orderDateLabel.attributedText=string;
         [sectionView addSubview:orderDateLabel];
         //Add a custom Separator with Section view
-        UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(10, 61, _orderListTableView.frame.size.width - 20, 1)];
+        UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(10, 69, _orderListTableView.frame.size.width - 20, 1)];
         separatorLineView.backgroundColor = [UIColor lightGrayColor];
         [sectionView addSubview:separatorLineView];
         arrowView = [[UIImageView alloc] initWithFrame:CGRectMake(_orderListTableView.frame.size.width - 25, (sectionView.frame.size.height/2) - 6, 12, 12)];

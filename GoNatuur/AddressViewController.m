@@ -74,6 +74,8 @@
     selectedRegionId=@"0";
     //View initialized
     [self initializedView];
+    //Add custom picker view and initialized indexs
+    [self addCustomPickerView];
     //Get country code listing
     [myDelegate showIndicator];
     [self performSelector:@selector(getCountryCode) withObject:nil afterDelay:.1];
@@ -99,8 +101,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    //Add custom picker view and initialized indexs
-    [self addCustomPickerView];
+    //Bring front view picker view
+    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -143,9 +145,7 @@
 
 #pragma mark - View initialization
 - (void)initializedView {
-    //Bring front view picker view
-    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
-    //Set frames
+        //Set frames
     _emailLabel.translatesAutoresizingMaskIntoConstraints=true;
     _addressFieldsContainerView.translatesAutoresizingMaskIntoConstraints=true;
     _addressContainerView.translatesAutoresizingMaskIntoConstraints=true;
@@ -199,7 +199,7 @@
     [_companyField addTextFieldPaddingWithoutImages:_companyField];
     [_faxField addTextFieldPaddingWithoutImages:_faxField];
     //customisation of change password button
-    [_saveAddressButton setCornerRadius:17.0];
+    [_saveAddressButton setCornerRadius:20.0];
     [_saveAddressButton addShadow:_saveAddressButton color:[UIColor blackColor]];
 }
 #pragma mark - end
@@ -234,7 +234,7 @@
     NSValue *aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
     float addressViewY = 255 + _emailLabel.frame.size.height;
     //Set condition according to check if current selected textfield is behind keyboard
-    if (addressViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height<([UIScreen mainScreen].bounds.size.height)-[aValue CGRectValue].size.height) {
+    if (addressViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height+15<([UIScreen mainScreen].bounds.size.height)-[aValue CGRectValue].size.height) {
         [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
     else {

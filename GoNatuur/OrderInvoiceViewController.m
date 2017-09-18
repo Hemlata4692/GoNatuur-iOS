@@ -34,7 +34,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
-    self.title=NSLocalizedText(@"Product");
+    self.title=NSLocalizedText(@"invoiceTitle");
     _noRecordLabel.text=NSLocalizedText(@"norecord");
     [self addLeftBarButtonWithImage:true];
     invoiceListArray=[NSMutableArray new];
