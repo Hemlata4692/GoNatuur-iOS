@@ -104,4 +104,65 @@ static NSString *kLoginedAddToCartProduct=@"carts/mine/items";
     }
 }
 #pragma mark - end
+
+#pragma mark - Add tickets to cart service
+- (void)addTicketsToCartProduct:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    
+//    {
+//        "quoteId": "72",
+//        "item": {
+//            "product_id": "30",
+//            "option_id": "2",// same always
+//            "option_value": "11_Op2",//original ticket  get price without conversion_option name
+//            "ticket_price": "30.00",// converted price
+//            "dropdow": "Op2",//option name
+//            "ticket_location": "",
+//            "ticket_date": "",
+//            "ticket_session": "",
+//            "checkbox": "",
+//            "qty": "1"// selected quantity
+//        }
+//    }
+//    
+//    NSDictionary *parameters = @{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
+//                                 @{@"item":@{
+//                                             @"product_id":productDetail.productId,
+//                                               @"option_id":@"2",
+//                                               @"option_value":@"",
+//                                             @"ticket_price":@"2",
+//                                             @"dropdow":@"",
+//                                             @"ticket_location":@"",
+//                                             @"ticket_date":@"",
+//                                             @"ticket_session":@"",
+//                                             @"checkbox":@"",
+//                                             @"qty":@""
+//                                             }
+//                                   
+//                                   }
+//                                 };
+
+    
+
+    
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+        NSDictionary *parameters = @{@"cartItem":@{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
+                                                   @"sku":productDetail.productSku,
+                                                   @"qty":productDetail.productQuantity
+                                                   }
+                                     };
+        DLog(@"Add to cart parameters: %@",parameters);
+        [super post:[NSString stringWithFormat:@"%@%@/items",kGuestAddToCartProduct,[UserDefaultManager getValue:@"quoteId"]] parameters:parameters success:success failure:failure];
+    }
+    else {
+        NSDictionary *parameters = @{@"cartItem":@{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
+                                                   @"sku":productDetail.productSku,
+                                                   @"qty":@"10000"
+                                                   }
+                                     };
+        
+        DLog(@"Add to cart parameters: %@",parameters);
+        [super post:kLoginedAddToCartProduct parameters:parameters success:success failure:failure];
+    }
+}
+#pragma mark - end
 @end

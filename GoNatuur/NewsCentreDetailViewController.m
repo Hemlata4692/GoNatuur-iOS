@@ -143,7 +143,7 @@
     }
     else if (indexPath.row==5) {
         [cell displayWebView:[newsDetailDict objectForKey:@"content"]];
-        [cell.contentWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' link='#B62546' text-align:'justify' font-size:15'>%@</body></html>", [newsDetailDict objectForKey:@"content"]] baseURL: nil];
+        [cell.contentWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' link='#B62546' text-align:'left' font-size:16px'>%@</body></html>", [newsDetailDict objectForKey:@"content"]] baseURL: nil];
     }
     return cell;
 }

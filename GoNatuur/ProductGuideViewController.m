@@ -272,8 +272,6 @@
 #pragma mark - Hangle arrow tag gesture
 //The event handling method
 - (void)leftTapAction:(UITapGestureRecognizer *)recognizer {
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
-//    ProductGuideTableViewCell *cell = [_productGuideTableView cellForRowAtIndexPath:indexPath];
     if (cellIndex>0) {
         cellIndex=cellIndex-1;
         [self scrollMediaCollectionViewAtIndex];
@@ -286,7 +284,7 @@
         [self scrollMediaCollectionViewAtIndex];
     }
 }
-
+//scroll collection view to seleted index
 - (void)scrollMediaCollectionViewAtIndex {
     ProductGuideTableViewCell *tempCell = [_productGuideTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     [tempCell.subCategoryCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:cellIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];

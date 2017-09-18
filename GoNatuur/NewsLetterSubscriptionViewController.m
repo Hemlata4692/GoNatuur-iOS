@@ -43,7 +43,7 @@
     [_emailTextField setTextBorder:_emailTextField color:[UIColor colorWithRed:199.0/255.0 green:201.0/255.0 blue:201.0/255.0 alpha:1.0]];
     [_newsLetterView setCornerRadius:2.0];
     //customisation of save button
-    [_subscribeButton setCornerRadius:17.0];
+    [_subscribeButton setCornerRadius:20.0];
     [_subscribeButton addShadow:_subscribeButton color:[UIColor blackColor]];
     self.view.backgroundColor=[UIColor clearColor];
     //The setup code (in viewDidLoad in your view controller)

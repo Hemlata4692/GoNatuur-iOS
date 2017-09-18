@@ -126,7 +126,7 @@
     else {
         [_addToCartButton setTitle:NSLocalizedText(@"addCart") forState:UIControlStateNormal];
     }
-    [_addToCartButton setCornerRadius:17.0];
+    [_addToCartButton setCornerRadius:20.0];
     [_addToCartButton addShadow:_addToCartButton color:[UIColor blackColor]];
 }
 

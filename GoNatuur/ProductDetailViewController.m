@@ -133,7 +133,7 @@
         return tempHeight+5;
     }
     else if (indexPath.row==7) {
-        return 45;
+        return 50;
     }
     return 50;
 }

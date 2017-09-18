@@ -45,7 +45,7 @@
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
     //customisation of change password button
-    [_addAddressButton setCornerRadius:17.0];
+    [_addAddressButton setCornerRadius:20.0];
     [_addAddressButton addShadow:_addAddressButton color:[UIColor blackColor]];
     [_addAddressButton setTitle:NSLocalizedText(@"addAddressButton") forState:UIControlStateNormal];
     if (!isImagePicker) {
