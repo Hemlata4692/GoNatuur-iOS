@@ -45,6 +45,7 @@
     _productQuantityLabel.frame=CGRectMake(_productPriceLabel.frame.origin.x-71, 10, 64, height);
     _productQuantityLabel.text=[NSString stringWithFormat:@"%@",cartData.itemQty];
      [ImageCaching downloadImages:_productImageView imageUrl:cartData.itemImageUrl placeholderImage:@"product_placeholder" isDashboardCell:false];
+    [_removeItem setBottomBorder:_removeItem color:[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]];
 }
 
 - (void)removeAutolayout {

@@ -11,6 +11,7 @@
 #import "CartListingViewController.h"
 #import "CheckoutAddressViewController.h"
 #import "SearchDataModel.h"
+#import "ProfileModel.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
@@ -27,10 +28,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *firstStepLabel;
 @property (strong, nonatomic) IBOutlet UILabel *secondStepLabel;
 @property (strong, nonatomic) IBOutlet UILabel *thirdStepLabel;
-@property (strong, nonatomic) IBOutlet UILabel *fourthStepLabel;
 @property (strong, nonatomic) IBOutlet UILabel *firstStepSeperetorLabel;
 @property (strong, nonatomic) IBOutlet UILabel *secondStepSeperetorLabel;
-@property (strong, nonatomic) IBOutlet UILabel *thirdStepSeperetorLabel;
 @property (strong, nonatomic) IBOutlet UILabel *noRecordFountLabel;
 @end
 
@@ -79,10 +78,8 @@
     _firstStepLabel.translatesAutoresizingMaskIntoConstraints=true;
     _secondStepLabel.translatesAutoresizingMaskIntoConstraints=true;
     _thirdStepLabel.translatesAutoresizingMaskIntoConstraints=true;
-    _fourthStepLabel.translatesAutoresizingMaskIntoConstraints=true;
     _firstStepSeperetorLabel.translatesAutoresizingMaskIntoConstraints=true;
     _secondStepSeperetorLabel.translatesAutoresizingMaskIntoConstraints=true;
-    _thirdStepSeperetorLabel.translatesAutoresizingMaskIntoConstraints=true;
 }
 
 - (void)setRoundedStepView {
@@ -92,8 +89,6 @@
     _secondStepLabel.layer.cornerRadius=11;
     _thirdStepLabel.layer.masksToBounds=true;
     _thirdStepLabel.layer.cornerRadius=11;
-    _fourthStepLabel.layer.masksToBounds=true;
-    _fourthStepLabel.layer.cornerRadius=11;
 }
 
 - (void)setDefaultStepColor {
@@ -102,8 +97,6 @@
     _secondStepLabel.backgroundColor=unSelectedStepColor;
     _secondStepSeperetorLabel.backgroundColor=unSelectedStepColor;
     _thirdStepLabel.backgroundColor=unSelectedStepColor;
-    _thirdStepSeperetorLabel.backgroundColor=unSelectedStepColor;
-    _fourthStepLabel.backgroundColor=unSelectedStepColor;
 }
 
 - (void)customizedSteps {
@@ -112,14 +105,12 @@
     //Set round step labels
     [self setRoundedStepView];
     //Get single step separator width according to screen size
-    float singleSeparatorWidth=([[UIScreen mainScreen] bounds].size.width-128.0)/3.0;
+    float singleSeparatorWidth=([[UIScreen mainScreen] bounds].size.width-106.0)/2.0;
     _firstStepLabel.frame=CGRectMake(20, 20, 22, 22);
     _firstStepSeperetorLabel.frame=CGRectMake(_firstStepLabel.frame.origin.x+_firstStepLabel.frame.size.width-2, 27, singleSeparatorWidth+4, 8);
     _secondStepLabel.frame=CGRectMake(_firstStepSeperetorLabel.frame.origin.x+_firstStepSeperetorLabel.frame.size.width-2, 20, 22, 22);
     _secondStepSeperetorLabel.frame=CGRectMake(_secondStepLabel.frame.origin.x+_secondStepLabel.frame.size.width-2, 27, singleSeparatorWidth+4, 8);
     _thirdStepLabel.frame=CGRectMake(_secondStepSeperetorLabel.frame.origin.x+_secondStepSeperetorLabel.frame.size.width-2, 20, 22, 22);
-    _thirdStepSeperetorLabel.frame=CGRectMake(_thirdStepLabel.frame.origin.x+_thirdStepLabel.frame.size.width-2, 27, singleSeparatorWidth+4, 8);
-    _fourthStepLabel.frame=CGRectMake(_thirdStepSeperetorLabel.frame.origin.x+_thirdStepSeperetorLabel.frame.size.width-2, 20, 22, 22);
     //Set default color at steps
     [self setDefaultStepColor];
     _firstStepLabel.backgroundColor=selectedStepColor;
@@ -187,8 +178,9 @@
     }
     searchData.productName=productIds;
     [searchData getProductListByNameServiceOnSuccess:^(SearchDataModel *userData)  {
-       [myDelegate stopIndicator];
+       
         totalCartProductPrice=0.0;
+        float totalImpactPoint=0.0;
         //Add product image and description in already data stored data array
         for (int i=0; i<cartListData.count; i++) {
             CartDataModel *cartDataTemp=[cartListData objectAtIndex:i];
@@ -198,15 +190,47 @@
                 NSUInteger index = [userData.searchProductListArray indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
                     return [predicate evaluateWithObject:obj];
                 }];
+                
+                cartDataTemp.isRedeemProduct=[[userData.searchProductListArray objectAtIndex:index] isRedeemProduct];
+                
+                if ([cartDataTemp.isRedeemProduct boolValue]) {
+                    DLog(@"%@",[[userData.searchProductListArray objectAtIndex:index] productImpactPoint]);
+                    cartDataTemp.productImpactPoint=[[userData.searchProductListArray objectAtIndex:index] productImpactPoint];
+                }
+                
                 cartDataTemp.itemDescription=[[userData.searchProductListArray objectAtIndex:index] productDescription];
                 cartDataTemp.itemImageUrl=[[userData.searchProductListArray objectAtIndex:index] productImageThumbnail];
                 [cartListData replaceObjectAtIndex:i withObject:cartDataTemp];
             }
+            if (cartDataTemp.isRedeemProduct) {
+                 totalImpactPoint+=[cartDataTemp.productImpactPoint floatValue];
+            }
             totalCartProductPrice+=([[cartDataTemp itemPrice] floatValue]*[cartDataTemp.itemQty floatValue]);
         }
+        cartModelData.impactPoints=[NSNumber numberWithFloat:totalImpactPoint];
         [self addCartListView];
         
+        if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            [myDelegate stopIndicator];
+        }
+        else {
+            [self getImpactPoints];
+        }
+        
     } onfailure:^(NSError *error) {
+    }];
+}
+
+//Get imapact point
+- (void)getImpactPoints {
+    ProfileModel *userData = [ProfileModel sharedUser];
+    userData.pageCount=@"1";
+    userData.currentPage=@"1";
+    [userData getImpactPoints:^(ProfileModel *userData) {
+        cartModelData.totalImpactPoints=[NSNumber numberWithInt:[userData.totalPoints intValue]];
+        [myDelegate stopIndicator];
+    } onfailure:^(NSError *error) {
+        
     }];
 }
 #pragma mark - end

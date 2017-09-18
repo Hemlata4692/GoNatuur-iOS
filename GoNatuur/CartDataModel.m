@@ -30,6 +30,10 @@
 @synthesize promoDiscountValue;
 @synthesize checkoutFinalData;
 @synthesize paymentMethod;
+@synthesize totalImpactPoints;
+@synthesize impactPoints;
+@synthesize isRedeemProduct;
+@synthesize productImpactPoint;
 
 - (id)copyWithZone:(NSZone *)zone {
     CartDataModel *another = [[CartDataModel alloc] init];
@@ -53,6 +57,10 @@
     another.promoDiscountValue= [self.promoDiscountValue copyWithZone: zone];
     another.checkoutFinalData= [self.checkoutFinalData copyWithZone: zone];
     another.paymentMethod= [self.paymentMethod copyWithZone: zone];
+    another.totalImpactPoints= [self.totalImpactPoints copyWithZone: zone];
+    another.impactPoints= [self.impactPoints copyWithZone: zone];
+    another.isRedeemProduct= [self.isRedeemProduct copyWithZone: zone];
+    another.productImpactPoint= [self.productImpactPoint copyWithZone: zone];
     return another;
 }
 

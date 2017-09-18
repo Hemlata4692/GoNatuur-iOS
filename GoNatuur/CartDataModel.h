@@ -31,6 +31,10 @@
 @property (strong, nonatomic) NSString *promoDiscountValue;
 @property (strong, nonatomic) NSString *paymentMethod;
 @property (strong, nonatomic) NSMutableDictionary *checkoutFinalData;
+@property (strong, nonatomic) NSNumber *totalImpactPoints;
+@property (strong, nonatomic) NSNumber *impactPoints;
+@property (strong, nonatomic) NSNumber *productImpactPoint;
+@property (strong, nonatomic) NSNumber *isRedeemProduct;
 
 //Singleton instanse
 + (instancetype)sharedUser;

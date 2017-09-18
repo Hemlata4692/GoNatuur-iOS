@@ -1066,6 +1066,13 @@
             if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
+            if ([productDataDict[@"attribute_set_id"] intValue]==10) {
+                productData.isRedeemProduct=[NSNumber numberWithBool:true];
+                productData.productImpactPoint=[NSNumber numberWithDouble:[[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"points_required"] doubleValue]];
+            }
+            else {
+                productData.isRedeemProduct=[NSNumber numberWithBool:false];
+            }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
             productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
             productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
