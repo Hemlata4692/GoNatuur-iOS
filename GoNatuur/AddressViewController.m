@@ -169,7 +169,7 @@
 
 - (void)customizedTextField {
     //Adding textfield to keyboard controls array
-    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameField, _lastNameField, _phoneNumberField,_companyField, _stateField, _cityField, _firstAddressField, _secondAddressField,_ZipcodeField,_faxField]]];
+    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameField, _lastNameField, _phoneNumberField,_companyField, _stateField, _cityField,_ZipcodeField, _firstAddressField, _secondAddressField,_faxField]]];
     [_keyboardControls setDelegate:self];
     [_firstNameField setTextBorder:_firstNameField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_lastNameField setTextBorder:_lastNameField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
@@ -240,8 +240,8 @@
         [_scrollView setContentOffset:CGPointMake(0, ((addressViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height)- ([UIScreen mainScreen].bounds.size.height-[aValue CGRectValue].size.height))+10) animated:NO];
     }
     //Change content size of scroll view if current selected textfield is behind keyboard
-    if ([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(addressViewY+_ZipcodeField.frame.origin.y+_ZipcodeField.frame.size.height))>0) {
-        _scrollView.contentSize = CGSizeMake(0,[UIScreen mainScreen].bounds.size.height+([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(addressViewY+_ZipcodeField.frame.origin.y+_ZipcodeField.frame.size.height))));
+    if ([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(addressViewY+_faxField.frame.origin.y+_faxField.frame.size.height))>0) {
+        _scrollView.contentSize = CGSizeMake(0,[UIScreen mainScreen].bounds.size.height+([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(addressViewY+_faxField.frame.origin.y+_faxField.frame.size.height))));
     }
 }
 
@@ -553,13 +553,13 @@
         _stateDropDownArrowImage.hidden = NO;
         _stateButton.hidden = NO;
         //Adding textfield to keyboard controls array
-        [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameField, _lastNameField, _phoneNumberField,_companyField, _cityField, _firstAddressField, _secondAddressField,_ZipcodeField,_faxField]]];
+        [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameField, _lastNameField, _phoneNumberField,_companyField, _cityField,_ZipcodeField, _firstAddressField, _secondAddressField,_faxField]]];
         [_keyboardControls setDelegate:self];
     } else {
         _stateDropDownArrowImage.hidden = YES;
         _stateButton.hidden = YES;
         //Adding textfield to keyboard controls array
-        [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameField, _lastNameField, _phoneNumberField,_companyField, _stateField, _cityField, _firstAddressField, _secondAddressField,_ZipcodeField,_faxField]]];
+        [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_firstNameField, _lastNameField, _phoneNumberField,_companyField, _stateField, _cityField,_ZipcodeField, _firstAddressField, _secondAddressField,_faxField]]];
         [_keyboardControls setDelegate:self];
     }
 }

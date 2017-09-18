@@ -75,7 +75,8 @@
     _taxLabel.text = orderData.taxAmount;
     _grandTotalLabel.text = orderData.orderPrice;
     _grandTotalChargedLabel.text = orderData.baseGrandTotal;
-    
+    _grandTotalChargedHeadingLabel.text = NSLocalizedText(@"baseGrandTotal");
+
     _discountHeadingLabel.text = orderData.discountDescription;
     _discountHeadingLabel.translatesAutoresizingMaskIntoConstraints=YES;
     _discountHeadingLabel.numberOfLines = 0;

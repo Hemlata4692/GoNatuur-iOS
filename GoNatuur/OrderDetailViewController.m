@@ -224,7 +224,7 @@
     if (section == 0) {
         sectionView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320,40)];
         sectionView.backgroundColor = [UIColor whiteColor];
-        UILabel *orderIdLabel=[[UILabel alloc]initWithFrame:CGRectMake(10, 5, _orderDetailTable.frame.size.width-20, 30)];
+        UILabel *orderIdLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 5, _orderDetailTable.frame.size.width-20, 30)];
         orderIdLabel.font = [UIFont montserratRegularWithSize:16];
         orderIdLabel.textAlignment=NSTextAlignmentLeft;
         NSMutableAttributedString *string;
@@ -247,7 +247,7 @@
     else {
         sectionView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320,40)];
         sectionView.backgroundColor = [UIColor whiteColor];
-        UILabel *orderIdLabel=[[UILabel alloc]initWithFrame:CGRectMake(10, 5, _orderDetailTable.frame.size.width-20, 30)];
+        UILabel *orderIdLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 5, _orderDetailTable.frame.size.width-20, 30)];
         orderIdLabel.font = [UIFont montserratRegularWithSize:16];
         orderIdLabel.textAlignment=NSTextAlignmentLeft;
         NSMutableAttributedString *string;
@@ -316,6 +316,7 @@
 #pragma mark - end
 
 #pragma mark - IBActions
+
 - (IBAction)orderShipmentButtonAction:(id)sender {
     [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
 }
@@ -362,6 +363,7 @@
 
 #pragma mark - Set localised text
 - (void)setLocalisedText {
+    [_cancelOrderButton setTitle:NSLocalizedText(@"cancelOrder") forState:UIControlStateNormal];
     [_invoiceButton setTitle:NSLocalizedText(@"invoiceTitle") forState:UIControlStateNormal];
     [_orderShipmentButton setTitle:NSLocalizedText(@"orderShipmentTitle") forState:UIControlStateNormal];
     self.title=NSLocalizedText(@"orderDetailTitle");
