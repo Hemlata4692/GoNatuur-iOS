@@ -26,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *subCategoryCollectionView;
 //heading cell
 @property (weak, nonatomic) IBOutlet UILabel *headingLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *leftArrow;
+@property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 
 - (void)displayProductBottomHeadingData:(NSString *)data;
 - (void)displayProductName:(NSString *)data;

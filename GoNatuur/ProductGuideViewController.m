@@ -14,7 +14,7 @@
 #import "SearchDataModel.h"
 #import "SearchViewController.h"
 
-@interface ProductGuideViewController () {
+@interface ProductGuideViewController ()<UIGestureRecognizerDelegate> {
     @private
     NSArray *productGuideMenuArray;
     NSMutableArray *productGuideCategoryArray;
@@ -217,6 +217,24 @@
         cell.headingLabel.text=categoryHeading;
     }
     else if (indexPath.row==1) {
+        if (guideDetailDataArray.count==1) {
+            cell.leftArrow.hidden=YES;
+            cell.rightArrow.hidden=YES;
+        }
+        //The setup code (in viewDidLoad in your view controller)
+        cell.leftArrow.userInteractionEnabled=YES;
+        cell.rightArrow.userInteractionEnabled=YES;
+        UITapGestureRecognizer *leftTap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(leftTapAction:)];
+        [cell.leftArrow addGestureRecognizer:leftTap];
+        
+        UITapGestureRecognizer *rightTap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(rightTapAction:)];
+        [cell.rightArrow addGestureRecognizer:rightTap];
+        
+        [cell.subCategoryCollectionView setContentInset:UIEdgeInsetsMake(0, ([[UIScreen mainScreen] bounds].size.width-60)/2-40-(40*(guideDetailDataArray.count-1)), 0, 0)];
         [cell.subCategoryCollectionView reloadData];
     }
     else if (indexPath.row==2) {
@@ -250,6 +268,34 @@
     return cell;
 }
 #pragma mark - end
+
+#pragma mark - Hangle arrow tag gesture
+//The event handling method
+- (void)leftTapAction:(UITapGestureRecognizer *)recognizer {
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+//    ProductGuideTableViewCell *cell = [_productGuideTableView cellForRowAtIndexPath:indexPath];
+    if (cellIndex>0) {
+        cellIndex=cellIndex-1;
+        [self scrollMediaCollectionViewAtIndex];
+    }
+}
+
+- (void)rightTapAction:(UITapGestureRecognizer *)recognizer {
+    if (cellIndex<(int)guideDetailDataArray.count-1) {
+        cellIndex=cellIndex+1;
+        [self scrollMediaCollectionViewAtIndex];
+    }
+}
+
+- (void)scrollMediaCollectionViewAtIndex {
+    ProductGuideTableViewCell *tempCell = [_productGuideTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    [tempCell.subCategoryCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:cellIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:true];
+    [self getStaticProductListing];
+    [_productGuideTableView reloadData];
+    [tempCell.subCategoryCollectionView reloadData];
+}
+#pragma mark - end
+
 
 #pragma mark - Webview delegates
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {

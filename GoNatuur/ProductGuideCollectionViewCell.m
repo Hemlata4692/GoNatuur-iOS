@@ -26,9 +26,11 @@
     
     if (currentIndex==selectedIndex) {
         [_subCategoryImageView setBorder:_subCategoryImageView color:[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0] borderWidth:1.5];
+        _subCategoryNameLabel.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:0.5];
     }
     else {
         [_subCategoryImageView setBorder:_subCategoryImageView color:[UIColor colorWithRed:123.0/255.0 green:123.0/255.0 blue:123.0/255.0 alpha:1.0] borderWidth:1.5];
+         _subCategoryNameLabel.backgroundColor=[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.5];
     }
 }
 

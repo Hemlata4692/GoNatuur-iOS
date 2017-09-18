@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="j41-cQ-9tt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="j41-cQ-9tt">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -526,7 +526,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="87.5" y="274" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="274" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -657,7 +657,7 @@
                                             <constraint firstItem="1N0-wZ-mda" firstAttribute="leading" secondItem="qNn-Ug-cwH" secondAttribute="leading" constant="54" id="CbB-Yo-4SQ"/>
                                         </constraints>
                                         <connections>
-                                            <segue destination="XS8-cX-RhU" kind="custom" identifier="MyOrders" customClass="SWRevealViewControllerSeguePushController" id="Zlb-cI-PaR"/>
+                                            <segue destination="FQe-8v-9N8" kind="custom" identifier="MyOrders" customClass="SWRevealViewControllerSeguePushController" id="dHy-XW-mak"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Payment" rowHeight="50" id="InR-4m-ARu">
@@ -4402,7 +4402,7 @@
         <!--Navigation Controller-->
         <scene sceneID="pzv-I5-CWv">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Qt-Wz-AMN" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="productGuide" automaticallyAdjustsScrollViewInsets="NO" id="3Qt-Wz-AMN" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="2C5-Bu-KK8">
@@ -4479,7 +4479,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="headingCell" rowHeight="45" id="qxP-IH-385" customClass="ProductGuideTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="headingCell" rowHeight="45" id="qxP-IH-385" customClass="ProductGuideTableViewCell">
                                         <rect key="frame" x="0.0" y="1" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qxP-IH-385" id="s8i-r1-leW">
@@ -4505,7 +4505,7 @@
                                             <outlet property="headingLabel" destination="fqW-9F-7De" id="7KP-tw-aV0"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="subCategoryCell" rowHeight="90" id="1Qx-CI-dhL" customClass="ProductGuideTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="subCategoryCell" rowHeight="90" id="1Qx-CI-dhL" customClass="ProductGuideTableViewCell">
                                         <rect key="frame" x="0.0" y="46" width="320" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Qx-CI-dhL" id="ghr-GR-Fqo">
@@ -4564,19 +4564,41 @@
                                                         <outlet property="delegate" destination="3UL-C3-0lF" id="A9j-S2-HBg"/>
                                                     </connections>
                                                 </collectionView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guideArrow2" translatesAutoresizingMaskIntoConstraints="NO" id="Xit-IW-oYj">
+                                                    <rect key="frame" x="5" y="34" width="15" height="15"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="5nr-a7-I6U"/>
+                                                        <constraint firstAttribute="width" constant="15" id="vfC-JQ-goa"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guideArrow" translatesAutoresizingMaskIntoConstraints="NO" id="6VW-0S-OEA">
+                                                    <rect key="frame" x="299" y="34" width="15" height="15"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="15" id="IXU-Jw-brv"/>
+                                                        <constraint firstAttribute="height" constant="15" id="PZC-wN-Fq4"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="yMQ-ha-Uaa" firstAttribute="leading" secondItem="ghr-GR-Fqo" secondAttribute="leadingMargin" constant="17" id="7fo-0V-ziV"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="6VW-0S-OEA" secondAttribute="bottom" constant="33" id="DUR-aP-OEa"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="yMQ-ha-Uaa" secondAttribute="trailing" constant="17" id="F94-su-y4T"/>
                                                 <constraint firstItem="yMQ-ha-Uaa" firstAttribute="top" secondItem="ghr-GR-Fqo" secondAttribute="topMargin" constant="-8" id="UFg-U4-hkU"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="6VW-0S-OEA" secondAttribute="trailing" constant="-2" id="W72-Qz-bcn"/>
+                                                <constraint firstItem="Xit-IW-oYj" firstAttribute="leading" secondItem="ghr-GR-Fqo" secondAttribute="leadingMargin" constant="-3" id="ZRb-JW-67N"/>
+                                                <constraint firstItem="Xit-IW-oYj" firstAttribute="top" secondItem="ghr-GR-Fqo" secondAttribute="topMargin" constant="26" id="ccL-be-NnO"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="yMQ-ha-Uaa" secondAttribute="bottom" constant="-0.5" id="e41-9x-uiE"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Xit-IW-oYj" secondAttribute="bottom" constant="33" id="ig8-yr-Tud"/>
+                                                <constraint firstItem="6VW-0S-OEA" firstAttribute="top" secondItem="ghr-GR-Fqo" secondAttribute="topMargin" constant="26" id="q9l-A3-Szh"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="leftArrow" destination="Xit-IW-oYj" id="z5X-Rm-Rjf"/>
+                                            <outlet property="rightArrow" destination="6VW-0S-OEA" id="CQF-s3-yjo"/>
                                             <outlet property="subCategoryCollectionView" destination="yMQ-ha-Uaa" id="NXM-Bv-upg"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" rowHeight="21" id="iHn-eB-sSU" customClass="ProductGuideTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" rowHeight="21" id="iHn-eB-sSU" customClass="ProductGuideTableViewCell">
                                         <rect key="frame" x="0.0" y="136" width="320" height="21"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iHn-eB-sSU" id="JCM-sU-Tmr">
@@ -4601,7 +4623,7 @@
                                             <outlet property="nameLabel" destination="VGQ-a4-lrx" id="mNe-Yv-cD8"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="taglineCell" rowHeight="20" id="nvE-Xs-8M5" customClass="ProductGuideTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="taglineCell" rowHeight="20" id="nvE-Xs-8M5" customClass="ProductGuideTableViewCell">
                                         <rect key="frame" x="0.0" y="157" width="320" height="20"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nvE-Xs-8M5" id="dgS-AF-etr">
@@ -4627,7 +4649,7 @@
                                             <outlet property="taglineLabel" destination="TXa-I6-bdB" id="yRN-zf-GFH"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="shortDescriptionCell" rowHeight="50" id="WcU-IL-xyd" customClass="ProductGuideTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="shortDescriptionCell" rowHeight="50" id="WcU-IL-xyd" customClass="ProductGuideTableViewCell">
                                         <rect key="frame" x="0.0" y="177" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WcU-IL-xyd" id="huC-oC-qyN">
@@ -4653,7 +4675,7 @@
                                             <outlet property="shortDescriptionLabel" destination="XDg-3a-wYR" id="CNf-wf-FY4"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="webViewCell" rowHeight="100" id="YNW-QE-uSS" customClass="ProductGuideTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="webViewCell" rowHeight="100" id="YNW-QE-uSS" customClass="ProductGuideTableViewCell">
                                         <rect key="frame" x="0.0" y="227" width="320" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YNW-QE-uSS" id="yvp-DO-1XB">
@@ -4681,7 +4703,7 @@
                                             <outlet property="productGuideWebView" destination="KFN-J5-HH6" id="ffm-vD-LlK"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="productHeadingCell" rowHeight="50" id="QI6-ZO-KtS" customClass="ProductGuideTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="productHeadingCell" rowHeight="50" id="QI6-ZO-KtS" customClass="ProductGuideTableViewCell">
                                         <rect key="frame" x="0.0" y="327" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QI6-ZO-KtS" id="sDG-Ha-9du">
@@ -4709,7 +4731,7 @@
                                             <outlet property="productHeading" destination="0xv-Vi-vUz" id="jkb-Ce-qrE"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="productCell" rowHeight="200" id="p4c-Lv-mue" customClass="ProductGuideTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="productCell" rowHeight="200" id="p4c-Lv-mue" customClass="ProductGuideTableViewCell">
                                         <rect key="frame" x="0.0" y="377" width="320" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p4c-Lv-mue" id="gn7-xf-bmb">
@@ -4950,7 +4972,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aJ6-AR-pBd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7160.625" y="55.985915492957744"/>
+            <point key="canvasLocation" x="7193" y="58"/>
         </scene>
         <!--Product Listing View Controller-->
         <scene sceneID="5xR-FR-23m">
@@ -6807,7 +6829,7 @@
         <!--Navigation Controller-->
         <scene sceneID="y18-a0-WwT">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9YT-Va-Su8" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="newsCentre" automaticallyAdjustsScrollViewInsets="NO" id="9YT-Va-Su8" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="c3a-zJ-S76">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -6953,7 +6975,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YLF-mc-6au">
-                                                    <rect key="frame" x="156" y="0.0" width="30" height="30"/>
+                                                    <rect key="frame" x="157" y="1" width="30" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="1HF-xe-8K6"/>
@@ -6969,7 +6991,7 @@
                                         <constraints>
                                             <constraint firstItem="4t5-7a-yrD" firstAttribute="leading" secondItem="jPg-xR-8ng" secondAttribute="leading" constant="8" id="2OH-t1-Vdq"/>
                                             <constraint firstAttribute="bottom" secondItem="ot3-17-yJN" secondAttribute="bottom" id="2r5-2d-eSH"/>
-                                            <constraint firstItem="YLF-mc-6au" firstAttribute="top" secondItem="jPg-xR-8ng" secondAttribute="topMargin" constant="-8" id="6Mf-SG-QO4"/>
+                                            <constraint firstItem="YLF-mc-6au" firstAttribute="top" secondItem="jPg-xR-8ng" secondAttribute="topMargin" constant="-7" id="6Mf-SG-QO4"/>
                                             <constraint firstItem="ot3-17-yJN" firstAttribute="top" secondItem="jPg-xR-8ng" secondAttribute="top" id="JyJ-4L-IIX"/>
                                             <constraint firstAttribute="bottom" secondItem="4t5-7a-yrD" secondAttribute="bottom" constant="1" id="MvK-nL-ISt"/>
                                             <constraint firstAttribute="trailing" secondItem="ot3-17-yJN" secondAttribute="trailing" id="S0A-gm-wW9"/>
@@ -6977,7 +6999,7 @@
                                             <constraint firstItem="ot3-17-yJN" firstAttribute="leading" secondItem="jPg-xR-8ng" secondAttribute="leading" id="YA6-xp-PFh"/>
                                             <constraint firstItem="S0A-1U-zyT" firstAttribute="leading" secondItem="jPg-xR-8ng" secondAttribute="leadingMargin" constant="-8" id="hHb-sw-r0u"/>
                                             <constraint firstAttribute="trailing" secondItem="4t5-7a-yrD" secondAttribute="trailing" id="iSd-KL-m9x"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="YLF-mc-6au" secondAttribute="trailing" constant="-8" id="uGK-0u-y7t"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="YLF-mc-6au" secondAttribute="trailing" constant="-9" id="uGK-0u-y7t"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="S0A-1U-zyT" secondAttribute="trailing" constant="73" id="vbU-i5-F5h"/>
                                             <constraint firstItem="S0A-1U-zyT" firstAttribute="top" secondItem="jPg-xR-8ng" secondAttribute="topMargin" constant="-8" id="y5p-Tp-NZm"/>
                                         </constraints>
@@ -7002,7 +7024,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="87.5" y="274" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="274" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>
@@ -12177,7 +12199,7 @@
         <!--Navigation Controller-->
         <scene sceneID="frQ-NN-3Vc">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FQe-8v-9N8" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="order" automaticallyAdjustsScrollViewInsets="NO" id="FQe-8v-9N8" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qOW-oK-kvD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -12789,6 +12811,8 @@
         <image name="exmlatory-mark" width="26" height="26"/>
         <image name="facebook-share" width="50" height="50"/>
         <image name="follow" width="28" height="28"/>
+        <image name="guideArrow" width="20" height="20"/>
+        <image name="guideArrow2" width="20" height="20"/>
         <image name="instagram" width="50" height="50"/>
         <image name="location" width="28" height="28"/>
         <image name="map-location" width="28" height="28"/>

@@ -510,7 +510,6 @@
 #pragma mark - Swipe Images
 //Adding left animation to banner images
 - (void)addLeftAnimationPresentToView:(UIView *)viewTobeAnimatedLeft {
-    
     CATransition *transition = [CATransition animation];
     transition.duration = 0.2;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
@@ -523,7 +522,6 @@
 
 //Adding right animation to banner images
 - (void)addRightAnimationPresentToView:(UIView *)viewTobeAnimatedRight {
-    
     CATransition *transition = [CATransition animation];
     transition.duration = 0.2;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];

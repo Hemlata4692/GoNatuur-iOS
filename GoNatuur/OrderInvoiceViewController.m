@@ -264,7 +264,7 @@
 #pragma mark - Web services
 - (void)getOrderInvoice {
     OrderModel *orderDataModel = [OrderModel sharedUser];
-    orderDataModel.orderId=[NSNumber numberWithInt:1];
+    orderDataModel.orderId=orderId;
     orderDataModel.isOrderInvoice=true;
     orderDataModel.isTrackShippment=false;
     [orderDataModel getOrderInvoiceOnSuccess:^(OrderModel *userData) {
@@ -290,7 +290,7 @@
 
 - (void)getTrackShippment {
     OrderModel *orderDataModel = [OrderModel sharedUser];
-    orderDataModel.orderId=[NSNumber numberWithInt:1];
+    orderDataModel.orderId=orderId;
     orderDataModel.isTrackShippment=true;
     orderDataModel.isOrderInvoice=false;
     [orderDataModel getOrderInvoiceOnSuccess:^(OrderModel *userData) {
