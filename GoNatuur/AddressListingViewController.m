@@ -19,6 +19,7 @@
     UIImage *userProfileImage;
     BOOL isImagePicker;
 }
+@property (weak, nonatomic) IBOutlet UILabel *noRecordLabel;
 @property (weak, nonatomic) IBOutlet UIButton *addAddressButton;
 @property (weak, nonatomic) IBOutlet UITableView *addressTableView;
 @end
@@ -48,8 +49,28 @@
     [_addAddressButton addShadow:_addAddressButton color:[UIColor blackColor]];
     [_addAddressButton setTitle:NSLocalizedText(@"addAddressButton") forState:UIControlStateNormal];
     if (!isImagePicker) {
-        [_addressTableView reloadData];
+        [self checkRecordStatus];
     }
+}
+#pragma mark - end
+
+#pragma mark - Check Record status
+- (void)checkRecordStatus {
+    if (nil!=checkoutAddressViewObj) {
+        _noRecordLabel.text=NSLocalizedText(@"norecord");
+        if (checkoutAddressViewObj.cartModelData.customerSavedAddressArray.count == 0) {
+            _noRecordLabel.hidden = NO;
+        } else {
+            _noRecordLabel.hidden = YES;
+        }
+    } else {
+        if (profileData.addressArray.count == 0) {
+            _noRecordLabel.hidden = NO;
+        } else {
+            _noRecordLabel.hidden = YES;
+        }
+    }
+    [_addressTableView reloadData];
 }
 #pragma mark - end
 
@@ -213,7 +234,22 @@
         return [DynamicHeightWidth getDynamicLabelHeight:[UserDefaultManager getValue:@"emailId"] font:[UIFont montserratLightWithSize:16] widthValue:[[UIScreen mainScreen] bounds].size.width-50 heightValue:60]+10;
     }
     else if (indexPath.row==2) {
-        return 30;
+        NSDictionary *addressData;
+        if (nil!=checkoutAddressViewObj) {
+            addressData = [checkoutAddressViewObj.cartModelData.customerSavedAddressArray objectAtIndex:indexPath.row-3];
+            if (checkoutAddressViewObj.cartModelData.customerSavedAddressArray.count == 0) {
+                return 0.0;
+            } else {
+                return 30;
+            }
+        }
+        else {
+            if (profileData.addressArray.count == 0) {
+                return 0.0;
+            } else {
+                return 30;
+            }
+        }
     }
     else {
         NSDictionary *addressData;
@@ -302,7 +338,7 @@
         [myDelegate stopIndicator];
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-            [_addressTableView reloadData];
+            [self checkRecordStatus];
         }];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"deleteAddressSuccess") closeButtonTitle:nil duration:0.0f];
     } onfailure:^(NSError *error) {

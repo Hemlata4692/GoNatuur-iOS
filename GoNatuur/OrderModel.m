@@ -18,6 +18,11 @@
 @synthesize orderStatus;
 @synthesize orderPrice;
 @synthesize orderListingArray;
+@synthesize isOrderInvoice;
+@synthesize isTrackShippment;
+@synthesize orderInvoiceArray;
+@synthesize trackArray;
+@synthesize trackNumber;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -37,9 +42,44 @@
             success (orderData);
         }
     } onFailure:^(NSError *error) {
-        
+        failure(error);
     }];
 }
 #pragma mark - end
 
+#pragma mark - Cancel order
+- (void)cancelOrderService:(void (^)(OrderModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] cancelOrderService:self onSuccess:^(OrderModel *orderData) {
+        if (success) {
+            success (orderData);
+        }
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Get ticket option
+- (void)getTicketOption:(void (^)(OrderModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getTicketOption:self onSuccess:^(OrderModel *orderData) {
+        if (success) {
+            success (orderData);
+        }
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Get order invoice
+- (void)getOrderInvoiceOnSuccess:(void (^)(OrderModel *))success onfailure:(void (^)(NSError *))failure {    
+    [[ConnectionManager sharedManager] getOrderInvoice:self onSuccess:^(OrderModel *orderData) {
+        if (success) {
+            success (orderData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
 @end

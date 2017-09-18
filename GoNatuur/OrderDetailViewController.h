@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface OrderDetailViewController : GoNatuurViewController
-
+@property(nonatomic) NSInteger selectedIndex;
 @end

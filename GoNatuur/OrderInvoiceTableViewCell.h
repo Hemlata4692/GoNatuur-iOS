@@ -1,15 +1,15 @@
 //
-//  OrderDetailCell.h
+//  OrderInvoiceTableViewCell.h
+//  GoNatuur
 //
-//
-//  Created by Monika on 9/9/17.
-//
+//  Created by Ranosys on 15/09/17.
+//  Copyright © 2017 Hemlata Khajanchi. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "OrderModel.h"
 
-@interface OrderDetailCell : UITableViewCell
+@interface OrderInvoiceTableViewCell : UITableViewCell
 
 //Product list labels
 @property (weak, nonatomic) IBOutlet UILabel *productNameHeadingLabel;
@@ -45,28 +45,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *discountHeadingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *discountLabel;
 
-//Shipping address view
-@property (weak, nonatomic) IBOutlet UILabel *shippingAddressTypeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *shippingAddressNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *shippingAddressFirstStreetLabel;
-@property (weak, nonatomic) IBOutlet UILabel *shippingAddressSecondStreetLabel;
-@property (weak, nonatomic) IBOutlet UILabel *shippingAddressPhoneNumberLabel;
+//Shippment track view
+@property (strong, nonatomic) IBOutlet UILabel *trackTItle;
+@property (strong, nonatomic) IBOutlet UIButton *trackNumberButton;
 
-//Billing address view
-@property (weak, nonatomic) IBOutlet UILabel *billingAddressTypeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *billingAddressNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *billingAddressFirstStreetLabel;
-@property (weak, nonatomic) IBOutlet UILabel *billingAddressSecondStreetLabel;
-@property (weak, nonatomic) IBOutlet UILabel *billingAddressPhoneNumberLabel;
-
-//Method types
-@property (weak, nonatomic) IBOutlet UILabel *shippingMethodHeadingLabel;
-@property (weak, nonatomic) IBOutlet UILabel *shippingMethodLabel;
-@property (weak, nonatomic) IBOutlet UILabel *paymentMethodHeadingLabel;
-@property (weak, nonatomic) IBOutlet UILabel *paymentMethodLabel;
-
-- (void)displayProductData:(CGSize)rectSize orderData:(OrderModel *)orderData ticketArray:(NSMutableArray *)ticketArray;
-- (void)displayAddressData:(CGSize)rectSize orderData:(OrderModel *)orderData;
-- (void)displayTotalAmountData:(CGSize)rectSize orderData:(OrderModel *)orderData;
-
+- (void)displayProductData:(float)rectSizeWidth orderData:(OrderModel *)orderData currencyCode:(NSString *)currencyCode;
+- (void)displayTotalAmountData:(float)rectSizeWidth orderData:(OrderModel *)orderData;
+- (void)displayTrackShippment:(float)rectSizeWidth orderData:(OrderModel *)orderData;
 @end

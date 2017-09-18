@@ -59,14 +59,14 @@
         userData.firstName=[[response objectForKey:@"customer"] objectForKey:@"firstname"];
         userData.lastName=[[response objectForKey:@"customer"] objectForKey:@"lastname"];
         if (([[[response objectForKey:@"customer"] objectForKey:@"default_currency"] isEqualToString:@""]||[[response objectForKey:@"customer"] objectForKey:@"default_currency"]==nil) ) {
-             [UserDefaultManager setValue:[response objectForKey:@"local_currency_code"] key:@"DefaultCurrencyCode"];
+            [UserDefaultManager setValue:[response objectForKey:@"local_currency_code"] key:@"DefaultCurrencyCode"];
         }
         else {
-             [UserDefaultManager setValue:[[response objectForKey:@"customer"] objectForKey:@"default_currency"] key:@"DefaultCurrencyCode"];
+            [UserDefaultManager setValue:[[response objectForKey:@"customer"] objectForKey:@"default_currency"] key:@"DefaultCurrencyCode"];
         }
         if (([[[response objectForKey:@"customer"] objectForKey:@"default_language"] isEqualToString:@""]||[[response objectForKey:@"customer"] objectForKey:@"default_language"]==nil) ) {
             [UserDefaultManager setValue:[response objectForKey:@"local_language"] key:@"Language"];
-            }
+        }
         else {
             if ([[[response objectForKey:@"customer"] objectForKey:@"default_language"] isEqualToString:@"4"]) {
                 [UserDefaultManager setValue:@"en" key:@"Language"];
@@ -90,7 +90,7 @@
     LoginService *loginService = [[LoginService alloc] init];
     [loginService loginGuestUser:^(id response) {
         //Parse data from server response and store in data model
-         DLog(@"guest login response %@",response);
+        DLog(@"guest login response %@",response);
         userData.quoteId=[response objectForKey:@"quote_id"];
         [UserDefaultManager setValue:[response objectForKey:@"local_language"] key:@"Language"];
         [UserDefaultManager setValue:[response objectForKey:@"local_currency_code"] key:@"DefaultCurrencyCode"];
@@ -103,15 +103,15 @@
 
 #pragma mark - Send device token
 - (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure
-    {
-        LoginService *loginService = [[LoginService alloc] init];
-        [loginService saveDeviceTokenService:userData onSuccess:^(id response) {
-            success(userData);
-        } onFailure:^(NSError *error) {
-            failure(error);
-        }] ;
-        
-    }
+{
+    LoginService *loginService = [[LoginService alloc] init];
+    [loginService saveDeviceTokenService:userData onSuccess:^(id response) {
+        success(userData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+    
+}
 #pragma mark - end
 
 #pragma mark - Subscribe newsletter
@@ -295,7 +295,7 @@
         if (![[response objectForKey:@"default_currency"] isEqualToString:@""]||[response objectForKey:@"default_currency"]!=nil) {
             [UserDefaultManager setValue:[response objectForKey:@"default_currency"] key:@"DefaultCurrencyCode"];
         }
-
+        
         if (![[response objectForKey:@"default_language"] isEqualToString:@""]||[response objectForKey:@"default_language"]!=nil) {
             if ([[[response objectForKey:@"customer"] objectForKey:@"default_language"] isEqualToString:@"4"]) {
                 [UserDefaultManager setValue:@"en" key:@"Language"];
@@ -695,7 +695,7 @@
             productData.eventPrice=productData.specialPrice;
         }
         else {
-             productData.eventPrice=[NSString stringWithFormat:@"%@",productData.productPrice];
+            productData.eventPrice=[NSString stringWithFormat:@"%@",productData.productPrice];
         }
         productData.productMediaArray=[NSMutableArray new];
         for (NSDictionary *tempDict in [response objectForKey:@"media"]) {
@@ -1016,7 +1016,7 @@
             cartData.customerDict=[response[@"customer"] mutableCopy];
             cartData.customerSavedAddressArray=[cartData.customerDict[@"addresses"] mutableCopy];
             if ([[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] count]>0) {
-                 cartData.shippingAddressDict=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"];
+                cartData.shippingAddressDict=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"];
             }
             cartData.selectedShippingMethod=([cartData.selectedShippingMethod isEqualToString:@""]?@"flatrate":cartData.selectedShippingMethod);
             for (NSDictionary *tempDict in response[@"items"]) {
@@ -1061,8 +1061,8 @@
         cartData.shippmentMethodsArray=[response mutableCopy];
         success(cartData);
     }
-                       onfailure:^(NSError *error) {
-                       }];
+                          onfailure:^(NSError *error) {
+                          }];
 }
 #pragma mark - end
 
@@ -1112,8 +1112,8 @@
         }
         success(cartData);
     }
-                          onfailure:^(NSError *error) {
-                          }];
+                        onfailure:^(NSError *error) {
+                        }];
 }
 #pragma mark - end
 
@@ -1124,8 +1124,8 @@
         DLog(@"Set addresses and shipping methods response %@",response);
         success(cartData);
     }
-                          onfailure:^(NSError *error) {
-                          }];
+                                            onfailure:^(NSError *error) {
+                                            }];
 }
 #pragma mark - end
 
@@ -1169,19 +1169,59 @@
     [orderService getOrderListing:orderData onSuccess:^(id response) {
         DLog(@"order list response %@",response);
         orderData.orderListingArray=[[NSMutableArray alloc]init];
+        orderData.totalProductCount=[response objectForKey:@"total_count"];
         NSArray *dataArray=response[@"items"];
         for (int i =0; i<dataArray.count; i++) {
             NSDictionary * orderDataDict =[dataArray objectAtIndex:i];
             OrderModel * orderListData = [[OrderModel alloc]init];
             orderListData.orderDate = [[orderDataDict[@"created_at"] componentsSeparatedByString:@" "] objectAtIndex:0];
-            orderListData.orderPrice = orderDataDict[@"grand_total"];
-            orderListData.currencyCode = orderDataDict[@"order_currency_code"];
             orderListData.orderStatus = orderDataDict[@"status"];
+            orderListData.orderState = orderDataDict[@"state"];
             orderListData.purchaseOrderId = orderDataDict[@"increment_id"];
+           orderListData.orderId = [[[[[orderDataDict[@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"items"]objectAtIndex:0] objectForKey:@"order_id"];
             orderListData.billingAddressId = orderDataDict[@"billing_address_id"];
             orderListData.shippingAddress = [([[[[[orderDataDict[@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"] objectForKey:@"street"]) componentsJoinedByString:@" "];
             orderListData.BillingAddress = [[orderDataDict[@"billing_address"] objectForKey:@"street"] componentsJoinedByString:@" "];
-            [orderData.orderListingArray addObject:orderListData];
+            orderListData.fullBillingAddress=orderDataDict[@"billing_address"];
+            orderListData.fullShippingAddress=[[[[orderDataDict[@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"];
+            orderListData.shippingMethod = orderDataDict[@"shipping_description"];
+            orderListData.paymentMethod = [[orderDataDict[@"payment"] objectForKey:@"additional_information"] objectAtIndex:0];
+            orderListData.tax = orderDataDict[@"tax_amount"];
+            //Use reusable code order detail handling
+            [orderData.orderListingArray addObject:[self orderDetailHandling:orderDataDict orderDataModel:orderListData isOrderInvoice:false]];
+        }
+        success(orderData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Cancel order
+- (void)cancelOrderService:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure {
+    OrderService *orderService = [[OrderService alloc] init];
+    [orderService cancelOrderService:orderData onSuccess:^(id response) {
+        DLog(@"cancel order response %@",response);
+        success(orderData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Cancel order
+- (void)getTicketOption:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure {
+    OrderService *orderService = [[OrderService alloc] init];
+    [orderService getTicketOption:orderData onSuccess:^(id response) {
+        DLog(@"get ticket response %@",response);
+        orderData.ticketListingArray=[[NSMutableArray alloc]init];
+        NSArray *dataArray=response;
+        for (int i =0; i<dataArray.count; i++) {
+            NSDictionary * orderDataDict =[dataArray objectAtIndex:i];
+            OrderModel * orderListData = [[OrderModel alloc]init];
+            orderListData.ticketProductId = orderDataDict[@"quote_item_id"];
+            orderListData.ticketName = orderDataDict[@"selected_option"];
+            [orderData.ticketListingArray addObject:orderListData];
         }
         success(orderData);
     } onFailure:^(NSError *error) {
