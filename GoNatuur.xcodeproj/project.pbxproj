@@ -1302,7 +1302,6 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				18FA11FE1F6A83AA0001A3B0 /* ProdutGuideModule */,
 				188605961F39C05A0005D1E2 /* GlobalViewModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
 				188605911F39BB720005D1E2 /* DashboardModule */,
@@ -1320,6 +1319,7 @@
 				181FD22B1F601F6300C5373C /* PaymentMethodModule */,
 				180409DD1F58741800EA3E17 /* NewCentreModule */,
 				184C38611F3B3254008B8291 /* NotificationModule */,
+				18FA11FE1F6A83AA0001A3B0 /* ProdutGuideModule */,
 				185036EB1F67E36C0008C0F1 /* ShareViewController */,
 			);
 			name = Controllers;
