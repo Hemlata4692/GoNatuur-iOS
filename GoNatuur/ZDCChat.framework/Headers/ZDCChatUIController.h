@@ -83,7 +83,7 @@ typedef NS_ENUM(NSUInteger, ZDCChatUIState) {
 
 /**
  * Notification that the chat has changed state.
- * @param state
+
  */
 - (void) stateTransitionTo:(ZDCChatUIState)state;
 

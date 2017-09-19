@@ -28,4 +28,6 @@
 - (void)getNewsCategoryData:(DashboardDataModel *)categoryList success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 //News detail service
 - (void)getNewsDetailService:(DashboardDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
+//News filters
+- (void)getNewsListFiltersService:(DashboardDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 @end

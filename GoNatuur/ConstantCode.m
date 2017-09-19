@@ -20,7 +20,7 @@ NSString * const productDetailImageBaseUrl = @"pub/media/catalog/product";//remo
 NSString * const eventIdentifier = @"ticket";
 NSString * const payPalClientId = @"AZR_diRWoS3qEWpUDyI6_K6iRHjKkOMwC93488tbFjugQIxL6OLjg6ces1FwsnR8Bv6F107if32vofmP";
 NSString * const zopimTicketAppId = @"e5dd7520b178e21212f5cc2751a28f4b5a7dc76698dc79bd";
-NSString * const zopimAppId = @"54S60ESovtSg9glT9nUunk1oc7YKGWoi";
+NSString * const zopimAppId = @"571Xf6PB7wWOhtIJHbTNXjMLHk8A0Qzk";
 NSString * const zopimURL = @"https://rememberthedate.zendesk.com";
 NSString * const zopimClientId = @"client_for_rtd_jwt_endpoint";
 

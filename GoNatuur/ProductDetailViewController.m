@@ -284,11 +284,14 @@
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ShareViewController *popView =
         [storyboard instantiateViewControllerWithIdentifier:@"ShareViewController"];
-        popView.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4f];
-        [popView setModalPresentationStyle:UIModalPresentationOverCurrentContext];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self presentViewController:popView animated:YES completion:nil];
-        });
+        
+        NSDictionary *temDict=[productDetailModelData.productMediaArray objectAtIndex:0];
+//        if ([[temDict objectForKey:@"media_type"] isEqualToString:@"QRCode"]) {
+//        }
+        popView.mediaURL=[temDict objectForKey:@"file"];
+        popView.name=productDetailModelData.productName;
+        popView.productDescription=productDetailModelData.productShortDescription;
+        [self.navigationController pushViewController:popView animated:YES];
     }
     else if (indexPath.row==15) {
         //Location action

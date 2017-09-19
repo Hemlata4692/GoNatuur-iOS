@@ -28,6 +28,8 @@
 #import "OrderService.h"
 #import "ProductGuideDataModel.h"
 #import "ProductGuideService.h"
+#import "ShareDataModel.h"
+#import "ShareDataService.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -637,6 +639,19 @@
             }
             [productData.productDataArray addObject:tempModel];
         }
+        success(productData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
+#pragma mark - News list filters data service
+- (void)getNewsCenterFiltersListService:(DashboardDataModel *)productData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    DashboardService *productList=[[DashboardService alloc]init];
+    [productList getNewsListFiltersService:productData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"news filter list response %@",response);
+        productData.archiveOptionsForNews=[response[@"archive_options"] mutableCopy];
         success(productData);
     } onfailure:^(NSError *error) {
     }];
@@ -1358,8 +1373,8 @@
         for (int i=0; i<ratesArray.count; i++) {
             if ([orderDataDict[@"order_currency_code"] containsString:[[ratesArray objectAtIndex:i] currencyExchangeCode]]) {
                 if ([[[ratesArray objectAtIndex:i] currencysymbol] isEqualToString:@""] || [[ratesArray objectAtIndex:i] currencysymbol]==nil) {
-                    productListData.productPrice = [NSString stringWithFormat:@"%@%@",orderDetailDataDict[@"order_currency_code"],[ConstantCode decimalFormatter:[orderDetailDataDict[@"price"] doubleValue]]];
-                    productListData.productSubTotal = [NSString stringWithFormat:@"%@%@",orderDetailDataDict[@"order_currency_code"],[ConstantCode decimalFormatter:[orderDetailDataDict[@"row_total"] doubleValue]]];
+                    productListData.productPrice = [NSString stringWithFormat:@"%@%@",orderDataDict[@"order_currency_code"],[ConstantCode decimalFormatter:[orderDetailDataDict[@"price"] doubleValue]]];
+                    productListData.productSubTotal = [NSString stringWithFormat:@"%@%@",orderDataDict[@"order_currency_code"],[ConstantCode decimalFormatter:[orderDetailDataDict[@"row_total"] doubleValue]]];
                 }
                 else {
                     productListData.productPrice = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],[ConstantCode decimalFormatter:[orderDetailDataDict[@"price"] doubleValue]]];
@@ -1381,6 +1396,7 @@
     }
     return orderListData;
 }
+#pragma mark - end
 
 #pragma mark - Get order invoice
 - (void)getOrderInvoice:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure {
@@ -1426,4 +1442,15 @@
 }
 #pragma mark - end
 
+#pragma mark - Share service
+- (void)shareProductData:(ShareDataModel *)guideData onSuccess:(void (^)(ShareDataModel *guideData))success onFailure:(void (^)(NSError *))failure {
+    ShareDataService *shareService = [[ShareDataService alloc] init];
+    [shareService shareDataService:guideData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        success(guideData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
 @end

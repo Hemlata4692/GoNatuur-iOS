@@ -49,7 +49,6 @@ typedef void (^ZDCOfflineMessageAction) (UIViewController *chatViewController);
  * Create a new offline message override with the defined parameters.
  * @param noAgentsMessage the message body on the 'No agents available' screen
  * @param noAgentsButtonText button text on the 'No agents available' screen
- * @param action block executed when the user taps the button on the 'No agents available' screen
  */
 + (instancetype) offlineHandlerWithMessage:(NSString*)noAgentsMessage
                                 buttonText:(NSString*)noAgentsButtonText;

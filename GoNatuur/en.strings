@@ -250,7 +250,7 @@
 "Comments"="Comments";
 "getTickets"="GET TICKETS";
 "ticketType"="Please Select Your Ticket";
-"shareText"="Share on Social";
+"shareText"="Share on Social Media";
 "price"="Price";
 "AboutUs"="About Us";
 "ContactUs"="Contact Us";
@@ -292,3 +292,4 @@
 "invoiceTitle"="INVOICES";
 "invoice"="Invoice:";
 "shipment"="Shipment:";
+"oldest"="Earliest";

@@ -246,7 +246,7 @@
 "Comments"="注释";
 "getTickets"="获取门票";
 "ticketType"="请选择您的票";
-"shareText"="分享社会";
+"shareText"="分享到社交媒体";
 "price"="价钱";
 "AboutUs"="关于我们";
 "ContactUs"="联系我们";
@@ -301,3 +301,4 @@
 "invoiceTitle"="发票";
 "invoice"="发票:";
 "shipment"="装船:";
+"oldest"="Earliest";
