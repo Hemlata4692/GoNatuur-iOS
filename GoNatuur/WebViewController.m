@@ -74,13 +74,15 @@
             _noDataLabel.hidden=YES;
             [myDelegate showIndicator];
             if ([navigationTitle isEqualToString:NSLocalizedText(@"Where to buy")]) {
-                [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' link='#B62546' text-align:'%@' font-size:15'>%@</body></html>",@"left", productDetaiData] baseURL: nil];
+                [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<div style='text-align:left; font-size:16px;font-family:Montserrat-Light;color:#000000;link:#B62546'>%@", productDetaiData] baseURL: nil];
             }
             else {
-                [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<html><body style='font-family: Montserrat-Light; color:'#000000' link='#B62546' text-align:'%@' font-size:15'>%@</body></html>",@"justify", productDetaiData] baseURL: nil];
+                [_productDetailWebView loadHTMLString:[NSString stringWithFormat:@"<div style='text-align:justify; font-size:16px;font-family:Montserrat-Light;color:#000000;link:#B62546;'>%@", productDetaiData] baseURL: nil];
             }
         }
     }
+//    @"<html><body style='font-family: Montserrat-Light; color:'#000000' link='#B62546' text-align:'left' font-size:16px'>%@</body></html>";
+
 }
 
 - (void)addMapPoints:(NSDictionary *)locationDict {

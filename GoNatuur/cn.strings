@@ -263,6 +263,13 @@
 "checkoutState"="州*";
 "checkoutCity"="市*";
 "checkoutZipCode"="邮政编码*";
+"billingSameAddress"="Same as shipping address:";
+"no"="No";
+"yes"="Yes";
+"sideBarProductGuide"="PRODUCT GUIDE";
+"productGuide"="Product Guide";
+"productGuideText"="PRODUCTS CAN CONTAIN THE BENEFITS OF";
+"noSimilarProducts"="There are no products with this topic";
 "billingSameAddress"="跟邮寄地址一样：";
 "no"="没有";
 "yes"="是";

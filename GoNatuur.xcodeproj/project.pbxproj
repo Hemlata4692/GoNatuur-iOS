@@ -50,6 +50,7 @@
 		1875619A1F469F8600F609AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187561981F469F8600F609AB /* Main.storyboard */; };
 		1875619D1F46AAC500F609AB /* dashboard_banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619B1F46AAC500F609AB /* dashboard_banner1.png */; };
 		1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619C1F46AAC500F609AB /* dashboard_banner2.png */; };
+		187A89B91F6F93EB00E7431A /* ProductGuideSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */; };
 		188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1886058F1F39AF320005D1E2 /* UserNotifications.framework */; };
 		188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605941F39BC430005D1E2 /* DashboardViewController.m */; };
 		1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605991F39C0FC0005D1E2 /* CategorySliderViewController.m */; };
@@ -84,6 +85,11 @@
 		18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */; };
 		18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8FB1F32F46800430842 /* SearchViewController.m */; };
 		18F7A9031F33044100430842 /* BottomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A9011F33044100430842 /* BottomTabViewController.m */; };
+		18FA12021F6A84190001A3B0 /* ProductGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA12011F6A84190001A3B0 /* ProductGuideViewController.m */; };
+		18FA12071F6A84870001A3B0 /* ProductGuideTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA12061F6A84870001A3B0 /* ProductGuideTableViewCell.m */; };
+		18FA120A1F6A84A30001A3B0 /* ProductGuideCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA12091F6A84A30001A3B0 /* ProductGuideCollectionViewCell.m */; };
+		18FA120E1F6ADD680001A3B0 /* ProductGuideDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA120D1F6ADD680001A3B0 /* ProductGuideDataModel.m */; };
+		18FA12121F6ADD8A0001A3B0 /* ProductGuideService.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA12111F6ADD8A0001A3B0 /* ProductGuideService.m */; };
 		18FB17E41F4EA32200B5A4CD /* MONTSERRAT-LIGHTITALIC.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 18FB17E31F4EA32200B5A4CD /* MONTSERRAT-LIGHTITALIC.TTF */; };
 		18FFBC821F629612006C088B /* NewsLetterSubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFBC811F629611006C088B /* NewsLetterSubscriptionViewController.m */; };
 		18FFBC861F62CEBC006C088B /* NewsCenterSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFBC851F62CEBC006C088B /* NewsCenterSearchListViewController.m */; };
@@ -256,6 +262,8 @@
 		187561991F469F8600F609AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1875619B1F46AAC500F609AB /* dashboard_banner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner1.png; sourceTree = "<group>"; };
 		1875619C1F46AAC500F609AB /* dashboard_banner2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner2.png; sourceTree = "<group>"; };
+		187A89B71F6F93EB00E7431A /* ProductGuideSearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGuideSearchListViewController.h; sourceTree = "<group>"; };
+		187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGuideSearchListViewController.m; sourceTree = "<group>"; };
 		1886058F1F39AF320005D1E2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		188605931F39BC430005D1E2 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		188605941F39BC430005D1E2 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
@@ -320,6 +328,16 @@
 		18F7A8FB1F32F46800430842 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		18F7A9001F33044100430842 /* BottomTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomTabViewController.h; sourceTree = "<group>"; };
 		18F7A9011F33044100430842 /* BottomTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomTabViewController.m; sourceTree = "<group>"; };
+		18FA12001F6A84190001A3B0 /* ProductGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGuideViewController.h; sourceTree = "<group>"; };
+		18FA12011F6A84190001A3B0 /* ProductGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGuideViewController.m; sourceTree = "<group>"; };
+		18FA12051F6A84870001A3B0 /* ProductGuideTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGuideTableViewCell.h; sourceTree = "<group>"; };
+		18FA12061F6A84870001A3B0 /* ProductGuideTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGuideTableViewCell.m; sourceTree = "<group>"; };
+		18FA12081F6A84A30001A3B0 /* ProductGuideCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGuideCollectionViewCell.h; sourceTree = "<group>"; };
+		18FA12091F6A84A30001A3B0 /* ProductGuideCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGuideCollectionViewCell.m; sourceTree = "<group>"; };
+		18FA120C1F6ADD680001A3B0 /* ProductGuideDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGuideDataModel.h; sourceTree = "<group>"; };
+		18FA120D1F6ADD680001A3B0 /* ProductGuideDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGuideDataModel.m; sourceTree = "<group>"; };
+		18FA12101F6ADD8A0001A3B0 /* ProductGuideService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGuideService.h; sourceTree = "<group>"; };
+		18FA12111F6ADD8A0001A3B0 /* ProductGuideService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGuideService.m; sourceTree = "<group>"; };
 		18FB17E31F4EA32200B5A4CD /* MONTSERRAT-LIGHTITALIC.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MONTSERRAT-LIGHTITALIC.TTF"; sourceTree = "<group>"; };
 		18FFBC801F629611006C088B /* NewsLetterSubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsLetterSubscriptionViewController.h; sourceTree = "<group>"; };
 		18FFBC811F629611006C088B /* NewsLetterSubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsLetterSubscriptionViewController.m; sourceTree = "<group>"; };
@@ -834,6 +852,15 @@
 			name = NotificationListViewController;
 			sourceTree = "<group>";
 		};
+		187A89B61F6F93B900E7431A /* ProductGuideSearchListing */ = {
+			isa = PBXGroup;
+			children = (
+				187A89B71F6F93EB00E7431A /* ProductGuideSearchListViewController.h */,
+				187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */,
+			);
+			name = ProductGuideSearchListing;
+			sourceTree = "<group>";
+		};
 		188605911F39BB720005D1E2 /* DashboardModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -1198,6 +1225,62 @@
 			name = BottomTabBarView;
 			sourceTree = "<group>";
 		};
+		18FA11FE1F6A83AA0001A3B0 /* ProdutGuideModule */ = {
+			isa = PBXGroup;
+			children = (
+				187A89B61F6F93B900E7431A /* ProductGuideSearchListing */,
+				18FA12041F6A84590001A3B0 /* ProductGuideCollectionCell */,
+				18FA12031F6A84310001A3B0 /* ProductGuideTableViewCell */,
+				18FA11FF1F6A83E50001A3B0 /* ProductGuideViewController */,
+			);
+			name = ProdutGuideModule;
+			sourceTree = "<group>";
+		};
+		18FA11FF1F6A83E50001A3B0 /* ProductGuideViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18FA12001F6A84190001A3B0 /* ProductGuideViewController.h */,
+				18FA12011F6A84190001A3B0 /* ProductGuideViewController.m */,
+			);
+			name = ProductGuideViewController;
+			sourceTree = "<group>";
+		};
+		18FA12031F6A84310001A3B0 /* ProductGuideTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				18FA12051F6A84870001A3B0 /* ProductGuideTableViewCell.h */,
+				18FA12061F6A84870001A3B0 /* ProductGuideTableViewCell.m */,
+			);
+			name = ProductGuideTableViewCell;
+			sourceTree = "<group>";
+		};
+		18FA12041F6A84590001A3B0 /* ProductGuideCollectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				18FA12081F6A84A30001A3B0 /* ProductGuideCollectionViewCell.h */,
+				18FA12091F6A84A30001A3B0 /* ProductGuideCollectionViewCell.m */,
+			);
+			name = ProductGuideCollectionCell;
+			sourceTree = "<group>";
+		};
+		18FA120B1F6ADD4A0001A3B0 /* ProductGuideModel */ = {
+			isa = PBXGroup;
+			children = (
+				18FA120C1F6ADD680001A3B0 /* ProductGuideDataModel.h */,
+				18FA120D1F6ADD680001A3B0 /* ProductGuideDataModel.m */,
+			);
+			name = ProductGuideModel;
+			sourceTree = "<group>";
+		};
+		18FA120F1F6ADD6F0001A3B0 /* ProductGuideService */ = {
+			isa = PBXGroup;
+			children = (
+				18FA12101F6ADD8A0001A3B0 /* ProductGuideService.h */,
+				18FA12111F6ADD8A0001A3B0 /* ProductGuideService.m */,
+			);
+			name = ProductGuideService;
+			sourceTree = "<group>";
+		};
 		18FFBC7E1F6295E1006C088B /* NewsLetterSubscription */ = {
 			isa = PBXGroup;
 			children = (
@@ -1219,24 +1302,25 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				188605961F39C05A0005D1E2 /* GlobalViewModule */,
+				32A3D6B51F1CBABA00062B86 /* LoginModule */,
+				188605911F39BB720005D1E2 /* DashboardModule */,
 				18F464E71F698F18001006EB /* WebPagesModule */,
 				18F464E61F698EB9001006EB /* RedeemModule */,
-				185036EB1F67E36C0008C0F1 /* ShareViewController */,
+				B7AA39BA1F47106600423121 /* ProductModule */,
+				18D2AD241F659C3700B8F605 /* EventDetailsModule */,
+				180ECD381F489AAD003C936E /* ReviewModule */,
+				185F706A1F559D6B007F49F7 /* ProfileModule */,
+				5DAC38201F6177DA00702F92 /* AddressModule */,
+				B77D86DE1F5D83A40041D646 /* MyCartModule */,
+				181AD48C1F5EADEB00AA3C3D /* WishlistModule */,
 				5D2760A11F62765400B6D0FF /* OrderModule */,
 				189162041F614C7C005ED12E /* PaymentDetailsModule */,
 				181FD22B1F601F6300C5373C /* PaymentMethodModule */,
-				188605961F39C05A0005D1E2 /* GlobalViewModule */,
-				181AD48C1F5EADEB00AA3C3D /* WishlistModule */,
-				B77D86DE1F5D83A40041D646 /* MyCartModule */,
 				180409DD1F58741800EA3E17 /* NewCentreModule */,
-				5DAC38201F6177DA00702F92 /* AddressModule */,
-				185F706A1F559D6B007F49F7 /* ProfileModule */,
-				180ECD381F489AAD003C936E /* ReviewModule */,
-				B7AA39BA1F47106600423121 /* ProductModule */,
-				18D2AD241F659C3700B8F605 /* EventDetailsModule */,
-				32A3D6B51F1CBABA00062B86 /* LoginModule */,
-				188605911F39BB720005D1E2 /* DashboardModule */,
 				184C38611F3B3254008B8291 /* NotificationModule */,
+				18FA11FE1F6A83AA0001A3B0 /* ProdutGuideModule */,
+				185036EB1F67E36C0008C0F1 /* ShareViewController */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1244,6 +1328,7 @@
 		320761601F1626F2001F1790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				18FA120B1F6ADD4A0001A3B0 /* ProductGuideModel */,
 				5D2760AA1F62793F00B6D0FF /* OrderModel */,
 				B77D86EC1F5D850F0041D646 /* CartModel */,
 				5D27AC5B1F55647700AECF40 /* ProfileModel */,
@@ -1337,6 +1422,7 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				18FA120F1F6ADD6F0001A3B0 /* ProductGuideService */,
 				5D2760AE1F627AD800B6D0FF /* OrderService */,
 				B77D86F01F5D85270041D646 /* CartService */,
 				5D27AC5F1F55674E00AECF40 /* ProfileService */,
@@ -2281,6 +2367,7 @@
 				185036E61F67A7510008C0F1 /* EventDetailViewController.m in Sources */,
 				189162081F614CD2005ED12E /* CardListViewController.m in Sources */,
 				32A3D6FF1F1CD2B800062B86 /* FacebookConnect.m in Sources */,
+				18FA12021F6A84190001A3B0 /* ProductGuideViewController.m in Sources */,
 				18FFBC821F629612006C088B /* NewsLetterSubscriptionViewController.m in Sources */,
 				18F464EF1F69902B001006EB /* RedeemTableViewCell.m in Sources */,
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
@@ -2299,6 +2386,7 @@
 				181FD2311F601FA900C5373C /* PayPalPaymentOption.m in Sources */,
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
 				B77A8A781F34388800233782 /* SignUpViewController.m in Sources */,
+				18FA12071F6A84870001A3B0 /* ProductGuideTableViewCell.m in Sources */,
 				B7A86ECD1F3B3D85004DA530 /* CMSPageViewController.m in Sources */,
 				187561971F469F3800F609AB /* NotificationViewController.m in Sources */,
 				B7AA39C01F47108D00423121 /* ProductListingViewController.m in Sources */,
@@ -2323,12 +2411,16 @@
 				185036EA1F67D9860008C0F1 /* NewsCentreDetailViewController.m in Sources */,
 				1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */,
 				187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */,
+				18FA120A1F6A84A30001A3B0 /* ProductGuideCollectionViewCell.m in Sources */,
 				B7A4D3ED1F48278A00A28BBE /* ProductDetailViewController.m in Sources */,
+				18FA120E1F6ADD680001A3B0 /* ProductGuideDataModel.m in Sources */,
 				5D0CB20E1F63FF16008043B6 /* OrderDetailViewController.m in Sources */,
+				18FA12121F6ADD8A0001A3B0 /* ProductGuideService.m in Sources */,
 				B7A4D3FD1F4857C900A28BBE /* ProductService.m in Sources */,
 				185C58021F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m in Sources */,
 				1875618D1F469B2800F609AB /* NotificationService.m in Sources */,
 				B7A4D3FA1F4854CC00A28BBE /* ProductDataModel.m in Sources */,
+				187A89B91F6F93EB00E7431A /* ProductGuideSearchListViewController.m in Sources */,
 				B77A8A7D1F346C1200233782 /* SocialLoginViewController.m in Sources */,
 				18C418E01F56E9D500749654 /* UIImage+UIImage_fixOrientation.m in Sources */,
 				180ECD401F48A1D1003C936E /* ReviewDataModel.m in Sources */,

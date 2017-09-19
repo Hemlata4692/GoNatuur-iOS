@@ -10,6 +10,7 @@
 #import "SearchListingViewController.h"
 #import "SearchDataModel.h"
 #import "NewsCenterSearchListViewController.h"
+#import "ProductGuideSearchListViewController.h"
 
 @interface SearchViewController () {
 @private
@@ -98,7 +99,7 @@
         [_searchTimer invalidate];
         _searchTimer = nil;
     }
-    if (![screenType isEqualToString:@"News"]) {
+    if (![screenType isEqualToString:@"News"] && ![screenType isEqualToString:@"Product Guide"]) {
     // reschedule the search: in 1.0 second, call the searchForKeyword: method on the new textfield content
     _searchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                     target: self
@@ -120,17 +121,23 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    if (![screenType isEqualToString:@"News"]) {
-    if (![textField.text isEqualToString:@""]) {
-        SearchListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListingViewController"];
-        obj.searchKeyword=_searchTextField.text;
-        [self.navigationController pushViewController:obj animated:true];
-    }
-    }
-    else {
+    if ([screenType isEqualToString:@"News"]) {
         NewsCenterSearchListViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NewsCenterSearchListViewController"];
         obj.searchKeyword=_searchTextField.text;
         [self.navigationController pushViewController:obj animated:true];
+    }
+    else if ([screenType isEqualToString:@"Product Guide"]) {
+        //navigate to product guide search listing
+        ProductGuideSearchListViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductGuideSearchListViewController"];
+        obj.searchKeyword=_searchTextField.text;
+        [self.navigationController pushViewController:obj animated:true];
+    }
+    else {
+        if (![textField.text isEqualToString:@""]) {
+            SearchListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListingViewController"];
+            obj.searchKeyword=_searchTextField.text;
+            [self.navigationController pushViewController:obj animated:true];
+        }
     }
     return YES;
 }

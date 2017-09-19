@@ -160,7 +160,7 @@
         return 80;
     }
     else if (indexPath.row==3) {
-        return 50;
+        return 60;
     }
     else if (indexPath.row==4) {
         return 36.0;

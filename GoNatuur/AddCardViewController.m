@@ -77,7 +77,7 @@
     [_cvvField addTextFieldPaddingWithoutImages:_cvvField];
     [_emailField addTextFieldPaddingWithoutImages:_emailField];
     //customisation of save button
-    [_saveButton setCornerRadius:17.0];
+    [_saveButton setCornerRadius:20.0];
     [_saveButton addShadow:_saveButton color:[UIColor blackColor]];
     _mainView.translatesAutoresizingMaskIntoConstraints=YES;
     _mainView.frame=CGRectMake([[UIScreen mainScreen] bounds].origin.x, [[UIScreen mainScreen] bounds].origin.y+115, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-65);

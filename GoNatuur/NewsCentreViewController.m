@@ -68,7 +68,6 @@
     searchView.screenType=@"News";
     [self.navigationController pushViewController:searchView animated:YES];
 }
-
 #pragma mark - end
 
 #pragma mark - View initialization

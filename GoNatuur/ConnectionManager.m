@@ -26,6 +26,8 @@
 #import "CartService.h"
 #import "OrderModel.h"
 #import "OrderService.h"
+#import "ProductGuideDataModel.h"
+#import "ProductGuideService.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -1195,6 +1197,56 @@
 }
 #pragma mark - end
 
+#pragma mark - Product guide service
+- (void)getGuideCategory:(ProductGuideDataModel *)guideData onSuccess:(void (^)(ProductGuideDataModel *guideData))success onFailure:(void (^)(NSError *))failure {
+    ProductGuideService *guideService = [[ProductGuideService alloc] init];
+    [guideService getGuideCategoryService:guideData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        guideData.guideCategoryDataArray=[[NSMutableArray alloc]init];
+        NSArray *dataArray=[response mutableCopy];
+        DLog(@"response %@",response);
+        for (int i =0; i<dataArray.count; i++) {
+            NSDictionary * dataDict =[dataArray objectAtIndex:i];
+            ProductGuideDataModel *categoryGuideData=[[ProductGuideDataModel alloc]init];
+            categoryGuideData.categoryName=[dataDict objectForKey:@"name"];
+            categoryGuideData.categoryDescription=[dataDict objectForKey:@"description"];
+            categoryGuideData.categoryId=[dataDict objectForKey:@"category_id"];
+            [guideData.guideCategoryDataArray addObject:categoryGuideData];
+        }
+        success(guideData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Product guide details service
+- (void)getGuideDetailsCategory:(ProductGuideDataModel *)guideData onSuccess:(void (^)(ProductGuideDataModel *guideData))success onFailure:(void (^)(NSError *))failure {
+    ProductGuideService *guideService = [[ProductGuideService alloc] init];
+    [guideService getGuideCategoryDetailsService:guideData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        guideData.postDataArray=[[NSMutableArray alloc]init];
+        guideData.totalProductCount=response[@"total_count"];
+        NSArray *dataArray=[response[@"items"] mutableCopy];
+        DLog(@"response %@",response);
+        for (int i =0; i<dataArray.count; i++) {
+            NSDictionary * dataDict =[dataArray objectAtIndex:i];
+            ProductGuideDataModel *categoryGuideData=[[ProductGuideDataModel alloc]init];
+            categoryGuideData.postId=[dataDict objectForKey:@"post_id"];
+            categoryGuideData.postName=[dataDict objectForKey:@"name"];
+            categoryGuideData.postImage=[dataDict objectForKey:@"image"];
+            categoryGuideData.postContent=[dataDict objectForKey:@"post_content"];
+            categoryGuideData.shortDescription=[dataDict objectForKey:@"short_description"];
+            categoryGuideData.tagline=[dataDict objectForKey:@"tagline"];
+            [guideData.postDataArray addObject:categoryGuideData];
+        }
+        success(guideData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
 #pragma mark - Cancel order
 - (void)cancelOrderService:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure {
     OrderService *orderService = [[OrderService alloc] init];
@@ -1207,7 +1259,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Cancel order
+#pragma mark - Get ticket options
 - (void)getTicketOption:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure {
     OrderService *orderService = [[OrderService alloc] init];
     [orderService getTicketOption:orderData onSuccess:^(id response) {
@@ -1228,6 +1280,7 @@
 }
 #pragma mark - end
 
+#pragma mark - Order data handling
 - (OrderModel *)orderDetailHandling:(NSDictionary *)orderDataDict orderDataModel:(OrderModel *)orderListData isOrderInvoice:(BOOL)isOrderInvoice {
     orderListData.discountDescription = orderDataDict[@"discount_description"];
     NSMutableArray *ratesArray=[NSMutableArray new];
@@ -1359,4 +1412,5 @@
     }] ;
 }
 #pragma mark - end
+
 @end

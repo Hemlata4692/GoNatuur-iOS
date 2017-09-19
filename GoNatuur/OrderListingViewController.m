@@ -113,7 +113,7 @@
         } else if (indexPath.row==2) {
             return 80;
         } else if (indexPath.row==3) {
-            return 55;
+            return 60;
         }
     }
     else  {
