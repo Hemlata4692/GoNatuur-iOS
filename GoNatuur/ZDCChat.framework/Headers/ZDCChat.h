@@ -62,7 +62,7 @@ typedef void (^ZDCVisitorConfigBlock) (ZDCVisitorInfo *visitor);
 
 /**
  * Session config block.
- * @param info the session info object which can be used to set pre-chat data requirements and session metadata
+ * @param config the session info object which can be used to set pre-chat data requirements and session metadata
  */
 typedef void (^ZDCConfigBlock) (ZDCConfig *config);
 

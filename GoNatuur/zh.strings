@@ -261,7 +261,7 @@
 "Comments"="註釋";
 "getTickets"="獲取門票";
 "ticketType"="請選擇您的票";
-"shareText"="分享社會";
+"shareText"="分享到社交媒體";
 "price"="價錢";
 "AboutUs"="關於我們";
 "ContactUs"="聯繫我們";
@@ -313,3 +313,4 @@
 "productGuide"="Product Guide";
 "productGuideText"="PRODUCTS CAN CONTAIN THE BENEFITS OF";
 "noSimilarProducts"="There are no products with this topic";
+"oldest"="Earliest";

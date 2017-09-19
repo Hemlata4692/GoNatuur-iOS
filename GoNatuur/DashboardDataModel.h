@@ -39,6 +39,7 @@
 @property (strong, nonatomic) NSString *lastName;
 @property (strong, nonatomic) NSString *newsType;
 @property (strong, nonatomic) NSString *newsContent;
+@property (strong, nonatomic) NSMutableArray *archiveOptionsForNews;
 
 //Singleton method
 + (instancetype)sharedUser;
@@ -58,4 +59,6 @@
 - (void)getNewsCategoryListDataOnSuccess:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
 ///News detail data
 - (void)getNewsDetailDataService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Filters
+- (void)getNewsListFiltersDataService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

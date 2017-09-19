@@ -19,6 +19,7 @@
 @class CartDataModel;
 @class OrderModel;
 @class ProductGuideDataModel;
+@class ShareDataModel;
 
 @interface ConnectionManager : NSObject
 
@@ -128,4 +129,8 @@
 - (void)getOrderInvoice:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure;
 //Add events to cart
 - (void)addEventsToCartProductService:(ProductDataModel *)productData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure;
+//Share
+- (void)shareProductData:(ShareDataModel *)guideData onSuccess:(void (^)(ShareDataModel *guideData))success onFailure:(void (^)(NSError *))failure;
+//Filters
+- (void)getNewsCenterFiltersListService:(DashboardDataModel *)productData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 @end

@@ -18,6 +18,7 @@ static NSString *kNewsListData=@"ranosys/news/getList";
 static NSString *kNewsDetailData=@"ranosys/news/getById";
 static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
 static NSString *kNwesCategory=@"ranosys/news/getNewsCategory";
+static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
 
 @implementation DashboardService
 
@@ -155,6 +156,12 @@ static NSString *kNwesCategory=@"ranosys/news/getNewsCategory";
     }
     NSLog(@"news list request %@",parameters);
     [super post:kNewsListData parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Get News filters data
+- (void)getNewsListFiltersService:(DashboardDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    [super get:kNwesFilters parameters:nil onSuccess:success onFailure:failure];
 }
 #pragma mark - end
 

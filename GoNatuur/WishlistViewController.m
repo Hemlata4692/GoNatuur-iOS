@@ -134,7 +134,7 @@
 - (SearchCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     SearchCollectionViewCell *searchCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"searchCell" forIndexPath:indexPath];
     [searchCell displayProductListData:[wishlistProductsArray objectAtIndex:indexPath.item] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
-    [searchCell.removeItemButton addShadow:searchCell.removeItemButton color:[UIColor blueColor]];
+    [searchCell.removeItemButton addShadow:searchCell.removeItemButton color:[UIColor blackColor]];
     [searchCell.removeItemButton addTarget:self action:@selector(removeItemFromWishlist:) forControlEvents:UIControlEventTouchUpInside];
     searchCell.removeItemButton.tag=indexPath.item;
     return searchCell;

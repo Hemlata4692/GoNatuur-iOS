@@ -53,7 +53,7 @@
 
 /**
  * View the image from an attachment.
- * @param the image to view
+ * @param image image to view
  * @param imageView the source UIImageView that contains the image
  */
 - (void) viewAttachmentImage:(UIImage*)image fromView:(UIImageView*)imageView;
@@ -70,7 +70,6 @@
 /**
  * Notify that an option has been selected.
  * @param event the event for which an option was selected
- * @param index the index of the selected
  */
 - (void) optionSelected:(ZDCChatEvent*)event;
 
@@ -113,7 +112,7 @@
 /**
  * Set a new chat rating.
  * @param ratingEvent the chat log event for the rating
- * @param rating the new rating
+ * @param newRating the new rating
  */
 - (void) setChatRating:(ZDCChatEvent*)ratingEvent to:(ZDCChatRating)newRating;
 

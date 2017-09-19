@@ -27,6 +27,7 @@
     GoNatuurPickerView *gNPickerViewObj;
     int currentCategoryId;
     int lastSelectedCategoryId;
+    NSMutableArray *archiveOptionsArray, *sortingDataArray;
 }
 
 @property (strong, nonatomic) IBOutlet UILabel *noRecordLabel;
@@ -38,9 +39,12 @@
 
 @implementation NewsCentreViewController
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    archiveOptionsArray=[[NSMutableArray alloc]init];
+    sortingDataArray=[[NSMutableArray alloc]initWithObjects:NSLocalizedText(@"mostRecent"),NSLocalizedText(@"oldest"), nil];
     //Add custom picker view and initialized indexs
     [self addCustomPickerView];
 }
@@ -102,14 +106,8 @@
     //Add filter xib view
     filterViewObj=[[GoNatuurFilterView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35) delegate:self];
     filterViewObj.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35);
-    [filterViewObj setButtonTitles:NSLocalizedText(@"Filter") subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:NSLocalizedText(@"Sortby")];
+    [filterViewObj setButtonTitles:((archiveOptionsArray.count>0)?[archiveOptionsArray objectAtIndex:selectedFirstFilterIndex]:@"") subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:((sortingDataArray.count>0)?[sortingDataArray objectAtIndex:selectedFirstFilterIndex]:@"")];
     //Customized filter view
-    filterViewObj.firstFilterButtonOutlet.enabled=false;
-    filterViewObj.secondFilterButtonOutlet.enabled=false;
-    filterViewObj.firstFilterButtonOutlet.alpha=0.5;
-    filterViewObj.secondFilterButtonOutlet.alpha=0.5;
-    filterViewObj.firstFilterArrowImageView.alpha=0.4;
-    filterViewObj.secondFilterArrowImageView.alpha=0.4;
     //Set initial index of picker view and initialized picker view
     selectedFirstFilterIndex=0;
     selectedSubCategoryIndex=0;
@@ -257,7 +255,7 @@
     [userLogin CMSPageService:^(LoginModel *userData) {
         self.navigationItem.title=userData.cmsTitle;
         [self parseImageFromTag:userData.cmsContent];
-        [self getNewsListData];
+        [self getNewsArchiveFilters];
         
     } onfailure:^(NSError *error) {
     }];
@@ -300,6 +298,29 @@
     [productList getNewsListDataService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];
         [self serviceDataHandling:productData];
+    } onfailure:^(NSError *error) {
+        [_refreshControl endRefreshing];
+    }];
+}
+
+//Get news filters list service
+- (void)getNewsArchiveFilters {
+    DashboardDataModel *productList = [DashboardDataModel sharedUser];
+    [productList getNewsListFiltersDataService:^(DashboardDataModel *productData)  {
+        [self getNewsListData];
+        for (int i=0; i<productData.archiveOptionsForNews.count; i++) {
+            NSString *dateString = [productData.archiveOptionsForNews objectAtIndex:i];
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"MM/yyyy"];
+            NSDate *date = [[NSDate alloc] init];
+            date = [dateFormatter dateFromString:dateString];
+            // converting into our required date format
+            [dateFormatter setDateFormat:@"MMMM YYYY"];
+            NSString *reqDateString = [dateFormatter stringFromDate:date];
+            [archiveOptionsArray insertObject:reqDateString atIndex:i];
+        }
+        [archiveOptionsArray insertObject:NSLocalizedText(@"All") atIndex:0];
+        [filterViewObj.firstFilterButtonOutlet setTitle:[archiveOptionsArray objectAtIndex:0] forState:UIControlStateNormal];
     } onfailure:^(NSError *error) {
         [_refreshControl endRefreshing];
     }];
@@ -355,6 +376,16 @@
             [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false];
         }
     }
+    else if (option==2) {
+        if (archiveOptionsArray.count>0) {
+            [gNPickerViewObj showPickerView:archiveOptionsArray selectedIndex:selectedFirstFilterIndex option:2 isCancelDelegate:false];
+        }
+    }
+    else{
+        if (sortingDataArray.count>0) {
+            [gNPickerViewObj showPickerView:sortingDataArray selectedIndex:selectedSecondFilterIndex option:3 isCancelDelegate:false];
+        }
+    }
 }
 #pragma mark - end
 
@@ -362,7 +393,7 @@
 - (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {
     if (option==1) {
         if (selectedSubCategoryIndex!=tempSelectedIndex) {
-            selectedSubCategoryIndex=tempSelectedIndex;
+            selectedFirstFilterIndex=tempSelectedIndex;
             [filterViewObj.subCategoryButtonOutlet setTitle:[subCategoryPickerArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
             currentCategoryId=[[[subCategoryDataList objectAtIndex:selectedSubCategoryIndex] objectForKey:@"category_id"] intValue];
             bannerImageUrl=@"";
@@ -371,6 +402,28 @@
             currentpage=1;
             [myDelegate showIndicator];
             [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
+        }
+    }//selectedFirstFilterIndex
+    else  if (option==2) {
+        if (selectedFirstFilterIndex!=tempSelectedIndex) {
+            selectedFirstFilterIndex=tempSelectedIndex;
+            [filterViewObj.firstFilterButtonOutlet setTitle:[archiveOptionsArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
+//            productListDataArray=[NSMutableArray new];
+//            totalProductCount=0;
+//            currentpage=1;
+//            [myDelegate showIndicator];
+//            [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
+        }
+    }
+    else {
+        if (selectedSecondFilterIndex!=tempSelectedIndex) {
+            selectedSecondFilterIndex=tempSelectedIndex;
+            [filterViewObj.secondFilterButtonOutlet setTitle:[sortingDataArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
+            //            productListDataArray=[NSMutableArray new];
+            //            totalProductCount=0;
+            //            currentpage=1;
+            //            [myDelegate showIndicator];
+            //            [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
         }
     }
 }

@@ -38,6 +38,7 @@
 @synthesize lastName;
 @synthesize newsType;
 @synthesize newsContent;
+@synthesize archiveOptionsForNews;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -111,6 +112,18 @@
 #pragma mark - News list data service
 - (void)getNewsListDataService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getNewsCenterListService:self onSuccess:^(DashboardDataModel *productData) {
+        if (success) {
+            success (productData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - News list filters service
+- (void)getNewsListFiltersDataService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getNewsCenterFiltersListService:self onSuccess:^(DashboardDataModel *productData) {
         if (success) {
             success (productData);
         }
