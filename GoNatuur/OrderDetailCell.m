@@ -224,7 +224,7 @@
     _skuHeadingLabel.text = NSLocalizedText(@"skuTitle");
     _eventSkuHeadingLabel.text = NSLocalizedText(@"skuTitle");
     _ticketOptionHeadingLanbel.text = NSLocalizedText(@"optionSelectTitle");
-    _priceHeadingLabel.text = NSLocalizedText(@"price");
+    _priceHeadingLabel.text = NSLocalizedText(@"priceHeading");
     _quantityHeadingLabel.text = NSLocalizedText(@"QtyTitle");
     _subtotalHeadingLabel.text = NSLocalizedText(@"totalAmountTitle");
     // Order total label

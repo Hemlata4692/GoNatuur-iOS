@@ -277,11 +277,12 @@
 "complete"="complete";
 "close"="close";
 "return"="return";
+"cancel"="cancel";
 "productNameTitle"="Product Name:";
-"skuTitle"="SKU";
+"skuTitle"="SKU:";
 "optionSelectTitle"="Option Select:";
 "QtyTitle"="Qty:";
-"totalAmountTitle"="Total Amount";
+"totalAmountTitle"="Total Amount:";
 "subtotalTitle"="Subtotal";
 "ShippingChargeTitle"="Shipping & Handling";
 "taxTitle"="Tax";

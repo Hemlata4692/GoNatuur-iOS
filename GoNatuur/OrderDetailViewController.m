@@ -298,7 +298,7 @@
         [myDelegate stopIndicator];
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-            orderDataModel.orderState = NSLocalizedText(@"alertCancel");
+            orderDataModel.orderState = NSLocalizedText(@"cancel");
             [self setTableFrames];
         }];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"cancelOrderSuccessMessage") closeButtonTitle:nil duration:0.0f];
@@ -353,7 +353,7 @@
         _cancelOrderButton.hidden = NO;
         _orderShipmentButton.hidden = NO;
         _invoiceButton.hidden = NO;
-    } else if ([[orderDataModel.orderState lowercaseString] containsString:[NSLocalizedText(@"alertCancel")lowercaseString]] || [[orderDataModel.orderStatus lowercaseString] containsString:NSLocalizedText(@"close")] || [[orderDataModel.orderStatus lowercaseString] containsString:NSLocalizedText(@"return")]) {
+    } else if ([[orderDataModel.orderState lowercaseString] containsString:[NSLocalizedText(@"cancel")lowercaseString]] || [[orderDataModel.orderStatus lowercaseString] containsString:NSLocalizedText(@"close")] || [[orderDataModel.orderStatus lowercaseString] containsString:NSLocalizedText(@"return")]) {
         _cancelOrderButton.hidden = YES;
         _invoiceButton.hidden = NO;
         _orderShipmentButton.hidden = NO;

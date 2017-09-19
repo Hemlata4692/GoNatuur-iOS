@@ -873,6 +873,7 @@
             countryData.regionArray=[[NSMutableArray alloc]init];
             NSDictionary * dataDict =[countryArray objectAtIndex:i];
             countryData.countryLocale=[dataDict objectForKey:@"full_name_locale"];
+            countryData.countryNameEnglish=[dataDict objectForKey:@"full_name_english"];
             countryData.countryId=[dataDict objectForKey:@"id"];
             NSArray *regionListArray = [[NSArray alloc]init];
             regionListArray = [dataDict objectForKey:@"available_regions"];

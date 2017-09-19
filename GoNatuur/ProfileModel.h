@@ -13,6 +13,7 @@
 @property (strong, nonatomic) NSString *currentPassword;
 @property (strong, nonatomic) NSString *changePassword;
 //Country code list
+@property (strong, nonatomic) NSString *countryNameEnglish;
 @property (strong, nonatomic) NSString *countryLocale;
 @property (strong, nonatomic) NSString *countryId;
 @property (strong, nonatomic) NSMutableArray *countryCodeArray;

@@ -402,7 +402,7 @@
     ProfileModel *changePasswordModel = [ProfileModel sharedUser];
     [changePasswordModel getCountryCodeService:^(ProfileModel *userData) {
         [myDelegate stopIndicator];
-        NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"countryId" ascending:YES];
+        NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"countryNameEnglish" ascending:YES];
         countryCodeArray = [userData.countryCodeArray
                             sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
         if (isEditScreen) {
