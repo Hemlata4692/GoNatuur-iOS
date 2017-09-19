@@ -119,8 +119,8 @@
         }
     }
     else  {
-        float height =[DynamicHeightWidth getDynamicLabelHeight:orderDataModel.shippingAddress font:[UIFont montserratRegularWithSize:14] widthValue:_orderListTableView.frame.size.width-132 heightValue:50];
-        float billHeight =[DynamicHeightWidth getDynamicLabelHeight:orderDataModel.BillingAddress font:[UIFont montserratRegularWithSize:14] widthValue:_orderListTableView.frame.size.width-132 heightValue:50];
+        float height =[DynamicHeightWidth getDynamicLabelHeight:orderDataModel.shippingAddress font:[UIFont montserratLightWithSize:14] widthValue:_orderListTableView.frame.size.width-132 heightValue:50];
+        float billHeight =[DynamicHeightWidth getDynamicLabelHeight:orderDataModel.BillingAddress font:[UIFont montserratLightWithSize:14] widthValue:_orderListTableView.frame.size.width-132 heightValue:50];
         return 105 + height + billHeight;
     }
     return 0;
