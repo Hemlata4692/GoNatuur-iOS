@@ -28,6 +28,8 @@
 #import "OrderService.h"
 #import "ProductGuideDataModel.h"
 #import "ProductGuideService.h"
+#import "PaymentService.h"
+#import "PaymentModel.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -1423,6 +1425,43 @@
     } onFailure:^(NSError *error) {
         failure(error);
     }] ;
+}
+#pragma mark - end
+
+#pragma mark - Get card listing
+- (void)getCardListing:(PaymentModel *)paymentData onSuccess:(void (^)(PaymentModel *paymentData))success onFailure:(void (^)(NSError *))failure {
+    {
+        PaymentService *paymentService = [[PaymentService alloc] init];
+        [paymentService getCardListing:paymentData onSuccess:^(id response) {
+            DLog(@"getCardListing response %@",response);
+            paymentData.cardListArray = [[NSMutableArray alloc]init];
+            NSArray *dataArray=response[@"items"];
+            for (int i =0; i<dataArray.count; i++) {
+                NSDictionary * paymentDataDict =[dataArray objectAtIndex:i];
+                PaymentModel * paymentListData = [[PaymentModel alloc]init];
+                paymentListData.cardId = paymentDataDict[@"card_id"];;
+                paymentListData.subscriptionId = paymentDataDict[@"subscription_id"];
+                paymentListData.firstname = paymentDataDict[@"firstname"];
+                paymentListData.lastname = paymentDataDict[@"lastname"];
+                paymentListData.postcode = paymentDataDict[@"postcode"];
+                paymentListData.countryId = paymentDataDict[@"country_id"];
+                paymentListData.regionId = paymentDataDict[@"region_id"];
+                paymentListData.state = paymentDataDict[@"state"];
+                paymentListData.city = paymentDataDict[@"city"];
+                paymentListData.company = paymentDataDict[@"company"];
+                paymentListData.street = paymentDataDict[@"street"];
+                paymentListData.telephone = paymentDataDict[@"telephone"];
+                paymentListData.cardExpMonth = paymentDataDict[@"cc_exp_month"];
+                paymentListData.cardExpYear = paymentDataDict[@"cc_exp_year"];
+                paymentListData.cardLastFourDigit = paymentDataDict[@"cc_last_4"];
+                paymentListData.cardType = paymentDataDict[@"cc_type"];
+                [paymentData.cardListArray addObject:paymentListData];
+            }
+            success(paymentData);
+        } onFailure:^(NSError *error) {
+            failure(error);
+        }] ;
+    }
 }
 #pragma mark - end
 

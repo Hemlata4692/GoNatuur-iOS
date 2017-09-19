@@ -141,6 +141,8 @@
 		5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC39511F61783F00702F92 /* AddressListingViewController.m */; };
 		5DAC39551F61783F00702F92 /* AddressListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC39531F61783F00702F92 /* AddressListingCell.m */; };
 		5DC7840D1F6637160025CA4A /* OrderDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DC7840C1F6637160025CA4A /* OrderDetailCell.m */; };
+		B71EFB4D1F712E730033DC52 /* PaymentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B71EFB4C1F712E730033DC52 /* PaymentModel.m */; };
+		B71EFB511F712F550033DC52 /* PaymentService.m in Sources */ = {isa = PBXBuildFile; fileRef = B71EFB501F712F550033DC52 /* PaymentService.m */; };
 		B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = B73A65371F3DF0630051E4C5 /* LocalizedString.m */; };
 		B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653A1F3DF07F0051E4C5 /* en.strings */; };
 		B73A653E1F3DF0870051E4C5 /* cn.strings in Resources */ = {isa = PBXBuildFile; fileRef = B73A653C1F3DF0870051E4C5 /* cn.strings */; };
@@ -432,6 +434,10 @@
 		5DC7840B1F6637160025CA4A /* OrderDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailCell.h; sourceTree = "<group>"; };
 		5DC7840C1F6637160025CA4A /* OrderDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailCell.m; sourceTree = "<group>"; };
 		B01E94B39C4DB6785A6FF962 /* Pods-GoNatuur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoNatuur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur.debug.xcconfig"; sourceTree = "<group>"; };
+		B71EFB4B1F712E730033DC52 /* PaymentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentModel.h; sourceTree = "<group>"; };
+		B71EFB4C1F712E730033DC52 /* PaymentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentModel.m; sourceTree = "<group>"; };
+		B71EFB4F1F712F550033DC52 /* PaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentService.h; sourceTree = "<group>"; };
+		B71EFB501F712F550033DC52 /* PaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentService.m; sourceTree = "<group>"; };
 		B73A65361F3DF0630051E4C5 /* LocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedString.h; sourceTree = "<group>"; };
 		B73A65371F3DF0630051E4C5 /* LocalizedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedString.m; sourceTree = "<group>"; };
 		B73A653A1F3DF07F0051E4C5 /* en.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
@@ -1371,6 +1377,7 @@
 		320761601F1626F2001F1790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B71EFB4A1F712E0F0033DC52 /* PaymentModel */,
 				18FA120B1F6ADD4A0001A3B0 /* ProductGuideModel */,
 				5D2760AA1F62793F00B6D0FF /* OrderModel */,
 				B77D86EC1F5D850F0041D646 /* CartModel */,
@@ -1466,6 +1473,7 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				B71EFB4E1F712F2F0033DC52 /* PaymentService */,
 				18FA120F1F6ADD6F0001A3B0 /* ProductGuideService */,
 				5D2760AE1F627AD800B6D0FF /* OrderService */,
 				B77D86F01F5D85270041D646 /* CartService */,
@@ -1874,6 +1882,24 @@
 				5DAC39511F61783F00702F92 /* AddressListingViewController.m */,
 			);
 			name = AddressListingViewController;
+			sourceTree = "<group>";
+		};
+		B71EFB4A1F712E0F0033DC52 /* PaymentModel */ = {
+			isa = PBXGroup;
+			children = (
+				B71EFB4B1F712E730033DC52 /* PaymentModel.h */,
+				B71EFB4C1F712E730033DC52 /* PaymentModel.m */,
+			);
+			name = PaymentModel;
+			sourceTree = "<group>";
+		};
+		B71EFB4E1F712F2F0033DC52 /* PaymentService */ = {
+			isa = PBXGroup;
+			children = (
+				B71EFB4F1F712F550033DC52 /* PaymentService.h */,
+				B71EFB501F712F550033DC52 /* PaymentService.m */,
+			);
+			name = PaymentService;
 			sourceTree = "<group>";
 		};
 		B73A65351F3DF0530051E4C5 /* LocalizedString */ = {
@@ -2491,6 +2517,7 @@
 				B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */,
 				B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */,
 				18F464EC1F698FFC001006EB /* RedeemViewController.m in Sources */,
+				B71EFB511F712F550033DC52 /* PaymentService.m in Sources */,
 				B7F570F51F67FA220006C9BB /* FinalCheckoutViewController.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				B7DA71F31F5034F300F45439 /* HCYoutubeParser.m in Sources */,
@@ -2505,6 +2532,7 @@
 				188605A51F39C6890005D1E2 /* DynamicHeightWidth.m in Sources */,
 				18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */,
 				B7AA39C51F47116700423121 /* ProductListCollectionViewCell.m in Sources */,
+				B71EFB4D1F712E730033DC52 /* PaymentModel.m in Sources */,
 				180ECD331F485B56003C936E /* EDStarRating.m in Sources */,
 				32BAA6091F1360280015E355 /* main.m in Sources */,
 				1891620C1F614CEF005ED12E /* AddCardViewController.m in Sources */,

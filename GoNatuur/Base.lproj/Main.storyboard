@@ -526,7 +526,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="87.5" y="274" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="274" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -3756,15 +3756,28 @@
                                     <segue destination="hYm-mi-9wh" kind="show" id="PWK-Yt-vtX"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cla-et-z0E">
+                                <rect key="frame" x="0.0" y="273" width="320" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="qlp-qM-FVO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                                <color key="textColor" red="0.36862745099999999" green="0.36862745099999999" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Cla-et-z0E" secondAttribute="trailing" id="3p7-WT-Idv"/>
                             <constraint firstAttribute="trailing" secondItem="dtS-aP-8RQ" secondAttribute="trailing" id="4eF-uq-tzr"/>
                             <constraint firstItem="2Xx-D9-dBZ" firstAttribute="top" secondItem="dtS-aP-8RQ" secondAttribute="bottom" constant="20" id="EYq-0v-ZG4"/>
+                            <constraint firstItem="Opw-5a-EMG" firstAttribute="top" secondItem="Cla-et-z0E" secondAttribute="bottom" constant="274" id="Kom-a8-tdi"/>
+                            <constraint firstItem="Cla-et-z0E" firstAttribute="top" secondItem="HuH-Kw-eIm" secondAttribute="bottom" constant="209" id="QpW-fX-dds"/>
                             <constraint firstItem="dtS-aP-8RQ" firstAttribute="top" secondItem="HuH-Kw-eIm" secondAttribute="bottom" constant="41" id="aXF-33-G6w"/>
                             <constraint firstItem="dtS-aP-8RQ" firstAttribute="leading" secondItem="RQf-rW-3z9" secondAttribute="leading" id="bEW-LS-frJ"/>
                             <constraint firstItem="2Xx-D9-dBZ" firstAttribute="leading" secondItem="RQf-rW-3z9" secondAttribute="leadingMargin" constant="4" id="hhz-1r-P6N"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2Xx-D9-dBZ" secondAttribute="trailing" constant="4" id="nMW-J9-21l"/>
+                            <constraint firstItem="Cla-et-z0E" firstAttribute="leading" secondItem="RQf-rW-3z9" secondAttribute="leading" id="qUL-oc-Tsl"/>
                             <constraint firstItem="Opw-5a-EMG" firstAttribute="top" secondItem="2Xx-D9-dBZ" secondAttribute="bottom" constant="73" id="uEH-xk-ZTy"/>
                         </constraints>
                     </view>
@@ -3774,6 +3787,7 @@
                     <connections>
                         <outlet property="addCardButton" destination="2Xx-D9-dBZ" id="dAp-bs-o7a"/>
                         <outlet property="cardsListTableView" destination="dtS-aP-8RQ" id="o8C-Pi-BHA"/>
+                        <outlet property="noRecordLabel" destination="Cla-et-z0E" id="zg6-4y-sId"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DNo-It-d54" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -7028,7 +7042,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="87.5" y="274" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="274" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>

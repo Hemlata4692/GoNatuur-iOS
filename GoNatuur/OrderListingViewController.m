@@ -47,6 +47,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.title=NSLocalizedText(@"orderTitle");
+    _noRecordLabel.text=NSLocalizedText(@"norecord");
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:false];
     totalProductCount=0;
