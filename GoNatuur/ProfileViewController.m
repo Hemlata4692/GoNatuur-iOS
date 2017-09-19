@@ -14,6 +14,8 @@
 #import "ProfileModel.h"
 #import "PayPalPaymentOption.h"
 #import "RedeemViewController.h"
+#import <ZDCChat/ZDCChat.h>
+#import <ZendeskSDK/ZendeskSDK.h>
 
 @interface ProfileViewController ()<GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,PayPalPaymentDelegate>{
     NSArray *menuItemsArray, *customerSupportArray;
@@ -102,10 +104,26 @@
     if (option==1) {
         //navigate to screen needed
         if (tempSelectedIndex==0) {
-            //chat screen
+            //chat action
+            [ZDCChat updateVisitor:^(ZDCVisitorInfo *visitor) {
+                visitor.phone = [UserDefaultManager getValue:@"mobileNumber"];
+                visitor.name = [UserDefaultManager getValue:@"firstname"];
+                visitor.email = [UserDefaultManager getValue:@"emailId"];
+            }];
+            
+            [ZDCChat startChatIn:[UIApplication sharedApplication].keyWindow.rootViewController.navigationController withConfig:^(ZDCConfig *config) {
+                config.preChatDataRequirements.name = ZDCPreChatDataNotRequired;
+                config.preChatDataRequirements.email = ZDCPreChatDataNotRequired;
+                config.preChatDataRequirements.phone = ZDCPreChatDataNotRequired;
+                config.preChatDataRequirements.department = ZDCPreChatDataNotRequired;
+                config.preChatDataRequirements.message = ZDCPreChatDataRequired;
+                config.tags = @[@"iPhoneGoPurposeChat"];
+            }];
         }
         else {
             //raise ticket screen
+            [ZDKConfig instance].userIdentity = [[ZDKJwtIdentity alloc] initWithJwtUserIdentifier:[UserDefaultManager getValue:@"emailId"]];
+            [ZDKRequests presentRequestListWithViewController:self];
         }
         selectedPickerIndex=tempSelectedIndex;
     }
@@ -164,7 +182,6 @@
 }
 
 - (IBAction)redeemPointsButtonAction:(id)sender {
- 
     RedeemViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"RedeemViewController"];
     obj.visitedFromScreen=@"profile";
     [self.navigationController pushViewController:obj animated:YES];

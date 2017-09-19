@@ -726,12 +726,25 @@
     ProductService *productDetailData=[[ProductService alloc]init];
     [productDetailData addToCartProduct:productData success:^(id response) {
         //Parse data from server response and store in data model
-        DLog(@"category list response %@",response);
+        DLog(@"add to cart response %@",response);
         success(productData);
     } onfailure:^(NSError *error) {
     }];
 }
 #pragma mark - end
+
+#pragma mark - Add events to cart service
+- (void)addEventsToCartProductService:(ProductDataModel *)productData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
+    ProductService *productDetailData=[[ProductService alloc]init];
+    [productDetailData addTicketsToCartProduct:productData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"events add to cart response %@",response);
+        success(productData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
 
 #pragma mark - Review list service
 - (void)getReviewListing:(ReviewDataModel *)reviewData onSuccess:(void (^)(ReviewDataModel *userData))success onFailure:(void (^)(NSError *))failure {

@@ -17,6 +17,15 @@
 		180ECD401F48A1D1003C936E /* ReviewDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD3F1F48A1D1003C936E /* ReviewDataModel.m */; };
 		180ECD441F48A215003C936E /* ReviewService.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD431F48A215003C936E /* ReviewService.m */; };
 		1813BDBC1F55E6F300D9C9BA /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813BDBB1F55E6F300D9C9BA /* ProfileTableViewCell.m */; };
+		1818444B1F70E0600077E48C /* ZDCChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181844471F70E0600077E48C /* ZDCChat.framework */; };
+		1818444C1F70E0600077E48C /* ZDCChatAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181844481F70E0600077E48C /* ZDCChatAPI.framework */; };
+		1818444D1F70E0600077E48C /* ZendeskProviderSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181844491F70E0600077E48C /* ZendeskProviderSDK.framework */; };
+		1818444E1F70E0600077E48C /* ZendeskSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1818444A1F70E0600077E48C /* ZendeskSDK.framework */; };
+		181844541F70E08C0077E48C /* ZendeskSDKStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 181844501F70E08C0077E48C /* ZendeskSDKStrings.bundle */; };
+		181844551F70E08C0077E48C /* ZendeskSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 181844511F70E08C0077E48C /* ZendeskSDK.bundle */; };
+		181844561F70E08C0077E48C /* ZDCChat.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 181844521F70E08C0077E48C /* ZDCChat.bundle */; };
+		181844571F70E08C0077E48C /* ZDCChatStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 181844531F70E08C0077E48C /* ZDCChatStrings.bundle */; };
+		1818445B1F70E0F10077E48C /* ChatStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818445A1F70E0F10077E48C /* ChatStyling.m */; };
 		181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181853261F3D833F00EEB73B /* DashboardDataModel.m */; };
 		1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532A1F3D8A7F00EEB73B /* DashboardService.m */; };
 		1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532E1F3DFED000EEB73B /* ImageCaching.m */; };
@@ -207,6 +216,16 @@
 		180ECD431F48A215003C936E /* ReviewService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewService.m; sourceTree = "<group>"; };
 		1813BDBA1F55E6F300D9C9BA /* ProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewCell.h; sourceTree = "<group>"; };
 		1813BDBB1F55E6F300D9C9BA /* ProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewCell.m; sourceTree = "<group>"; };
+		181844471F70E0600077E48C /* ZDCChat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZDCChat.framework; sourceTree = "<group>"; };
+		181844481F70E0600077E48C /* ZDCChatAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZDCChatAPI.framework; sourceTree = "<group>"; };
+		181844491F70E0600077E48C /* ZendeskProviderSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZendeskProviderSDK.framework; sourceTree = "<group>"; };
+		1818444A1F70E0600077E48C /* ZendeskSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZendeskSDK.framework; sourceTree = "<group>"; };
+		181844501F70E08C0077E48C /* ZendeskSDKStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZendeskSDKStrings.bundle; sourceTree = "<group>"; };
+		181844511F70E08C0077E48C /* ZendeskSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZendeskSDK.bundle; sourceTree = "<group>"; };
+		181844521F70E08C0077E48C /* ZDCChat.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZDCChat.bundle; sourceTree = "<group>"; };
+		181844531F70E08C0077E48C /* ZDCChatStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZDCChatStrings.bundle; sourceTree = "<group>"; };
+		181844591F70E0F10077E48C /* ChatStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatStyling.h; sourceTree = "<group>"; };
+		1818445A1F70E0F10077E48C /* ChatStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatStyling.m; sourceTree = "<group>"; };
 		181853251F3D833F00EEB73B /* DashboardDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardDataModel.h; sourceTree = "<group>"; };
 		181853261F3D833F00EEB73B /* DashboardDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardDataModel.m; sourceTree = "<group>"; };
 		181853291F3D8A7F00EEB73B /* DashboardService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardService.h; sourceTree = "<group>"; };
@@ -496,8 +515,11 @@
 				181FD2261F60195900C5373C /* OpenGLES.framework in Frameworks */,
 				181FD2241F60195200C5373C /* SystemConfiguration.framework in Frameworks */,
 				181FD2221F60194C00C5373C /* Security.framework in Frameworks */,
+				1818444D1F70E0600077E48C /* ZendeskProviderSDK.framework in Frameworks */,
+				1818444E1F70E0600077E48C /* ZendeskSDK.framework in Frameworks */,
 				181FD2201F60194700C5373C /* SafariServices.framework in Frameworks */,
 				187129091F48DD2B00D16581 /* MediaPlayer.framework in Frameworks */,
+				1818444B1F70E0600077E48C /* ZDCChat.framework in Frameworks */,
 				188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */,
 				181FD21D1F6018E400C5373C /* libopencv_core.a in Frameworks */,
 				32A3D7111F1CE3BB00062B86 /* GoogleSymbolUtilities.framework in Frameworks */,
@@ -511,6 +533,7 @@
 				181FD2181F6018C000C5373C /* libPayPalMobile.a in Frameworks */,
 				32A3D7041F1CD2E100062B86 /* Bolts.framework in Frameworks */,
 				32A3D7141F1CE3BB00062B86 /* GoogleSignIn.framework in Frameworks */,
+				1818444C1F70E0600077E48C /* ZDCChatAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,6 +648,26 @@
 				1813BDB91F55E6CA00D9C9BA /* ProfileViewCell */,
 			);
 			name = ProfileView;
+			sourceTree = "<group>";
+		};
+		1818444F1F70E0780077E48C /* ZopimFiles */ = {
+			isa = PBXGroup;
+			children = (
+				181844501F70E08C0077E48C /* ZendeskSDKStrings.bundle */,
+				181844511F70E08C0077E48C /* ZendeskSDK.bundle */,
+				181844521F70E08C0077E48C /* ZDCChat.bundle */,
+				181844531F70E08C0077E48C /* ZDCChatStrings.bundle */,
+			);
+			name = ZopimFiles;
+			sourceTree = "<group>";
+		};
+		181844581F70E0E50077E48C /* ZopimChat */ = {
+			isa = PBXGroup;
+			children = (
+				181844591F70E0F10077E48C /* ChatStyling.h */,
+				1818445A1F70E0F10077E48C /* ChatStyling.m */,
+			);
+			name = ZopimChat;
 			sourceTree = "<group>";
 		};
 		181853241F3D832200EEB73B /* DashboardModel */ = {
@@ -1384,6 +1427,7 @@
 		320761651F162733001F1790 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				181844581F70E0E50077E48C /* ZopimChat */,
 				18A3B1131F669D7700A453A7 /* Annotation */,
 				181FD20F1F60188300C5373C /* PaypalSDK */,
 				B7DA71F01F5034E500F45439 /* HCYoutubeParser */,
@@ -1562,6 +1606,10 @@
 		32A3D7001F1CD2CD00062B86 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				181844471F70E0600077E48C /* ZDCChat.framework */,
+				181844481F70E0600077E48C /* ZDCChatAPI.framework */,
+				181844491F70E0600077E48C /* ZendeskProviderSDK.framework */,
+				1818444A1F70E0600077E48C /* ZendeskSDK.framework */,
 				32A3D70B1F1CE3BB00062B86 /* GoogleSignInDependencies.framework */,
 				32A3D70C1F1CE3BB00062B86 /* GoogleSymbolUtilities.framework */,
 				32A3D70D1F1CE3BB00062B86 /* GoogleAppUtilities.framework */,
@@ -1619,6 +1667,7 @@
 		32BAA6071F1360280015E355 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1818444F1F70E0780077E48C /* ZopimFiles */,
 				B73A65391F3DF0740051E4C5 /* LocalizableStringFiles */,
 				188605A61F39C8090005D1E2 /* Fonts */,
 				32A3D7001F1CD2CD00062B86 /* Framework */,
@@ -2283,8 +2332,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				181844541F70E08C0077E48C /* ZendeskSDKStrings.bundle in Resources */,
 				188605A11F39C1FA0005D1E2 /* CategorySliderCell.xib in Resources */,
 				B7AA39B91F47102100423121 /* GoNatuurPickerView.xib in Resources */,
+				181844551F70E08C0077E48C /* ZendeskSDK.bundle in Resources */,
 				32A3D7131F1CE3BB00062B86 /* GoogleSignIn.bundle in Resources */,
 				184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */,
 				32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */,
@@ -2298,9 +2349,11 @@
 				188605AD1F39D7620005D1E2 /* Montserrat-Light.otf in Resources */,
 				188605A81F39C8220005D1E2 /* Montserrat-SemiBold.otf in Resources */,
 				1875619D1F46AAC500F609AB /* dashboard_banner1.png in Resources */,
+				181844561F70E08C0077E48C /* ZDCChat.bundle in Resources */,
 				1886059C1F39C0FC0005D1E2 /* CategorySliderViewController.xib in Resources */,
 				188605AE1F39D7620005D1E2 /* Montserrat-Medium.otf in Resources */,
 				B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */,
+				181844571F70E08C0077E48C /* ZDCChatStrings.bundle in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
 				B73E00E31F4184DF001DEBA2 /* Montserrat-Bold.otf in Resources */,
 				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
@@ -2476,6 +2529,7 @@
 				188B2C131F41DFA50001A7AE /* SearchDataModel.m in Sources */,
 				B74581211F39C8EA00A164D6 /* UIFont+CustomFont.m in Sources */,
 				18DA65D71F665BCC0057B5B4 /* TicketTableViewCell.m in Sources */,
+				1818445B1F70E0F10077E48C /* ChatStyling.m in Sources */,
 				188B2C0A1F419E8B0001A7AE /* SearchListingViewController.m in Sources */,
 				180409E01F58744B00EA3E17 /* NewsCentreViewController.m in Sources */,
 				B7F570F01F67B4B20006C9BB /* WishlistViewController.m in Sources */,

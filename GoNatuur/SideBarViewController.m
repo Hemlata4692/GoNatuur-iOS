@@ -136,8 +136,9 @@
         //        }
     }
     else if (indexPath.row==5) {
-        myDelegate.selectedCategoryIndex=-1;
-        [myDelegate checkGuestAccess];
+        if (![myDelegate checkGuestAccess]) {
+            myDelegate.selectedCategoryIndex=-1;
+        }
     }
     else if (indexPath.row==6) {
          myDelegate.selectedCategoryIndex=-1;
