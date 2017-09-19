@@ -61,7 +61,7 @@
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_titleTextField, _reviewTextView]]];
     [_keyboardControls setDelegate:self];
     //customisation of objects
-    [_submitReviewButton setCornerRadius:17.0];
+    [_submitReviewButton setCornerRadius:20.0];
     [_submitReviewButton addShadow:_submitReviewButton color:[UIColor blackColor]];
     [_titleTextField setTextBorder:_titleTextField color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     [_titleTextField addTextFieldLeftRightPadding:_titleTextField];

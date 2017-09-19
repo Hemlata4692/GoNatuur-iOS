@@ -123,8 +123,8 @@
     [_lastNameTextField addTextFieldPaddingWithoutImages:_lastNameTextField];
     [_changeLaguageTextField addTextFieldPaddingWithoutImages:_changeLaguageTextField];
     [_changeCurrencyTextField addTextFieldPaddingWithoutImages:_changeCurrencyTextField];
-    //customisation of change password button
-    [_saveButton setCornerRadius:17.0];
+    //customisation of save button
+    [_saveButton setCornerRadius:20.0];
     [_saveButton addShadow:_saveButton color:[UIColor blackColor]];
     [_userImageView setBorder:_userImageView color:[UIColor colorWithRed:194.0/255.0 green:194.0/255.0 blue:194.0/255.0 alpha:1.0] borderWidth:3.0];
     [_userImageView setCornerRadius:60.0];

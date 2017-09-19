@@ -27,7 +27,7 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    menuItemsArray = @[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications",@"AboutUs",@"ContactUs",@"NewsLetter", @"Signout"];
+    menuItemsArray = @[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications",@"AboutUs",@"ContactUs",@"NewsLetter",@"ProductGuide", @"Signout"];
     // Remove extra seperator from table view
     [self viewCustomisationAndData];
 }
@@ -41,7 +41,7 @@
     [super viewWillAppear:animated];
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
     _sideBarTableView.scrollEnabled=YES;
-     sideBarLabelArray=@[NSLocalizedText(@"sideBarOrder"), NSLocalizedText(@"sideBarPayment"), NSLocalizedText(@"sideBarRedeemPoints"),NSLocalizedText(@"sideBarEvents"), NSLocalizedText(@"sideBarNewsCentre"), NSLocalizedText(@"sideBarNotifications"), NSLocalizedText(@"sideBarAboutUs"), NSLocalizedText(@"sideBarContactUs"), NSLocalizedText(@"sideBarNewsLetter"),NSLocalizedText(@"sideBarSignOut")];
+     sideBarLabelArray=@[NSLocalizedText(@"sideBarOrder"), NSLocalizedText(@"sideBarPayment"), NSLocalizedText(@"sideBarRedeemPoints"),NSLocalizedText(@"sideBarEvents"), NSLocalizedText(@"sideBarNewsCentre"), NSLocalizedText(@"sideBarNotifications"), NSLocalizedText(@"sideBarAboutUs"), NSLocalizedText(@"sideBarContactUs"), NSLocalizedText(@"sideBarNewsLetter"),NSLocalizedText(@"sideBarProductGuide"),NSLocalizedText(@"sideBarSignOut")];
     [_sideBarTableView reloadData];
 }
 
@@ -96,7 +96,7 @@
     
     UILabel *cellLabel=(UILabel *) [cell viewWithTag:1];
     UIImageView *cellImage=(UIImageView *) [cell viewWithTag:20];
-    if (indexPath.row==9&&(nil==[UserDefaultManager getValue:@"userId"])) {
+    if (indexPath.row==10&&(nil==[UserDefaultManager getValue:@"userId"])) {
         cellLabel.text=NSLocalizedText(@"sideBarLogin");
         cellImage.image=[UIImage imageNamed:@"login"];
     }
@@ -112,8 +112,9 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==0) {
-        myDelegate.selectedCategoryIndex=-1;
-        [myDelegate checkGuestAccess];
+        if (![myDelegate checkGuestAccess]) {
+             myDelegate.selectedCategoryIndex=-1;
+        }
     }
     else if (indexPath.row==1) {
         if (![myDelegate checkGuestAccess]) {
@@ -156,6 +157,9 @@
         });
     }
     else if (indexPath.row==9) {
+        myDelegate.selectedCategoryIndex=-1;
+    }
+    else if (indexPath.row==10) {
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
             myDelegate.selectedCategoryIndex=-1;
             [myDelegate logoutUser];
@@ -182,13 +186,13 @@
 #pragma mark - Navigation segue identifier
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
-        if([identifier isEqualToString:@"My Orders"]) {
+        if([identifier isEqualToString:@"MyOrders"]) {
             return NO;
         }
         else if([identifier isEqualToString:@"Payment"]) {
             return NO;
         }
-        else if([identifier isEqualToString:@"Redeem Points"]) {
+        else if([identifier isEqualToString:@"RedeemPoints"]) {
             return NO;
         }
         else if([identifier isEqualToString:@"Notifications"]) {

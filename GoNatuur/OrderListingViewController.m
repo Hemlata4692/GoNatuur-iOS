@@ -13,7 +13,7 @@
 #import "UIImage+UIImage_fixOrientation.h"
 #import "ProfileModel.h"
 #import "OrderDetailViewController.h"
-
+#import "UIView+Toast.h"
 
 @interface OrderListingViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
@@ -113,7 +113,7 @@
         } else if (indexPath.row==2) {
             return 80;
         } else if (indexPath.row==3) {
-            return 55;
+            return 60;
         }
     }
     else  {
@@ -185,7 +185,7 @@
         orderDateLabel.attributedText=string;
         [sectionView addSubview:orderDateLabel];
         //Add a custom Separator with Section view
-        UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(15, 61, _orderListTableView.frame.size.width - 30, 1)];
+        UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(10, 61, _orderListTableView.frame.size.width - 20, 1)];
         separatorLineView.backgroundColor = [UIColor lightGrayColor];
         [sectionView addSubview:separatorLineView];
         arrowView = [[UIImageView alloc] initWithFrame:CGRectMake(_orderListTableView.frame.size.width - 25, (sectionView.frame.size.height/2) - 6, 12, 12)];
@@ -265,6 +265,10 @@
 #pragma mark - end
 
 #pragma mark - IBAction
+- (IBAction)trackShippingButtonAction:(id)sender {
+    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+}
+
 - (IBAction)editUserImageAction:(UIButton *)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedText(@"TakePhoto")delegate:self cancelButtonTitle: NSLocalizedText(@"alertCancel") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedText(@"Camera"), NSLocalizedText(@"Gallery"), nil];
     [actionSheet showInView:self.view];

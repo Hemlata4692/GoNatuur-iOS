@@ -18,6 +18,11 @@
 @synthesize orderStatus;
 @synthesize orderPrice;
 @synthesize orderListingArray;
+@synthesize isOrderInvoice;
+@synthesize isTrackShippment;
+@synthesize orderInvoiceArray;
+@synthesize trackArray;
+@synthesize trackNumber;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -66,4 +71,15 @@
 }
 #pragma mark - end
 
+#pragma mark - Get order invoice
+- (void)getOrderInvoiceOnSuccess:(void (^)(OrderModel *))success onfailure:(void (^)(NSError *))failure {    
+    [[ConnectionManager sharedManager] getOrderInvoice:self onSuccess:^(OrderModel *orderData) {
+        if (success) {
+            success (orderData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
 @end

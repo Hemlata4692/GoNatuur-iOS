@@ -63,7 +63,7 @@
     [_changePassword addTextFieldPaddingWithoutImages:_changePassword];
     [_confirmPassword addTextFieldPaddingWithoutImages:_confirmPassword];
     //customisation of change password button
-    [_changePasswordButton setCornerRadius:17.0];
+    [_changePasswordButton setCornerRadius:20.0];
     [_changePasswordButton addShadow:_changePasswordButton color:[UIColor blackColor]];
     [_changePasswordButton setTitle:NSLocalizedText(@"changePassword") forState:UIControlStateNormal];
     _oldPassword.placeholder=NSLocalizedText(@"currentPasswordPlaceholder");

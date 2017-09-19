@@ -35,7 +35,7 @@
     [self addLeftBarButtonWithImage:false];
     
     [_addCardButton setTitle:NSLocalizedText(@"addCard") forState:UIControlStateNormal];
-    [_addCardButton setCornerRadius:17.0];
+    [_addCardButton setCornerRadius:20.0];
     [_addCardButton addShadow:_addCardButton color:[UIColor blackColor]];
     
     //remove extra lines from table view

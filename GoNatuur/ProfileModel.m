@@ -69,7 +69,6 @@
     another.regionCode= [self.regionCode mutableCopyWithZone: zone];
     another.regionName= [self.regionName mutableCopyWithZone: zone];
     another.addressArray= [self.addressArray mutableCopyWithZone: zone];
-    
     return another;
 }
 

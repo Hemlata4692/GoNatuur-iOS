@@ -56,7 +56,7 @@
 #pragma mark - end
 
 #pragma mark - Webservice
-- (void)getSerachProductListing{
+- (void)getSerachProductListing {
     SearchDataModel *searchData = [SearchDataModel sharedUser];
     searchData.serachKeyword=searchKeyword;
     searchData.searchPageCount=[@(pageCount) stringValue];
