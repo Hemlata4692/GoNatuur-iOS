@@ -328,6 +328,7 @@
 - (IBAction)invoiceButtonAction:(id)sender {
     UIStoryboard *storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     OrderInvoiceViewController * nextView=[storyBoard instantiateViewControllerWithIdentifier:@"OrderInvoiceViewController"];
+    nextView.orderId=orderDataModel.orderId;
     [self.navigationController pushViewController:nextView animated:YES];
 }
 

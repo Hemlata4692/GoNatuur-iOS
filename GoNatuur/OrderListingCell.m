@@ -22,7 +22,7 @@
 }
 
 - (void)displayData:(CGSize)rectSize {
-    [_trackShippingButton setCornerRadius:17.0];
+    [_trackShippingButton setCornerRadius:20.0];
     [_trackShippingButton addShadow:_trackShippingButton color:[UIColor blackColor]];
     [_userProfileImage setBorder:_userProfileImage color:[UIColor colorWithRed:138.0/255.0 green:28.0/255.0 blue:53.0/255.0 alpha:1.0] borderWidth:3.0];
     _totalPointsHeadingLabel.text=NSLocalizedText(@"totalPoints");

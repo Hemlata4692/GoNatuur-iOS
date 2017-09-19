@@ -77,7 +77,7 @@
 
 - (void)viewCustomisation {
     //customisation of objects
-    [_writeReviewButton setCornerRadius:17.0];
+    [_writeReviewButton setCornerRadius:20.0];
     [_writeReviewButton addShadow:_writeReviewButton color:[UIColor blackColor]];
     [_searchTextField addTextFieldLeftRightPadding:_searchTextField];
     //Bring front view picker view

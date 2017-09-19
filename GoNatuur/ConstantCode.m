@@ -14,7 +14,6 @@ NSString * const iOS_Version = @"10.0";
 //Client
 //NSString * const BaseUrl = @"http://dev.gonatuur.com/";
 //Beta
-//NSString * const BaseUrl = @"http://192.121.166.226/gopurpose/";
 NSString * const BaseUrl = @"http://192.121.166.226:81/gopurpose/";
 NSString * const productImageBaseUrl = @"media/catalog/category";
 NSString * const productDetailImageBaseUrl = @"media/catalog/product";

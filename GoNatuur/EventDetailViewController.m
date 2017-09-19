@@ -146,7 +146,7 @@
         return tempHeight+5;
     }
     else if (indexPath.row==8) {
-        return 45;
+        return 50;
     }
     return 50;
 }
@@ -457,7 +457,7 @@
 }
 
 //Add to cart
-- (void)addToCartProductService {
+- (void)addTicketsToCartProductService {
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productQuantity=productDetailModelData.productQuantity;
     productData.productSku=productDetailModelData.productSku;
@@ -537,7 +537,7 @@
 - (IBAction)insertInCartItemAction:(UIButton *)sender {
     productDetailModelData.productQuantity=[NSNumber numberWithInt:currentQuantity];
     [myDelegate showIndicator];
-    [self performSelector:@selector(addToCartProductService) withObject:nil afterDelay:.1];
+    [self performSelector:@selector(addTicketsToCartProductService) withObject:nil afterDelay:.1];
 }
 
 - (IBAction)selectTicketType:(UIButton *)sender {
