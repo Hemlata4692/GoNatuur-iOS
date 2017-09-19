@@ -42,7 +42,8 @@
 @property (strong, nonatomic) NSMutableArray *attendiesArray;
 @property (strong, nonatomic) NSMutableArray *ticketingArray;
 @property (strong, nonatomic) NSMutableArray *locationDataArray;
-
+@property (strong, nonatomic) NSString *selectedTicketOption;
+@property (strong, nonatomic) NSString *selectedTicketOptionValue;
 //Singleton method
 + (instancetype)sharedUser;
 
@@ -60,6 +61,10 @@
 
 //Unfollow product
 - (void)unFollowProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
+
 //Add to cart service
 - (void)addToCartProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
+
+//Add to events to cart
+- (void)addEventsToCartProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

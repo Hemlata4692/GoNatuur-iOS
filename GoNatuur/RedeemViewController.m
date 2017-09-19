@@ -16,6 +16,7 @@
 #import "UIImage+UIImage_fixOrientation.h"
 #import "ProfileModel.h"
 #import "ProductDetailViewController.h"
+#import "UIView+Toast.h"
 
 @interface RedeemViewController ()<UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
     NSMutableArray *productListDataArray, *subCategoryDataList, *subCategoryPickerArray;
@@ -191,6 +192,7 @@
     }
     else if (indexPath.row==3) {
          [cell displayData:_redeemListTableView.frame.size];
+         [cell.impactPointsOverview addTarget:self action:@selector(imapctPointsOverviewButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     else if (indexPath.row==4) {
          [cell.contentView addSubview:filterViewObj.goNatuurFilterViewObj];
@@ -259,6 +261,9 @@
     [actionSheet showInView:self.view];
 }
 
+- (IBAction)imapctPointsOverviewButtonAction:(id)sender {
+    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+}
 #pragma mark - end
 
 #pragma mark - Action sheet delegate

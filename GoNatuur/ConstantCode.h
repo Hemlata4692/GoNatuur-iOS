@@ -31,6 +31,10 @@ extern NSString * const productImageBaseUrl;
 extern NSString * const productDetailImageBaseUrl;
 extern NSString * const eventIdentifier;
 extern NSString * const payPalClientId;
+extern NSString * const zopimTicketAppId;
+extern NSString * const zopimAppId;
+extern NSString * const zopimURL;
+extern NSString * const zopimClientId;
 //end
 
 + (ConstantType)checkDeviceType;
