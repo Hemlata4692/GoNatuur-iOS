@@ -101,7 +101,6 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
                                              }
                        };
     }
-    
     else if ([productData.newsType isEqualToString:@"search"]) {
         parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
                                                      @{
@@ -109,25 +108,70 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
                                                                  @{@"field":@"is_active",
                                                                    @"value":@"1",
                                                                    @"condition_type": @"eq"
-                                                                   },
-                                                                 @{@"field":@"title",
-                                                                   @"value": productData.categoryName,
-                                                                   @"condition_type":@"like"
-                                                                   },
-                                                                 @{@"field":@"content_heading",
-                                                                   @"value": productData.categoryName,
-                                                                   @"condition_type":@"like"
-                                                                   },
-                                                                 @{@"field":@"content",
-                                                                   @"value": productData.categoryName,
-                                                                   @"condition_type":@"like"
-                                                                   },
-                                                                 @{@"field":@"author_name",
-                                                                   @"value": productData.categoryName,
-                                                                   @"condition_type":@"like"
                                                                    }
                                                                  ]
+                                                         },
+                                                         @{ @"filters": @[
+                                                                    @{@"field":@"title",
+                                                                      @"value": productData.categoryName,
+                                                                      @"condition_type":@"like"
+                                                                      },
+                                                                    @{@"field":@"content_heading",
+                                                                      @"value": productData.categoryName,
+                                                                      @"condition_type":@"like"
+                                                                      },
+                                                                    @{@"field":@"content",
+                                                                      @"value": productData.categoryName,
+                                                                      @"condition_type":@"like"
+                                                                      },
+                                                                    @{@"field":@"author_name",
+                                                                      @"value": productData.categoryName,
+                                                                      @"condition_type":@"like"
+                                                                      }
+                                                                    ]
                                                          }
+                                                     ],
+                                             @"page_size" : productData.pageSize,
+                                             @"current_page" : productData.currentPage
+                                             }
+                       };
+    }
+    else if ([productData.newsType isEqualToString:@"filter"]) {
+        parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                     @{
+                                                         @"filters": @[
+                                                                 @{@"field":@"is_active",
+                                                                   @"value":@"1",
+                                                                   @"condition_type": @"eq"
+                                                                   }
+                                                                 ]
+                                                         },
+                                                     @{ @"filters": @[
+                                                                @{@"field":@"category",
+                                                                  @"value": productData.categoryId,
+                                                                  @"condition_type":@"eq"
+                                                                  }
+                                                                ]
+                                                        },
+                                                     @{ @"filters": @[
+                                                                @{@"field":@"publish_time",
+                                                                  @"value": productData.filterValue,
+                                                                  @"condition_type":@"gteq"
+                                                                  }
+                                                                ]
+                                                        },
+                                                     @{ @"filters": @[
+                                                                @{@"field":@"publish_time",
+                                                                  @"value": productData.filterValue,
+                                                                  @"condition_type":@"lteq"
+                                                                  }
+                                                                ]
+                                                        }
+                                                     ],
+                                             @"sort_orders":@[@{
+                                                                  @"field":@"publish_time",
+                                                                  @"direction":productData.sortingValue
+                                                                  }
                                                      ],
                                              @"page_size" : productData.pageSize,
                                              @"current_page" : productData.currentPage

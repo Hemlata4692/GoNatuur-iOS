@@ -39,6 +39,9 @@
 @synthesize newsType;
 @synthesize newsContent;
 @synthesize archiveOptionsForNews;
+@synthesize filterValue2;
+@synthesize filterValue;
+@synthesize sortingValue;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
