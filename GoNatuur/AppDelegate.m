@@ -13,6 +13,9 @@
 #import <UserNotifications/UserNotifications.h>
 #import "UncaughtExceptionHandler.h"
 #import "PayPalMobile.h"
+#import "ChatStyling.h"
+#import <ZendeskSDK/ZendeskSDK.h>
+#import <ZDCChat/ZDCChat.h>
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -208,6 +211,35 @@
         myDelegate.productCartItemsDetail=[NSMutableDictionary new];
     }
     selectedCategoryIndex=-1;
+    
+    //ZopimTicket setup
+    [[ZDKConfig instance] initializeWithAppId:zopimTicketAppId
+                                   zendeskUrl:zopimURL
+                                     clientId:zopimClientId];
+    [[ZDCChatOverlay appearance] setInsets:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsMake(75.0f, 15.0f, 70.0f, 15.0f)]];
+    // ZopimChat setup
+    [ChatStyling applyStyling];
+    // Configure account key and pre-chat form
+    [ZDCChat initializeWithAccountKey:zopimAppId];
+    [ZDCChat startChat:^(ZDCConfig *config){
+        config.preChatDataRequirements.name = ZDCPreChatDataNotRequired;
+        config.preChatDataRequirements.email = ZDCPreChatDataNotRequired;
+        config.preChatDataRequirements.phone = ZDCPreChatDataNotRequired;
+        config.preChatDataRequirements.department = ZDCPreChatDataNotRequired;
+        config.preChatDataRequirements.message = ZDCPreChatDataRequired;
+        //                        config.emailTranscriptAction = ZDCEmailTranscriptActionNeverSend;
+    }];
+    // To override the default avatar uncomment and complete the image name
+    //[[ZDCChatAvatar appearance] setDefaultAvatar:@"your_avatar_name_here"];
+    // Uncomment to disable visitor data persistence between application runs
+    //    [[ZDCChat instance].session visitorInfo].shouldPersist = YES;
+    
+    // Uncomment if you don't want open chat sessions to be automatically resumed on application launch
+    [ZDCChat instance].shouldResumeOnLaunch = YES;
+    
+    // Remember to switch off debug logging before app store submission!
+    [ZDCLog enable:YES];
+    [ZDCLog setLogLevel:ZDCLogLevelWarn];
 }
 #pragma mark - end
 

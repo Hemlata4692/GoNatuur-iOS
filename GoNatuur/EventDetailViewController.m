@@ -36,6 +36,8 @@
     GoNatuurPickerView *customerTicketPicker;
     int selectedPickerIndex, ticketBtnTag;
     NSMutableArray *ticketArray;
+    NSString *selectedTicketOption;
+    NSString *convertedPrice;
 }
 @property (strong, nonatomic) IBOutlet UITableView *productDetailTableView;
 @end
@@ -49,6 +51,8 @@
     [super viewDidLoad];
     [self viewInitialization];
     // Do any additional setup after loading the view.
+    selectedTicketOption=@"";
+    convertedPrice=@"";
     if (isServiceCalledMPMoviePlayerDone) {
         [myDelegate showIndicator];
         [self performSelector:@selector(getEventDetailData) withObject:nil afterDelay:.1];
@@ -453,15 +457,35 @@
         productDetailModelData.wishlist=@"0";
         cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
     }];
-    
 }
 
-//Add to cart
+
+
+
+
+//Add events to cart
 - (void)addTicketsToCartProductService {
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productQuantity=productDetailModelData.productQuantity;
     productData.productSku=productDetailModelData.productSku;
-    [productData addToCartProductOnSuccess:^(ProductDataModel *productDetailData)  {
+    productData.productId=[NSNumber numberWithInt:selectedProductId];
+    productData.selectedTicketOptionValue=[NSString stringWithFormat:@"%@_%@",productDetailModelData.eventPrice,selectedTicketOption];
+    if ([convertedPrice isEqualToString:@""]) {
+        double productCalculatedPrice;
+        if (nil!=productData.specialPrice&&![productData.specialPrice isEqualToString:@""]) {
+            productCalculatedPrice =[productData.specialPrice doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+        }
+        else {
+            productCalculatedPrice =[productData.productPrice doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+        }
+        productData.productPrice=[NSNumber numberWithDouble:productCalculatedPrice];
+     }
+    else {
+         productData.productPrice=[NSNumber numberWithDouble:[convertedPrice doubleValue]];
+    }
+    
+    productData.selectedTicketOption=selectedTicketOption;
+    [productData addEventsToCartProductOnSuccess:^(ProductDataModel *productDetailData)  {
         [myDelegate stopIndicator];
         [UserDefaultManager setValue:[NSNumber numberWithInt:[[UserDefaultManager getValue:@"quoteCount"] intValue]+currentQuantity] key:@"quoteCount"];
         [self updateCartBadge];
@@ -569,7 +593,7 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:ticketBtnTag inSection:0];
         ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
         cell.ticketSelectionTypeField.text=[ticketArray objectAtIndex:tempSelectedIndex];
-        
+        selectedTicketOption=cell.ticketSelectionTypeField.text;
         NSMutableDictionary *tempDict=[productDetailModelData.ticketingArray objectAtIndex:0];
         NSArray *dataArray=[[[tempDict objectForKey:@"event_option_type"]objectForKey:@"event_option_options"] mutableCopy];
         NSDictionary *ticketDict=[dataArray objectAtIndex:tempSelectedIndex];
@@ -578,12 +602,14 @@
         if (nil!=productDetailModelData.specialPrice&&![productDetailModelData.specialPrice isEqualToString:@""]) {
             double price1 = [productDetailModelData.eventPrice doubleValue];
              productDetailModelData.specialPrice = [NSString stringWithFormat:@"%f",productCalculatedPrice+price1];
+            convertedPrice=productDetailModelData.specialPrice;
         }
         else {
             double price1 = [productDetailModelData.eventPrice doubleValue];
              productDetailModelData.productPrice = [NSNumber numberWithDouble:productCalculatedPrice+price1];
+            convertedPrice=[productDetailModelData.productPrice stringValue];
         }
-
+        
         [cell displayProductPrice:productDetailModelData currentQuantity:currentQuantity];
         selectedPickerIndex=tempSelectedIndex;
         [_productDetailTableView reloadData];

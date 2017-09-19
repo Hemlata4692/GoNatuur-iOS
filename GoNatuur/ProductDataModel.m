@@ -43,6 +43,8 @@
 @synthesize ticketingArray;
 @synthesize locationDataArray;
 @synthesize eventPrice;
+@synthesize selectedTicketOptionValue;
+@synthesize selectedTicketOption;
 
 - (id)copyWithZone:(NSZone *)zone {
     ProductDataModel *another = [[ProductDataModel alloc] init];
@@ -71,6 +73,7 @@
     another.ticketingArray= [self.ticketingArray copyWithZone: zone];
     another.locationDataArray= [self.locationDataArray copyWithZone: zone];
     another.eventPrice= [self.eventPrice copyWithZone: zone];
+    another.selectedTicketOption=[self.selectedTicketOption copyWithZone:zone];
     return another;
 }
 
@@ -120,6 +123,19 @@
     }] ;
 }
 #pragma mark - end
+
+#pragma mark - Add events to cart
+- (void)addEventsToCartProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] addEventsToCartProductService:self onSuccess:^(ProductDataModel *productData) {
+        if (success) {
+            success (productData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
 
 #pragma mark - Follow product
 - (void)followProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {
