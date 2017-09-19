@@ -277,3 +277,6 @@
 "removedProduct"="Product removed successfully.";
 "ShippingMethodAlert"="Need to select one shipping method.";
 "summary"="Summary";
+"cartTotal"="購物車總計";
+"pointTotal"="點總數";
+"grandTotal"="累計";

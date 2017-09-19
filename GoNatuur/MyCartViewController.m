@@ -138,12 +138,13 @@
 - (void)addCartListView {
    cartListObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CartListingViewController"];
     cartListObj.view.translatesAutoresizingMaskIntoConstraints=YES;
+    cartListObj.bottomView.translatesAutoresizingMaskIntoConstraints=YES;
     cartListObj.view.frame=CGRectMake(0, 195, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-255);
+    [self showTotalPriceAndPoints];
     cartListObj.delegate=self;
     cartListObj.cartListDataArray=[cartListData mutableCopy];
     cartListObj.cartModelData=cartModelData;
     [cartListObj.cartListTableView reloadData];
-    cartListObj.totalPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(totalCartProductPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
     [cartListObj.continueShoppingOutlet addTarget:self action:@selector(cartListContinueShopping:) forControlEvents:UIControlEventTouchUpInside];
     [cartListObj.nextOutlet addTarget:self action:@selector(cartListNext:) forControlEvents:UIControlEventTouchUpInside];
     [self addChildViewController:cartListObj];
@@ -202,12 +203,26 @@
                 cartDataTemp.itemImageUrl=[[userData.searchProductListArray objectAtIndex:index] productImageThumbnail];
                 [cartListData replaceObjectAtIndex:i withObject:cartDataTemp];
             }
-            if (cartDataTemp.isRedeemProduct) {
+            if ([cartDataTemp.isRedeemProduct boolValue]) {
                  totalImpactPoint+=[cartDataTemp.productImpactPoint floatValue];
             }
-            totalCartProductPrice+=([[cartDataTemp itemPrice] floatValue]*[cartDataTemp.itemQty floatValue]);
+            else {
+                totalCartProductPrice+=([[cartDataTemp itemPrice] floatValue]*[cartDataTemp.itemQty floatValue]);
+            }
         }
         cartModelData.impactPoints=[NSNumber numberWithFloat:totalImpactPoint];
+        if (totalCartProductPrice>0) {
+            cartModelData.isSimpleProductExist=[NSNumber numberWithBool:true];
+        }
+        else {
+            cartModelData.isSimpleProductExist=[NSNumber numberWithBool:false];
+        }
+        if (totalImpactPoint>0) {
+            cartModelData.isRedeemProductExist=[NSNumber numberWithBool:true];
+        }
+        else {
+            cartModelData.isRedeemProductExist=[NSNumber numberWithBool:false];
+        }
         [self addCartListView];
         
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
@@ -275,12 +290,55 @@
 #pragma mark - Calculation for total cart item price
 - (void)getTotalCartItemPrice {
     totalCartProductPrice=0.0;
+    float totalImpactPoint=0.0;
     //Add product image and description in already data stored data array
     for (int i=0; i<cartListData.count; i++) {
         CartDataModel *cartDataTemp=[cartListData objectAtIndex:i];
-        totalCartProductPrice+=([[cartDataTemp itemPrice] floatValue]*[cartDataTemp.itemQty floatValue]);
+        if ([cartDataTemp.isRedeemProduct boolValue]) {
+            totalImpactPoint+=[cartDataTemp.productImpactPoint floatValue];
+        }
+        else {
+            totalCartProductPrice+=([[cartDataTemp itemPrice] floatValue]*[cartDataTemp.itemQty floatValue]);
+        }
     }
     cartListObj.totalPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(totalCartProductPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
+    
+    
+    if (totalCartProductPrice>0) {
+        cartModelData.isSimpleProductExist=[NSNumber numberWithBool:true];
+    }
+    else {
+        cartModelData.isSimpleProductExist=[NSNumber numberWithBool:false];
+    }
+    if (totalImpactPoint>0) {
+        cartModelData.isRedeemProductExist=[NSNumber numberWithBool:true];
+    }
+    else {
+        cartModelData.isRedeemProductExist=[NSNumber numberWithBool:false];
+    }
+    [self showTotalPriceAndPoints];
+}
+
+- (void)showTotalPriceAndPoints {
+    if ([cartModelData.isRedeemProductExist boolValue]&&[cartModelData.isSimpleProductExist boolValue]) {
+        cartListObj.bottomView.frame=CGRectMake(0, cartListObj.view.frame.size.height-128, [[UIScreen mainScreen] bounds].size.width, 128);
+        cartListObj.totalBackView.hidden=true;
+        cartListObj.grandTotalBackView.hidden=false;
+        cartListObj.cartTotal.text=[NSString stringWithFormat:@"%@%@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:(totalCartProductPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])]];
+        cartListObj.pointTotal.text=[NSString stringWithFormat:@"%dip",[cartModelData.impactPoints intValue]];
+        cartListObj.grandTotal.text=[NSString stringWithFormat:@"%@+%@",cartListObj.cartTotal.text,cartListObj.pointTotal.text];
+    }
+    else {
+        cartListObj.bottomView.frame=CGRectMake(0, cartListObj.view.frame.size.height-86, [[UIScreen mainScreen] bounds].size.width, 86);
+        cartListObj.totalBackView.hidden=false ;
+        cartListObj.grandTotalBackView.hidden=true;
+        if ([cartModelData.isRedeemProductExist boolValue]) {
+            cartListObj.totalPriceLabel.text=[NSString stringWithFormat:@"%dip",[cartModelData.impactPoints intValue]];
+        }
+        else {
+            cartListObj.totalPriceLabel.text=[NSString stringWithFormat:@"%@%@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:(totalCartProductPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])]];
+        }
+    }
 }
 #pragma mark - end
 @end

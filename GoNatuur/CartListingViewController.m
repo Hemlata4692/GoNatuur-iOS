@@ -14,6 +14,9 @@
 @interface CartListingViewController ()
 
 @property (strong, nonatomic) IBOutlet UILabel *totalLabel;
+@property (strong, nonatomic) IBOutlet UILabel *cartTotalLabel;
+@property (strong, nonatomic) IBOutlet UILabel *pointTotalLabel;
+@property (strong, nonatomic) IBOutlet UILabel *grandTotalLabel;
 @end
 
 @implementation CartListingViewController
@@ -23,6 +26,10 @@
 @synthesize totalPriceLabel;
 @synthesize cartListTableView;
 @synthesize cartModelData;
+@synthesize bottomView;
+@synthesize grandTotal;
+@synthesize cartTotal;
+@synthesize pointTotal;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -30,6 +37,9 @@
     [continueShoppingOutlet setTitle:NSLocalizedText(@"cartListContinueShopping") forState:UIControlStateNormal];
     [nextOutlet setTitle:NSLocalizedText(@"cartListNext") forState:UIControlStateNormal];
     totalPriceLabel.text=NSLocalizedText(@"total");
+    _cartTotalLabel.text=NSLocalizedText(@"cartTotal");
+    _pointTotalLabel.text=NSLocalizedText(@"pointTotal");
+    _grandTotalLabel.text=NSLocalizedText(@"grandTotal");
     // Do any additional setup after loading the view.
 }
 

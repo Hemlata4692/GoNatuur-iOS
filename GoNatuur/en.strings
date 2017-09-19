@@ -248,3 +248,6 @@
 "checkoutAddressImpactPoint"="My Available Impact Points:";
 "ShippingMethodAlert"="Need to select one shipping method.";
 "summary"="Summary";
+"cartTotal"="Cart Total";
+"pointTotal"="Point Total";
+"grandTotal"="Grand Total";

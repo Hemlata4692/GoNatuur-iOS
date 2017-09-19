@@ -34,6 +34,8 @@
 @synthesize impactPoints;
 @synthesize isRedeemProduct;
 @synthesize productImpactPoint;
+@synthesize isRedeemProductExist;
+@synthesize isSimpleProductExist;
 
 - (id)copyWithZone:(NSZone *)zone {
     CartDataModel *another = [[CartDataModel alloc] init];
@@ -61,6 +63,8 @@
     another.impactPoints= [self.impactPoints copyWithZone: zone];
     another.isRedeemProduct= [self.isRedeemProduct copyWithZone: zone];
     another.productImpactPoint= [self.productImpactPoint copyWithZone: zone];
+    another.isRedeemProductExist= [self.isRedeemProductExist copyWithZone: zone];
+    another.isSimpleProductExist= [self.isSimpleProductExist copyWithZone: zone];
     return another;
 }
 

@@ -35,6 +35,8 @@
 @property (strong, nonatomic) NSNumber *impactPoints;
 @property (strong, nonatomic) NSNumber *productImpactPoint;
 @property (strong, nonatomic) NSNumber *isRedeemProduct;
+@property (strong, nonatomic) NSNumber *isRedeemProductExist;
+@property (strong, nonatomic) NSNumber *isSimpleProductExist;
 
 //Singleton instanse
 + (instancetype)sharedUser;
