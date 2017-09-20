@@ -2089,8 +2089,8 @@
 		B7A73B861F6F912700412656 /* OrderInvoiceView */ = {
 			isa = PBXGroup;
 			children = (
-				B7A73B881F6F913D00412656 /* OrderInvoiceCell */,
 				B7A73B871F6F913700412656 /* OrderInvoiceViewController */,
+				B7A73B881F6F913D00412656 /* OrderInvoiceCell */,
 			);
 			name = OrderInvoiceView;
 			sourceTree = "<group>";

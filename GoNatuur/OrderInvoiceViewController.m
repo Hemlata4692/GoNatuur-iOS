@@ -18,6 +18,7 @@
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *orderInvoiceTableView;
+@property (weak, nonatomic) IBOutlet UILabel *noRecordLabel;
 @end
 
 @implementation OrderInvoiceViewController
@@ -33,7 +34,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
-    self.title=NSLocalizedText(@"Product");
+    self.title=NSLocalizedText(@"invoiceTitle");
+    _noRecordLabel.text=NSLocalizedText(@"norecord");
     [self addLeftBarButtonWithImage:true];
     invoiceListArray=[NSMutableArray new];
     [myDelegate showIndicator];
@@ -282,7 +284,17 @@
             i+=1;
             [sectionList setObject:[NSString stringWithFormat:@"%@,%@",[NSNumber numberWithInt:4],[NSNumber numberWithInt:k]] forKey:[NSNumber numberWithInt:i]];
         }
-        [self getTrackShippment];
+        
+        if (invoiceListArray.count==0) {
+            [myDelegate stopIndicator];
+            _noRecordLabel.hidden=NO;
+            _orderInvoiceTableView.hidden = YES;
+        }
+        else {
+            _noRecordLabel.hidden=YES;
+            _orderInvoiceTableView.hidden = NO;
+            [self getTrackShippment];
+        }
     } onfailure:^(NSError *error) {
         
     }];

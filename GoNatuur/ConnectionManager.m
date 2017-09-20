@@ -901,6 +901,7 @@
             countryData.regionArray=[[NSMutableArray alloc]init];
             NSDictionary * dataDict =[countryArray objectAtIndex:i];
             countryData.countryLocale=[dataDict objectForKey:@"full_name_locale"];
+            countryData.countryNameEnglish=[dataDict objectForKey:@"full_name_english"];
             countryData.countryId=[dataDict objectForKey:@"id"];
             NSArray *regionListArray = [[NSArray alloc]init];
             regionListArray = [dataDict objectForKey:@"available_regions"];
@@ -1206,7 +1207,7 @@
             orderListData.orderStatus = orderDataDict[@"status"];
             orderListData.orderState = orderDataDict[@"state"];
             orderListData.purchaseOrderId = orderDataDict[@"increment_id"];
-           orderListData.orderId = [[[[[orderDataDict[@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"items"]objectAtIndex:0] objectForKey:@"order_id"];
+            orderListData.orderId = [[[[[orderDataDict[@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"items"]objectAtIndex:0] objectForKey:@"order_id"];
             orderListData.billingAddressId = orderDataDict[@"billing_address_id"];
             orderListData.shippingAddress = [([[[[[orderDataDict[@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"] objectForKey:@"street"]) componentsJoinedByString:@" "];
             orderListData.BillingAddress = [[orderDataDict[@"billing_address"] objectForKey:@"street"] componentsJoinedByString:@" "];
@@ -1337,7 +1338,6 @@
                 orderListData.orderPrice = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],[ConstantCode decimalFormatter:[orderDataDict[@"grand_total"] doubleValue]]];
             }
         }
-        
         if ([orderDataDict[@"base_currency_code"] containsString:[[ratesArray objectAtIndex:i] currencyExchangeCode]]) {
             if ([[[ratesArray objectAtIndex:i] currencysymbol] isEqualToString:@""] || [[ratesArray objectAtIndex:i] currencysymbol]==nil) {
                 orderListData.baseGrandTotal = [NSString stringWithFormat:@"%@%@",orderDataDict[@"base_currency_code"],[ConstantCode decimalFormatter:[orderDataDict[@"base_grand_total"] doubleValue]]];

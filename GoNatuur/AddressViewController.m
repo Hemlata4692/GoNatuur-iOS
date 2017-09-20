@@ -74,6 +74,8 @@
     selectedRegionId=@"0";
     //View initialized
     [self initializedView];
+    //Add custom picker view and initialized indexs
+    [self addCustomPickerView];
     //Get country code listing
     [myDelegate showIndicator];
     [self performSelector:@selector(getCountryCode) withObject:nil afterDelay:.1];
@@ -99,8 +101,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    //Add custom picker view and initialized indexs
-    [self addCustomPickerView];
+    //Bring front view picker view
+    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -143,9 +145,7 @@
 
 #pragma mark - View initialization
 - (void)initializedView {
-    //Bring front view picker view
-    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
-    //Set frames
+        //Set frames
     _emailLabel.translatesAutoresizingMaskIntoConstraints=true;
     _addressFieldsContainerView.translatesAutoresizingMaskIntoConstraints=true;
     _addressContainerView.translatesAutoresizingMaskIntoConstraints=true;
@@ -199,7 +199,7 @@
     [_companyField addTextFieldPaddingWithoutImages:_companyField];
     [_faxField addTextFieldPaddingWithoutImages:_faxField];
     //customisation of change password button
-    [_saveAddressButton setCornerRadius:17.0];
+    [_saveAddressButton setCornerRadius:20.0];
     [_saveAddressButton addShadow:_saveAddressButton color:[UIColor blackColor]];
 }
 #pragma mark - end
@@ -232,26 +232,35 @@
     //Set field position after show keyboard
     NSDictionary* info = [notification userInfo];
     NSValue *aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
-    float addressViewY = 255 + _emailLabel.frame.size.height;
+    [self showKeyboardScrollView:[aValue CGRectValue].size.height];
+}
+
+- (void)showKeyboardScrollView:(float)keyboardHeight {
+    float backViewY=265 + _emailLabel.frame.size.height;
     //Set condition according to check if current selected textfield is behind keyboard
-    if (addressViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height<([UIScreen mainScreen].bounds.size.height)-[aValue CGRectValue].size.height) {
+    if (backViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height<([UIScreen mainScreen].bounds.size.height)-keyboardHeight) {
         [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
     else {
-        [_scrollView setContentOffset:CGPointMake(0, ((addressViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height)- ([UIScreen mainScreen].bounds.size.height-[aValue CGRectValue].size.height))+10) animated:NO];
+        [_scrollView setContentOffset:CGPointMake(0, ((backViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height)- ([UIScreen mainScreen].bounds.size.height-keyboardHeight))+10) animated:NO];
     }
     //Change content size of scroll view if current selected textfield is behind keyboard
-    if ([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(addressViewY+_faxField.frame.origin.y+_faxField.frame.size.height))>0) {
-        _scrollView.contentSize = CGSizeMake(0,[UIScreen mainScreen].bounds.size.height+([aValue CGRectValue].size.height-([UIScreen mainScreen].bounds.size.height-(addressViewY+_faxField.frame.origin.y+_faxField.frame.size.height))));
+    if (keyboardHeight-([UIScreen mainScreen].bounds.size.height-(backViewY+824))>0) {
+        _scrollView.contentSize = CGSizeMake(0,[UIScreen mainScreen].bounds.size.height+(keyboardHeight-([UIScreen mainScreen].bounds.size.height-(backViewY+824)))-250);
     }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    _scrollView.contentSize = CGSizeMake(0,_addressContainerView.frame.size.height);
+    [self hideKeyboardScrollView];
+}
+
+- (void)hideKeyboardScrollView {
     if (!isPickerEnable) {
-        [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        _scrollView.contentSize = CGSizeMake(0,_addressContainerView.frame.size.height);
+        [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     }
 }
+
 #pragma mark - end
 
 #pragma mark - IBActions
@@ -268,11 +277,15 @@
         ProfileModel *dataModel=[countryCodeArray objectAtIndex:i];
         [countryNameArray addObject:dataModel.countryLocale];
     }
+    currentSelectedTextField=_countryField;
+    [self showKeyboardScrollView:230.0];
     [gNPickerViewObj showPickerView:countryNameArray selectedIndex:selectedCountryCodeIndex option:1 isCancelDelegate:false];
 }
 
 - (IBAction)selectStateAction:(id)sender {
     isPickerEnable = true;
+    currentSelectedTextField=_stateField;
+    [self showKeyboardScrollView:230.0];
     [gNPickerViewObj showPickerView:regionNameArray selectedIndex:selectedRegionIndex option:2 isCancelDelegate:false];
 }
 
@@ -389,7 +402,7 @@
     ProfileModel *changePasswordModel = [ProfileModel sharedUser];
     [changePasswordModel getCountryCodeService:^(ProfileModel *userData) {
         [myDelegate stopIndicator];
-        NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"countryId" ascending:YES];
+        NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"countryNameEnglish" ascending:YES];
         countryCodeArray = [userData.countryCodeArray
                             sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
         if (isEditScreen) {
