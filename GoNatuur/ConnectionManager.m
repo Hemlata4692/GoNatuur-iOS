@@ -139,6 +139,10 @@
             userData.cmsTitle=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"title"];
             userData.cmsContent=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"content"];
         }
+        else {
+             userData.cmsTitle=@"";
+            userData.cmsContent=@"";
+        }
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);

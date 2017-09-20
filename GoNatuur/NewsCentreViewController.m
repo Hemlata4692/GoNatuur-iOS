@@ -327,7 +327,7 @@
         NSDate *date = [[NSDate alloc] init];
         date = [dateFormatter dateFromString:dateString];
         // converting into our required date format
-        [dateFormatter setDateFormat:@"MMMM YYYY"];
+        [dateFormatter setDateFormat:@"MMMM yyyy"];
         NSString *reqDateString = [dateFormatter stringFromDate:date];
         [archiveOptionsArray insertObject:reqDateString atIndex:i];
         }
@@ -405,9 +405,9 @@
 - (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {
     if (option==1) {
         if (selectedSubCategoryIndex!=tempSelectedIndex) {
-            selectedFirstFilterIndex=tempSelectedIndex;
+            selectedSubCategoryIndex=tempSelectedIndex;
             [filterViewObj.subCategoryButtonOutlet setTitle:[subCategoryPickerArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
-            currentCategoryId=[[[subCategoryDataList objectAtIndex:selectedSubCategoryIndex] objectForKey:@"category_id"] intValue];
+            currentCategoryId=[[[subCategoryDataList objectAtIndex:tempSelectedIndex] objectForKey:@"category_id"] intValue];
             bannerImageUrl=@"";
             productListDataArray=[NSMutableArray new];
             totalProductCount=0;
@@ -415,33 +415,24 @@
             [myDelegate showIndicator];
             [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
         }
-    }//selectedFirstFilterIndex
+    }
     else  if (option==2) {
         if (selectedFirstFilterIndex!=tempSelectedIndex) {
             selectedFirstFilterIndex=tempSelectedIndex;
             [filterViewObj.firstFilterButtonOutlet setTitle:[archiveOptionsArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
-            NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
-            [dateFormatter setDateFormat:@"MMMM YYYY"];
-            NSDate *dateValue = [dateFormatter dateFromString:[archiveOptionsArray objectAtIndex:tempSelectedIndex]];
-            
-            
-            //Getting date from string
-//            NSString *dateString = [archiveOptionsArray objectAtIndex:tempSelectedIndex];
-//            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//            [dateFormatter setDateFormat:@"MMMM YYYY"];
-//            NSDate *date = [[NSDate alloc] init];
-//            date = [dateFormatter dateFromString:dateString];
-//            // converting into our required date format
-//            [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
-//            NSString *reqDateString = [dateFormatter stringFromDate:date];
-//            NSLog(@"date is %@", reqDateString);
-            
-            
-            [self returnDate:dateValue];
+            if (tempSelectedIndex!=0) {
+                NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
+                [dateFormatter setDateFormat:@"MMMM yyyy"];
+                NSDate *dateValue = [dateFormatter dateFromString:[archiveOptionsArray objectAtIndex:tempSelectedIndex]];
+                [self returnDate:dateValue];
+                isFilter=true;
+            }
+            else {
+                isFilter=false;
+            }
             productListDataArray=[NSMutableArray new];
             totalProductCount=0;
             currentpage=1;
-            isFilter=true;
             [myDelegate showIndicator];
             [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
         }
@@ -467,6 +458,7 @@
 }
 #pragma mark - end
 
+#pragma mark - Date formatter
 - (void)returnDate:(NSDate *)date {
     NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth;
@@ -475,13 +467,9 @@
     NSDate * firstDateOfMonth = [self returnDateForMonth:comps.month year:comps.year day:1];
     NSDate * lastDateOfMonth = [self returnDateForMonth:comps.month+1 year:comps.year day:0];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/yyyy"];
+    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
     filterValue1=[dateFormatter stringFromDate:firstDateOfMonth];
     filterValue2=[dateFormatter stringFromDate:lastDateOfMonth];
-    NSLog(@"date %@", date);              // date 2013-06-20
-    NSLog(@"First %@", firstDateOfMonth); // firstDateOfMonth 2013-06-01
-    NSLog(@"Last %@", lastDateOfMonth);   // lastDateOfMonth  2013-06-30
-    
 }
 
 - (NSDate *)returnDateForMonth:(NSInteger)month year:(NSInteger)year day:(NSInteger)day {
@@ -494,4 +482,5 @@
                              initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     return [gregorian dateFromComponents:components];
 }
+#pragma mark - end
 @end

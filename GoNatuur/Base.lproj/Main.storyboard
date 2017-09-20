@@ -526,7 +526,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="87" y="274" width="146.5" height="21"/>
+                                <rect key="frame" x="87.5" y="274" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -4764,7 +4764,7 @@
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZ9-BA-bI5">
                                                                         <rect key="frame" x="5" y="136" width="140" height="38"/>
-                                                                        <color key="backgroundColor" red="0.74117647060000003" green="0.23137254900000001" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="38" id="tVx-UM-9eD"/>
                                                                         </constraints>
@@ -4800,7 +4800,6 @@
                                                         <constraint firstAttribute="height" constant="21" id="zeu-jo-NRY"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
-                                                    <color key="textColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -7028,7 +7027,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="87" y="274" width="146.5" height="21"/>
+                                <rect key="frame" x="87.5" y="274" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>
@@ -11338,7 +11337,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="searchCell" id="KC7-qm-DkQ" customClass="SearchCollectionViewCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="searchCell" id="KC7-qm-DkQ" customClass="NewsCentreCollectionViewCell">
                                         <rect key="frame" x="57" y="0.0" width="186" height="260"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -11405,11 +11404,11 @@
                                         </constraints>
                                         <size key="customSize" width="186" height="260"/>
                                         <connections>
-                                            <outlet property="borderView" destination="EfT-eg-5EC" id="jv1-FA-dOw"/>
-                                            <outlet property="productCellMainView" destination="cs8-RO-ICt" id="uor-xi-Veu"/>
-                                            <outlet property="productDescription" destination="4RP-nG-Sg3" id="CXe-DM-BUc"/>
-                                            <outlet property="productImageView" destination="RRi-N3-bKw" id="YhA-yC-Qu4"/>
-                                            <outlet property="productName" destination="pds-v0-Pva" id="cGd-IB-GBi"/>
+                                            <outlet property="borderView" destination="cs8-RO-ICt" id="6nG-gz-nAM"/>
+                                            <outlet property="productCellMainView" destination="EfT-eg-5EC" id="HtZ-2t-Hvh"/>
+                                            <outlet property="productDescription" destination="4RP-nG-Sg3" id="6Nq-jY-Jp8"/>
+                                            <outlet property="productImageView" destination="RRi-N3-bKw" id="2Hy-So-T1t"/>
+                                            <outlet property="productName" destination="pds-v0-Pva" id="hz4-mw-mCE"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

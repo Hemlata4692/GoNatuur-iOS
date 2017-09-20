@@ -310,8 +310,8 @@
 "invoiceTitle"="發票";
 "invoice"="發票:";
 "shipment"="裝船:";
-"sideBarProductGuide"="PRODUCT GUIDE";
-"productGuide"="Product Guide";
-"productGuideText"="PRODUCTS CAN CONTAIN THE BENEFITS OF";
-"noSimilarProducts"="There are no products with this topic";
-"oldest"="Earliest";
+"sideBarProductGuide"="產品指南";
+"productGuide"="產品指南";
+"productGuideText"="產品可以包含的好處";
+"noSimilarProducts"="沒有這個話題的產品";
+"oldest"="最早";

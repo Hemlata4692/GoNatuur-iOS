@@ -111,25 +111,25 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
                                                                    }
                                                                  ]
                                                          },
-                                                         @{ @"filters": @[
-                                                                    @{@"field":@"title",
-                                                                      @"value": productData.categoryName,
-                                                                      @"condition_type":@"like"
-                                                                      },
-                                                                    @{@"field":@"content_heading",
-                                                                      @"value": productData.categoryName,
-                                                                      @"condition_type":@"like"
-                                                                      },
-                                                                    @{@"field":@"content",
-                                                                      @"value": productData.categoryName,
-                                                                      @"condition_type":@"like"
-                                                                      },
-                                                                    @{@"field":@"author_name",
-                                                                      @"value": productData.categoryName,
-                                                                      @"condition_type":@"like"
-                                                                      }
-                                                                    ]
-                                                         }
+                                                     @{ @"filters": @[
+                                                                @{@"field":@"title",
+                                                                  @"value": [NSString stringWithFormat:@"%@%@%@",@"%",productData.categoryName,@"%"],
+                                                                  @"condition_type":@"like"
+                                                                  },
+                                                                @{@"field":@"content_heading",
+                                                                  @"value": [NSString stringWithFormat:@"%@%@%@",@"%",productData.categoryName,@"%"],
+                                                                  @"condition_type":@"like"
+                                                                  },
+                                                                @{@"field":@"content",
+                                                                  @"value": [NSString stringWithFormat:@"%@%@%@",@"%",productData.categoryName,@"%"],
+                                                                  @"condition_type":@"like"
+                                                                  },
+                                                                @{@"field":@"author_name",
+                                                                  @"value": [NSString stringWithFormat:@"%@%@%@",@"%",productData.categoryName,@"%"],
+                                                                  @"condition_type":@"like"
+                                                                  }
+                                                                ]
+                                                        }
                                                      ],
                                              @"page_size" : productData.pageSize,
                                              @"current_page" : productData.currentPage
@@ -162,7 +162,7 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
                                                         },
                                                      @{ @"filters": @[
                                                                 @{@"field":@"publish_time",
-                                                                  @"value": productData.filterValue,
+                                                                  @"value": productData.filterValue2,
                                                                   @"condition_type":@"lteq"
                                                                   }
                                                                 ]
