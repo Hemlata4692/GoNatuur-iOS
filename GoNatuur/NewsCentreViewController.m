@@ -423,6 +423,20 @@
             NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
             [dateFormatter setDateFormat:@"MMMM YYYY"];
             NSDate *dateValue = [dateFormatter dateFromString:[archiveOptionsArray objectAtIndex:tempSelectedIndex]];
+            
+            
+            //Getting date from string
+//            NSString *dateString = [archiveOptionsArray objectAtIndex:tempSelectedIndex];
+//            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//            [dateFormatter setDateFormat:@"MMMM YYYY"];
+//            NSDate *date = [[NSDate alloc] init];
+//            date = [dateFormatter dateFromString:dateString];
+//            // converting into our required date format
+//            [dateFormatter setDateFormat:@"MMMM dd, yyyy"];
+//            NSString *reqDateString = [dateFormatter stringFromDate:date];
+//            NSLog(@"date is %@", reqDateString);
+            
+            
             [self returnDate:dateValue];
             productListDataArray=[NSMutableArray new];
             totalProductCount=0;
@@ -460,7 +474,10 @@
     
     NSDate * firstDateOfMonth = [self returnDateForMonth:comps.month year:comps.year day:1];
     NSDate * lastDateOfMonth = [self returnDateForMonth:comps.month+1 year:comps.year day:0];
-    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/yyyy"];
+    filterValue1=[dateFormatter stringFromDate:firstDateOfMonth];
+    filterValue2=[dateFormatter stringFromDate:lastDateOfMonth];
     NSLog(@"date %@", date);              // date 2013-06-20
     NSLog(@"First %@", firstDateOfMonth); // firstDateOfMonth 2013-06-01
     NSLog(@"Last %@", lastDateOfMonth);   // lastDateOfMonth  2013-06-30
@@ -468,9 +485,7 @@
 }
 
 - (NSDate *)returnDateForMonth:(NSInteger)month year:(NSInteger)year day:(NSInteger)day {
-    
     NSDateComponents *components = [[NSDateComponents alloc] init];
-    
     [components setDay:day];
     [components setMonth:month];
     [components setYear:year];
