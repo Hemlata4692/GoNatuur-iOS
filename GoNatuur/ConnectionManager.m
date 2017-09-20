@@ -1025,6 +1025,9 @@
                     else {
                         [tempDict setValue:[NSNumber numberWithBool:true] forKey:@"HiddenPromo"];
                     }
+                    if ([cartData.isRedeemProductExist boolValue]&&![cartData.isSimpleProductExist boolValue]) {
+                        [tempDict setValue:[NSNumber numberWithBool:true] forKey:@"HiddenPromo"];
+                    }
                     [cartData.checkoutPromosArray addObject:tempDict];
                 }
             }

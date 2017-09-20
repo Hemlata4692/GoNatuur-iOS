@@ -33,6 +33,8 @@
     BOOL isPickerEnable;
     NSMutableArray *countryNameArray,*shippingRegionNameArray,*billingRegionNameArray, *tempShippingRegionNameArray, *tempbillingRegionNameArray;
     BOOL isShippingAddreesSame;
+    NSArray *totalArray;
+    NSMutableDictionary *totalDict;
 }
 //Other view objects declaration
 @property (strong, nonatomic) IBOutlet UILabel *freeShippingLabel;
@@ -87,6 +89,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *noSameAddressButton;
 @property (strong, nonatomic) IBOutlet UILabel *yesRadioLabel;
 @property (strong, nonatomic) IBOutlet UIButton *yesSameAddressButton;
+@property (strong, nonatomic) IBOutlet UITableView *totalTableView;
 //BSKeyboard variable declaration
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
 @end
@@ -259,6 +262,22 @@
     _noRadioLabel.layer.cornerRadius=5.0;
     _yesRadioLabel.layer.cornerRadius=5.0;
     isShippingAddreesSame=false;
+    //guest user
+    //with redeem
+    //only redeem
+    //only cash
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Grand Total"];
+    }
+    else if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
+        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+    }
+    else if ([cartModelData.isSimpleProductExist boolValue]&&![cartModelData.isRedeemProductExist boolValue]) {
+        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+    }
+    else {
+        totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+    }
     [self setRadioStyle:isShippingAddreesSame];
 }
 
@@ -918,6 +937,8 @@
 - (void)getCheckoutPromos {
     CartDataModel *cartData = [CartDataModel sharedUser];
     cartData.checkoutImpactPoint=cartModelData.checkoutImpactPoint;
+    cartData.isRedeemProductExist=cartModelData.isRedeemProductExist;
+    cartData.isSimpleProductExist=cartModelData.isSimpleProductExist;
     [cartData fetchCheckoutPromosOnSuccess:^(CartDataModel *shippmentDetailData)  {
         cartModelData.checkoutPromosArray=[[shippmentDetailData checkoutPromosArray] mutableCopy];
         if (cartModelData.checkoutPromosArray.count>0) {
@@ -1160,6 +1181,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (tableView==_totalTableView) {
+        return totalArray.count;
+    }
     return cartModelData.shippmentMethodsArray.count;
 }
 
@@ -1168,23 +1192,38 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView==_totalTableView) {
+        return 25.0;
+    }
     return 50;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *simpleTableIdentifier=@"shippingMethodCell";
-    CheckoutTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    if (cell == nil) {
-        cell = [[CheckoutTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+    if (tableView==_totalTableView) {
+        NSString *simpleTableIdentifier=@"totalCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        }
+        return cell;
     }
-    [cell displayCellData:[cartModelData.shippmentMethodsArray objectAtIndex:indexPath.row] isSelected:(selectedShippingMethodIndex==(int)indexPath.row?true:false) totalPrice:subTotalPrice];
-    return cell;
+    else {
+        NSString *simpleTableIdentifier=@"shippingMethodCell";
+        CheckoutTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+        if (cell == nil) {
+            cell = [[CheckoutTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        }
+        [cell displayCellData:[cartModelData.shippmentMethodsArray objectAtIndex:indexPath.row] isSelected:(selectedShippingMethodIndex==(int)indexPath.row?true:false) totalPrice:subTotalPrice];
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    selectedShippingMethodIndex=(int)indexPath.row;
-    cartModelData.selectedShippingMethod=[cartModelData.shippmentMethodsArray[selectedShippingMethodIndex] objectForKey:@"method_code"];
-    [_shippmentMethodTableView reloadData];
+    if (tableView!=_totalTableView) {
+        selectedShippingMethodIndex=(int)indexPath.row;
+        cartModelData.selectedShippingMethod=[cartModelData.shippmentMethodsArray[selectedShippingMethodIndex] objectForKey:@"method_code"];
+        [_shippmentMethodTableView reloadData];
+    }
 }
 #pragma mark - end
 
