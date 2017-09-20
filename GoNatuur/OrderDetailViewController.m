@@ -321,10 +321,10 @@
 #pragma mark - end
 
 #pragma mark - IBActions
-
 - (IBAction)orderShipmentButtonAction:(id)sender {
     [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
 }
+
 - (IBAction)invoiceButtonAction:(id)sender {
     UIStoryboard *storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     OrderInvoiceViewController * nextView=[storyBoard instantiateViewControllerWithIdentifier:@"OrderInvoiceViewController"];

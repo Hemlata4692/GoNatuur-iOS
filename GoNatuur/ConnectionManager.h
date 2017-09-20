@@ -131,4 +131,6 @@
 - (void)addEventsToCartProductService:(ProductDataModel *)productData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure;
 //Get card listing
 - (void)getCardListing:(PaymentModel *)paymentData onSuccess:(void (^)(PaymentModel *paymentData))success onFailure:(void (^)(NSError *))failure;
+//Fetch constants listing service
+- (void)getConstantsListData:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 @end

@@ -1465,4 +1465,35 @@
 }
 #pragma mark - end
 
+#pragma mark - Fetch constants listing service
+- (void)getConstantsListData:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    DashboardService *categoryList=[[DashboardService alloc]init];
+    [categoryList getConstantsListData:userData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"Constants list response %@",response);
+        [UserDefaultManager setValue:response[@"cardTypes"] key:@"cardTypes"];
+        [UserDefaultManager setValue:response[@"categoryMediaUrl"] key:@"categoryMediaUrl"];
+        [UserDefaultManager setValue:response[@"eventCategoryId"] key:@"eventCategoryId"];
+        [UserDefaultManager setValue:response[@"productMediaUrl"] key:@"productMediaUrl"];
+        [UserDefaultManager setValue:response[@"emailForCrashingiOS"] key:@"emailForCrashingiOS"];
+        [UserDefaultManager setValue:response[@"eventIdentifier"] key:@"eventIdentifier"];
+        [UserDefaultManager setValue:response[@"orderStatuses"] key:@"orderStatuses"];
+        [UserDefaultManager setValue:response[@"checkOutShippingMessage"] key:@"checkOutShippingMessage"];
+        [UserDefaultManager setValue:response[@"maxQty"] key:@"maxQty"];
+        [UserDefaultManager setValue:response[@"paginationSize"] key:@"paginationSize"];
+        [UserDefaultManager setValue:response[@"reviewSortingByKey"] key:@"reviewSortingByKey"];
+        [UserDefaultManager setValue:response[@"reviewSortingByKeyMostRecent"] key:@"reviewSortingByKeyMostRecent"];
+        [UserDefaultManager setValue:response[@"impactPointRules"] key:@"impactPointRules"];
+        [UserDefaultManager setValue:response[@"productIdentifier"] key:@"productIdentifier"];
+        [UserDefaultManager setValue:response[@"langConstants"] key:@"langConstants"];
+
+        [UserDefaultManager setValue:response[@"rewardCategoryId"] key:@"rewardCategoryId"];
+        [UserDefaultManager setValue:response[@"cmsPagesIds"] key:@"cmsPagesIds"];
+        [UserDefaultManager setValue:response[@"rewardProductAttributeId"] key:@"rewardProductAttributeId"];
+
+        success(userData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
 @end
