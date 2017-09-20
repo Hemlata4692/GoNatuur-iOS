@@ -137,6 +137,42 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
                        };
     }
     else if ([productData.newsType isEqualToString:@"filter"]) {
+        if ([productData.categoryId isEqualToString:@"0"]) {
+            parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                         @{
+                                                             @"filters": @[
+                                                                     @{@"field":@"is_active",
+                                                                       @"value":@"1",
+                                                                       @"condition_type": @"eq"
+                                                                       }
+                                                                     ]
+                                                             },
+                                                         @{ @"filters": @[
+                                                                    @{@"field":@"publish_time",
+                                                                      @"value": productData.filterValue,
+                                                                      @"condition_type":@"gteq"
+                                                                      }
+                                                                    ]
+                                                            },
+                                                         @{ @"filters": @[
+                                                                    @{@"field":@"publish_time",
+                                                                      @"value": productData.filterValue2,
+                                                                      @"condition_type":@"lteq"
+                                                                      }
+                                                                    ]
+                                                            }
+                                                         ],
+                                                 @"sort_orders":@[@{
+                                                                      @"field":@"publish_time",
+                                                                      @"direction":productData.sortingValue
+                                                                      }
+                                                                  ],
+                                                 @"page_size" : productData.pageSize,
+                                                 @"current_page" : productData.currentPage
+                                                 }
+                           };
+        }
+        else {
         parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
                                                      @{
                                                          @"filters": @[
@@ -177,6 +213,7 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
                                              @"current_page" : productData.currentPage
                                              }
                        };
+        }
     }
     else {
         parameters = @{@"searchCriteria" : @{@"filter_groups" : @[

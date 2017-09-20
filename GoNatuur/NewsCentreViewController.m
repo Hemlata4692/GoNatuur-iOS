@@ -77,6 +77,13 @@
     searchView.screenType=@"News";
     [self.navigationController pushViewController:searchView animated:YES];
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    //Bring front view picker view
+    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
+}
+
 #pragma mark - end
 
 #pragma mark - View initialization
@@ -86,8 +93,6 @@
     totalProductCount=0;
     currentpage=1;
     _newsListingTableView.tableFooterView=nil;
-    //Bring front view picker view
-    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
     //Allocate footer view
     [self initializeFooterView];
     // Pull to refresh
@@ -320,17 +325,18 @@
     DashboardDataModel *productList = [DashboardDataModel sharedUser];
     [productList getNewsListFiltersDataService:^(DashboardDataModel *productData)  {
         [self getNewsListData];
-        for (int i=0; i<productData.archiveOptionsForNews.count; i++) {
-        NSString *dateString = [productData.archiveOptionsForNews objectAtIndex:i];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"MM/yyyy"];
-        NSDate *date = [[NSDate alloc] init];
-        date = [dateFormatter dateFromString:dateString];
-        // converting into our required date format
-        [dateFormatter setDateFormat:@"MMMM yyyy"];
-        NSString *reqDateString = [dateFormatter stringFromDate:date];
-        [archiveOptionsArray insertObject:reqDateString atIndex:i];
-        }
+//        for (int i=0; i<productData.archiveOptionsForNews.count; i++) {
+//        NSString *dateString = [productData.archiveOptionsForNews objectAtIndex:i];
+//        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//        [dateFormatter setDateFormat:@"MM/yyyy"];
+//        NSDate *date = [[NSDate alloc] init];
+//        date = [dateFormatter dateFromString:dateString];
+//        // converting into our required date format
+//        [dateFormatter setDateFormat:@"MMMM yyyy"];
+//        NSString *reqDateString = [dateFormatter stringFromDate:date];
+//        [archiveOptionsArray insertObject:reqDateString atIndex:i];
+//        }
+        archiveOptionsArray=[productData.archiveOptionsForNews mutableCopy];
         [archiveOptionsArray insertObject:NSLocalizedText(@"All") atIndex:0];
         [filterViewObj.firstFilterButtonOutlet setTitle:[archiveOptionsArray objectAtIndex:0] forState:UIControlStateNormal];
     } onfailure:^(NSError *error) {
@@ -376,6 +382,8 @@
 - (void)refreshControlAction {
     isPullToRefresh=true;
     currentpage=1;
+    subCategoryPickerArray=[NSMutableArray new];
+    archiveOptionsArray=[NSMutableArray new];
     [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
 }
 #pragma mark - end
@@ -422,7 +430,7 @@
             [filterViewObj.firstFilterButtonOutlet setTitle:[archiveOptionsArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
             if (tempSelectedIndex!=0) {
                 NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
-                [dateFormatter setDateFormat:@"MMMM yyyy"];
+                [dateFormatter setDateFormat:@"MM/yyyy"];
                 NSDate *dateValue = [dateFormatter dateFromString:[archiveOptionsArray objectAtIndex:tempSelectedIndex]];
                 [self returnDate:dateValue];
                 isFilter=true;
