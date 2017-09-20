@@ -65,7 +65,7 @@
     UIActivityIndicatorView *activityIndicatorObject = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicatorObject.color=[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0];
     activityIndicatorObject.tag = 10;
-    activityIndicatorObject.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-10, 0.0, 20.0, 20.0);
+    activityIndicatorObject.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-10, 10.0, 20.0, 20.0);
     activityIndicatorObject.hidesWhenStopped = YES;
     [footerView addSubview:activityIndicatorObject];
 }
@@ -122,7 +122,12 @@
     else  {
         float height =[DynamicHeightWidth getDynamicLabelHeight:orderDataModel.shippingAddress font:[UIFont montserratLightWithSize:14] widthValue:_orderListTableView.frame.size.width-132 heightValue:50];
         float billHeight =[DynamicHeightWidth getDynamicLabelHeight:orderDataModel.BillingAddress font:[UIFont montserratLightWithSize:14] widthValue:_orderListTableView.frame.size.width-132 heightValue:50];
-        return 105 + height + billHeight;
+        float totalHeight = height + billHeight + 130;
+        if (totalHeight < 170) {
+            return 170;
+        } else {
+            return totalHeight;
+        }
     }
     return 0;
 }
@@ -158,6 +163,8 @@
     } else {
         orderDataModel = [orderListArray objectAtIndex:indexPath.section - 1];
         [cell displayOrderData:_orderListTableView.frame.size orderData:orderDataModel];
+        cell.viewDetailButton.tag = indexPath.section - 1;
+        [cell.viewDetailButton addTarget:self action:@selector(viewDetailButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return cell;
 }
@@ -211,22 +218,11 @@
         return  sectionView;
     }
 }
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-    } else {
-        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        OrderDetailViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
-        nextView.selectedIndex = indexPath.section - 1;
-        [self.navigationController pushViewController:nextView animated:YES];
-    }
-}
 #pragma mark - end
 
 #pragma mark - Pagination
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    float endScrolling = scrollView.contentOffset.y + scrollView.frame.size.height;
-    if (endScrolling >= scrollView.contentSize.height)
+    if ((int)_orderListTableView.contentOffset.y == (int)_orderListTableView.contentSize.height - (int)scrollView.frame.size.height)
     {
         if (orderListArray.count == totalProductCount)
         {
@@ -273,6 +269,15 @@
 #pragma mark - end
 
 #pragma mark - IBAction
+- (void)viewDetailButtonAction:(UIButton *)sender {
+    long btnTag = [sender tag];
+    NSLog(@"%ld",btnTag);
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    OrderDetailViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
+    nextView.selectedIndex = btnTag;
+    [self.navigationController pushViewController:nextView animated:YES];
+}
+
 - (IBAction)trackShippingButtonAction:(id)sender {
     [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
 }

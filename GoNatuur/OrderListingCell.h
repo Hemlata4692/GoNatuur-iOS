@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *billingAddressHeadingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *billingAddressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceHeadingLabel;
+@property (weak, nonatomic) IBOutlet UIButton *viewDetailButton;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
 - (void)displayData:(CGSize)rectSize;

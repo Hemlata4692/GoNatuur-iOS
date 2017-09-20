@@ -354,7 +354,7 @@
         _cancelOrderButton.hidden = NO;
         _orderShipmentButton.hidden = NO;
         _invoiceButton.hidden = NO;
-    } else if ([[[[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:1] objectForKey:@"stateCodevalue"]lowercaseString] containsString:[orderDataModel.orderState lowercaseString]] || [[[[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:2] objectForKey:@"stateCodevalue"]lowercaseString] containsString:[orderDataModel.orderState lowercaseString]]) {
+    } else if ([[[[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:1] objectForKey:@"stateCodevalue"]lowercaseString] containsString:[orderDataModel.orderState lowercaseString]] || [[[[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:2] objectForKey:@"stateCodevalue"]lowercaseString] containsString:[orderDataModel.orderState lowercaseString]] || [[[[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:3] objectForKey:@"stateCodevalue"]lowercaseString] containsString:[orderDataModel.orderState lowercaseString]]) {
         //If order is cancelled/closed
         _cancelOrderButton.hidden = YES;
         _invoiceButton.hidden = NO;
