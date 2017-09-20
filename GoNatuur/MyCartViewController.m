@@ -234,18 +234,23 @@
 
 - (IBAction)cartListNext:(UIButton *)sender {
     DLog(@"cart next");
-    [self viewCustomisation:4];
+//    [self viewCustomisation:4];
     [self addThankYouScreen];
 }
 
 - (void)addThankYouScreen {
     thankYouViewObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
-    thankYouViewObj.view.translatesAutoresizingMaskIntoConstraints=YES;
-    thankYouViewObj.view.frame=CGRectMake(0, 195, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-255);
     thankYouViewObj.cartListDataArray=[cartListData mutableCopy];
-    [self addChildViewController:thankYouViewObj];
-    [self.view addSubview:thankYouViewObj.view];
-    [thankYouViewObj didMoveToParentViewController:self];;
+    [self.navigationController pushViewController:thankYouViewObj animated:true];
+
+    
+//    thankYouViewObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
+//    thankYouViewObj.view.translatesAutoresizingMaskIntoConstraints=YES;
+//    thankYouViewObj.view.frame=CGRectMake(0, 195, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-255);
+//    thankYouViewObj.cartListDataArray=[cartListData mutableCopy];
+//    [self addChildViewController:thankYouViewObj];
+//    [self.view addSubview:thankYouViewObj.view];
+//    [thankYouViewObj didMoveToParentViewController:self];;
 }
 //end
 #pragma mark - end

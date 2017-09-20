@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="j41-cQ-9tt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="j41-cQ-9tt">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,6 +13,7 @@
     <customFonts key="customFonts">
         <array key="HelveticaNeue.ttc">
             <string>HelveticaNeue</string>
+            <string>HelveticaNeue-Medium</string>
         </array>
         <array key="MONTSERRAT-LIGHTITALIC.TTF">
             <string>Montserrat-LightItalic</string>
@@ -525,7 +526,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="87" y="273.5" width="146.5" height="21"/>
+                                <rect key="frame" x="87.5" y="273.5" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -5705,7 +5706,7 @@
                                 </cells>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="87" y="273.5" width="146.5" height="21"/>
+                                <rect key="frame" x="87.5" y="273.5" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>
@@ -6100,11 +6101,11 @@
                         <viewControllerLayoutGuide type="bottom" id="8dR-S6-SLw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bPA-f8-viL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="412"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GIm-Sh-8Cd">
-                                <rect key="frame" x="10" y="0.0" width="300" height="357"/>
+                                <rect key="frame" x="10" y="0.0" width="300" height="467"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ThankYouCell" rowHeight="94" id="st6-SI-O2S" customClass="ThankYouTableCell">
@@ -6339,7 +6340,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cr9-qS-aDE">
-                                <rect key="frame" x="50" y="367" width="220" height="35"/>
+                                <rect key="frame" x="50" y="475" width="220" height="35"/>
                                 <color key="backgroundColor" red="0.71372549019999998" green="0.14117647059999999" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="6Be-23-OOi"/>
@@ -6357,16 +6358,14 @@
                             <constraint firstAttribute="trailing" secondItem="GIm-Sh-8Cd" secondAttribute="trailing" constant="10" id="KGM-fw-CCQ"/>
                             <constraint firstAttribute="trailing" secondItem="cr9-qS-aDE" secondAttribute="trailing" constant="50" id="VKq-Ij-nNr"/>
                             <constraint firstItem="GIm-Sh-8Cd" firstAttribute="leading" secondItem="bPA-f8-viL" secondAttribute="leading" constant="10" id="VMn-En-vmJ"/>
-                            <constraint firstItem="cr9-qS-aDE" firstAttribute="top" secondItem="GIm-Sh-8Cd" secondAttribute="bottom" constant="10" id="Xem-Um-2eG"/>
-                            <constraint firstItem="8dR-S6-SLw" firstAttribute="top" secondItem="cr9-qS-aDE" secondAttribute="bottom" constant="10" id="kGM-Wl-thR"/>
+                            <constraint firstItem="cr9-qS-aDE" firstAttribute="top" secondItem="GIm-Sh-8Cd" secondAttribute="bottom" constant="8" id="Xem-Um-2eG"/>
+                            <constraint firstItem="8dR-S6-SLw" firstAttribute="top" secondItem="cr9-qS-aDE" secondAttribute="bottom" constant="58" id="kGM-Wl-thR"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="VfH-tA-BEt"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="412"/>
                     <connections>
                         <outlet property="continueShoppingButton" destination="cr9-qS-aDE" id="7sG-SM-cfL"/>
                         <outlet property="thankYouTable" destination="GIm-Sh-8Cd" id="Wcu-WW-BHc"/>

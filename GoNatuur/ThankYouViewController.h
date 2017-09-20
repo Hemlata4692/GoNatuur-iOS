@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ThankYouViewController : UIViewController
+@interface ThankYouViewController : GoNatuurViewController
 @property (weak, nonatomic) IBOutlet UITableView *thankYouTable;
 @property (weak, nonatomic) IBOutlet UIButton *continueShoppingButton;
 @property (nonatomic, strong) NSMutableArray *cartListDataArray;

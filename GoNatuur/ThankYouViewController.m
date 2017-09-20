@@ -20,7 +20,9 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.navigationController.navigationBarHidden=false;
+    self.title=NSLocalizedText(@"GoNatuur");
+    [self addLeftBarButtonWithImage:false];
 }
 
 - (void)didReceiveMemoryWarning {
