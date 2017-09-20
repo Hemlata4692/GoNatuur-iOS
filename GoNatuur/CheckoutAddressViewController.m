@@ -31,7 +31,7 @@
     NSString *selectedShippingRegionCode,*selectedBillingRegionCode;
     int selectedShippingRegionId, selectedBillingRegionId;
     BOOL isPickerEnable;
-    NSMutableArray *countryNameArray,*shippingRegionNameArray,*billingRegionNameArray;
+    NSMutableArray *countryNameArray,*shippingRegionNameArray,*billingRegionNameArray, *tempShippingRegionNameArray, *tempbillingRegionNameArray;
     BOOL isShippingAddreesSame;
 }
 //Other view objects declaration
@@ -106,6 +106,9 @@
     [self addCustomPickerView];
     isBillingAddress=false;
     isShippingAddress=false;
+    tempShippingRegionNameArray=[NSMutableArray new];
+    tempbillingRegionNameArray=[NSMutableArray new];
+
     [myDelegate showIndicator];
     [self performSelector:@selector(getCountryCode) withObject:nil afterDelay:.1];
     // Do any additional setup after loading the view.
@@ -201,7 +204,7 @@
         backViewY=195;
     }
     else {
-        backViewY=599;
+        backViewY=539;
     }
     //Set condition according to check if current selected textfield is behind keyboard
     if (backViewY+currentSelectedTextField.frame.origin.y+currentSelectedTextField.frame.size.height<([UIScreen mainScreen].bounds.size.height)-keyboardHeight) {
@@ -304,10 +307,10 @@
     _mainCheckoutAddressView.translatesAutoresizingMaskIntoConstraints=true;
     _shippmentMethodTableView.translatesAutoresizingMaskIntoConstraints=true;
     _rewardBackView.translatesAutoresizingMaskIntoConstraints=true;
-    _shippmentMethodTableView.frame=CGRectMake(20, 853, [[UIScreen mainScreen] bounds].size.width-40, 50*cartModelData.shippmentMethodsArray.count);
+    _shippmentMethodTableView.frame=CGRectMake(20, 933, [[UIScreen mainScreen] bounds].size.width-40, 50*cartModelData.shippmentMethodsArray.count);
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
         _rewardBackView.hidden=true;
-        _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 850+_shippmentMethodTableView.frame.size.height);
+        _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 930+_shippmentMethodTableView.frame.size.height);
     }
     else {
         _rewardBackView.hidden=false;
@@ -317,7 +320,7 @@
         else {
             _rewardBackView.frame=CGRectMake(0, _shippmentMethodTableView.frame.origin.y+_shippmentMethodTableView.frame.size.height, [[UIScreen mainScreen] bounds].size.width, 64);
         }
-        _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 850+_shippmentMethodTableView.frame.size.height+_rewardBackView.frame.size.height);
+        _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 930+_shippmentMethodTableView.frame.size.height+_rewardBackView.frame.size.height);
     }
     
     _scrollView.contentSize = CGSizeMake(0,_mainCheckoutAddressView.frame.size.height);
@@ -476,12 +479,17 @@
         shippingCountryIndex=(int)index;
         _shippingCountryTextField.text=temp.countryLocale;
         shippingRegionNameArray = [[[countryCodeArray objectAtIndex:shippingCountryIndex] regionArray] mutableCopy];
+        [tempShippingRegionNameArray removeAllObjects];
+        for (ProfileModel *tempRegionName in shippingRegionNameArray) {
+            [tempShippingRegionNameArray addObject:tempRegionName.regionName];
+        }
         DLog(@"%@",temp.countryLocale);
     }
     else {
         shippingCountryIndex=-1;
         _shippingCountryTextField.text=@"";
         shippingRegionNameArray=[NSMutableArray new];
+        [tempShippingRegionNameArray removeAllObjects];
     }
     _shippingStateTextField.text=cartModelData.shippingAddressDict[@"region"];
     _shippingCityTextField.text=cartModelData.shippingAddressDict[@"city"];
@@ -552,6 +560,7 @@
             }
         }
         billingRegionNameArray=[NSMutableArray new];
+        [tempbillingRegionNameArray removeAllObjects];
     }
     else {
         _billingFirstNameTextField.text=cartModelData.billingAddressDict[@"firstname"];
@@ -571,10 +580,15 @@
             billingCountryIndex=(int)index;
             _billingCountryTextField.text=temp.countryLocale;
              billingRegionNameArray = [[[countryCodeArray objectAtIndex:billingCountryIndex] regionArray] mutableCopy];
+            [tempbillingRegionNameArray removeAllObjects];
+            for (ProfileModel *tempRegionName in billingRegionNameArray) {
+                [tempbillingRegionNameArray addObject:tempRegionName.regionName];
+            }
             DLog(@"%@",temp.countryLocale);
         }
         else {
              billingRegionNameArray=[NSMutableArray new];
+            [tempbillingRegionNameArray removeAllObjects];
             billingCountryIndex=-1;
             _billingCountryTextField.text=@"";
         }
@@ -755,7 +769,7 @@
     [self.view endEditing:true];
     currentSelectedTextField=_shippingStateTextField;
     [self showKeyboardScrollView:230.0];
-    [gNPickerViewObj showPickerView:shippingRegionNameArray selectedIndex:(shippingStateIndex==-1?0:shippingCountryIndex) option:2 isCancelDelegate:true];
+    [gNPickerViewObj showPickerView:tempShippingRegionNameArray selectedIndex:(shippingStateIndex==-1?0:shippingCountryIndex) option:2 isCancelDelegate:true];
 }
 
 - (IBAction)billingCountryAction:(UIButton *)sender {
@@ -771,7 +785,7 @@
     [self.view endEditing:true];
     currentSelectedTextField=_billingStateTextField;
     [self showKeyboardScrollView:230.0];
-    [gNPickerViewObj showPickerView:billingRegionNameArray selectedIndex:(billingStateIndex==-1?0:billingStateIndex) option:4 isCancelDelegate:true];
+    [gNPickerViewObj showPickerView:tempbillingRegionNameArray selectedIndex:(billingStateIndex==-1?0:billingStateIndex) option:4 isCancelDelegate:true];
 }
 
 - (IBAction)noSameAddress:(UIButton *)sender {
@@ -1061,6 +1075,10 @@
     if (option==1) {
         if (tempSelectedIndex!=shippingCountryIndex) {
             shippingRegionNameArray = [[[countryCodeArray objectAtIndex:tempSelectedIndex] regionArray] mutableCopy];
+            [tempShippingRegionNameArray removeAllObjects];
+            for (ProfileModel *tempRegionName in shippingRegionNameArray) {
+                [tempShippingRegionNameArray addObject:tempRegionName.regionName];
+            }
             ProfileModel *temp=[ProfileModel new];
             temp=[countryCodeArray objectAtIndex:tempSelectedIndex];
             shippingCountryIndex=tempSelectedIndex;
@@ -1093,6 +1111,10 @@
     else if (option==3) {
         if (tempSelectedIndex!=billingCountryIndex) {
             billingRegionNameArray = [[[countryCodeArray objectAtIndex:tempSelectedIndex] regionArray] mutableCopy];
+            [tempbillingRegionNameArray removeAllObjects];
+            for (ProfileModel *tempRegionName in billingRegionNameArray) {
+                [tempbillingRegionNameArray addObject:tempRegionName.regionName];
+            }
             ProfileModel *temp=[ProfileModel new];
             temp=[countryCodeArray objectAtIndex:tempSelectedIndex];
             billingCountryIndex=tempSelectedIndex;

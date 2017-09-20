@@ -251,3 +251,4 @@
 "cartTotal"="Cart Total";
 "pointTotal"="Point Total";
 "grandTotal"="Grand Total";
+"rewardProductExistAlert"="You have some reward products those value is more than impact points in account.";

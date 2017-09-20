@@ -60,15 +60,15 @@
 }
 #pragma mark - end
 
-- (id)mutableCopyWithZone:(NSZone *)zone {
+- (id)copyWithZone:(NSZone *)zone {
     ProfileModel *another = [[ProfileModel alloc] init];
-    another.countryId= [self.countryId mutableCopyWithZone: zone];
-    another.countryLocale= [self.countryLocale mutableCopyWithZone: zone];
-    another.regionArray= [self.regionArray mutableCopyWithZone: zone];
-    another.regionId= [self.regionId mutableCopyWithZone: zone];
-    another.regionCode= [self.regionCode mutableCopyWithZone: zone];
-    another.regionName= [self.regionName mutableCopyWithZone: zone];
-    another.addressArray= [self.addressArray mutableCopyWithZone: zone];
+    another.countryId= [self.countryId copyWithZone: zone];
+    another.countryLocale= [self.countryLocale copyWithZone: zone];
+    another.regionArray= [self.regionArray copyWithZone: zone];
+    another.regionId= [self.regionId copyWithZone: zone];
+    another.regionCode= [self.regionCode copyWithZone: zone];
+    another.regionName= [self.regionName copyWithZone: zone];
+    another.addressArray= [self.addressArray copyWithZone: zone];
     
     return another;
 }

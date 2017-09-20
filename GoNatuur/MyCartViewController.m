@@ -262,6 +262,11 @@
 - (IBAction)cartListNext:(UIButton *)sender {
     DLog(@"cart next");
     //StoryBoard navigation
+    if ((nil==[UserDefaultManager getValue:@"userId"])&&cartModelData.isRedeemProductExist) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"rewardProductExistAlert") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        return;
+    }
     CheckoutAddressViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CheckoutAddressViewController"];
     obj.cartListDataArray=[cartListData mutableCopy];
     obj.cartModelData=[cartModelData copy];
@@ -321,7 +326,7 @@
 
 - (void)showTotalPriceAndPoints {
     if ([cartModelData.isRedeemProductExist boolValue]&&[cartModelData.isSimpleProductExist boolValue]) {
-        cartListObj.bottomView.frame=CGRectMake(0, cartListObj.view.frame.size.height-128, [[UIScreen mainScreen] bounds].size.width, 128);
+        cartListObj.bottomView.frame=CGRectMake(0, cartListObj.view.frame.size.height-128, [[UIScreen mainScreen] bounds].size.width, 121);
         cartListObj.totalBackView.hidden=true;
         cartListObj.grandTotalBackView.hidden=false;
         cartListObj.cartTotal.text=[NSString stringWithFormat:@"%@%@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:(totalCartProductPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])]];
@@ -329,7 +334,7 @@
         cartListObj.grandTotal.text=[NSString stringWithFormat:@"%@+%@",cartListObj.cartTotal.text,cartListObj.pointTotal.text];
     }
     else {
-        cartListObj.bottomView.frame=CGRectMake(0, cartListObj.view.frame.size.height-86, [[UIScreen mainScreen] bounds].size.width, 86);
+        cartListObj.bottomView.frame=CGRectMake(0, cartListObj.view.frame.size.height-80, [[UIScreen mainScreen] bounds].size.width, 80);
         cartListObj.totalBackView.hidden=false ;
         cartListObj.grandTotalBackView.hidden=true;
         if ([cartModelData.isRedeemProductExist boolValue]) {

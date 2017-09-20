@@ -280,3 +280,4 @@
 "cartTotal"="購物車總計";
 "pointTotal"="點總數";
 "grandTotal"="累計";
+"rewardProductExistAlert"="您有一些獎勵產品，這些價值超過了影響點.";

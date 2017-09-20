@@ -42,7 +42,7 @@
     _pickerView.showsSelectionIndicator = YES;
     tagValue=option;
     [_pickerView reloadAllComponents];
-    [_pickerView selectRow:selectedIndex inComponent:0 animated:YES];
+    [_pickerView selectRow:selectedIndex inComponent:0 animated:false];
    
     [UIView animateWithDuration:0.2f animations:^{
         //To Frame
