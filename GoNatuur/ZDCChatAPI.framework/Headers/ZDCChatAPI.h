@@ -208,13 +208,13 @@
 
 /**
  * Set a visitor note. This will replace anything set by the agent.
- * @param the note text
+ * @param note note text
  */
 - (void) setNote:(NSString*)note;
 
 /**
  * Append a visitor note
- * @param the note text
+ * @param note note text
  */
 - (void) appendNote:(NSString*)note;
 

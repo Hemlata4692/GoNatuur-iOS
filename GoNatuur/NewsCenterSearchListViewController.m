@@ -9,7 +9,8 @@
 #import "NewsCenterSearchListViewController.h"
 #import "SearchCollectionViewCell.h"
 #import "DashboardDataModel.h"
-#import "WebViewController.h"
+#import "NewsCentreDetailViewController.h"
+#import "NewsCentreCollectionViewCell.h"
 
 @interface NewsCenterSearchListViewController ()<UICollectionViewDelegateFlowLayout> {
 @private
@@ -85,8 +86,8 @@
     return searchedProductsArray.count;
 }
 
-- (SearchCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    SearchCollectionViewCell *searchCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"searchCell" forIndexPath:indexPath];
+- (NewsCentreCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    NewsCentreCollectionViewCell *searchCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"searchCell" forIndexPath:indexPath];
     [searchCell displayProductListData:[searchedProductsArray objectAtIndex:indexPath.item] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
     return searchCell;
 }
@@ -100,9 +101,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 //        //StoryBoard navigation
     UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
+    NewsCentreDetailViewController * webView=[sb instantiateViewControllerWithIdentifier:@"NewsCentreDetailViewController"];
     webView.navigationTitle=[[searchedProductsArray objectAtIndex:indexPath.item]productName];
-    webView.productDetaiData=[[searchedProductsArray objectAtIndex:indexPath.item]newsContent];
+    webView.newsPostId=[[searchedProductsArray objectAtIndex:indexPath.item]productId];
     [self.navigationController pushViewController:webView animated:YES];
 }
 #pragma mark - end

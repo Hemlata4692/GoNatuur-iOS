@@ -78,14 +78,12 @@
             _videoIcon.hidden=false;
             _video360Icon.hidden=true;
         }
-        
         //Code is commented for 360 video media type
          else if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"video_360"]) {
          _transparentView.hidden=false;
          _videoIcon.hidden=true;
          _video360Icon.hidden=false;
          }
-        
         [ImageCaching downloadImages:_productImageView imageUrl:[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,[productImageDict objectForKey:@"file"]] placeholderImage:@"product_placeholder" isDashboardCell:false];
     }
 }

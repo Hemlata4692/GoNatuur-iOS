@@ -126,7 +126,7 @@ typedef NS_ENUM(NSUInteger, ZDCChatBackgroundAnchor) {
 /**
  * Initialise with the provided delegate.
  * @param frame the initial view frame
- * @param the delegate
+ * @param delegate delegate
  * @return instance
  */
 - (instancetype) initWithFrame:(CGRect)frame andDelegate:(id<ZDCChatUIController>)delegate;

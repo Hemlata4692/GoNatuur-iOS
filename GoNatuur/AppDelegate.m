@@ -227,7 +227,7 @@
         config.preChatDataRequirements.phone = ZDCPreChatDataNotRequired;
         config.preChatDataRequirements.department = ZDCPreChatDataNotRequired;
         config.preChatDataRequirements.message = ZDCPreChatDataRequired;
-        //                        config.emailTranscriptAction = ZDCEmailTranscriptActionNeverSend;
+        //config.emailTranscriptAction = ZDCEmailTranscriptActionNeverSend;
     }];
     // To override the default avatar uncomment and complete the image name
     //[[ZDCChatAvatar appearance] setDefaultAvatar:@"your_avatar_name_here"];

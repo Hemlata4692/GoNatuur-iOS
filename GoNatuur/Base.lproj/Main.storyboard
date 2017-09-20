@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="j41-cQ-9tt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="j41-cQ-9tt">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -614,7 +614,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sidebarBg" translatesAutoresizingMaskIntoConstraints="NO" id="6b9-QG-fqP">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="NXx-y2-eJI">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="NXx-y2-eJI">
                                 <rect key="frame" x="0.0" y="264" width="310" height="304"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.67843137254901964" green="0.28235294117647058" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
@@ -4764,7 +4764,7 @@
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZ9-BA-bI5">
                                                                         <rect key="frame" x="5" y="136" width="140" height="38"/>
-                                                                        <color key="backgroundColor" red="0.74117647060000003" green="0.23137254900000001" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="38" id="tVx-UM-9eD"/>
                                                                         </constraints>
@@ -4800,7 +4800,6 @@
                                                         <constraint firstAttribute="height" constant="21" id="zeu-jo-NRY"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
-                                                    <color key="textColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -10250,7 +10249,7 @@
         <!--Share View Controller-->
         <scene sceneID="3ej-w2-CX2">
             <objects>
-                <viewController storyboardIdentifier="ShareViewController" automaticallyAdjustsScrollViewInsets="NO" id="NFX-Dz-ri9" customClass="ShareViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShareViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="NFX-Dz-ri9" customClass="ShareViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="F7h-pw-pe2"/>
                         <viewControllerLayoutGuide type="bottom" id="UqF-sK-U0S"/>
@@ -10259,7 +10258,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CeB-eY-JIm">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CeB-eY-JIm">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yne-WM-4ZU">
@@ -10384,12 +10383,23 @@
                                     <constraint firstItem="Yne-WM-4ZU" firstAttribute="centerY" secondItem="CeB-eY-JIm" secondAttribute="centerY" id="9KD-TG-6iO"/>
                                 </constraints>
                             </view>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uY0-Du-Vgl">
+                                <rect key="frame" x="0.0" y="105" width="320" height="463"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="NFX-Dz-ri9" id="dTG-SO-MfQ"/>
+                                </connections>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="UqF-sK-U0S" firstAttribute="top" secondItem="uY0-Du-Vgl" secondAttribute="bottom" id="3pm-mo-UHX"/>
+                            <constraint firstItem="uY0-Du-Vgl" firstAttribute="leading" secondItem="ZcS-Ym-fkd" secondAttribute="leading" id="DHm-Yi-5QR"/>
                             <constraint firstAttribute="trailing" secondItem="CeB-eY-JIm" secondAttribute="trailing" id="FmS-Jf-0ij"/>
                             <constraint firstItem="UqF-sK-U0S" firstAttribute="top" secondItem="CeB-eY-JIm" secondAttribute="bottom" id="Vp1-yd-5fp"/>
                             <constraint firstItem="CeB-eY-JIm" firstAttribute="leading" secondItem="ZcS-Ym-fkd" secondAttribute="leading" id="bFL-p0-JaS"/>
+                            <constraint firstAttribute="trailing" secondItem="uY0-Du-Vgl" secondAttribute="trailing" id="fI8-eY-ppB"/>
+                            <constraint firstItem="uY0-Du-Vgl" firstAttribute="top" secondItem="ZcS-Ym-fkd" secondAttribute="top" constant="105" id="j4r-Vy-MNo"/>
                             <constraint firstItem="CeB-eY-JIm" firstAttribute="top" secondItem="ZcS-Ym-fkd" secondAttribute="top" id="lE5-PW-bhw"/>
                         </constraints>
                     </view>
@@ -10398,6 +10408,7 @@
                         <outlet property="mainView" destination="CeB-eY-JIm" id="pi5-T5-2rj"/>
                         <outlet property="shareTextLabel" destination="z0F-Z0-auY" id="Q59-Xf-Gbn"/>
                         <outlet property="shareView" destination="Yne-WM-4ZU" id="BJX-VS-Wpm"/>
+                        <outlet property="shareWebView" destination="uY0-Du-Vgl" id="DbD-fI-bIx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jFU-t7-Y2u" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -11326,7 +11337,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="searchCell" id="KC7-qm-DkQ" customClass="SearchCollectionViewCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="searchCell" id="KC7-qm-DkQ" customClass="NewsCentreCollectionViewCell">
                                         <rect key="frame" x="57" y="0.0" width="186" height="260"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -11393,11 +11404,11 @@
                                         </constraints>
                                         <size key="customSize" width="186" height="260"/>
                                         <connections>
-                                            <outlet property="borderView" destination="EfT-eg-5EC" id="jv1-FA-dOw"/>
-                                            <outlet property="productCellMainView" destination="cs8-RO-ICt" id="uor-xi-Veu"/>
-                                            <outlet property="productDescription" destination="4RP-nG-Sg3" id="CXe-DM-BUc"/>
-                                            <outlet property="productImageView" destination="RRi-N3-bKw" id="YhA-yC-Qu4"/>
-                                            <outlet property="productName" destination="pds-v0-Pva" id="cGd-IB-GBi"/>
+                                            <outlet property="borderView" destination="cs8-RO-ICt" id="6nG-gz-nAM"/>
+                                            <outlet property="productCellMainView" destination="EfT-eg-5EC" id="HtZ-2t-Hvh"/>
+                                            <outlet property="productDescription" destination="4RP-nG-Sg3" id="6Nq-jY-Jp8"/>
+                                            <outlet property="productImageView" destination="RRi-N3-bKw" id="2Hy-So-T1t"/>
+                                            <outlet property="productName" destination="pds-v0-Pva" id="hz4-mw-mCE"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

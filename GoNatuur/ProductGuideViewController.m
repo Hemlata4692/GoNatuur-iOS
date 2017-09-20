@@ -13,6 +13,7 @@
 #import "ProductGuideDataModel.h"
 #import "SearchDataModel.h"
 #import "SearchViewController.h"
+#import "ProductDetailViewController.h"
 
 @interface ProductGuideViewController ()<UIGestureRecognizerDelegate> {
     @private
@@ -110,7 +111,7 @@
              _productGuideTableView.hidden=false;
             _noRecordLabel.hidden=true;
             guideDetailDataArray=[userData.postDataArray mutableCopy];
-            [_productGuideTableView reloadData];
+           // [_productGuideTableView reloadData];
             [self getStaticProductListing];
         }
         else {
@@ -129,9 +130,8 @@
     [searchData getSearchProductListing:^(SearchDataModel *userData)  {
         [myDelegate stopIndicator];
         isProductServiceCalled=true;
-        if (userData.searchProductListArray.count!=0) {
-            staticProductsArray=[userData.searchProductListArray mutableCopy];
-    }
+        staticProductsArray=[userData.searchProductListArray mutableCopy];
+        [_productGuideTableView reloadData];
     } onfailure:^(NSError *error) {
     
     }];
@@ -257,19 +257,20 @@
     }
     else if (indexPath.row==7) {
         if (staticProductsArray.count!=0) {
-            cell.noRecordLabel.hidden=false;
+            cell.noRecordLabel.hidden=true;
             [cell.productCollectionView reloadData];
         }
         else {
              cell.noRecordLabel.hidden=false;
             cell.noRecordLabel.text=NSLocalizedText(@"noSimilarProducts");
+             [cell.productCollectionView reloadData];
         }
     }
     return cell;
 }
 #pragma mark - end
 
-#pragma mark - Hangle arrow tag gesture
+#pragma mark - Handle arrow tag gesture
 //The event handling method
 - (void)leftTapAction:(UITapGestureRecognizer *)recognizer {
     if (cellIndex>0) {
@@ -301,13 +302,17 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [myDelegate stopIndicator];
+    if (isProductServiceCalled && isServiceCalled) {
+        [myDelegate stopIndicator];
+    }
     NSString *padding = @"document.body.style.padding='1px 1px 1px 1px'";
     [webView stringByEvaluatingJavaScriptFromString:padding];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [myDelegate stopIndicator];
+    if (isProductServiceCalled && isServiceCalled) {
+        [myDelegate stopIndicator];
+    }
     SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
     [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -357,12 +362,6 @@
     }
 }
 
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    //You may want to create a divider to scale the size by the way.
-//    float picDimension = ([[UIScreen mainScreen] bounds].size.width-20) / 2.0;
-//    return CGSizeMake(picDimension-5, picDimension+105);
-//}
-
 - (void)collectionView:(UICollectionView *)cv didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (cv.tag==10) {
         NSIndexPath *tempIndex=[NSIndexPath indexPathForRow:categoryIndex inSection:0];
@@ -377,33 +376,18 @@
         [self getProductGuideCategoryDetials:[[productGuideCategoryArray objectAtIndex:indexPath.item]categoryId]];
     }
     else if (cv.tag==20) {
+        isProductServiceCalled=false;
         cellIndex=(int)indexPath.item;
-        [self getStaticProductListing];
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getStaticProductListing) withObject:nil afterDelay:0.1];
         [_productGuideTableView reloadData];
     }
     else {
-        
+        //StoryBoard navigation
+            ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+            obj.selectedProductId=[[[staticProductsArray objectAtIndex:indexPath.row] productId] intValue];
+            [self.navigationController pushViewController:obj animated:YES];
     }
-    //StoryBoard navigation
-//    ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
-//    obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
-//    [self.navigationController pushViewController:obj animated:YES];
-    
 }
-//
-//- (UIEdgeInsets)collectionView:(UICollectionView *)cv layout:(nonnull UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-//    if (cv.tag==10) {
-//    CGFloat totalCellWidth = 53 * productGuideCategoryArray.count;
-//    CGFloat totalSpacingWidth = (53 * productGuideCategoryArray.count-1)+2;
-//    CGFloat leftInset = ([[UIScreen mainScreen] bounds].size.width - (totalCellWidth + totalSpacingWidth)) / 2;
-//   // CGFloat rightInset = leftInset;
-//    UIEdgeInsets sectionInset = UIEdgeInsetsMake(0, leftInset, 0, 0);
-//    return sectionInset;
-//    }
-//    else {
-//        UIEdgeInsets sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-//        return sectionInset;
-//    }
-//}
 #pragma mark - end
 @end
