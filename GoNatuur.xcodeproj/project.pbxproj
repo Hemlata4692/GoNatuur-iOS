@@ -1423,6 +1423,7 @@
 			isa = PBXGroup;
 			children = (
 				B71EFB4A1F712E0F0033DC52 /* PaymentModel */,
+				1818445C1F70FBC50077E48C /* ShareModel */,
 				18FA120B1F6ADD4A0001A3B0 /* ProductGuideModel */,
 				5D2760AA1F62793F00B6D0FF /* OrderModel */,
 				B77D86EC1F5D850F0041D646 /* CartModel */,
@@ -1519,6 +1520,7 @@
 			isa = PBXGroup;
 			children = (
 				B71EFB4E1F712F2F0033DC52 /* PaymentService */,
+				181844601F70FBED0077E48C /* ShareService */,
 				18FA120F1F6ADD6F0001A3B0 /* ProductGuideService */,
 				5D2760AE1F627AD800B6D0FF /* OrderService */,
 				B77D86F01F5D85270041D646 /* CartService */,

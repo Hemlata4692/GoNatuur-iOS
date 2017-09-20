@@ -30,6 +30,8 @@
 #import "ProductGuideService.h"
 #import "PaymentService.h"
 #import "PaymentModel.h"
+#import "ShareDataModel.h"
+#import "ShareDataService.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -1347,8 +1349,6 @@
                 orderListData.baseGrandTotal = [NSString stringWithFormat:@"%@%@",orderDataDict[@"base_currency_code"],[ConstantCode decimalFormatter:[orderDataDict[@"base_grand_total"] doubleValue]]];
             }
             else {
-                NSLog(@"sysbol %@",[[ratesArray objectAtIndex:i] currencysymbol]);
-                
                 orderListData.baseGrandTotal = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],[ConstantCode decimalFormatter:[orderDataDict[@"base_grand_total"] doubleValue]]];
             }
         }
@@ -1504,7 +1504,6 @@
         [UserDefaultManager setValue:response[@"impactPointRules"] key:@"impactPointRules"];
         [UserDefaultManager setValue:response[@"productIdentifier"] key:@"productIdentifier"];
         [UserDefaultManager setValue:response[@"langConstants"] key:@"langConstants"];
-
         [UserDefaultManager setValue:response[@"rewardCategoryId"] key:@"rewardCategoryId"];
         [UserDefaultManager setValue:response[@"cmsPagesIds"] key:@"cmsPagesIds"];
         [UserDefaultManager setValue:response[@"rewardProductAttributeId"] key:@"rewardProductAttributeId"];
@@ -1514,4 +1513,17 @@
     }];
 }
 #pragma mark - end
+
+#pragma mark - Share service
+- (void)shareProductData:(ShareDataModel *)guideData onSuccess:(void (^)(ShareDataModel *guideData))success onFailure:(void (^)(NSError *))failure {
+    ShareDataService *shareService = [[ShareDataService alloc] init];
+    [shareService shareDataService:guideData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        success(guideData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
 @end

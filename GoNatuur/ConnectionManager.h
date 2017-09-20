@@ -20,6 +20,7 @@
 @class OrderModel;
 @class ProductGuideDataModel;
 @class PaymentModel;
+@class ShareDataModel;
 
 @interface ConnectionManager : NSObject
 
@@ -133,4 +134,8 @@
 - (void)getCardListing:(PaymentModel *)paymentData onSuccess:(void (^)(PaymentModel *paymentData))success onFailure:(void (^)(NSError *))failure;
 //Fetch constants listing service
 - (void)getConstantsListData:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure;
+//Share
+- (void)shareProductData:(ShareDataModel *)guideData onSuccess:(void (^)(ShareDataModel *guideData))success onFailure:(void (^)(NSError *))failure;
+//Filters
+- (void)getNewsCenterFiltersListService:(DashboardDataModel *)productData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 @end

@@ -34,7 +34,7 @@
     _productNameLabel.numberOfLines=0;
     float height =[DynamicHeightWidth getDynamicLabelHeight:_productNameLabel.text font:[UIFont montserratLightWithSize:13] widthValue:rectSize.width-20 heightValue:500];
     _productNameLabel.frame=CGRectMake(10, 28,rectSize.width-20, height);
-    if ([orderData.productType isEqualToString:NSLocalizedText(@"ticket")]) {
+    if ([orderData.productType isEqualToString:[UserDefaultManager getValue:@"eventIdentifier"]]) {
         for (int i=0; i<ticketArray.count; i++) {
             if ([[NSString stringWithFormat:@"%@",orderData.productId] containsString:[[ticketArray objectAtIndex:i] ticketProductId]]) {
                 if ([[[ticketArray objectAtIndex:i] ticketName] isEqualToString:@""] || [[ticketArray objectAtIndex:i] ticketName]==nil) {

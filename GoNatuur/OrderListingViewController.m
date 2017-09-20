@@ -349,7 +349,7 @@
 
 - (void)getOrderListing {
     orderDataModel = [OrderModel sharedUser];
-    orderDataModel.pageSize=[NSNumber numberWithInt:12];
+    orderDataModel.pageSize=[UserDefaultManager getValue:@"paginationSize"];
     orderDataModel.currentPage=[NSNumber numberWithInt:currentpage];
     [orderDataModel getOrderListing:^(OrderModel *userData) {
         [orderListArray addObjectsFromArray:userData.orderListingArray];

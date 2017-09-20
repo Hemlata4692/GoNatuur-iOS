@@ -19,6 +19,7 @@ static NSString *kNewsDetailData=@"ranosys/news/getById";
 static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
 static NSString *kNwesCategory=@"ranosys/news/getNewsCategory";
 static NSString *kConstants=@"apiconstants";
+static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
 
 @implementation DashboardService
 

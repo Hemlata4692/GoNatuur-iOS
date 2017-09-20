@@ -65,4 +65,6 @@
 //Fetch constants listng data
 - (void)getConstantsListData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
 
+//Filters
+- (void)getNewsListFiltersDataService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end
