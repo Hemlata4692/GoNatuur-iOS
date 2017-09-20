@@ -126,7 +126,6 @@ extern CGFloat const ZDC_TEXTENTRY_MINIMUM_HEIGHT;
  * Init with provided frame and request.
  *
  * @param frame the frame in which to render the UI
- * @param request the request object this comment is for
  * @return the instance
  */
 - (instancetype) initWithFrame:(CGRect)frame;

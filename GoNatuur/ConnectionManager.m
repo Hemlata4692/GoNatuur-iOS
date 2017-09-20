@@ -139,6 +139,10 @@
             userData.cmsTitle=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"title"];
             userData.cmsContent=[[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"content"];
         }
+        else {
+             userData.cmsTitle=@"";
+            userData.cmsContent=@"";
+        }
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -639,6 +643,19 @@
             }
             [productData.productDataArray addObject:tempModel];
         }
+        success(productData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
+#pragma mark - News list filters data service
+- (void)getNewsCenterFiltersListService:(DashboardDataModel *)productData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    DashboardService *productList=[[DashboardService alloc]init];
+    [productList getNewsListFiltersService:productData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"news filter list response %@",response);
+        productData.archiveOptionsForNews=[response[@"archive_options"] mutableCopy];
         success(productData);
     } onfailure:^(NSError *error) {
     }];
@@ -1383,6 +1400,7 @@
     }
     return orderListData;
 }
+#pragma mark - end
 
 #pragma mark - Get order invoice
 - (void)getOrderInvoice:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure {

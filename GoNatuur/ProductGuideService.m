@@ -13,7 +13,6 @@
 static NSString *kProductGuideCategory=@"ranosys/product-guide/categories";
 static NSString *kProductGuideDetailsCategory=@"ranosys/product-guide/getList";
 
-
 #pragma mark - Get guide category service
 - (void)getGuideCategoryService:(ProductGuideDataModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
     [super post:kProductGuideCategory parameters:nil success:success failure:failure];

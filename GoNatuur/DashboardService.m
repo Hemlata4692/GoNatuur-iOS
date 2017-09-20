@@ -101,7 +101,6 @@ static NSString *kConstants=@"apiconstants";
                                              }
                        };
     }
-    
     else if ([productData.newsType isEqualToString:@"search"]) {
         parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
                                                      @{
@@ -109,25 +108,70 @@ static NSString *kConstants=@"apiconstants";
                                                                  @{@"field":@"is_active",
                                                                    @"value":@"1",
                                                                    @"condition_type": @"eq"
-                                                                   },
-                                                                 @{@"field":@"title",
-                                                                   @"value": productData.categoryName,
-                                                                   @"condition_type":@"like"
-                                                                   },
-                                                                 @{@"field":@"content_heading",
-                                                                   @"value": productData.categoryName,
-                                                                   @"condition_type":@"like"
-                                                                   },
-                                                                 @{@"field":@"content",
-                                                                   @"value": productData.categoryName,
-                                                                   @"condition_type":@"like"
-                                                                   },
-                                                                 @{@"field":@"author_name",
-                                                                   @"value": productData.categoryName,
-                                                                   @"condition_type":@"like"
                                                                    }
                                                                  ]
-                                                         }
+                                                         },
+                                                     @{ @"filters": @[
+                                                                @{@"field":@"title",
+                                                                  @"value": [NSString stringWithFormat:@"%@%@%@",@"%",productData.categoryName,@"%"],
+                                                                  @"condition_type":@"like"
+                                                                  },
+                                                                @{@"field":@"content_heading",
+                                                                  @"value": [NSString stringWithFormat:@"%@%@%@",@"%",productData.categoryName,@"%"],
+                                                                  @"condition_type":@"like"
+                                                                  },
+                                                                @{@"field":@"content",
+                                                                  @"value": [NSString stringWithFormat:@"%@%@%@",@"%",productData.categoryName,@"%"],
+                                                                  @"condition_type":@"like"
+                                                                  },
+                                                                @{@"field":@"author_name",
+                                                                  @"value": [NSString stringWithFormat:@"%@%@%@",@"%",productData.categoryName,@"%"],
+                                                                  @"condition_type":@"like"
+                                                                  }
+                                                                ]
+                                                        }
+                                                     ],
+                                             @"page_size" : productData.pageSize,
+                                             @"current_page" : productData.currentPage
+                                             }
+                       };
+    }
+    else if ([productData.newsType isEqualToString:@"filter"]) {
+        parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                     @{
+                                                         @"filters": @[
+                                                                 @{@"field":@"is_active",
+                                                                   @"value":@"1",
+                                                                   @"condition_type": @"eq"
+                                                                   }
+                                                                 ]
+                                                         },
+                                                     @{ @"filters": @[
+                                                                @{@"field":@"category",
+                                                                  @"value": productData.categoryId,
+                                                                  @"condition_type":@"eq"
+                                                                  }
+                                                                ]
+                                                        },
+                                                     @{ @"filters": @[
+                                                                @{@"field":@"publish_time",
+                                                                  @"value": productData.filterValue,
+                                                                  @"condition_type":@"gteq"
+                                                                  }
+                                                                ]
+                                                        },
+                                                     @{ @"filters": @[
+                                                                @{@"field":@"publish_time",
+                                                                  @"value": productData.filterValue2,
+                                                                  @"condition_type":@"lteq"
+                                                                  }
+                                                                ]
+                                                        }
+                                                     ],
+                                             @"sort_orders":@[@{
+                                                                  @"field":@"publish_time",
+                                                                  @"direction":productData.sortingValue
+                                                                  }
                                                      ],
                                              @"page_size" : productData.pageSize,
                                              @"current_page" : productData.currentPage
@@ -156,6 +200,12 @@ static NSString *kConstants=@"apiconstants";
     }
     NSLog(@"news list request %@",parameters);
     [super post:kNewsListData parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Get News filters data
+- (void)getNewsListFiltersService:(DashboardDataModel *)productData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    [super get:kNwesFilters parameters:nil onSuccess:success onFailure:failure];
 }
 #pragma mark - end
 

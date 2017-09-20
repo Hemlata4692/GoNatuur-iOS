@@ -96,7 +96,7 @@ extern NSString * const ZDC_FORMCELL_MESSAGE;
 
 /**
  * Check the completion and validity of the specified data. Verifies whether the type is required, complete and valid.
- * @param the data type to be checked
+ * @param type data type to be checked
  * @param currentValue the value to be checked
  * @param rows the rows being presented for entry
  * @param requirement the requirement for the data
@@ -110,7 +110,7 @@ extern NSString * const ZDC_FORMCELL_MESSAGE;
 /**
  * Register a class (instance of ZDCFormCell) for use in creating and sizing chat cells.
  * Reuse Ids are defined at the top of this header and have the prefix 'ZDC_FORMCELL_'.
- * @param class the class to be registered
+ * @param cellClass the class to be registered
  * @param identifier the reuse identifier for which to register the class
  */
 - (void)registerClass:(Class)cellClass forCellReuseIdentifier:(NSString *)identifier;

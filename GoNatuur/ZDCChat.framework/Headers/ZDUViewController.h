@@ -111,7 +111,7 @@
 /**
  * Get the top view controller from root controller provided.
  *
- * @param the root view controller from which to start looking
+ * @param rootViewController root view controller from which to start looking
  * @return the top view controller
  */
 + (UIViewController*) topViewControllerWithRootViewController:(UIViewController*)rootViewController;

@@ -88,7 +88,7 @@ extern NSString * const ZDC_CHATCELL_OFFLINE;
 /**
  * Register a class (instance of ZDCChatCell) for use in creating and sizing chat cells.
  * Reuse Ids are defined at the top of this header and have the prefix 'ZDC_CHATCELL_'.
- * @param class the class to be registered
+ * @param cellClass the class to be registered
  * @param identifier the reuse identifier for which to register the class
  */
 - (void)registerClass:(Class)cellClass forCellReuseIdentifier:(NSString *)identifier;

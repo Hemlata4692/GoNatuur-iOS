@@ -81,7 +81,7 @@
  * @param chatIO chat IO class for requesting the upload URL
  * @param data the file data, either this or the path are required
  * @param path the file path, either this or the data are required
- * @param fileName the file name sent to the server, must include an extention matching the file type
+ * @param filename the file name sent to the server, must include an extention matching the file type
  * @param fileSize the size of the file in bytes
  */
 - (instancetype) initWithIO:(id<ZDCChatIO>)chatIO
@@ -100,7 +100,7 @@
  * Check if the supplied details are sufficient and correctly fortmatted for sending an upload.
  * @param data the file data, either this or the path are required
  * @param path the file path, either this or the data are required
- * @param fileName the file name sent to the server, must include an extention matching the file type
+ * @param filename the file name sent to the server, must include an extention matching the file type
  * @param fileSize the size of the file in bytes
  * @return YES if valid
  */

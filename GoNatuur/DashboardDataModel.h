@@ -39,6 +39,10 @@
 @property (strong, nonatomic) NSString *lastName;
 @property (strong, nonatomic) NSString *newsType;
 @property (strong, nonatomic) NSString *newsContent;
+@property (strong, nonatomic) NSMutableArray *archiveOptionsForNews;
+@property (strong, nonatomic) NSString *filterValue;
+@property (strong, nonatomic) NSString *filterValue2;
+@property (strong, nonatomic) NSString *sortingValue;
 
 //Singleton method
 + (instancetype)sharedUser;
