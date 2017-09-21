@@ -51,6 +51,7 @@
 		185036EA1F67D9860008C0F1 /* NewsCentreDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185036E91F67D9860008C0F1 /* NewsCentreDetailViewController.m */; };
 		185036EE1F67E3830008C0F1 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185036ED1F67E3830008C0F1 /* ShareViewController.m */; };
 		185C58021F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185C58011F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m */; };
+		185ECB691F73C5C2002BA64A /* TwoThumbRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 185ECB681F73C5C2002BA64A /* TwoThumbRangeSlider.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		185F707F1F55A839007F49F7 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185F707E1F55A839007F49F7 /* ProfileViewController.m */; };
 		1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */; };
 		187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 187129061F48D5BC00D16581 /* UpdateCartItem.m */; };
@@ -273,6 +274,8 @@
 		185036ED1F67E3830008C0F1 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		185C58001F68E41E0027E7BC /* NewsCentreDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCentreDetailTableViewCell.h; sourceTree = "<group>"; };
 		185C58011F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCentreDetailTableViewCell.m; sourceTree = "<group>"; };
+		185ECB671F73C5C2002BA64A /* TwoThumbRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoThumbRangeSlider.h; sourceTree = "<group>"; };
+		185ECB681F73C5C2002BA64A /* TwoThumbRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoThumbRangeSlider.m; sourceTree = "<group>"; };
 		185F707D1F55A839007F49F7 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		185F707E1F55A839007F49F7 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		1870F0BC1F44185F008B2CE5 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
@@ -876,6 +879,15 @@
 			name = NewsCentreDetailCell;
 			sourceTree = "<group>";
 		};
+		185ECB661F73C532002BA64A /* RangeSlider */ = {
+			isa = PBXGroup;
+			children = (
+				185ECB671F73C5C2002BA64A /* TwoThumbRangeSlider.h */,
+				185ECB681F73C5C2002BA64A /* TwoThumbRangeSlider.m */,
+			);
+			name = RangeSlider;
+			sourceTree = "<group>";
+		};
 		185F706A1F559D6B007F49F7 /* ProfileModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -1473,6 +1485,7 @@
 		320761651F162733001F1790 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				185ECB661F73C532002BA64A /* RangeSlider */,
 				181844581F70E0E50077E48C /* ZopimChat */,
 				18A3B1131F669D7700A453A7 /* Annotation */,
 				181FD20F1F60188300C5373C /* PaypalSDK */,
@@ -2542,6 +2555,7 @@
 				B7F570F51F67FA220006C9BB /* FinalCheckoutViewController.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				B7DA71F31F5034F300F45439 /* HCYoutubeParser.m in Sources */,
+				185ECB691F73C5C2002BA64A /* TwoThumbRangeSlider.m in Sources */,
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
 				1807D50D1F7257FD00A0251F /* NewsCentreCollectionViewCell.m in Sources */,
 				B77D86E51F5D83EB0041D646 /* MyCartViewController.m in Sources */,
