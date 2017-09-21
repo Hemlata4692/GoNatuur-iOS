@@ -70,14 +70,15 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
                                                                    }
                                                                ],
                                                        @"sort_orders" : @[
-                                                               @{@"field":@"name",
-                                                                 @"direction":@"ASC"
+                                                               @{@"field":productData.productSortingType,
+                                                                 @"direction":productData.productSortingValue
                                                                  }
                                                                ],
                                                        @"page_size" : productData.pageSize,
                                                        @"current_page" : productData.currentPage
                                                        }
                                  };
+    NSLog(@"request %@",parameters);
     [super post:kProductListData parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
