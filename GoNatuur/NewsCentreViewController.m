@@ -323,11 +323,11 @@
         for (int i=0; i<productData.archiveOptionsForNews.count; i++) {
         NSString *dateString = [productData.archiveOptionsForNews objectAtIndex:i];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"MM/yyyy"];
+        [dateFormatter setDateFormat:dateFormatterService];
         NSDate *date = [[NSDate alloc] init];
         date = [dateFormatter dateFromString:dateString];
         // converting into our required date format
-        [dateFormatter setDateFormat:@"MMMM yyyy"];
+        [dateFormatter setDateFormat:dateFormatterConverted];
         NSString *reqDateString = [dateFormatter stringFromDate:date];
         [archiveOptionsArray insertObject:reqDateString atIndex:i];
         }
@@ -422,7 +422,7 @@
             [filterViewObj.firstFilterButtonOutlet setTitle:[archiveOptionsArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
             if (tempSelectedIndex!=0) {
                 NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
-                [dateFormatter setDateFormat:@"MMMM yyyy"];
+                [dateFormatter setDateFormat:dateFormatterConverted];
                 NSDate *dateValue = [dateFormatter dateFromString:[archiveOptionsArray objectAtIndex:tempSelectedIndex]];
                 [self returnDate:dateValue];
                 isFilter=true;
@@ -467,7 +467,7 @@
     NSDate * firstDateOfMonth = [self returnDateForMonth:comps.month year:comps.year day:1];
     NSDate * lastDateOfMonth = [self returnDateForMonth:comps.month+1 year:comps.year day:0];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+    [dateFormatter setDateFormat:dateFormatterDate];
     filterValue1=[dateFormatter stringFromDate:firstDateOfMonth];
     filterValue2=[dateFormatter stringFromDate:lastDateOfMonth];
 }
