@@ -19,6 +19,9 @@
     NSMutableArray *paymentMethodArray;
     NSDictionary *cartItemPrice;
     int selectedPaymentMethodIndex;
+    NSArray *totalArray;
+    NSMutableDictionary *totalDict, *paymentMethodDict;
+    bool isCyberSourceExist;
 }
 //View objects declaration
 @property (strong, nonatomic) IBOutlet UILabel *freeShippingLabel;
@@ -32,6 +35,9 @@
 @property (strong, nonatomic) IBOutlet UITableView *cartItemsTableView;
 @property (strong, nonatomic) IBOutlet UIView *cartListView;
 @property (strong, nonatomic) IBOutlet UILabel *summaryLabel;
+@property (strong, nonatomic) IBOutlet UIView *paymentView;
+@property (strong, nonatomic) IBOutlet UIView *cyberSourceView;
+@property (strong, nonatomic) IBOutlet UICollectionView *paymentCollectionView;
 @end
 
 @implementation FinalCheckoutViewController
@@ -51,7 +57,7 @@
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:true];
 //    [myDelegate showIndicator];
-//    [self performSelector:@selector(setCheckoutOrder) withObject:nil afterDelay:.1];
+//    [self performSelector:@selector(setPaymentMethod) withObject:nil afterDelay:.1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,8 +72,11 @@
     //Customized steps
     [self customizedSteps];
     [self setLocalizedText];
-    [self customizedFraming];
+    totalDict=[NSMutableDictionary new];
+    [self setPrices];
+    
     [self getDataFromCartModel];
+    [self customizedFraming];
 }
 
 - (void)removeAutolayout {
@@ -79,6 +88,9 @@
     _mainView.translatesAutoresizingMaskIntoConstraints=true;
     _cartListView.translatesAutoresizingMaskIntoConstraints=true;
     _cartItemsTableView.translatesAutoresizingMaskIntoConstraints=true;
+    _paymentView.translatesAutoresizingMaskIntoConstraints=true;
+    _cyberSourceView.translatesAutoresizingMaskIntoConstraints=true;
+    _paymentCollectionView.translatesAutoresizingMaskIntoConstraints=true;
 }
 
 - (void)setRoundedStepView {
@@ -133,13 +145,103 @@
         _cartItemsTableView.frame=CGRectMake(0, 35, [[UIScreen mainScreen] bounds].size.width, (93*cartListDataArray.count)+(numberPriceCount*35));
     }
     _cartListView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _cartItemsTableView.frame.size.height+_cartItemsTableView.frame.origin.y);
-    _mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _cartListView.frame.size.height+_cartListView.frame.origin.y+80);
+    
+    if (isCyberSourceExist&&paymentMethodArray.count>1) {
+         _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 44);
+         _paymentCollectionView.frame=CGRectMake(0, _cyberSourceView.frame.origin.y+_cyberSourceView.frame.size.height+17, [[UIScreen mainScreen] bounds].size.width-30, 78);
+    }
+    else if (isCyberSourceExist) {
+        _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 44);
+        _paymentCollectionView.frame=CGRectMake(0, 95, [[UIScreen mainScreen] bounds].size.width-30, 0);
+    }
+    else if (!isCyberSourceExist&&paymentMethodArray.count>0) {
+        _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
+        _paymentCollectionView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 78);
+    }
+    else {
+        _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
+        _paymentCollectionView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
+    }
+    
+    if ((_cyberSourceView.frame.size.height==0)&&(_paymentCollectionView.frame.size.height==0)) {
+        _paymentView.frame=CGRectMake(15, _cartListView.frame.size.height+_cartListView.frame.origin.y+8, [[UIScreen mainScreen] bounds].size.width-30, 0);
+    }
+    else {
+        _paymentView.frame=CGRectMake(15, _cartListView.frame.size.height+_cartListView.frame.origin.y+8, [[UIScreen mainScreen] bounds].size.width-30, (_cyberSourceView.frame.size.height==0?(_paymentCollectionView.frame.origin.y+_paymentCollectionView.frame.size.height):(_cyberSourceView.frame.origin.y+_cyberSourceView.frame.size.height+17+_paymentCollectionView.frame.size.height)));
+    }
+    _mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _paymentView.frame.size.height+_paymentView.frame.origin.y+10);
+    [_paymentCollectionView reloadData];
 }
 
 - (void)getDataFromCartModel {
     selectedPaymentMethodIndex=-1;
-    paymentMethodArray=[[cartModelData.checkoutFinalData objectForKey:@"payment_methods"] mutableCopy];
+    DLog(@"%@",[cartModelData.checkoutFinalData objectForKey:@"payment_methods"]);
+    paymentMethodArray=[NSMutableArray arrayWithObjects:@"magedelight_cybersource", @"paypal", @"tenpaypayment", @"aliChat", nil];
+    isCyberSourceExist=false;
+    paymentMethodDict=[NSMutableDictionary new];
+    for (NSDictionary *tempDict in [cartModelData.checkoutFinalData objectForKey:@"payment_methods"]) {
+        if ([tempDict[@"code"] isEqualToString:@"magedelight_cybersource"]) {
+            isCyberSourceExist=true;
+            [paymentMethodDict setObject:[tempDict copy] forKey:@"magedelight_cybersource"];
+            continue;
+        }
+        else if ([tempDict[@"code"] isEqualToString:@"tenpaypayment"]) {
+            [paymentMethodDict setObject:[tempDict copy] forKey:@"tenpaypayment"];
+            continue;
+        }
+        else if ([tempDict[@"code"] isEqualToString:@"paypal"]) {
+            [paymentMethodDict setObject:[tempDict copy] forKey:@"paypal"];
+            continue;
+        }
+        else if ([tempDict[@"code"] isEqualToString:@"aliChat"]) {
+            [paymentMethodDict setObject:[tempDict copy] forKey:@"aliChat"];
+            continue;
+        }
+    }
+    
+    NSMutableArray *tempArray=[paymentMethodArray mutableCopy];
+    for (NSString *temp in tempArray) {
+        if (![[paymentMethodDict allKeys] containsObject:temp]) {
+            [paymentMethodArray removeObject:temp];
+        }
+    }
     cartItemPrice=[[cartModelData.checkoutFinalData objectForKey:@"totals"] copy];
+}
+
+- (void)setPrices {
+//    //For guest user
+//    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+//        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Grand Total"];
+//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(subTotalPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
+//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
+//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],((subTotalPrice+[self getShippingCharges])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Grand Total"];
+//    }
+//    //Only for redeem products
+//    else if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
+//        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+//        [totalDict setObject:[NSString stringWithFormat:@"%@ip",cartModelData.impactPoints] forKey:@"Points subtotal"];
+//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
+//        [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getDiscount]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
+//        [totalDict setObject:(([self getShippingCharges]-[self getDiscount])>0?[NSString stringWithFormat:@"%@%.2f + %@ip",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]-[self getDiscount]),cartModelData.impactPoints]:[NSString stringWithFormat:@"%@ip",cartModelData.impactPoints]) forKey:@"Grand Total"];
+//    }
+//    //Only for simple products
+//    else if ([cartModelData.isSimpleProductExist boolValue]&&![cartModelData.isRedeemProductExist boolValue]) {
+//        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(subTotalPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
+//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
+//        [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getDiscount]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
+//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],((subTotalPrice+[self getShippingCharges]-[self getDiscount])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Grand Total"];
+//    }
+//    //For both simple and redeem products
+//    else {
+//        totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(subTotalPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
+//        [totalDict setObject:[NSString stringWithFormat:@"%@ip",cartModelData.impactPoints]forKey:@"Points subtotal"];
+//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
+//        [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getDiscount]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
+//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f + %@ip",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],((subTotalPrice+[self getShippingCharges]-[self getDiscount])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue]),cartModelData.impactPoints] forKey:@"Grand Total"];//Show subtotal and ip
+//    }
+//    [_totalTableView reloadData];
 }
 #pragma mark - end
 
@@ -220,12 +322,51 @@
 }
 #pragma mark - end
 
+#pragma mark - Collection view datasource methods
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    if (nil!=paymentMethodDict) {
+        if (isCyberSourceExist) {
+            return paymentMethodArray.count-1;
+        }
+        else {
+            return paymentMethodArray.count;
+        }
+    }
+    return 0;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    cell.contentView.layer.cornerRadius=5;
+    cell.contentView.layer.masksToBounds=true;
+    cell.contentView.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    cell.contentView.layer.borderWidth=1;
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    //You may want to create a divider to scale the size by the way.
+    float picDimension;
+    if (isCyberSourceExist) {
+        picDimension = (self.view.frame.size.width-30) / (float)(paymentMethodArray.count-1);
+    }
+    else {
+        picDimension = (self.view.frame.size.width-30) / (float)paymentMethodArray.count;
+    }
+    return CGSizeMake(picDimension-5, 79);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+}
+#pragma mark - end
+
 #pragma mark - Webservice
 - (void)setPaymentMethod {
     CartDataModel *cartData = [CartDataModel sharedUser];
-    cartData.paymentMethod=[[paymentMethodArray objectAtIndex:0] objectForKey:@"code"];
+    cartData.paymentMethod=@"cashondelivery";
     [cartData setPaymentMethodOnSuccess:^(CartDataModel *shippmentDetailData)  {
-        [myDelegate stopIndicator];
+        [self setCheckoutOrder];
+//        [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
         
     }];
@@ -233,7 +374,7 @@
 
 - (void)setCheckoutOrder {
     CartDataModel *cartData = [CartDataModel sharedUser];
-    cartData.paymentMethod=[[paymentMethodArray objectAtIndex:0] objectForKey:@"code"];
+     cartData.paymentMethod=@"cashondelivery";
     [cartData setCheckoutOrderOnSuccess:^(CartDataModel *shippmentDetailData)  {
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {

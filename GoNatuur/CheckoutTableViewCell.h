@@ -12,5 +12,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *radioLabel;
 @property (strong, nonatomic) IBOutlet UILabel *shippingMethodLabel;
 @property (strong, nonatomic) IBOutlet UILabel *shippingMethodPriceLabel;
+@property (strong, nonatomic) IBOutlet UILabel *priceLabel;
+@property (strong, nonatomic) IBOutlet UILabel *priceTitle;
 - (void)displayCellData:(NSDictionary *)shippingMethodData isSelected:(BOOL)isSelected totalPrice:(float)totalPrice;
+- (void)displayPriceCellData:(NSMutableDictionary *)priceDetail priceTitleArray:(NSString *)priceTitle islastIndex:(BOOL)islastIndex;
 @end

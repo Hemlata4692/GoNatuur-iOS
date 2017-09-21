@@ -37,12 +37,15 @@
     _productDescriptionLabel.frame=CGRectMake(88,_productNameLabel.frame.origin.y+_productNameLabel.frame.size.height+15, [[UIScreen mainScreen] bounds].size.width-228, height);
     _productDescriptionLabel.text=cartData.itemDescription;
     //Reframe product price label
-    height=[DynamicHeightWidth getDynamicLabelHeight:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(([[cartData itemPrice] floatValue]*[cartData.itemQty floatValue])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] font:[UIFont montserratRegularWithSize:11] widthValue:54];
-    _productPriceLabel.frame=CGRectMake([[UIScreen mainScreen] bounds].size.width-62, 10, 54, height);
+    
     if ([cartData.isRedeemProduct boolValue]) {
-        _productPriceLabel.text=[NSString stringWithFormat:@"%dip",[cartData.productImpactPoint intValue]];
+        height=[DynamicHeightWidth getDynamicLabelHeight:[NSString stringWithFormat:@"%dip",(int)([[cartData productImpactPoint] floatValue]*[cartData.itemQty floatValue])] font:[UIFont montserratRegularWithSize:11] widthValue:54];
+        _productPriceLabel.frame=CGRectMake([[UIScreen mainScreen] bounds].size.width-62, 10, 54, height);
+        _productPriceLabel.text=[NSString stringWithFormat:@"%dip",(int)([[cartData productImpactPoint] floatValue]*[cartData.itemQty floatValue])];
     }
     else {
+        height=[DynamicHeightWidth getDynamicLabelHeight:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(([[cartData itemPrice] floatValue]*[cartData.itemQty floatValue])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] font:[UIFont montserratRegularWithSize:11] widthValue:54];
+        _productPriceLabel.frame=CGRectMake([[UIScreen mainScreen] bounds].size.width-62, 10, 54, height);
         _productPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(([[cartData itemPrice] floatValue]*[cartData.itemQty floatValue])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
     }
     

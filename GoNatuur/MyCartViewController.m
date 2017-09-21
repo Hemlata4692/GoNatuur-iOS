@@ -204,7 +204,7 @@
                 [cartListData replaceObjectAtIndex:i withObject:cartDataTemp];
             }
             if ([cartDataTemp.isRedeemProduct boolValue]) {
-                 totalImpactPoint+=[cartDataTemp.productImpactPoint floatValue];
+                 totalImpactPoint+=([cartDataTemp.productImpactPoint floatValue]*[cartDataTemp.itemQty floatValue]);
             }
             else {
                 totalCartProductPrice+=([[cartDataTemp itemPrice] floatValue]*[cartDataTemp.itemQty floatValue]);
@@ -226,6 +226,7 @@
         [self addCartListView];
         
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            cartModelData.totalImpactPoints=[NSNumber numberWithInt:0];
             [myDelegate stopIndicator];
         }
         else {
@@ -260,9 +261,8 @@
 }
 
 - (IBAction)cartListNext:(UIButton *)sender {
-    DLog(@"cart next");
     //StoryBoard navigation
-    if ((nil==[UserDefaultManager getValue:@"userId"])&&cartModelData.isRedeemProductExist) {
+    if (((nil==[UserDefaultManager getValue:@"userId"])&&[cartModelData.isRedeemProductExist boolValue])&&[cartModelData.totalImpactPoints doubleValue]<[cartModelData.impactPoints doubleValue]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"rewardProductExistAlert") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return;
@@ -300,14 +300,13 @@
     for (int i=0; i<cartListData.count; i++) {
         CartDataModel *cartDataTemp=[cartListData objectAtIndex:i];
         if ([cartDataTemp.isRedeemProduct boolValue]) {
-            totalImpactPoint+=[cartDataTemp.productImpactPoint floatValue];
+            totalImpactPoint+=([cartDataTemp.productImpactPoint floatValue]*[cartDataTemp.itemQty floatValue]);
         }
         else {
             totalCartProductPrice+=([[cartDataTemp itemPrice] floatValue]*[cartDataTemp.itemQty floatValue]);
         }
     }
     cartListObj.totalPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(totalCartProductPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
-    
     
     if (totalCartProductPrice>0) {
         cartModelData.isSimpleProductExist=[NSNumber numberWithBool:true];
@@ -321,6 +320,7 @@
     else {
         cartModelData.isRedeemProductExist=[NSNumber numberWithBool:false];
     }
+    cartModelData.impactPoints=[NSNumber numberWithFloat:totalImpactPoint];
     [self showTotalPriceAndPoints];
 }
 
@@ -331,7 +331,7 @@
         cartListObj.grandTotalBackView.hidden=false;
         cartListObj.cartTotal.text=[NSString stringWithFormat:@"%@%@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:(totalCartProductPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])]];
         cartListObj.pointTotal.text=[NSString stringWithFormat:@"%dip",[cartModelData.impactPoints intValue]];
-        cartListObj.grandTotal.text=[NSString stringWithFormat:@"%@+%@",cartListObj.cartTotal.text,cartListObj.pointTotal.text];
+        cartListObj.grandTotal.text=[NSString stringWithFormat:@"%@ + %@",cartListObj.cartTotal.text,cartListObj.pointTotal.text];
     }
     else {
         cartListObj.bottomView.frame=CGRectMake(0, cartListObj.view.frame.size.height-80, [[UIScreen mainScreen] bounds].size.width, 80);

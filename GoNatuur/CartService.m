@@ -9,7 +9,7 @@
 #import "CartService.h"
 #import "CartDataModel.h"
 
-static NSString *kCartListing=@"carts/mine";
+static NSString *kCartListing=@"ranosys/get-cart-quote/mine";
 static NSString *kGetLogindShippmentMethod=@"carts/mine/shipping-methods";
 static NSString *kFetchCheckoutPromos=@"ranosys/checkoutpromo";
 static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-information";
@@ -26,7 +26,7 @@ static NSString *kSetCheckoutOrder=@"carts/mine/order";
         [self get:[NSString stringWithFormat:@"guest-carts/%@/items",[UserDefaultManager getValue:@"quoteId"]] parameters:nil onSuccess:success onFailure:failure];
     }
     else {
-        [self get:kCartListing parameters:nil onSuccess:success onFailure:failure];
+        [self post:kCartListing parameters:nil success:success failure:failure];
     }
 }
 

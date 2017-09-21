@@ -89,6 +89,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *noSameAddressButton;
 @property (strong, nonatomic) IBOutlet UILabel *yesRadioLabel;
 @property (strong, nonatomic) IBOutlet UIButton *yesSameAddressButton;
+@property (strong, nonatomic) IBOutlet UIView *bottomView;
 @property (strong, nonatomic) IBOutlet UITableView *totalTableView;
 //BSKeyboard variable declaration
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
@@ -255,6 +256,7 @@
 - (void)didLoadIntialization {
     cartModelData.checkoutPromosArray=[NSMutableArray new];
     cartModelData.shippmentMethodsArray=[NSMutableArray new];
+    totalDict=[NSMutableDictionary new];
     selectedCheckoutPromoIndex=-1;
     selectedShippingMethodIndex=-1;
     _noRadioLabel.layer.masksToBounds=true;
@@ -262,23 +264,65 @@
     _noRadioLabel.layer.cornerRadius=5.0;
     _yesRadioLabel.layer.cornerRadius=5.0;
     isShippingAddreesSame=false;
-    //guest user
-    //with redeem
-    //only redeem
-    //only cash
+    [self setPrices];
+    [self setRadioStyle:isShippingAddreesSame];
+}
+
+- (double)getShippingCharges {
+    return (selectedShippingMethodIndex!=-1?[[cartModelData.shippmentMethodsArray[selectedShippingMethodIndex] objectForKey:@"base_amount"] doubleValue]:0.0);
+}
+
+- (double)getDiscount {
+    double discountValue=0.0;
+    if (selectedCheckoutPromoIndex!=-1) {
+        NSDictionary *tempDict=[[cartModelData.checkoutPromosArray objectAtIndex:selectedCheckoutPromoIndex] copy];
+        if ([tempDict[@"promo_category"] isEqualToString:@"rebate"]) {
+            discountValue=[tempDict[@"promo_discount_value"] floatValue];
+        }
+        else if ([tempDict[@"promo_category"] isEqualToString:@"percent_discount"]) {
+            discountValue=(subTotalPrice*[tempDict[@"promo_discount_value"] floatValue]/100);
+        }
+        else {
+            discountValue=(selectedShippingMethodIndex!=-1?[[cartModelData.shippmentMethodsArray[selectedShippingMethodIndex] objectForKey:@"base_amount"] doubleValue]:0.0);
+        }
+    }
+    return discountValue;
+}
+
+- (void)setPrices {
+    //For guest user
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
         totalArray=@[@"Cart subtotal", @"Shipping charges", @"Grand Total"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(subTotalPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],((subTotalPrice+[self getShippingCharges])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Grand Total"];
     }
+    //Only for redeem products
     else if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
         totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@ip",cartModelData.impactPoints] forKey:@"Points subtotal"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
+        [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getDiscount]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
+        [totalDict setObject:(([self getShippingCharges]-[self getDiscount])>0?[NSString stringWithFormat:@"%@%.2f + %@ip",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]-[self getDiscount]),cartModelData.impactPoints]:[NSString stringWithFormat:@"%@ip",cartModelData.impactPoints]) forKey:@"Grand Total"];
     }
+    //Only for simple products
     else if ([cartModelData.isSimpleProductExist boolValue]&&![cartModelData.isRedeemProductExist boolValue]) {
         totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(subTotalPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
+        [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getDiscount]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],((subTotalPrice+[self getShippingCharges]-[self getDiscount])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Grand Total"];
     }
+    //For both simple and redeem products
     else {
         totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(subTotalPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@ip",cartModelData.impactPoints]forKey:@"Points subtotal"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
+        [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getDiscount]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f + %@ip",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],((subTotalPrice+[self getShippingCharges]-[self getDiscount])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue]),cartModelData.impactPoints] forKey:@"Grand Total"];//Show subtotal and ip
     }
-    [self setRadioStyle:isShippingAddreesSame];
+    [_totalTableView reloadData];
 }
 
 - (void)setRadioStyle:(BOOL)isYes {
@@ -323,9 +367,14 @@
 }
 
 - (void)viewObjectFraming {
+    _bottomView.translatesAutoresizingMaskIntoConstraints=true;
     _mainCheckoutAddressView.translatesAutoresizingMaskIntoConstraints=true;
     _shippmentMethodTableView.translatesAutoresizingMaskIntoConstraints=true;
     _rewardBackView.translatesAutoresizingMaskIntoConstraints=true;
+    _totalTableView.translatesAutoresizingMaskIntoConstraints=true;
+    _scrollView.translatesAutoresizingMaskIntoConstraints=true;
+    _totalTableView.frame=CGRectMake(13, 8, [[UIScreen mainScreen] bounds].size.width-26, 25*totalArray.count);
+    _bottomView.frame=CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-60-(_totalTableView.frame.size.height+59), [[UIScreen mainScreen] bounds].size.width, (_totalTableView.frame.size.height+59));
     _shippmentMethodTableView.frame=CGRectMake(20, 933, [[UIScreen mainScreen] bounds].size.width-40, 50*cartModelData.shippmentMethodsArray.count);
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
         _rewardBackView.hidden=true;
@@ -341,7 +390,7 @@
         }
         _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 930+_shippmentMethodTableView.frame.size.height+_rewardBackView.frame.size.height);
     }
-    
+    _scrollView.frame=CGRectMake(0, 195, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-195-60-_bottomView.frame.size.height);
     _scrollView.contentSize = CGSizeMake(0,_mainCheckoutAddressView.frame.size.height);
 }
 
@@ -1201,10 +1250,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView==_totalTableView) {
         NSString *simpleTableIdentifier=@"totalCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+        CheckoutTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+            cell = [[CheckoutTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
         }
+        [cell displayPriceCellData:[totalDict mutableCopy] priceTitleArray:[totalArray objectAtIndex:indexPath.row] islastIndex:((totalArray.count-1)==indexPath.row)?true:false];
         return cell;
     }
     else {
@@ -1223,6 +1273,7 @@
         selectedShippingMethodIndex=(int)indexPath.row;
         cartModelData.selectedShippingMethod=[cartModelData.shippmentMethodsArray[selectedShippingMethodIndex] objectForKey:@"method_code"];
         [_shippmentMethodTableView reloadData];
+        [self setPrices];
     }
 }
 #pragma mark - end
@@ -1242,11 +1293,15 @@
     if (![[[cartModelData.checkoutPromosArray objectAtIndex:indexPath.row] objectForKey:@"HiddenPromo"] boolValue]) {
         if (selectedCheckoutPromoIndex==(int)indexPath.row) {
             selectedCheckoutPromoIndex=-1;
+            _impactPointLabel.text=[NSString stringWithFormat:@"%@ %@ip",NSLocalizedText(@"checkoutAddressImpactPoint"),cartModelData.checkoutImpactPoint];
         }
         else {
             selectedCheckoutPromoIndex=(int)indexPath.row;
+            NSDictionary *tempDict=[[cartModelData.checkoutPromosArray objectAtIndex:selectedCheckoutPromoIndex] copy];
+            _impactPointLabel.text=[NSString stringWithFormat:@"%@ %dip",NSLocalizedText(@"checkoutAddressImpactPoint"),[cartModelData.checkoutImpactPoint intValue]-[tempDict[@"promo_points"] intValue]];
         }
         [_offersCollectionView reloadData];
+        [self setPrices];
     }
 }
 #pragma mark - end
