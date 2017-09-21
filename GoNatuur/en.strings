@@ -250,7 +250,7 @@
 "Comments"="Comments";
 "getTickets"="GET TICKETS";
 "ticketType"="Please Select Your Ticket";
-"shareText"="Share on Social";
+"shareText"="Share on Social Media";
 "price"="Price";
 "AboutUs"="About Us";
 "ContactUs"="Contact Us";
@@ -277,11 +277,12 @@
 "complete"="complete";
 "close"="close";
 "return"="return";
+"cancel"="cancel";
 "productNameTitle"="Product Name:";
-"skuTitle"="SKU";
+"skuTitle"="SKU:";
 "optionSelectTitle"="Option Select:";
 "QtyTitle"="Qty:";
-"totalAmountTitle"="Total Amount";
+"totalAmountTitle"="Total Amount:";
 "subtotalTitle"="Subtotal";
 "ShippingChargeTitle"="Shipping & Handling";
 "taxTitle"="Tax";
@@ -292,3 +293,4 @@
 "invoiceTitle"="INVOICES";
 "invoice"="Invoice:";
 "shipment"="Shipment:";
+"oldest"="Earliest";

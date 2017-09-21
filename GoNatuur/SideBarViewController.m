@@ -40,7 +40,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
-    _sideBarTableView.scrollEnabled=YES;
      sideBarLabelArray=@[NSLocalizedText(@"sideBarOrder"), NSLocalizedText(@"sideBarPayment"), NSLocalizedText(@"sideBarRedeemPoints"),NSLocalizedText(@"sideBarEvents"), NSLocalizedText(@"sideBarNewsCentre"), NSLocalizedText(@"sideBarNotifications"), NSLocalizedText(@"sideBarAboutUs"), NSLocalizedText(@"sideBarContactUs"), NSLocalizedText(@"sideBarNewsLetter"),NSLocalizedText(@"sideBarProductGuide"),NSLocalizedText(@"sideBarSignOut")];
     [_sideBarTableView reloadData];
 }
@@ -131,9 +130,7 @@
         myDelegate.isProductList=false;
     }
     else if (indexPath.row==4) {
-        //        if (![myDelegate checkGuestAccess]) {
         myDelegate.selectedCategoryIndex=-1;
-        //        }
     }
     else if (indexPath.row==5) {
         if (![myDelegate checkGuestAccess]) {

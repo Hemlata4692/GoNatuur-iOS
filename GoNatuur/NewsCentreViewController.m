@@ -16,17 +16,20 @@
 #import "NewsCentreDetailViewController.h"
 
 @interface NewsCentreViewController () <UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
+    @private
     NSMutableArray *productListDataArray, *subCategoryDataList, *subCategoryPickerArray;
     int totalProductCount, currentpage;
     NSString *bannerImageUrl;
     float productListHeight;
     UIView *footerView;
-    bool isPullToRefresh;
+    bool isPullToRefresh, isFilter;
     GoNatuurFilterView *filterViewObj;
     int selectedFirstFilterIndex, selectedSubCategoryIndex, selectedSecondFilterIndex;
     GoNatuurPickerView *gNPickerViewObj;
     int currentCategoryId;
     int lastSelectedCategoryId;
+    NSMutableArray *archiveOptionsArray, *sortingDataArray;
+    NSString *sortingType, *filterValue1, *filterValue2;
 }
 
 @property (strong, nonatomic) IBOutlet UILabel *noRecordLabel;
@@ -38,9 +41,15 @@
 
 @implementation NewsCentreViewController
 
+#pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    sortingType=@"DESC";
+    filterValue2=@"";
+    filterValue1=@"";
+    archiveOptionsArray=[[NSMutableArray alloc]init];
+    sortingDataArray=[[NSMutableArray alloc]initWithObjects:NSLocalizedText(@"mostRecent"),NSLocalizedText(@"oldest"), nil];
     //Add custom picker view and initialized indexs
     [self addCustomPickerView];
 }
@@ -84,7 +93,7 @@
     // Pull to refresh
     _refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-10, 0, 20, 20)];
     _refreshControl.tintColor=[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0];
-   [_refreshControl addTarget:self action:@selector(refreshControlAction) forControlEvents:UIControlEventValueChanged];
+    [_refreshControl addTarget:self action:@selector(refreshControlAction) forControlEvents:UIControlEventValueChanged];
     [_newsListingTableView addSubview:_refreshControl];
 }
 
@@ -102,14 +111,8 @@
     //Add filter xib view
     filterViewObj=[[GoNatuurFilterView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35) delegate:self];
     filterViewObj.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35);
-    [filterViewObj setButtonTitles:NSLocalizedText(@"Filter") subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:NSLocalizedText(@"Sortby")];
+    [filterViewObj setButtonTitles:((archiveOptionsArray.count>0)?[archiveOptionsArray objectAtIndex:selectedFirstFilterIndex]:@"") subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:((sortingDataArray.count>0)?[sortingDataArray objectAtIndex:selectedFirstFilterIndex]:@"")];
     //Customized filter view
-    filterViewObj.firstFilterButtonOutlet.enabled=false;
-    filterViewObj.secondFilterButtonOutlet.enabled=false;
-    filterViewObj.firstFilterButtonOutlet.alpha=0.5;
-    filterViewObj.secondFilterButtonOutlet.alpha=0.5;
-    filterViewObj.firstFilterArrowImageView.alpha=0.4;
-    filterViewObj.secondFilterArrowImageView.alpha=0.4;
     //Set initial index of picker view and initialized picker view
     selectedFirstFilterIndex=0;
     selectedSubCategoryIndex=0;
@@ -233,7 +236,7 @@
         subCategoryDataList=[NSMutableArray new];
         //Set initial value come to default condition
         for (NSDictionary *tempDict in userData.categoryNameArray) {
-                [subCategoryDataList addObject:tempDict];
+            [subCategoryDataList addObject:tempDict];
         }
         //Set initial value come to default condition
         [subCategoryDataList insertObject:@{@"category_id":[NSNumber numberWithInt:currentCategoryId],
@@ -257,7 +260,7 @@
     [userLogin CMSPageService:^(LoginModel *userData) {
         self.navigationItem.title=userData.cmsTitle;
         [self parseImageFromTag:userData.cmsContent];
-        [self getNewsListData];
+        [self getNewsArchiveFilters];
         
     } onfailure:^(NSError *error) {
     }];
@@ -270,7 +273,7 @@
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(<img\\s[\\s\\S]*?src\\s*?=\\s*?['\"](.*?)['\"][\\s\\S]*?>)+?"
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:&error];
-        [regex enumerateMatchesInString:yourHTMLSourceCodeString
+    [regex enumerateMatchesInString:yourHTMLSourceCodeString
                             options:0
                               range:NSMakeRange(0, [yourHTMLSourceCodeString length])
                          usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
@@ -288,18 +291,48 @@
 //Get product list service
 - (void)getNewsListData {
     DashboardDataModel *productList = [DashboardDataModel sharedUser];
-    if (currentCategoryId==0) {
+    if (currentCategoryId==0&&!isFilter) {
         productList.newsType=@"All";
+    }
+    else if (isFilter) {
+        productList.newsType=@"filter";
+        productList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
+        productList.filterValue=filterValue1;
+        productList.filterValue2=filterValue2;
+        productList.sortingValue=sortingType;
     }
     else {
         productList.newsType=@"";
-    productList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
+        productList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
     }
     productList.pageSize=[NSNumber numberWithInt:12];
     productList.currentPage=[NSNumber numberWithInt:currentpage];
     [productList getNewsListDataService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];
         [self serviceDataHandling:productData];
+    } onfailure:^(NSError *error) {
+        [_refreshControl endRefreshing];
+    }];
+}
+
+//Get news filters list service
+- (void)getNewsArchiveFilters {
+    DashboardDataModel *productList = [DashboardDataModel sharedUser];
+    [productList getNewsListFiltersDataService:^(DashboardDataModel *productData)  {
+        [self getNewsListData];
+        for (int i=0; i<productData.archiveOptionsForNews.count; i++) {
+        NSString *dateString = [productData.archiveOptionsForNews objectAtIndex:i];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:dateFormatterService];
+        NSDate *date = [[NSDate alloc] init];
+        date = [dateFormatter dateFromString:dateString];
+        // converting into our required date format
+        [dateFormatter setDateFormat:dateFormatterConverted];
+        NSString *reqDateString = [dateFormatter stringFromDate:date];
+        [archiveOptionsArray insertObject:reqDateString atIndex:i];
+        }
+        [archiveOptionsArray insertObject:NSLocalizedText(@"All") atIndex:0];
+        [filterViewObj.firstFilterButtonOutlet setTitle:[archiveOptionsArray objectAtIndex:0] forState:UIControlStateNormal];
     } onfailure:^(NSError *error) {
         [_refreshControl endRefreshing];
     }];
@@ -355,6 +388,16 @@
             [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false];
         }
     }
+    else if (option==2) {
+        if (archiveOptionsArray.count>0) {
+            [gNPickerViewObj showPickerView:archiveOptionsArray selectedIndex:selectedFirstFilterIndex option:2 isCancelDelegate:false];
+        }
+    }
+    else{
+        if (sortingDataArray.count>0) {
+            [gNPickerViewObj showPickerView:sortingDataArray selectedIndex:selectedSecondFilterIndex option:3 isCancelDelegate:false];
+        }
+    }
 }
 #pragma mark - end
 
@@ -364,7 +407,7 @@
         if (selectedSubCategoryIndex!=tempSelectedIndex) {
             selectedSubCategoryIndex=tempSelectedIndex;
             [filterViewObj.subCategoryButtonOutlet setTitle:[subCategoryPickerArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
-            currentCategoryId=[[[subCategoryDataList objectAtIndex:selectedSubCategoryIndex] objectForKey:@"category_id"] intValue];
+            currentCategoryId=[[[subCategoryDataList objectAtIndex:tempSelectedIndex] objectForKey:@"category_id"] intValue];
             bannerImageUrl=@"";
             productListDataArray=[NSMutableArray new];
             totalProductCount=0;
@@ -373,8 +416,71 @@
             [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
         }
     }
+    else  if (option==2) {
+        if (selectedFirstFilterIndex!=tempSelectedIndex) {
+            selectedFirstFilterIndex=tempSelectedIndex;
+            [filterViewObj.firstFilterButtonOutlet setTitle:[archiveOptionsArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
+            if (tempSelectedIndex!=0) {
+                NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
+                [dateFormatter setDateFormat:dateFormatterConverted];
+                NSDate *dateValue = [dateFormatter dateFromString:[archiveOptionsArray objectAtIndex:tempSelectedIndex]];
+                [self returnDate:dateValue];
+                isFilter=true;
+            }
+            else {
+                isFilter=false;
+            }
+            productListDataArray=[NSMutableArray new];
+            totalProductCount=0;
+            currentpage=1;
+            [myDelegate showIndicator];
+            [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
+        }
+    }
+    else {
+        if (selectedSecondFilterIndex!=tempSelectedIndex) {
+            selectedSecondFilterIndex=tempSelectedIndex;
+            [filterViewObj.secondFilterButtonOutlet setTitle:[sortingDataArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
+            if (tempSelectedIndex==0) {
+                sortingType=@"DESC";
+            }
+            else {
+                 sortingType=@"ASC";
+            }
+            productListDataArray=[NSMutableArray new];
+            totalProductCount=0;
+            currentpage=1;
+            isFilter=true;
+            [myDelegate showIndicator];
+            [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
+        }
+    }
 }
 #pragma mark - end
 
+#pragma mark - Date formatter
+- (void)returnDate:(NSDate *)date {
+    NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth;
+    NSDateComponents *comps = [calendar components:unitFlags fromDate:date];
+    
+    NSDate * firstDateOfMonth = [self returnDateForMonth:comps.month year:comps.year day:1];
+    NSDate * lastDateOfMonth = [self returnDateForMonth:comps.month+1 year:comps.year day:0];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:dateFormatterDate];
+    filterValue1=[dateFormatter stringFromDate:firstDateOfMonth];
+    filterValue2=[dateFormatter stringFromDate:lastDateOfMonth];
+}
 
+- (NSDate *)returnDateForMonth:(NSInteger)month year:(NSInteger)year day:(NSInteger)day {
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setDay:day];
+    [components setMonth:month];
+    [components setYear:year];
+    
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    return [gregorian dateFromComponents:components];
+}
+#pragma mark - end
 @end

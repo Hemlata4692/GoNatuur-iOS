@@ -35,6 +35,9 @@ extern NSString * const zopimTicketAppId;
 extern NSString * const zopimAppId;
 extern NSString * const zopimURL;
 extern NSString * const zopimClientId;
+extern NSString * const dateFormatterService;
+extern NSString * const dateFormatterConverted;
+extern NSString * const dateFormatterDate;
 //end
 
 + (ConstantType)checkDeviceType;

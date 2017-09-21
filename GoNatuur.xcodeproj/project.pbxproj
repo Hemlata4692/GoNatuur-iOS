@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		180409E01F58744B00EA3E17 /* NewsCentreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180409DF1F58744B00EA3E17 /* NewsCentreViewController.m */; };
+		1807D50D1F7257FD00A0251F /* NewsCentreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1807D50C1F7257FD00A0251F /* NewsCentreCollectionViewCell.m */; };
 		180ECD251F482A38003C936E /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD241F482A38003C936E /* WebViewController.m */; };
 		180ECD291F484A17003C936E /* ReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD281F484A17003C936E /* ReviewViewController.m */; };
 		180ECD301F484DE4003C936E /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECD2F1F484DE4003C936E /* UIPlaceHolderTextView.m */; };
@@ -26,6 +27,8 @@
 		181844561F70E08C0077E48C /* ZDCChat.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 181844521F70E08C0077E48C /* ZDCChat.bundle */; };
 		181844571F70E08C0077E48C /* ZDCChatStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 181844531F70E08C0077E48C /* ZDCChatStrings.bundle */; };
 		1818445B1F70E0F10077E48C /* ChatStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818445A1F70E0F10077E48C /* ChatStyling.m */; };
+		1818445F1F70FBE10077E48C /* ShareDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818445E1F70FBE10077E48C /* ShareDataModel.m */; };
+		181844631F70FBFE0077E48C /* ShareDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 181844621F70FBFE0077E48C /* ShareDataService.m */; };
 		181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181853261F3D833F00EEB73B /* DashboardDataModel.m */; };
 		1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532A1F3D8A7F00EEB73B /* DashboardService.m */; };
 		1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532E1F3DFED000EEB73B /* ImageCaching.m */; };
@@ -198,6 +201,8 @@
 /* Begin PBXFileReference section */
 		180409DE1F58744B00EA3E17 /* NewsCentreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCentreViewController.h; sourceTree = "<group>"; };
 		180409DF1F58744B00EA3E17 /* NewsCentreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCentreViewController.m; sourceTree = "<group>"; };
+		1807D50B1F7257FD00A0251F /* NewsCentreCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCentreCollectionViewCell.h; sourceTree = "<group>"; };
+		1807D50C1F7257FD00A0251F /* NewsCentreCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCentreCollectionViewCell.m; sourceTree = "<group>"; };
 		180ECD231F482A38003C936E /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		180ECD241F482A38003C936E /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		180ECD271F484A17003C936E /* ReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewViewController.h; sourceTree = "<group>"; };
@@ -226,6 +231,10 @@
 		181844531F70E08C0077E48C /* ZDCChatStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZDCChatStrings.bundle; sourceTree = "<group>"; };
 		181844591F70E0F10077E48C /* ChatStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatStyling.h; sourceTree = "<group>"; };
 		1818445A1F70E0F10077E48C /* ChatStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatStyling.m; sourceTree = "<group>"; };
+		1818445D1F70FBE10077E48C /* ShareDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareDataModel.h; sourceTree = "<group>"; };
+		1818445E1F70FBE10077E48C /* ShareDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDataModel.m; sourceTree = "<group>"; };
+		181844611F70FBFE0077E48C /* ShareDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareDataService.h; sourceTree = "<group>"; };
+		181844621F70FBFE0077E48C /* ShareDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDataService.m; sourceTree = "<group>"; };
 		181853251F3D833F00EEB73B /* DashboardDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardDataModel.h; sourceTree = "<group>"; };
 		181853261F3D833F00EEB73B /* DashboardDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardDataModel.m; sourceTree = "<group>"; };
 		181853291F3D8A7F00EEB73B /* DashboardService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardService.h; sourceTree = "<group>"; };
@@ -560,6 +569,24 @@
 			name = NewsListingViewController;
 			sourceTree = "<group>";
 		};
+		1807D5091F7257C800A0251F /* NewsCentreSearchCell */ = {
+			isa = PBXGroup;
+			children = (
+				1807D50B1F7257FD00A0251F /* NewsCentreCollectionViewCell.h */,
+				1807D50C1F7257FD00A0251F /* NewsCentreCollectionViewCell.m */,
+			);
+			name = NewsCentreSearchCell;
+			sourceTree = "<group>";
+		};
+		1807D50A1F7257D500A0251F /* NewsCentreSearchList */ = {
+			isa = PBXGroup;
+			children = (
+				18FFBC841F62CEBC006C088B /* NewsCenterSearchListViewController.h */,
+				18FFBC851F62CEBC006C088B /* NewsCenterSearchListViewController.m */,
+			);
+			name = NewsCentreSearchList;
+			sourceTree = "<group>";
+		};
 		180ECD221F482A0C003C936E /* WebViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -668,6 +695,24 @@
 				1818445A1F70E0F10077E48C /* ChatStyling.m */,
 			);
 			name = ZopimChat;
+			sourceTree = "<group>";
+		};
+		1818445C1F70FBC50077E48C /* ShareModel */ = {
+			isa = PBXGroup;
+			children = (
+				1818445D1F70FBE10077E48C /* ShareDataModel.h */,
+				1818445E1F70FBE10077E48C /* ShareDataModel.m */,
+			);
+			name = ShareModel;
+			sourceTree = "<group>";
+		};
+		181844601F70FBED0077E48C /* ShareService */ = {
+			isa = PBXGroup;
+			children = (
+				181844611F70FBFE0077E48C /* ShareDataService.h */,
+				181844621F70FBFE0077E48C /* ShareDataService.m */,
+			);
+			name = ShareService;
 			sourceTree = "<group>";
 		};
 		181853241F3D832200EEB73B /* DashboardModel */ = {
@@ -1336,8 +1381,8 @@
 		18FFBC831F62CE91006C088B /* NewsCenterSearchListing */ = {
 			isa = PBXGroup;
 			children = (
-				18FFBC841F62CEBC006C088B /* NewsCenterSearchListViewController.h */,
-				18FFBC851F62CEBC006C088B /* NewsCenterSearchListViewController.m */,
+				1807D50A1F7257D500A0251F /* NewsCentreSearchList */,
+				1807D5091F7257C800A0251F /* NewsCentreSearchCell */,
 			);
 			name = NewsCenterSearchListing;
 			sourceTree = "<group>";
@@ -1371,6 +1416,7 @@
 		320761601F1626F2001F1790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1818445C1F70FBC50077E48C /* ShareModel */,
 				18FA120B1F6ADD4A0001A3B0 /* ProductGuideModel */,
 				5D2760AA1F62793F00B6D0FF /* OrderModel */,
 				B77D86EC1F5D850F0041D646 /* CartModel */,
@@ -1466,6 +1512,7 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				181844601F70FBED0077E48C /* ShareService */,
 				18FA120F1F6ADD6F0001A3B0 /* ProductGuideService */,
 				5D2760AE1F627AD800B6D0FF /* OrderService */,
 				B77D86F01F5D85270041D646 /* CartService */,
@@ -2063,8 +2110,8 @@
 		B7A73B861F6F912700412656 /* OrderInvoiceView */ = {
 			isa = PBXGroup;
 			children = (
-				B7A73B881F6F913D00412656 /* OrderInvoiceCell */,
 				B7A73B871F6F913700412656 /* OrderInvoiceViewController */,
+				B7A73B881F6F913D00412656 /* OrderInvoiceCell */,
 			);
 			name = OrderInvoiceView;
 			sourceTree = "<group>";
@@ -2480,6 +2527,7 @@
 				B77D86F31F5D85320041D646 /* CartService.m in Sources */,
 				5D2760A71F62767F00B6D0FF /* OrderListingCell.m in Sources */,
 				B7AA39B31F47101400423121 /* GoNatuurFilterView.m in Sources */,
+				181844631F70FBFE0077E48C /* ShareDataService.m in Sources */,
 				180ECD251F482A38003C936E /* WebViewController.m in Sources */,
 				180ECD291F484A17003C936E /* ReviewViewController.m in Sources */,
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
@@ -2495,6 +2543,7 @@
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				B7DA71F31F5034F300F45439 /* HCYoutubeParser.m in Sources */,
 				3207616E1F162820001F1790 /* NullValueChecker.m in Sources */,
+				1807D50D1F7257FD00A0251F /* NewsCentreCollectionViewCell.m in Sources */,
 				B77D86E51F5D83EB0041D646 /* MyCartViewController.m in Sources */,
 				184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */,
 				5DAC39551F61783F00702F92 /* AddressListingCell.m in Sources */,
@@ -2518,6 +2567,7 @@
 				180ECD441F48A215003C936E /* ReviewService.m in Sources */,
 				185036E51F67A0850008C0F1 /* WebPageViewController.m in Sources */,
 				B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */,
+				1818445F1F70FBE10077E48C /* ShareDataModel.m in Sources */,
 				5D2760B11F627AEF00B6D0FF /* OrderService.m in Sources */,
 				1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */,
 				185036EE1F67E3830008C0F1 /* ShareViewController.m in Sources */,

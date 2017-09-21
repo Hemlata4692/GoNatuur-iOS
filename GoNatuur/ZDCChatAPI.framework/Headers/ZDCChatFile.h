@@ -109,7 +109,7 @@ typedef NS_ENUM(NSUInteger, ZDCTransferError) {
 
 /**
  * Get the extension from the file name.
- * @param the file name
+ * @param fileName file name
  * @return the file extension or nil if one cannot be extracted
  */
 + (NSString*) derivefileExtension:(NSString*)fileName;
@@ -118,7 +118,7 @@ typedef NS_ENUM(NSUInteger, ZDCTransferError) {
  * Get the mime type for the supplied details. The file signature will be used if possible, otherwise
  * simply the extension is used. Only currently recognises PNG, JPG, PDF and TXT.
  * @param data the file data if available
- * @param the file extentsion if available
+ * @param fileExtension file extentsion if available
  * @return the mime type, or nil if nothing is recognised
  */
 + (NSString *) mimeTypeForData:(NSData*)data andFileExtension:(NSString*)fileExtension;

@@ -135,15 +135,15 @@
     _shippingAddressNameLabel.frame=CGRectMake(10, 30,rectSize.width-20, height);
     _shippingAddressFirstStreetLabel.text = [orderData.fullShippingAddress[@"street"] componentsJoinedByString:@" "];
     _shippingAddressFirstStreetLabel.numberOfLines = 0;
-    height =[DynamicHeightWidth getDynamicLabelHeight:_shippingAddressFirstStreetLabel.text font:[UIFont montserratRegularWithSize:13] widthValue:rectSize.width-20 heightValue:500];
+    height =[DynamicHeightWidth getDynamicLabelHeight:_shippingAddressFirstStreetLabel.text font:[UIFont montserratLightWithSize:13] widthValue:rectSize.width-20 heightValue:500];
     _shippingAddressFirstStreetLabel.frame=CGRectMake(10, _shippingAddressNameLabel.frame.origin.y + _shippingAddressNameLabel.frame.size.height + 5,rectSize.width-20, height);
     _shippingAddressSecondStreetLabel.text = [NSString stringWithFormat:@"%@ - %@, %@",orderData.fullShippingAddress[@"city"],orderData.fullShippingAddress[@"postcode"],orderData.fullShippingAddress[@"region"]];
     _shippingAddressSecondStreetLabel.numberOfLines = 0;
-    height =[DynamicHeightWidth getDynamicLabelHeight:_shippingAddressSecondStreetLabel.text font:[UIFont montserratRegularWithSize:13] widthValue:rectSize.width-20 heightValue:500];
+    height =[DynamicHeightWidth getDynamicLabelHeight:_shippingAddressSecondStreetLabel.text font:[UIFont montserratLightWithSize:13] widthValue:rectSize.width-20 heightValue:500];
     _shippingAddressSecondStreetLabel.frame=CGRectMake(10, _shippingAddressFirstStreetLabel.frame.origin.y + _shippingAddressFirstStreetLabel.frame.size.height + 1,rectSize.width-20, height);
     _shippingAddressPhoneNumberLabel.text = [NSString stringWithFormat:@"Phone Number: %@",orderData.fullShippingAddress[@"telephone"]];
     _shippingAddressPhoneNumberLabel.numberOfLines = 0;
-    height =[DynamicHeightWidth getDynamicLabelHeight:_shippingAddressPhoneNumberLabel.text font:[UIFont montserratRegularWithSize:13] widthValue:rectSize.width-20 heightValue:500];
+    height =[DynamicHeightWidth getDynamicLabelHeight:_shippingAddressPhoneNumberLabel.text font:[UIFont montserratLightWithSize:13] widthValue:rectSize.width-20 heightValue:500];
     _shippingAddressPhoneNumberLabel.frame=CGRectMake(10, _shippingAddressSecondStreetLabel.frame.origin.y + _shippingAddressSecondStreetLabel.frame.size.height + 1,rectSize.width-20, height);
 }
 
@@ -156,15 +156,15 @@
     _billingAddressNameLabel.frame=CGRectMake(10, 30,rectSize.width-20, height);
     _billingAddressFirstStreetLabel.text = [orderData.fullBillingAddress[@"street"] componentsJoinedByString:@" "];
     _billingAddressFirstStreetLabel.numberOfLines = 0;
-    height =[DynamicHeightWidth getDynamicLabelHeight:_billingAddressFirstStreetLabel.text font:[UIFont montserratRegularWithSize:13] widthValue:rectSize.width-20 heightValue:500];
+    height =[DynamicHeightWidth getDynamicLabelHeight:_billingAddressFirstStreetLabel.text font:[UIFont montserratLightWithSize:13] widthValue:rectSize.width-20 heightValue:500];
     _billingAddressFirstStreetLabel.frame=CGRectMake(10, _billingAddressNameLabel.frame.origin.y + _billingAddressNameLabel.frame.size.height + 5,rectSize.width-20, height);
     _billingAddressSecondStreetLabel.text = [NSString stringWithFormat:@"%@ - %@, %@",orderData.fullBillingAddress[@"city"],orderData.fullBillingAddress[@"postcode"],orderData.fullBillingAddress[@"region"]];
     _billingAddressSecondStreetLabel.numberOfLines = 0;
-    height =[DynamicHeightWidth getDynamicLabelHeight:_billingAddressSecondStreetLabel.text font:[UIFont montserratRegularWithSize:13] widthValue:rectSize.width-20 heightValue:500];
+    height =[DynamicHeightWidth getDynamicLabelHeight:_billingAddressSecondStreetLabel.text font:[UIFont montserratLightWithSize:13] widthValue:rectSize.width-20 heightValue:500];
     _billingAddressSecondStreetLabel.frame=CGRectMake(10, _billingAddressFirstStreetLabel.frame.origin.y + _billingAddressFirstStreetLabel.frame.size.height + 1,rectSize.width-20, height);
     _billingAddressPhoneNumberLabel.text = [NSString stringWithFormat:@"Phone Number: %@",orderData.fullBillingAddress[@"telephone"]];
     _billingAddressPhoneNumberLabel.numberOfLines = 0;
-    height =[DynamicHeightWidth getDynamicLabelHeight:_billingAddressPhoneNumberLabel.text font:[UIFont montserratRegularWithSize:13] widthValue:rectSize.width-20 heightValue:500];
+    height =[DynamicHeightWidth getDynamicLabelHeight:_billingAddressPhoneNumberLabel.text font:[UIFont montserratLightWithSize:13] widthValue:rectSize.width-20 heightValue:500];
     _billingAddressPhoneNumberLabel.frame=CGRectMake(10, _billingAddressSecondStreetLabel.frame.origin.y + _billingAddressSecondStreetLabel.frame.size.height + 1,rectSize.width-20, height);
 }
 
@@ -224,7 +224,7 @@
     _skuHeadingLabel.text = NSLocalizedText(@"skuTitle");
     _eventSkuHeadingLabel.text = NSLocalizedText(@"skuTitle");
     _ticketOptionHeadingLanbel.text = NSLocalizedText(@"optionSelectTitle");
-    _priceHeadingLabel.text = NSLocalizedText(@"price");
+    _priceHeadingLabel.text = NSLocalizedText(@"priceHeading");
     _quantityHeadingLabel.text = NSLocalizedText(@"QtyTitle");
     _subtotalHeadingLabel.text = NSLocalizedText(@"totalAmountTitle");
     // Order total label

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShareViewController : UIViewController
-
+@interface ShareViewController : GoNatuurViewController
+@property(nonatomic, strong) NSString *shareURL;
+@property(nonatomic, strong) NSString *mediaURL;
+@property(nonatomic, strong) NSString *name;
+@property(nonatomic, strong) NSString *productDescription;
 @end
