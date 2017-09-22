@@ -28,6 +28,8 @@
 @synthesize searchProductIds;
 @synthesize pageSize;
 @synthesize wishlistItemId;
+@synthesize isRedeemProduct;
+@synthesize productImpactPoint;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser {
