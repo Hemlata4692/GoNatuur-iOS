@@ -23,7 +23,12 @@
 
 - (void)displayCartListData:(CartDataModel *)cartData isSeparatorHide:(BOOL)isSeparatorHide {
     _productNameLabel.text=cartData.itemName;
-    _productPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([[cartData itemPrice] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
+    if ([cartData.isRedeemProduct boolValue]) {
+        _productPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([[cartData itemPrice] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
+    }
+    else {
+        _productPriceLabel.text=[NSString stringWithFormat:@"%dip",(int)[[cartData productImpactPoint] floatValue]];
+    }
     _productQuantityLabel.text=[NSString stringWithFormat:@"x%@",cartData.itemQty];
     [ImageCaching downloadImages:_productImageView imageUrl:cartData.itemImageUrl placeholderImage:@"product_placeholder" isDashboardCell:false];
     if (isSeparatorHide) {

@@ -12,7 +12,8 @@
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
 #define borderRadioColor [UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]
-#define numberPriceCount 4
+#define paymentBorderColor [UIColor colorWithRed:120.0/255.0 green:120.0/255.0 blue:120.0/255.0 alpha:0.3]
+#define selectedPaymentMethodColor  [UIColor colorWithRed:250.0/255.0 green:241.0/255.0 blue:244.0/255.0 alpha:1.0]
 
 @interface FinalCheckoutViewController () {
 @private
@@ -21,7 +22,8 @@
     int selectedPaymentMethodIndex;
     NSArray *totalArray;
     NSMutableDictionary *totalDict, *paymentMethodDict;
-    bool isCyberSourceExist;
+    bool isCyberSourceExist, isApplyCouponExist;
+    bool isCreditUser;
 }
 //View objects declaration
 @property (strong, nonatomic) IBOutlet UILabel *freeShippingLabel;
@@ -42,8 +44,9 @@
 
 @implementation FinalCheckoutViewController
 @synthesize cartModelData;
-@synthesize cartListDataArray
-;
+@synthesize cartListDataArray;
+@synthesize finalCheckoutPriceDict;
+
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -73,6 +76,9 @@
     [self customizedSteps];
     [self setLocalizedText];
     totalDict=[NSMutableDictionary new];
+    totalArray=@[];
+    [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"ApplyCoupon"];
+    [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Credit amount"];
     [self setPrices];
     
     [self getDataFromCartModel];
@@ -139,10 +145,10 @@
 
 - (void)customizedFraming {
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
-        _cartItemsTableView.frame=CGRectMake(0, 35, [[UIScreen mainScreen] bounds].size.width, (93*cartListDataArray.count)+(numberPriceCount*35)+55);
+        _cartItemsTableView.frame=CGRectMake(0, 35, [[UIScreen mainScreen] bounds].size.width, (93*cartListDataArray.count)+(totalArray.count*35)+55);
     }
     else {
-        _cartItemsTableView.frame=CGRectMake(0, 35, [[UIScreen mainScreen] bounds].size.width, (93*cartListDataArray.count)+(numberPriceCount*35));
+        _cartItemsTableView.frame=CGRectMake(0, 35, [[UIScreen mainScreen] bounds].size.width, (93*cartListDataArray.count)+(totalArray.count*35));
     }
     _cartListView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _cartItemsTableView.frame.size.height+_cartItemsTableView.frame.origin.y);
     
@@ -171,6 +177,9 @@
     }
     _mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _paymentView.frame.size.height+_paymentView.frame.origin.y+10);
     [_paymentCollectionView reloadData];
+    
+    _cyberSourceView.layer.cornerRadius=22;
+    [_cyberSourceView addShadow:_cyberSourceView color:[UIColor blackColor]];
 }
 
 - (void)getDataFromCartModel {
@@ -199,6 +208,8 @@
         }
     }
     
+    [paymentMethodDict setObject:[NSDictionary new] forKey:@"paypal"];
+    [paymentMethodDict setObject:[NSDictionary new] forKey:@"aliChat"];
     NSMutableArray *tempArray=[paymentMethodArray mutableCopy];
     for (NSString *temp in tempArray) {
         if (![[paymentMethodDict allKeys] containsObject:temp]) {
@@ -209,39 +220,56 @@
 }
 
 - (void)setPrices {
-//    //For guest user
-//    if ((nil==[UserDefaultManager getValue:@"userId"])) {
-//        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Grand Total"];
-//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(subTotalPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
-//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
-//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],((subTotalPrice+[self getShippingCharges])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Grand Total"];
-//    }
-//    //Only for redeem products
-//    else if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
-//        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
-//        [totalDict setObject:[NSString stringWithFormat:@"%@ip",cartModelData.impactPoints] forKey:@"Points subtotal"];
-//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
-//        [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getDiscount]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
-//        [totalDict setObject:(([self getShippingCharges]-[self getDiscount])>0?[NSString stringWithFormat:@"%@%.2f + %@ip",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]-[self getDiscount]),cartModelData.impactPoints]:[NSString stringWithFormat:@"%@ip",cartModelData.impactPoints]) forKey:@"Grand Total"];
-//    }
-//    //Only for simple products
-//    else if ([cartModelData.isSimpleProductExist boolValue]&&![cartModelData.isRedeemProductExist boolValue]) {
-//        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
-//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(subTotalPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
-//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
-//        [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getDiscount]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
-//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],((subTotalPrice+[self getShippingCharges]-[self getDiscount])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Grand Total"];
-//    }
-//    //For both simple and redeem products
-//    else {
-//        totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
-//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(subTotalPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
-//        [totalDict setObject:[NSString stringWithFormat:@"%@ip",cartModelData.impactPoints]forKey:@"Points subtotal"];
-//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
-//        [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getDiscount]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
-//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f + %@ip",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],((subTotalPrice+[self getShippingCharges]-[self getDiscount])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue]),cartModelData.impactPoints] forKey:@"Grand Total"];//Show subtotal and ip
-//    }
-//    [_totalTableView reloadData];
+    isApplyCouponExist=true;
+    //For guest user
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Apply coupon code", @"Grand Total"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Cart subtotal"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(([finalCheckoutPriceDict[@"Cart subtotal"] floatValue]+[finalCheckoutPriceDict[@"Shipping charges"] floatValue])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Grand Total"];
+    }
+    else if (isCreditUser) {
+        [self setPriceForCreditUser];
+    }
+    else {
+        [self setPriceForCashUser];
+    }
+    [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Shipping charges"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
+}
+
+- (void)setPriceForCashUser {
+    //Only for redeem products with apply coupon code
+    if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]&&([finalCheckoutPriceDict[@"Shipping charges"] floatValue]-[finalCheckoutPriceDict[@"Discount"] floatValue])>0) {
+        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Apply coupon code", @"Grand Total"];
+    }
+     //Only for redeem products without apply coupon code
+    else if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
+        isApplyCouponExist=false;
+        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+        
+    }
+    //Only for simple products
+    else if ([cartModelData.isSimpleProductExist boolValue]&&![cartModelData.isRedeemProductExist boolValue]) {
+        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount", @"Apply coupon code", @"Grand Total"];
+    }
+    //For both simple and redeem products
+    else {
+        totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount", @"Apply coupon code", @"Grand Total"];
+    }
+}
+
+- (void)setPriceForCreditUser {
+    //Only for redeem products
+    if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
+        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+    }
+    //Only for simple products
+    else if ([cartModelData.isSimpleProductExist boolValue]&&![cartModelData.isRedeemProductExist boolValue]) {
+        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+    }
+    //For both simple and redeem products
+    else {
+        totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+    }
 }
 #pragma mark - end
 
@@ -257,10 +285,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
-        return cartListDataArray.count+numberPriceCount+1;
+        return cartListDataArray.count+totalArray.count+1;
     }
     else {
-        return cartListDataArray.count+numberPriceCount;
+        return cartListDataArray.count+totalArray.count;
     }
 }
 
@@ -275,7 +303,7 @@
         simpleTableIdentifier=@"cartListCell";
     }
     else {
-        if ((nil==[UserDefaultManager getValue:@"userId"])&&(indexPath.row==(cartListDataArray.count+numberPriceCount))) {
+        if ((nil==[UserDefaultManager getValue:@"userId"])&&(indexPath.row==(cartListDataArray.count+totalArray.count))) {
             simpleTableIdentifier=@"infoCell";
         }
         else {
@@ -312,7 +340,7 @@
         return 93.0;
     }
     else {
-        if ((nil==[UserDefaultManager getValue:@"userId"])&&(indexPath.row==(cartListDataArray.count+numberPriceCount))) {
+        if ((nil==[UserDefaultManager getValue:@"userId"])&&(indexPath.row==(cartListDataArray.count+totalArray.count))) {
             return 55.0;
         }
         else {
@@ -339,8 +367,33 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.contentView.layer.cornerRadius=5;
     cell.contentView.layer.masksToBounds=true;
-    cell.contentView.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    cell.contentView.layer.borderColor=paymentBorderColor.CGColor;
     cell.contentView.layer.borderWidth=1;
+    UIImageView *paymentmethodImageView=(UIImageView *)[cell viewWithTag:1];
+    int index;
+    if (isCyberSourceExist) {
+        index=(int)indexPath.row+1;
+    }
+    else {
+        index=(int)indexPath.row;
+    }
+    DLog(@"%@",[paymentMethodArray objectAtIndex:index]);
+    if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"tenpaypayment"]) {
+         paymentmethodImageView.image=[UIImage imageNamed:@"weChatPayIcon.png"];
+    }
+    else if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"paypal"]) {
+        paymentmethodImageView.image=[UIImage imageNamed:@"paypalIcon.png"];
+    }
+    else if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"aliChat"]) {
+         paymentmethodImageView.image=[UIImage imageNamed:@"alipayIcon.png"];
+    }
+    
+    if (selectedPaymentMethodIndex==index) {
+        cell.contentView.backgroundColor=selectedPaymentMethodColor;
+    }
+    else {
+        cell.contentView.backgroundColor=[UIColor whiteColor];
+    }
     return cell;
 }
 
@@ -357,6 +410,13 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (isCyberSourceExist) {
+        selectedPaymentMethodIndex=(int)indexPath.row+1;
+    }
+    else {
+        selectedPaymentMethodIndex=(int)indexPath.row;
+    }
+    [_paymentCollectionView reloadData];
 }
 #pragma mark - end
 

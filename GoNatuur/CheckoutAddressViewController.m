@@ -34,7 +34,7 @@
     NSMutableArray *countryNameArray,*shippingRegionNameArray,*billingRegionNameArray, *tempShippingRegionNameArray, *tempbillingRegionNameArray;
     BOOL isShippingAddreesSame;
     NSArray *totalArray;
-    NSMutableDictionary *totalDict;
+    NSMutableDictionary *totalDict, *finalCheckoutPriceDict;
 }
 //Other view objects declaration
 @property (strong, nonatomic) IBOutlet UILabel *freeShippingLabel;
@@ -257,6 +257,7 @@
     cartModelData.checkoutPromosArray=[NSMutableArray new];
     cartModelData.shippmentMethodsArray=[NSMutableArray new];
     totalDict=[NSMutableDictionary new];
+    finalCheckoutPriceDict=[NSMutableDictionary new];
     selectedCheckoutPromoIndex=-1;
     selectedShippingMethodIndex=-1;
     _noRadioLabel.layer.masksToBounds=true;
@@ -296,6 +297,9 @@
         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(subTotalPrice*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],((subTotalPrice+[self getShippingCharges])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Grand Total"];
+        //Set for final checkout screen data
+        [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:subTotalPrice] forKey:@"Cart subtotal"];
+        [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:[self getShippingCharges]] forKey:@"Shipping charges"];
     }
     //Only for redeem products
     else if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
@@ -304,6 +308,10 @@
         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
         [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getDiscount]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
         [totalDict setObject:(([self getShippingCharges]-[self getDiscount])>0?[NSString stringWithFormat:@"%@%.2f + %@ip",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]-[self getDiscount]),cartModelData.impactPoints]:[NSString stringWithFormat:@"%@ip",cartModelData.impactPoints]) forKey:@"Grand Total"];
+        //Set for final checkout screen data
+        [finalCheckoutPriceDict setObject:cartModelData.impactPoints forKey:@"Points subtotal"];
+        [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:[self getShippingCharges]] forKey:@"Shipping charges"];
+        [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:[self getDiscount]] forKey:@"Discount"];
     }
     //Only for simple products
     else if ([cartModelData.isSimpleProductExist boolValue]&&![cartModelData.isRedeemProductExist boolValue]) {
@@ -312,6 +320,10 @@
         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
         [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getDiscount]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],((subTotalPrice+[self getShippingCharges]-[self getDiscount])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Grand Total"];
+        //Set for final checkout screen data
+        [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:subTotalPrice] forKey:@"Cart subtotal"];
+        [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:[self getShippingCharges]] forKey:@"Shipping charges"];
+        [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:[self getDiscount]] forKey:@"Discount"];
     }
     //For both simple and redeem products
     else {
@@ -321,6 +333,11 @@
         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getShippingCharges]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
         [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([self getDiscount]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f + %@ip",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],((subTotalPrice+[self getShippingCharges]-[self getDiscount])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue]),cartModelData.impactPoints] forKey:@"Grand Total"];//Show subtotal and ip
+        //Set for final checkout screen data
+        [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:subTotalPrice] forKey:@"Cart subtotal"];
+        [finalCheckoutPriceDict setObject:[NSString stringWithFormat:@"%@ip",cartModelData.impactPoints] forKey:@"Points subtotal"];
+        [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:[self getShippingCharges]] forKey:@"Shipping charges"];
+        [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:[self getDiscount]] forKey:@"Discount"];
     }
     [_totalTableView reloadData];
 }

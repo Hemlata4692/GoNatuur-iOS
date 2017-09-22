@@ -150,7 +150,7 @@
 		B7AA39C51F47116700423121 /* ProductListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AA39C41F47116700423121 /* ProductListCollectionViewCell.m */; };
 		B7AA39C81F47116E00423121 /* ProductListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AA39C71F47116E00423121 /* ProductListTableViewCell.m */; };
 		B7C5C9871F73C801000C37F8 /* cybersourceIcon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B7C5C9841F73C801000C37F8 /* cybersourceIcon.jpg */; };
-		B7C5C9881F73C801000C37F8 /* paypal-784404_960_720.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C5C9851F73C801000C37F8 /* paypal-784404_960_720.png */; };
+		B7C5C9881F73C801000C37F8 /* paypalIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C5C9851F73C801000C37F8 /* paypalIcon.png */; };
 		B7C5C9891F73C801000C37F8 /* weChatPayIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C5C9861F73C801000C37F8 /* weChatPayIcon.png */; };
 		B7C5C98B1F73C851000C37F8 /* alipayIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C5C98A1F73C851000C37F8 /* alipayIcon.png */; };
 		B7D1006B1F5FC9E700D964D8 /* CheckoutAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D1006A1F5FC9E700D964D8 /* CheckoutAddressViewController.m */; };
@@ -433,7 +433,7 @@
 		B7AA39C61F47116E00423121 /* ProductListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductListTableViewCell.h; sourceTree = "<group>"; };
 		B7AA39C71F47116E00423121 /* ProductListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductListTableViewCell.m; sourceTree = "<group>"; };
 		B7C5C9841F73C801000C37F8 /* cybersourceIcon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cybersourceIcon.jpg; sourceTree = "<group>"; };
-		B7C5C9851F73C801000C37F8 /* paypal-784404_960_720.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paypal-784404_960_720.png"; sourceTree = "<group>"; };
+		B7C5C9851F73C801000C37F8 /* paypalIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paypalIcon.png; sourceTree = "<group>"; };
 		B7C5C9861F73C801000C37F8 /* weChatPayIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weChatPayIcon.png; sourceTree = "<group>"; };
 		B7C5C98A1F73C851000C37F8 /* alipayIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alipayIcon.png; sourceTree = "<group>"; };
 		B7D100691F5FC9E700D964D8 /* CheckoutAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckoutAddressViewController.h; sourceTree = "<group>"; };
@@ -1927,7 +1927,7 @@
 			children = (
 				B7C5C98A1F73C851000C37F8 /* alipayIcon.png */,
 				B7C5C9841F73C801000C37F8 /* cybersourceIcon.jpg */,
-				B7C5C9851F73C801000C37F8 /* paypal-784404_960_720.png */,
+				B7C5C9851F73C801000C37F8 /* paypalIcon.png */,
 				B7C5C9861F73C801000C37F8 /* weChatPayIcon.png */,
 			);
 			name = CheckoutStep3;
@@ -2117,7 +2117,7 @@
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
 				B73E00E31F4184DF001DEBA2 /* Montserrat-Bold.otf in Resources */,
 				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
-				B7C5C9881F73C801000C37F8 /* paypal-784404_960_720.png in Resources */,
+				B7C5C9881F73C801000C37F8 /* paypalIcon.png in Resources */,
 				1875619A1F469F8600F609AB /* Main.storyboard in Resources */,
 				B73A653E1F3DF0870051E4C5 /* cn.strings in Resources */,
 				B7C5C98B1F73C851000C37F8 /* alipayIcon.png in Resources */,
