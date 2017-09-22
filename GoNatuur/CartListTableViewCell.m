@@ -37,14 +37,24 @@
     _productDescriptionLabel.frame=CGRectMake(88,_productNameLabel.frame.origin.y+_productNameLabel.frame.size.height+15, [[UIScreen mainScreen] bounds].size.width-228, height);
     _productDescriptionLabel.text=cartData.itemDescription;
     //Reframe product price label
-    height=[DynamicHeightWidth getDynamicLabelHeight:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(([[cartData itemPrice] floatValue]*[cartData.itemQty floatValue])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] font:[UIFont montserratRegularWithSize:11] widthValue:54];
-    _productPriceLabel.frame=CGRectMake([[UIScreen mainScreen] bounds].size.width-62, 10, 54, height);
-    _productPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(([[cartData itemPrice] floatValue]*[cartData.itemQty floatValue])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
+    
+    if ([cartData.isRedeemProduct boolValue]) {
+        height=[DynamicHeightWidth getDynamicLabelHeight:[NSString stringWithFormat:@"%dip",(int)([[cartData productImpactPoint] floatValue]*[cartData.itemQty floatValue])] font:[UIFont montserratRegularWithSize:11] widthValue:54];
+        _productPriceLabel.frame=CGRectMake([[UIScreen mainScreen] bounds].size.width-62, 10, 54, height);
+        _productPriceLabel.text=[NSString stringWithFormat:@"%dip",(int)([[cartData productImpactPoint] floatValue]*[cartData.itemQty floatValue])];
+    }
+    else {
+        height=[DynamicHeightWidth getDynamicLabelHeight:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(([[cartData itemPrice] floatValue]*[cartData.itemQty floatValue])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] font:[UIFont montserratRegularWithSize:11] widthValue:54];
+        _productPriceLabel.frame=CGRectMake([[UIScreen mainScreen] bounds].size.width-62, 10, 54, height);
+        _productPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(([[cartData itemPrice] floatValue]*[cartData.itemQty floatValue])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
+    }
+    
     //Reframe product quantity label
     height=[DynamicHeightWidth getDynamicLabelHeight:[NSString stringWithFormat:@"%@",cartData.itemQty] font:[UIFont montserratRegularWithSize:11] widthValue:64];
     _productQuantityLabel.frame=CGRectMake(_productPriceLabel.frame.origin.x-71, 10, 64, height);
     _productQuantityLabel.text=[NSString stringWithFormat:@"%@",cartData.itemQty];
      [ImageCaching downloadImages:_productImageView imageUrl:cartData.itemImageUrl placeholderImage:@"product_placeholder" isDashboardCell:false];
+    [_removeItem setBottomBorder:_removeItem color:[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]];
 }
 
 - (void)removeAutolayout {
