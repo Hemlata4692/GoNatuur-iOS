@@ -294,3 +294,6 @@
 "invoice"="Invoice:";
 "shipment"="Shipment:";
 "oldest"="Earliest";
+"SortByTitle"="Sort By";
+"sortName"="name";
+"sortPrice"="price";

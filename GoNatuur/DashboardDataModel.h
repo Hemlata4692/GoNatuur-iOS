@@ -44,6 +44,10 @@
 @property (strong, nonatomic) NSString *filterValue2;
 @property (strong, nonatomic) NSString *sortingValue;
 
+//Sorting
+@property (strong, nonatomic) NSString *productSortingValue;
+@property (strong, nonatomic) NSString *productSortingType;
+
 //Singleton method
 + (instancetype)sharedUser;
 

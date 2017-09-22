@@ -20,6 +20,7 @@
 @class OrderModel;
 @class ProductGuideDataModel;
 @class ShareDataModel;
+@class SortFilterModel;
 
 @interface ConnectionManager : NSObject
 
@@ -133,4 +134,7 @@
 - (void)shareProductData:(ShareDataModel *)guideData onSuccess:(void (^)(ShareDataModel *guideData))success onFailure:(void (^)(NSError *))failure;
 //Filters
 - (void)getNewsCenterFiltersListService:(DashboardDataModel *)productData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure;
+//Sorting
+- (void)getSortData:(SortFilterModel *)sortData onSuccess:(void (^)(SortFilterModel *userData))success onFailure:(void (^)(NSError *))failure;
+
 @end

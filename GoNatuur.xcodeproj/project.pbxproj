@@ -144,6 +144,10 @@
 		5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC591F553A3500AECF40 /* ChangePasswordViewController.m */; };
 		5D27AC5E1F55649E00AECF40 /* ProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC5D1F55649E00AECF40 /* ProfileModel.m */; };
 		5D27AC621F55678C00AECF40 /* ProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC611F55678C00AECF40 /* ProfileService.m */; };
+		5D4D53331F73965400A2AEFA /* SortByViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D53301F73965400A2AEFA /* SortByViewController.m */; };
+		5D4D53341F73965400A2AEFA /* SortByCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D53321F73965400A2AEFA /* SortByCell.m */; };
+		5D4D53381F73B1AE00A2AEFA /* SortFilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D53371F73B1AE00A2AEFA /* SortFilterModel.m */; };
+		5D4D533C1F73B53400A2AEFA /* SortFilterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D533B1F73B53400A2AEFA /* SortFilterService.m */; };
 		5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC39511F61783F00702F92 /* AddressListingViewController.m */; };
 		5DAC39551F61783F00702F92 /* AddressListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC39531F61783F00702F92 /* AddressListingCell.m */; };
 		5DC7840D1F6637160025CA4A /* OrderDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DC7840C1F6637160025CA4A /* OrderDetailCell.m */; };
@@ -443,6 +447,14 @@
 		5D27AC5D1F55649E00AECF40 /* ProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileModel.m; sourceTree = "<group>"; };
 		5D27AC601F55678C00AECF40 /* ProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileService.h; sourceTree = "<group>"; };
 		5D27AC611F55678C00AECF40 /* ProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileService.m; sourceTree = "<group>"; };
+		5D4D532F1F73965400A2AEFA /* SortByViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortByViewController.h; sourceTree = "<group>"; };
+		5D4D53301F73965400A2AEFA /* SortByViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortByViewController.m; sourceTree = "<group>"; };
+		5D4D53311F73965400A2AEFA /* SortByCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortByCell.h; sourceTree = "<group>"; };
+		5D4D53321F73965400A2AEFA /* SortByCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortByCell.m; sourceTree = "<group>"; };
+		5D4D53361F73B1AE00A2AEFA /* SortFilterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortFilterModel.h; sourceTree = "<group>"; };
+		5D4D53371F73B1AE00A2AEFA /* SortFilterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortFilterModel.m; sourceTree = "<group>"; };
+		5D4D533A1F73B53400A2AEFA /* SortFilterService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortFilterService.h; sourceTree = "<group>"; };
+		5D4D533B1F73B53400A2AEFA /* SortFilterService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortFilterService.m; sourceTree = "<group>"; };
 		5DAC39501F61783F00702F92 /* AddressListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListingViewController.h; sourceTree = "<group>"; };
 		5DAC39511F61783F00702F92 /* AddressListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListingViewController.m; sourceTree = "<group>"; };
 		5DAC39521F61783F00702F92 /* AddressListingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListingCell.h; sourceTree = "<group>"; };
@@ -1462,6 +1474,7 @@
 		320761601F1626F2001F1790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5D4D53351F73B16600A2AEFA /* SortFilterModel */,
 				1818445C1F70FBC50077E48C /* ShareModel */,
 				18FA120B1F6ADD4A0001A3B0 /* ProductGuideModel */,
 				5D2760AA1F62793F00B6D0FF /* OrderModel */,
@@ -1559,6 +1572,7 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				5D4D53391F73B4E200A2AEFA /* SortFilterService */,
 				181844601F70FBED0077E48C /* ShareService */,
 				18FA120F1F6ADD6F0001A3B0 /* ProductGuideService */,
 				5D2760AE1F627AD800B6D0FF /* OrderService */,
@@ -1914,6 +1928,35 @@
 				5D27AC611F55678C00AECF40 /* ProfileService.m */,
 			);
 			name = ProfileService;
+			sourceTree = "<group>";
+		};
+		5D4D532E1F73963800A2AEFA /* SortModule */ = {
+			isa = PBXGroup;
+			children = (
+				5D4D532F1F73965400A2AEFA /* SortByViewController.h */,
+				5D4D53301F73965400A2AEFA /* SortByViewController.m */,
+				5D4D53311F73965400A2AEFA /* SortByCell.h */,
+				5D4D53321F73965400A2AEFA /* SortByCell.m */,
+			);
+			name = SortModule;
+			sourceTree = "<group>";
+		};
+		5D4D53351F73B16600A2AEFA /* SortFilterModel */ = {
+			isa = PBXGroup;
+			children = (
+				5D4D53361F73B1AE00A2AEFA /* SortFilterModel.h */,
+				5D4D53371F73B1AE00A2AEFA /* SortFilterModel.m */,
+			);
+			name = SortFilterModel;
+			sourceTree = "<group>";
+		};
+		5D4D53391F73B4E200A2AEFA /* SortFilterService */ = {
+			isa = PBXGroup;
+			children = (
+				5D4D533A1F73B53400A2AEFA /* SortFilterService.h */,
+				5D4D533B1F73B53400A2AEFA /* SortFilterService.m */,
+			);
+			name = SortFilterService;
 			sourceTree = "<group>";
 		};
 		5D95200E1F6672C40036645F /* OrderDetailViewController */ = {
@@ -2531,6 +2574,7 @@
 				32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */,
 				B7AA39B81F47102100423121 /* GoNatuurPickerView.m in Sources */,
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
+				5D4D533C1F73B53400A2AEFA /* SortFilterService.m in Sources */,
 				181FD2311F601FA900C5373C /* PayPalPaymentOption.m in Sources */,
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
 				B77A8A781F34388800233782 /* SignUpViewController.m in Sources */,
@@ -2556,6 +2600,7 @@
 				181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
 				B77D86EB1F5D84090041D646 /* CartListTableViewCell.m in Sources */,
+				5D4D53381F73B1AE00A2AEFA /* SortFilterModel.m in Sources */,
 				5D2760AD1F62795A00B6D0FF /* OrderModel.m in Sources */,
 				185036EA1F67D9860008C0F1 /* NewsCentreDetailViewController.m in Sources */,
 				1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */,
@@ -2586,6 +2631,7 @@
 				320761871F164986001F1790 /* Webservice.m in Sources */,
 				18FFBC861F62CEBC006C088B /* NewsCenterSearchListViewController.m in Sources */,
 				B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */,
+				5D4D53341F73965400A2AEFA /* SortByCell.m in Sources */,
 				B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */,
 				18F464EC1F698FFC001006EB /* RedeemViewController.m in Sources */,
 				B7F570F51F67FA220006C9BB /* FinalCheckoutViewController.m in Sources */,
@@ -2619,6 +2665,7 @@
 				B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */,
 				1818445F1F70FBE10077E48C /* ShareDataModel.m in Sources */,
 				5D2760B11F627AEF00B6D0FF /* OrderService.m in Sources */,
+				5D4D53331F73965400A2AEFA /* SortByViewController.m in Sources */,
 				1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */,
 				185036EE1F67E3830008C0F1 /* ShareViewController.m in Sources */,
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,

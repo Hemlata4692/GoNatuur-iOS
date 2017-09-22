@@ -47,6 +47,8 @@
     //Add custom picker view and initialized indexs
     [self addCustomPickerView];
     // Do any additional setup after loading the view.
+    _sortingType = @"name";
+    _sortBasis = @"ASC"; //ASC/DESC
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -56,6 +58,7 @@
     [self addLeftBarButtonWithImage:false];
     [self viewInitialization];
     [myDelegate showIndicator];
+    NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
     [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
     _noRecordLabel.text=NSLocalizedText(@"norecord");
 }
@@ -293,6 +296,8 @@
     productList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
     productList.pageSize=[NSNumber numberWithInt:12];
     productList.currentPage=[NSNumber numberWithInt:currentpage];
+    productList.productSortingType = _sortingType;
+    productList.productSortingValue = _sortBasis;
     [productList getProductListService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];
         [self serviceDataHandling:productData];
@@ -350,6 +355,15 @@
         if (subCategoryPickerArray.count>0) {
             [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false];
         }
+    } else if (option==3) {
+        SortByViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SortByViewController"];
+        preview.productListViewObj = self;
+        UINavigationController *navigationController =
+        [[UINavigationController alloc] initWithRootViewController:preview];
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigation"] forBarMetrics:UIBarMetricsDefault];
+        //now present this navigation controller modally
+        [self presentViewController:navigationController animated:YES completion:^{
+        }];
     }
     else if (option==2) {
         FilterViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FilterViewController"];
