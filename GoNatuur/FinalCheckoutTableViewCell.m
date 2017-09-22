@@ -23,7 +23,7 @@
 
 - (void)displayCartListData:(CartDataModel *)cartData isSeparatorHide:(BOOL)isSeparatorHide {
     _productNameLabel.text=cartData.itemName;
-    if ([cartData.isRedeemProduct boolValue]) {
+    if (![cartData.isRedeemProduct boolValue]) {
         _productPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([[cartData itemPrice] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
     }
     else {
@@ -39,7 +39,16 @@
     }
 }
 
-- (void)displayPriceData:(NSString *)titleString priceString:(NSString *)priceString {
-    
+- (void)displayPriceCellData:(NSMutableDictionary *)priceDetail priceTitleArray:(NSString *)priceTitle islastIndex:(BOOL)islastIndex  {
+    _priceTitleLabel.text=priceTitle;
+    _priceLabel.text=[priceDetail objectForKey:priceTitle];
+    if (islastIndex) {
+        _priceTitleLabel.font=[UIFont montserratRegularWithSize:15];
+        _priceLabel.font=[UIFont montserratRegularWithSize:15];
+    }
+    else {
+        _priceTitleLabel.font=[UIFont montserratRegularWithSize:13];
+        _priceLabel.font=[UIFont montserratRegularWithSize:13];
+    }
 }
 @end
