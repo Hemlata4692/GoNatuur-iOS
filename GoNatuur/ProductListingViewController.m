@@ -46,9 +46,9 @@
     lastSelectedCategoryId=myDelegate.selectedCategoryIndex;
     //Add custom picker view and initialized indexs
     [self addCustomPickerView];
-    // Do any additional setup after loading the view.
-    _sortingType = @"name";
-    _sortBasis = @"ASC"; //ASC/DESC
+    //Set default sort values
+    _sortingType = NSLocalizedText(@"sortPrice");
+    _sortBasis = DESC; //ASC/DESC
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -356,8 +356,11 @@
             [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false];
         }
     } else if (option==3) {
+        NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
         SortByViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SortByViewController"];
         preview.productListViewObj = self;
+        preview.sortBasis = _sortBasis;
+        preview.sortingType = _sortingType;
         UINavigationController *navigationController =
         [[UINavigationController alloc] initWithRootViewController:preview];
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigation"] forBarMetrics:UIBarMetricsDefault];
