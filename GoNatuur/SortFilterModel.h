@@ -15,9 +15,15 @@
 @property (strong, nonatomic) NSString *descValue;
 @property (strong, nonatomic) NSString *attributeValue;
 @property (strong, nonatomic) NSMutableArray *sortArray;
+@property (strong, nonatomic) NSMutableArray *filterOptionsArray;
+@property (strong, nonatomic) NSString *filterCountry;
+@property (strong, nonatomic) NSString *filterCountryValue;
+@property (strong, nonatomic) NSString *filterLabelValue;
+@property (strong, nonatomic) NSString *filterAttributeCode;
+@property (strong, nonatomic) NSMutableArray *filterArray;
 
 + (instancetype)sharedUser;
 
 - (void)getSortData:(void (^)(SortFilterModel *))success onfailure:(void (^)(NSError *))failure;
-
+- (void)getFilterServiceData:(void (^)(SortFilterModel *))success onfailure:(void (^)(NSError *))failure;
 @end

@@ -297,3 +297,5 @@
 "SortByTitle"="Sort By";
 "sortName"="name";
 "sortPrice"="price";
+"filterTitle"="Filter";
+"filterCountry"="country";

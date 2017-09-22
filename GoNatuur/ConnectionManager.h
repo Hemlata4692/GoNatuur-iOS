@@ -132,9 +132,11 @@
 - (void)addEventsToCartProductService:(ProductDataModel *)productData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure;
 //Share
 - (void)shareProductData:(ShareDataModel *)guideData onSuccess:(void (^)(ShareDataModel *guideData))success onFailure:(void (^)(NSError *))failure;
-//Filters
+//Filters news centre
 - (void)getNewsCenterFiltersListService:(DashboardDataModel *)productData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 //Sorting
 - (void)getSortData:(SortFilterModel *)sortData onSuccess:(void (^)(SortFilterModel *userData))success onFailure:(void (^)(NSError *))failure;
+//Filter
+- (void)getFilterDataData:(SortFilterModel *)sortData onSuccess:(void (^)(SortFilterModel *userData))success onFailure:(void (^)(NSError *))failure;
 
 @end

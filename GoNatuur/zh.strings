@@ -318,3 +318,5 @@
 "SortByTitle"="排序方式";
 "sortName"="name";
 "sortPrice"="price";
+"filterTitle"="過濾";
+"filterCountry"="country";

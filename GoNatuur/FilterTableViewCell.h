@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SortFilterModel.h"
+#import "VPRangeSlider.h"
 
-@interface FilterTableViewCell : UITableViewCell
+@interface FilterTableViewCell : UITableViewCell<VPRangeSliderDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *priceFilterLabel;
-@property (weak, nonatomic) IBOutlet UIView *priceRangeSliderView;
+@property (weak, nonatomic) IBOutlet VPRangeSlider *priceRangeSliderView;
 @property (weak, nonatomic) IBOutlet UILabel *minimumPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *maximumPriceLabel;
 
@@ -19,5 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *certificatesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *productTypeLabel;
 
-- (void)displaySlider:(CGSize)rectSize;
+- (void)displaySlider;
+
+- (void)displayCountry:(SortFilterModel *)data;
 @end
