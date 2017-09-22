@@ -74,7 +74,7 @@
 }
 #pragma mark - end
 
-#pragma mark TableView DataSource and Delegate Methods
+#pragma mark - TableView DataSource and Delegate Methods
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (orderListArray.count > 0) {
         return [orderListArray count]+1;

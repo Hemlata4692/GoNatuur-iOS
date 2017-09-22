@@ -15,6 +15,7 @@
 #import "ProductDetailViewController.h"
 #import "EventDetailViewController.h"
 #import "UIView+Toast.h"
+#import "FilterViewController.h"
 
 @interface ProductListingViewController ()<UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
     NSMutableArray *productListDataArray, *subCategoryDataList, *subCategoryPickerArray;
@@ -109,12 +110,12 @@
     filterViewObj.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35);
     [filterViewObj setButtonTitles:NSLocalizedText(@"Filter") subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:NSLocalizedText(@"Sortby")];
     //Customized filter view
-    filterViewObj.firstFilterButtonOutlet.enabled=false;
-    filterViewObj.secondFilterButtonOutlet.enabled=false;
-    filterViewObj.firstFilterButtonOutlet.alpha=0.5;
-    filterViewObj.secondFilterButtonOutlet.alpha=0.5;
-    filterViewObj.firstFilterArrowImageView.alpha=0.4;
-    filterViewObj.secondFilterArrowImageView.alpha=0.4;
+//    filterViewObj.firstFilterButtonOutlet.enabled=false;
+//    filterViewObj.secondFilterButtonOutlet.enabled=false;
+//    filterViewObj.firstFilterButtonOutlet.alpha=0.5;
+//    filterViewObj.secondFilterButtonOutlet.alpha=0.5;
+//    filterViewObj.firstFilterArrowImageView.alpha=0.4;
+//    filterViewObj.secondFilterArrowImageView.alpha=0.4;
     if (!myDelegate.isProductList) {
         filterViewObj.subCategoryButtonOutlet.enabled=false;
         filterViewObj.subCategoryButtonOutlet.alpha=0.5;
@@ -349,6 +350,16 @@
         if (subCategoryPickerArray.count>0) {
             [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false];
         }
+    }
+    else if (option==2) {
+        FilterViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FilterViewController"];
+       // preview.productListViewObj = self;
+        UINavigationController *navigationController =
+        [[UINavigationController alloc] initWithRootViewController:preview];
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigation"] forBarMetrics:UIBarMetricsDefault];
+        //now present this navigation controller modally
+        [self presentViewController:navigationController animated:YES completion:^{
+        }];
     }
 }
 #pragma mark - end
