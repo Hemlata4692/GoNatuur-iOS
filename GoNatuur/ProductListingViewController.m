@@ -15,6 +15,7 @@
 #import "ProductDetailViewController.h"
 #import "EventDetailViewController.h"
 #import "UIView+Toast.h"
+#import "SortByViewController.h"
 
 @interface ProductListingViewController ()<UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
     NSMutableArray *productListDataArray, *subCategoryDataList, *subCategoryPickerArray;
@@ -46,6 +47,8 @@
     //Add custom picker view and initialized indexs
     [self addCustomPickerView];
     // Do any additional setup after loading the view.
+    _sortingType = @"name";
+    _sortBasis = @"ASC"; //ASC/DESC
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -55,6 +58,7 @@
     [self addLeftBarButtonWithImage:false];
     [self viewInitialization];
     [myDelegate showIndicator];
+    NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
     [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
     _noRecordLabel.text=NSLocalizedText(@"norecord");
 }
@@ -109,12 +113,12 @@
     filterViewObj.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35);
     [filterViewObj setButtonTitles:NSLocalizedText(@"Filter") subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:NSLocalizedText(@"Sortby")];
     //Customized filter view
-    filterViewObj.firstFilterButtonOutlet.enabled=false;
-    filterViewObj.secondFilterButtonOutlet.enabled=false;
-    filterViewObj.firstFilterButtonOutlet.alpha=0.5;
-    filterViewObj.secondFilterButtonOutlet.alpha=0.5;
-    filterViewObj.firstFilterArrowImageView.alpha=0.4;
-    filterViewObj.secondFilterArrowImageView.alpha=0.4;
+    //    filterViewObj.firstFilterButtonOutlet.enabled=false;
+    //    filterViewObj.secondFilterButtonOutlet.enabled=false;
+    //    filterViewObj.firstFilterButtonOutlet.alpha=0.5;
+    //    filterViewObj.secondFilterButtonOutlet.alpha=0.5;
+    //    filterViewObj.firstFilterArrowImageView.alpha=0.4;
+    //    filterViewObj.secondFilterArrowImageView.alpha=0.4;
     if (!myDelegate.isProductList) {
         filterViewObj.subCategoryButtonOutlet.enabled=false;
         filterViewObj.subCategoryButtonOutlet.alpha=0.5;
@@ -292,6 +296,8 @@
     productList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
     productList.pageSize=[NSNumber numberWithInt:12];
     productList.currentPage=[NSNumber numberWithInt:currentpage];
+    productList.productSortingType = _sortingType;
+    productList.productSortingValue = _sortBasis;
     [productList getProductListService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];
         [self serviceDataHandling:productData];
@@ -349,6 +355,15 @@
         if (subCategoryPickerArray.count>0) {
             [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false];
         }
+    } else if (option==3) {
+        SortByViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SortByViewController"];
+        preview.productListViewObj = self;
+        UINavigationController *navigationController =
+        [[UINavigationController alloc] initWithRootViewController:preview];
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigation"] forBarMetrics:UIBarMetricsDefault];
+        //now present this navigation controller modally
+        [self presentViewController:navigationController animated:YES completion:^{
+        }];
     }
 }
 #pragma mark - end

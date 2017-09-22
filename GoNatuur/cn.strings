@@ -303,3 +303,6 @@
 "invoice"="发票:";
 "shipment"="装船:";
 "oldest"="最早";
+"SortByTitle"="排序方式";
+"sortName"="name";
+"sortPrice"="price";

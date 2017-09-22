@@ -30,6 +30,9 @@
 #import "ProductGuideService.h"
 #import "ShareDataModel.h"
 #import "ShareDataService.h"
+#import "SortFilterModel.h"
+#import "SortFilterModel.h"
+#import "SortFilterService.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -1457,4 +1460,28 @@
     }] ;
 }
 #pragma mark - end
+
+#pragma mark - Sorting
+- (void)getSortData:(SortFilterModel *)sortData onSuccess:(void (^)(SortFilterModel *userData))success onFailure:(void (^)(NSError *))failure {
+    SortFilterService *sortService = [[SortFilterService alloc] init];
+    [sortService getSortData:sortData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"response %@",response);
+        NSArray *dataArray=response[@"items"];
+        sortData.sortArray=[NSMutableArray new];
+        for (int i =0; i<dataArray.count; i++) {
+            NSDictionary * dataDict =[dataArray objectAtIndex:i];
+            SortFilterModel * sortListData = [[SortFilterModel alloc]init];
+            sortListData.ascValue = dataDict[@"default_frontend_label"];
+            sortListData.descValue = dataDict[@"default_frontend_label"];
+            sortListData.attributeValue = dataDict[@"attribute_code"];
+            [sortData.sortArray addObject:sortListData];
+        }
+        success(sortData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
 @end

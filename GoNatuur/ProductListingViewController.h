@@ -10,4 +10,7 @@
 
 @interface ProductListingViewController : GoNatuurViewController
 @property (nonatomic,assign) int selectedProductCategoryId;
+@property (nonatomic,assign) NSString * sortingType;
+@property (nonatomic,assign) NSString * sortBasis;
+
 @end
