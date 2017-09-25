@@ -136,7 +136,7 @@
         cell = [[FilterTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     if (indexPath.section == 0) {
-        [cell displaySlider];
+      //  [cell displaySlider];
     }
     else if (indexPath.section==1) {
         [cell displayCountry:[[[filterDataArray objectAtIndex:indexPath.section-1] filterOptionsArray] objectAtIndex:indexPath.row]];

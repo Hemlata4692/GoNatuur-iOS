@@ -21,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *certificatesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *productTypeLabel;
 
-- (void)displaySlider;
+- (void)displaySlider:(NSString *)maxPrice;
 
 - (void)displayCountry:(SortFilterModel *)data;
 @end

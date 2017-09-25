@@ -30,6 +30,7 @@
     GoNatuurPickerView *gNPickerViewObj;
     int currentCategoryId;
     int lastSelectedCategoryId;
+    BOOL firstTimePriceCalculation;
 }
 @property (strong, nonatomic) IBOutlet UILabel *noRecordLabel;
 @property (strong, nonatomic) IBOutlet UITableView *productListTableView;
@@ -47,6 +48,7 @@
     lastSelectedCategoryId=myDelegate.selectedCategoryIndex;
     //Add custom picker view and initialized indexs
     [self addCustomPickerView];
+    firstTimePriceCalculation=true;
     // Do any additional setup after loading the view.
     _sortingType = @"name";
     _sortBasis = @"ASC"; //ASC/DESC
@@ -322,6 +324,9 @@
     }
     else {
         _noRecordLabel.hidden=false;
+    }
+    if (firstTimePriceCalculation) {
+        
     }
     totalProductCount=[productData.totalProductCount intValue];
     float picDimension = (self.view.frame.size.width-20) / 2.0;

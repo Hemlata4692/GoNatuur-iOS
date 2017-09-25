@@ -116,10 +116,10 @@
             self.startSliderButton.center = CGPointMake(SLIDER_BUTTON_WIDTH/2, CGRectGetMidY(self.sliderBackgroundView.frame));
             self.endSliderButton.center = [self getSegmentCenterPointForSegmentIndex:self.numberOfSegments];
             
-            self.minRangeLabel.center = CGPointMake(CGRectGetMidX(self.startSliderButton.frame), CGRectGetMidY(self.bounds) + SLIDER_BUTTON_WIDTH-72);
+            self.minRangeLabel.center = CGPointMake(CGRectGetMidX(self.startSliderButton.frame), CGRectGetMidY(self.bounds) + SLIDER_BUTTON_WIDTH-_topSpace+3);
             self.maxRangeLabel.center = CGPointMake(CGRectGetMidX(self.endSliderButton.frame), CGRectGetMidY(self.bounds) + SLIDER_BUTTON_WIDTH-72);
             
-            self.minRangeLabelImage.center = CGPointMake(CGRectGetMidX(self.startSliderButton.frame), CGRectGetMidY(self.bounds) + SLIDER_BUTTON_WIDTH-_topSpace);
+            self.minRangeLabelImage.center = CGPointMake(CGRectGetMidX(self.startSliderButton.frame), CGRectGetMidY(self.bounds) + SLIDER_BUTTON_WIDTH-_topSpace+5);
             self.maxRangeLabelImage.center = CGPointMake(CGRectGetMidX(self.endSliderButton.frame), CGRectGetMidY(self.bounds) + SLIDER_BUTTON_WIDTH-_topSpace);
 
             [self setImageForSegmentOrSliderButton:self.startSliderButton isSlider:YES];
@@ -178,7 +178,7 @@
     self.segmentUnSelectedColor = [UIColor grayColor];
     
     self.minRangeLabelImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 26)];
-     self.minRangeLabelImage.center = CGPointMake(SLIDER_BUTTON_WIDTH / 2, CGRectGetMidY(self.bounds) + SLIDER_BUTTON_WIDTH-_topSpace);
+     self.minRangeLabelImage.center = CGPointMake(CGRectGetMidX(self.startSliderButton.frame), CGRectGetMidY(self.bounds) + SLIDER_BUTTON_WIDTH-_topSpace);
     self.minRangeLabelImage.image=[UIImage imageNamed:@"tooltip"];
     [self addSubview:self.minRangeLabelImage];
     
@@ -189,7 +189,7 @@
     
     self.minRangeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 26)];
     self.minRangeLabel.backgroundColor=[UIColor clearColor];
-    self.minRangeLabel.center = CGPointMake(SLIDER_BUTTON_WIDTH / 2, CGRectGetMidY(self.bounds) + SLIDER_BUTTON_WIDTH-72);
+    self.minRangeLabel.center = CGPointMake(CGRectGetMidX(self.startSliderButton.frame), CGRectGetMidY(self.bounds) + SLIDER_BUTTON_WIDTH-72);
     [self.minRangeLabel setTextColor:self.rangeDisplayLabelColor];
     [self.minRangeLabel setTextAlignment:NSTextAlignmentCenter];
     //[self.minRangeLabel alignTop];

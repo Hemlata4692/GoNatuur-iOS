@@ -23,10 +23,10 @@
     // Configure the view for the selected state
 }
 
-- (void)displaySlider {
+- (void)displaySlider:(NSString *)maxPrice {
     
-    _minimumPriceLabel.text=@"0";
-    _maximumPriceLabel.text=@"5000";
+    _minimumPriceLabel.text=[NSString stringWithFormat:@"$%s","0"];
+    _maximumPriceLabel.text=[NSString stringWithFormat:@"$%@",maxPrice];
     
     _priceRangeSliderView.requireSegments = NO;
     _priceRangeSliderView.sliderSize = CGSizeMake(20, 20);
@@ -37,7 +37,7 @@
     _priceRangeSliderView.rangeSliderButtonImage = [UIImage imageNamed:@"slide-arrow"];
     [_priceRangeSliderView setDelegate:self];
     
-    [_priceRangeSliderView scrollStartSliderToStartRange:0 andEndRange:100];
+    [_priceRangeSliderView scrollStartSliderToStartRange:[_minimumPriceLabel.text floatValue] andEndRange:[maxPrice floatValue]];
 }
 
 - (void)sliderScrolling:(VPRangeSlider *)slider withMinPercent:(CGFloat)minPercent andMaxPercent:(CGFloat)maxPercent
