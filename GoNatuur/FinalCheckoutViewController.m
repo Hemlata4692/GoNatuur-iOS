@@ -77,7 +77,7 @@
     [self setLocalizedText];
     totalDict=[NSMutableDictionary new];
     totalArray=@[];
-    [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"ApplyCoupon"];
+    [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Apply coupon code"];
     [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Credit amount"];
     [self setPrices];
     
@@ -207,9 +207,6 @@
             continue;
         }
     }
-    
-    [paymentMethodDict setObject:[NSDictionary new] forKey:@"paypal"];
-    [paymentMethodDict setObject:[NSDictionary new] forKey:@"aliChat"];
     NSMutableArray *tempArray=[paymentMethodArray mutableCopy];
     for (NSString *temp in tempArray) {
         if (![[paymentMethodDict allKeys] containsObject:temp]) {
@@ -218,13 +215,16 @@
     }
     cartItemPrice=[[cartModelData.checkoutFinalData objectForKey:@"totals"] copy];
 }
+#pragma mark - end
 
+#pragma mark - Manage price title and value in dictionary
 - (void)setPrices {
     isApplyCouponExist=true;
     //For guest user
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
         totalArray=@[@"Cart subtotal", @"Shipping charges", @"Apply coupon code", @"Grand Total"];
         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Cart subtotal"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Apply coupon code"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Apply coupon code"];
         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(([finalCheckoutPriceDict[@"Cart subtotal"] floatValue]+[finalCheckoutPriceDict[@"Shipping charges"] floatValue])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Grand Total"];
     }
     else if (isCreditUser) {
@@ -236,40 +236,82 @@
     [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Shipping charges"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
 }
 
+- (void)setRedeemProductsWithApplyCouponCode {
+    [totalDict setObject:[NSString stringWithFormat:@"%@ip",finalCheckoutPriceDict[@"Points subtotal"]] forKey:@"Points subtotal"];
+    [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Apply coupon code"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Apply coupon code"];
+    [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Discount"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
+    [totalDict setObject:[NSString stringWithFormat:@"%@%.2f + %@ip",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Shipping charges"] floatValue]-[finalCheckoutPriceDict[@"Discount"] floatValue]),finalCheckoutPriceDict[@"Points subtotal"]] forKey:@"Grand Total"];
+}
+
+- (void)setRedeemProductsWithOutApplyCouponCode {
+    [totalDict setObject:[NSString stringWithFormat:@"%@ip",finalCheckoutPriceDict[@"Points subtotal"]] forKey:@"Points subtotal"];
+    [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Discount"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
+    [totalDict setObject:[NSString stringWithFormat:@"%@%.2f + %@ip",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Shipping charges"] floatValue]-[finalCheckoutPriceDict[@"Discount"] floatValue]),finalCheckoutPriceDict[@"Points subtotal"]] forKey:@"Grand Total"];
+}
+
+- (void)setOnlyForSimpleProducts {
+    [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Apply coupon code"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Apply coupon code"];
+    [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Cart subtotal"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
+    [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Discount"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
+    [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(([finalCheckoutPriceDict[@"Cart subtotal"] floatValue]+[finalCheckoutPriceDict[@"Shipping charges"] floatValue]-[finalCheckoutPriceDict[@"Discount"] floatValue])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Grand Total"];
+}
+
+- (void)setForBothSimpleAndRedeemProducts {
+    [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Apply coupon code"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Apply coupon code"];
+    [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Cart subtotal"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
+    [totalDict setObject:[NSString stringWithFormat:@"%@ip",finalCheckoutPriceDict[@"Points subtotal"]]forKey:@"Points subtotal"];
+    [totalDict setObject:[NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Discount"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Discount"];
+    [totalDict setObject:[NSString stringWithFormat:@"%@%.2f + %@ip",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(([finalCheckoutPriceDict[@"Cart subtotal"] floatValue]+[finalCheckoutPriceDict[@"Shipping charges"] floatValue]-[finalCheckoutPriceDict[@"Discount"] floatValue])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue]),finalCheckoutPriceDict[@"Points subtotal"]] forKey:@"Grand Total"];//Show subtotal and ip
+}
+
 - (void)setPriceForCashUser {
     //Only for redeem products with apply coupon code
     if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]&&([finalCheckoutPriceDict[@"Shipping charges"] floatValue]-[finalCheckoutPriceDict[@"Discount"] floatValue])>0) {
         totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Apply coupon code", @"Grand Total"];
+        [self setRedeemProductsWithApplyCouponCode];
     }
      //Only for redeem products without apply coupon code
     else if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
         isApplyCouponExist=false;
         totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
-        
+        [self setRedeemProductsWithOutApplyCouponCode];
     }
     //Only for simple products
     else if ([cartModelData.isSimpleProductExist boolValue]&&![cartModelData.isRedeemProductExist boolValue]) {
         totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount", @"Apply coupon code", @"Grand Total"];
+        [self setOnlyForSimpleProducts];
     }
     //For both simple and redeem products
     else {
         totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount", @"Apply coupon code", @"Grand Total"];
+        [self setForBothSimpleAndRedeemProducts];
     }
 }
 
 - (void)setPriceForCreditUser {
-    //Only for redeem products
-    if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
-        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+    //Only for redeem products with apply coupon code
+    if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]&&([finalCheckoutPriceDict[@"Shipping charges"] floatValue]-[finalCheckoutPriceDict[@"Discount"] floatValue])>0) {
+        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"credit usage", @"Apply coupon code", @"Grand Total"];
+        [self setRedeemProductsWithApplyCouponCode];
+        
+    }
+    //Only for redeem products without apply coupon code
+    else if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
+        isApplyCouponExist=false;
+        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"credit usage", @"Grand Total"];
+        [self setRedeemProductsWithOutApplyCouponCode];
     }
     //Only for simple products
     else if ([cartModelData.isSimpleProductExist boolValue]&&![cartModelData.isRedeemProductExist boolValue]) {
-        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount", @"credit usage", @"Apply coupon code", @"Grand Total"];
+        [self setOnlyForSimpleProducts];
     }
     //For both simple and redeem products
     else {
-        totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+        totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount", @"credit usage", @"Apply coupon code", @"Grand Total"];
+        [self setForBothSimpleAndRedeemProducts];
     }
+    [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"credit usage"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"credit usage"];
 }
 #pragma mark - end
 
@@ -306,6 +348,9 @@
         if ((nil==[UserDefaultManager getValue:@"userId"])&&(indexPath.row==(cartListDataArray.count+totalArray.count))) {
             simpleTableIdentifier=@"infoCell";
         }
+        else if ([[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] isEqualToString:@"Apply coupon code"]) {
+            simpleTableIdentifier=@"applyCouponCell";
+        }
         else {
             simpleTableIdentifier=@"priceCell";
         }
@@ -314,21 +359,12 @@
     if (cell == nil) {
         cell = [[FinalCheckoutTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
-    
+
     if (indexPath.row<cartListDataArray.count) {
         [cell displayCartListData:[cartListDataArray objectAtIndex:indexPath.row] isSeparatorHide:(indexPath.row==cartListDataArray.count-1?true:false)];
     }
-    else if (indexPath.row==cartListDataArray.count) {
-        [cell displayPriceData:@"Cart subtotal" priceString:cartModelData.checkoutFinalData[@"grand_total"]];
-    }
-    else if (indexPath.row==cartListDataArray.count+1) {
-        [cell displayPriceData:@"Shipping" priceString:cartModelData.checkoutFinalData[@"grand_total"]];
-    }
-    else if (indexPath.row==cartListDataArray.count+2) {
-        [cell displayPriceData:@"Promotion discount" priceString:cartModelData.checkoutFinalData[@"grand_total"]];
-    }
-    else if (indexPath.row==cartListDataArray.count+3) {
-        [cell displayPriceData:@"Order total" priceString:cartModelData.checkoutFinalData[@"grand_total"]];
+    else if (indexPath.row<(cartListDataArray.count+totalArray.count)) {
+        [cell displayPriceCellData:[totalDict mutableCopy] priceTitleArray:[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] islastIndex:(((cartListDataArray.count+totalArray.count)-1)==indexPath.row)?true:false isApplyCoupon:([[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] isEqualToString:@"Apply coupon code"]?true:false)];
     }
     else {}
     return cell;
