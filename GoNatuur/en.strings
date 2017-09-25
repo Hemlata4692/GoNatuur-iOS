@@ -295,3 +295,10 @@
 "shipment"="Shipment:";
 "cardNumber"="XXXX XXXX XXXX";
 "oldest"="Earliest";
+"ShippingMethodAlert"="Need to select one shipping method.";
+"summary"="Summary";
+"cartTotal"="Cart Total";
+"pointTotal"="Point Total";
+"grandTotal"="Grand Total";
+"rewardProductExistAlert"="You have some reward products those value is more than impact points in account.";
+"total"="Total:";
