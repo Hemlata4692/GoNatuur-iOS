@@ -15,6 +15,7 @@
     NSMutableArray *filterDataArray, *selectedSecArray;
     NSString *filterType, *filterTypeValue;
     BOOL isServiceCalled;
+    int categoryIndex;
 }
 @property (weak, nonatomic) IBOutlet UITableView *filterTableView;
 
@@ -29,12 +30,16 @@
     filterDataArray = [NSMutableArray new];
     selectedSecArray = [NSMutableArray new];
     isServiceCalled=false;
-    self.navigationController.navigationBarHidden=false;
-    self.title=NSLocalizedText(@"filterTitle");
+    categoryIndex=0;
     //remove extra lines from table view
     _filterTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [myDelegate showIndicator];
     [self performSelector:@selector(getFilterData) withObject:nil afterDelay:.1];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBarHidden=false;
+    self.title=NSLocalizedText(@"filterTitle");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -155,6 +160,7 @@
         countryLabel.font = [UIFont montserratRegularWithSize:16];
         countryLabel.textAlignment=NSTextAlignmentLeft;
         countryLabel.text=[[filterDataArray objectAtIndex:section-1] filterLabelValue];
+        countryLabel.textColor=[UIColor colorWithRed:27.0/255.0 green:27.0/255.0 blue:27.0/255.0 alpha:1.0];
         [sectionView addSubview:countryLabel];
         
         UIImageView *arrowView = [[UIImageView alloc] initWithFrame:CGRectMake(tableView.frame.size.width - 25, (sectionView.frame.size.height/2) - 6, 12, 12)];
@@ -185,6 +191,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
     } else {
+        NSIndexPath *tempIndex=[NSIndexPath indexPathForRow:categoryIndex inSection:1];
+        FilterTableViewCell *tempCountryCell = (FilterTableViewCell *)[tableView cellForRowAtIndexPath:tempIndex];
+        tempCountryCell.countryLabel.textColor=[UIColor colorWithRed:27.0/255.0 green:27.0/255.0 blue:27.0/255.0 alpha:1.0];
+        
+        FilterTableViewCell *countryCell = (FilterTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+        categoryIndex=(int)indexPath.item;
+        countryCell.countryLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
+        
+        
     }
 }
 #pragma mark - end
@@ -203,7 +218,6 @@
             }
             [_filterTableView reloadSections:[NSIndexSet indexSetWithIndex:gestureRecognizer.view.tag] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
-        
     }
 }
 #pragma mark - end

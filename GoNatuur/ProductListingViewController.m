@@ -47,11 +47,11 @@
     //When user go to search screen then store last product category id
     lastSelectedCategoryId=myDelegate.selectedCategoryIndex;
     //Add custom picker view and initialized indexs
-    [self addCustomPickerView];
     firstTimePriceCalculation=true;
-    // Do any additional setup after loading the view.
-    _sortingType = @"name";
-    _sortBasis = @"ASC"; //ASC/DESC
+    [self addCustomPickerView];
+    //Set default sort values
+    _sortingType = NSLocalizedText(@"sortPrice");
+    _sortBasis = DESC; //ASC/DESC
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -326,12 +326,13 @@
         _noRecordLabel.hidden=false;
     }
     if (firstTimePriceCalculation) {
-        if([[[productListDataArray objectAtIndex:0] specialPrice]isEqualToString:@""] && [[productListDataArray objectAtIndex:0] specialPrice]==nil) {
-            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
-        }
-        else {
-            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] specialPrice] key:@"maximumPrice"];
-        }
+        [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
+//        if([[[productListDataArray objectAtIndex:0] specialPrice]isEqualToString:@""] && [[productListDataArray objectAtIndex:0] specialPrice]==nil) {
+//            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
+//        }
+//        else {
+//            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] specialPrice] key:@"maximumPrice"];
+//        }
         firstTimePriceCalculation=false;
     }
     totalProductCount=[productData.totalProductCount intValue];

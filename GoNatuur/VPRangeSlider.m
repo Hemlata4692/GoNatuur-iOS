@@ -173,7 +173,7 @@
     self.rangeSliderBackgroundColor = [UIColor lightGrayColor];
     self.rangeSliderForegroundColor = [UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
     
-    self.rangeDisplayLabelFont = [UIFont systemFontOfSize:15.0f];
+    self.rangeDisplayLabelFont = [UIFont montserratRegularWithSize:12.0f];
     self.rangeDisplayLabelColor = [UIColor whiteColor];
     
     [self.sliderForegroundView setCornerRadius:5.0];
@@ -200,7 +200,6 @@
     self.minRangeLabel.center = CGPointMake(CGRectGetMidX(self.startSliderButton.frame), CGRectGetMidY(self.bounds) + SLIDER_BUTTON_WIDTH-72);
     [self.minRangeLabel setTextColor:self.rangeDisplayLabelColor];
     [self.minRangeLabel setTextAlignment:NSTextAlignmentCenter];
-    //[self.minRangeLabel alignTop];
     [self.minRangeLabel setFont:self.rangeDisplayLabelFont];
     [self addSubview:self.minRangeLabel];
     
@@ -305,8 +304,7 @@
 #pragma mark - Public functions
 
 #pragma mark - Scroll to desired location on loading
-- (void)scrollStartSliderToStartRange:(CGFloat)startRange andEndRange:(CGFloat)endRange
-{
+- (void)scrollStartSliderToStartRange:(CGFloat)startRange andEndRange:(CGFloat)endRange {
     self.minRangeInitialPosition = startRange;
     self.maxRangeInitialPosition = endRange;
 }
@@ -405,10 +403,7 @@
     }
     
     [self scrollStartAndEndSliderForPoint:startScrollPoint andEndScrollPoint:endScrollPoint];
-    self.minRangeInitialIndex = 0;
-    self.maxRangeInitialIndex = 0;
-    self.minRangeInitialPosition = 0;
-    self.maxRangeInitialPosition = 0;
+ 
 }
 
 - (void)scrollStartAndEndSliderForPoint:(CGPoint)startScrollPoint andEndScrollPoint:(CGPoint)endScrollPoint
@@ -525,7 +520,7 @@
     else
     {
         CGFloat minPercent = (CGRectGetMinX(self.startSliderButton.frame) / CGRectGetWidth(self.sliderBackgroundView.frame) * 100);
-        CGFloat maxPercent = (CGRectGetMinX(self.endSliderButton.frame) / CGRectGetWidth(self.sliderBackgroundView.frame) * 100);
+        CGFloat maxPercent = (CGRectGetMinX(self.endSliderButton.frame) / CGRectGetWidth(self.sliderBackgroundView.frame) * self.maxRangeInitialPosition);
         
         if ([self.delegate respondsToSelector:@selector(sliderScrolling:withMinPercent:andMaxPercent:)])
         {
@@ -533,8 +528,8 @@
         }
     }
     
-    self.minRangeLabel.text = self.minRangeText;
-    self.maxRangeLabel.text = self.maxRangeText;
+    self.minRangeLabel.text = [NSString stringWithFormat:@"%.01f",[self.minRangeText floatValue]];
+    self.maxRangeLabel.text = [NSString stringWithFormat:@"%.01f",[self.maxRangeText floatValue]];
 }
 
 // Slide to nearest position
@@ -560,8 +555,8 @@
     if ([self.delegate respondsToSelector:@selector(sliderScrolled:toMinIndex:andMaxIndex:)])
     {
         [self.delegate sliderScrolled:self toMinIndex:startIndex andMaxIndex:endIndex];
-        self.minRangeLabel.text = self.minRangeText;
-        self.maxRangeLabel.text = self.maxRangeText;
+        self.minRangeLabel.text = [NSString stringWithFormat:@"%.01f",[self.minRangeText floatValue]];
+        self.maxRangeLabel.text = [NSString stringWithFormat:@"%.01f",[self.maxRangeText floatValue]];
     }
 }
 
