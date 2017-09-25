@@ -31,7 +31,7 @@ static NSString *kTrackShippment=@"shipments";
                                                                ],
                                                        @"sort_orders" : @[
                                                                @{@"field":@"created_at",
-                                                                 @"direction":@"DESC"
+                                                                 @"direction":DESC
                                                                  }
                                                                ],
                                                        @"page_size" : orderData.pageSize,
@@ -57,7 +57,7 @@ static NSString *kTrackShippment=@"shipments";
                                                                ],
                                                        @"sort_orders" : @[
                                                                @{@"field":@"created_at",
-                                                                 @"direction":@"DESC"
+                                                                 @"direction":DESC
                                                                  }
                                                                ],
                                                        @"page_size" : @"0",
@@ -89,7 +89,7 @@ static NSString *kTrackShippment=@"shipments";
                                                                ],
                                                        @"sort_orders" : @[
                                                                @{@"field":@"entity_id",
-                                                                 @"direction":@"DESC"
+                                                                 @"direction":DESC
                                                                  }
                                                                ],
                                                        @"page_size" : @"0",

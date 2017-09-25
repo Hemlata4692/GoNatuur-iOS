@@ -1475,6 +1475,7 @@
             sortListData.ascValue = dataDict[@"default_frontend_label"];
             sortListData.descValue = dataDict[@"default_frontend_label"];
             sortListData.attributeValue = dataDict[@"attribute_code"];
+            sortListData.sortBasis = DESC;
             [sortData.sortArray addObject:sortListData];
         }
         success(sortData);

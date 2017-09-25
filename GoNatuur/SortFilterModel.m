@@ -22,7 +22,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Earn points on share
+#pragma mark - Sorting
 - (void)getSortData:(void (^)(SortFilterModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getSortData:self onSuccess:^(SortFilterModel *userData) {
         if (success) {

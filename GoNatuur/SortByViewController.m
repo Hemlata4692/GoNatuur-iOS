@@ -13,25 +13,31 @@
 @interface SortByViewController ()
 {
     NSMutableArray *sortingArray;
-    NSString *sortingType, *sortBasis;
+    SortFilterModel *sortDataModel;
+    NSUInteger index;
+    BOOL isFirstTime;
+    NSString *requestValuesString;
 }
 @property (weak, nonatomic) IBOutlet UITableView *sortByTableView;
 
 @end
 
 @implementation SortByViewController
-@synthesize productListViewObj;
+@synthesize productListViewObj,sortingType,sortBasis;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    isFirstTime  = true;
     sortingArray = [NSMutableArray new];
+    sortDataModel = [SortFilterModel new];
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"SortByTitle");
+    NSLog(@"basis = %@, type = %@",sortBasis,sortingType);
     //remove extra lines from table view
     _sortByTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(getSortListData) withObject:nil afterDelay:.1];
+    _productId = @"2";
+    [self getAdditionalId];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,7 +45,42 @@
 }
 #pragma mark - end
 
-#pragma mark TableView DataSource Methods
+#pragma mark - Get additional sort values
+- (void)getAdditionalId {
+    requestValuesString = [NSString stringWithFormat:@"%@,%@",NSLocalizedText(@"sortName"),NSLocalizedText(@"sortPrice")];
+    NSLog(@"product Id = %@",_productId);
+    NSArray *sortArray = @[ @{@"Id":@"1",
+                              @"value":@"brand",
+                              },
+                            @{@"Id":@"2",
+                              @"value":@"rating",
+                              },
+                            @{@"Id":@"3",
+                              @"value":@"brand",
+                              },
+                            @{@"Id":@"4",
+                              @"value":@"rating",
+                              },
+                            ];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Id == %@", _productId];
+    NSArray *filteredarray = [sortArray filteredArrayUsingPredicate:predicate];
+    if (filteredarray.count>0) {
+        index = [sortArray indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
+            return [predicate evaluateWithObject:obj];
+        }];
+    }
+    NSDictionary *dict = [sortArray objectAtIndex:index];
+    NSLog(@"value = %@",dict[@"value"]);
+    if (dict[@"value"] != nil) {
+       requestValuesString = [NSString stringWithFormat:@"%@,%@",requestValuesString,dict[@"value"]];
+    }
+    NSLog(@"requestValuesString = %@",requestValuesString);
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getSortListData) withObject:nil afterDelay:.1];
+}
+#pragma mark - end
+
+#pragma mark TableView methods
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return sortingArray.count;
 }
@@ -55,48 +96,56 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *simpleTableIdentifier;
     if (indexPath.row == 0) {
-        simpleTableIdentifier=@"AscCell";
-    } else {
         simpleTableIdentifier=@"DescCell";
+    } else {
+        simpleTableIdentifier=@"AscCell";
     }
     SortByCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     if (cell == nil) {
         cell = [[SortByCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
-    //Show default selection
-    if (indexPath.section == 0 && indexPath.row == 0) {
-        sortBasis = DESC;
-        cell.ascLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
+    //Display default seleced value
+    if (isFirstTime) {
+        isFirstTime  = false;
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"attributeValue == %@", sortingType];
+        NSArray *filteredarray = [sortingArray filteredArrayUsingPredicate:predicate];
+        if (filteredarray.count>0) {
+            index = [sortingArray indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
+                return [predicate evaluateWithObject:obj];
+            }];
+        }
+        //Change particular value of array
+        sortDataModel = [sortingArray objectAtIndex:index];
+        sortDataModel.sortBasis = sortBasis;
+        sortDataModel.selectedValue = 1;
+        [sortingArray setObject:sortDataModel atIndexedSubscript:index];
     }
-    SortFilterModel *sortData = [sortingArray objectAtIndex:0];
-    sortingType = sortData.attributeValue;
-    NSLog(@"basis = %@, type = %@",sortBasis,sortingType);
-    //Display cell data
-    sortData = [sortingArray objectAtIndex:indexPath.section];
-    [cell displaySortData:_sortByTableView.frame.size sortData:sortData];
+    sortDataModel = [sortingArray objectAtIndex:indexPath.section];
+    [cell displaySortData:_sortByTableView.frame.size sortData:sortDataModel];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    SortByCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    //Deselect all values
+    for (int i=0;i<sortingArray.count;i++) {
+        SortFilterModel *tempModel = [sortingArray objectAtIndex:i];
+        tempModel.selectedValue = 0;
+        [sortingArray setObject:tempModel atIndexedSubscript:i];
+    }
+    sortDataModel = [sortingArray objectAtIndex:indexPath.section];
+    sortingType = sortDataModel.attributeValue;
+    //Change particular value of array
     if (indexPath.row == 0) {
         sortBasis = DESC;
-        cell.descLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
-        cell.ascLabel.textColor=[UIColor colorWithRed:26/255.0 green:26/255.0 blue:26/255.0 alpha:1.0];
+        sortDataModel.sortBasis = DESC;
     } else {
         sortBasis = ASC;
-        cell.ascLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
-        cell.descLabel.textColor=[UIColor colorWithRed:26/255.0 green:26/255.0 blue:26/255.0 alpha:1.0];
+        sortDataModel.sortBasis = ASC;
     }
-    SortFilterModel *sortData = [sortingArray objectAtIndex:indexPath.section];
-    sortingType = sortData.attributeValue;
+    sortDataModel.selectedValue = 1;
+    [sortingArray setObject:sortDataModel atIndexedSubscript:indexPath.section];
+    [_sortByTableView reloadData];
     NSLog(@"basis = %@, type = %@",sortBasis,sortingType);
-}
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    SortByCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.ascLabel.textColor=[UIColor colorWithRed:26/255.0 green:26/255.0 blue:26/255.0 alpha:1.0];
-    cell.descLabel.textColor=[UIColor colorWithRed:26/255.0 green:26/255.0 blue:26/255.0 alpha:1.0];
 }
 #pragma mark - end
 
@@ -112,10 +161,10 @@
 }
 #pragma mark - end
 
-#pragma mark - Get product list service
+#pragma mark - Get sort list service
 - (void)getSortListData {
     SortFilterModel *sortList = [SortFilterModel sharedUser];
-    sortList.requestValues=[NSString stringWithFormat:@"%@,%@",NSLocalizedText(@"sortName"),NSLocalizedText(@"sortPrice")];
+    sortList.requestValues=requestValuesString;
     [sortList getSortData:^(SortFilterModel *sortData) {
         sortingArray = [sortData.sortArray mutableCopy];
         [_sortByTableView reloadData];

@@ -13,7 +13,7 @@
 
 static NSString *kSortData=@"ranosys/products/attributes";
 
-#pragma mark - Share service
+#pragma mark - Sorting
 - (void)getSortData:(SortFilterModel *)sortData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
                                                                             @{@"filters":@[
@@ -26,7 +26,7 @@ static NSString *kSortData=@"ranosys/products/attributes";
                                                                             ],
                                                                     @"sort_orders":@[
                                                                             @{@"field":@"attribute_id",
-                                                                              @"direction":@"DESC",
+                                                                              @"direction":DESC,
                                                                               }
                                                                             ],
                                                                     @"page_size" : @0,
