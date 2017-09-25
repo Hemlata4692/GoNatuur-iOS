@@ -363,8 +363,11 @@
             [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false];
         }
     } else if (option==3) {
+        NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
         SortByViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SortByViewController"];
         preview.productListViewObj = self;
+        preview.sortBasis = _sortBasis;
+        preview.sortingType = _sortingType;
         UINavigationController *navigationController =
         [[UINavigationController alloc] initWithRootViewController:preview];
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigation"] forBarMetrics:UIBarMetricsDefault];

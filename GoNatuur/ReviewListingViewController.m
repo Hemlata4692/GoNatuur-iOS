@@ -50,7 +50,7 @@
     starFilterDataArray=[[NSMutableArray alloc]initWithObjects:NSLocalizedText(@"All"),NSLocalizedText(@"5 Stars"),NSLocalizedText(@"4 Stars"),NSLocalizedText(@"3 Stars"),NSLocalizedText(@"2 Stars"),NSLocalizedText(@"1 Star"), nil];
     sortByDataArray=[[NSMutableArray alloc]initWithObjects:NSLocalizedText(@"mostRecent"),NSLocalizedText(@"ratingLowHigh"),NSLocalizedText(@"ratingHighLow"), nil];
     sortByFilter=@"created_at";
-    sortByValue=@"DESC";
+    sortByValue=DESC;
     starFilter=@"5";
     pageCount=1;
     applyStarFilter=@"1";
@@ -131,15 +131,15 @@
             [_sortByFilterButton setTitle:[sortByDataArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
             if (selectedSortFilterIndex==0) {
                 sortByFilter=@"created_at";
-                sortByValue=@"DESC";
+                sortByValue=DESC;
             }
             else if (selectedSortFilterIndex==1) {
                 sortByFilter=@"reviewvote.value";
-                sortByValue=@"ASC";
+                sortByValue=ASC;
             }
             else {
                 sortByFilter=@"reviewvote.value";
-                sortByValue=@"DESC";
+                sortByValue=DESC;
             }
         }
     }

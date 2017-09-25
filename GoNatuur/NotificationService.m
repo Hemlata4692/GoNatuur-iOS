@@ -29,7 +29,7 @@ static NSString *kMArkNotificationRead=@"ranosys/notifications/markAsReaded";
                                                                  ],
                                                          @"sort_orders" : @[
                                                                  @{@"field":@"created_at",
-                                                                   @"direction":@"DESC"
+                                                                   @"direction":DESC
                                                                    }
                                                                  ],
                                                          @"page_size" : @"10",

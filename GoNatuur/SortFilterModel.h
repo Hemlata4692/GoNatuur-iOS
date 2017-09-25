@@ -14,6 +14,8 @@
 @property (strong, nonatomic) NSString *ascValue;
 @property (strong, nonatomic) NSString *descValue;
 @property (strong, nonatomic) NSString *attributeValue;
+@property (nonatomic) long selectedValue;
+@property (strong, nonatomic) NSString *sortBasis;
 @property (strong, nonatomic) NSMutableArray *sortArray;
 @property (strong, nonatomic) NSMutableArray *filterOptionsArray;
 @property (strong, nonatomic) NSString *filterCountry;
