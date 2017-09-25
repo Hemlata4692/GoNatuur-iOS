@@ -18,6 +18,7 @@ static NSString *kNewsListData=@"ranosys/news/getList";
 static NSString *kNewsDetailData=@"ranosys/news/getById";
 static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
 static NSString *kNwesCategory=@"ranosys/news/getNewsCategory";
+static NSString *kConstants=@"apiconstants";
 static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
 
 @implementation DashboardService
@@ -267,4 +268,11 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
     [super post:kNwesCategory parameters:nil success:success failure:failure];
 }
 #pragma mark - end
+
+#pragma mark - Get constants listing
+- (void)getConstantsListData:(DashboardDataModel *)categoryList success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    [super getConstantsData:kConstants parameters:nil onSuccess:success onFailure:failure];
+}
+#pragma mark - end
+
 @end

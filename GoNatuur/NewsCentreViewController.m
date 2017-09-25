@@ -310,7 +310,7 @@
         productList.newsType=@"";
         productList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
     }
-    productList.pageSize=[NSNumber numberWithInt:12];
+    productList.pageSize=[UserDefaultManager getValue:@"paginationSize"];
     productList.currentPage=[NSNumber numberWithInt:currentpage];
     [productList getNewsListDataService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];
@@ -475,7 +475,7 @@
     NSDate * firstDateOfMonth = [self returnDateForMonth:comps.month year:comps.year day:1];
     NSDate * lastDateOfMonth = [self returnDateForMonth:comps.month+1 year:comps.year day:0];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+    [dateFormatter setDateFormat:dateFormatterDate];
     filterValue1=[dateFormatter stringFromDate:firstDateOfMonth];
     filterValue2=[dateFormatter stringFromDate:lastDateOfMonth];
 }

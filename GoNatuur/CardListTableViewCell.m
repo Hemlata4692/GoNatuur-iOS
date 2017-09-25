@@ -10,6 +10,7 @@
 
 @implementation CardListTableViewCell
 
+#pragma mark - Cell life cycle
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
@@ -21,6 +22,10 @@
     // Configure the view for the selected state
 }
 
-
-//[cell displayData:[reviewListingDataAray objectAtIndex:indexPath.row] reviewId:@"0" rectSize:_reviewListingTableView.frame.size]
+//Display card data
+- (void)displayOrderData:(CGSize)rectSize orderData:(PaymentModel *)paymentData {
+     _cardImage.image = [UIImage imageNamed:@"visa"];
+    _cardNumber.text = [NSString stringWithFormat:@"%@ %@",NSLocalizedText(@"totalPoints"),paymentData.cardLastFourDigit];
+}
+#pragma mark - end
 @end

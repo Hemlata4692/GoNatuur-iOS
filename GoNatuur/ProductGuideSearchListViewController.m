@@ -57,7 +57,7 @@
     ProductGuideDataModel *categoryList = [ProductGuideDataModel sharedUser];
     categoryList.isSearch=@"Yes";
     categoryList.searchKeywod=searchKeyword;
-    categoryList.pageSize=[NSNumber numberWithInt:12];
+    categoryList.pageSize=[UserDefaultManager getValue:@"paginationSize"];
     categoryList.currentPage=[NSNumber numberWithInt:pageCount];
     [categoryList getProductGuideDetailsCategoryData:^(ProductGuideDataModel *userData)  {
         [myDelegate stopIndicator];
