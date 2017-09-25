@@ -335,7 +335,7 @@
         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f + %@ip",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],((subTotalPrice+[self getShippingCharges]-[self getDiscount])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue]),cartModelData.impactPoints] forKey:@"Grand Total"];//Show subtotal and ip
         //Set for final checkout screen data
         [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:subTotalPrice] forKey:@"Cart subtotal"];
-        [finalCheckoutPriceDict setObject:[NSString stringWithFormat:@"%@ip",cartModelData.impactPoints] forKey:@"Points subtotal"];
+        [finalCheckoutPriceDict setObject:cartModelData.impactPoints forKey:@"Points subtotal"];
         [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:[self getShippingCharges]] forKey:@"Shipping charges"];
         [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:[self getDiscount]] forKey:@"Discount"];
     }
@@ -1327,6 +1327,7 @@
 - (void)navigateToFinalCheckout {
     FinalCheckoutViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FinalCheckoutViewController"];
     obj.cartModelData=[cartModelData copy];
+    obj.finalCheckoutPriceDict=[finalCheckoutPriceDict mutableCopy];
     obj.cartListDataArray=[cartListDataArray mutableCopy];
     [self.navigationController pushViewController:obj animated:YES];
 }

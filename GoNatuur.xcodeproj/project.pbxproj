@@ -2321,8 +2321,8 @@
 		B7F570F21F67F4EB0006C9BB /* FinalCheckoutView */ = {
 			isa = PBXGroup;
 			children = (
-				B7F570F71F67FA600006C9BB /* FinalCheckoutCell */,
 				B7F570F61F67FA320006C9BB /* FinalCheckoutViewController */,
+				B7F570F71F67FA600006C9BB /* FinalCheckoutCell */,
 			);
 			name = FinalCheckoutView;
 			sourceTree = "<group>";
