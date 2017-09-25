@@ -22,7 +22,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Sorting
+#pragma mark - Sorting and filter data
 - (void)getSortData:(void (^)(SortFilterModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getSortData:self onSuccess:^(SortFilterModel *userData) {
         if (success) {
@@ -31,6 +31,16 @@
     } onFailure:^(NSError *error) {
     }];
 }
+
+- (void)getFilterServiceData:(void (^)(SortFilterModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getFilterDataData:self onSuccess:^(SortFilterModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+    }];
+}
+
 #pragma mark - end
 
 @end

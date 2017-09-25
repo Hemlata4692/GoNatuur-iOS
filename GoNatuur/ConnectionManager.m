@@ -1461,7 +1461,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Sorting
+#pragma mark - Sorting and filter
 - (void)getSortData:(SortFilterModel *)sortData onSuccess:(void (^)(SortFilterModel *userData))success onFailure:(void (^)(NSError *))failure {
     SortFilterService *sortService = [[SortFilterService alloc] init];
     [sortService getSortData:sortData onSuccess:^(id response) {
@@ -1477,6 +1477,35 @@
             sortListData.attributeValue = dataDict[@"attribute_code"];
             sortListData.sortBasis = DESC;
             [sortData.sortArray addObject:sortListData];
+        }
+        success(sortData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+
+- (void)getFilterDataData:(SortFilterModel *)sortData onSuccess:(void (^)(SortFilterModel *userData))success onFailure:(void (^)(NSError *))failure {
+    SortFilterService *sortService = [[SortFilterService alloc] init];
+    [sortService getSortData:sortData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"response %@",response);
+        NSArray *dataArray=response[@"items"];
+        sortData.filterArray=[NSMutableArray new];
+        for (int i =0; i<dataArray.count; i++) {
+            NSDictionary * dataDict =[dataArray objectAtIndex:i];
+            SortFilterModel * sortListData = [[SortFilterModel alloc]init];
+            sortListData.filterLabelValue = dataDict[@"default_frontend_label"];
+            sortListData.filterAttributeCode = dataDict[@"attribute_code"];
+            sortListData.filterOptionsArray=[[NSMutableArray alloc]init];
+            NSArray *tempArray=dataDict[@"options"];
+            for (int j=0; j<tempArray.count; j++) {
+                NSDictionary * dataDict =[tempArray objectAtIndex:j];
+                SortFilterModel * filterValueData = [[SortFilterModel alloc]init];
+                filterValueData.filterCountry = dataDict[@"label"];
+                filterValueData.filterCountryValue = dataDict[@"value"];
+                [sortListData.filterOptionsArray addObject:filterValueData];
+            }
+            [sortData.filterArray addObject:sortListData];
         }
         success(sortData);
     } onFailure:^(NSError *error) {

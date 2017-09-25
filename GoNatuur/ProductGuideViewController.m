@@ -371,7 +371,7 @@
         ProductGuideCollectionViewCell *categoryCell = (ProductGuideCollectionViewCell *)[cv cellForItemAtIndexPath:indexPath];
         categoryHeading=[[productGuideCategoryArray objectAtIndex:indexPath.item]categoryDescription];
         categoryIndex=(int)indexPath.item;
-          categoryCell.categoryLabel.textColor=[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
+        categoryCell.categoryLabel.textColor=[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
         [myDelegate showIndicator];
         [self getProductGuideCategoryDetials:[[productGuideCategoryArray objectAtIndex:indexPath.item]categoryId]];
     }

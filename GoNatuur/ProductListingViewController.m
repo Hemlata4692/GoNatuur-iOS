@@ -15,6 +15,7 @@
 #import "ProductDetailViewController.h"
 #import "EventDetailViewController.h"
 #import "UIView+Toast.h"
+#import "FilterViewController.h"
 #import "SortByViewController.h"
 
 @interface ProductListingViewController ()<UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
@@ -29,6 +30,7 @@
     GoNatuurPickerView *gNPickerViewObj;
     int currentCategoryId;
     int lastSelectedCategoryId;
+    BOOL firstTimePriceCalculation;
 }
 @property (strong, nonatomic) IBOutlet UILabel *noRecordLabel;
 @property (strong, nonatomic) IBOutlet UITableView *productListTableView;
@@ -45,6 +47,7 @@
     //When user go to search screen then store last product category id
     lastSelectedCategoryId=myDelegate.selectedCategoryIndex;
     //Add custom picker view and initialized indexs
+    firstTimePriceCalculation=true;
     [self addCustomPickerView];
     //Set default sort values
     _sortingType = NSLocalizedText(@"sortPrice");
@@ -113,17 +116,11 @@
     filterViewObj.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35);
     [filterViewObj setButtonTitles:NSLocalizedText(@"Filter") subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:NSLocalizedText(@"Sortby")];
     //Customized filter view
-    //    filterViewObj.firstFilterButtonOutlet.enabled=false;
-    //    filterViewObj.secondFilterButtonOutlet.enabled=false;
-    //    filterViewObj.firstFilterButtonOutlet.alpha=0.5;
-    //    filterViewObj.secondFilterButtonOutlet.alpha=0.5;
-    //    filterViewObj.firstFilterArrowImageView.alpha=0.4;
-    //    filterViewObj.secondFilterArrowImageView.alpha=0.4;
-    if (!myDelegate.isProductList) {
-        filterViewObj.subCategoryButtonOutlet.enabled=false;
-        filterViewObj.subCategoryButtonOutlet.alpha=0.5;
-        filterViewObj.subCategoryArrowImageView.alpha=0.4;
-    }
+//    if (!myDelegate.isProductList) {
+//        filterViewObj.subCategoryButtonOutlet.enabled=false;
+//        filterViewObj.subCategoryButtonOutlet.alpha=0.5;
+//        filterViewObj.subCategoryArrowImageView.alpha=0.4;
+//    }
     //Set initial index of picker view and initialized picker view
     selectedFirstFilterIndex=0;
     selectedSubCategoryIndex=0;
@@ -328,6 +325,16 @@
     else {
         _noRecordLabel.hidden=false;
     }
+    if (firstTimePriceCalculation) {
+        [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
+//        if([[[productListDataArray objectAtIndex:0] specialPrice]isEqualToString:@""] && [[productListDataArray objectAtIndex:0] specialPrice]==nil) {
+//            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
+//        }
+//        else {
+//            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] specialPrice] key:@"maximumPrice"];
+//        }
+        firstTimePriceCalculation=false;
+    }
     totalProductCount=[productData.totalProductCount intValue];
     float picDimension = (self.view.frame.size.width-20) / 2.0;
     int rowCount=(int)productListDataArray.count/2;
@@ -342,6 +349,7 @@
 
 #pragma mark - Pull to refresh
 - (void)refreshControlAction {
+    firstTimePriceCalculation=true;
     isPullToRefresh=true;
     currentpage=1;
     [self performSelector:@selector(getProductListData) withObject:nil afterDelay:.1];
@@ -361,6 +369,16 @@
         preview.productListViewObj = self;
         preview.sortBasis = _sortBasis;
         preview.sortingType = _sortingType;
+        UINavigationController *navigationController =
+        [[UINavigationController alloc] initWithRootViewController:preview];
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigation"] forBarMetrics:UIBarMetricsDefault];
+        //now present this navigation controller modally
+        [self presentViewController:navigationController animated:YES completion:^{
+        }];
+    }
+    else if (option==2) {
+        FilterViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FilterViewController"];
+       // preview.productListViewObj = self;
         UINavigationController *navigationController =
         [[UINavigationController alloc] initWithRootViewController:preview];
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigation"] forBarMetrics:UIBarMetricsDefault];
