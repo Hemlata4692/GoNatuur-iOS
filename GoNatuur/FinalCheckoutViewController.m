@@ -8,6 +8,7 @@
 
 #import "FinalCheckoutViewController.h"
 #import "FinalCheckoutTableViewCell.h"
+#import "NewsLetterSubscriptionViewController.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
@@ -22,7 +23,8 @@
     int selectedPaymentMethodIndex;
     NSArray *totalArray;
     NSMutableDictionary *totalDict, *paymentMethodDict;
-    bool isCyberSourceExist, isApplyCouponExist;
+    bool isCyberSourceExist;
+    int applyCouponExist;
     bool isCreditUser;
 }
 //View objects declaration
@@ -219,7 +221,7 @@
 
 #pragma mark - Manage price title and value in dictionary
 - (void)setPrices {
-    isApplyCouponExist=true;
+    applyCouponExist=1;
     //For guest user
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
         totalArray=@[@"Cart subtotal", @"Shipping charges", @"Apply coupon code", @"Grand Total"];
@@ -272,7 +274,7 @@
     }
      //Only for redeem products without apply coupon code
     else if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
-        isApplyCouponExist=false;
+        applyCouponExist=0;
         totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
         [self setRedeemProductsWithOutApplyCouponCode];
     }
@@ -297,7 +299,7 @@
     }
     //Only for redeem products without apply coupon code
     else if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
-        isApplyCouponExist=false;
+        applyCouponExist=0;
         totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"credit usage", @"Grand Total"];
         [self setRedeemProductsWithOutApplyCouponCode];
     }
@@ -364,7 +366,8 @@
         [cell displayCartListData:[cartListDataArray objectAtIndex:indexPath.row] isSeparatorHide:(indexPath.row==cartListDataArray.count-1?true:false)];
     }
     else if (indexPath.row<(cartListDataArray.count+totalArray.count)) {
-        [cell displayPriceCellData:[totalDict mutableCopy] priceTitleArray:[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] islastIndex:(((cartListDataArray.count+totalArray.count)-1)==indexPath.row)?true:false isApplyCoupon:([[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] isEqualToString:@"Apply coupon code"]?true:false)];
+        [cell displayPriceCellData:[totalDict mutableCopy] priceTitleArray:[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] islastIndex:(((cartListDataArray.count+totalArray.count)-1)==indexPath.row)?true:false isApplyCoupon:([[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] isEqualToString:@"Apply coupon code"]?applyCouponExist:0)];
+        [cell.applyCouponButton addTarget:self action:@selector(applyCouponCodeAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     else {}
     return cell;
@@ -477,5 +480,45 @@
         
     }];
 }
+
+- (void)removeCouponCode {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    [cartData removeCouponCodeOnSuccess:^(id response)  {
+        [myDelegate stopIndicator];
+        if ([[response objectForKey:@"status"] boolValue]) {
+            applyCouponExist=1;
+        }
+        else {
+            applyCouponExist=2;
+        }
+        [_cartItemsTableView reloadData];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
 #pragma mark - end
+
+#pragma mark - IBAction
+- (IBAction)applyCouponCodeAction:(UIButton *)sender {
+    if (applyCouponExist==1) {
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        NewsLetterSubscriptionViewController *popView =
+        [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterSubscriptionViewController"];
+        popView.finalCheckoutViewObj=self;
+        popView.isApplyCoupon=true;
+        popView.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4f];
+        [popView setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+        [self presentViewController:popView animated:YES completion:nil];
+    }
+    else {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(removeCouponCode) withObject:nil afterDelay:.1];
+    }
+}
+#pragma mark - end
+
+- (void)applyCouponCodeSuccess {
+    applyCouponExist=2;
+    [_cartItemsTableView reloadData];
+}
 @end

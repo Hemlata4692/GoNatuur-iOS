@@ -1501,4 +1501,28 @@
                             }];
 }
 #pragma mark - end
+
+#pragma mark - Apply coupon code
+- (void)applyCouponCodeService:(CartDataModel *)cartData onSuccess:(void (^)(id couponResponse))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList applyCouponCodeService:cartData success:^(id response) {
+        DLog(@"Set checkout order response %@",response);
+        success(response);
+    }
+                            onfailure:^(NSError *error) {
+                            }];
+}
+#pragma mark - end
+
+#pragma mark - Remove coupon code
+- (void)removeCouponCodeService:(CartDataModel *)cartData onSuccess:(void (^)(id couponResponse))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList removeCouponCodeService:cartData success:^(id response) {
+        DLog(@"Set checkout order response %@",response);
+        success(response);
+    }
+                           onfailure:^(NSError *error) {
+                           }];
+}
+#pragma mark - end
 @end

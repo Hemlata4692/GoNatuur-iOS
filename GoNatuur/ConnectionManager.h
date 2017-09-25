@@ -138,5 +138,9 @@
 //Set payment method
 - (void)setPaymentMethodService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 //Set checkout order
-- (void)setCheckoutOrderService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure ;
+- (void)setCheckoutOrderService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure;
+//Apply coupon code
+- (void)applyCouponCodeService:(CartDataModel *)cartData onSuccess:(void (^)(id couponResponse))success onFailure:(void (^)(NSError *))failure;
+//Remove coupon code
+- (void)removeCouponCodeService:(CartDataModel *)cartData onSuccess:(void (^)(id couponResponse))success onFailure:(void (^)(NSError *))failure;
 @end

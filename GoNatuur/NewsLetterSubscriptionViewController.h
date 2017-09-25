@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FinalCheckoutViewController.h"
 
 @interface NewsLetterSubscriptionViewController : UIViewController
-
+@property (nonatomic, assign) BOOL isApplyCoupon;
+@property (nonatomic, strong) FinalCheckoutViewController *finalCheckoutViewObj;
 @end

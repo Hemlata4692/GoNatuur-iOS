@@ -102,6 +102,9 @@
             if ([string isEqualToString:@"true"]) {
                 success(@{@"status":[NSNumber numberWithBool:true]});
             }
+            else {
+                success(@{@"status":[NSNumber numberWithBool:false]});
+            }
         }
         else {
             responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];

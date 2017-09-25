@@ -37,6 +37,7 @@
 @property (strong, nonatomic) NSNumber *isRedeemProduct;
 @property (strong, nonatomic) NSNumber *isRedeemProductExist;
 @property (strong, nonatomic) NSNumber *isSimpleProductExist;
+@property (strong, nonatomic) NSString *couponCode;
 
 //Singleton instanse
 + (instancetype)sharedUser;
@@ -57,4 +58,8 @@
 - (void)setPaymentMethodOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 //Set checkout order
 - (void)setCheckoutOrderOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Apply coupon code
+- (void)applyCouponCodeOnSuccess:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
+//Remove coupon code
+- (void)removeCouponCodeOnSuccess:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 @end

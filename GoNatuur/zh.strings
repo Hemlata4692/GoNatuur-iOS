@@ -321,3 +321,6 @@
 "pointTotal"="點總數";
 "grandTotal"="累計";
 "rewardProductExistAlert"="您有一些獎勵產品，這些價值超過了影響點.";
+"applyCoupon"="Apply coupan code";
+"couponCode"="Coupan code";
+"submit"="SUBMIT";

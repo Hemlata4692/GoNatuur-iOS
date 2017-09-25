@@ -65,6 +65,7 @@
     another.productImpactPoint= [self.productImpactPoint copyWithZone: zone];
     another.isRedeemProductExist= [self.isRedeemProductExist copyWithZone: zone];
     another.isSimpleProductExist= [self.isSimpleProductExist copyWithZone: zone];
+    another.couponCode= [self.couponCode copyWithZone: zone];
     return another;
 }
 
@@ -168,6 +169,30 @@
     [[ConnectionManager sharedManager] setCheckoutOrderService:self onSuccess:^(CartDataModel *userData) {
         if (success) {
             success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Apply coupon code
+- (void)applyCouponCodeOnSuccess:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] applyCouponCodeService:self onSuccess:^(id response) {
+        if (success) {
+            success (response);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Remove coupon code
+- (void)removeCouponCodeOnSuccess:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] removeCouponCodeService:self onSuccess:^(id response) {
+        if (success) {
+            success (response);
         }
     } onFailure:^(NSError *error) {
         

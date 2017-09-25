@@ -13,4 +13,5 @@
 @property (nonatomic, strong) CartDataModel *cartModelData;
 @property (nonatomic, strong) NSMutableArray *cartListDataArray;
 @property (nonatomic, strong) NSMutableDictionary *finalCheckoutPriceDict;
+- (void)applyCouponCodeSuccess;
 @end

@@ -10,16 +10,20 @@
 #import "UITextField+Padding.h"
 #import "LoginModel.h"
 #import "UITextField+Validations.h"
+#import "CartDataModel.h"
 
 @interface NewsLetterSubscriptionViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *headingLabel;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+@property (strong, nonatomic) IBOutlet UIImageView *emailIconImageView;
 @property (weak, nonatomic) IBOutlet UIButton *subscribeButton;
 @property (weak, nonatomic) IBOutlet UIView *newsLetterView;
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 @end
 
 @implementation NewsLetterSubscriptionViewController
+@synthesize isApplyCoupon;
+@synthesize finalCheckoutViewObj;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -39,7 +43,16 @@
     _headingLabel.text=NSLocalizedText(@"newlettersubscription");
     _emailTextField.placeholder=NSLocalizedText(@"Email");
     [_subscribeButton setTitle:NSLocalizedText(@"subscribe") forState:UIControlStateNormal];
-    [_emailTextField addTextFieldLeftRightPadding:_emailTextField];
+    if (isApplyCoupon) {
+        _headingLabel.text=NSLocalizedText(@"applyCoupon");
+        _emailTextField.placeholder=NSLocalizedText(@"couponCode");
+        [_subscribeButton setTitle:NSLocalizedText(@"submit") forState:UIControlStateNormal];
+        [_emailTextField addTextFieldPaddingWithoutImages:_emailTextField];
+        _emailIconImageView.hidden=true;
+    }
+    else {
+        [_emailTextField addTextFieldLeftRightPadding:_emailTextField];
+    }
     [_emailTextField setTextBorder:_emailTextField color:[UIColor colorWithRed:199.0/255.0 green:201.0/255.0 blue:201.0/255.0 alpha:1.0]];
     [_newsLetterView setCornerRadius:2.0];
     //customisation of save button
@@ -73,7 +86,12 @@
     [_emailTextField resignFirstResponder];
     if([self performValidations]) {
         [myDelegate showIndicator];
-        [self performSelector:@selector(subscribeForNews) withObject:nil afterDelay:.1];
+        if (isApplyCoupon) {
+            [self performSelector:@selector(applyCouponCode) withObject:nil afterDelay:.1];
+        }
+        else {
+            [self performSelector:@selector(subscribeForNews) withObject:nil afterDelay:.1];
+        }
     }
 }
 #pragma mark - end
@@ -84,6 +102,18 @@
     userLogin.email = _emailTextField.text;
     [userLogin newsLetterSubscribe:^(LoginModel *userData) {
         [myDelegate stopIndicator];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)applyCouponCode {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    cartData.couponCode=_emailTextField.text;
+    [cartData applyCouponCodeOnSuccess:^(CartDataModel *shippmentDetailData)  {
+        [myDelegate stopIndicator];
+        [finalCheckoutViewObj applyCouponCodeSuccess];
         [self dismissViewControllerAnimated:YES completion:nil];
     } onfailure:^(NSError *error) {
         

@@ -32,7 +32,14 @@
 }
 //set bottom border only
 - (void)setBottomBorder: (UIView *)view color:(UIColor *)color {
+    NSArray* sublayers = [NSArray arrayWithArray:view.layer.sublayers];
+    for (CALayer *layer in sublayers) {
+        if ([layer.name isEqualToString:@"bottomLayer"]) {
+            [layer removeFromSuperlayer];
+        }
+    }
     CALayer *bottomBorder = [CALayer layer];
+    bottomBorder.name=@"bottomLayer";
     bottomBorder.frame = CGRectMake(0, view.frame.size.height-1, view.frame.size.width, 1.0f);
     bottomBorder.backgroundColor = color.CGColor;
     [view.layer addSublayer:bottomBorder];

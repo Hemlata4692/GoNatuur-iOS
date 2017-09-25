@@ -6750,6 +6750,7 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="emailIconImageView" destination="kKM-ta-bpx" id="kng-QD-13Z"/>
                         <outlet property="emailTextField" destination="bdb-Oc-A2I" id="5lh-tf-nC7"/>
                         <outlet property="headingLabel" destination="W0z-WJ-dUZ" id="tQg-fF-yhT"/>
                         <outlet property="mainView" destination="BRu-2n-K1d" id="fmq-o6-29x"/>

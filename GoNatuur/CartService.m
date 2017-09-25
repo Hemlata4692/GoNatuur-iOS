@@ -16,6 +16,8 @@ static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-
 static NSString *kGetCheckoutPromo=@"ranosys/setcheckoutpromo";
 static NSString *kSetPaymentMethod=@"carts/mine/selected-payment-method";
 static NSString *kSetCheckoutOrder=@"carts/mine/order";
+static NSString *kApplyCoupon=@"carts/mine/coupons/";
+static NSString *kRemoveCoupon=@"carts/mine/coupons";
 
 @implementation CartService
 
@@ -98,6 +100,18 @@ static NSString *kSetCheckoutOrder=@"carts/mine/order";
                                  };
     DLog(@"%@",parameters);
     [super put:kSetCheckoutOrder parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Apply coupon code
+- (void)applyCouponCodeService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    [super put:[NSString stringWithFormat:@"%@%@",kApplyCoupon,cartData.couponCode] parameters:nil success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Remove coupon code
+- (void)removeCouponCodeService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    [super deleteService:kRemoveCoupon parameters:nil isBoolean:true success:success failure:failure];
 }
 #pragma mark - end
 
