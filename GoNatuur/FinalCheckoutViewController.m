@@ -348,6 +348,9 @@
         if ((nil==[UserDefaultManager getValue:@"userId"])&&(indexPath.row==(cartListDataArray.count+totalArray.count))) {
             simpleTableIdentifier=@"infoCell";
         }
+        else if ([[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] isEqualToString:@"Apply coupon code"]) {
+            simpleTableIdentifier=@"applyCouponCell";
+        }
         else {
             simpleTableIdentifier=@"priceCell";
         }
@@ -357,12 +360,11 @@
         cell = [[FinalCheckoutTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
 
-    
     if (indexPath.row<cartListDataArray.count) {
         [cell displayCartListData:[cartListDataArray objectAtIndex:indexPath.row] isSeparatorHide:(indexPath.row==cartListDataArray.count-1?true:false)];
     }
     else if (indexPath.row<(cartListDataArray.count+totalArray.count)) {
-        [cell displayPriceCellData:[totalDict mutableCopy] priceTitleArray:[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] islastIndex:(((cartListDataArray.count+totalArray.count)-1)==(indexPath.row-cartListDataArray.count))?true:false];
+        [cell displayPriceCellData:[totalDict mutableCopy] priceTitleArray:[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] islastIndex:(((cartListDataArray.count+totalArray.count)-1)==indexPath.row)?true:false isApplyCoupon:([[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] isEqualToString:@"Apply coupon code"]?true:false)];
     }
     else {}
     return cell;

@@ -39,8 +39,17 @@
     }
 }
 
-- (void)displayPriceCellData:(NSMutableDictionary *)priceDetail priceTitleArray:(NSString *)priceTitle islastIndex:(BOOL)islastIndex  {
-    _priceTitleLabel.text=priceTitle;
+- (void)displayPriceCellData:(NSMutableDictionary *)priceDetail priceTitleArray:(NSString *)priceTitle islastIndex:(BOOL)islastIndex isApplyCoupon:(BOOL)isApplyCoupon  {
+    if (!isApplyCoupon) {
+        _priceTitleLabel.text=priceTitle;
+    }
+    else {
+        [_applyCouponButton setTitle:@"Apply coupon code" forState:UIControlStateNormal];
+        [_applyCouponButton setTitleColor:[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [_applyCouponButton sizeToFit];
+        _applyCouponButton.frame=CGRectMake(10, 7, _applyCouponButton.frame.size.width, 20);
+        [_applyCouponButton setBottomBorder:_applyCouponButton color:[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0]];
+    }
     _priceLabel.text=[priceDetail objectForKey:priceTitle];
     if (islastIndex) {
         _priceTitleLabel.font=[UIFont montserratRegularWithSize:15];
