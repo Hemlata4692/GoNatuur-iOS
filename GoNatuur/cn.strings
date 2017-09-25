@@ -302,6 +302,7 @@
 "invoiceTitle"="发票";
 "invoice"="发票:";
 "shipment"="装船:";
+"cardNumber"="XXXX XXXX XXXX";
 "oldest"="最早";
 "ShippingMethodAlert"="Need to select one shipping method.";
 "summary"="Summary";

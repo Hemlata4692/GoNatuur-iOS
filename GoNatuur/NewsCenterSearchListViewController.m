@@ -58,7 +58,7 @@
 - (void)getSerachNewsListing {
     DashboardDataModel *productList = [DashboardDataModel sharedUser];
     productList.newsType=@"search";
-    productList.pageSize=[NSNumber numberWithInt:12];
+    productList.pageSize=[UserDefaultManager getValue:@"paginationSize"];
     productList.currentPage=[NSNumber numberWithInt:pageCount];
     productList.categoryName=searchKeyword;
     [productList getNewsListDataService:^(DashboardDataModel *productData)  {

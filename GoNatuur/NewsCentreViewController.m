@@ -305,7 +305,7 @@
         productList.newsType=@"";
         productList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
     }
-    productList.pageSize=[NSNumber numberWithInt:12];
+    productList.pageSize=[UserDefaultManager getValue:@"paginationSize"];
     productList.currentPage=[NSNumber numberWithInt:currentpage];
     [productList getNewsListDataService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];

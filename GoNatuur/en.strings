@@ -293,6 +293,7 @@
 "invoiceTitle"="INVOICES";
 "invoice"="Invoice:";
 "shipment"="Shipment:";
+"cardNumber"="XXXX XXXX XXXX";
 "oldest"="Earliest";
 "ShippingMethodAlert"="Need to select one shipping method.";
 "summary"="Summary";
