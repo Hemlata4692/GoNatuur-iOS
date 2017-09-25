@@ -25,6 +25,7 @@
     int languagePickerIndex, currencyPickerIndex;
     NSString *languageValue;
     ProfileModel *profileData;
+    BOOL isImagePicker;
 }
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
@@ -51,7 +52,7 @@
     changeCurrencyArray = [[UserDefaultManager getValue:@"AvailableCurrencyCodes"] mutableCopy];
     languagePickerIndex=-1;
     currencyPickerIndex=-1;
-    
+     isImagePicker=false;
     [myDelegate showIndicator];
     [self performSelector:@selector(getUserProfile) withObject:nil afterDelay:.1];
 }
@@ -73,9 +74,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
-    [self customizeViewFields];
-    [self addCustomPickerView];
-    [self localizedText];
+    if (!isImagePicker) {
+        [self customizeViewFields];
+        [self addCustomPickerView];
+        [self localizedText];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
     //Bring front view picker view
     [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
 }
@@ -89,8 +95,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
-    _firstNameTextField.text=@"";
-    _lastNameTextField.text=@"";
 }
 
 - (void)localizedText {
@@ -223,8 +227,7 @@
 #pragma mark - end
 
 #pragma mark - Action sheet delegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     if (buttonIndex==0)
     {
@@ -263,11 +266,12 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info {
     UIImage *correctOrientationImage = [image fixOrientation];
     _userImageView.image=correctOrientationImage;
+     isImagePicker=true;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
     [picker dismissViewControllerAnimated:YES completion:NULL];
     [myDelegate showIndicator];
-    [self performSelector:@selector(editProfileImageData) withObject:nil afterDelay:.1];
+    [self performSelector:@selector(editProfileImageService) withObject:nil afterDelay:.1];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -339,11 +343,12 @@
 }
 
 //edit profile
-- (void)editProfileImageData {
+- (void)editProfileImageService {
     ProfileModel *userData = [ProfileModel sharedUser];
     userData.userImage=_userImageView.image;
     [userData updateUserProfileImage:^(ProfileModel *userData) {
         [myDelegate stopIndicator];
+         isImagePicker=false;
         //dispaly profile data
     } onfailure:^(NSError *error) {
         

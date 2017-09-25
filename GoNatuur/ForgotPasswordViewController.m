@@ -206,6 +206,10 @@
 
 - (IBAction)sendPasswordButtonAction:(id)sender {
     [self.view endEditing:true];
+    _resetEmailTextField.text=@"";
+    _resetPasswordTextField.text=@"";
+    _resetConfirmPasswordTextField.text=@"";
+    _otpTextField.text=@"";
     currentView.frame=CGRectMake(13, forgotBackViewY, [[UIScreen mainScreen] bounds].size.width-26, 350);
     //Perform forgot password validations
     if([self performValidationsForForgotPassword]) {

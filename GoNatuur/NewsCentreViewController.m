@@ -77,6 +77,13 @@
     searchView.screenType=@"News";
     [self.navigationController pushViewController:searchView animated:YES];
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    //Bring front view picker view
+    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
+}
+
 #pragma mark - end
 
 #pragma mark - View initialization
@@ -86,8 +93,6 @@
     totalProductCount=0;
     currentpage=1;
     _newsListingTableView.tableFooterView=nil;
-    //Bring front view picker view
-    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
     //Allocate footer view
     [self initializeFooterView];
     // Pull to refresh
@@ -376,6 +381,8 @@
 - (void)refreshControlAction {
     isPullToRefresh=true;
     currentpage=1;
+    subCategoryPickerArray=[NSMutableArray new];
+    archiveOptionsArray=[NSMutableArray new];
     [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
 }
 #pragma mark - end

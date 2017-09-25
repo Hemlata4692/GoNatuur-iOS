@@ -40,7 +40,7 @@
     
     if ([productListData.productType isEqualToString:eventIdentifier]&&(nil==productListData.productQty||NULL==productListData.productQty||[productListData.productQty intValue]<1)) {
         statusBannerImage.hidden=false;
-        statusBannerImage.image=[UIImage imageNamed:@"soldout"];
+        statusBannerImage.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@%@",@"sold_",[UserDefaultManager getValue:@"Language"]]];
     }
     else {
          statusBannerImage.hidden=true;
@@ -59,7 +59,7 @@
     double productCalculatedPrice;
     if (nil!=productListData.specialPrice&&![productListData.specialPrice isEqualToString:@""]) {
         statusBannerImage.hidden=false;
-        statusBannerImage.image=[UIImage imageNamed:@"clearance"];
+        statusBannerImage.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@%@",@"clear_",[UserDefaultManager getValue:@"Language"]]];
         productCalculatedPrice =[productListData.specialPrice doubleValue]*[exchangeRates doubleValue];
     }
     else {
