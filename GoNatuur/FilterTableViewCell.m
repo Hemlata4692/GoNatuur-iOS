@@ -31,8 +31,7 @@
     _priceRangeSliderView.requireSegments = NO;
     _priceRangeSliderView.sliderSize = CGSizeMake(20, 20);
     
-    _priceRangeSliderView.rangeSliderForegroundColor = [UIColor redColor];
-    
+    _priceRangeSliderView.rangeSliderForegroundColor = [UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
     
     _priceRangeSliderView.rangeSliderButtonImage = [UIImage imageNamed:@"slide-arrow"];
     [_priceRangeSliderView setDelegate:self];

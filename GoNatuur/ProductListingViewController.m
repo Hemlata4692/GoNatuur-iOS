@@ -326,7 +326,13 @@
         _noRecordLabel.hidden=false;
     }
     if (firstTimePriceCalculation) {
-        
+        if([[[productListDataArray objectAtIndex:0] specialPrice]isEqualToString:@""] && [[productListDataArray objectAtIndex:0] specialPrice]==nil) {
+            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
+        }
+        else {
+            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] specialPrice] key:@"maximumPrice"];
+        }
+        firstTimePriceCalculation=false;
     }
     totalProductCount=[productData.totalProductCount intValue];
     float picDimension = (self.view.frame.size.width-20) / 2.0;
@@ -342,6 +348,7 @@
 
 #pragma mark - Pull to refresh
 - (void)refreshControlAction {
+    firstTimePriceCalculation=true;
     isPullToRefresh=true;
     currentpage=1;
     [self performSelector:@selector(getProductListData) withObject:nil afterDelay:.1];

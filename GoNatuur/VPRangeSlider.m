@@ -9,7 +9,7 @@
 
 #define SLIDER_BUTTON_WIDTH         44
 
-#define DEFAULT_SLIDER_FRAME               CGRectMake(SLIDER_BUTTON_WIDTH/2, CGRectGetMidY(self.bounds), CGRectGetWidth(self.bounds) - SLIDER_BUTTON_WIDTH, 10)
+#define DEFAULT_SLIDER_FRAME               CGRectMake(SLIDER_BUTTON_WIDTH/2, CGRectGetMidY(self.bounds), CGRectGetWidth(self.bounds) - SLIDER_BUTTON_WIDTH, 8)
 
 #pragma mark VerticalAlign
 
@@ -100,13 +100,15 @@
         // If the range selectors are at the extreme points, then reset the frame. Else fo nothing
         if ([self isRangeSlidersPlacedAtExtremePosition])
         {
+//            self.sliderBackgroundView.frame = CGRectMake(15, 15, [[UIScreen mainScreen] bounds].size.width-30 , 8.5);
+//            self.sliderForegroundView.frame = CGRectMake(15, 15, [[UIScreen mainScreen] bounds].size.width-30 , 8.5);
             self.sliderBackgroundView.frame = DEFAULT_SLIDER_FRAME;
             self.sliderForegroundView.frame = DEFAULT_SLIDER_FRAME;
             
             self.sliderBackgroundView.backgroundColor = self.rangeSliderBackgroundColor;
             self.sliderForegroundView.backgroundColor = self.rangeSliderForegroundColor;
-            [self.sliderForegroundView setCornerRadius:5.0];
-            [self.sliderBackgroundView setCornerRadius:5.0];
+            [self.sliderForegroundView setCornerRadius:4.0];
+            [self.sliderBackgroundView setCornerRadius:4.0];
             
             [self.startSliderButton addShadow:self.startSliderButton color:[UIColor grayColor]];
             [self.endSliderButton addShadow:self.endSliderButton color:[UIColor grayColor]];
@@ -168,11 +170,17 @@
     self.numberOfSegments = 2;
     self.shouldSliderButtonOverlap = NO;
     
-    self.rangeSliderBackgroundColor = [UIColor grayColor];
-    self.rangeSliderForegroundColor = [UIColor greenColor];
+    self.rangeSliderBackgroundColor = [UIColor lightGrayColor];
+    self.rangeSliderForegroundColor = [UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
     
     self.rangeDisplayLabelFont = [UIFont systemFontOfSize:15.0f];
-    self.rangeDisplayLabelColor = [UIColor redColor];
+    self.rangeDisplayLabelColor = [UIColor whiteColor];
+    
+    [self.sliderForegroundView setCornerRadius:5.0];
+    [self.sliderBackgroundView setCornerRadius:5.0];
+    
+    [self.startSliderButton addShadow:self.startSliderButton color:[UIColor grayColor]];
+    [self.endSliderButton addShadow:self.endSliderButton color:[UIColor grayColor]];
     
     self.segmentSelectedColor = [UIColor blueColor];
     self.segmentUnSelectedColor = [UIColor grayColor];
