@@ -25,4 +25,10 @@
 @property (strong, nonatomic) IBOutlet UIButton *nextOutlet;
 @property (strong, nonatomic) IBOutlet UILabel *totalPriceLabel;
 @property (weak, nonatomic) IBOutlet UITableView *cartListTableView;
+@property (strong, nonatomic) IBOutlet UIView *totalBackView;
+@property (strong, nonatomic) IBOutlet UIView *grandTotalBackView;
+@property (strong, nonatomic) IBOutlet UILabel *pointTotal;
+@property (strong, nonatomic) IBOutlet UILabel *cartTotal;
+@property (strong, nonatomic) IBOutlet UILabel *grandTotal;
+@property (strong, nonatomic) IBOutlet UIView *bottomView;
 @end
