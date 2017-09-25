@@ -325,18 +325,17 @@
     DashboardDataModel *productList = [DashboardDataModel sharedUser];
     [productList getNewsListFiltersDataService:^(DashboardDataModel *productData)  {
         [self getNewsListData];
-//        for (int i=0; i<productData.archiveOptionsForNews.count; i++) {
-//        NSString *dateString = [productData.archiveOptionsForNews objectAtIndex:i];
-//        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//        [dateFormatter setDateFormat:@"MM/yyyy"];
-//        NSDate *date = [[NSDate alloc] init];
-//        date = [dateFormatter dateFromString:dateString];
-//        // converting into our required date format
-//        [dateFormatter setDateFormat:@"MMMM yyyy"];
-//        NSString *reqDateString = [dateFormatter stringFromDate:date];
-//        [archiveOptionsArray insertObject:reqDateString atIndex:i];
-//        }
-        archiveOptionsArray=[productData.archiveOptionsForNews mutableCopy];
+        for (int i=0; i<productData.archiveOptionsForNews.count; i++) {
+        NSString *dateString = [productData.archiveOptionsForNews objectAtIndex:i];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:dateFormatterService];
+        NSDate *date = [[NSDate alloc] init];
+        date = [dateFormatter dateFromString:dateString];
+        // converting into our required date format
+        [dateFormatter setDateFormat:dateFormatterConverted];
+        NSString *reqDateString = [dateFormatter stringFromDate:date];
+        [archiveOptionsArray insertObject:reqDateString atIndex:i];
+        }
         [archiveOptionsArray insertObject:NSLocalizedText(@"All") atIndex:0];
         [filterViewObj.firstFilterButtonOutlet setTitle:[archiveOptionsArray objectAtIndex:0] forState:UIControlStateNormal];
     } onfailure:^(NSError *error) {
@@ -430,7 +429,7 @@
             [filterViewObj.firstFilterButtonOutlet setTitle:[archiveOptionsArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
             if (tempSelectedIndex!=0) {
                 NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
-                [dateFormatter setDateFormat:@"MM/yyyy"];
+                [dateFormatter setDateFormat:dateFormatterConverted];
                 NSDate *dateValue = [dateFormatter dateFromString:[archiveOptionsArray objectAtIndex:tempSelectedIndex]];
                 [self returnDate:dateValue];
                 isFilter=true;
