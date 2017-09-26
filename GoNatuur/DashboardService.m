@@ -18,6 +18,7 @@ static NSString *kNewsListData=@"ranosys/news/getList";
 static NSString *kNewsDetailData=@"ranosys/news/getById";
 static NSString *kCategoryBannerData=@"ranosys/getCategoryDetails";
 static NSString *kNwesCategory=@"ranosys/news/getNewsCategory";
+static NSString *kConstants=@"apiconstants";
 static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
 
 @implementation DashboardService
@@ -137,6 +138,42 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
                        };
     }
     else if ([productData.newsType isEqualToString:@"filter"]) {
+        if ([productData.categoryId isEqualToString:@"0"]) {
+            parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                         @{
+                                                             @"filters": @[
+                                                                     @{@"field":@"is_active",
+                                                                       @"value":@"1",
+                                                                       @"condition_type": @"eq"
+                                                                       }
+                                                                     ]
+                                                             },
+                                                         @{ @"filters": @[
+                                                                    @{@"field":@"publish_time",
+                                                                      @"value": productData.filterValue,
+                                                                      @"condition_type":@"gteq"
+                                                                      }
+                                                                    ]
+                                                            },
+                                                         @{ @"filters": @[
+                                                                    @{@"field":@"publish_time",
+                                                                      @"value": productData.filterValue2,
+                                                                      @"condition_type":@"lteq"
+                                                                      }
+                                                                    ]
+                                                            }
+                                                         ],
+                                                 @"sort_orders":@[@{
+                                                                      @"field":@"publish_time",
+                                                                      @"direction":productData.sortingValue
+                                                                      }
+                                                                  ],
+                                                 @"page_size" : productData.pageSize,
+                                                 @"current_page" : productData.currentPage
+                                                 }
+                           };
+        }
+        else {
         parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
                                                      @{
                                                          @"filters": @[
@@ -177,6 +214,7 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
                                              @"current_page" : productData.currentPage
                                              }
                        };
+        }
     }
     else {
         parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
@@ -230,4 +268,11 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
     [super post:kNwesCategory parameters:nil success:success failure:failure];
 }
 #pragma mark - end
+
+#pragma mark - Get constants listing
+- (void)getConstantsListData:(DashboardDataModel *)categoryList success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    [super getConstantsData:kConstants parameters:nil onSuccess:success onFailure:failure];
+}
+#pragma mark - end
+
 @end

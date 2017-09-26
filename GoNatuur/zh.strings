@@ -315,9 +315,5 @@
 "productGuideText"="產品可以包含的好處";
 "noSimilarProducts"="沒有這個話題的產品";
 "oldest"="最早";
-"ShippingMethodAlert"="Need to select one shipping method.";
-"summary"="Summary";
-"cartTotal"="購物車總計";
-"pointTotal"="點總數";
-"grandTotal"="累計";
-"rewardProductExistAlert"="您有一些獎勵產品，這些價值超過了影響點.";
+"cardNumber"="XXXX XXXX XXXX";
+"applyCouponCode"="Apply coupon code";

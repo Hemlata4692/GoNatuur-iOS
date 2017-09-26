@@ -159,4 +159,17 @@
     }] ;
 }
 #pragma mark - end
+
+#pragma mark - Fetch constants listng data
+- (void)getConstantsListData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getConstantsListData:self onSuccess:^(DashboardDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
 @end

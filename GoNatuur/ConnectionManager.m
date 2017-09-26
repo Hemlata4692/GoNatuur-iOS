@@ -28,6 +28,8 @@
 #import "OrderService.h"
 #import "ProductGuideDataModel.h"
 #import "ProductGuideService.h"
+#import "PaymentService.h"
+#import "PaymentModel.h"
 #import "ShareDataModel.h"
 #import "ShareDataService.h"
 
@@ -1355,8 +1357,6 @@
                 orderListData.baseGrandTotal = [NSString stringWithFormat:@"%@%@",orderDataDict[@"base_currency_code"],[ConstantCode decimalFormatter:[orderDataDict[@"base_grand_total"] doubleValue]]];
             }
             else {
-                NSLog(@"sysbol %@",[[ratesArray objectAtIndex:i] currencysymbol]);
-                
                 orderListData.baseGrandTotal = [NSString stringWithFormat:@"%@%@",[[ratesArray objectAtIndex:i] currencysymbol],[ConstantCode decimalFormatter:[orderDataDict[@"base_grand_total"] doubleValue]]];
             }
         }
@@ -1451,6 +1451,74 @@
     } onFailure:^(NSError *error) {
         failure(error);
     }] ;
+}
+#pragma mark - end
+
+#pragma mark - Get card listing
+- (void)getCardListing:(PaymentModel *)paymentData onSuccess:(void (^)(PaymentModel *paymentData))success onFailure:(void (^)(NSError *))failure {
+    {
+        PaymentService *paymentService = [[PaymentService alloc] init];
+        [paymentService getCardListing:paymentData onSuccess:^(id response) {
+            DLog(@"getCardListing response %@",response);
+            paymentData.cardListArray = [[NSMutableArray alloc]init];
+            NSArray *dataArray=response[@"items"];
+            for (int i =0; i<dataArray.count; i++) {
+                NSDictionary * paymentDataDict =[dataArray objectAtIndex:i];
+                PaymentModel * paymentListData = [[PaymentModel alloc]init];
+                paymentListData.cardId = paymentDataDict[@"card_id"];;
+                paymentListData.subscriptionId = paymentDataDict[@"subscription_id"];
+                paymentListData.firstname = paymentDataDict[@"firstname"];
+                paymentListData.lastname = paymentDataDict[@"lastname"];
+                paymentListData.postcode = paymentDataDict[@"postcode"];
+                paymentListData.countryId = paymentDataDict[@"country_id"];
+                paymentListData.regionId = paymentDataDict[@"region_id"];
+                paymentListData.state = paymentDataDict[@"state"];
+                paymentListData.city = paymentDataDict[@"city"];
+                paymentListData.company = paymentDataDict[@"company"];
+                paymentListData.street = paymentDataDict[@"street"];
+                paymentListData.telephone = paymentDataDict[@"telephone"];
+                paymentListData.cardExpMonth = paymentDataDict[@"cc_exp_month"];
+                paymentListData.cardExpYear = paymentDataDict[@"cc_exp_year"];
+                paymentListData.cardLastFourDigit = paymentDataDict[@"cc_last_4"];
+                paymentListData.cardType = paymentDataDict[@"cc_type"];
+                [paymentData.cardListArray addObject:paymentListData];
+            }
+            success(paymentData);
+        } onFailure:^(NSError *error) {
+            failure(error);
+        }] ;
+    }
+}
+#pragma mark - end
+
+#pragma mark - Fetch constants listing service
+- (void)getConstantsListData:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    DashboardService *categoryList=[[DashboardService alloc]init];
+    [categoryList getConstantsListData:userData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"Constants list response %@",response);
+        [UserDefaultManager setValue:response[@"cardTypes"] key:@"cardTypes"];
+        [UserDefaultManager setValue:response[@"categoryMediaUrl"] key:@"categoryMediaUrl"];
+        [UserDefaultManager setValue:response[@"eventCategoryId"] key:@"eventCategoryId"];
+        [UserDefaultManager setValue:response[@"productMediaUrl"] key:@"productMediaUrl"];
+        [UserDefaultManager setValue:response[@"emailForCrashingiOS"] key:@"emailForCrashingiOS"];
+        [UserDefaultManager setValue:response[@"eventIdentifier"] key:@"eventIdentifier"];
+        [UserDefaultManager setValue:response[@"orderStatuses"] key:@"orderStatuses"];
+        [UserDefaultManager setValue:response[@"checkOutShippingMessage"] key:@"checkOutShippingMessage"];
+        [UserDefaultManager setValue:response[@"maxQty"] key:@"maxQty"];
+        [UserDefaultManager setValue:response[@"paginationSize"] key:@"paginationSize"];
+        [UserDefaultManager setValue:response[@"reviewSortingByKey"] key:@"reviewSortingByKey"];
+        [UserDefaultManager setValue:response[@"reviewSortingByKeyMostRecent"] key:@"reviewSortingByKeyMostRecent"];
+        [UserDefaultManager setValue:response[@"impactPointRules"] key:@"impactPointRules"];
+        [UserDefaultManager setValue:response[@"productIdentifier"] key:@"productIdentifier"];
+        [UserDefaultManager setValue:response[@"langConstants"] key:@"langConstants"];
+        [UserDefaultManager setValue:response[@"rewardCategoryId"] key:@"rewardCategoryId"];
+        [UserDefaultManager setValue:response[@"cmsPagesIds"] key:@"cmsPagesIds"];
+        [UserDefaultManager setValue:response[@"rewardProductAttributeId"] key:@"rewardProductAttributeId"];
+
+        success(userData);
+    } onfailure:^(NSError *error) {
+    }];
 }
 #pragma mark - end
 
