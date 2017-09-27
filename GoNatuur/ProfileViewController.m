@@ -51,11 +51,14 @@
     self.title=NSLocalizedText(@"profileTitle");
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:false];
-    [self.view bringSubviewToFront:customerSupportPicker.goNatuurPickerViewObj];
     [self showSelectedTab:4];
     if (!isImagePicker) {
         [_profileTableView reloadData];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self.view bringSubviewToFront:customerSupportPicker.goNatuurPickerViewObj];
 }
 
 //add picker view
@@ -154,8 +157,7 @@
     else if (indexPath.row==3) {
         return 60;
     }
-    else
-    {
+    else {
         return 50;
     }
 }

@@ -19,6 +19,7 @@
 @class CartDataModel;
 @class OrderModel;
 @class ProductGuideDataModel;
+@class PaymentModel;
 @class ShareDataModel;
 @class SortFilterModel;
 
@@ -130,6 +131,10 @@
 - (void)getOrderInvoice:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure;
 //Add events to cart
 - (void)addEventsToCartProductService:(ProductDataModel *)productData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure;
+//Get card listing
+- (void)getCardListing:(PaymentModel *)paymentData onSuccess:(void (^)(PaymentModel *paymentData))success onFailure:(void (^)(NSError *))failure;
+//Fetch constants listing service
+- (void)getConstantsListData:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 //Share
 - (void)shareProductData:(ShareDataModel *)guideData onSuccess:(void (^)(ShareDataModel *guideData))success onFailure:(void (^)(NSError *))failure;
 //Filters news centre
@@ -139,4 +144,10 @@
 //Filter
 - (void)getFilterDataData:(SortFilterModel *)sortData onSuccess:(void (^)(SortFilterModel *userData))success onFailure:(void (^)(NSError *))failure;
 
+//Set checkout promo
+- (void)setCheckoutPromosService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure;
+//Set payment method
+- (void)setPaymentMethodService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure;
+//Set checkout order
+- (void)setCheckoutOrderService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure ;
 @end

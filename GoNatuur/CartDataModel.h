@@ -27,6 +27,16 @@
 @property (strong, nonatomic) NSMutableArray *shippmentMethodsArray;
 @property (strong, nonatomic) NSMutableArray *checkoutPromosArray;
 @property (strong, nonatomic) id cartListResponse;
+@property (strong, nonatomic) NSString *promoPoints;
+@property (strong, nonatomic) NSString *promoDiscountValue;
+@property (strong, nonatomic) NSString *paymentMethod;
+@property (strong, nonatomic) NSMutableDictionary *checkoutFinalData;
+@property (strong, nonatomic) NSNumber *totalImpactPoints;
+@property (strong, nonatomic) NSNumber *impactPoints;
+@property (strong, nonatomic) NSNumber *productImpactPoint;
+@property (strong, nonatomic) NSNumber *isRedeemProduct;
+@property (strong, nonatomic) NSNumber *isRedeemProductExist;
+@property (strong, nonatomic) NSNumber *isSimpleProductExist;
 
 //Singleton instanse
 + (instancetype)sharedUser;
@@ -41,4 +51,10 @@
 - (void)fetchCheckoutPromosOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 //Set addresses and shipping methods
 - (void)setUpdatedAddressShippingMethodsOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Set checkout promo
+- (void)setCheckoutPromosOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Set payment method
+- (void)setPaymentMethodOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Set checkout order
+- (void)setCheckoutOrderOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

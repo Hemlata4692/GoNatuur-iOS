@@ -8,10 +8,15 @@
 
 #import "CardListViewController.h"
 #import "CardListTableViewCell.h"
+#import "PaymentModel.h"
 
 @interface CardListViewController ()
+{
+    NSMutableArray *cardListArray;
+}
 @property (weak, nonatomic) IBOutlet UITableView *cardsListTableView;
 @property (weak, nonatomic) IBOutlet UIButton *addCardButton;
+@property (weak, nonatomic) IBOutlet UILabel *noRecordLabel;
 
 @end
 
@@ -20,7 +25,9 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    cardListArray = [NSMutableArray new];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getCardListing) withObject:nil afterDelay:.1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,8 +39,8 @@
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"CardList");
+    _noRecordLabel.text=NSLocalizedText(@"norecord");
     [self addLeftBarButtonWithImage:false];
-    
     [_addCardButton setTitle:NSLocalizedText(@"addCard") forState:UIControlStateNormal];
     [_addCardButton setCornerRadius:20.0];
     [_addCardButton addShadow:_addCardButton color:[UIColor blackColor]];
@@ -46,17 +53,37 @@
 #pragma mark - Table view data source and delgate methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 4;
+    return cardListArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *CellIdentifier = @"cardCell";
     CardListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-   // [cell displayData:[reviewListingDataAray objectAtIndex:indexPath.row] reviewId:@"0" rectSize:_reviewListingTableView.frame.size];
+    PaymentModel *paymentDataModel = [cardListArray objectAtIndex:indexPath.row];
+    [cell displayOrderData:_cardsListTableView.frame.size orderData:paymentDataModel];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 #pragma mark - end
+
+#pragma mark - Webservices
+- (void)getCardListing {
+    PaymentModel *paymentDataModel = [PaymentModel sharedUser];
+    [paymentDataModel getCardListing:^(PaymentModel *userData) {
+        cardListArray = [userData.cardListArray mutableCopy];
+        if (cardListArray.count == 0) {
+            _noRecordLabel.hidden = NO;
+        } else {
+            _noRecordLabel.hidden = YES;
+        }
+        [_cardsListTableView reloadData];
+        [myDelegate stopIndicator];
+    } onfailure:^(NSError *error) {
+        _noRecordLabel.hidden=NO;
+    }];
+}
+#pragma mark - end
+
 @end

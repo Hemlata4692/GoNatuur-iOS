@@ -66,6 +66,9 @@
 - (void)getNewsCategoryListDataOnSuccess:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
 ///News detail data
 - (void)getNewsDetailDataService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Fetch constants listng data
+- (void)getConstantsListData:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
+
 //Filters
 - (void)getNewsListFiltersDataService:(void (^)(DashboardDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

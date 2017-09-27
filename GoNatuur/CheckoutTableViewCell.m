@@ -36,6 +36,19 @@
         _radioLabel.layer.borderColor=unSelectedStepColor.CGColor;
     }
     _shippingMethodLabel.text=[NSString stringWithFormat:@"%@\n%@",shippingMethodData[@"method_title"],shippingMethodData[@"method_title"]];
-    _shippingMethodPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([shippingMethodData[@"amount"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
+    _shippingMethodPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([shippingMethodData[@"base_amount"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
+}
+
+- (void)displayPriceCellData:(NSMutableDictionary *)priceDetail priceTitleArray:(NSString *)priceTitle islastIndex:(BOOL)islastIndex {
+    _priceTitle.text=priceTitle;
+    _priceLabel.text=[priceDetail objectForKey:priceTitle];
+    if (islastIndex) {
+        _priceTitle.font=[UIFont montserratRegularWithSize:15];
+        _priceLabel.font=[UIFont montserratRegularWithSize:15];
+    }
+    else {
+        _priceTitle.font=[UIFont montserratRegularWithSize:13];
+        _priceLabel.font=[UIFont montserratRegularWithSize:13];
+    }
 }
 @end

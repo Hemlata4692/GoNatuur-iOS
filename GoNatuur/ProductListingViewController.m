@@ -291,7 +291,7 @@
 - (void)getProductListData {
     DashboardDataModel *productList = [DashboardDataModel sharedUser];
     productList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
-    productList.pageSize=[NSNumber numberWithInt:12];
+    productList.pageSize=[UserDefaultManager getValue:@"paginationSize"];
     productList.currentPage=[NSNumber numberWithInt:currentpage];
     productList.productSortingType = _sortingType;
     productList.productSortingValue = _sortBasis;
