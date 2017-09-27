@@ -209,6 +209,16 @@
 #pragma mark - end
 
 #pragma mark - Webservice
+//Get constants list
+- (void) getConstantsListData {
+    DashboardDataModel *constantList = [DashboardDataModel sharedUser];
+    [constantList getConstantsListData:^(DashboardDataModel *userData)  {
+        [self getDefaultCurrency];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
 //Get default currency
 - (void)getDefaultCurrency {
     CurrencyDataModel *currencyData = [CurrencyDataModel sharedUser];
@@ -225,6 +235,7 @@
                 }
             }
         }
+      
         [self getDashboardData];
     } onfailure:^(NSError *error) {
         
@@ -240,7 +251,7 @@
         myDelegate.categoryNameArray=[userData.categoryNameArray mutableCopy];
         self.categorySliderObjc.categoryDataArray=[myDelegate.categoryNameArray mutableCopy];
         [self.categorySliderObjc.categorySliderCollectionView reloadData];
-        [self getDefaultCurrency];
+        [self getConstantsListData];
     } onfailure:^(NSError *error) {
         
     }];

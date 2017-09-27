@@ -29,6 +29,8 @@
 @property (strong, nonatomic) NSMutableArray *searchProductIds;
 @property (strong, nonatomic) NSString *pageSize;
 @property (strong, nonatomic) NSString *wishlistItemId;
+@property (strong, nonatomic) NSNumber *isRedeemProduct;
+@property (strong, nonatomic) NSNumber *productImpactPoint;
 
 //Singleton method
 + (instancetype)sharedUser;

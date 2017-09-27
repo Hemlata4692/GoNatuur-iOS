@@ -67,9 +67,11 @@
     else {
         [self addLeftBarButtonWithImage:false];
     }
-    [self viewInitialization];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
+    if (!isImagePicker) {
+        [self viewInitialization];
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
+    }
     _noRecordLabel.text=NSLocalizedText(@"norecord");
 }
 
@@ -356,7 +358,7 @@
 - (void)getRedeemListData {
     DashboardDataModel *productList = [DashboardDataModel sharedUser];
     productList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
-    productList.pageSize=[NSNumber numberWithInt:12];
+    productList.pageSize=[UserDefaultManager getValue:@"paginationSize"];
     productList.currentPage=[NSNumber numberWithInt:currentpage];
     [productList getProductListService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];

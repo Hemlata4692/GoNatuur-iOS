@@ -35,14 +35,14 @@
     double productCalculatedPrice;
     if (nil!=productListData.specialPrice&&![productListData.specialPrice isEqualToString:@""]) {
         _statusBannerImage.hidden=false;
-        _statusBannerImage.image=[UIImage imageNamed:@"clearance"];
+        _statusBannerImage.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@%@",@"clear_",[UserDefaultManager getValue:@"Language"]]];
         productCalculatedPrice =[productListData.specialPrice doubleValue]*[exchangeRates doubleValue];
     }
     else {
         if ((!myDelegate.isProductList || [productListData.productType isEqualToString:eventIdentifier])&&(nil==productListData.productQty||NULL==productListData.productQty||[productListData.productQty intValue]<1)) {
              _statusBannerImage.hidden=false;
-            _statusBannerImage.image=[UIImage imageNamed:@"soldout"];
-        }
+             _statusBannerImage.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@%@",@"sold_",[UserDefaultManager getValue:@"Language"]]];
+            }
         productCalculatedPrice =[productListData.productPrice doubleValue]*[exchangeRates doubleValue];
     }
     _productPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];

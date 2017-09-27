@@ -153,7 +153,7 @@
             float height =[DynamicHeightWidth getDynamicLabelHeight:orderData.productName font:[UIFont montserratLightWithSize:13] widthValue:_orderDetailTable.frame.size.width-20 heightValue:500];
             return height + 33;
         } else if (indexPath.row == 1) {
-            if ([orderData.productType isEqualToString:NSLocalizedText(@"ticket")]) {
+            if ([orderData.productType isEqualToString:[UserDefaultManager getValue:@"eventIdentifier"]]) {
                 for (int i=0; i<ticketArray.count; i++) {
                     if ([[NSString stringWithFormat:@"%@",orderData.productId] containsString:[[ticketArray objectAtIndex:i] ticketProductId]]) {
                         float height = [DynamicHeightWidth getDynamicLabelHeight:[[ticketArray objectAtIndex:i] ticketName] font:[UIFont montserratLightWithSize:13] widthValue:(_orderDetailTable.frame.size.width/2)-10 heightValue:500];
@@ -298,7 +298,7 @@
         [myDelegate stopIndicator];
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-            orderDataModel.orderState = NSLocalizedText(@"cancel");
+            orderDataModel.orderState = [[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:1] objectForKey:@"stateCodevalue"];
             [self setTableFrames];
         }];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"cancelOrderSuccessMessage") closeButtonTitle:nil duration:0.0f];
@@ -321,10 +321,10 @@
 #pragma mark - end
 
 #pragma mark - IBActions
-
 - (IBAction)orderShipmentButtonAction:(id)sender {
     [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
 }
+
 - (IBAction)invoiceButtonAction:(id)sender {
     UIStoryboard *storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     OrderInvoiceViewController * nextView=[storyBoard instantiateViewControllerWithIdentifier:@"OrderInvoiceViewController"];
@@ -348,12 +348,14 @@
 
 #pragma mark - Set table frames
 - (void)setTableFrames {
-    if ([[orderDataModel.orderState lowercaseString] containsString:NSLocalizedText(@"complete")]) {
+    //If order is completed
+    if ([[[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:0] objectForKey:@"stateCodevalue"] containsString:[orderDataModel.orderState lowercaseString]]) {
         [_cancelOrderButton setTitle:NSLocalizedText(@"returnOrder") forState:UIControlStateNormal];
         _cancelOrderButton.hidden = NO;
         _orderShipmentButton.hidden = NO;
         _invoiceButton.hidden = NO;
-    } else if ([[orderDataModel.orderState lowercaseString] containsString:[NSLocalizedText(@"cancel")lowercaseString]] || [[orderDataModel.orderStatus lowercaseString] containsString:NSLocalizedText(@"close")] || [[orderDataModel.orderStatus lowercaseString] containsString:NSLocalizedText(@"return")]) {
+    } else if ([[[[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:1] objectForKey:@"stateCodevalue"]lowercaseString] containsString:[orderDataModel.orderState lowercaseString]] || [[[[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:2] objectForKey:@"stateCodevalue"]lowercaseString] containsString:[orderDataModel.orderState lowercaseString]] || [[[[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:3] objectForKey:@"stateCodevalue"]lowercaseString] containsString:[orderDataModel.orderState lowercaseString]]) {
+        //If order is cancelled/closed
         _cancelOrderButton.hidden = YES;
         _invoiceButton.hidden = NO;
         _orderShipmentButton.hidden = NO;
@@ -364,6 +366,7 @@
         _orderShipmentButton.frame = CGRectMake(10, _orderDetailTable.frame.origin.y + _orderDetailTable.frame.size.height + 8 ,(_orderDetailTable.frame.size.width/2) - 10, 35);
         _invoiceButton.frame = CGRectMake(_orderShipmentButton.frame.origin.x + _orderShipmentButton.frame.size.width +10, _orderDetailTable.frame.origin.y + _orderDetailTable.frame.size.height + 8 ,(_orderDetailTable.frame.size.width/2), 35);
     } else {
+        //If order is pending/processing
         _cancelOrderButton.hidden = NO;
         _orderShipmentButton.hidden = NO;
         _invoiceButton.hidden = NO;

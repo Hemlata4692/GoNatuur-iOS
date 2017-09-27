@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CartDataModel.h"
 
-@interface FinalCheckoutViewController : UIViewController
-
+@interface FinalCheckoutViewController : GoNatuurViewController
+@property (nonatomic, strong) CartDataModel *cartModelData;
+@property (nonatomic, strong) NSMutableArray *cartListDataArray;
+@property (nonatomic, strong) NSMutableDictionary *finalCheckoutPriceDict;
 @end

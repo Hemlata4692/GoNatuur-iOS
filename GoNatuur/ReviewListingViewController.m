@@ -53,7 +53,6 @@
     sortByValue=DESC;
     starFilter=@"5";
     pageCount=1;
-    applyStarFilter=@"1";
     _noRecordLabel.hidden=YES;
     [self addCustomPickerView];
     [self initFooterView];
@@ -75,17 +74,21 @@
     [self performSelector:@selector(getReviewListingData) withObject:nil afterDelay:.1];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    //Bring front view picker view
+    [self.view bringSubviewToFront:sortingPickerView.goNatuurPickerViewObj];
+}
+
 - (void)viewCustomisation {
     //customisation of objects
     [_writeReviewButton setCornerRadius:20.0];
     [_writeReviewButton addShadow:_writeReviewButton color:[UIColor blackColor]];
     [_searchTextField addTextFieldLeftRightPadding:_searchTextField];
-    //Bring front view picker view
-    [self.view bringSubviewToFront:sortingPickerView.goNatuurPickerViewObj];
     if ([reviewAdded isEqualToString:@"1"] || (nil==[UserDefaultManager getValue:@"userId"])) {
         _writeReviewButton.enabled=false;
         _writeReviewButton.alpha = 0.8;
     }
+    [_starFilterButton setTitle:[starFilterDataArray objectAtIndex:0] forState:UIControlStateNormal];
     [self localizedText];
 }
 
@@ -191,7 +194,7 @@
 
 - (IBAction)starFilterButtonAction:(id)sender {
     [_searchTextField resignFirstResponder];
-    [sortingPickerView showPickerView:starFilterDataArray selectedIndex:(selectedPickerIndex==-1?1:selectedPickerIndex) option:1 isCancelDelegate:false];
+    [sortingPickerView showPickerView:starFilterDataArray selectedIndex:(selectedPickerIndex==-1?0:selectedPickerIndex) option:1 isCancelDelegate:false];
 }
 
 - (IBAction)sortByFilterAction:(id)sender {
