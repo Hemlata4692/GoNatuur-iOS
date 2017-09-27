@@ -1518,7 +1518,8 @@
         [UserDefaultManager setValue:response[@"rewardCategoryId"] key:@"rewardCategoryId"];
         [UserDefaultManager setValue:response[@"cmsPagesIds"] key:@"cmsPagesIds"];
         [UserDefaultManager setValue:response[@"rewardProductAttributeId"] key:@"rewardProductAttributeId"];
-
+        [UserDefaultManager setValue:response[@"AdditionalSortsFilters"] key:@"AdditionalSortsFilters"];
+        [UserDefaultManager setValue:response[@"DefaultSortsFilters"] key:@"DefaultSortsFilters"];
         success(userData);
     } onfailure:^(NSError *error) {
     }];
