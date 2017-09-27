@@ -1490,6 +1490,7 @@
 			isa = PBXGroup;
 			children = (
 				5D4D53351F73B16600A2AEFA /* SortFilterModel */,
+				B71EFB4A1F712E0F0033DC52 /* PaymentModel */,
 				1818445C1F70FBC50077E48C /* ShareModel */,
 				18FA120B1F6ADD4A0001A3B0 /* ProductGuideModel */,
 				5D2760AA1F62793F00B6D0FF /* OrderModel */,
@@ -1588,6 +1589,7 @@
 			isa = PBXGroup;
 			children = (
 				5D4D53391F73B4E200A2AEFA /* SortFilterService */,
+				B71EFB4E1F712F2F0033DC52 /* PaymentService */,
 				181844601F70FBED0077E48C /* ShareService */,
 				18FA120F1F6ADD6F0001A3B0 /* ProductGuideService */,
 				5D2760AE1F627AD800B6D0FF /* OrderService */,
@@ -2684,6 +2686,7 @@
 				18FFBC861F62CEBC006C088B /* NewsCenterSearchListViewController.m in Sources */,
 				B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */,
 				5D4D53341F73965400A2AEFA /* SortByCell.m in Sources */,
+				B75E6F1B1F7504B50059D8E1 /* FinalCheckoutTableViewCell.m in Sources */,
 				B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */,
 				18F464EC1F698FFC001006EB /* RedeemViewController.m in Sources */,
 				B71EFB511F712F550033DC52 /* PaymentService.m in Sources */,

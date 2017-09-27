@@ -51,7 +51,8 @@
     sortByDataArray=[[NSMutableArray alloc]initWithObjects:NSLocalizedText(@"mostRecent"),NSLocalizedText(@"ratingLowHigh"),NSLocalizedText(@"ratingHighLow"), nil];
     sortByFilter=@"created_at";
     sortByValue=DESC;
-    starFilter=@"5";
+    starFilter=[NSString stringWithFormat:@"5"];
+    applyStarFilter=@"0";
     pageCount=1;
     _noRecordLabel.hidden=YES;
     [self addCustomPickerView];

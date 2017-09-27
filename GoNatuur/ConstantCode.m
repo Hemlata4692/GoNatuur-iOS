@@ -25,6 +25,9 @@ NSString * const zopimURL = @"https://rememberthedate.zendesk.com";
 NSString * const zopimClientId = @"client_for_rtd_jwt_endpoint";
 NSString * const ASC = @"ASC";
 NSString * const DESC = @"DESC";
+NSString * const dateFormatterService=@"MM/yyyy";
+NSString * const dateFormatterConverted=@"MMMM yyyy";
+NSString * const dateFormatterDate=@"dd/MM/yyyy";
 
 //Check device type
 + (ConstantType)checkDeviceType {

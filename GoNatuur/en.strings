@@ -300,3 +300,11 @@
 "sortPrice"="price";
 "filterTitle"="Filter";
 "filterCountry"="country";
+"ShippingMethodAlert"="Need to select one shipping method.";
+"summary"="Summary";
+"cartTotal"="Cart Total";
+"pointTotal"="Point Total";
+"grandTotal"="Grand Total";
+"rewardProductExistAlert"="You have some reward products those value is more than impact points in account.";
+"total"="Total:";
+"applyCouponCode"="Apply coupon code";
