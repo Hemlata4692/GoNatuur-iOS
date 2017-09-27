@@ -91,6 +91,7 @@
     _productListTableView.tableFooterView=nil;
     //Bring front view picker view
     [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
+    NSLog(@"local");
     //Allocate footer view
     [self initializeFooterView];
     // Pull to refresh
