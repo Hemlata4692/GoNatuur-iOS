@@ -36,8 +36,7 @@
     NSLog(@"basis = %@, type = %@",sortBasis,sortingType);
     //remove extra lines from table view
     _sortByTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    _productId = @"2";
-    [self getAdditionalId];
+    [self setRequestAttributes];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,33 +45,14 @@
 #pragma mark - end
 
 #pragma mark - Get additional sort values
-- (void)getAdditionalId {
-    requestValuesString = [NSString stringWithFormat:@"%@,%@",NSLocalizedText(@"sortName"),NSLocalizedText(@"sortPrice")];
-    NSLog(@"product Id = %@",_productId);
-    NSArray *sortArray = @[ @{@"Id":@"1",
-                              @"value":@"brand",
-                              },
-                            @{@"Id":@"2",
-                              @"value":@"rating",
-                              },
-                            @{@"Id":@"3",
-                              @"value":@"brand",
-                              },
-                            @{@"Id":@"4",
-                              @"value":@"rating",
-                              },
-                            ];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Id == %@", _productId];
-    NSArray *filteredarray = [sortArray filteredArrayUsingPredicate:predicate];
-    if (filteredarray.count>0) {
-        index = [sortArray indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
-            return [predicate evaluateWithObject:obj];
-        }];
-    }
-    NSDictionary *dict = [sortArray objectAtIndex:index];
-    NSLog(@"value = %@",dict[@"value"]);
-    if (dict[@"value"] != nil) {
-       requestValuesString = [NSString stringWithFormat:@"%@,%@",requestValuesString,dict[@"value"]];
+- (void)setRequestAttributes {
+    //Set default sort attribute code
+    requestValuesString = [[[UserDefaultManager getValue:@"DefaultSortsFilters"] objectForKey:@"productSort"] componentsJoinedByString:@","];
+    //Set additional sort attribute code
+    if ([[[UserDefaultManager getValue:@"AdditionalSortsFilters"] allKeys] containsObject:[NSString stringWithFormat:@"%d",_sortProductId]] ) {
+        NSString *attributeCode = [[[[UserDefaultManager getValue:@"AdditionalSortsFilters"] objectForKey:[NSString stringWithFormat:@"%d",_sortProductId]] objectForKey:@"additional_sort"] componentsJoinedByString:@","];
+        NSLog(@"value = %@",attributeCode);
+        requestValuesString = [NSString stringWithFormat:@"%@,%@",requestValuesString,attributeCode];
     }
     NSLog(@"requestValuesString = %@",requestValuesString);
     [myDelegate showIndicator];
@@ -80,7 +60,7 @@
 }
 #pragma mark - end
 
-#pragma mark TableView methods
+#pragma mark - TableView methods
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return sortingArray.count;
 }
@@ -151,12 +131,19 @@
 
 #pragma mark - IBActions
 - (IBAction)cancelButtonAction:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    [self dismissView];
 }
 
 - (IBAction)applyButtonAction:(id)sender {
     productListViewObj.sortingType = sortingType;
     productListViewObj.sortBasis = sortBasis;
+    [self dismissView];
+}
+#pragma mark - end
+
+#pragma mark - Dismiss View
+- (void)dismissView {
+    productListViewObj.isSortFilter = true;
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 #pragma mark - end
