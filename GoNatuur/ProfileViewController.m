@@ -12,17 +12,15 @@
 #import "ProfileTableViewCell.h"
 #import "UIImage+UIImage_fixOrientation.h"
 #import "ProfileModel.h"
-#import "PayPalPaymentOption.h"
 #import "RedeemViewController.h"
 #import <ZDCChat/ZDCChat.h>
 #import <ZendeskSDK/ZendeskSDK.h>
 
-@interface ProfileViewController ()<GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,PayPalPaymentDelegate>{
+@interface ProfileViewController ()<GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     NSArray *menuItemsArray, *customerSupportArray;
     GoNatuurPickerView *customerSupportPicker;
     int selectedPickerIndex;
     UIImage *userProfileImage;
-    PayPalPaymentOption *payment;
     BOOL isImagePicker;
 }
 @property (weak, nonatomic) IBOutlet UITableView *profileTableView;
@@ -38,8 +36,6 @@
     customerSupportArray=@[NSLocalizedText(@"chat"), NSLocalizedText(@"raiseTicket")];
     [self addCustomPickerView];
     isImagePicker=false;
-    payment=[[PayPalPaymentOption alloc]init];
-    [payment configPaypalPayment:PayPalEnvironmentSandbox];
     
     [myDelegate showIndicator];
     [self performSelector:@selector(getUserImapctPoints) withObject:nil afterDelay:.1];
@@ -198,18 +194,6 @@
         [myDelegate unregisterForRemoteNotifications];
     }
 }
-#pragma mark - end
-
-//PayPalPaymentDelegate
-#pragma mark - PayPalPaymentDelegate methods
-- (void)payPalPaymentViewController:(PayPalPaymentViewController *)paymentViewController didCompletePayment:(PayPalPayment *)completedPayment {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)payPalPaymentDidCancel:(PayPalPaymentViewController *)paymentViewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 #pragma mark - end
 
 #pragma mark - Action sheet delegate
