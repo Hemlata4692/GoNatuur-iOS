@@ -38,6 +38,9 @@ extern NSString * const zopimClientId;
 extern NSString * const ASC;
 extern NSString * const DESC;
 
+extern NSString * const dateFormatterService;
+extern NSString * const dateFormatterConverted;
+extern NSString * const dateFormatterDate;
 //end
 
 + (ConstantType)checkDeviceType;

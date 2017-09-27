@@ -302,9 +302,17 @@
 "invoiceTitle"="发票";
 "invoice"="发票:";
 "shipment"="装船:";
+"cardNumber"="XXXX XXXX XXXX";
 "oldest"="最早";
 "SortByTitle"="排序方式";
 "sortName"="name";
 "sortPrice"="price";
 "filterTitle"="过滤";
 "filterCountry"="country";
+"ShippingMethodAlert"="Need to select one shipping method.";
+"summary"="Summary";
+"cartTotal"="购物车总计";
+"pointTotal"="点总数";
+"grandTotal"="累计";
+"rewardProductExistAlert"="您有一些奖励产品，这些价值超过了影响点.";
+"applyCouponCode"="Apply coupon code";

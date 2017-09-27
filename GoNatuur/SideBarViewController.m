@@ -28,8 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     menuItemsArray = @[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications",@"AboutUs",@"ContactUs",@"NewsLetter",@"ProductGuide", @"Signout"];
-    // Remove extra seperator from table view
-    [self viewCustomisationAndData];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,10 +40,11 @@
     [super viewWillAppear:animated];
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
      sideBarLabelArray=@[NSLocalizedText(@"sideBarOrder"), NSLocalizedText(@"sideBarPayment"), NSLocalizedText(@"sideBarRedeemPoints"),NSLocalizedText(@"sideBarEvents"), NSLocalizedText(@"sideBarNewsCentre"), NSLocalizedText(@"sideBarNotifications"), NSLocalizedText(@"sideBarAboutUs"), NSLocalizedText(@"sideBarContactUs"), NSLocalizedText(@"sideBarNewsLetter"),NSLocalizedText(@"sideBarProductGuide"),NSLocalizedText(@"sideBarSignOut")];
+    [self viewCustomisationAndData];
     [_sideBarTableView reloadData];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:YES];
 }

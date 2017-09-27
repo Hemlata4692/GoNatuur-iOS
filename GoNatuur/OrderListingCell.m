@@ -40,6 +40,7 @@
 }
 
 - (void)displayOrderData:(CGSize)rectSize orderData:(OrderModel *)orderData {
+    [_viewDetailButton setCornerRadius:2.0];
     [self setHeadingData];
     [self removeAutolayouts];
     if ((nil==orderData.shippingAddress)||[orderData.shippingAddress isEqualToString:@""]) {

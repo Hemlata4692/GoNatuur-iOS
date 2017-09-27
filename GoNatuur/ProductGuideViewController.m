@@ -41,8 +41,6 @@
     productGuideCategoryArray=[[NSMutableArray alloc]init];
     guideDetailDataArray=[[NSMutableArray alloc]init];
     staticProductsArray=[[NSMutableArray alloc]init];
-    categoryIndex=0;
-    cellIndex=0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,6 +57,8 @@
     isProductServiceCalled=false;
     isProductServiceCalled=false;
     _noRecordLabel.hidden=true;
+    categoryIndex=0;
+    cellIndex=0;
     _noRecordLabel.text=NSLocalizedText(@"norecord");
     if ([screenType isEqualToString:@"searchGuide"]) {
         [self addLeftBarButtonWithImage:true];
@@ -218,8 +218,12 @@
     }
     else if (indexPath.row==1) {
         if (guideDetailDataArray.count==1) {
-            cell.leftArrow.hidden=YES;
-            cell.rightArrow.hidden=YES;
+            cell.leftArrow.hidden=true;
+            cell.rightArrow.hidden=true;
+        }
+        else {
+            cell.leftArrow.hidden=false;
+            cell.rightArrow.hidden=false;
         }
         //The setup code (in viewDidLoad in your view controller)
         cell.leftArrow.userInteractionEnabled=YES;
