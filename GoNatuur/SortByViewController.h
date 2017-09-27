@@ -11,8 +11,7 @@
 
 @interface SortByViewController : UIViewController
 @property(nonatomic,strong) ProductListingViewController *productListViewObj;
-@property (nonatomic,assign) NSString * sortingType;
-@property (nonatomic,assign) NSString * sortBasis;
-@property (nonatomic)BOOL isEventScreen;
-@property (nonatomic,assign) NSString *productId;
+@property (nonatomic,strong) NSString * sortingType;
+@property (nonatomic,strong) NSString * sortBasis;
+@property (nonatomic) int sortProductId;
 @end

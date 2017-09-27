@@ -31,6 +31,7 @@
     int currentCategoryId;
     int lastSelectedCategoryId;
     BOOL firstTimePriceCalculation;
+    
 }
 @property (strong, nonatomic) IBOutlet UILabel *noRecordLabel;
 @property (strong, nonatomic) IBOutlet UITableView *productListTableView;
@@ -58,12 +59,17 @@
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
-    [self addLeftBarButtonWithImage:false];
-    [self viewInitialization];
-    [myDelegate showIndicator];
-    NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
-    [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
     _noRecordLabel.text=NSLocalizedText(@"norecord");
+    [self addLeftBarButtonWithImage:false];
+    if (_isSortFilter) {
+        NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getProductListData) withObject:nil afterDelay:.1];
+    } else {
+        [self viewInitialization];
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -116,11 +122,11 @@
     filterViewObj.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35);
     [filterViewObj setButtonTitles:NSLocalizedText(@"Filter") subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:NSLocalizedText(@"Sortby")];
     //Customized filter view
-//    if (!myDelegate.isProductList) {
-//        filterViewObj.subCategoryButtonOutlet.enabled=false;
-//        filterViewObj.subCategoryButtonOutlet.alpha=0.5;
-//        filterViewObj.subCategoryArrowImageView.alpha=0.4;
-//    }
+    //    if (!myDelegate.isProductList) {
+    //        filterViewObj.subCategoryButtonOutlet.enabled=false;
+    //        filterViewObj.subCategoryButtonOutlet.alpha=0.5;
+    //        filterViewObj.subCategoryArrowImageView.alpha=0.4;
+    //    }
     //Set initial index of picker view and initialized picker view
     selectedFirstFilterIndex=0;
     selectedSubCategoryIndex=0;
@@ -297,7 +303,9 @@
     productList.productSortingValue = _sortBasis;
     [productList getProductListService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];
-        [self serviceDataHandling:productData];
+        if (productData.productDataArray.count != 0) {
+            [self serviceDataHandling:productData];
+        }
     } onfailure:^(NSError *error) {
         [_refreshControl endRefreshing];
     }];
@@ -327,12 +335,12 @@
     }
     if (firstTimePriceCalculation) {
         [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
-//        if([[[productListDataArray objectAtIndex:0] specialPrice]isEqualToString:@""] && [[productListDataArray objectAtIndex:0] specialPrice]==nil) {
-//            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
-//        }
-//        else {
-//            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] specialPrice] key:@"maximumPrice"];
-//        }
+        //        if([[[productListDataArray objectAtIndex:0] specialPrice]isEqualToString:@""] && [[productListDataArray objectAtIndex:0] specialPrice]==nil) {
+        //            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
+        //        }
+        //        else {
+        //            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] specialPrice] key:@"maximumPrice"];
+        //        }
         firstTimePriceCalculation=false;
     }
     totalProductCount=[productData.totalProductCount intValue];
@@ -367,6 +375,7 @@
         NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
         SortByViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SortByViewController"];
         preview.productListViewObj = self;
+        preview.sortProductId = currentCategoryId;
         preview.sortBasis = _sortBasis;
         preview.sortingType = _sortingType;
         UINavigationController *navigationController =
@@ -378,7 +387,7 @@
     }
     else if (option==2) {
         FilterViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FilterViewController"];
-       // preview.productListViewObj = self;
+        // preview.productListViewObj = self;
         UINavigationController *navigationController =
         [[UINavigationController alloc] initWithRootViewController:preview];
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigation"] forBarMetrics:UIBarMetricsDefault];
