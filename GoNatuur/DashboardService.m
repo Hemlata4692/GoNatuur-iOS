@@ -128,51 +128,6 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
         parameters = @{@"searchCriteria" : filterGroups
                        };
     }
-    
-    /*  parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
-     @{ @"filters":@[
-     @{@"field":@"type_id",
-     @"value":typeId,
-     @"condition_type": @"eq"
-     },
-     @{@"field":@"category_id",
-     @"value":productData.categoryId,
-     @"condition_type": @"eq"
-     },
-     @{@"field":@"status",
-     @"value":@"1",
-     @"condition_type": @"eq"
-     }
-     ]
-     },
-     @{ @"filters":@[
-     @{@"field":@"price",
-     @"value":productData.maxPriceValue,
-     @"condition_type": @"gteq"
-     }
-     ]
-     },
-     @{ @"filters":@[
-     @{@"field":@"price",
-     @"value":productData.minPriceValue,
-     @"condition_type": @"lteq"
-     }]},
-     @{ @"filters":@[
-     @{@"field":productData.filterAttributeCode,
-     @"value":productData.filterAttributeId,
-     @"condition_type": @"eq"
-     }]},
-     ],
-     @"sort_orders" : @[
-     @{@"field":productData.productSortingType,
-     @"direction":productData.productSortingValue
-     }
-     ],
-     @"page_size" : productData.pageSize,
-     @"current_page" : productData.currentPage
-     }
-     }; */
-    
     NSLog(@"request %@",parameters);
     [super post:kProductListData parameters:parameters success:success failure:failure];
 }

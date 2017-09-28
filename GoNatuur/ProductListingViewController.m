@@ -342,12 +342,6 @@
     }
     if (firstTimePriceCalculation) {
         [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
-        //        if([[[productListDataArray objectAtIndex:0] specialPrice]isEqualToString:@""] && [[productListDataArray objectAtIndex:0] specialPrice]==nil) {
-        //            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
-        //        }
-        //        else {
-        //            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] specialPrice] key:@"maximumPrice"];
-        //        }
         firstTimePriceCalculation=false;
     }
     totalProductCount=[productData.totalProductCount intValue];

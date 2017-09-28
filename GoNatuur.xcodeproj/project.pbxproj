@@ -767,16 +767,8 @@
 		181FD22B1F601F6300C5373C /* PaymentMethodModule */ = {
 			isa = PBXGroup;
 			children = (
-				181FD22C1F601F6F00C5373C /* PayPal */,
 			);
 			name = PaymentMethodModule;
-			sourceTree = "<group>";
-		};
-		181FD22C1F601F6F00C5373C /* PayPal */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = PayPal;
 			sourceTree = "<group>";
 		};
 		184C38581F3B08DE008B8291 /* SWRevealViewController */ = {
@@ -2608,7 +2600,6 @@
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
 				181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
-				B77D86EB1F5D84090041D646 /* CartListTableViewCell.m in Sources */,
 				5D4D53381F73B1AE00A2AEFA /* SortFilterModel.m in Sources */,
 				5D2760AD1F62795A00B6D0FF /* OrderModel.m in Sources */,
 				185036EA1F67D9860008C0F1 /* NewsCentreDetailViewController.m in Sources */,
@@ -2640,13 +2631,11 @@
 				B7A73B8E1F6F916600412656 /* OrderInvoiceTableViewCell.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
 				18FFBC861F62CEBC006C088B /* NewsCenterSearchListViewController.m in Sources */,
-				B77D86E81F5D83F50041D646 /* CartListingViewController.m in Sources */,
 				5D4D53341F73965400A2AEFA /* SortByCell.m in Sources */,
 				B75E6F1B1F7504B50059D8E1 /* FinalCheckoutTableViewCell.m in Sources */,
 				B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */,
 				18F464EC1F698FFC001006EB /* RedeemViewController.m in Sources */,
 				B71EFB511F712F550033DC52 /* PaymentService.m in Sources */,
-				B7F570F51F67FA220006C9BB /* FinalCheckoutViewController.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				B7DA71F31F5034F300F45439 /* HCYoutubeParser.m in Sources */,
 				B75E6F1E1F7504C20059D8E1 /* FinalCheckoutViewController.m in Sources */,
