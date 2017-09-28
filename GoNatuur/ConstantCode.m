@@ -12,11 +12,11 @@
 
 NSString * const iOS_Version = @"10.0";
 //Client
-NSString * const BaseUrl = @"http://dev.gonatuur.com/";
+NSString * const BaseUrl = @"https://dev.gonatuur.com/";
 //Beta
 //NSString * const BaseUrl = @"http://192.121.166.226:81/gopurpose/";
-NSString * const productImageBaseUrl = @"pub/media/catalog/category";//remove pub when using in live
-NSString * const productDetailImageBaseUrl = @"pub/media/catalog/product";//remove pub when using in live
+NSString * const productImageBaseUrl = @"media/catalog/category";//remove pub when using in live
+NSString * const productDetailImageBaseUrl = @"media/catalog/product";//remove pub when using in live
 NSString * const eventIdentifier = @"ticket";
 NSString * const payPalClientId = @"AZR_diRWoS3qEWpUDyI6_K6iRHjKkOMwC93488tbFjugQIxL6OLjg6ces1FwsnR8Bv6F107if32vofmP";
 NSString * const zopimTicketAppId = @"e5dd7520b178e21212f5cc2751a28f4b5a7dc76698dc79bd";

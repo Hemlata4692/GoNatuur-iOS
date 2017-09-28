@@ -284,10 +284,7 @@
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ShareViewController *popView =
         [storyboard instantiateViewControllerWithIdentifier:@"ShareViewController"];
-        
         NSDictionary *temDict=[productDetailModelData.productMediaArray objectAtIndex:0];
-//        if ([[temDict objectForKey:@"media_type"] isEqualToString:@"QRCode"]) {
-//        }
         popView.mediaURL=[temDict objectForKey:@"file"];
         popView.name=productDetailModelData.productName;
         popView.productDescription=productDetailModelData.productShortDescription;

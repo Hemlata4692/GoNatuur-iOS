@@ -1252,7 +1252,7 @@
             NSDictionary * dataDict =[dataArray objectAtIndex:i];
             ProductGuideDataModel *categoryGuideData=[[ProductGuideDataModel alloc]init];
             categoryGuideData.categoryName=[dataDict objectForKey:@"name"];
-            categoryGuideData.categoryDescription=[dataDict objectForKey:@"description"];
+            categoryGuideData.categoryDescription=[self stringByStrippingHTML:[dataDict objectForKey:@"description"]];
             categoryGuideData.categoryId=[dataDict objectForKey:@"category_id"];
             [guideData.guideCategoryDataArray addObject:categoryGuideData];
         }

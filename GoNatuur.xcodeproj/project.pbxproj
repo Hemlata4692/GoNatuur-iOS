@@ -2592,7 +2592,6 @@
 				B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */,
 				18F464EC1F698FFC001006EB /* RedeemViewController.m in Sources */,
 				B71EFB511F712F550033DC52 /* PaymentService.m in Sources */,
-				B7F570F51F67FA220006C9BB /* FinalCheckoutViewController.m in Sources */,
 				B7DDB1AE1F399D14009BB8A5 /* ConstantCode.m in Sources */,
 				B7DA71F31F5034F300F45439 /* HCYoutubeParser.m in Sources */,
 				B75E6F1E1F7504C20059D8E1 /* FinalCheckoutViewController.m in Sources */,
