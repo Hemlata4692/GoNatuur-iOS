@@ -32,17 +32,12 @@
 		181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181853261F3D833F00EEB73B /* DashboardDataModel.m */; };
 		1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532A1F3D8A7F00EEB73B /* DashboardService.m */; };
 		1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532E1F3DFED000EEB73B /* ImageCaching.m */; };
-		181FD2181F6018C000C5373C /* libPayPalMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2171F6018C000C5373C /* libPayPalMobile.a */; };
-		181FD21C1F6018E400C5373C /* libCardIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2191F6018E400C5373C /* libCardIO.a */; };
-		181FD21D1F6018E400C5373C /* libopencv_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD21A1F6018E400C5373C /* libopencv_core.a */; };
-		181FD21E1F6018E400C5373C /* libopencv_imgproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD21B1F6018E400C5373C /* libopencv_imgproc.a */; };
 		181FD2201F60194700C5373C /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD21F1F60194700C5373C /* SafariServices.framework */; };
 		181FD2221F60194C00C5373C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2211F60194C00C5373C /* Security.framework */; };
 		181FD2241F60195200C5373C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2231F60195200C5373C /* SystemConfiguration.framework */; };
 		181FD2261F60195900C5373C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2251F60195900C5373C /* OpenGLES.framework */; };
 		181FD2281F60197800C5373C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2271F60197800C5373C /* Accelerate.framework */; };
 		181FD22A1F60198000C5373C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2291F60198000C5373C /* AudioToolbox.framework */; };
-		181FD2311F601FA900C5373C /* PayPalPaymentOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 181FD2301F601FA900C5373C /* PayPalPaymentOption.m */; };
 		184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C385B1F3B0911008B8291 /* SideBarViewController.m */; };
 		184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C38641F3B328A008B8291 /* EnableNotificationViewController.m */; };
 		184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */; };
@@ -51,6 +46,9 @@
 		185036EA1F67D9860008C0F1 /* NewsCentreDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185036E91F67D9860008C0F1 /* NewsCentreDetailViewController.m */; };
 		185036EE1F67E3830008C0F1 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185036ED1F67E3830008C0F1 /* ShareViewController.m */; };
 		185C58021F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185C58011F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m */; };
+		185ECB6D1F73E237002BA64A /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185ECB6C1F73E237002BA64A /* FilterViewController.m */; };
+		185ECB721F73E279002BA64A /* FilterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185ECB711F73E279002BA64A /* FilterTableViewCell.m */; };
+		185EF5141F753CCC00C5A07A /* VPRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 185EF5131F753CCC00C5A07A /* VPRangeSlider.m */; };
 		185F707F1F55A839007F49F7 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185F707E1F55A839007F49F7 /* ProfileViewController.m */; };
 		1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */; };
 		187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 187129061F48D5BC00D16581 /* UpdateCartItem.m */; };
@@ -141,6 +139,10 @@
 		5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC591F553A3500AECF40 /* ChangePasswordViewController.m */; };
 		5D27AC5E1F55649E00AECF40 /* ProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC5D1F55649E00AECF40 /* ProfileModel.m */; };
 		5D27AC621F55678C00AECF40 /* ProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC611F55678C00AECF40 /* ProfileService.m */; };
+		5D4D53331F73965400A2AEFA /* SortByViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D53301F73965400A2AEFA /* SortByViewController.m */; };
+		5D4D53341F73965400A2AEFA /* SortByCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D53321F73965400A2AEFA /* SortByCell.m */; };
+		5D4D53381F73B1AE00A2AEFA /* SortFilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D53371F73B1AE00A2AEFA /* SortFilterModel.m */; };
+		5D4D533C1F73B53400A2AEFA /* SortFilterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D533B1F73B53400A2AEFA /* SortFilterService.m */; };
 		5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC39511F61783F00702F92 /* AddressListingViewController.m */; };
 		5DAC39551F61783F00702F92 /* AddressListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC39531F61783F00702F92 /* AddressListingCell.m */; };
 		5DC7840D1F6637160025CA4A /* OrderDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DC7840C1F6637160025CA4A /* OrderDetailCell.m */; };
@@ -247,25 +249,12 @@
 		1818532A1F3D8A7F00EEB73B /* DashboardService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardService.m; sourceTree = "<group>"; };
 		1818532D1F3DFED000EEB73B /* ImageCaching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCaching.h; sourceTree = "<group>"; };
 		1818532E1F3DFED000EEB73B /* ImageCaching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCaching.m; sourceTree = "<group>"; };
-		181FD2101F6018C000C5373C /* PayPalMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalMobile.h; sourceTree = "<group>"; };
-		181FD2111F6018C000C5373C /* PayPalConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalConfiguration.h; sourceTree = "<group>"; };
-		181FD2121F6018C000C5373C /* PayPalPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalPayment.h; sourceTree = "<group>"; };
-		181FD2131F6018C000C5373C /* PayPalPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalPaymentViewController.h; sourceTree = "<group>"; };
-		181FD2141F6018C000C5373C /* PayPalFuturePaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalFuturePaymentViewController.h; sourceTree = "<group>"; };
-		181FD2151F6018C000C5373C /* PayPalProfileSharingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalProfileSharingViewController.h; sourceTree = "<group>"; };
-		181FD2161F6018C000C5373C /* PayPalOAuthScopes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalOAuthScopes.h; sourceTree = "<group>"; };
-		181FD2171F6018C000C5373C /* libPayPalMobile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPayPalMobile.a; sourceTree = "<group>"; };
-		181FD2191F6018E400C5373C /* libCardIO.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCardIO.a; sourceTree = "<group>"; };
-		181FD21A1F6018E400C5373C /* libopencv_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopencv_core.a; sourceTree = "<group>"; };
-		181FD21B1F6018E400C5373C /* libopencv_imgproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopencv_imgproc.a; sourceTree = "<group>"; };
 		181FD21F1F60194700C5373C /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		181FD2211F60194C00C5373C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		181FD2231F60195200C5373C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		181FD2251F60195900C5373C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		181FD2271F60197800C5373C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		181FD2291F60198000C5373C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		181FD22F1F601FA900C5373C /* PayPalPaymentOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayPalPaymentOption.h; sourceTree = "<group>"; };
-		181FD2301F601FA900C5373C /* PayPalPaymentOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayPalPaymentOption.m; sourceTree = "<group>"; };
 		184C385A1F3B0911008B8291 /* SideBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideBarViewController.h; sourceTree = "<group>"; };
 		184C385B1F3B0911008B8291 /* SideBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideBarViewController.m; sourceTree = "<group>"; };
 		184C38631F3B328A008B8291 /* EnableNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableNotificationViewController.h; sourceTree = "<group>"; };
@@ -279,6 +268,12 @@
 		185036ED1F67E3830008C0F1 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		185C58001F68E41E0027E7BC /* NewsCentreDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCentreDetailTableViewCell.h; sourceTree = "<group>"; };
 		185C58011F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCentreDetailTableViewCell.m; sourceTree = "<group>"; };
+		185ECB6B1F73E237002BA64A /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
+		185ECB6C1F73E237002BA64A /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
+		185ECB701F73E279002BA64A /* FilterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterTableViewCell.h; sourceTree = "<group>"; };
+		185ECB711F73E279002BA64A /* FilterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterTableViewCell.m; sourceTree = "<group>"; };
+		185EF5121F753CCC00C5A07A /* VPRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPRangeSlider.h; sourceTree = "<group>"; };
+		185EF5131F753CCC00C5A07A /* VPRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPRangeSlider.m; sourceTree = "<group>"; };
 		185F707D1F55A839007F49F7 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		185F707E1F55A839007F49F7 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		1870F0BC1F44185F008B2CE5 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
@@ -440,6 +435,14 @@
 		5D27AC5D1F55649E00AECF40 /* ProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileModel.m; sourceTree = "<group>"; };
 		5D27AC601F55678C00AECF40 /* ProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileService.h; sourceTree = "<group>"; };
 		5D27AC611F55678C00AECF40 /* ProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileService.m; sourceTree = "<group>"; };
+		5D4D532F1F73965400A2AEFA /* SortByViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortByViewController.h; sourceTree = "<group>"; };
+		5D4D53301F73965400A2AEFA /* SortByViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortByViewController.m; sourceTree = "<group>"; };
+		5D4D53311F73965400A2AEFA /* SortByCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortByCell.h; sourceTree = "<group>"; };
+		5D4D53321F73965400A2AEFA /* SortByCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortByCell.m; sourceTree = "<group>"; };
+		5D4D53361F73B1AE00A2AEFA /* SortFilterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortFilterModel.h; sourceTree = "<group>"; };
+		5D4D53371F73B1AE00A2AEFA /* SortFilterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortFilterModel.m; sourceTree = "<group>"; };
+		5D4D533A1F73B53400A2AEFA /* SortFilterService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortFilterService.h; sourceTree = "<group>"; };
+		5D4D533B1F73B53400A2AEFA /* SortFilterService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortFilterService.m; sourceTree = "<group>"; };
 		5DAC39501F61783F00702F92 /* AddressListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListingViewController.h; sourceTree = "<group>"; };
 		5DAC39511F61783F00702F92 /* AddressListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListingViewController.m; sourceTree = "<group>"; };
 		5DAC39521F61783F00702F92 /* AddressListingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListingCell.h; sourceTree = "<group>"; };
@@ -544,16 +547,12 @@
 				187129091F48DD2B00D16581 /* MediaPlayer.framework in Frameworks */,
 				1818444B1F70E0600077E48C /* ZDCChat.framework in Frameworks */,
 				188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */,
-				181FD21D1F6018E400C5373C /* libopencv_core.a in Frameworks */,
 				32A3D7111F1CE3BB00062B86 /* GoogleSymbolUtilities.framework in Frameworks */,
 				E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */,
 				32A3D7051F1CD2E100062B86 /* FBSDKCoreKit.framework in Frameworks */,
-				181FD21E1F6018E400C5373C /* libopencv_imgproc.a in Frameworks */,
 				32A3D7061F1CD2E100062B86 /* FBSDKLoginKit.framework in Frameworks */,
 				32A3D7121F1CE3BB00062B86 /* GoogleAppUtilities.framework in Frameworks */,
-				181FD21C1F6018E400C5373C /* libCardIO.a in Frameworks */,
 				32A3D7101F1CE3BB00062B86 /* GoogleSignInDependencies.framework in Frameworks */,
-				181FD2181F6018C000C5373C /* libPayPalMobile.a in Frameworks */,
 				32A3D7041F1CD2E100062B86 /* Bolts.framework in Frameworks */,
 				32A3D7141F1CE3BB00062B86 /* GoogleSignIn.framework in Frameworks */,
 				1818444C1F70E0600077E48C /* ZDCChatAPI.framework in Frameworks */,
@@ -765,39 +764,11 @@
 			name = WishlistModule;
 			sourceTree = "<group>";
 		};
-		181FD20F1F60188300C5373C /* PaypalSDK */ = {
-			isa = PBXGroup;
-			children = (
-				181FD2191F6018E400C5373C /* libCardIO.a */,
-				181FD21A1F6018E400C5373C /* libopencv_core.a */,
-				181FD21B1F6018E400C5373C /* libopencv_imgproc.a */,
-				181FD2101F6018C000C5373C /* PayPalMobile.h */,
-				181FD2111F6018C000C5373C /* PayPalConfiguration.h */,
-				181FD2121F6018C000C5373C /* PayPalPayment.h */,
-				181FD2131F6018C000C5373C /* PayPalPaymentViewController.h */,
-				181FD2141F6018C000C5373C /* PayPalFuturePaymentViewController.h */,
-				181FD2151F6018C000C5373C /* PayPalProfileSharingViewController.h */,
-				181FD2161F6018C000C5373C /* PayPalOAuthScopes.h */,
-				181FD2171F6018C000C5373C /* libPayPalMobile.a */,
-			);
-			name = PaypalSDK;
-			sourceTree = "<group>";
-		};
 		181FD22B1F601F6300C5373C /* PaymentMethodModule */ = {
 			isa = PBXGroup;
 			children = (
-				181FD22C1F601F6F00C5373C /* PayPal */,
 			);
 			name = PaymentMethodModule;
-			sourceTree = "<group>";
-		};
-		181FD22C1F601F6F00C5373C /* PayPal */ = {
-			isa = PBXGroup;
-			children = (
-				181FD22F1F601FA900C5373C /* PayPalPaymentOption.h */,
-				181FD2301F601FA900C5373C /* PayPalPaymentOption.m */,
-			);
-			name = PayPal;
 			sourceTree = "<group>";
 		};
 		184C38581F3B08DE008B8291 /* SWRevealViewController */ = {
@@ -888,6 +859,42 @@
 				185C58011F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m */,
 			);
 			name = NewsCentreDetailCell;
+			sourceTree = "<group>";
+		};
+		185ECB661F73C532002BA64A /* RangeSlider */ = {
+			isa = PBXGroup;
+			children = (
+				185EF5121F753CCC00C5A07A /* VPRangeSlider.h */,
+				185EF5131F753CCC00C5A07A /* VPRangeSlider.m */,
+			);
+			name = RangeSlider;
+			sourceTree = "<group>";
+		};
+		185ECB6A1F73E216002BA64A /* FilterModule */ = {
+			isa = PBXGroup;
+			children = (
+				185ECB6F1F73E255002BA64A /* FilterViewCell */,
+				185ECB6E1F73E24E002BA64A /* FilterViewController */,
+			);
+			name = FilterModule;
+			sourceTree = "<group>";
+		};
+		185ECB6E1F73E24E002BA64A /* FilterViewController */ = {
+			isa = PBXGroup;
+			children = (
+				185ECB6B1F73E237002BA64A /* FilterViewController.h */,
+				185ECB6C1F73E237002BA64A /* FilterViewController.m */,
+			);
+			name = FilterViewController;
+			sourceTree = "<group>";
+		};
+		185ECB6F1F73E255002BA64A /* FilterViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				185ECB701F73E279002BA64A /* FilterTableViewCell.h */,
+				185ECB711F73E279002BA64A /* FilterTableViewCell.m */,
+			);
+			name = FilterViewCell;
 			sourceTree = "<group>";
 		};
 		185F706A1F559D6B007F49F7 /* ProfileModule */ = {
@@ -1404,6 +1411,8 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				185ECB6A1F73E216002BA64A /* FilterModule */,
+				5D4D532E1F73963800A2AEFA /* SortModule */,
 				188605961F39C05A0005D1E2 /* GlobalViewModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
 				188605911F39BB720005D1E2 /* DashboardModule */,
@@ -1430,6 +1439,7 @@
 		320761601F1626F2001F1790 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5D4D53351F73B16600A2AEFA /* SortFilterModel */,
 				B71EFB4A1F712E0F0033DC52 /* PaymentModel */,
 				1818445C1F70FBC50077E48C /* ShareModel */,
 				18FA120B1F6ADD4A0001A3B0 /* ProductGuideModel */,
@@ -1488,9 +1498,9 @@
 		320761651F162733001F1790 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				185ECB661F73C532002BA64A /* RangeSlider */,
 				181844581F70E0E50077E48C /* ZopimChat */,
 				18A3B1131F669D7700A453A7 /* Annotation */,
-				181FD20F1F60188300C5373C /* PaypalSDK */,
 				B7DA71F01F5034E500F45439 /* HCYoutubeParser */,
 				180ECD2A1F484B5C003C936E /* StarRatingView */,
 				B7AA39AF1F470FFA00423121 /* GoNatuurPickerView */,
@@ -1527,6 +1537,7 @@
 		320761671F162799001F1790 /* ServerCommunication */ = {
 			isa = PBXGroup;
 			children = (
+				5D4D53391F73B4E200A2AEFA /* SortFilterService */,
 				B71EFB4E1F712F2F0033DC52 /* PaymentService */,
 				181844601F70FBED0077E48C /* ShareService */,
 				18FA120F1F6ADD6F0001A3B0 /* ProductGuideService */,
@@ -1884,6 +1895,35 @@
 				5D27AC611F55678C00AECF40 /* ProfileService.m */,
 			);
 			name = ProfileService;
+			sourceTree = "<group>";
+		};
+		5D4D532E1F73963800A2AEFA /* SortModule */ = {
+			isa = PBXGroup;
+			children = (
+				5D4D532F1F73965400A2AEFA /* SortByViewController.h */,
+				5D4D53301F73965400A2AEFA /* SortByViewController.m */,
+				5D4D53311F73965400A2AEFA /* SortByCell.h */,
+				5D4D53321F73965400A2AEFA /* SortByCell.m */,
+			);
+			name = SortModule;
+			sourceTree = "<group>";
+		};
+		5D4D53351F73B16600A2AEFA /* SortFilterModel */ = {
+			isa = PBXGroup;
+			children = (
+				5D4D53361F73B1AE00A2AEFA /* SortFilterModel.h */,
+				5D4D53371F73B1AE00A2AEFA /* SortFilterModel.m */,
+			);
+			name = SortFilterModel;
+			sourceTree = "<group>";
+		};
+		5D4D53391F73B4E200A2AEFA /* SortFilterService */ = {
+			isa = PBXGroup;
+			children = (
+				5D4D533A1F73B53400A2AEFA /* SortFilterService.h */,
+				5D4D533B1F73B53400A2AEFA /* SortFilterService.m */,
+			);
+			name = SortFilterService;
 			sourceTree = "<group>";
 		};
 		5D95200E1F6672C40036645F /* OrderDetailViewController */ = {
@@ -2522,6 +2562,7 @@
 				18F464EF1F69902B001006EB /* RedeemTableViewCell.m in Sources */,
 				B75E6F301F7505380059D8E1 /* CartListingViewController.m in Sources */,
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
+				185ECB6D1F73E237002BA64A /* FilterViewController.m in Sources */,
 				187561911F469BD500F609AB /* NotificationDataModel.m in Sources */,
 				B75E6F211F7504E10059D8E1 /* CheckoutAddressViewController.m in Sources */,
 				5D2760A61F62767F00B6D0FF /* OrderListingViewController.m in Sources */,
@@ -2536,12 +2577,13 @@
 				32A3D70A1F1CE3AA00062B86 /* GmailSignInConnect.m in Sources */,
 				B7AA39B81F47102100423121 /* GoNatuurPickerView.m in Sources */,
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
-				181FD2311F601FA900C5373C /* PayPalPaymentOption.m in Sources */,
+				5D4D533C1F73B53400A2AEFA /* SortFilterService.m in Sources */,
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
 				B77A8A781F34388800233782 /* SignUpViewController.m in Sources */,
 				B75E6F271F7504FD0059D8E1 /* CheckoutCollectionViewCell.m in Sources */,
 				18FA12071F6A84870001A3B0 /* ProductGuideTableViewCell.m in Sources */,
 				B7A86ECD1F3B3D85004DA530 /* CMSPageViewController.m in Sources */,
+				185ECB721F73E279002BA64A /* FilterTableViewCell.m in Sources */,
 				187561971F469F3800F609AB /* NotificationViewController.m in Sources */,
 				B7AA39C01F47108D00423121 /* ProductListingViewController.m in Sources */,
 				1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */,
@@ -2558,6 +2600,7 @@
 				3207617F1F163B2A001F1790 /* UITextField+Padding.m in Sources */,
 				181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */,
 				32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */,
+				5D4D53381F73B1AE00A2AEFA /* SortFilterModel.m in Sources */,
 				5D2760AD1F62795A00B6D0FF /* OrderModel.m in Sources */,
 				185036EA1F67D9860008C0F1 /* NewsCentreDetailViewController.m in Sources */,
 				1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */,
@@ -2588,6 +2631,7 @@
 				B7A73B8E1F6F916600412656 /* OrderInvoiceTableViewCell.m in Sources */,
 				320761871F164986001F1790 /* Webservice.m in Sources */,
 				18FFBC861F62CEBC006C088B /* NewsCenterSearchListViewController.m in Sources */,
+				5D4D53341F73965400A2AEFA /* SortByCell.m in Sources */,
 				B75E6F1B1F7504B50059D8E1 /* FinalCheckoutTableViewCell.m in Sources */,
 				B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */,
 				18F464EC1F698FFC001006EB /* RedeemViewController.m in Sources */,
@@ -2599,6 +2643,7 @@
 				1807D50D1F7257FD00A0251F /* NewsCentreCollectionViewCell.m in Sources */,
 				184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */,
 				5DAC39551F61783F00702F92 /* AddressListingCell.m in Sources */,
+				185EF5141F753CCC00C5A07A /* VPRangeSlider.m in Sources */,
 				188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */,
 				3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */,
 				320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */,
@@ -2621,6 +2666,7 @@
 				B73A65381F3DF0630051E4C5 /* LocalizedString.m in Sources */,
 				1818445F1F70FBE10077E48C /* ShareDataModel.m in Sources */,
 				5D2760B11F627AEF00B6D0FF /* OrderService.m in Sources */,
+				5D4D53331F73965400A2AEFA /* SortByViewController.m in Sources */,
 				1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */,
 				185036EE1F67E3830008C0F1 /* ShareViewController.m in Sources */,
 				320761721F162834001F1790 /* UserDefaultManager.m in Sources */,

@@ -32,6 +32,9 @@
 #import "PaymentModel.h"
 #import "ShareDataModel.h"
 #import "ShareDataService.h"
+#import "SortFilterModel.h"
+#import "SortFilterModel.h"
+#import "SortFilterService.h"
 
 @implementation ConnectionManager
 #pragma mark - Shared instance
@@ -1525,7 +1528,8 @@
         [UserDefaultManager setValue:response[@"rewardCategoryId"] key:@"rewardCategoryId"];
         [UserDefaultManager setValue:response[@"cmsPagesIds"] key:@"cmsPagesIds"];
         [UserDefaultManager setValue:response[@"rewardProductAttributeId"] key:@"rewardProductAttributeId"];
-
+        [UserDefaultManager setValue:response[@"AdditionalSortsFilters"] key:@"AdditionalSortsFilters"];
+        [UserDefaultManager setValue:response[@"DefaultSortsFilters"] key:@"DefaultSortsFilters"];
         success(userData);
     } onfailure:^(NSError *error) {
     }];
@@ -1544,6 +1548,72 @@
 }
 #pragma mark - end
 
+#pragma mark - Sorting and filter
+- (void)getSortData:(SortFilterModel *)sortData onSuccess:(void (^)(SortFilterModel *userData))success onFailure:(void (^)(NSError *))failure {
+    SortFilterService *sortService = [[SortFilterService alloc] init];
+    [sortService getSortData:sortData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"response %@",response);
+        NSArray *dataArray=response[@"items"];
+        sortData.sortArray=[NSMutableArray new];
+        for (int i =0; i<dataArray.count; i++) {
+            NSDictionary * dataDict =[dataArray objectAtIndex:i];
+            SortFilterModel * sortListData = [[SortFilterModel alloc]init];
+            sortListData.ascValue = dataDict[@"default_frontend_label"];
+            sortListData.descValue = dataDict[@"default_frontend_label"];
+            sortListData.attributeValue = dataDict[@"attribute_code"];
+            sortListData.sortBasis = DESC;
+            [sortData.sortArray addObject:sortListData];
+        }
+        success(sortData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+- (void)getFilterDataData:(SortFilterModel *)sortData onSuccess:(void (^)(SortFilterModel *userData))success onFailure:(void (^)(NSError *))failure {
+    SortFilterService *sortService = [[SortFilterService alloc] init];
+    [sortService getSortData:sortData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"response %@",response);
+        NSArray *dataArray=response[@"items"];
+        sortData.filterArray=[NSMutableArray new];
+        for (int i =0; i<dataArray.count; i++) {
+            NSDictionary * dataDict =[dataArray objectAtIndex:i];
+            SortFilterModel * sortListData = [[SortFilterModel alloc]init];
+            sortListData.filterLabelValue = dataDict[@"default_frontend_label"];
+            sortListData.filterAttributeCode = dataDict[@"attribute_code"];
+            sortListData.filterOptionsArray=[[NSMutableArray alloc]init];
+            NSArray *tempArray=dataDict[@"options"];
+            for (int j=0; j<tempArray.count; j++) {
+                NSDictionary * dataDict =[tempArray objectAtIndex:j];
+                SortFilterModel * filterValueData = [[SortFilterModel alloc]init];
+                filterValueData.filterCountry = dataDict[@"label"];
+                filterValueData.filterCountryValue = dataDict[@"value"];
+                [sortListData.filterOptionsArray addObject:filterValueData];
+            }
+            [sortData.filterArray addObject:sortListData];
+        }
+        success(sortData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Set checkout order
+- (void)setCheckoutOrderService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList setCheckoutOrderService:cartData success:^(id response) {
+        DLog(@"Set checkout order response %@",response);
+        success(cartData);
+    }
+                            onfailure:^(NSError *error) {
+                            }];
+}
+#pragma mark - end
+
 #pragma mark - Set checkout promo
 - (void)setCheckoutPromosService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     CartService *cartList=[[CartService alloc]init];
@@ -1556,23 +1626,12 @@
 }
 #pragma mark - end
 
+
 #pragma mark - Set payment method
 - (void)setPaymentMethodService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     CartService *cartList=[[CartService alloc]init];
     [cartList setPaymentMethodService:cartData success:^(id response) {
         DLog(@"Set payment method response %@",response);
-        success(cartData);
-    }
-                            onfailure:^(NSError *error) {
-                            }];
-}
-#pragma mark - end
-
-#pragma mark - Set checkout order
-- (void)setCheckoutOrderService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
-    CartService *cartList=[[CartService alloc]init];
-    [cartList setCheckoutOrderService:cartData success:^(id response) {
-        DLog(@"Set checkout order response %@",response);
         success(cartData);
     }
                             onfailure:^(NSError *error) {

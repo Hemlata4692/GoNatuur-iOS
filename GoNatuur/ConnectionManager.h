@@ -21,6 +21,7 @@
 @class ProductGuideDataModel;
 @class PaymentModel;
 @class ShareDataModel;
+@class SortFilterModel;
 
 @interface ConnectionManager : NSObject
 
@@ -138,8 +139,13 @@
 - (void)getConstantsListData:(DashboardDataModel *)userData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 //Share
 - (void)shareProductData:(ShareDataModel *)guideData onSuccess:(void (^)(ShareDataModel *guideData))success onFailure:(void (^)(NSError *))failure;
-//Filters
+//Filters news centre
 - (void)getNewsCenterFiltersListService:(DashboardDataModel *)productData onSuccess:(void (^)(DashboardDataModel *userData))success onFailure:(void (^)(NSError *))failure;
+//Sorting
+- (void)getSortData:(SortFilterModel *)sortData onSuccess:(void (^)(SortFilterModel *userData))success onFailure:(void (^)(NSError *))failure;
+//Filter
+- (void)getFilterDataData:(SortFilterModel *)sortData onSuccess:(void (^)(SortFilterModel *userData))success onFailure:(void (^)(NSError *))failure;
+
 //Set checkout promo
 - (void)setCheckoutPromosService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 //Set payment method

@@ -70,7 +70,7 @@ static NSString *kNewsSearchingService=@"ipwishlist/delete/wishlistItem";
                                                        @"sort_orders" : @[
                                                                
                                                                            @{@"field":@"name",
-                                                                             @"direction":@"desc",
+                                                                             @"direction":DESC,
                                                                              }
                                                                            ],
                                                        @"page_size" : productData.searchPageCount,

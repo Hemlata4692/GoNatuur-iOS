@@ -44,6 +44,16 @@
 @property (strong, nonatomic) NSString *filterValue2;
 @property (strong, nonatomic) NSString *sortingValue;
 
+@property (nonatomic) int sortFilterRequestParameter;
+//Sorting
+@property (strong, nonatomic) NSString *productSortingValue;
+@property (strong, nonatomic) NSString *productSortingType;
+//Filters
+@property (strong, nonatomic) NSString *minPriceValue;
+@property (strong, nonatomic) NSString *maxPriceValue;
+@property (strong, nonatomic) NSString *filterAttributeCode;
+@property (strong, nonatomic) NSString *filterAttributeId;
+
 //Singleton method
 + (instancetype)sharedUser;
 

@@ -12,7 +12,6 @@
 #import <GoogleSignIn/GoogleSignIn.h>
 #import <UserNotifications/UserNotifications.h>
 #import "UncaughtExceptionHandler.h"
-#import "PayPalMobile.h"
 #import "ChatStyling.h"
 #import <ZendeskSDK/ZendeskSDK.h>
 #import <ZDCChat/ZDCChat.h>
@@ -106,9 +105,6 @@
         [self.window setBackgroundColor:[UIColor whiteColor]];
         [self.window makeKeyAndVisible];
     }
-    
-    //paypal config with client id //sandbox will be changed to live
-    [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentSandbox :     payPalClientId}];
     //[self registerForRemoteNotification];
     return YES;
 }
