@@ -315,6 +315,11 @@
 "productGuideText"="產品可以包含的好處";
 "noSimilarProducts"="沒有這個話題的產品";
 "oldest"="最早";
+"SortByTitle"="排序方式";
+"sortName"="name";
+"sortPrice"="price";
+"filterTitle"="過濾";
+"filterCountry"="country";
 "cardNumberList"="XXXX XXXX XXXX";
 "applyCouponCode"="Apply coupon code";
 "deleteCardMessage"="Are you sure you want to delete this card?";
