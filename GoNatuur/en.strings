@@ -293,7 +293,7 @@
 "invoiceTitle"="INVOICES";
 "invoice"="Invoice:";
 "shipment"="Shipment:";
-"cardNumber"="XXXX XXXX XXXX";
+"cardNumberList"="XXXX XXXX XXXX";
 "oldest"="Earliest";
 "ShippingMethodAlert"="Need to select one shipping method.";
 "summary"="Summary";
@@ -303,3 +303,4 @@
 "rewardProductExistAlert"="You have some reward products those value is more than impact points in account.";
 "total"="Total:";
 "applyCouponCode"="Apply coupon code";
+"deleteCardMessage"="Are you sure you want to delete this card?";

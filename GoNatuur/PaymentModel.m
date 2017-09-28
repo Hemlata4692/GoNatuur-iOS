@@ -34,4 +34,16 @@
 }
 #pragma mark - end
 
+#pragma mark - Delete card 
+- (void)deleteCard:(void (^)(PaymentModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] deleteCardService:self onSuccess:^(PaymentModel *paymentData) {
+        if (success) {
+            success (paymentData);
+        }
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }];
+}
+#pragma mark - end
+
 @end

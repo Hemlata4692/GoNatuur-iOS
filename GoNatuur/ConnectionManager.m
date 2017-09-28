@@ -1456,7 +1456,6 @@
 
 #pragma mark - Get card listing
 - (void)getCardListing:(PaymentModel *)paymentData onSuccess:(void (^)(PaymentModel *paymentData))success onFailure:(void (^)(NSError *))failure {
-    {
         PaymentService *paymentService = [[PaymentService alloc] init];
         [paymentService getCardListing:paymentData onSuccess:^(id response) {
             DLog(@"getCardListing response %@",response);
@@ -1487,7 +1486,18 @@
         } onFailure:^(NSError *error) {
             failure(error);
         }] ;
-    }
+}
+#pragma mark - end
+
+#pragma mark - Delete card service
+- (void)deleteCardService:(PaymentModel *)paymentData onSuccess:(void (^)(PaymentModel *paymentData))success onFailure:(void (^)(NSError *))failure {
+        PaymentService *paymentService = [[PaymentService alloc] init];
+        [paymentService deleteCardFromListing:paymentData onSuccess:^(id response) {
+            DLog(@"delete card response %@",response);
+            success(paymentData);
+        } onFailure:^(NSError *error) {
+            failure(error);
+        }] ;
 }
 #pragma mark - end
 
