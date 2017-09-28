@@ -42,6 +42,8 @@
 - (void)sliderScrolling:(VPRangeSlider *)slider withMinPercent:(CGFloat)minPercent andMaxPercent:(CGFloat)maxPercent {
     _priceRangeSliderView.minRangeText = [NSString stringWithFormat:@"%.01f", minPercent];
     _priceRangeSliderView.maxRangeText = [NSString stringWithFormat:@"%.01f", maxPercent];
+    _minPriceValue = _priceRangeSliderView.minRangeText;
+    _maxPriceValue = _priceRangeSliderView.maxRangeText;
 }
 
 - (void)displayCountry:(SortFilterModel *)data {

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProductListingViewController.h"
 
 @interface FilterViewController : UIViewController
+@property(nonatomic,strong) ProductListingViewController *productListViewObj;
+@property (nonatomic) int filterProductId;
 
 @end

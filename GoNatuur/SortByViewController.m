@@ -143,6 +143,7 @@
 
 #pragma mark - Dismiss View
 - (void)dismissView {
+    productListViewObj.sortFilterRequest = 0;
     productListViewObj.isSortFilter = true;
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }

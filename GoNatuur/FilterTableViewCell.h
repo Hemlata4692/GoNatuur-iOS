@@ -15,7 +15,8 @@
 @property (weak, nonatomic) IBOutlet VPRangeSlider *priceRangeSliderView;
 @property (weak, nonatomic) IBOutlet UILabel *minimumPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *maximumPriceLabel;
-
+@property (strong, nonatomic) NSString *minPriceValue;
+@property (strong, nonatomic) NSString *maxPriceValue;
 @property (weak, nonatomic) IBOutlet UILabel *countryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *benefitsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *certificatesLabel;
