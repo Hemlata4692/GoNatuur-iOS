@@ -42,7 +42,7 @@ static NSString *kProductGuideDetailsCategory=@"ranosys/product-guide/getList";
                                                      ],
                                              @"sort_orders":@[
                                                      @{@"field":@"main_table.created_at",
-                                                       @"direction":@"DESC",
+                                                       @"direction":DESC,
                                                        }
                                                      ],
                                              @"page_size" : @0,
@@ -69,7 +69,7 @@ static NSString *kProductGuideDetailsCategory=@"ranosys/product-guide/getList";
                                                      ],
                                              @"sort_orders":@[
                                                      @{@"field":@"post_id",
-                                                       @"direction":@"asc",
+                                                       @"direction":ASC,
                                                        }
                                                      ],
                                              @"page_size" : @0,

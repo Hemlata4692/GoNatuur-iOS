@@ -295,6 +295,11 @@
 "shipment"="Shipment:";
 "cardNumber"="XXXX XXXX XXXX";
 "oldest"="Earliest";
+"SortByTitle"="Sort By";
+"sortName"="name";
+"sortPrice"="price";
+"filterTitle"="Filter";
+"filterCountry"="country";
 "ShippingMethodAlert"="Need to select one shipping method.";
 "summary"="Summary";
 "cartTotal"="Cart Total";

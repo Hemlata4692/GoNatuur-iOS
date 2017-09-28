@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -100,18 +100,18 @@
                         <constraint firstAttribute="height" constant="12" id="rd6-oj-BhF"/>
                     </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropdown-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="g4E-69-6Yb">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filterDefault" translatesAutoresizingMaskIntoConstraints="NO" id="g4E-69-6Yb">
                     <rect key="frame" x="194" y="6" width="12" height="12"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="12" id="FOc-2c-c8b"/>
                         <constraint firstAttribute="width" constant="12" id="uq4-HP-I0z"/>
                     </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropdown-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="pgj-qC-N2p">
-                    <rect key="frame" x="301" y="6" width="12" height="12"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sortDefault" translatesAutoresizingMaskIntoConstraints="NO" id="pgj-qC-N2p">
+                    <rect key="frame" x="301" y="5" width="15" height="15"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="12" id="CzV-5t-BWd"/>
-                        <constraint firstAttribute="width" constant="12" id="FYW-0l-jdr"/>
+                        <constraint firstAttribute="height" constant="15" id="CzV-5t-BWd"/>
+                        <constraint firstAttribute="width" constant="15" id="FYW-0l-jdr"/>
                     </constraints>
                 </imageView>
             </subviews>
@@ -132,7 +132,7 @@
                 <constraint firstItem="xRi-xJ-muS" firstAttribute="height" secondItem="chM-IL-EKf" secondAttribute="height" id="XUx-ik-d6i"/>
                 <constraint firstItem="Ffl-My-SYB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Y2n-k8-WYn"/>
                 <constraint firstItem="chM-IL-EKf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ZsW-y4-fqa"/>
-                <constraint firstAttribute="trailing" secondItem="pgj-qC-N2p" secondAttribute="trailing" constant="7" id="a93-qL-fcN"/>
+                <constraint firstAttribute="trailing" secondItem="pgj-qC-N2p" secondAttribute="trailing" constant="4" id="a93-qL-fcN"/>
                 <constraint firstItem="obP-zs-Wpb" firstAttribute="centerY" secondItem="chM-IL-EKf" secondAttribute="centerY" id="bXr-rZ-IJx"/>
                 <constraint firstItem="SoE-84-rkp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dTz-Gd-r0l"/>
                 <constraint firstItem="Ffl-My-SYB" firstAttribute="leading" secondItem="chM-IL-EKf" secondAttribute="trailing" id="hWm-Q0-A15"/>
@@ -153,5 +153,7 @@
     </objects>
     <resources>
         <image name="dropdown-arrow" width="18" height="18"/>
+        <image name="filterDefault" width="32" height="32"/>
+        <image name="sortDefault" width="32" height="32"/>
     </resources>
 </document>

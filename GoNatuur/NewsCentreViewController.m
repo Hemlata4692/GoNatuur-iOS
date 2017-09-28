@@ -45,7 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    sortingType=@"DESC";
+    sortingType=DESC;
     filterValue2=@"";
     filterValue1=@"";
     archiveOptionsArray=[[NSMutableArray alloc]init];
@@ -449,10 +449,10 @@
             selectedSecondFilterIndex=tempSelectedIndex;
             [filterViewObj.secondFilterButtonOutlet setTitle:[sortingDataArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
             if (tempSelectedIndex==0) {
-                sortingType=@"DESC";
+                sortingType=DESC;
             }
             else {
-                 sortingType=@"ASC";
+                 sortingType=ASC;
             }
             productListDataArray=[NSMutableArray new];
             totalProductCount=0;
