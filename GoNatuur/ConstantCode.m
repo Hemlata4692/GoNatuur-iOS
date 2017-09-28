@@ -12,7 +12,7 @@
 
 NSString * const iOS_Version = @"10.0";
 //Client
-NSString * const BaseUrl = @"http://dev.gonatuur.com/";
+NSString * const BaseUrl = @"https://dev.gonatuur.com/";
 //Beta
 //NSString * const BaseUrl = @"http://192.121.166.226:81/gopurpose/";
 NSString * const productImageBaseUrl = @"media/catalog/category";//remove pub when using in live/@"pub/media/catalog/category"

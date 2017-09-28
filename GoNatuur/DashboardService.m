@@ -52,33 +52,82 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
     else {
         typeId=@"simple";
     }
-    NSDictionary *parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
-                                                               @{
-                                                                   @"filters":@[
-                                                                           @{@"field":@"type_id",
-                                                                             @"value":typeId,
-                                                                             @"condition_type": @"eq"
-                                                                             },
-                                                                           @{@"field":@"category_id",
-                                                                             @"value":productData.categoryId,
-                                                                             @"condition_type": @"eq"
-                                                                             },
-                                                                           @{@"field":@"status",
-                                                                             @"value":@"1",
-                                                                             @"condition_type": @"eq"
-                                                                             }
-                                                                           ]
-                                                                   }
-                                                               ],
-                                                       @"sort_orders" : @[
-                                                               @{@"field":productData.productSortingType,
-                                                                 @"direction":productData.productSortingValue
-                                                                 }
-                                                               ],
-                                                       @"page_size" : productData.pageSize,
-                                                       @"current_page" : productData.currentPage
-                                                       }
-                                 };
+    NSDictionary *parameters;
+    NSMutableDictionary *filterGroups = [NSMutableDictionary dictionaryWithObjectsAndKeys:@{@"filter_groups" : @[
+                                                                                                    @{ @"filters":@[
+                                                                                                               @{@"field":@"type_id",
+                                                                                                                 @"value":typeId,
+                                                                                                                 @"condition_type": @"eq"
+                                                                                                                 },
+                                                                                                               @{@"field":@"category_id",
+                                                                                                                 @"value":productData.categoryId,
+                                                                                                                 @"condition_type": @"eq"
+                                                                                                                 },
+                                                                                                               @{@"field":@"status",
+                                                                                                                 @"value":@"1",
+                                                                                                                 @"condition_type": @"eq"
+                                                                                                                 }
+                                                                                                               ]
+                                                                                                       },
+                                                                                                    ],
+                                                                                            @"sort_orders" : @[
+                                                                                                    @{@"field":productData.productSortingType,
+                                                                                                      @"direction":productData.productSortingValue
+                                                                                                      }
+                                                                                                    ],
+                                                                                            @"page_size" : productData.pageSize,
+                                                                                            @"current_page" : productData.currentPage
+                                                                                            }, nil] ;
+    
+    if (productData.sortFilterRequestParameter == 0) {
+        parameters = @{@"searchCriteria" : filterGroups
+                       };
+        
+    } else if (productData.sortFilterRequestParameter == 1) {
+        NSMutableArray *tempArray = filterGroups[@"filter_groups"];
+        [tempArray addObject:@{ @"filters":@[
+                                        @{@"field":@"price",
+                                          @"value":productData.maxPriceValue,
+                                          @"condition_type": @"gteq"
+                                          }
+                                        ]
+                                }];
+        [tempArray addObject:@{ @"filters":@[
+                                        @{@"field":@"price",
+                                          @"value":productData.minPriceValue,
+                                          @"condition_type": @"lteq"
+                                          }]}];
+        [filterGroups setObject:tempArray forKey:@"filter_groups"];
+        
+        parameters = @{@"searchCriteria" : filterGroups
+                       };
+        
+    } else {
+        NSMutableArray *tempArray = filterGroups[@"filter_groups"];
+        [tempArray addObject:@{ @"filters":@[
+                                        @{@"field":@"price",
+                                          @"value":productData.maxPriceValue,
+                                          @"condition_type": @"gteq"
+                                          }
+                                        ]
+                                }];
+        [tempArray addObject:@{ @"filters":@[
+                                        @{@"field":@"price",
+                                          @"value":productData.minPriceValue,
+                                          @"condition_type": @"lteq"
+                                          }]}];
+        
+        [tempArray addObject:@{ @"filters":@[
+                                        @{@"field":productData.filterAttributeCode,
+                                          @"value":productData.filterAttributeId,
+                                          @"condition_type": @"eq"
+                                          }]}];
+        
+        [filterGroups setObject:tempArray forKey:@"filter_groups"];
+        
+        parameters = @{@"searchCriteria" : filterGroups
+                       };
+    }
     NSLog(@"request %@",parameters);
     [super post:kProductListData parameters:parameters success:success failure:failure];
 }
@@ -175,46 +224,46 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
                            };
         }
         else {
-        parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
-                                                     @{
-                                                         @"filters": @[
-                                                                 @{@"field":@"is_active",
-                                                                   @"value":@"1",
-                                                                   @"condition_type": @"eq"
-                                                                   }
-                                                                 ]
-                                                         },
-                                                     @{ @"filters": @[
-                                                                @{@"field":@"category",
-                                                                  @"value": productData.categoryId,
-                                                                  @"condition_type":@"eq"
-                                                                  }
-                                                                ]
-                                                        },
-                                                     @{ @"filters": @[
-                                                                @{@"field":@"publish_time",
-                                                                  @"value": productData.filterValue,
-                                                                  @"condition_type":@"gteq"
-                                                                  }
-                                                                ]
-                                                        },
-                                                     @{ @"filters": @[
-                                                                @{@"field":@"publish_time",
-                                                                  @"value": productData.filterValue2,
-                                                                  @"condition_type":@"lteq"
-                                                                  }
-                                                                ]
-                                                        }
-                                                     ],
-                                             @"sort_orders":@[@{
-                                                                  @"field":@"publish_time",
-                                                                  @"direction":productData.sortingValue
-                                                                  }
-                                                     ],
-                                             @"page_size" : productData.pageSize,
-                                             @"current_page" : productData.currentPage
-                                             }
-                       };
+            parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                         @{
+                                                             @"filters": @[
+                                                                     @{@"field":@"is_active",
+                                                                       @"value":@"1",
+                                                                       @"condition_type": @"eq"
+                                                                       }
+                                                                     ]
+                                                             },
+                                                         @{ @"filters": @[
+                                                                    @{@"field":@"category",
+                                                                      @"value": productData.categoryId,
+                                                                      @"condition_type":@"eq"
+                                                                      }
+                                                                    ]
+                                                            },
+                                                         @{ @"filters": @[
+                                                                    @{@"field":@"publish_time",
+                                                                      @"value": productData.filterValue,
+                                                                      @"condition_type":@"gteq"
+                                                                      }
+                                                                    ]
+                                                            },
+                                                         @{ @"filters": @[
+                                                                    @{@"field":@"publish_time",
+                                                                      @"value": productData.filterValue2,
+                                                                      @"condition_type":@"lteq"
+                                                                      }
+                                                                    ]
+                                                            }
+                                                         ],
+                                                 @"sort_orders":@[@{
+                                                                      @"field":@"publish_time",
+                                                                      @"direction":productData.sortingValue
+                                                                      }
+                                                                  ],
+                                                 @"page_size" : productData.pageSize,
+                                                 @"current_page" : productData.currentPage
+                                                 }
+                           };
         }
     }
     else {

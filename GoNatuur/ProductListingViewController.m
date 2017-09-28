@@ -52,6 +52,8 @@
     [self addCustomPickerView];
     //Set default sort values
     _sortingType = NSLocalizedText(@"sortPrice");
+    _sortFilterRequest = 0;
+    _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0", @"attributeId":@"9", @"attributedCode":@"country"};
     _sortBasis = DESC; //ASC/DESC
 }
 
@@ -63,6 +65,7 @@
     [self addLeftBarButtonWithImage:false];
     if (_isSortFilter) {
         NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
+        NSLog(@"filter dict %@",_filterDictionary);
         [myDelegate showIndicator];
         [self performSelector:@selector(getProductListData) withObject:nil afterDelay:.1];
     } else {
@@ -301,6 +304,10 @@
     productList.currentPage=[NSNumber numberWithInt:currentpage];
     productList.productSortingType = _sortingType;
     productList.productSortingValue = _sortBasis;
+    productList.minPriceValue = _filterDictionary[@"minPrice"];
+    productList.maxPriceValue = _filterDictionary[@"maxPrice"];
+    productList.filterAttributeCode = _filterDictionary[@"attributedCode"];;
+    productList.filterAttributeId = _filterDictionary[@"attributeId"];
     [productList getProductListService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];
         if (productData.productDataArray.count != 0) {
@@ -335,12 +342,6 @@
     }
     if (firstTimePriceCalculation) {
         [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
-        //        if([[[productListDataArray objectAtIndex:0] specialPrice]isEqualToString:@""] && [[productListDataArray objectAtIndex:0] specialPrice]==nil) {
-        //            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
-        //        }
-        //        else {
-        //            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] specialPrice] key:@"maximumPrice"];
-        //        }
         firstTimePriceCalculation=false;
     }
     totalProductCount=[productData.totalProductCount intValue];
@@ -387,7 +388,8 @@
     }
     else if (option==2) {
         FilterViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FilterViewController"];
-        // preview.productListViewObj = self;
+        preview.filterProductId = currentCategoryId;
+        preview.productListViewObj = self;
         UINavigationController *navigationController =
         [[UINavigationController alloc] initWithRootViewController:preview];
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigation"] forBarMetrics:UIBarMetricsDefault];

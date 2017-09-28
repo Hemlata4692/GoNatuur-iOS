@@ -16,12 +16,14 @@
     NSString *filterType, *filterTypeValue;
     BOOL isServiceCalled;
     int categoryIndex;
+    NSString *requestValuesString, *slectedAttributeId, *slectedAttributeCode;
 }
 @property (weak, nonatomic) IBOutlet UITableView *filterTableView;
 
 @end
 
 @implementation FilterViewController
+@synthesize productListViewObj;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -31,10 +33,11 @@
     selectedSecArray = [NSMutableArray new];
     isServiceCalled=false;
     categoryIndex=0;
+    slectedAttributeId = @"";
+    slectedAttributeCode = @"";
     //remove extra lines from table view
     _filterTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(getFilterData) withObject:nil afterDelay:.1];
+    [self setRequestAttributes];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -48,14 +51,43 @@
 }
 #pragma mark - end
 
+#pragma mark - Get additional sort values
+- (void)setRequestAttributes {
+    //Set additional sort attribute code
+    if ([[[UserDefaultManager getValue:@"AdditionalSortsFilters"] allKeys] containsObject:[NSString stringWithFormat:@"%d",_filterProductId]] ) {
+        requestValuesString = [[[[UserDefaultManager getValue:@"AdditionalSortsFilters"] objectForKey:[NSString stringWithFormat:@"%d",_filterProductId]] objectForKey:@"additional_filter"] componentsJoinedByString:@","];
+        NSLog(@"requestValuesString = %@",requestValuesString);
+        requestValuesString = [NSString stringWithFormat:@"%@",NSLocalizedText(@"filterCountry")];
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getFilterData) withObject:nil afterDelay:.1];
+    } else {
+        [_filterTableView reloadData];
+    }
+}
+#pragma mark - end
+
 #pragma mark - IBActions
 - (IBAction)cancelButtonAction:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    [self dismissView];
 }
 
 - (IBAction)applyfilterButtonAction:(id)sender {
-    //    productListViewObj.sortingType = sortingType;
-    //    productListViewObj.sortBasis = sortBasis;
+    [self dismissView];
+}
+#pragma mark - end
+
+#pragma mark - Dismiss View
+- (void)dismissView {
+    NSIndexPath *tempIndex=[NSIndexPath indexPathForRow:0 inSection:0];
+    if ([slectedAttributeCode isEqualToString:@""]) {
+        productListViewObj.sortFilterRequest = 1;
+    } else {
+        productListViewObj.sortFilterRequest = 2;
+    }
+    FilterTableViewCell *cell = (FilterTableViewCell *)[_filterTableView cellForRowAtIndexPath:tempIndex];
+    productListViewObj.filterDictionary = @{@"maxPrice":cell.maxPriceValue,@"minPrice":cell.minPriceValue, @"attributeId":slectedAttributeId, @"attributedCode":slectedAttributeCode};
+    NSLog(@"productListViewObj.filterDictionary = %@",productListViewObj.filterDictionary);
+    productListViewObj.isSortFilter = true;
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 #pragma mark - end
@@ -63,7 +95,7 @@
 #pragma mark - Webservice
 - (void)getFilterData {
     SortFilterModel *sortList = [SortFilterModel sharedUser];
-    sortList.requestValues=[NSString stringWithFormat:@"%@",NSLocalizedText(@"filterCountry")];
+    sortList.requestValues=requestValuesString;
     [sortList getFilterServiceData:^(SortFilterModel *sortData) {
         isServiceCalled=true;
         filterDataArray = [sortData.filterArray mutableCopy];
@@ -85,7 +117,7 @@
         return filterDataArray.count+1;
     }
     else
-        return 0;
+        return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -106,11 +138,8 @@
     if (section == 0) {
         return 0.01;
     }
-    else if (section == 1) {
-        return 50.0;
-    }
     else {
-        return 0.01;
+        return 50.0;
     }
 }
 
@@ -154,7 +183,7 @@
         UIView* sectionView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width,50)];
         sectionView.tag=section;
         sectionView.backgroundColor = [UIColor whiteColor];
-    
+        
         //country label
         UILabel *countryLabel=[[UILabel alloc]initWithFrame:CGRectMake(15, 5,tableView.frame.size.width-30, 40)];
         countryLabel.font = [UIFont montserratRegularWithSize:16];
@@ -198,9 +227,10 @@
         FilterTableViewCell *countryCell = (FilterTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
         categoryIndex=(int)indexPath.item;
         countryCell.countryLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
-        
-        
-    }
+        SortFilterModel *filterModel = [filterDataArray objectAtIndex:indexPath.section-1];
+        slectedAttributeCode = filterModel.filterAttributeCode;
+        slectedAttributeId = [[[filterModel filterOptionsArray] objectAtIndex:indexPath.row] filterCountryValue];
+      }
 }
 #pragma mark - end
 
