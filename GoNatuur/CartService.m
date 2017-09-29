@@ -105,7 +105,12 @@ static NSString *kRemoveCoupon=@"carts/mine/coupons";
 
 #pragma mark - Apply coupon code
 - (void)applyCouponCodeService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    [super put:[NSString stringWithFormat:@"%@%@",kApplyCoupon,cartData.couponCode] parameters:nil success:success failure:failure];
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+        [super put:[NSString stringWithFormat:@"carts/%@/coupons/%@",[UserDefaultManager getValue:@"quoteId"],cartData.couponCode] parameters:nil success:success failure:failure];
+    }
+    else {
+        [super put:[NSString stringWithFormat:@"%@%@",kApplyCoupon,cartData.couponCode] parameters:nil success:success failure:failure];
+    }
 }
 #pragma mark - end
 
@@ -158,7 +163,7 @@ static NSString *kRemoveCoupon=@"carts/mine/coupons";
                                  @"city" : [UserDefaultManager checkStringNull:@"city" dictData:tempDict],
                                  @"firstname" : [UserDefaultManager checkStringNull:@"firstname" dictData:tempDict],
                                  @"lastname" : [UserDefaultManager checkStringNull:@"lastname" dictData:tempDict],
-                                 @"email" : [UserDefaultManager checkStringNull:@"email" dictData:tempDict],
+                                @"email" : [UserDefaultManager checkStringNull:@"email" dictData:tempDict],
                                  @"customer_id": (nil!=[UserDefaultManager getValue:@"userId"]?[UserDefaultManager getValue:@"userId"]:[NSNumber numberWithInt:0]),
                                  @"street":[streetTempArray copy]
                                  };

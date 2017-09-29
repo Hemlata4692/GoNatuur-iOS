@@ -12,9 +12,9 @@
 
 NSString * const iOS_Version = @"10.0";
 //Client
-NSString * const BaseUrl = @"http://dev.gonatuur.com/";
+//NSString * const BaseUrl = @"http://dev.gonatuur.com/";
 //Beta
-//NSString * const BaseUrl = @"http://192.121.166.226:81/gopurpose/";
+NSString * const BaseUrl = @"http://192.121.166.226:81/gopurpose/";
 NSString * const productImageBaseUrl = @"pub/media/catalog/category";//remove pub when using in live
 NSString * const productDetailImageBaseUrl = @"pub/media/catalog/product";//remove pub when using in live
 NSString * const eventIdentifier = @"ticket";
