@@ -13,5 +13,6 @@
 
 //Get card listing
 - (void)getCardListing:(PaymentModel *)orderData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
-
+//Delete card
+- (void)deleteCardFromListing:(PaymentModel *)orderData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 @end

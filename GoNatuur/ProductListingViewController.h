@@ -13,6 +13,6 @@
 @property (nonatomic,strong) NSString * sortingType;
 @property (nonatomic,strong) NSString * sortBasis;
 @property (nonatomic) BOOL isSortFilter;
-@property (nonatomic) BOOL sortFilterRequest;
+@property (nonatomic) int sortFilterRequest;
 @property (nonatomic,strong) NSDictionary * filterDictionary;
 @end

@@ -34,5 +34,6 @@
 
 //Card listing data
 - (void)getCardListing:(void (^)(PaymentModel *))success onfailure:(void (^)(NSError *))failure;
-
+//Delete card
+- (void)deleteCard:(void (^)(PaymentModel *))success onfailure:(void (^)(NSError *))failure;
 @end
