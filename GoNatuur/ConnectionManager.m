@@ -730,7 +730,7 @@
             }
             [productData.productMediaArray addObject:tempDict];
         }
-        if (![response[@"type_id"] isEqualToString:@"simple"]) {
+        if (![response[@"type_id"] isEqualToString:[UserDefaultManager getValue:@"productIdentifier"]]) {
             NSDictionary *eventDetailsDict=[response objectForKey:@"ticket"];
             productData.attendiesArray=[NSMutableArray new];
             productData.locationDataArray=[NSMutableArray new];

@@ -381,9 +381,12 @@
 - (void)refreshControlAction {
     isPullToRefresh=true;
     currentpage=1;
+    sortingType=DESC;
+    filterValue2=@"";
+    filterValue1=@"";
     subCategoryPickerArray=[NSMutableArray new];
     archiveOptionsArray=[NSMutableArray new];
-    [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
+    [self performSelector:@selector(getNewsCategoryListData) withObject:nil afterDelay:.1];
 }
 #pragma mark - end
 

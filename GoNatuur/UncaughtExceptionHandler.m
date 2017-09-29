@@ -133,27 +133,21 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
     NSString *networkType=@"";
     switch ([[dataNetworkItemView valueForKey:@"dataNetworkType"]integerValue]) {
         case 0:
-//            NSLog(@"No wifi or cellular");
             networkType=@"No wifi or cellular";
             break;
         case 1:
-//            NSLog(@"2G");
             networkType=@"2G";
             break;
         case 2:
-//            NSLog(@"3G");
             networkType=@"3G";
             break;
         case 3:
-//            NSLog(@"4G");
             networkType=@"4G";
             break;
         case 4:
-//            NSLog(@"LTE");
             networkType=@"LTE";
             break;
         case 5:
-//            NSLog(@"Wifi");
             networkType=@"Wifi";
             break;
         default:

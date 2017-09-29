@@ -86,7 +86,7 @@
 - (void)viewInitialization {
     myDelegate.selectedCategoryIndex=lastSelectedCategoryId;
     if (!myDelegate.isProductList) {
-        currentCategoryId=21;
+        currentCategoryId=[[UserDefaultManager getValue:@"eventCategoryId"] intValue];
     }
     else {
         currentCategoryId=selectedProductCategoryId;

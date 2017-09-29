@@ -50,7 +50,7 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
         typeId=eventIdentifier;
     }
     else {
-        typeId=@"simple";
+        typeId=[UserDefaultManager getValue:@"productIdentifier"];
     }
     
     NSMutableDictionary *parameters=[NSMutableDictionary new];

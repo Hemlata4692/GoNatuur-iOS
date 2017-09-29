@@ -482,13 +482,8 @@
 - (IBAction)increaseQuantityAction:(UIButton *)sender {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];
     ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
-    if([productDetailModelData.productMaxQuantity intValue]>currentQuantity){
-        currentQuantity+=1;
-        cell.cartNumberItemLabel.text=[NSString stringWithFormat:@"%d",currentQuantity];
-    }
-    else {
-        [self.view makeToast:[NSString stringWithFormat:@"%@ %@ %@",NSLocalizedText(@"maximuQtyAdded"),productDetailModelData.productMaxQuantity,NSLocalizedText(@"cart")]];//cart
-    }
+    currentQuantity+=1;
+    cell.cartNumberItemLabel.text=[NSString stringWithFormat:@"%d",currentQuantity];
 }
 
 - (IBAction)removeQuantityAction:(UIButton *)sender {

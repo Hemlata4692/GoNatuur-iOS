@@ -32,7 +32,7 @@ static NSString *kMArkNotificationRead=@"ranosys/notifications/markAsReaded";
                                                                    @"direction":DESC
                                                                    }
                                                                  ],
-                                                         @"page_size" : @"10",
+                                                         @"page_size" : [UserDefaultManager getValue:@"paginationSize"],
                                                          @"current_page" : notiData.pageCount
                                                          }
                                    };

@@ -47,7 +47,7 @@ static NSString *kAddReview=@"ranosys/addProductReview";
                                                                  @"direction":reviewData.sortByValue
                                                                  },
                                                                ],
-                                                       @"page_size" : @"10",
+                                                       @"page_size" : [UserDefaultManager getValue:@"paginationSize"],
                                                        @"current_page" : reviewData.pageCount
                                                        },
                                  @"productId": reviewData.productId,
