@@ -298,7 +298,7 @@
         [myDelegate stopIndicator];
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-            orderDataModel.orderState = [[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:1] objectForKey:@"stateCodevalue"];
+            orderDataModel.orderState = [[UserDefaultManager getValue:@"orderStatuses"] objectForKey:@"canceled"];
             [self setTableFrames];
         }];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"cancelOrderSuccessMessage") closeButtonTitle:nil duration:0.0f];
@@ -349,13 +349,13 @@
 #pragma mark - Set table frames
 - (void)setTableFrames {
     //If order is completed
-    if ([[[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:0] objectForKey:@"stateCodevalue"] containsString:[orderDataModel.orderState lowercaseString]]) {
+    if ([[[UserDefaultManager getValue:@"orderStatuses"] objectForKey:@"complete"] containsString:[orderDataModel.orderState lowercaseString]]) {
         [_cancelOrderButton setTitle:NSLocalizedText(@"returnOrder") forState:UIControlStateNormal];
         _cancelOrderButton.hidden = NO;
         _orderShipmentButton.hidden = NO;
         _invoiceButton.hidden = NO;
-    } else if ([[[[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:1] objectForKey:@"stateCodevalue"]lowercaseString] containsString:[orderDataModel.orderState lowercaseString]] || [[[[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:2] objectForKey:@"stateCodevalue"]lowercaseString] containsString:[orderDataModel.orderState lowercaseString]] || [[[[[UserDefaultManager getValue:@"orderStatuses"] objectAtIndex:3] objectForKey:@"stateCodevalue"]lowercaseString] containsString:[orderDataModel.orderState lowercaseString]]) {
-        //If order is cancelled/closed
+    } else if ([[[[UserDefaultManager getValue:@"orderStatuses"] objectForKey:@"canceled"]lowercaseString] containsString:[orderDataModel.orderState lowercaseString]] || [[[[UserDefaultManager getValue:@"orderStatuses"] objectForKey:@"closed"]lowercaseString] containsString:[orderDataModel.orderState lowercaseString]] || [[[[UserDefaultManager getValue:@"orderStatuses"] objectForKey:@"processing"]lowercaseString] containsString:[orderDataModel.orderState lowercaseString]]) {
+        //If order is cancelled/closed/processing
         _cancelOrderButton.hidden = YES;
         _invoiceButton.hidden = NO;
         _orderShipmentButton.hidden = NO;
@@ -366,7 +366,7 @@
         _orderShipmentButton.frame = CGRectMake(10, _orderDetailTable.frame.origin.y + _orderDetailTable.frame.size.height + 8 ,(_orderDetailTable.frame.size.width/2) - 10, 35);
         _invoiceButton.frame = CGRectMake(_orderShipmentButton.frame.origin.x + _orderShipmentButton.frame.size.width +10, _orderDetailTable.frame.origin.y + _orderDetailTable.frame.size.height + 8 ,(_orderDetailTable.frame.size.width/2), 35);
     } else {
-        //If order is pending/processing
+        //If order is pending
         _cancelOrderButton.hidden = NO;
         _orderShipmentButton.hidden = NO;
         _invoiceButton.hidden = NO;

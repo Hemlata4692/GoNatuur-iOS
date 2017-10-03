@@ -1524,9 +1524,15 @@
         [UserDefaultManager setValue:response[@"reviewSortingByKeyMostRecent"] key:@"reviewSortingByKeyMostRecent"];
         [UserDefaultManager setValue:response[@"impactPointRules"] key:@"impactPointRules"];
         [UserDefaultManager setValue:response[@"productIdentifier"] key:@"productIdentifier"];
-        [UserDefaultManager setValue:response[@"langConstants"] key:@"langConstants"];
+        [UserDefaultManager setValue:response[@"cn"] key:@"cn"];
+        [UserDefaultManager setValue:response[@"en"] key:@"en"];
+        [UserDefaultManager setValue:response[@"zh"] key:@"zh"];
         [UserDefaultManager setValue:response[@"rewardCategoryId"] key:@"rewardCategoryId"];
-        [UserDefaultManager setValue:response[@"cmsPagesIds"] key:@"cmsPagesIds"];
+        [UserDefaultManager setValue:response[@"terms&Condition"] key:@"terms&Condition"];
+        [UserDefaultManager setValue:response[@"privacyPolicy"] key:@"privacyPolicy"];
+        [UserDefaultManager setValue:response[@"contactUs"] key:@"contactUs"];
+        [UserDefaultManager setValue:response[@"aboutUs"] key:@"aboutUs"];
+        [UserDefaultManager setValue:response[@"newsCentre"] key:@"newsCentre"];
         [UserDefaultManager setValue:response[@"rewardProductAttributeId"] key:@"rewardProductAttributeId"];
         [UserDefaultManager setValue:response[@"AdditionalSortsFilters"] key:@"AdditionalSortsFilters"];
         [UserDefaultManager setValue:response[@"DefaultSortsFilters"] key:@"DefaultSortsFilters"];

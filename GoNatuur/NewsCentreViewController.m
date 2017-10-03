@@ -237,7 +237,7 @@
 - (void)getNewsCategoryListData {
     DashboardDataModel *subCategoryList = [DashboardDataModel sharedUser];
     [subCategoryList getNewsCategoryListDataOnSuccess:^(DashboardDataModel *userData)  {
-        [self NewsCenterBanner:@"news-center-block"];
+        [self NewsCenterBanner:[UserDefaultManager getValue:@"newsCentre"]];
         subCategoryDataList=[NSMutableArray new];
         //Set initial value come to default condition
         for (NSDictionary *tempDict in userData.categoryNameArray) {
@@ -384,8 +384,11 @@
     sortingType=DESC;
     filterValue2=@"";
     filterValue1=@"";
+    currentCategoryId=0;
+     isFilter=false;
     subCategoryPickerArray=[NSMutableArray new];
     archiveOptionsArray=[NSMutableArray new];
+    [filterViewObj.secondFilterButtonOutlet setTitle:[sortingDataArray objectAtIndex:0] forState:UIControlStateNormal];
     [self performSelector:@selector(getNewsCategoryListData) withObject:nil afterDelay:.1];
 }
 #pragma mark - end

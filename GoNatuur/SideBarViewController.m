@@ -113,6 +113,7 @@
     if (indexPath.row==0) {
         if (![myDelegate checkGuestAccess]) {
              myDelegate.selectedCategoryIndex=-1;
+            [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
         }
     }
     else if (indexPath.row==1) {
@@ -208,7 +209,12 @@
     }
     else {
         // by default perform the segue transition
+        if([identifier isEqualToString:@"MyOrders"]) {
+            return NO;
+        }
+        else {
         return YES;
+        }
     }
 }
 
