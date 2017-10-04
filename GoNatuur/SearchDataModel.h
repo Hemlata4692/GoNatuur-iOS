@@ -24,6 +24,8 @@
 @property (strong, nonatomic) NSString *productRating;
 @property (strong, nonatomic) NSMutableArray *searchProductListArray;
 @property (strong, nonatomic) NSString *specialPrice;
+@property (strong, nonatomic) NSString *specialPriceStartDate;
+@property (strong, nonatomic) NSString *specialPriceEndDate;
 @property (strong, nonatomic) NSString *productQty;
 @property (strong, nonatomic) NSString *productType;
 @property (strong, nonatomic) NSMutableArray *searchProductIds;

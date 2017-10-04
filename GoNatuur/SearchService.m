@@ -96,7 +96,7 @@ static NSString *kNewsSearchingService=@"ipwishlist/delete/wishlistItem";
     NSDictionary *parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
                                                                @{
                                                                    @"filters":@[
-                                                                           @{@"field":@"name",
+                                                                           @{@"field":@"sku",
                                                                              @"value":productData.productName,
                                                                              @"condition_type": @"in"
                                                                              }

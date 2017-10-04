@@ -14,6 +14,7 @@
 #import "LoginModel.h"
 #import "SearchViewController.h"
 #import "NewsCentreDetailViewController.h"
+#import "ShareViewController.h"
 
 @interface NewsCentreViewController () <UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
     @private
@@ -95,11 +96,6 @@
     _newsListingTableView.tableFooterView=nil;
     //Allocate footer view
     [self initializeFooterView];
-    // Pull to refresh
-    _refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-10, 0, 20, 20)];
-    _refreshControl.tintColor=[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0];
-    [_refreshControl addTarget:self action:@selector(refreshControlAction) forControlEvents:UIControlEventValueChanged];
-    [_newsListingTableView addSubview:_refreshControl];
 }
 
 - (void)initializeFooterView {
@@ -113,6 +109,12 @@
 }
 
 - (void)addCustomPickerView {
+    // Pull to refresh
+    _refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-10, 0, 20, 20)];
+    _refreshControl.tintColor=[UIColor colorWithRed:143.0/255.0 green:29.0/255.0 blue:55.0/255.0 alpha:1.0];
+    [_refreshControl addTarget:self action:@selector(refreshControlAction) forControlEvents:UIControlEventValueChanged];
+    [_newsListingTableView addSubview:_refreshControl];
+    
     //Add filter xib view
     filterViewObj=[[GoNatuurFilterView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35) delegate:self];
     filterViewObj.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35);
@@ -213,7 +215,8 @@
 - (ProductListCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProductListCollectionViewCell *productCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productCell" forIndexPath:indexPath];
     [productCell displayProductListData:[productListDataArray objectAtIndex:indexPath.row] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
-    
+    productCell.shareNewButton.tag=indexPath.item;
+    [productCell.shareNewButton addTarget:self action:@selector(shareNewsAction:) forControlEvents:UIControlEventTouchUpInside];
     return productCell;
 }
 
@@ -229,6 +232,20 @@
     webView.navigationTitle=[[productListDataArray objectAtIndex:indexPath.item]productName];
     webView.newsPostId=[[productListDataArray objectAtIndex:indexPath.item]productId];
     [self.navigationController pushViewController:webView animated:YES];
+}
+#pragma mark - end
+
+#pragma mark - IBAction
+- (IBAction)shareNewsAction:(id)sender {
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ShareViewController *popView =
+    [storyboard instantiateViewControllerWithIdentifier:@"ShareViewController"];
+    DashboardDataModel * newsDataModel=[productListDataArray objectAtIndex:[sender tag]];
+    popView.mediaURL=newsDataModel.productImageThumbnail;
+    popView.shareType=@"1";
+    popView.name=newsDataModel.productName;
+    popView.productDescription=newsDataModel.productDescription;
+    [self.navigationController pushViewController:popView animated:YES];
 }
 #pragma mark - end
 

@@ -19,10 +19,10 @@
     _productthumbnailImageView.layer.borderWidth=0.0;
     _productthumbnailImageView.clipsToBounds=true;
     _productthumbnailImageView.layer.borderColor=[UIColor whiteColor].CGColor;
-    if ([[productImageDict objectForKey:@"media_type"] isEqualToString:@"QRCode"]) {
-        _productthumbnailImageView.image=qrCodeImage;
-    }
-    else {
+//    if ([[productImageDict objectForKey:@"media_type"] isEqualToString:@"QRCode"]) {
+//        _productthumbnailImageView.image=qrCodeImage;
+//    }
+//    else {
         if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
             _blackTransparentView.hidden=false;
             _videoIconImageView.hidden=false;
@@ -36,7 +36,7 @@
          _icon360ImageView.hidden=false;
          }
         [ImageCaching downloadImages:_productthumbnailImageView imageUrl:[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,[productImageDict objectForKey:@"file"]] placeholderImage:@"product_placeholder" isDashboardCell:true];
-    }
+  //  }
     if (currentIndex==selectedIndex) {
         if ([[productImageDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
             _blackTransparentView.layer.borderWidth=2.0;

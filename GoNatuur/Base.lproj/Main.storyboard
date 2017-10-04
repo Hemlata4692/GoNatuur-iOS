@@ -526,7 +526,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="87.5" y="274" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="274" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -6613,6 +6613,7 @@
                                                                 <outlet property="productDescription" destination="moR-ud-uBW" id="dZ2-iG-mIU"/>
                                                                 <outlet property="productImageView" destination="6WF-w3-9wa" id="XMR-ci-wWd"/>
                                                                 <outlet property="productName" destination="i2e-1K-KD3" id="3Bm-y3-J2o"/>
+                                                                <outlet property="shareNewButton" destination="X34-qr-XjM" id="HDH-sb-Gme"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
@@ -7241,7 +7242,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="87.5" y="274" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="274" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>

@@ -24,6 +24,7 @@
 @synthesize mediaURL;
 @synthesize name;
 @synthesize productDescription;
+@synthesize shareType;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {

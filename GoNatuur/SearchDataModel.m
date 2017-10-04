@@ -24,6 +24,8 @@
 @synthesize productRating;
 @synthesize searchProductListArray;
 @synthesize specialPrice;
+@synthesize specialPriceEndDate;
+@synthesize specialPriceStartDate;
 @synthesize productQty;
 @synthesize searchProductIds;
 @synthesize pageSize;
