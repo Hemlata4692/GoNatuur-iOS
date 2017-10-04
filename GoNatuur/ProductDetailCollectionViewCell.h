@@ -14,5 +14,5 @@
 @property (weak, nonatomic) IBOutlet UIView *blackTransparentView;
 @property (strong, nonatomic) IBOutlet UIImageView *icon360ImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *videoIconImageView;
-- (void)displayProductMediaImage:(NSDictionary *)productImageDict qrCode:(UIImage *)qrCodeImage selectedIndex:(int)selectedIndex currentIndex:(int)currentIndex;
+- (void)displayProductMediaImage:(NSDictionary *)productImageDict selectedIndex:(int)selectedIndex currentIndex:(int)currentIndex;
 @end
