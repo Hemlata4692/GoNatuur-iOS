@@ -55,23 +55,9 @@
     }
 }
 
-- (void)displayProductMediaImage:(NSDictionary *)productImageDict qrCode:(UIImage *)qrCodeImage {
+- (void)displayProductMediaImage:(NSDictionary *)productImageDict {
     _transparentView.hidden=true;
     _productImageView.translatesAutoresizingMaskIntoConstraints=true;
-//    if ([[productImageDict objectForKey:@"media_type"] isEqualToString:@"QRCode"]) {
-//        float width;
-//        if (([[UIScreen mainScreen] bounds].size.width-80)>240) {
-//            width=240;
-//        }
-//        else {
-//            width=([[UIScreen mainScreen] bounds].size.width-80);
-//        }
-//        _productImageView.frame=CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(width/2), (290/2)-(width/2), width, width);
-//        _productImageView.image=qrCodeImage;
-//        DLog(@"%f,%f",qrCodeImage.size.width,qrCodeImage.size.height);
-//        _productImageView.contentMode = UIViewContentModeScaleAspectFit;
-//    }
-//    else {
         _productImageView.frame=CGRectMake(40, 20, [[UIScreen mainScreen] bounds].size.width-80, 250);
         if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
             _transparentView.hidden=false;
@@ -85,7 +71,6 @@
          _video360Icon.hidden=false;
          }
         [ImageCaching downloadImages:_productImageView imageUrl:[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,[productImageDict objectForKey:@"file"]] placeholderImage:@"product_placeholder" isDashboardCell:false];
-//    }
 }
 
 - (void)displayProductPrice:(ProductDataModel *)productData currentQuantity:(int)currentQuantity {

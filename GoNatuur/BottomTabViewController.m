@@ -128,6 +128,11 @@
 }
 
 - (IBAction)myCartTabAction:(id)sender {
+    if (![myDelegate checkGuestAccess]) {
+        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    }
+}
+- (void)cartFeatureCode {
     if (!_myCartTab.selected) {
         myDelegate.selectedCategoryIndex=-1;
         _myCartTab.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0];
@@ -144,9 +149,6 @@
         [self.navigationController setViewControllers: [NSArray arrayWithObject:myCartTabView]
                                              animated: NO];
     }
-//    if (![myDelegate checkGuestAccess]) {
-//        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
-//    }
 }
 
 - (IBAction)wishlistTabAction:(id)sender {

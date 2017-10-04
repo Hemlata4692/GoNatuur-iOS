@@ -26,7 +26,6 @@
     ProductDataModel *productDetailModelData;
     float productDetailCellHeight;
     BOOL isServiceCalled;
-    UIImageView *qrCodeImage;
     int selectedMediaIndex, currentQuantity;
     NSArray *cellIdentifierArray;
     bool isServiceCalledMPMoviePlayerDone;
@@ -75,23 +74,6 @@
     productDetailCellHeight=0.0;
     selectedMediaIndex=0;
     currentQuantity=1;
-}
-
-//Create QRCode
-- (void)makeQRCode {
-    qrCodeImage=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80*4, 80*4)];
-    NSString *qrString = [NSString stringWithFormat:@"%@%@%s",@"http://dev.gonatuur.com/",productDetailModelData.productUrlKey,".html"];
-    NSData *stringData = [qrString dataUsingEncoding: NSUTF8StringEncoding];
-    CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
-    [qrFilter setValue:stringData forKey:@"inputMessage"];
-    [qrFilter setValue:@"H" forKey:@"inputCorrectionLevel"];
-    CIImage *qrImage = qrFilter.outputImage;
-    float scaleX = qrCodeImage.frame.size.width / qrImage.extent.size.width;
-    float scaleY = qrCodeImage.frame.size.height / qrImage.extent.size.height;
-    qrImage = [qrImage imageByApplyingTransform:CGAffineTransformMakeScale(scaleX, scaleY)];
-    qrCodeImage.image = [UIImage imageWithCIImage:qrImage
-                                            scale:[UIScreen mainScreen].scale
-                                      orientation:UIImageOrientationUp];
 }
 #pragma mark - end
 
@@ -155,7 +137,7 @@
         [cell displayRating:productDetailModelData.productRating];
     }
     else if (indexPath.row==3) {
-        [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] qrCode:qrCodeImage.image];
+        [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex]];
         cell.productImageView.userInteractionEnabled=YES;
         [self addSwipeGesture:cell.contentView];
     }
@@ -361,14 +343,14 @@
 
 - (ProductDetailCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProductDetailCollectionViewCell *productMediaCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productImageVideoCell" forIndexPath:indexPath];
-    [productMediaCell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:indexPath.row] qrCode:qrCodeImage.image selectedIndex:selectedMediaIndex currentIndex:(int)indexPath.row];
+    [productMediaCell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:indexPath.row] selectedIndex:selectedMediaIndex currentIndex:(int)indexPath.row];
     return productMediaCell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     selectedMediaIndex=(int)indexPath.row;
     ProductDetailTableViewCell *tempCell = [_productDetailTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
-    [tempCell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] qrCode:qrCodeImage.image];
+    [tempCell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex]];
     [collectionView reloadData];
 }
 #pragma mark - end
@@ -380,18 +362,6 @@
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData getProductDetailOnSuccess:^(ProductDataModel *productDetailData)  {
         productDetailModelData=productDetailData;
-//        [self makeQRCode];
-//        int tempIndex=-1;
-//        for (int i=0; i<productDetailModelData.productMediaArray.count; i++) {
-//            if ([[[productDetailModelData.productMediaArray objectAtIndex:i] objectForKey:@"media_type"] isEqualToString:@"image"]) {
-//                tempIndex=i+1;
-//            }
-//            else {
-//                tempIndex=i;
-//                break;
-//            }
-//        }
-//        [productDetailModelData.productMediaArray insertObject:@{@"media_type":@"QRCode"} atIndex:(tempIndex==-1?0:tempIndex)];
         reviewAdded=productDetailModelData.reviewAdded;
         [myDelegate stopIndicator];
         isServiceCalled=true;
@@ -533,7 +503,7 @@
     ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
     selectedMediaIndex++;
     if (selectedMediaIndex < productDetailModelData.productMediaArray.count) {
-        [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] qrCode:qrCodeImage.image];
+        [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex]];
         UIView *moveIMageView = cell.contentView;
         [self addLeftAnimationPresentToView:moveIMageView];
         [self scrollMediaCollectionViewAtIndex];
@@ -549,7 +519,7 @@
     ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
     selectedMediaIndex--;
     if (selectedMediaIndex>=0) {
-        [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] qrCode:qrCodeImage.image];
+        [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex]];
         UIView *moveIMageView = cell.contentView;
         [self addRightAnimationPresentToView:moveIMageView];
         [self scrollMediaCollectionViewAtIndex];

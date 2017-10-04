@@ -34,7 +34,7 @@
 - (void)displayProductName:(NSString *)productName;
 - (void)displayProductDescription:(NSString *)productDescription;
 - (void)displayRating:(NSString *)productRating;
-- (void)displayProductMediaImage:(NSDictionary *)productImageDict qrCode:(UIImage *)qrCodeImage;
+- (void)displayProductMediaImage:(NSDictionary *)productImageDict;
 - (void)displayProductPrice:(ProductDataModel *)productData currentQuantity:(int)currentQuantity;
 - (void)displayProductInfo;
 - (void)displayAddToCartButton:(NSString *)screenType;
