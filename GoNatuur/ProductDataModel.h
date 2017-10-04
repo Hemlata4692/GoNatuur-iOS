@@ -46,6 +46,8 @@
 @property (strong, nonatomic) NSMutableArray *locationDataArray;
 @property (strong, nonatomic) NSString *selectedTicketOption;
 @property (strong, nonatomic) NSString *selectedTicketOptionValue;
+@property (strong, nonatomic) NSString *redeemPointsRequired;
+
 //Singleton method
 + (instancetype)sharedUser;
 

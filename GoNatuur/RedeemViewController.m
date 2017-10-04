@@ -248,7 +248,7 @@
 
 - (ProductListCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProductListCollectionViewCell *productCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productCell" forIndexPath:indexPath];
-    [productCell displayProductListData:[productListDataArray objectAtIndex:indexPath.row] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
+    [productCell displayProductListData:[productListDataArray objectAtIndex:indexPath.row] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"] isRedeemPoints:true];
     return productCell;
 }
 
@@ -262,6 +262,7 @@
         //StoryBoard navigation
     ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
     obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
+     obj.isRedeemProduct=true;
     [self.navigationController pushViewController:obj animated:YES];
 
 }
@@ -381,7 +382,6 @@
     productList.filterAttributeCode = _filterDictionary[@"attributedCode"];;
     productList.filterAttributeId = _filterDictionary[@"attributeId"];
     productList.sortFilterRequestParameter=_sortFilterRequest;
-    
     [productList getProductListService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];
         [self serviceDataHandling:productData];

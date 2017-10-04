@@ -167,7 +167,7 @@
         cell.selectTicketingButton.tag=indexPath.row;
     }
     else if (indexPath.row==6) {
-        [cell displayProductPrice:productDetailModelData currentQuantity:currentQuantity];
+        [cell displayProductPrice:productDetailModelData currentQuantity:currentQuantity isRedeemPoints:false];
         cell.incrementCartButton.tag=indexPath.row;
         cell.removeFromCartButton.tag=indexPath.row;
         [cell.incrementCartButton addTarget:self action:@selector(increaseQuantityAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -579,7 +579,7 @@
             convertedPrice=[productDetailModelData.productPrice stringValue];
         }
         
-        [cell displayProductPrice:productDetailModelData currentQuantity:currentQuantity];
+        [cell displayProductPrice:productDetailModelData currentQuantity:currentQuantity isRedeemPoints:false];
         selectedPickerIndex=tempSelectedIndex;
         [_productDetailTableView reloadData];
     }

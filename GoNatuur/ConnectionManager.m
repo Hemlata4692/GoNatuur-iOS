@@ -627,6 +627,7 @@
             tempModel.productQty = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"extension_attributes"]objectForKey:@"qty"];
             tempModel.productRating = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             tempModel.productType=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"type_id"];
+            tempModel.redeemPointsRequired=[[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"points_required"];
             [productData.productDataArray addObject:tempModel];
         }
         success(productData);
@@ -739,20 +740,13 @@
         if ([self checkSpecialPriceSale:productData.specialPriceStartDate endDate:productData.specialPriceEndDate]) {
           productData.specialPrice = [customAttributeDict objectForKey:@"special_price"];
         }
-//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//        formatter.dateFormat = @"yyyy-MM-dd hh:mm:ss";
-//        NSString *currentDate = [formatter stringFromDate:[NSDate date]];
-//        if (([currentDate compare:productData.specialPriceStartDate] == NSOrderedDescending || [currentDate compare:productData.specialPriceStartDate]==NSOrderedSame) && ([currentDate compare:productData.specialPriceEndDate] == NSOrderedAscending|| [currentDate compare:productData.specialPriceEndDate]==NSOrderedSame)) {
-//            DLog(@"date1 is later than date2 - NSOrderedDescending");
-//            DLog(@"date1 is earlier than date2 - NSOrderedAscending");
-//             productData.specialPrice = [customAttributeDict objectForKey:@"special_price"];
-//        }
         if (![productData.specialPrice isEqualToString:@""] && nil!=productData.specialPrice) {
             productData.eventPrice=productData.specialPrice;
         }
         else {
             productData.eventPrice=[NSString stringWithFormat:@"%@",productData.productPrice];
         }
+        productData.redeemPointsRequired = [customAttributeDict objectForKey:@"points_required"];
         productData.productMediaArray=[NSMutableArray new];
         for (NSDictionary *tempDict in [response objectForKey:@"media"]) {
             if ([[tempDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {

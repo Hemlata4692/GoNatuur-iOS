@@ -232,7 +232,7 @@
 
 - (ProductListCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProductListCollectionViewCell *productCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productCell" forIndexPath:indexPath];
-    [productCell displayProductListData:[productListDataArray objectAtIndex:indexPath.row] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
+    [productCell displayProductListData:[productListDataArray objectAtIndex:indexPath.row] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"] isRedeemPoints:false];
     return productCell;
 }
 
@@ -253,6 +253,7 @@
         //StoryBoard navigation
         ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
         obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
+        obj.isRedeemProduct=false;
         [self.navigationController pushViewController:obj animated:YES];
     }
 }
