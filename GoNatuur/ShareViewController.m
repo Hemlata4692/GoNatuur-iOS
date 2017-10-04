@@ -9,7 +9,10 @@
 #import "ShareViewController.h"
 #import "ShareDataModel.h"
 
-@interface ShareViewController ()
+@interface ShareViewController () {
+    @private
+    NSString *loadURL;
+}
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UIView *shareView;
 @property (weak, nonatomic) IBOutlet UILabel *shareTextLabel;
@@ -21,6 +24,7 @@
 @synthesize mediaURL;
 @synthesize name;
 @synthesize productDescription;
+@synthesize shareType;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -47,29 +51,41 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"shareText");
     [self addLeftBarButtonWithImage:true];
+    [self loadShareRequestURL];
+}
+
+- (void)loadShareRequestURL {
     [myDelegate showIndicator];
     shareURL=@"http%3A%2F%2F192.121.166.226%3A81%2Fgopurpose%2Fen%2Fexciting-corn.html";
-    NSString *webViewString=[NSString stringWithFormat:@"%@%@/%@url=%@&media=%@&name=%@&description=%@&token=%@&sharedpoint-nap=%@",BaseUrl,[UserDefaultManager getValue:@"Language"],@"socailsharing/product/share/?",shareURL,mediaURL,name,productDescription,[UserDefaultManager getValue:@"Authorization"],@"1"];
+    NSString *webViewString=[NSString stringWithFormat:@"%@%@/%@url=%@&media=%@&name=%@&description=%@&token=%@&sharedpoint-nap=%@",BaseUrl,[UserDefaultManager getValue:@"Language"],@"socailsharing/product/share/?",shareURL,mediaURL,name,productDescription,[UserDefaultManager getValue:@"Authorization"],@"0"];
     NSString *encodedString = [webViewString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *webViewURL = [NSURL URLWithString:encodedString];
-   NSURLRequest *shareRequest=[NSURLRequest requestWithURL:webViewURL];
+    NSURLRequest *shareRequest=[NSURLRequest requestWithURL:webViewURL];
     [_shareWebView loadRequest: shareRequest];
+
 }
 #pragma mark - end
 
 #pragma mark - Webview delegates
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSLog(@"%@",request);
+    NSLog(@"%@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
+    loadURL=[request.URL absoluteString];
     //URL: https://m.facebook.com/v2.10/dialog/share/submit - facebook
+    //https://twitter.com/intent/tweet - twitter p=tweetbutton
     return YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    NSLog(@"loading comleted");
     if (webView.isLoading)
         return;
     else {
         [myDelegate stopIndicator];
-        // Use the code here which ever you need to run after webview loaded
+        if ([loadURL isEqualToString:@"https://m.facebook.com/v2.10/dialog/share/submit"] || [loadURL containsString:@"p=tweetbutton"]) {
+            [self loadShareRequestURL];
+        }
+        
     }
 }
 

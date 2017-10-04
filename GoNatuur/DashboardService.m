@@ -26,7 +26,7 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
 #pragma mark - Get category listing
 - (void)getCategoryListData:(DashboardDataModel *)categoryList success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{@"rootCategoryId":categoryList.categoryId};
-    NSLog(@"category list request %@",parameters);
+    NSLog(@"product/event category list request %@",parameters);
     [super get:[NSString stringWithFormat:@"%@",kCategoryList] parameters:parameters onSuccess:success onFailure:failure];
 }
 #pragma mark - end
@@ -50,7 +50,7 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
         typeId=eventIdentifier;
     }
     else {
-        typeId=@"simple";
+        typeId=[UserDefaultManager getValue:@"productIdentifier"];
     }
     
     NSMutableDictionary *parameters=[NSMutableDictionary new];
@@ -321,7 +321,7 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
 #pragma mark - Get category banner
 - (void)getCategoryBannerData:(DashboardDataModel *)categoryList success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{@"categoryId":categoryList.categoryId};
-    NSLog(@"category list request %@",parameters);
+    NSLog(@"category banner request %@",parameters);
     [super post:kCategoryBannerData parameters:parameters success:success failure:failure];
 }
 #pragma mark - end

@@ -320,12 +320,11 @@
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ShareViewController *popView =
         [storyboard instantiateViewControllerWithIdentifier:@"ShareViewController"];
-        popView.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4f];
-        [popView setModalPresentationStyle:UIModalPresentationOverCurrentContext];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self presentViewController:popView animated:YES completion:nil];
-        });
-
+        NSDictionary *temDict=[productDetailModelData.productMediaArray objectAtIndex:0];
+        popView.mediaURL=[temDict objectForKey:@"file"];
+        popView.name=productDetailModelData.productName;
+        popView.productDescription=productDetailModelData.productShortDescription;
+        [self.navigationController pushViewController:popView animated:YES];
     }
     else if (indexPath.row==17) {
         //Location action
@@ -418,18 +417,18 @@
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData getProductDetailOnSuccess:^(ProductDataModel *productDetailData)  {
         productDetailModelData=productDetailData;
-        [self makeQRCode];
-        int tempIndex=-1;
-        for (int i=0; i<productDetailModelData.productMediaArray.count; i++) {
-            if ([[[productDetailModelData.productMediaArray objectAtIndex:i] objectForKey:@"media_type"] isEqualToString:@"image"]) {
-                tempIndex=i+1;
-            }
-            else {
-                tempIndex=i;
-                break;
-            }
-        }
-        [productDetailModelData.productMediaArray insertObject:@{@"media_type":@"QRCode"} atIndex:(tempIndex==-1?0:tempIndex)];
+//        [self makeQRCode];
+//        int tempIndex=-1;
+//        for (int i=0; i<productDetailModelData.productMediaArray.count; i++) {
+//            if ([[[productDetailModelData.productMediaArray objectAtIndex:i] objectForKey:@"media_type"] isEqualToString:@"image"]) {
+//                tempIndex=i+1;
+//            }
+//            else {
+//                tempIndex=i;
+//                break;
+//            }
+//        }
+//        [productDetailModelData.productMediaArray insertObject:@{@"media_type":@"QRCode"} atIndex:(tempIndex==-1?0:tempIndex)];
         reviewAdded=productDetailModelData.reviewAdded;
         [myDelegate stopIndicator];
         isServiceCalled=true;

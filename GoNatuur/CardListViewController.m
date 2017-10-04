@@ -26,8 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     cardListArray = [NSMutableArray new];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(getCardListing) withObject:nil afterDelay:.1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,6 +42,9 @@
     [_addCardButton setTitle:NSLocalizedText(@"addCard") forState:UIControlStateNormal];
     [_addCardButton setCornerRadius:20.0];
     [_addCardButton addShadow:_addCardButton color:[UIColor blackColor]];
+    
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getCardListing) withObject:nil afterDelay:.1];
     
     //remove extra lines from table view
     _cardsListTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];

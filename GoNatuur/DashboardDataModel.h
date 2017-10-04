@@ -33,6 +33,8 @@
 @property (strong, nonatomic) NSString *profilePicture;
 @property (strong, nonatomic) NSNumber *notificationsCount;
 @property (strong, nonatomic) NSString *specialPrice;
+@property (strong, nonatomic) NSString *specialPriceStartDate;
+@property (strong, nonatomic) NSString *specialPriceEndDate;
 @property (strong, nonatomic) NSNumber *productQty;
 @property (strong, nonatomic) NSString *productType;
 @property (strong, nonatomic) NSString *firstName;

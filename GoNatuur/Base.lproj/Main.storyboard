@@ -526,7 +526,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="87.5" y="274" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="274" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -3806,7 +3806,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sc5-SM-fbS">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sc5-SM-fbS">
                                 <rect key="frame" x="0.0" y="115" width="320" height="393"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Card Details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oF2-B3-Mbq">
@@ -3941,17 +3941,29 @@
                                     <constraint firstItem="nSC-XS-Ilz" firstAttribute="leading" secondItem="WK6-5V-iip" secondAttribute="trailing" constant="8" id="y8L-hb-O0W"/>
                                 </constraints>
                             </view>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LMa-71-gIi">
+                                <rect key="frame" x="0.0" y="115" width="320" height="393"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="hYm-mi-9wh" id="ht1-Zb-Kpn"/>
+                                </connections>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Sc5-SM-fbS" secondAttribute="trailing" id="CaP-do-eWz"/>
                             <constraint firstItem="Sc5-SM-fbS" firstAttribute="top" secondItem="4qJ-7V-H1j" secondAttribute="bottom" constant="51" id="PBI-FM-NG2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LMa-71-gIi" secondAttribute="trailing" constant="-16" id="WHl-GA-16G"/>
                             <constraint firstItem="gGT-9n-u61" firstAttribute="top" secondItem="Sc5-SM-fbS" secondAttribute="bottom" constant="60" id="iU2-t7-V1d"/>
+                            <constraint firstItem="LMa-71-gIi" firstAttribute="leading" secondItem="grN-fF-Mzy" secondAttribute="leadingMargin" constant="-16" id="rNT-Kl-iaM"/>
                             <constraint firstItem="Sc5-SM-fbS" firstAttribute="leading" secondItem="grN-fF-Mzy" secondAttribute="leading" id="tFN-Sh-YZe"/>
+                            <constraint firstItem="gGT-9n-u61" firstAttribute="top" secondItem="LMa-71-gIi" secondAttribute="bottom" constant="60" id="uU7-l0-p8m"/>
+                            <constraint firstItem="LMa-71-gIi" firstAttribute="top" secondItem="4qJ-7V-H1j" secondAttribute="bottom" constant="51" id="vSP-s8-er2"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
+                        <outlet property="addCardWebview" destination="LMa-71-gIi" id="dLu-q7-2hW"/>
                         <outlet property="cardNumber" destination="yft-KS-hmt" id="nkN-T6-8OQ"/>
                         <outlet property="cardholderName" destination="dod-pC-Vlu" id="eAe-K6-vTL"/>
                         <outlet property="cvvField" destination="nSC-XS-Ilz" id="L4E-U9-WAt"/>
@@ -6601,6 +6613,7 @@
                                                                 <outlet property="productDescription" destination="moR-ud-uBW" id="dZ2-iG-mIU"/>
                                                                 <outlet property="productImageView" destination="6WF-w3-9wa" id="XMR-ci-wWd"/>
                                                                 <outlet property="productName" destination="i2e-1K-KD3" id="3Bm-y3-J2o"/>
+                                                                <outlet property="shareNewButton" destination="X34-qr-XjM" id="HDH-sb-Gme"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
@@ -7229,7 +7242,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="87.5" y="274" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="274" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>
@@ -9048,7 +9061,7 @@
                                 </constraints>
                             </view>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uY0-Du-Vgl">
-                                <rect key="frame" x="0.0" y="105" width="320" height="463"/>
+                                <rect key="frame" x="0.0" y="105" width="320" height="400"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="NFX-Dz-ri9" id="dTG-SO-MfQ"/>
@@ -9057,7 +9070,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="UqF-sK-U0S" firstAttribute="top" secondItem="uY0-Du-Vgl" secondAttribute="bottom" id="3pm-mo-UHX"/>
+                            <constraint firstItem="UqF-sK-U0S" firstAttribute="top" secondItem="uY0-Du-Vgl" secondAttribute="bottom" constant="63" id="3pm-mo-UHX"/>
                             <constraint firstItem="uY0-Du-Vgl" firstAttribute="leading" secondItem="ZcS-Ym-fkd" secondAttribute="leading" id="DHm-Yi-5QR"/>
                             <constraint firstAttribute="trailing" secondItem="CeB-eY-JIm" secondAttribute="trailing" id="FmS-Jf-0ij"/>
                             <constraint firstItem="UqF-sK-U0S" firstAttribute="top" secondItem="CeB-eY-JIm" secondAttribute="bottom" id="Vp1-yd-5fp"/>

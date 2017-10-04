@@ -38,12 +38,12 @@
     if ([pageIdentifier isEqualToString:@"AboutUs"]) {
         self.navigationItem.title=NSLocalizedText(@"AboutUs");
         [myDelegate showIndicator];
-        [self performSelector:@selector(CMSPageService:) withObject:@"about-us-block" afterDelay:.1];
+        [self performSelector:@selector(CMSPageService:) withObject:[UserDefaultManager getValue:@"aboutUs"] afterDelay:.1];
     }
     else {
         self.navigationItem.title=NSLocalizedText(@"ContactUs");
         [myDelegate showIndicator];
-        [self performSelector:@selector(CMSPageService:) withObject:@"contact-us-block" afterDelay:.1];
+        [self performSelector:@selector(CMSPageService:) withObject:[UserDefaultManager getValue:@"contactUs"] afterDelay:.1];
     }
 }
 #pragma mark - end

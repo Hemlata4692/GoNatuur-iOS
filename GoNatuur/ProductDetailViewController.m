@@ -380,18 +380,18 @@
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData getProductDetailOnSuccess:^(ProductDataModel *productDetailData)  {
         productDetailModelData=productDetailData;
-        [self makeQRCode];
-        int tempIndex=-1;
-        for (int i=0; i<productDetailModelData.productMediaArray.count; i++) {
-            if ([[[productDetailModelData.productMediaArray objectAtIndex:i] objectForKey:@"media_type"] isEqualToString:@"image"]) {
-                tempIndex=i+1;
-            }
-            else {
-                tempIndex=i;
-                break;
-            }
-        }
-        [productDetailModelData.productMediaArray insertObject:@{@"media_type":@"QRCode"} atIndex:(tempIndex==-1?0:tempIndex)];
+//        [self makeQRCode];
+//        int tempIndex=-1;
+//        for (int i=0; i<productDetailModelData.productMediaArray.count; i++) {
+//            if ([[[productDetailModelData.productMediaArray objectAtIndex:i] objectForKey:@"media_type"] isEqualToString:@"image"]) {
+//                tempIndex=i+1;
+//            }
+//            else {
+//                tempIndex=i;
+//                break;
+//            }
+//        }
+//        [productDetailModelData.productMediaArray insertObject:@{@"media_type":@"QRCode"} atIndex:(tempIndex==-1?0:tempIndex)];
         reviewAdded=productDetailModelData.reviewAdded;
         [myDelegate stopIndicator];
         isServiceCalled=true;
@@ -482,13 +482,8 @@
 - (IBAction)increaseQuantityAction:(UIButton *)sender {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];
     ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
-    if([productDetailModelData.productMaxQuantity intValue]>currentQuantity){
-        currentQuantity+=1;
-        cell.cartNumberItemLabel.text=[NSString stringWithFormat:@"%d",currentQuantity];
-    }
-    else {
-        [self.view makeToast:[NSString stringWithFormat:@"%@ %@ %@",NSLocalizedText(@"maximuQtyAdded"),productDetailModelData.productMaxQuantity,NSLocalizedText(@"cart")]];//cart
-    }
+    currentQuantity+=1;
+    cell.cartNumberItemLabel.text=[NSString stringWithFormat:@"%d",currentQuantity];
 }
 
 - (IBAction)removeQuantityAction:(UIButton *)sender {
