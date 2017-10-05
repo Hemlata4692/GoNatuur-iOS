@@ -110,7 +110,7 @@
             return 0;
         }
         else {
-            return [DynamicHeightWidth getDynamicLabelHeight:[newsDetailDict objectForKey:@"content"] font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-8];
+            return [DynamicHeightWidth getDynamicLabelHeight:[newsDetailDict objectForKey:@"content"] font:[UIFont montserratLightWithSize:14] widthValue:[[UIScreen mainScreen] bounds].size.width-8];
         }
     }
     else {

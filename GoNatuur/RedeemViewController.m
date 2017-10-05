@@ -134,17 +134,9 @@
     filterViewObj.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35);
     [filterViewObj setButtonTitles:NSLocalizedText(@"Filter") subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:NSLocalizedText(@"Sortby")];
     //Customized filter view
-    filterViewObj.firstFilterButtonOutlet.enabled=false;
-    filterViewObj.secondFilterButtonOutlet.enabled=false;
-    filterViewObj.firstFilterButtonOutlet.alpha=0.5;
-    filterViewObj.secondFilterButtonOutlet.alpha=0.5;
-    filterViewObj.firstFilterArrowImageView.alpha=0.4;
-    filterViewObj.secondFilterArrowImageView.alpha=0.4;
-//    if (!myDelegate.isProductList) {
-        filterViewObj.subCategoryButtonOutlet.enabled=true;
-//        filterViewObj.subCategoryButtonOutlet.alpha=0.5;
-//        filterViewObj.subCategoryArrowImageView.alpha=0.4;
-//    }
+    filterViewObj.firstFilterButtonOutlet.enabled=true;
+    filterViewObj.secondFilterButtonOutlet.enabled=true;
+    filterViewObj.subCategoryButtonOutlet.enabled=true;
     //Set initial index of picker view and initialized picker view
     selectedFirstFilterIndex=0;
     selectedSubCategoryIndex=0;
