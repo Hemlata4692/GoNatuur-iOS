@@ -144,7 +144,7 @@
 
 #pragma mark - Webview delegates
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if ([[request.URL absoluteString] isEqualToString:@"https://dev.gonatuur.com/en/magedelight_cybersource/cards/listing/"]) {
+    if ([[request.URL absoluteString] isEqualToString:[NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"],@"magedelight_cybersource/cards/listing/"]]) {
         [self.navigationController popViewControllerAnimated:YES];
     }
     return YES;

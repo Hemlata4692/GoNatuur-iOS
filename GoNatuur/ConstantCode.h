@@ -40,6 +40,7 @@ extern NSString * const DESC;
 extern NSString * const dateFormatterService;
 extern NSString * const dateFormatterConverted;
 extern NSString * const dateFormatterDate;
+extern NSString * const specialPriceDateFormatter;
 //end
 
 + (ConstantType)checkDeviceType;

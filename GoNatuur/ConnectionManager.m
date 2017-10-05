@@ -739,14 +739,6 @@
         if ([self checkSpecialPriceSale:productData.specialPriceStartDate endDate:productData.specialPriceEndDate]) {
           productData.specialPrice = [customAttributeDict objectForKey:@"special_price"];
         }
-//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//        formatter.dateFormat = @"yyyy-MM-dd hh:mm:ss";
-//        NSString *currentDate = [formatter stringFromDate:[NSDate date]];
-//        if (([currentDate compare:productData.specialPriceStartDate] == NSOrderedDescending || [currentDate compare:productData.specialPriceStartDate]==NSOrderedSame) && ([currentDate compare:productData.specialPriceEndDate] == NSOrderedAscending|| [currentDate compare:productData.specialPriceEndDate]==NSOrderedSame)) {
-//            DLog(@"date1 is later than date2 - NSOrderedDescending");
-//            DLog(@"date1 is earlier than date2 - NSOrderedAscending");
-//             productData.specialPrice = [customAttributeDict objectForKey:@"special_price"];
-//        }
         if (![productData.specialPrice isEqualToString:@""] && nil!=productData.specialPrice) {
             productData.eventPrice=productData.specialPrice;
         }
@@ -778,7 +770,7 @@
 
 - (BOOL)checkSpecialPriceSale:(NSString *)startDate endDate:(NSString *)endDate {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyy-MM-dd hh:mm:ss";
+    formatter.dateFormat = specialPriceDateFormatter;
     NSString *currentDate = [formatter stringFromDate:[NSDate date]];
     if (([currentDate compare:startDate] == NSOrderedDescending || [currentDate compare:startDate]==NSOrderedSame) && ([currentDate compare:endDate] == NSOrderedAscending|| [currentDate compare:endDate]==NSOrderedSame)) {
         DLog(@"date1 is later than date2 - NSOrderedDescending");
