@@ -7,7 +7,10 @@
 //
 
 #import "PaymentService.h"
+#import "PaymentModel.h"
+
 static NSString *kCardListing=@"ranosys/cybersource/getList";
+static NSString *kDeleteCard=@"ranosys/cybersource/remove";
 
 @implementation PaymentService
 
@@ -24,8 +27,8 @@ static NSString *kCardListing=@"ranosys/cybersource/getList";
                                                                    }
                                                                ],
                                                        @"sort_orders" : @[
-                                                               @{@"field":@"card_id",
-                                                                 @"direction":@"ASC"
+                                                               @{@"field":@"customer_id",
+                                                                 @"direction":@"DESC"
                                                                  }
                                                                ],
                                                        @"page_size" : @"0",
@@ -34,6 +37,14 @@ static NSString *kCardListing=@"ranosys/cybersource/getList";
                                  };
     NSLog(@"card list request %@",parameters);
     [super post:kCardListing parameters:parameters success:success failure:failure];
+}
+#pragma mark- end
+
+#pragma mark- Delete card
+- (void)deleteCardFromListing:(PaymentModel *)orderData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"cardId":orderData.cardId};
+    NSLog(@"delete cad request %@",parameters);
+    [super post:kDeleteCard parameters:parameters success:success failure:failure];
 }
 #pragma mark- end
 @end

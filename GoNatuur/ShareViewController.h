@@ -13,4 +13,5 @@
 @property(nonatomic, strong) NSString *mediaURL;
 @property(nonatomic, strong) NSString *name;
 @property(nonatomic, strong) NSString *productDescription;
+@property(nonatomic, strong) NSString *shareType;
 @end

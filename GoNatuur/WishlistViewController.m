@@ -35,7 +35,7 @@
     wishlistProductsArray=[[NSMutableArray alloc]init];
     _paginationView.hidden=YES;
     _noRecordLabel.hidden=YES;
-    pageCount=10;
+    pageCount=[[UserDefaultManager getValue:@"paginationSize"] intValue];
     currentpage=1;
     [myDelegate showIndicator];
     [self performSelector:@selector(getWislistItemsData) withObject:nil afterDelay:.1];

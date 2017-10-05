@@ -26,8 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     cardListArray = [NSMutableArray new];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(getCardListing) withObject:nil afterDelay:.1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,6 +43,9 @@
     [_addCardButton setCornerRadius:20.0];
     [_addCardButton addShadow:_addCardButton color:[UIColor blackColor]];
     
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getCardListing) withObject:nil afterDelay:.1];
+    
     //remove extra lines from table view
     _cardsListTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -61,10 +62,23 @@
     CardListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     PaymentModel *paymentDataModel = [cardListArray objectAtIndex:indexPath.row];
     [cell displayOrderData:_cardsListTableView.frame.size orderData:paymentDataModel];
+    cell.deleteCardButton.tag=indexPath.row;
+    [cell.deleteCardButton addTarget:self action:@selector(deleteCardButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+}
+#pragma mark - end
+
+#pragma mark - IBActions
+- (IBAction)deleteCardButtonAction:(UIButton *)sender {
+    SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+    [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(deleteCard:) withObject:[NSNumber numberWithInteger:sender.tag] afterDelay:0.1];
+    }];
+    [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"deleteCardMessage") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
 }
 #pragma mark - end
 
@@ -78,6 +92,20 @@
         } else {
             _noRecordLabel.hidden = YES;
         }
+        [_cardsListTableView reloadData];
+        [myDelegate stopIndicator];
+    } onfailure:^(NSError *error) {
+        _noRecordLabel.hidden=NO;
+    }];
+}
+
+//delete card service
+- (void)deleteCard:(NSNumber *)buttonTag {
+    PaymentModel *paymentDataModel = [PaymentModel sharedUser];
+    paymentDataModel.cardId=[[cardListArray objectAtIndex:[buttonTag intValue]] cardId];
+    [paymentDataModel deleteCard:^(PaymentModel *userData) {
+        [cardListArray removeObjectAtIndex:[buttonTag intValue]];
+       // [self getCardListing];
         [_cardsListTableView reloadData];
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {

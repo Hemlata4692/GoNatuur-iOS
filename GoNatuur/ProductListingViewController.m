@@ -66,6 +66,7 @@
     if (_isSortFilter) {
         NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
         NSLog(@"filter dict %@",_filterDictionary);
+        isPullToRefresh=true;
         [myDelegate showIndicator];
         [self performSelector:@selector(getProductListData) withObject:nil afterDelay:.1];
     } else {
@@ -85,7 +86,7 @@
 - (void)viewInitialization {
     myDelegate.selectedCategoryIndex=lastSelectedCategoryId;
     if (!myDelegate.isProductList) {
-        currentCategoryId=21;
+        currentCategoryId=[[UserDefaultManager getValue:@"eventCategoryId"] intValue];
     }
     else {
         currentCategoryId=selectedProductCategoryId;
@@ -308,11 +309,10 @@
     productList.maxPriceValue = _filterDictionary[@"maxPrice"];
     productList.filterAttributeCode = _filterDictionary[@"attributedCode"];;
     productList.filterAttributeId = _filterDictionary[@"attributeId"];
+    productList.sortFilterRequestParameter=_sortFilterRequest;
     [productList getProductListService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];
-        if (productData.productDataArray.count != 0) {
-            [self serviceDataHandling:productData];
-        }
+        [self serviceDataHandling:productData];
     } onfailure:^(NSError *error) {
         [_refreshControl endRefreshing];
     }];

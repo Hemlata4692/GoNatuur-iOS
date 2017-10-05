@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
 @property (weak, nonatomic) IBOutlet UIView *mainView;
+@property (weak, nonatomic) IBOutlet UIWebView *addCardWebview;
 
 @end
 
@@ -45,6 +46,17 @@
     self.title=NSLocalizedText(@"AddCard");
     [self addLeftBarButtonWithImage:true];
     [self customizeViewFields];
+    [myDelegate showIndicator];
+    [self loadAddCardRequest];
+    
+}
+
+- (void)loadAddCardRequest {
+    NSString *webViewString=[NSString stringWithFormat:@"%@%@/%@token=%@",BaseUrl,[UserDefaultManager getValue:@"Language"],@"creditcard/index/add/?",[UserDefaultManager getValue:@"Authorization"]];
+    NSString *encodedString = [webViewString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *webViewURL = [NSURL URLWithString:encodedString];
+    NSURLRequest *shareRequest=[NSURLRequest requestWithURL:webViewURL];
+    [_addCardWebview loadRequest: shareRequest];
 }
 
 - (void)localizedText {
@@ -60,6 +72,9 @@
 
 #pragma mark - Customise text fields
 - (void)customizeViewFields {
+    _addCardWebview.backgroundColor=[UIColor clearColor];
+    _addCardWebview.opaque=YES;
+    
     //Add textfield to keyboard controls array
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_cardholderName, _cardNumber,_monthField,_yearField,_cvvField,_emailField]]];
     [_keyboardControls setDelegate:self];
@@ -124,6 +139,30 @@
 
 #pragma mark - IBActions
 - (IBAction)saveButtonAction:(id)sender {
+}
+#pragma mark - end
+
+#pragma mark - Webview delegates
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if ([[request.URL absoluteString] isEqualToString:[NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"],@"magedelight_cybersource/cards/listing/"]]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    return YES;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [myDelegate stopIndicator];
+    NSString *padding = @"document.body.style.padding='1px 1px 1px 1px'";
+    [webView stringByEvaluatingJavaScriptFromString:padding];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [myDelegate stopIndicator];
+    SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+    [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrongMessage")  closeButtonTitle:nil duration:0.0f];
 }
 #pragma mark - end
 @end

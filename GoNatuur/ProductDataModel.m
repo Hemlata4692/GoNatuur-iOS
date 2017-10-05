@@ -38,6 +38,8 @@
 @synthesize productMinQuantity;
 @synthesize productSku;
 @synthesize specialPrice;
+@synthesize specialPriceEndDate;
+@synthesize specialPriceStartDate;
 @synthesize avg_rating_percent;
 @synthesize attendiesArray;
 @synthesize ticketingArray;

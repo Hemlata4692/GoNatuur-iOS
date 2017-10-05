@@ -296,13 +296,13 @@
         languagePickerIndex=tempSelectedIndex;
         if (tempSelectedIndex == 0) {
             [UserDefaultManager setValue:@"en" key:@"Language"];
-            languageValue=@"4";
+            languageValue=[UserDefaultManager getValue:@"en"];
         } else if (tempSelectedIndex == 1) {
             [UserDefaultManager setValue:@"zh" key:@"Language"];
-            languageValue=@"5";
+            languageValue=[UserDefaultManager getValue:@"zh"];
         } else if (tempSelectedIndex == 2) {
             [UserDefaultManager setValue:@"cn" key:@"Language"];
-            languageValue=@"6";
+            languageValue=[UserDefaultManager getValue:@"cn"];
         }
         _changeLaguageTextField.text=[changeLanguageArray objectAtIndex:tempSelectedIndex];
     }
@@ -368,23 +368,23 @@
     //4=> English,5=>traditional,6=>simplified
     if ([data.defaultLanguage isEqualToString:@""] || data.defaultLanguage==nil) {
         _changeLaguageTextField.text=@"English";
-        languageValue=@"4";
+        languageValue=[UserDefaultManager getValue:@"en"];
     }
     else {
         if ([data.defaultLanguage intValue] == 4) {
             _changeLaguageTextField.text=NSLocalizedText(@"en");
             languagePickerIndex=0;
-            languageValue=@"4";
+            languageValue=[UserDefaultManager getValue:@"en"];
         }
         else if ([data.defaultLanguage intValue] == 5) {
             _changeLaguageTextField.text=NSLocalizedText(@"zh");
             languagePickerIndex=1;
-            languageValue=@"5";
+            languageValue=[UserDefaultManager getValue:@"zh"];
         }
         else if ([data.defaultLanguage intValue] == 6) {
             _changeLaguageTextField.text=NSLocalizedText(@"cn");
             languagePickerIndex=2;
-            languageValue=@"6";
+            languageValue=[UserDefaultManager getValue:@"cn"];
         }
     }
     if ([data.defaultCurrency isEqualToString:@""] || data.defaultCurrency==nil) {

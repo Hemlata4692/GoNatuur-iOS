@@ -37,7 +37,7 @@ static NSString *kSetCheckoutOrder=@"carts/mine/order";
         [super deleteService:[NSString stringWithFormat:@"guest-carts/%@/items/%@",cartData.itemQuoteId,cartData.itemId] parameters:nil isBoolean:true success:success failure:failure];
     }
     else {
-        [super deleteService:[NSString stringWithFormat:@"%@/items/%@",kCartListing,cartData.itemId] parameters:nil isBoolean:true success:success failure:failure];
+        [super deleteService:[NSString stringWithFormat:@"carts/mine/items/%@",cartData.itemId] parameters:nil isBoolean:true success:success failure:failure];
     }
     
 }

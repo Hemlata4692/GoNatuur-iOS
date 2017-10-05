@@ -335,7 +335,11 @@
     }
     productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
     productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
-    productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+    productData.specialPriceStartDate = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_from_date"];
+    productData.specialPriceEndDate = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_to_date"];
+    if ([self checkSpecialPriceSale:productData.specialPriceStartDate endDate:productData.specialPriceEndDate]) {
+        productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+    }
     productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
     return productData;
 }
@@ -420,7 +424,11 @@
             }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
             productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
-            productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            productData.specialPriceStartDate = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_from_date"];
+            productData.specialPriceEndDate = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_to_date"];
+            if ([self checkSpecialPriceSale:productData.specialPriceStartDate endDate:productData.specialPriceEndDate]) {
+                productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            }
             productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             productData.productType=[productDataDict objectForKey:@"type_id"];
             [searchData.searchProductListArray addObject:productData];
@@ -455,7 +463,11 @@
             }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
             productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
-            productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            productData.specialPriceStartDate = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_from_date"];
+            productData.specialPriceEndDate = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_to_date"];
+            if ([self checkSpecialPriceSale:productData.specialPriceStartDate endDate:productData.specialPriceEndDate]) {
+               productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            }
             productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             productData.productType=[productDataDict objectForKey:@"type_id"];
             [searchData.searchProductListArray addObject:productData];
@@ -492,7 +504,11 @@
             }
             productData.productImageThumbnail = [[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
             productData.productQty = [[dataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
-            productData.specialPrice = [[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            productData.specialPriceStartDate = [[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_from_date"];
+            productData.specialPriceEndDate = [[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_to_date"];
+            if ([self checkSpecialPriceSale:productData.specialPriceStartDate endDate:productData.specialPriceEndDate]) {
+                productData.specialPrice = [[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            }
             productData.productRating = [[dataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             productData.productType=[dataDict objectForKey:@"type_id"];
             [searchData.searchProductListArray addObject:productData];
@@ -603,7 +619,11 @@
             if ([[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 tempModel.productDescription=[self stringByStrippingHTML:[[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
-            tempModel.specialPrice = [[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            tempModel.specialPriceStartDate = [[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_from_date"];
+            tempModel.specialPriceEndDate = [[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_to_date"];
+            if ([self checkSpecialPriceSale:tempModel.specialPriceStartDate endDate:tempModel.specialPriceEndDate]) {
+                tempModel.specialPrice = [[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            }
             tempModel.productQty = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"extension_attributes"]objectForKey:@"qty"];
             tempModel.productRating = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             tempModel.productType=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"type_id"];
@@ -714,7 +734,11 @@
         productData.reviewAdded=[[response objectForKey:@"is_reviewed"] stringValue];
         productData.reviewId=[response objectForKey:@"review_id"];
         productData.productSku=[response objectForKey:@"sku"];
-        productData.specialPrice = [customAttributeDict objectForKey:@"special_price"];
+        productData.specialPriceStartDate = [customAttributeDict objectForKey:@"special_from_date"];
+        productData.specialPriceEndDate = [customAttributeDict objectForKey:@"special_to_date"];
+        if ([self checkSpecialPriceSale:productData.specialPriceStartDate endDate:productData.specialPriceEndDate]) {
+          productData.specialPrice = [customAttributeDict objectForKey:@"special_price"];
+        }
         if (![productData.specialPrice isEqualToString:@""] && nil!=productData.specialPrice) {
             productData.eventPrice=productData.specialPrice;
         }
@@ -730,7 +754,7 @@
             }
             [productData.productMediaArray addObject:tempDict];
         }
-        if (![response[@"type_id"] isEqualToString:@"simple"]) {
+        if (![response[@"type_id"] isEqualToString:[UserDefaultManager getValue:@"productIdentifier"]]) {
             NSDictionary *eventDetailsDict=[response objectForKey:@"ticket"];
             productData.attendiesArray=[NSMutableArray new];
             productData.locationDataArray=[NSMutableArray new];
@@ -742,6 +766,20 @@
         success(productData);
     } onfailure:^(NSError *error) {
     }];
+}
+
+- (BOOL)checkSpecialPriceSale:(NSString *)startDate endDate:(NSString *)endDate {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = specialPriceDateFormatter;
+    NSString *currentDate = [formatter stringFromDate:[NSDate date]];
+    if (([currentDate compare:startDate] == NSOrderedDescending || [currentDate compare:startDate]==NSOrderedSame) && ([currentDate compare:endDate] == NSOrderedAscending|| [currentDate compare:endDate]==NSOrderedSame)) {
+        DLog(@"date1 is later than date2 - NSOrderedDescending");
+        DLog(@"date1 is earlier than date2 - NSOrderedAscending");
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 #pragma mark - end
 
@@ -1194,7 +1232,11 @@
             }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
             productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
-            productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            productData.specialPriceStartDate = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_from_date"];
+            productData.specialPriceEndDate = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_to_date"];
+            if ([self checkSpecialPriceSale:productData.specialPriceStartDate endDate:productData.specialPriceEndDate]) {
+                 productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            }
             productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             productData.productType=[productDataDict objectForKey:@"type_id"];
             [searchData.searchProductListArray addObject:productData];
@@ -1255,7 +1297,7 @@
             NSDictionary * dataDict =[dataArray objectAtIndex:i];
             ProductGuideDataModel *categoryGuideData=[[ProductGuideDataModel alloc]init];
             categoryGuideData.categoryName=[dataDict objectForKey:@"name"];
-            categoryGuideData.categoryDescription=[dataDict objectForKey:@"description"];
+            categoryGuideData.categoryDescription=[self stringByStrippingHTML:[dataDict objectForKey:@"description"]];
             categoryGuideData.categoryId=[dataDict objectForKey:@"category_id"];
             [guideData.guideCategoryDataArray addObject:categoryGuideData];
         }
@@ -1459,7 +1501,6 @@
 
 #pragma mark - Get card listing
 - (void)getCardListing:(PaymentModel *)paymentData onSuccess:(void (^)(PaymentModel *paymentData))success onFailure:(void (^)(NSError *))failure {
-    {
         PaymentService *paymentService = [[PaymentService alloc] init];
         [paymentService getCardListing:paymentData onSuccess:^(id response) {
             DLog(@"getCardListing response %@",response);
@@ -1490,7 +1531,18 @@
         } onFailure:^(NSError *error) {
             failure(error);
         }] ;
-    }
+}
+#pragma mark - end
+
+#pragma mark - Delete card service
+- (void)deleteCardService:(PaymentModel *)paymentData onSuccess:(void (^)(PaymentModel *paymentData))success onFailure:(void (^)(NSError *))failure {
+        PaymentService *paymentService = [[PaymentService alloc] init];
+        [paymentService deleteCardFromListing:paymentData onSuccess:^(id response) {
+            DLog(@"delete card response %@",response);
+            success(paymentData);
+        } onFailure:^(NSError *error) {
+            failure(error);
+        }] ;
 }
 #pragma mark - end
 
@@ -1514,9 +1566,15 @@
         [UserDefaultManager setValue:response[@"reviewSortingByKeyMostRecent"] key:@"reviewSortingByKeyMostRecent"];
         [UserDefaultManager setValue:response[@"impactPointRules"] key:@"impactPointRules"];
         [UserDefaultManager setValue:response[@"productIdentifier"] key:@"productIdentifier"];
-        [UserDefaultManager setValue:response[@"langConstants"] key:@"langConstants"];
+        [UserDefaultManager setValue:response[@"cn"] key:@"cn"];
+        [UserDefaultManager setValue:response[@"en"] key:@"en"];
+        [UserDefaultManager setValue:response[@"zh"] key:@"zh"];
         [UserDefaultManager setValue:response[@"rewardCategoryId"] key:@"rewardCategoryId"];
-        [UserDefaultManager setValue:response[@"cmsPagesIds"] key:@"cmsPagesIds"];
+        [UserDefaultManager setValue:response[@"terms&Condition"] key:@"terms&Condition"];
+        [UserDefaultManager setValue:response[@"privacyPolicy"] key:@"privacyPolicy"];
+        [UserDefaultManager setValue:response[@"contactUs"] key:@"contactUs"];
+        [UserDefaultManager setValue:response[@"aboutUs"] key:@"aboutUs"];
+        [UserDefaultManager setValue:response[@"newsCentre"] key:@"newsCentre"];
         [UserDefaultManager setValue:response[@"rewardProductAttributeId"] key:@"rewardProductAttributeId"];
         [UserDefaultManager setValue:response[@"AdditionalSortsFilters"] key:@"AdditionalSortsFilters"];
         [UserDefaultManager setValue:response[@"DefaultSortsFilters"] key:@"DefaultSortsFilters"];

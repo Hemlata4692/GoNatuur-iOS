@@ -26,7 +26,7 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
 #pragma mark - Get category listing
 - (void)getCategoryListData:(DashboardDataModel *)categoryList success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{@"rootCategoryId":categoryList.categoryId};
-    NSLog(@"category list request %@",parameters);
+    NSLog(@"product/event category list request %@",parameters);
     [super get:[NSString stringWithFormat:@"%@",kCategoryList] parameters:parameters onSuccess:success onFailure:failure];
 }
 #pragma mark - end
@@ -50,86 +50,99 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
         typeId=eventIdentifier;
     }
     else {
-        typeId=@"simple";
+        typeId=[UserDefaultManager getValue:@"productIdentifier"];
     }
-    NSDictionary *parameters;
-    NSMutableDictionary *filterGroups = [NSMutableDictionary dictionaryWithObjectsAndKeys:@{@"filter_groups" : @[
-                                                                                                    @{ @"filters":@[
-                                                                                                               @{@"field":@"type_id",
-                                                                                                                 @"value":typeId,
-                                                                                                                 @"condition_type": @"eq"
-                                                                                                                 },
-                                                                                                               @{@"field":@"category_id",
-                                                                                                                 @"value":productData.categoryId,
-                                                                                                                 @"condition_type": @"eq"
-                                                                                                                 },
-                                                                                                               @{@"field":@"status",
-                                                                                                                 @"value":@"1",
-                                                                                                                 @"condition_type": @"eq"
-                                                                                                                 }
-                                                                                                               ]
-                                                                                                       },
-                                                                                                    ],
-                                                                                            @"sort_orders" : @[
-                                                                                                    @{@"field":productData.productSortingType,
-                                                                                                      @"direction":productData.productSortingValue
-                                                                                                      }
-                                                                                                    ],
-                                                                                            @"page_size" : productData.pageSize,
-                                                                                            @"current_page" : productData.currentPage
-                                                                                            }, nil] ;
     
+    NSMutableDictionary *parameters=[NSMutableDictionary new];
+    NSDictionary *bottomDictParam=@{@"sort_orders" : @[
+                                            @{@"field":productData.productSortingType,
+                                              @"direction":productData.productSortingValue
+                                              }
+                                            ],
+                                    @"page_size" : productData.pageSize,
+                                    @"current_page" : productData.currentPage
+                                    };
+    NSMutableDictionary *filterGroups = [NSMutableDictionary new] ;
+    
+    [filterGroups setObject:@[
+                              @{ @"filters":@[
+                                         @{@"field":@"type_id",
+                                           @"value":typeId,
+                                           @"condition_type": @"eq"
+                                           },
+                                         @{@"field":@"category_id",
+                                           @"value":productData.categoryId,
+                                           @"condition_type": @"eq"
+                                           },
+                                         @{@"field":@"status",
+                                           @"value":@"1",
+                                           @"condition_type": @"eq"
+                                           }
+                                         ]
+                                 },
+                              ] forKey:@"filter_groups"];
+    [filterGroups addEntriesFromDictionary:bottomDictParam];
     if (productData.sortFilterRequestParameter == 0) {
-        parameters = @{@"searchCriteria" : filterGroups
-                       };
-        
+        [parameters setObject:filterGroups forKey:@"searchCriteria"];
     } else if (productData.sortFilterRequestParameter == 1) {
-        NSMutableArray *tempArray = filterGroups[@"filter_groups"];
-        [tempArray addObject:@{ @"filters":@[
-                                        @{@"field":@"price",
-                                          @"value":productData.maxPriceValue,
-                                          @"condition_type": @"gteq"
-                                          }
-                                        ]
-                                }];
-        [tempArray addObject:@{ @"filters":@[
-                                        @{@"field":@"price",
-                                          @"value":productData.minPriceValue,
-                                          @"condition_type": @"lteq"
-                                          }]}];
-        [filterGroups setObject:tempArray forKey:@"filter_groups"];
-        
-        parameters = @{@"searchCriteria" : filterGroups
-                       };
+        parameters=[[self priceFilterDictionary:filterGroups productData:productData] mutableCopy];
         
     } else {
-        NSMutableArray *tempArray = filterGroups[@"filter_groups"];
-        [tempArray addObject:@{ @"filters":@[
-                                        @{@"field":@"price",
-                                          @"value":productData.maxPriceValue,
-                                          @"condition_type": @"gteq"
-                                          }
-                                        ]
-                                }];
-        [tempArray addObject:@{ @"filters":@[
-                                        @{@"field":@"price",
-                                          @"value":productData.minPriceValue,
-                                          @"condition_type": @"lteq"
-                                          }]}];
-        
-        [tempArray addObject:@{ @"filters":@[
-                                        @{@"field":productData.filterAttributeCode,
-                                          @"value":productData.filterAttributeId,
-                                          @"condition_type": @"eq"
-                                          }]}];
-        
-        [filterGroups setObject:tempArray forKey:@"filter_groups"];
-        
-        parameters = @{@"searchCriteria" : filterGroups
-                       };
+        parameters=[[self additionalFilterDictionary:filterGroups productData:productData] mutableCopy];
     }
     NSLog(@"request %@",parameters);
     [super post:kProductListData parameters:parameters success:success failure:failure];
+}
+//Price filter
+- (NSMutableDictionary*)priceFilterDictionary:(NSMutableDictionary *)filterDict productData:(DashboardDataModel *)productData {
+    NSDictionary *parametersDict;
+    NSMutableArray *tempArray = [filterDict[@"filter_groups"] mutableCopy];
+    [tempArray addObject:@{ @"filters":@[
+                                    @{@"field":@"price",
+                                      @"value":productData.maxPriceValue,
+                                      @"condition_type": @"gteq"
+                                      }
+                                    ]
+                            }];
+    [tempArray addObject:@{ @"filters":@[
+                                    @{@"field":@"price",
+                                      @"value":productData.minPriceValue,
+                                      @"condition_type": @"lteq"
+                                      }]}];
+    [filterDict setObject:tempArray forKey:@"filter_groups"];
+    
+    parametersDict = @{@"searchCriteria" : filterDict
+                       };
+    return [parametersDict mutableCopy];
+}
+//Country filter
+- (NSMutableDictionary*)additionalFilterDictionary:(NSMutableDictionary *)filterDict productData:(DashboardDataModel *)productData {
+    NSDictionary *parametersDict;
+    NSMutableArray *tempArray = [filterDict[@"filter_groups"] mutableCopy];
+    [tempArray addObject:@{ @"filters":@[
+                                    @{@"field":@"price",
+                                      @"value":productData.maxPriceValue,
+                                      @"condition_type": @"gteq"
+                                      }
+                                    ]
+                            }];
+    [tempArray addObject:@{ @"filters":@[
+                                    @{@"field":@"price",
+                                      @"value":productData.minPriceValue,
+                                      @"condition_type": @"lteq"
+                                      }]}];
+    
+    [tempArray addObject:@{ @"filters":@[
+                                    @{@"field":productData.filterAttributeCode,
+                                      @"value":productData.filterAttributeId,
+                                      @"condition_type": @"eq"
+                                      }]}];
+    
+    [filterDict setObject:tempArray forKey:@"filter_groups"];
+    
+    parametersDict = @{@"searchCriteria" : filterDict
+                       };
+    return [parametersDict mutableCopy];
 }
 #pragma mark - end
 
@@ -308,7 +321,7 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
 #pragma mark - Get category banner
 - (void)getCategoryBannerData:(DashboardDataModel *)categoryList success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{@"categoryId":categoryList.categoryId};
-    NSLog(@"category list request %@",parameters);
+    NSLog(@"category banner request %@",parameters);
     [super post:kCategoryBannerData parameters:parameters success:success failure:failure];
 }
 #pragma mark - end

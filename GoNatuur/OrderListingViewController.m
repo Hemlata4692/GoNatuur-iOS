@@ -222,25 +222,21 @@
 
 #pragma mark - Pagination
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    if ((int)_orderListTableView.contentOffset.y == (int)_orderListTableView.contentSize.height - (int)scrollView.frame.size.height)
-    {
-        if (orderListArray.count == totalProductCount)
-        {
+    if ((int)_orderListTableView.contentOffset.y == (int)_orderListTableView.contentSize.height - (int)scrollView.frame.size.height) {
+        if (orderListArray.count == totalProductCount) {
             [(UIActivityIndicatorView *)[footerView viewWithTag:10] stopAnimating];
             [(UILabel *)[footerView viewWithTag:11] setHidden:true];
             [(UIActivityIndicatorView *)[footerView viewWithTag:10] setHidden:true];
             _orderListTableView.tableFooterView = nil;
         }
         else {
-            if(orderListArray.count <= totalProductCount)
-            {
+            if(orderListArray.count <= totalProductCount) {
                 _orderListTableView.tableFooterView = footerView;
                 [(UIActivityIndicatorView *)[footerView viewWithTag:10] startAnimating];
                 currentpage+=1;
                 [self getOrderListing];
             }
-            else
-            {
+            else {
                 _orderListTableView.tableFooterView = nil;
             }
         }

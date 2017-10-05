@@ -55,6 +55,12 @@
     // Do any additional setup after loading the view.
     menuArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"filterCell", @"productListCell", @"refreshCell"];
     myDelegate.isProductList=true;
+    //Set default sort values
+    _sortingType = NSLocalizedText(@"sortPrice");
+    _sortFilterRequest = 0;
+    _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0", @"attributeId":@"9", @"attributedCode":@"country"};
+    _sortBasis = DESC; //ASC/DESC
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -67,12 +73,20 @@
     else {
         [self addLeftBarButtonWithImage:false];
     }
-    if (!isImagePicker) {
-        [self viewInitialization];
-        [myDelegate showIndicator];
-        [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
-    }
     _noRecordLabel.text=NSLocalizedText(@"norecord");
+    if (_isSortFilter) {
+        NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
+        NSLog(@"filter dict %@",_filterDictionary);
+        isPullToRefresh=true;
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getRedeemListData) withObject:nil afterDelay:.1];
+    } else {
+        if (!isImagePicker) {
+            [self viewInitialization];
+            [myDelegate showIndicator];
+            [self performSelector:@selector(getRedeemCategoryListData) withObject:nil afterDelay:.1];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,7 +98,7 @@
 #pragma mark - View initialization
 - (void)viewInitialization {
     myDelegate.selectedCategoryIndex=lastSelectedCategoryId;
-    currentCategoryId=84;
+    currentCategoryId=[[UserDefaultManager getValue:@"rewardCategoryId"] intValue];
     bannerImageUrl=@"";
     _noRecordLabel.hidden=true;
     isPullToRefresh=false;
@@ -328,7 +342,7 @@
 
 #pragma mark - Webservice
 //Get sub category list data
-- (void)getCategoryListData {
+- (void)getRedeemCategoryListData {
     DashboardDataModel *subCategoryList = [DashboardDataModel sharedUser];
     subCategoryList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
     [subCategoryList getCategoryListDataOnSuccess:^(DashboardDataModel *userData)  {
@@ -360,6 +374,14 @@
     productList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
     productList.pageSize=[UserDefaultManager getValue:@"paginationSize"];
     productList.currentPage=[NSNumber numberWithInt:currentpage];
+    productList.productSortingType = _sortingType;
+    productList.productSortingValue = _sortBasis;
+    productList.minPriceValue = _filterDictionary[@"minPrice"];
+    productList.maxPriceValue = _filterDictionary[@"maxPrice"];
+    productList.filterAttributeCode = _filterDictionary[@"attributedCode"];;
+    productList.filterAttributeId = _filterDictionary[@"attributeId"];
+    productList.sortFilterRequestParameter=_sortFilterRequest;
+    
     [productList getProductListService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];
         [self serviceDataHandling:productData];

@@ -173,13 +173,12 @@
 
 - (void)getCartProductDetail {
     SearchDataModel *searchData = [SearchDataModel sharedUser];
-    NSString *productIds=[NSString stringWithFormat:@"%@",[[cartListData objectAtIndex:0] itemName]];
+    NSString *productIds=[NSString stringWithFormat:@"%@",[[cartListData objectAtIndex:0] itemSku]];
     for (int i=1; i<cartListData.count; i++) {
-       productIds=[NSString stringWithFormat:@"%@,%@",productIds,[[cartListData objectAtIndex:i] itemName]];
+       productIds=[NSString stringWithFormat:@"%@,%@",productIds,[[cartListData objectAtIndex:i] itemSku]];
     }
     searchData.productName=productIds;
     [searchData getProductListByNameServiceOnSuccess:^(SearchDataModel *userData)  {
-       
         totalCartProductPrice=0.0;
         float totalImpactPoint=0.0;
         //Add product image and description in already data stored data array

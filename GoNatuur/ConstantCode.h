@@ -30,7 +30,6 @@ extern NSString * const BaseUrl;
 extern NSString * const productImageBaseUrl;
 extern NSString * const productDetailImageBaseUrl;
 extern NSString * const eventIdentifier;
-extern NSString * const payPalClientId;
 extern NSString * const zopimTicketAppId;
 extern NSString * const zopimAppId;
 extern NSString * const zopimURL;
@@ -41,6 +40,7 @@ extern NSString * const DESC;
 extern NSString * const dateFormatterService;
 extern NSString * const dateFormatterConverted;
 extern NSString * const dateFormatterDate;
+extern NSString * const specialPriceDateFormatter;
 //end
 
 + (ConstantType)checkDeviceType;

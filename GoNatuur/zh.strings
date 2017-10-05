@@ -320,5 +320,6 @@
 "sortPrice"="price";
 "filterTitle"="過濾";
 "filterCountry"="country";
-"cardNumber"="XXXX XXXX XXXX";
+"cardNumberList"="XXXX XXXX XXXX";
 "applyCouponCode"="Apply coupon code";
+"deleteCardMessage"="Are you sure you want to delete this card?";

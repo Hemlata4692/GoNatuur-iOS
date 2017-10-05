@@ -36,7 +36,7 @@
     searchedProductsArray=[[NSMutableArray alloc]init];
     _paginationView.hidden=YES;
     _noRecordLabel.hidden=YES;
-     pageCount=10;
+     pageCount=[[UserDefaultManager getValue:@"paginationSize"] intValue];
     [myDelegate showIndicator];
     [self performSelector:@selector(getSerachProductListing) withObject:nil afterDelay:.1];
 }

@@ -24,8 +24,13 @@
 
 //Display card data
 - (void)displayOrderData:(CGSize)rectSize orderData:(PaymentModel *)paymentData {
-     _cardImage.image = [UIImage imageNamed:@"visa"];
-    _cardNumber.text = [NSString stringWithFormat:@"%@ %@",NSLocalizedText(@"totalPoints"),paymentData.cardLastFourDigit];
+    if ([UIImage imageNamed:paymentData.cardType]==nil) {
+        _cardImage.image = [UIImage imageNamed:@"defaultCard"];
+    }
+    else {
+         _cardImage.image = [UIImage imageNamed:paymentData.cardType];
+    }
+    _cardNumber.text = [NSString stringWithFormat:@"%@ %@",NSLocalizedText(@"cardNumberList"),paymentData.cardLastFourDigit];
 }
 #pragma mark - end
 @end

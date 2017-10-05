@@ -49,7 +49,7 @@
     // Do any additional setup after loading the view.
     starFilterDataArray=[[NSMutableArray alloc]initWithObjects:NSLocalizedText(@"All"),NSLocalizedText(@"5 Stars"),NSLocalizedText(@"4 Stars"),NSLocalizedText(@"3 Stars"),NSLocalizedText(@"2 Stars"),NSLocalizedText(@"1 Star"), nil];
     sortByDataArray=[[NSMutableArray alloc]initWithObjects:NSLocalizedText(@"mostRecent"),NSLocalizedText(@"ratingLowHigh"),NSLocalizedText(@"ratingHighLow"), nil];
-    sortByFilter=@"created_at";
+    sortByFilter=[UserDefaultManager getValue:@"reviewSortingByKeyMostRecent"];
     sortByValue=DESC;
     starFilter=[NSString stringWithFormat:@"5"];
     applyStarFilter=@"0";
@@ -134,15 +134,15 @@
             selectedSortFilterIndex=tempSelectedIndex;
             [_sortByFilterButton setTitle:[sortByDataArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
             if (selectedSortFilterIndex==0) {
-                sortByFilter=@"created_at";
+                sortByFilter=[UserDefaultManager getValue:@"reviewSortingByKeyMostRecent"];
                 sortByValue=DESC;
             }
             else if (selectedSortFilterIndex==1) {
-                sortByFilter=@"reviewvote.value";
+                sortByFilter=[UserDefaultManager getValue:@"reviewSortingByKey"];
                 sortByValue=ASC;
             }
             else {
-                sortByFilter=@"reviewvote.value";
+                sortByFilter=[UserDefaultManager getValue:@"reviewSortingByKey"];
                 sortByValue=DESC;
             }
         }
