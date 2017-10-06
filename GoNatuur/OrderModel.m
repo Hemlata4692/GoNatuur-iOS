@@ -23,6 +23,7 @@
 @synthesize orderInvoiceArray;
 @synthesize trackArray;
 @synthesize trackNumber;
+@synthesize isOrderDetailService;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{

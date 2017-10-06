@@ -16,6 +16,7 @@
     NSMutableArray *newsDetailArray;
     NSArray *cellIdentifierArray;
     NSDictionary *newsDetailDict;
+    int webViewHeight;
 }
 @property (weak, nonatomic) IBOutlet UITableView *newsDetailTableView;
 
@@ -31,6 +32,7 @@
     // Do any additional setup after loading the view.
     newsDetailArray=[[NSMutableArray alloc]init];
     newsDetailDict=[[NSDictionary alloc]init];
+    webViewHeight=0;
     [myDelegate showIndicator];
     [self performSelector:@selector(getNewsDetailData) withObject:nil afterDelay:.1];
 }
@@ -57,7 +59,6 @@
     [productList getNewsDetailDataService:^(DashboardDataModel *productData)  {
         newsDetailDict=[productData.productDataArray objectAtIndex:0];
         [_newsDetailTableView reloadData];
-        [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
     }];
 }
@@ -110,8 +111,8 @@
             return 0;
         }
         else {
-            return [DynamicHeightWidth getDynamicLabelHeight:[newsDetailDict objectForKey:@"content"] font:[UIFont montserratLightWithSize:14] widthValue:[[UIScreen mainScreen] bounds].size.width-8];
-        }
+            return webViewHeight+10;
+            }
     }
     else {
         return 25;
@@ -156,8 +157,18 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [myDelegate stopIndicator];
-    NSString *padding = @"document.body.style.padding='1px 1px 1px 1px'";
-    [webView stringByEvaluatingJavaScriptFromString:padding];
+    NSString *result = [webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"];
+    webViewHeight = [result intValue];
+    NSLog(@"%d",webViewHeight);
+    if (webView.isLoading)
+        return;
+    else {
+    [myDelegate stopIndicator];
+        [_newsDetailTableView beginUpdates];
+        webView.frame=CGRectMake(3, 0, [[UIScreen mainScreen] bounds].size.width-8, webViewHeight);
+        [_newsDetailTableView endUpdates];
+    }
+    
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {

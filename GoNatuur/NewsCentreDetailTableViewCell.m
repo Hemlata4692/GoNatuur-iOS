@@ -60,11 +60,11 @@
 }
 
 - (void)displayWebView:(NSString *)newsContent {
-    _contentWebView.translatesAutoresizingMaskIntoConstraints=YES;
+   // _contentWebView.translatesAutoresizingMaskIntoConstraints=YES;
     _contentWebView.backgroundColor = [UIColor clearColor];
     _contentWebView.opaque=NO;
-    float dynamicHeight= [DynamicHeightWidth getDynamicLabelHeight:newsContent font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-8];
-    _contentWebView.frame=CGRectMake(3, 0, [[UIScreen mainScreen] bounds].size.width-8, dynamicHeight);
+   // float dynamicHeight= [DynamicHeightWidth getDynamicLabelHeight:newsContent font:[UIFont montserratLightWithSize:16] widthValue:[[UIScreen mainScreen] bounds].size.width-8];
+   // _contentWebView.frame=CGRectMake(3, 0, [[UIScreen mainScreen] bounds].size.width-8, dynamicHeight);
     _contentWebView.scrollView.scrollEnabled = NO;
     _contentWebView.scrollView.bounces = NO;
 }

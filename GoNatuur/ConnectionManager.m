@@ -341,6 +341,7 @@
         productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
     }
     productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+    productData.productType=productDataDict[@"type_id"];
     return productData;
 }
 #pragma mark - end
