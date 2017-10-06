@@ -10,4 +10,5 @@
 
 @interface OrderDetailViewController : GoNatuurViewController
 @property(nonatomic) NSInteger selectedIndex;
+@property(nonatomic,strong) NSString* selectedOrderId;
 @end

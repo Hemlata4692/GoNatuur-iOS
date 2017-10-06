@@ -47,6 +47,7 @@
 @synthesize eventPrice;
 @synthesize selectedTicketOptionValue;
 @synthesize selectedTicketOption;
+@synthesize redeemPointsRequired;
 
 - (id)copyWithZone:(NSZone *)zone {
     ProductDataModel *another = [[ProductDataModel alloc] init];

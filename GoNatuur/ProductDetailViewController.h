@@ -11,4 +11,5 @@
 @interface ProductDetailViewController : GoNatuurViewController
 @property (nonatomic,assign) int selectedProductId;
 @property (nonatomic,strong) NSString *reviewAdded;
+@property (nonatomic) BOOL isRedeemProduct;
 @end

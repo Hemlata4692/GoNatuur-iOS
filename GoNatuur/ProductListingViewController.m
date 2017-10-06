@@ -76,6 +76,11 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    //Bring front view picker view
+    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -99,8 +104,6 @@
     totalProductCount=0;
     currentpage=1;
     _productListTableView.tableFooterView=nil;
-    //Bring front view picker view
-    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
     //Allocate footer view
     [self initializeFooterView];
     // Pull to refresh
@@ -232,7 +235,7 @@
 
 - (ProductListCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProductListCollectionViewCell *productCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productCell" forIndexPath:indexPath];
-    [productCell displayProductListData:[productListDataArray objectAtIndex:indexPath.row] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
+    [productCell displayProductListData:[productListDataArray objectAtIndex:indexPath.row] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"] isRedeemPoints:false];
     return productCell;
 }
 
@@ -253,6 +256,7 @@
         //StoryBoard navigation
         ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
         obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
+        obj.isRedeemProduct=false;
         [self.navigationController pushViewController:obj animated:YES];
     }
 }

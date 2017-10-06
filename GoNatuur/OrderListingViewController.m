@@ -268,9 +268,10 @@
 - (void)viewDetailButtonAction:(UIButton *)sender {
     long btnTag = [sender tag];
     NSLog(@"%ld",btnTag);
+    orderDataModel = [orderListArray objectAtIndex:btnTag];
     UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     OrderDetailViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
-    nextView.selectedIndex = btnTag;
+    nextView.selectedOrderId = orderDataModel.orderId;
     [self.navigationController pushViewController:nextView animated:YES];
 }
 
@@ -351,6 +352,7 @@
 - (void)getOrderListing {
     orderDataModel = [OrderModel sharedUser];
     orderDataModel.pageSize=[UserDefaultManager getValue:@"paginationSize"];
+    orderDataModel.isOrderDetailService=@"0";
     orderDataModel.currentPage=[NSNumber numberWithInt:currentpage];
     [orderDataModel getOrderListing:^(OrderModel *userData) {
         [orderListArray addObjectsFromArray:userData.orderListingArray];

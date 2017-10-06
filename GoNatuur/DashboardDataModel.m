@@ -42,6 +42,7 @@
 @synthesize filterValue2;
 @synthesize filterValue;
 @synthesize sortingValue;
+@synthesize redeemPointsRequired;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{

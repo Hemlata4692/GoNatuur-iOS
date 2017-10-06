@@ -37,6 +37,7 @@
 @implementation ProductDetailViewController
 @synthesize selectedProductId;
 @synthesize reviewAdded;
+@synthesize isRedeemProduct;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -145,7 +146,7 @@
         [cell.productMediaCollectionView reloadData];
     }
     else if (indexPath.row==5) {
-        [cell displayProductPrice:productDetailModelData currentQuantity:currentQuantity];
+        [cell displayProductPrice:productDetailModelData currentQuantity:currentQuantity isRedeemPoints:isRedeemProduct];
         cell.incrementCartButton.tag=indexPath.row;
         cell.removeFromCartButton.tag=indexPath.row;
         [cell.incrementCartButton addTarget:self action:@selector(increaseQuantityAction:) forControlEvents:UIControlEventTouchUpInside];

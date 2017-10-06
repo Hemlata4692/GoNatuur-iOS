@@ -9,6 +9,11 @@
 #import "NotificationViewController.h"
 #import "DynamicHeightWidth.h"
 #import "NotificationDataModel.h"
+#import "ProductListingViewController.h"
+#import "EventDetailViewController.h"
+#import "ProductDetailViewController.h"
+#import "OrderDetailViewController.h"
+#import "ProfileViewController.h"
 
 @interface NotificationViewController () {
 @private
@@ -65,8 +70,8 @@
         }
         else {
             _noRecordLabel.hidden=YES;
-        totalCount =[userData.totalCount intValue];
-        [_notificationTableView reloadData];
+            totalCount =[userData.totalCount intValue];
+            [_notificationTableView reloadData];
         }
     } onfailure:^(NSError *error) {
         _noRecordLabel.hidden=NO;
@@ -100,7 +105,7 @@
     UIImageView *arrowIcon=(UIImageView *) [cell viewWithTag:3];
     UIImageView *sepImage=(UIImageView *) [cell viewWithTag:4];
     notificationBadgeLabel.translatesAutoresizingMaskIntoConstraints=YES;
-    NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];    
+    NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];
     if ([notiData.notificationStatus isEqualToString:@"1"]) {
         notificationBadgeLabel.textColor=[UIColor whiteColor];
         cell.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
@@ -128,8 +133,46 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-     NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];
-     [self markNotificationAsRead:notiData.notificationId];
+    NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];
+    [self markNotificationAsRead:notiData.notificationId];
+    if ([notiData.notificationType isEqualToString:@"1"]) {
+        // navigate to product listing
+        ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
+        obj.selectedProductCategoryId=[notiData.targetId intValue];
+        myDelegate.isProductList=true;
+        [self.navigationController pushViewController:obj animated:YES];
+    }
+    else if ([notiData.notificationType isEqualToString:@"2"]) {
+        // navigate to product details
+        ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+        obj.selectedProductId=[notiData.targetId intValue];
+        obj.isRedeemProduct=false;
+        [self.navigationController pushViewController:obj animated:YES];
+    }
+    else if ([notiData.notificationType isEqualToString:@"3"]) {
+        // navigate to event listing
+        ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
+        obj.selectedProductCategoryId=[notiData.targetId intValue];
+        myDelegate.isProductList=false;
+        [self.navigationController pushViewController:obj animated:YES];
+    }
+    else if ([notiData.notificationType isEqualToString:@"4"]) {
+        // navigate to event details
+        EventDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EventDetailViewController"];
+        obj.selectedProductId=[notiData.targetId intValue];
+        [self.navigationController pushViewController:obj animated:YES];
+    }
+    else if ([notiData.notificationType isEqualToString:@"5"] || [notiData.notificationType isEqualToString:@"6"] || [notiData.notificationType isEqualToString:@"7"] || [notiData.notificationType isEqualToString:@"8"] || [notiData.notificationType isEqualToString:@"9"] || [notiData.notificationType isEqualToString:@"11"]) {
+        // navigate to order details
+        OrderDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
+        obj.selectedOrderId=notiData.targetId;
+        [self.navigationController pushViewController:obj animated:YES];
+    }
+    else if ([notiData.notificationType isEqualToString:@"10"]) {
+        // navigate to profile screen
+        ProfileViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+        [self.navigationController pushViewController:obj animated:YES];
+    }
 }
 
 #pragma mark - end
