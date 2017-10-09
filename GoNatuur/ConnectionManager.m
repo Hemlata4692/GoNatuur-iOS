@@ -1265,7 +1265,7 @@
         for (int i =0; i<dataArray.count; i++) {
             NSDictionary * orderDataDict =[dataArray objectAtIndex:i];
             OrderModel * orderListData = [[OrderModel alloc]init];
-            orderListData.orderDate = [[orderDataDict[@"created_at"] componentsSeparatedByString:@" "] objectAtIndex:0];
+            orderListData.orderDate = orderDataDict[@"created_at"];
             orderListData.orderStatus = orderDataDict[@"status"];
             orderListData.orderState = orderDataDict[@"state"];
             orderListData.purchaseOrderId = orderDataDict[@"increment_id"];

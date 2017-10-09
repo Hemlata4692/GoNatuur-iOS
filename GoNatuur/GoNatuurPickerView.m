@@ -37,7 +37,7 @@
 #pragma mark - end
 
 #pragma mark - Hide/Show pickerView
-- (void)showPickerView:(NSArray *)tempPickerArray selectedIndex:(int)selectedIndex option:(int)option isCancelDelegate:(BOOL)isCancelDelegate {
+- (void)showPickerView:(NSArray *)tempPickerArray selectedIndex:(int)selectedIndex option:(int)option isCancelDelegate:(BOOL)isCancelDelegate isFilterScreen:(BOOL)isFilterScreen {
     _pickerArray=[tempPickerArray mutableCopy];
     _pickerView.showsSelectionIndicator = YES;
     tagValue=option;
@@ -46,7 +46,12 @@
    
     [UIView animateWithDuration:0.2f animations:^{
         //To Frame
+        if (isFilterScreen) {
+           goNatuurPickerViewObj.frame=CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-pickerHeight-64, [[UIScreen mainScreen] bounds].size.width, pickerHeight);
+        }
+        else {
         goNatuurPickerViewObj.frame=CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-pickerHeight, [[UIScreen mainScreen] bounds].size.width, pickerHeight);
+        }
         
     } completion:^(BOOL completed) {
         

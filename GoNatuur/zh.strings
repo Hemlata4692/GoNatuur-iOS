@@ -103,7 +103,6 @@
 "search"="搜索";
 "Added to cart"="加入购物车";
 "location"="位置";
-"Internet connection"="互聯網連接錯誤。請稍後再試.";
 "Filter"="过滤";
 "category"="类别";
 "SUBMIT REVIEW"="提交评论";
@@ -329,3 +328,4 @@
 "grandTotal"="累計";
 "rewardProductExistAlert"="你有一些獎勵產品的價值超過了影響點.";
 "total"="總:";
+"RequestTimeout"="Request time out. Please try again.";

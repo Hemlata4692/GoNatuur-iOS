@@ -846,7 +846,7 @@
     [self.view endEditing:true];
     currentSelectedTextField=_shippingCountryTextField;
     [self showKeyboardScrollView:230.0];
-    [gNPickerViewObj showPickerView:countryNameArray selectedIndex:(shippingCountryIndex==-1?0:shippingCountryIndex) option:1 isCancelDelegate:true];
+    [gNPickerViewObj showPickerView:countryNameArray selectedIndex:(shippingCountryIndex==-1?0:shippingCountryIndex) option:1 isCancelDelegate:true isFilterScreen:false];
 }
 
 - (IBAction)shippingStateAction:(UIButton *)sender {
@@ -854,7 +854,7 @@
     [self.view endEditing:true];
     currentSelectedTextField=_shippingStateTextField;
     [self showKeyboardScrollView:230.0];
-    [gNPickerViewObj showPickerView:tempShippingRegionNameArray selectedIndex:(shippingStateIndex==-1?0:shippingCountryIndex) option:2 isCancelDelegate:true];
+    [gNPickerViewObj showPickerView:tempShippingRegionNameArray selectedIndex:(shippingStateIndex==-1?0:shippingCountryIndex) option:2 isCancelDelegate:true isFilterScreen:false];
 }
 
 - (IBAction)billingCountryAction:(UIButton *)sender {
@@ -862,7 +862,7 @@
     [self.view endEditing:true];
     currentSelectedTextField=_billingCountryTextField;
     [self showKeyboardScrollView:230.0];
-    [gNPickerViewObj showPickerView:countryNameArray selectedIndex:(billingCountryIndex==-1?0:billingCountryIndex) option:3 isCancelDelegate:true];
+    [gNPickerViewObj showPickerView:countryNameArray selectedIndex:(billingCountryIndex==-1?0:billingCountryIndex) option:3 isCancelDelegate:true isFilterScreen:false];
 }
 
 - (IBAction)billingStateAction:(UIButton *)sender {
@@ -870,7 +870,7 @@
     [self.view endEditing:true];
     currentSelectedTextField=_billingStateTextField;
     [self showKeyboardScrollView:230.0];
-    [gNPickerViewObj showPickerView:tempbillingRegionNameArray selectedIndex:(billingStateIndex==-1?0:billingStateIndex) option:4 isCancelDelegate:true];
+    [gNPickerViewObj showPickerView:tempbillingRegionNameArray selectedIndex:(billingStateIndex==-1?0:billingStateIndex) option:4 isCancelDelegate:true isFilterScreen:false];
 }
 
 - (IBAction)noSameAddress:(UIButton *)sender {

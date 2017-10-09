@@ -193,7 +193,17 @@
         UILabel *orderDateLabel=[[UILabel alloc]initWithFrame:CGRectMake(10, 30, _orderListTableView.frame.size.width-10, 30)];
         orderDateLabel.font = [UIFont montserratRegularWithSize:13];
         orderDateLabel.textAlignment=NSTextAlignmentLeft;
-        str=[NSString stringWithFormat:@"%@ %@",NSLocalizedText(@"orderDateHeading"), orderDataModel.orderDate];
+        
+        NSString *dateString = orderDataModel.orderDate;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:specialPriceDateFormatter];
+        NSDate *date = [[NSDate alloc] init];
+        date = [dateFormatter dateFromString:dateString];
+        // converting into our required date format
+        [dateFormatter setDateFormat:dateFormatterDate];
+        NSString *reqDateString = [dateFormatter stringFromDate:date];
+        
+        str=[NSString stringWithFormat:@"%@ %@",NSLocalizedText(@"orderDateHeading"), reqDateString];
         string = [[NSMutableAttributedString alloc]initWithString:str];
         registerTextRange = [str rangeOfString:NSLocalizedText(@"orderDateHeading")];
         [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratSemiBoldWithSize:13]} range:registerTextRange];

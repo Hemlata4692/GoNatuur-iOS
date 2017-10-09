@@ -164,7 +164,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==5) {
-        [customerSupportPicker showPickerView:customerSupportArray selectedIndex:selectedPickerIndex option:1 isCancelDelegate:false];
+        [customerSupportPicker showPickerView:customerSupportArray selectedIndex:selectedPickerIndex option:1 isCancelDelegate:false isFilterScreen:false];
     }
 }
 #pragma mark - end

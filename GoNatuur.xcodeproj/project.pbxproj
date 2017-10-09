@@ -785,6 +785,24 @@
 			name = PaymentMethodModule;
 			sourceTree = "<group>";
 		};
+		184833051F87454300A20F22 /* SortByViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5D4D532F1F73965400A2AEFA /* SortByViewController.h */,
+				5D4D53301F73965400A2AEFA /* SortByViewController.m */,
+			);
+			name = SortByViewController;
+			sourceTree = "<group>";
+		};
+		184833061F87455300A20F22 /* SortByCell */ = {
+			isa = PBXGroup;
+			children = (
+				5D4D53311F73965400A2AEFA /* SortByCell.h */,
+				5D4D53321F73965400A2AEFA /* SortByCell.m */,
+			);
+			name = SortByCell;
+			sourceTree = "<group>";
+		};
 		184C38581F3B08DE008B8291 /* SWRevealViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1914,10 +1932,8 @@
 		5D4D532E1F73963800A2AEFA /* SortModule */ = {
 			isa = PBXGroup;
 			children = (
-				5D4D532F1F73965400A2AEFA /* SortByViewController.h */,
-				5D4D53301F73965400A2AEFA /* SortByViewController.m */,
-				5D4D53311F73965400A2AEFA /* SortByCell.h */,
-				5D4D53321F73965400A2AEFA /* SortByCell.m */,
+				184833051F87454300A20F22 /* SortByViewController */,
+				184833061F87455300A20F22 /* SortByCell */,
 			);
 			name = SortModule;
 			sourceTree = "<group>";
@@ -2972,6 +2988,7 @@
 				186260F11F85EE8B00FAFAE2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		32BAA5FF1F1360280015E355 /* Build configuration list for PBXProject "GoNatuur" */ = {
 			isa = XCConfigurationList;

@@ -41,10 +41,12 @@
 
 @implementation ProductListingViewController
 @synthesize selectedProductCategoryId;
+@synthesize selectedPickerValueDict;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    selectedPickerValueDict=[[NSMutableDictionary alloc]init];
     //When user go to search screen then store last product category id
     lastSelectedCategoryId=myDelegate.selectedCategoryIndex;
     //Add custom picker view and initialized indexs
@@ -230,7 +232,12 @@
 
 #pragma mark - Collection view datasource methods
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    if (productListDataArray.count==0) {
+        return 0;
+    }
+    else {
     return productListDataArray.count;
+    }
 }
 
 - (ProductListCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -340,13 +347,13 @@
     
     if (productListDataArray.count>0) {
         _noRecordLabel.hidden=true;
+        if (firstTimePriceCalculation) {
+            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
+            firstTimePriceCalculation=false;
+        }
     }
     else {
         _noRecordLabel.hidden=false;
-    }
-    if (firstTimePriceCalculation) {
-        [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
-        firstTimePriceCalculation=false;
     }
     totalProductCount=[productData.totalProductCount intValue];
     float picDimension = (self.view.frame.size.width-20) / 2.0;
@@ -374,7 +381,7 @@
     DLog(@"%d",option);
     if (option==1) {
         if (subCategoryPickerArray.count>0) {
-            [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false];
+            [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false isFilterScreen:false];
         }
     } else if (option==3) {
         NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
@@ -393,6 +400,7 @@
     else if (option==2) {
         FilterViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FilterViewController"];
         preview.filterProductId = currentCategoryId;
+        preview.selectedPickerIndexDict=[selectedPickerValueDict mutableCopy];
         preview.productListViewObj = self;
         UINavigationController *navigationController =
         [[UINavigationController alloc] initWithRootViewController:preview];
