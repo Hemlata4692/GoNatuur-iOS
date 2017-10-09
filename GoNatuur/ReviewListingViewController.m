@@ -195,12 +195,12 @@
 
 - (IBAction)starFilterButtonAction:(id)sender {
     [_searchTextField resignFirstResponder];
-    [sortingPickerView showPickerView:starFilterDataArray selectedIndex:(selectedPickerIndex==-1?0:selectedPickerIndex) option:1 isCancelDelegate:false];
+    [sortingPickerView showPickerView:starFilterDataArray selectedIndex:(selectedPickerIndex==-1?0:selectedPickerIndex) option:1 isCancelDelegate:false isFilterScreen:false];
 }
 
 - (IBAction)sortByFilterAction:(id)sender {
     [_searchTextField resignFirstResponder];
-    [sortingPickerView showPickerView:sortByDataArray selectedIndex:(selectedSortFilterIndex==-1?0:selectedSortFilterIndex) option:2 isCancelDelegate:false];
+    [sortingPickerView showPickerView:sortByDataArray selectedIndex:(selectedSortFilterIndex==-1?0:selectedSortFilterIndex) option:2 isCancelDelegate:false isFilterScreen:false];
 }
 
 - (IBAction)writeReviewButtonAction:(id)sender {

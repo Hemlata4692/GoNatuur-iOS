@@ -317,3 +317,4 @@
 "rewardProductExistAlert"="你有一些奖励产品的价值超过了影响点.";
 "applyCouponCode"="申请优惠券代码";
 "deleteCardMessage"="您确定要删除此卡吗";
+"RequestTimeout"="Request time out. Please try again.";

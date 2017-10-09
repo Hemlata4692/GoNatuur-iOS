@@ -18,9 +18,7 @@
 @property (strong, nonatomic) NSString *minPriceValue;
 @property (strong, nonatomic) NSString *maxPriceValue;
 @property (weak, nonatomic) IBOutlet UILabel *countryLabel;
-@property (weak, nonatomic) IBOutlet UILabel *benefitsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *certificatesLabel;
-@property (weak, nonatomic) IBOutlet UILabel *productTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *selectedFilterLabel;
 
 - (void)displaySlider:(NSString *)maxPrice;
 

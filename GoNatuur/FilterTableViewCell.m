@@ -46,11 +46,6 @@
 }
 
 - (void)displayCountry:(SortFilterModel *)data {
-    if ([data.filterCountryValue isEqualToString:@""]) {
-        _countryLabel.text=NSLocalizedText(@"All");
-    }
-    else {
-        _countryLabel.text=data.filterCountry;
-    }
+    _countryLabel.text=data.filterLabelValue;
 }
 @end

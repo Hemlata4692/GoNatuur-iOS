@@ -12,5 +12,6 @@
 @interface FilterViewController : UIViewController
 @property(nonatomic,strong) ProductListingViewController *productListViewObj;
 @property (nonatomic) int filterProductId;
-
+@property (nonatomic) int selectedPickerValueIndex;
+@property (nonatomic, strong) NSMutableDictionary *selectedPickerIndexDict;
 @end

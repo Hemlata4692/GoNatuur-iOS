@@ -279,14 +279,14 @@
     }
     currentSelectedTextField=_countryField;
     [self showKeyboardScrollView:230.0];
-    [gNPickerViewObj showPickerView:countryNameArray selectedIndex:selectedCountryCodeIndex option:1 isCancelDelegate:false];
+    [gNPickerViewObj showPickerView:countryNameArray selectedIndex:selectedCountryCodeIndex option:1 isCancelDelegate:false isFilterScreen:false];
 }
 
 - (IBAction)selectStateAction:(id)sender {
     isPickerEnable = true;
     currentSelectedTextField=_stateField;
     [self showKeyboardScrollView:230.0];
-    [gNPickerViewObj showPickerView:regionNameArray selectedIndex:selectedRegionIndex option:2 isCancelDelegate:false];
+    [gNPickerViewObj showPickerView:regionNameArray selectedIndex:selectedRegionIndex option:2 isCancelDelegate:false isFilterScreen:false];
 }
 
 - (IBAction)setBillingAddressAction:(id)sender {
