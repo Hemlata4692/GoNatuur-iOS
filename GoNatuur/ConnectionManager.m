@@ -420,6 +420,7 @@
             productData.productId = productDataDict[@"id"];
             productData.productPrice = [productDataDict[@"price"] stringValue];
             productData.productName = productDataDict[@"name"];
+            productData.productImpactPoint = [NSNumber numberWithDouble:[[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"points_required"] doubleValue]];
             if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
@@ -716,6 +717,9 @@
         productData.categoryId=[[customAttributeDict objectForKey:@"category_ids"] objectAtIndex:0];
         productData.productSubtitle=[customAttributeDict objectForKey:@"subtitle"];
         productData.productUrlKey=[customAttributeDict objectForKey:@"url_key"];
+        if ([customAttributeDict objectForKey:@"shipping_text"]!=nil) {
+           productData.shippingText=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"shipping_text"]];
+        }
         if ([customAttributeDict objectForKey:@"description"]!=nil) {
             productData.productDescription=[customAttributeDict objectForKey:@"description"];
         }

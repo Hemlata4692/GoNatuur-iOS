@@ -482,7 +482,7 @@
                                                         <constraint firstItem="xKF-yz-D1w" firstAttribute="top" secondItem="M5C-eY-JL5" secondAttribute="bottom" constant="7.5" id="wYl-pl-zhh"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="soldout" translatesAutoresizingMaskIntoConstraints="NO" id="qwJ-fp-3ME">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sold_en" translatesAutoresizingMaskIntoConstraints="NO" id="qwJ-fp-3ME">
                                                     <rect key="frame" x="0.0" y="0.0" width="105" height="113"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="qwJ-fp-3ME" secondAttribute="height" multiplier="105:113" id="9RN-NT-fTN"/>
@@ -526,7 +526,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="87" y="274" width="146.5" height="21"/>
+                                <rect key="frame" x="87.5" y="274" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -1342,7 +1342,7 @@
                                                                         <constraint firstAttribute="trailing" secondItem="QWA-DX-RrB" secondAttribute="trailing" constant="9" id="vsj-OP-RbM"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="soldout" translatesAutoresizingMaskIntoConstraints="NO" id="frE-ys-Dpf">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sold_en" translatesAutoresizingMaskIntoConstraints="NO" id="frE-ys-Dpf">
                                                                     <rect key="frame" x="0.0" y="0.0" width="105" height="113"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="113" id="D7Z-u1-YS3"/>
@@ -5169,7 +5169,7 @@
                                                                             <constraint firstItem="Ydw-dE-dee" firstAttribute="top" secondItem="vUp-vW-Mh5" secondAttribute="bottom" constant="7" id="xOd-jb-nJP"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="soldout" translatesAutoresizingMaskIntoConstraints="NO" id="9Kr-Nc-LY9">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sold_en" translatesAutoresizingMaskIntoConstraints="NO" id="9Kr-Nc-LY9">
                                                                         <rect key="frame" x="0.0" y="0.0" width="105" height="113"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="9Kr-Nc-LY9" secondAttribute="height" multiplier="105:113" id="cIs-Ik-4Va"/>
@@ -5623,15 +5623,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="78"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shipping is free if the total purchase is above USD$100." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IB6-rd-Kh4">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IB6-rd-Kh4">
                                                     <rect key="frame" x="40" y="0.0" width="240" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="12"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Products can be returned within 30 days of purchase, subject to the following conditions." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgG-wb-bAy">
-                                                    <rect key="frame" x="40" y="28" width="240" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="12"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -5642,7 +5635,6 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.71372549019999998" green="0.1450980392" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <outlet property="productReturnLabel" destination="cgG-wb-bAy" id="693-f0-NI6"/>
                                             <outlet property="shippingFreeLabel" destination="IB6-rd-Kh4" id="kzD-DA-vBE"/>
                                         </connections>
                                     </tableViewCell>
@@ -7202,7 +7194,7 @@
                                                         <constraint firstItem="ffM-8a-3OW" firstAttribute="leading" secondItem="4t5-7a-yrD" secondAttribute="leading" constant="8" id="uIm-dL-0tB"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="soldout" translatesAutoresizingMaskIntoConstraints="NO" id="S0A-1U-zyT">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sold_en" translatesAutoresizingMaskIntoConstraints="NO" id="S0A-1U-zyT">
                                                     <rect key="frame" x="0.0" y="0.0" width="105" height="113"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="113" id="c6V-mt-wpe"/>
@@ -7260,7 +7252,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="87" y="274" width="146.5" height="21"/>
+                                <rect key="frame" x="87.5" y="274" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>
@@ -9498,15 +9490,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="78"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shipping is free if the total purchase is above USD$100." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gd-fe-tFf">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gd-fe-tFf">
                                                     <rect key="frame" x="40" y="0.0" width="240" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="12"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Products can be returned within 30 days of purchase, subject to the following conditions." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ys8-yd-xOo">
-                                                    <rect key="frame" x="40" y="28" width="240" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="12"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -9517,7 +9502,6 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.71372549019999998" green="0.1450980392" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <outlet property="productReturnLabel" destination="ys8-yd-xOo" id="oqF-aX-JRy"/>
                                             <outlet property="shippingFreeLabel" destination="3gd-fe-tFf" id="YJa-AW-ZGU"/>
                                         </connections>
                                     </tableViewCell>
@@ -13581,7 +13565,6 @@
         <image name="sidebarBg" width="1242" height="2208"/>
         <image name="signout" width="26" height="26"/>
         <image name="sold_en" width="261" height="258"/>
-        <image name="soldout" width="261" height="258"/>
         <image name="star" width="22" height="22"/>
         <image name="subscribe" width="26" height="26"/>
         <image name="tickets" width="28" height="28"/>

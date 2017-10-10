@@ -13,12 +13,12 @@
 
 @interface FilterViewController ()<GoNatuurPickerViewDelegate> {
 @private
-    NSMutableArray *filterDataArray, *filterValueDataArray;
+    NSMutableArray *filterDataArray, *filterValueDataArray, *selctedFilterDataArray;
     NSString *filterType, *filterTypeValue;
     NSString *requestValuesString, *slectedAttributeId, *slectedAttributeCode;
     GoNatuurPickerView *gNPickerViewObj;
     int selectedRowIndex;
-    NSMutableDictionary *tempDataDict;
+    NSMutableDictionary *tempDataDict, *filterDataDictionary;
 }
 @property (weak, nonatomic) IBOutlet UITableView *filterTableView;
 
@@ -36,6 +36,8 @@
     // Do any additional setup after loading the view.
     filterDataArray = [NSMutableArray new];
     tempDataDict=[[NSMutableDictionary alloc]init];
+    filterDataDictionary=[[NSMutableDictionary alloc]init];
+    selctedFilterDataArray=[[NSMutableArray alloc]init];
     slectedAttributeId = @"";
     slectedAttributeCode = @"";
     //remove extra lines from table view
@@ -133,6 +135,30 @@
             FilterTableViewCell *tempCountryCell = (FilterTableViewCell *)[_filterTableView cellForRowAtIndexPath:tempIndex];
             tempCountryCell.selectedFilterLabel.text=[filterValueDataArray objectAtIndex:tempSelectedIndex];
             [tempDataDict setObject:[NSString stringWithFormat:@"%d",tempSelectedIndex] forKey:[NSString stringWithFormat:@"%ld",tempIndex.row-1]];
+            NSDictionary *tempDict = @{@"field":[[filterDataArray objectAtIndex:tempIndex.row-1] filterAttributeCode],@"value":[[[[filterDataArray objectAtIndex:tempIndex.row-1] filterOptionsArray] objectAtIndex:tempSelectedIndex] filterCountryValue], @"condition_type":@"eq"};
+            [filterDataDictionary setObject:tempDict forKey:@"filters"];
+           
+            [selctedFilterDataArray addObject:filterDataDictionary];
+           
+            
+            for (tempDict in selctedFilterDataArray) {
+                if ([[tempDict objectForKey:@"value"] isEqualToString:[[[[filterDataArray objectAtIndex:tempIndex.row-1] filterOptionsArray] objectAtIndex:tempSelectedIndex] filterCountryValue]]) {
+                    // id was indeed 1, replace '1', with the id that you're looking for
+                    NSLog(@"dfghdnd");
+                }
+            }
+
+//            if ([selctedFilterDataArray containsObject:[tempDict objectForKey:@"field"]]) {
+//                NSUInteger objIdx = [selctedFilterDataArray indexOfObject:tempArray];
+//               [selctedFilterDataArray replaceObjectAtIndex:objIdx withObject:filterDataDictionary];
+//            }
+//            else {
+//                [selctedFilterDataArray addObject:filterDataDictionary];
+//            }
+            
+           
+            
+            
         }
     }
 }

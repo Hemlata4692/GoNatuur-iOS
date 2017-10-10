@@ -101,14 +101,21 @@
     _addCartView.layer.borderColor=[UIColor blackColor].CGColor;
     _addCartView.layer.borderWidth=1.0;
     _cartNumberItemLabel.text=[NSString stringWithFormat:@"%d",currentQuantity];
-    _productPointsEarnLabel.text=NSLocalizedText(@"Points Earn");
+    double convertedBasePointRulePice=[[[UserDefaultManager getValue:@"impactPointRules"] objectForKey:@"rulePrice"] doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+    double earnedPoints=([[[UserDefaultManager getValue:@"impactPointRules"] objectForKey:@"earnedPoints"] doubleValue]/convertedBasePointRulePice)*productCalculatedPrice;
+    
+    NSString *ipString=@"ip";
+    NSString *str=[NSString stringWithFormat:@"%@%@",[NSString stringWithFormat:@"%@ %.0f",NSLocalizedText(@"Points Earn"),earnedPoints],ipString];
+    string = [[NSMutableAttributedString alloc]initWithString:str];
+    NSRange decimalTextRange = [str rangeOfString:ipString];
+    [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:17]} range:decimalTextRange];
+    _productPointsEarnLabel.attributedText=string;
 }
 
-- (void)displayProductInfo {
+- (void)displayProductInfo:(NSString *)shippingTextData {
     _shippingFreeLabel.translatesAutoresizingMaskIntoConstraints=true;
-    _shippingFreeLabel.frame=CGRectMake(40, 0, [[UIScreen mainScreen] bounds].size.width-80, [DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"Shipping is free if the total purchase is above USD$100.") font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80]);
-    _productReturnLabel.translatesAutoresizingMaskIntoConstraints=true;
-    _productReturnLabel.frame=CGRectMake(40, _shippingFreeLabel.frame.origin.y+_shippingFreeLabel.frame.size.height, [[UIScreen mainScreen] bounds].size.width-80, [DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"Products can be returned within 30 days of purchase, subject to the following conditions.") font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80]);
+    _shippingFreeLabel.frame=CGRectMake(40, 0, [[UIScreen mainScreen] bounds].size.width-80, [DynamicHeightWidth getDynamicLabelHeight:shippingTextData font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80]);
+    _shippingFreeLabel.text=shippingTextData;
 }
 
 - (void)displayAddToCartButton:(NSString *)screenType {
