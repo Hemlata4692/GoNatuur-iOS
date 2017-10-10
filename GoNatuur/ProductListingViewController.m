@@ -46,7 +46,6 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    selectedPickerValueDict=[[NSMutableDictionary alloc]init];
     //When user go to search screen then store last product category id
     lastSelectedCategoryId=myDelegate.selectedCategoryIndex;
     //Add custom picker view and initialized indexs
@@ -55,7 +54,7 @@
     //Set default sort values
     _sortingType = NSLocalizedText(@"sortPrice");
     _sortFilterRequest = 0;
-    _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0", @"attributeId":@"9", @"attributedCode":@"country"};
+    _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0"};
     _sortBasis = DESC; //ASC/DESC
 }
 
@@ -318,8 +317,10 @@
     productList.productSortingValue = _sortBasis;
     productList.minPriceValue = _filterDictionary[@"minPrice"];
     productList.maxPriceValue = _filterDictionary[@"maxPrice"];
-    productList.filterAttributeCode = _filterDictionary[@"attributedCode"];;
-    productList.filterAttributeId = _filterDictionary[@"attributeId"];
+    if (_sortFilterRequest!=1 && _sortFilterRequest!=0) {
+        productList.filterAttributeCode = _filterDictionary[@"attributedCode"];
+        productList.filterAttributeId = _filterDictionary[@"attributeId"];
+    }
     productList.sortFilterRequestParameter=_sortFilterRequest;
     [productList getProductListService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];
@@ -421,6 +422,7 @@
             currentCategoryId=[[[subCategoryDataList objectAtIndex:selectedSubCategoryIndex] objectForKey:@"id"] intValue];
             bannerImageUrl=@"";
             productListDataArray=[NSMutableArray new];
+            selectedPickerValueDict=[[NSMutableDictionary alloc]init];
             totalProductCount=0;
             currentpage=1;
             [myDelegate showIndicator];

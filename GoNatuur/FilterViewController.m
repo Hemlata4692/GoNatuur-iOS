@@ -105,6 +105,7 @@
     FilterTableViewCell *cell = (FilterTableViewCell *)[_filterTableView cellForRowAtIndexPath:tempIndex];
     productListViewObj.filterDictionary = @{@"maxPrice":cell.maxPriceValue,@"minPrice":cell.minPriceValue, @"attributeId":slectedAttributeId, @"attributedCode":slectedAttributeCode};
     DLog(@"productListViewObj.filterDictionary = %@",productListViewObj.filterDictionary);
+    // _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0", @"attributeId":@"9", @"attributedCode":@"country"};
     productListViewObj.isSortFilter = true;
     productListViewObj.selectedPickerValueDict=[tempDataDict mutableCopy];
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
@@ -136,7 +137,6 @@
     }
 }
 #pragma mark - end
-
 
 #pragma mark - TableView DataSource and Delegate Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
