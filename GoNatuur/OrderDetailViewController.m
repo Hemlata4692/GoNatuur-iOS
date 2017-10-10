@@ -28,6 +28,7 @@
 @end
 
 @implementation OrderDetailViewController
+@synthesize selectedOrderId;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -270,9 +271,11 @@
     OrderModel * orderData = [OrderModel sharedUser];
     orderData.pageSize=[NSNumber numberWithInt:0];
     orderData.currentPage=[NSNumber numberWithInt:0];
+    orderData.isOrderDetailService=@"1";
+    orderData.orderId=selectedOrderId;
     [orderData getOrderListing:^(OrderModel *userData) {
-        orderDataModel = [userData.orderListingArray objectAtIndex:_selectedIndex];
-        productListArray = [[[userData.orderListingArray objectAtIndex:_selectedIndex] productListingArray] mutableCopy];
+        orderDataModel = [userData.orderListingArray objectAtIndex:0];
+        productListArray = [[[userData.orderListingArray objectAtIndex:0] productListingArray] mutableCopy];
         if (productListArray.count==0) {
             _noRecordLabel.hidden=NO;
             _orderDetailTable.hidden = YES;
@@ -293,7 +296,7 @@
 
 - (void)cancelOrderService {
     OrderModel *orderData = [OrderModel sharedUser];
-    orderData.purchaseOrderId = orderDataModel.purchaseOrderId;
+    orderData.purchaseOrderId = orderDataModel.orderId;
     [orderData cancelOrderService:^(OrderModel *userData) {
         [myDelegate stopIndicator];
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];

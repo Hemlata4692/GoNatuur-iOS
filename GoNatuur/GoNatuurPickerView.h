@@ -23,6 +23,6 @@
 @property (strong, nonatomic) NSMutableArray *pickerArray;
 @property (nonatomic,strong) id delegate;
 - (id)initWithFrame:(CGRect)frame delegate:(id)delegate pickerHeight:(int)tempPickerHeight;
-- (void)showPickerView:(NSArray *)tempPickerArray selectedIndex:(int)selectedIndex option:(int)option isCancelDelegate:(BOOL)isCancelDelegate;
+- (void)showPickerView:(NSArray *)tempPickerArray selectedIndex:(int)selectedIndex option:(int)option isCancelDelegate:(BOOL)isCancelDelegate isFilterScreen:(BOOL)isFilterScreen;
 - (void)hidePickerView;
 @end

@@ -19,7 +19,31 @@ static NSString *kTrackShippment=@"shipments";
 
 #pragma mark - Get order listing
 - (void)getOrderListing:(OrderModel *)orderData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
-    NSDictionary *parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+    NSDictionary *parameters;
+    if ([orderData.isOrderDetailService isEqualToString:@"1"]) {
+        parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                                   @{
+                                                                       @"filters":@[
+                                                                               @{@"field":@"entity_id",
+                                                                                 @"value":orderData.orderId,
+                                                                                 @"condition_type": @"eq"
+                                                                                 }
+                                                                               ]
+                                                                       }
+                                                                   ],
+                                                           @"sort_orders" : @[
+                                                                   @{@"field":@"created_at",
+                                                                     @"direction":DESC
+                                                                     }
+                                                                   ],
+                                                           @"page_size" : orderData.pageSize,
+                                                           @"current_page" : orderData.currentPage
+                                                           }
+                                     };
+        DLog(@"order detail request %@",parameters);
+    }
+    else {
+        parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
                                                                @{
                                                                    @"filters":@[
                                                                            @{@"field":@"customer_id",
@@ -38,7 +62,9 @@ static NSString *kTrackShippment=@"shipments";
                                                        @"current_page" : orderData.currentPage
                                                        }
                                  };
-    NSLog(@"order list request %@",parameters);
+        DLog(@"order list request %@",parameters);
+    }
+    
     [super post:kOrderListing parameters:parameters success:success failure:failure];
 }
 #pragma mark - end

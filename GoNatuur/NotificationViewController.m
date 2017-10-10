@@ -9,6 +9,11 @@
 #import "NotificationViewController.h"
 #import "DynamicHeightWidth.h"
 #import "NotificationDataModel.h"
+#import "ProductListingViewController.h"
+#import "EventDetailViewController.h"
+#import "ProductDetailViewController.h"
+#import "OrderDetailViewController.h"
+#import "ProfileViewController.h"
 
 @interface NotificationViewController () {
 @private
@@ -31,7 +36,6 @@
     _notificationTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
     _notificationTableView.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
     _noRecordLabel.hidden=YES;
-    notificationArray=[[NSMutableArray alloc]init];
     pageCount=1;
 }
 
@@ -48,6 +52,7 @@
     [self initFooterView];
     _noRecordLabel.text=NSLocalizedText(@"norecord");
     //call notification list webservice
+    notificationArray=[[NSMutableArray alloc]init];
     [myDelegate showIndicator];
     [self performSelector:@selector(getNotificationListing) withObject:nil afterDelay:.1];
 }
@@ -65,18 +70,21 @@
         }
         else {
             _noRecordLabel.hidden=YES;
-        totalCount =[userData.totalCount intValue];
-        [_notificationTableView reloadData];
+            totalCount =[userData.totalCount intValue];
+            [_notificationTableView reloadData];
         }
     } onfailure:^(NSError *error) {
         _noRecordLabel.hidden=NO;
     }];
 }
 
-- (void)markNotificationAsRead:(NSString *)notificationId {
+- (void)markNotificationAsRead:(NSString *)notificationId currentIndex:(int)currentIndex {
     NotificationDataModel *notificationList = [NotificationDataModel sharedUser];
     notificationList.notificationId=notificationId;
-    [notificationList markNotificationRead:^(NotificationDataModel *userData)  {
+    [notificationList markNotificationRead:^(NotificationDataModel *userData) {
+        NotificationDataModel *notiData=[notificationArray objectAtIndex:currentIndex];
+        notiData.notificationStatus=@"1";
+        [_notificationTableView reloadData];
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
         
@@ -100,7 +108,7 @@
     UIImageView *arrowIcon=(UIImageView *) [cell viewWithTag:3];
     UIImageView *sepImage=(UIImageView *) [cell viewWithTag:4];
     notificationBadgeLabel.translatesAutoresizingMaskIntoConstraints=YES;
-    NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];    
+    NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];
     if ([notiData.notificationStatus isEqualToString:@"1"]) {
         notificationBadgeLabel.textColor=[UIColor whiteColor];
         cell.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
@@ -128,10 +136,63 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-     NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];
-     [self markNotificationAsRead:notiData.notificationId];
+    NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];
+    [self markNotificationAsRead:notiData.notificationId currentIndex:(int)indexPath.row];
+    int notificationTypeId= [notiData.notificationType intValue];
+    switch(notificationTypeId) {
+        case 1 : {
+            // navigate to product listing
+            ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
+            obj.selectedProductCategoryId=[notiData.targetId intValue];
+            myDelegate.isProductList=true;
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+        break;
+        case 2 :{
+            // navigate to product details
+            ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+            obj.selectedProductId=[notiData.targetId intValue];
+            obj.isRedeemProduct=false;
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+        break;
+        case 3 : {
+            // navigate to event listing
+            ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
+            obj.selectedProductCategoryId=[notiData.targetId intValue];
+            myDelegate.isProductList=false;
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+        break;
+        case 4 :{
+            // navigate to event details
+            EventDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EventDetailViewController"];
+            obj.selectedProductId=[notiData.targetId intValue];
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+        break;
+        case 5 :
+        case 6 :
+        case 7 :
+        case 8 :
+        case 9 :
+        case 11 :{
+            // navigate to order details
+            OrderDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
+            obj.selectedOrderId=notiData.targetId;
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+        break;
+        case 10 :{
+            // navigate to profile screen
+            ProfileViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+        break;
+        default :
+            DLog(@"Invalid notification type");
+    }
 }
-
 #pragma mark - end
 
 #pragma mark - Pagignation for table view

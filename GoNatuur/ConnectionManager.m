@@ -341,6 +341,7 @@
         productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
     }
     productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+    productData.productType=productDataDict[@"type_id"];
     return productData;
 }
 #pragma mark - end
@@ -627,6 +628,7 @@
             tempModel.productQty = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"extension_attributes"]objectForKey:@"qty"];
             tempModel.productRating = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             tempModel.productType=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"type_id"];
+            tempModel.redeemPointsRequired=[[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"points_required"];
             [productData.productDataArray addObject:tempModel];
         }
         success(productData);
@@ -745,6 +747,7 @@
         else {
             productData.eventPrice=[NSString stringWithFormat:@"%@",productData.productPrice];
         }
+        productData.redeemPointsRequired = [customAttributeDict objectForKey:@"points_required"];
         productData.productMediaArray=[NSMutableArray new];
         for (NSDictionary *tempDict in [response objectForKey:@"media"]) {
             if ([[tempDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
@@ -1262,7 +1265,7 @@
         for (int i =0; i<dataArray.count; i++) {
             NSDictionary * orderDataDict =[dataArray objectAtIndex:i];
             OrderModel * orderListData = [[OrderModel alloc]init];
-            orderListData.orderDate = [[orderDataDict[@"created_at"] componentsSeparatedByString:@" "] objectAtIndex:0];
+            orderListData.orderDate = orderDataDict[@"created_at"];
             orderListData.orderStatus = orderDataDict[@"status"];
             orderListData.orderState = orderDataDict[@"state"];
             orderListData.purchaseOrderId = orderDataDict[@"increment_id"];

@@ -21,5 +21,5 @@
 @property (weak, nonatomic) IBOutlet UIView *borderView;
 @property (weak, nonatomic) IBOutlet UIButton *shareNewButton;
 
-- (void)displayProductListData :(DashboardDataModel *)productListData exchangeRates:(NSString *)exchangeRates;
+- (void)displayProductListData :(DashboardDataModel *)productListData exchangeRates:(NSString *)exchangeRates isRedeemPoints:(BOOL)isRedeemPoints;
 @end

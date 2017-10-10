@@ -214,7 +214,7 @@
 
 - (ProductListCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProductListCollectionViewCell *productCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productCell" forIndexPath:indexPath];
-    [productCell displayProductListData:[productListDataArray objectAtIndex:indexPath.row] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
+    [productCell displayProductListData:[productListDataArray objectAtIndex:indexPath.row] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"] isRedeemPoints:false];
     productCell.shareNewButton.tag=indexPath.item;
     [productCell.shareNewButton addTarget:self action:@selector(shareNewsAction:) forControlEvents:UIControlEventTouchUpInside];
     return productCell;
@@ -349,7 +349,7 @@
         NSDate *date = [[NSDate alloc] init];
         date = [dateFormatter dateFromString:dateString];
         // converting into our required date format
-        [dateFormatter setDateFormat:dateFormatterConverted];
+        [dateFormatter setDateFormat:dateFormatterService];
         NSString *reqDateString = [dateFormatter stringFromDate:date];
         [archiveOptionsArray insertObject:reqDateString atIndex:i];
         }
@@ -415,17 +415,17 @@
     DLog(@"%d",option);
     if (option==1) {
         if (subCategoryPickerArray.count>0) {
-            [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false];
+            [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false isFilterScreen:false];
         }
     }
     else if (option==2) {
         if (archiveOptionsArray.count>0) {
-            [gNPickerViewObj showPickerView:archiveOptionsArray selectedIndex:selectedFirstFilterIndex option:2 isCancelDelegate:false];
+            [gNPickerViewObj showPickerView:archiveOptionsArray selectedIndex:selectedFirstFilterIndex option:2 isCancelDelegate:false isFilterScreen:false];
         }
     }
     else{
         if (sortingDataArray.count>0) {
-            [gNPickerViewObj showPickerView:sortingDataArray selectedIndex:selectedSecondFilterIndex option:3 isCancelDelegate:false];
+            [gNPickerViewObj showPickerView:sortingDataArray selectedIndex:selectedSecondFilterIndex option:3 isCancelDelegate:false isFilterScreen:false];
         }
     }
 }

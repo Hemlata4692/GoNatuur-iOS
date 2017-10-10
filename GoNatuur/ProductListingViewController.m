@@ -41,10 +41,12 @@
 
 @implementation ProductListingViewController
 @synthesize selectedProductCategoryId;
+@synthesize selectedPickerValueDict;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    selectedPickerValueDict=[[NSMutableDictionary alloc]init];
     //When user go to search screen then store last product category id
     lastSelectedCategoryId=myDelegate.selectedCategoryIndex;
     //Add custom picker view and initialized indexs
@@ -76,6 +78,11 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    //Bring front view picker view
+    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -99,8 +106,6 @@
     totalProductCount=0;
     currentpage=1;
     _productListTableView.tableFooterView=nil;
-    //Bring front view picker view
-    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
     //Allocate footer view
     [self initializeFooterView];
     // Pull to refresh
@@ -227,12 +232,17 @@
 
 #pragma mark - Collection view datasource methods
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    if (productListDataArray.count==0) {
+        return 0;
+    }
+    else {
     return productListDataArray.count;
+    }
 }
 
 - (ProductListCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProductListCollectionViewCell *productCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productCell" forIndexPath:indexPath];
-    [productCell displayProductListData:[productListDataArray objectAtIndex:indexPath.row] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
+    [productCell displayProductListData:[productListDataArray objectAtIndex:indexPath.row] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"] isRedeemPoints:false];
     return productCell;
 }
 
@@ -253,6 +263,7 @@
         //StoryBoard navigation
         ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
         obj.selectedProductId=[[[productListDataArray objectAtIndex:indexPath.row] productId] intValue];
+        obj.isRedeemProduct=false;
         [self.navigationController pushViewController:obj animated:YES];
     }
 }
@@ -336,13 +347,13 @@
     
     if (productListDataArray.count>0) {
         _noRecordLabel.hidden=true;
+        if (firstTimePriceCalculation) {
+            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
+            firstTimePriceCalculation=false;
+        }
     }
     else {
         _noRecordLabel.hidden=false;
-    }
-    if (firstTimePriceCalculation) {
-        [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
-        firstTimePriceCalculation=false;
     }
     totalProductCount=[productData.totalProductCount intValue];
     float picDimension = (self.view.frame.size.width-20) / 2.0;
@@ -370,7 +381,7 @@
     DLog(@"%d",option);
     if (option==1) {
         if (subCategoryPickerArray.count>0) {
-            [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false];
+            [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false isFilterScreen:false];
         }
     } else if (option==3) {
         NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
@@ -389,6 +400,7 @@
     else if (option==2) {
         FilterViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FilterViewController"];
         preview.filterProductId = currentCategoryId;
+        preview.selectedPickerIndexDict=[selectedPickerValueDict mutableCopy];
         preview.productListViewObj = self;
         UINavigationController *navigationController =
         [[UINavigationController alloc] initWithRootViewController:preview];

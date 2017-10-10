@@ -73,21 +73,30 @@
         [ImageCaching downloadImages:_productImageView imageUrl:[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,[productImageDict objectForKey:@"file"]] placeholderImage:@"product_placeholder" isDashboardCell:false];
 }
 
-- (void)displayProductPrice:(ProductDataModel *)productData currentQuantity:(int)currentQuantity {
+- (void)displayProductPrice:(ProductDataModel *)productData currentQuantity:(int)currentQuantity isRedeemPoints:(BOOL)isRedeemPoints {
     double productCalculatedPrice;
-    
     if (nil!=productData.specialPrice&&![productData.specialPrice isEqualToString:@""]) {
         productCalculatedPrice =[productData.specialPrice doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
     }
     else {
         productCalculatedPrice =[productData.productPrice doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
     }
-    NSString *str=[NSString stringWithFormat:@"%@%@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc]initWithString:str];
-    NSRange currenyTextRange = [str rangeOfString:[UserDefaultManager getValue:@"DefaultCurrencySymbol"]];
-    NSRange decimalTextRange = [str rangeOfString:[[str componentsSeparatedByString:@"."] objectAtIndex:1]];
-    [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:18]} range:currenyTextRange];
-    [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:18]} range:decimalTextRange];
+    NSMutableAttributedString *string;
+    if (isRedeemPoints) {
+        NSString *ipString=@"ip";
+        NSString *str=[NSString stringWithFormat:@"%.0f%@",[productData.redeemPointsRequired floatValue],ipString];
+         string = [[NSMutableAttributedString alloc]initWithString:str];
+        NSRange decimalTextRange = [str rangeOfString:ipString];
+        [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:18]} range:decimalTextRange];
+    }
+    else {
+        NSString *str=[NSString stringWithFormat:@"%@%@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
+         string = [[NSMutableAttributedString alloc]initWithString:str];
+        NSRange currenyTextRange = [str rangeOfString:[UserDefaultManager getValue:@"DefaultCurrencySymbol"]];
+        NSRange decimalTextRange = [str rangeOfString:[[str componentsSeparatedByString:@"."] objectAtIndex:1]];
+        [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:18]} range:currenyTextRange];
+        [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:18]} range:decimalTextRange];
+    }
     _productPriceLabel.attributedText=string;
     _addCartView.layer.borderColor=[UIColor blackColor].CGColor;
     _addCartView.layer.borderWidth=1.0;

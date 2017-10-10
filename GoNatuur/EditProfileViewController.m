@@ -207,14 +207,14 @@
     //show language change picker
     currentSelectedTextField=_changeLaguageTextField;
     [self scrollViewInsetes:230];
-    [gNPickerViewObj showPickerView:changeLanguageArray selectedIndex:languagePickerIndex option:1 isCancelDelegate:true];
+    [gNPickerViewObj showPickerView:changeLanguageArray selectedIndex:languagePickerIndex option:1 isCancelDelegate:true isFilterScreen:false];
 }
 
 - (IBAction)currencyPickerButtonActio:(id)sender {
     //show currency change picker
     currentSelectedTextField=_changeCurrencyTextField;
     [self scrollViewInsetes:230];
-    [gNPickerViewObj showPickerView:changeCurrencyArray selectedIndex:currencyPickerIndex option:2 isCancelDelegate:true];
+    [gNPickerViewObj showPickerView:changeCurrencyArray selectedIndex:currencyPickerIndex option:2 isCancelDelegate:true isFilterScreen:false];
 }
 - (IBAction)editUserImageButtonAction:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedText(@"TakePhoto")

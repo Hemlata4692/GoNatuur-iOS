@@ -193,7 +193,17 @@
         UILabel *orderDateLabel=[[UILabel alloc]initWithFrame:CGRectMake(10, 30, _orderListTableView.frame.size.width-10, 30)];
         orderDateLabel.font = [UIFont montserratRegularWithSize:13];
         orderDateLabel.textAlignment=NSTextAlignmentLeft;
-        str=[NSString stringWithFormat:@"%@ %@",NSLocalizedText(@"orderDateHeading"), orderDataModel.orderDate];
+        
+        NSString *dateString = orderDataModel.orderDate;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:specialPriceDateFormatter];
+        NSDate *date = [[NSDate alloc] init];
+        date = [dateFormatter dateFromString:dateString];
+        // converting into our required date format
+        [dateFormatter setDateFormat:dateFormatterDate];
+        NSString *reqDateString = [dateFormatter stringFromDate:date];
+        
+        str=[NSString stringWithFormat:@"%@ %@",NSLocalizedText(@"orderDateHeading"), reqDateString];
         string = [[NSMutableAttributedString alloc]initWithString:str];
         registerTextRange = [str rangeOfString:NSLocalizedText(@"orderDateHeading")];
         [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratSemiBoldWithSize:13]} range:registerTextRange];
@@ -268,9 +278,10 @@
 - (void)viewDetailButtonAction:(UIButton *)sender {
     long btnTag = [sender tag];
     NSLog(@"%ld",btnTag);
+    orderDataModel = [orderListArray objectAtIndex:btnTag];
     UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     OrderDetailViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
-    nextView.selectedIndex = btnTag;
+    nextView.selectedOrderId = orderDataModel.orderId;
     [self.navigationController pushViewController:nextView animated:YES];
 }
 
@@ -351,6 +362,7 @@
 - (void)getOrderListing {
     orderDataModel = [OrderModel sharedUser];
     orderDataModel.pageSize=[UserDefaultManager getValue:@"paginationSize"];
+    orderDataModel.isOrderDetailService=@"0";
     orderDataModel.currentPage=[NSNumber numberWithInt:currentpage];
     [orderDataModel getOrderListing:^(OrderModel *userData) {
         [orderListArray addObjectsFromArray:userData.orderListingArray];

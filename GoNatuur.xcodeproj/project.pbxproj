@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		186260EF1F85EE8B00FAFAE2 /* OCLint */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 186260F21F85EE8B00FAFAE2 /* Build configuration list for PBXAggregateTarget "OCLint" */;
+			buildPhases = (
+				186260F31F85EE9900FAFAE2 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = OCLint;
+			productName = OCLint;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		180409E01F58744B00EA3E17 /* NewsCentreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180409DF1F58744B00EA3E17 /* NewsCentreViewController.m */; };
 		1807D50D1F7257FD00A0251F /* NewsCentreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1807D50C1F7257FD00A0251F /* NewsCentreCollectionViewCell.m */; };
@@ -769,6 +783,24 @@
 			children = (
 			);
 			name = PaymentMethodModule;
+			sourceTree = "<group>";
+		};
+		184833051F87454300A20F22 /* SortByViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5D4D532F1F73965400A2AEFA /* SortByViewController.h */,
+				5D4D53301F73965400A2AEFA /* SortByViewController.m */,
+			);
+			name = SortByViewController;
+			sourceTree = "<group>";
+		};
+		184833061F87455300A20F22 /* SortByCell */ = {
+			isa = PBXGroup;
+			children = (
+				5D4D53311F73965400A2AEFA /* SortByCell.h */,
+				5D4D53321F73965400A2AEFA /* SortByCell.m */,
+			);
+			name = SortByCell;
 			sourceTree = "<group>";
 		};
 		184C38581F3B08DE008B8291 /* SWRevealViewController */ = {
@@ -1900,10 +1932,8 @@
 		5D4D532E1F73963800A2AEFA /* SortModule */ = {
 			isa = PBXGroup;
 			children = (
-				5D4D532F1F73965400A2AEFA /* SortByViewController.h */,
-				5D4D53301F73965400A2AEFA /* SortByViewController.m */,
-				5D4D53311F73965400A2AEFA /* SortByCell.h */,
-				5D4D53321F73965400A2AEFA /* SortByCell.m */,
+				184833051F87454300A20F22 /* SortByViewController */,
+				184833061F87455300A20F22 /* SortByCell */,
 			);
 			name = SortModule;
 			sourceTree = "<group>";
@@ -2427,6 +2457,11 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Hemlata Khajanchi";
 				TargetAttributes = {
+					186260EF1F85EE8B00FAFAE2 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = M8A7BYS443;
+						ProvisioningStyle = Automatic;
+					};
 					32BAA6031F1360280015E355 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = M8A7BYS443;
@@ -2456,6 +2491,7 @@
 			projectRoot = "";
 			targets = (
 				32BAA6031F1360280015E355 /* GoNatuur */,
+				186260EF1F85EE8B00FAFAE2 /* OCLint */,
 			);
 		};
 /* End PBXProject section */
@@ -2516,6 +2552,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoNatuur/Pods-GoNatuur-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		186260F31F85EE9900FAFAE2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "UNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"${PROJECT_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\nxcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\"\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\nfi\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\n# Step 5. Convenience step to copy the framework to the project's directory\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}\"\n\n# Step 6. Convenience step to open the project's directory in Finder\nopen \"${PROJECT_DIR}\"";
 		};
 		2A9E9E2ABB953AB93EC8BE06 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2712,6 +2761,22 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		186260F01F85EE8B00FAFAE2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = M8A7BYS443;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		186260F11F85EE8B00FAFAE2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = M8A7BYS443;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		32BAA6191F1360290015E355 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2738,6 +2803,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ranosys Technologies Pte Ltd";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2789,6 +2855,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ranosys Technologies Pte Ltd";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2802,6 +2869,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "52596806-52c6-4ca4-8ca4-e14557529bec";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -2817,6 +2885,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ranosys Technologies Pte Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = M8A7BYS443;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoNatuur",
@@ -2867,6 +2936,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ranosys Technologies Pte Ltd";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = M8A7BYS443;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoNatuur",
@@ -2911,6 +2981,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		186260F21F85EE8B00FAFAE2 /* Build configuration list for PBXAggregateTarget "OCLint" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				186260F01F85EE8B00FAFAE2 /* Debug */,
+				186260F11F85EE8B00FAFAE2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		32BAA5FF1F1360280015E355 /* Build configuration list for PBXProject "GoNatuur" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -33,6 +33,7 @@
 @property (strong, nonatomic) NSDictionary *fullBillingAddress;
 
 //Order detail
+@property (strong, nonatomic) NSString *isOrderDetailService;
 @property (strong, nonatomic) NSString *productName;
 @property (strong, nonatomic) NSString *productSku;
 @property (strong, nonatomic) NSString *productPrice;
