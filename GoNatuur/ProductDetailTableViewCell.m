@@ -101,6 +101,8 @@
     _addCartView.layer.borderColor=[UIColor blackColor].CGColor;
     _addCartView.layer.borderWidth=1.0;
     _cartNumberItemLabel.text=[NSString stringWithFormat:@"%d",currentQuantity];
+ 
+    //impact point rule
     double convertedBasePointRulePice=[[[UserDefaultManager getValue:@"impactPointRules"] objectForKey:@"rulePrice"] doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
     double earnedPoints=([[[UserDefaultManager getValue:@"impactPointRules"] objectForKey:@"earnedPoints"] doubleValue]/convertedBasePointRulePice)*productCalculatedPrice;
     

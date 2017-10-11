@@ -714,6 +714,7 @@
         productData.productRating=[response objectForKey:@"avg_rating_percent"];
         productData.productName=[response objectForKey:@"name"];
         productData.productPrice=[response objectForKey:@"price"];
+        productData.tierPricesArray=[response[@"tier_prices"] mutableCopy];
         productData.categoryId=[[customAttributeDict objectForKey:@"category_ids"] objectAtIndex:0];
         productData.productSubtitle=[customAttributeDict objectForKey:@"subtitle"];
         productData.productUrlKey=[customAttributeDict objectForKey:@"url_key"];

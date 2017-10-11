@@ -48,6 +48,7 @@
 @property (strong, nonatomic) NSString *selectedTicketOptionValue;
 @property (strong, nonatomic) NSString *redeemPointsRequired;
 @property (strong, nonatomic) NSString *shippingText;
+@property (strong, nonatomic) NSMutableArray *tierPricesArray;
 
 //Singleton method
 + (instancetype)sharedUser;

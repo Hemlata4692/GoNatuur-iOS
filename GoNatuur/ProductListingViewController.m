@@ -42,10 +42,12 @@
 @implementation ProductListingViewController
 @synthesize selectedProductCategoryId;
 @synthesize selectedPickerValueDict;
+@synthesize filterValueDataArray;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    selectedPickerValueDict=[[NSMutableDictionary alloc]init];
     //When user go to search screen then store last product category id
     lastSelectedCategoryId=myDelegate.selectedCategoryIndex;
     //Add custom picker view and initialized indexs
@@ -56,6 +58,10 @@
     _sortFilterRequest = 0;
     _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0"};
     _sortBasis = DESC; //ASC/DESC
+    _isSortFilter=false;
+    [self viewInitialization];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -70,10 +76,6 @@
         isPullToRefresh=true;
         [myDelegate showIndicator];
         [self performSelector:@selector(getProductListData) withObject:nil afterDelay:.1];
-    } else {
-        [self viewInitialization];
-        [myDelegate showIndicator];
-        [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
     }
 }
 
@@ -317,11 +319,10 @@
     productList.productSortingValue = _sortBasis;
     productList.minPriceValue = _filterDictionary[@"minPrice"];
     productList.maxPriceValue = _filterDictionary[@"maxPrice"];
-    if (_sortFilterRequest!=1 && _sortFilterRequest!=0) {
-        productList.filterAttributeCode = _filterDictionary[@"attributedCode"];
-        productList.filterAttributeId = _filterDictionary[@"attributeId"];
-    }
     productList.sortFilterRequestParameter=_sortFilterRequest;
+    if (_sortFilterRequest!=0) {
+        productList.selectedFiltersDataArray = [filterValueDataArray mutableCopy];
+    }
     [productList getProductListService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];
         [self serviceDataHandling:productData];
@@ -402,6 +403,7 @@
         FilterViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FilterViewController"];
         preview.filterProductId = currentCategoryId;
         preview.selectedPickerIndexDict=[selectedPickerValueDict mutableCopy];
+        preview.isProductList=myDelegate.isProductList;
         preview.productListViewObj = self;
         UINavigationController *navigationController =
         [[UINavigationController alloc] initWithRootViewController:preview];
@@ -422,7 +424,6 @@
             currentCategoryId=[[[subCategoryDataList objectAtIndex:selectedSubCategoryIndex] objectForKey:@"id"] intValue];
             bannerImageUrl=@"";
             productListDataArray=[NSMutableArray new];
-            selectedPickerValueDict=[[NSMutableDictionary alloc]init];
             totalProductCount=0;
             currentpage=1;
             [myDelegate showIndicator];

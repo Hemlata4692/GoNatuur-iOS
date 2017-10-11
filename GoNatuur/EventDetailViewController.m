@@ -432,10 +432,6 @@
     }];
 }
 
-
-
-
-
 //Add events to cart
 - (void)addTicketsToCartProductService {
     ProductDataModel *productData = [ProductDataModel sharedUser];

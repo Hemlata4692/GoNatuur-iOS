@@ -49,6 +49,7 @@
 @synthesize selectedTicketOption;
 @synthesize redeemPointsRequired;
 @synthesize shippingText;
+@synthesize tierPricesArray;
 
 - (id)copyWithZone:(NSZone *)zone {
     ProductDataModel *another = [[ProductDataModel alloc] init];
@@ -80,6 +81,7 @@
     another.selectedTicketOption=[self.selectedTicketOption copyWithZone:zone];
     another.redeemPointsRequired= [self.redeemPointsRequired copyWithZone: zone];
     another.shippingText=[self.shippingText copyWithZone:zone];
+    another.tierPricesArray=[self.tierPricesArray copyWithZone:zone];
     return another;
 }
 
