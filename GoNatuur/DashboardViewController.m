@@ -14,6 +14,7 @@
 #import "ProductDetailViewController.h"
 #import "ProductListingViewController.h"
 #import "UIView+Toast.h"
+#import "EventDetailViewController.h"
 
 @interface DashboardViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -139,33 +140,49 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView==_productCollectionView) {
-        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ProductDetailViewController * detailScreen=[sb instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
         if (buttonTag==1) {
             if ([[[bestSellerDataArray objectAtIndex:indexPath.item] productType] isEqualToString:eventIdentifier]) {
-                [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
-                return;
+                [self screenNavigationToDetailScreen:[[[bestSellerDataArray objectAtIndex:indexPath.item] productId] intValue] screenType:@"2"];
             }
-            detailScreen.selectedProductId=[[[bestSellerDataArray objectAtIndex:indexPath.item] productId] intValue];
+            else {
+                [self screenNavigationToDetailScreen:[[[bestSellerDataArray objectAtIndex:indexPath.item] productId] intValue] screenType:@"1"];
+            }
         }
         else if (buttonTag==2) {
             if ([[[healthyLivingDataArray objectAtIndex:indexPath.item] productType] isEqualToString:eventIdentifier]) {
-                [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
-                return;
+                [self screenNavigationToDetailScreen:[[[healthyLivingDataArray objectAtIndex:indexPath.item] productId] intValue] screenType:@"2"];
             }
-            detailScreen.selectedProductId=[[[healthyLivingDataArray objectAtIndex:indexPath.item] productId] intValue];
+            else {
+                [self screenNavigationToDetailScreen:[[[healthyLivingDataArray objectAtIndex:indexPath.item] productId] intValue] screenType:@"1"];
+            }
+            
         }
         else {
             if ([[[samplersProductDataArray objectAtIndex:indexPath.item] productType] isEqualToString:eventIdentifier]) {
-                [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
-                return;
+                [self screenNavigationToDetailScreen:[[[samplersProductDataArray objectAtIndex:indexPath.item] productId] intValue] screenType:@"2"];
             }
-            detailScreen.selectedProductId=[[[samplersProductDataArray objectAtIndex:indexPath.item] productId] intValue];
+            else {
+                [self screenNavigationToDetailScreen:[[[samplersProductDataArray objectAtIndex:indexPath.item] productId] intValue] screenType:@"1"];
+            }
         }
-        [self.navigationController pushViewController:detailScreen animated:YES];
     }
     else {
         [self handleBannerClickEvent:(int)indexPath.item+3];
+    }
+}
+
+//screen navigation according to product type
+- (void)screenNavigationToDetailScreen:(int)productId screenType:(NSString *)screenType {
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    if ([screenType isEqualToString:@"1"]) {
+        ProductDetailViewController * detailScreen=[sb instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+        detailScreen.selectedProductId=productId;
+        [self.navigationController pushViewController:detailScreen animated:YES];
+    }
+    else {
+        EventDetailViewController * detailScreen=[sb instantiateViewControllerWithIdentifier:@"EventDetailViewController"];
+        detailScreen.selectedProductId=productId;
+        [self.navigationController pushViewController:detailScreen animated:YES];
     }
 }
 #pragma mark - end
@@ -235,7 +252,7 @@
                 }
             }
         }
-      
+        
         [self getDashboardData];
     } onfailure:^(NSError *error) {
         
@@ -303,7 +320,7 @@
     selectedIndex=0;
     [ImageCaching downloadImages:_bannerImageView imageUrl:[[bannerImageArray objectAtIndex:selectedIndex] banerImageUrl] placeholderImage:@"banner_placeholder" isDashboardCell:true];
     self.bannerImageView.userInteractionEnabled = YES;
-     _footerImageView.userInteractionEnabled=YES;
+    _footerImageView.userInteractionEnabled=YES;
     //Swipe gesture to swipe images to left
     UISwipeGestureRecognizer *swipeImageLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeImagesLeft:)];
     swipeImageLeft.delegate=self;

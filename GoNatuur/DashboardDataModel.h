@@ -56,6 +56,7 @@
 @property (strong, nonatomic) NSString *maxPriceValue;
 @property (strong, nonatomic) NSString *filterAttributeCode;
 @property (strong, nonatomic) NSString *filterAttributeId;
+@property (strong, nonatomic) NSMutableArray *selectedFiltersDataArray;
 
 //Singleton method
 + (instancetype)sharedUser;

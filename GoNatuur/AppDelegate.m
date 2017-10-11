@@ -80,6 +80,11 @@
     //Call crashlytics method
     //[self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
   
+    NSString* useragent = @"Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0";
+    NSLog(@"Setting User-Agent to: %@", useragent);
+    NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:useragent, @"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+    
     firstTime=true;
     
     //set default language to english

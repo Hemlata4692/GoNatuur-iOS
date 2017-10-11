@@ -42,6 +42,7 @@
 @implementation ProductListingViewController
 @synthesize selectedProductCategoryId;
 @synthesize selectedPickerValueDict;
+@synthesize filterValueDataArray;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -55,8 +56,12 @@
     //Set default sort values
     _sortingType = NSLocalizedText(@"sortPrice");
     _sortFilterRequest = 0;
-    _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0", @"attributeId":@"9", @"attributedCode":@"country"};
+    _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0"};
     _sortBasis = DESC; //ASC/DESC
+    _isSortFilter=false;
+    [self viewInitialization];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -71,10 +76,6 @@
         isPullToRefresh=true;
         [myDelegate showIndicator];
         [self performSelector:@selector(getProductListData) withObject:nil afterDelay:.1];
-    } else {
-        [self viewInitialization];
-        [myDelegate showIndicator];
-        [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
     }
 }
 
@@ -318,9 +319,10 @@
     productList.productSortingValue = _sortBasis;
     productList.minPriceValue = _filterDictionary[@"minPrice"];
     productList.maxPriceValue = _filterDictionary[@"maxPrice"];
-    productList.filterAttributeCode = _filterDictionary[@"attributedCode"];;
-    productList.filterAttributeId = _filterDictionary[@"attributeId"];
     productList.sortFilterRequestParameter=_sortFilterRequest;
+    if (_sortFilterRequest!=0) {
+        productList.selectedFiltersDataArray = [filterValueDataArray mutableCopy];
+    }
     [productList getProductListService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];
         [self serviceDataHandling:productData];
@@ -401,6 +403,7 @@
         FilterViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FilterViewController"];
         preview.filterProductId = currentCategoryId;
         preview.selectedPickerIndexDict=[selectedPickerValueDict mutableCopy];
+        preview.isProductList=myDelegate.isProductList;
         preview.productListViewObj = self;
         UINavigationController *navigationController =
         [[UINavigationController alloc] initWithRootViewController:preview];

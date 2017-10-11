@@ -43,20 +43,31 @@
         float rating = (([productListData.productRating integerValue])*5.0)/100.0;
         productRating.text=[NSString stringWithFormat:@"(%.1f)",rating];
     }
-    double productCalculatedPrice;
-    if (nil!=productListData.specialPrice&&![productListData.specialPrice isEqualToString:@""]) {
-        statusBannerImage.hidden=false;
-        statusBannerImage.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@%@",@"clear_",[UserDefaultManager getValue:@"Language"]]];
-        productCalculatedPrice =[productListData.specialPrice doubleValue]*[exchangeRates doubleValue];
+    
+    if (nil!=productListData.productImpactPoint && productListData.productImpactPoint!=[NSNumber numberWithDouble:0]) {
+        NSString *ipString=@"ip";
+        NSString *str=[NSString stringWithFormat:@"%.0f%@",[productListData.productImpactPoint floatValue],ipString];
+        NSMutableAttributedString* string = [[NSMutableAttributedString alloc]initWithString:str];
+        NSRange decimalTextRange = [str rangeOfString:ipString];
+        [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:14]} range:decimalTextRange];
+        productPrice.attributedText=string;
     }
     else {
-        if ([productListData.productType isEqualToString:eventIdentifier]&&(nil==productListData.productQty||NULL==productListData.productQty||[productListData.productQty intValue]<1)) {
+        double productCalculatedPrice;
+        if (nil!=productListData.specialPrice&&![productListData.specialPrice isEqualToString:@""]) {
             statusBannerImage.hidden=false;
-            statusBannerImage.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@%@",@"sold_",[UserDefaultManager getValue:@"Language"]]];
+            statusBannerImage.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@%@",@"clear_",[UserDefaultManager getValue:@"Language"]]];
+            productCalculatedPrice =[productListData.specialPrice doubleValue]*[exchangeRates doubleValue];
         }
-        productCalculatedPrice =[productListData.productPrice doubleValue]*[exchangeRates doubleValue];
+        else {
+            if ([productListData.productType isEqualToString:eventIdentifier]&&(nil==productListData.productQty||NULL==productListData.productQty||[productListData.productQty intValue]<1)) {
+                statusBannerImage.hidden=false;
+                statusBannerImage.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@%@",@"sold_",[UserDefaultManager getValue:@"Language"]]];
+            }
+            productCalculatedPrice =[productListData.productPrice doubleValue]*[exchangeRates doubleValue];
+        }
+          productPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
     }
-    productPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
     [self customizedCellObject:productListData];
 }
 

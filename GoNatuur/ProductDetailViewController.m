@@ -111,9 +111,13 @@
         return 75;
     }
     else if (indexPath.row==6) {
-        float tempHeight=[DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"Shipping is free if the total purchase is above USD$100.") font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80];
-        tempHeight+=[DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"Products can be returned within 30 days of purchase, subject to the following conditions.") font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80];
+        if ([productDetailModelData.shippingText isEqualToString:@""] && nil!=productDetailModelData.shippingText) {
+            return 1;
+        }
+        else {
+        float tempHeight=[DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.shippingText font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80];
         return tempHeight+5;
+        }
     }
     else if (indexPath.row==7) {
         return 50;
@@ -153,7 +157,7 @@
         [cell.removeFromCartButton addTarget:self action:@selector(removeQuantityAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     else if (indexPath.row==6) {
-        [cell displayProductInfo];
+        [cell displayProductInfo:productDetailModelData.shippingText];
     }
     else if (indexPath.row==7) {
         [cell displayAddToCartButton:@"ProductDetail"];

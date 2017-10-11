@@ -785,6 +785,15 @@
 			name = PaymentMethodModule;
 			sourceTree = "<group>";
 		};
+		182711CE1F8C8CE4003743FE /* SortFilterModule */ = {
+			isa = PBXGroup;
+			children = (
+				185ECB6A1F73E216002BA64A /* FilterModule */,
+				5D4D532E1F73963800A2AEFA /* SortModule */,
+			);
+			name = SortFilterModule;
+			sourceTree = "<group>";
+		};
 		184833051F87454300A20F22 /* SortByViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1443,14 +1452,13 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				185ECB6A1F73E216002BA64A /* FilterModule */,
-				5D4D532E1F73963800A2AEFA /* SortModule */,
 				188605961F39C05A0005D1E2 /* GlobalViewModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
 				188605911F39BB720005D1E2 /* DashboardModule */,
 				18F464E71F698F18001006EB /* WebPagesModule */,
 				18F464E61F698EB9001006EB /* RedeemModule */,
 				B7AA39BA1F47106600423121 /* ProductModule */,
+				182711CE1F8C8CE4003743FE /* SortFilterModule */,
 				18D2AD241F659C3700B8F605 /* EventDetailsModule */,
 				180ECD381F489AAD003C936E /* ReviewModule */,
 				185F706A1F559D6B007F49F7 /* ProfileModule */,

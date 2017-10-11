@@ -13,12 +13,13 @@
 
 @interface FilterViewController ()<GoNatuurPickerViewDelegate> {
 @private
-    NSMutableArray *filterDataArray, *filterValueDataArray;
-    NSString *filterType, *filterTypeValue;
-    NSString *requestValuesString, *slectedAttributeId, *slectedAttributeCode;
+    NSMutableArray *filterDataArray, *filterValueDataArray, *selctedFilterDataArray;
+    NSString *isFilterApplied;
+    NSString *requestValuesString;
     GoNatuurPickerView *gNPickerViewObj;
     int selectedRowIndex;
-    NSMutableDictionary *tempDataDict;
+    NSMutableDictionary *tempDataDict, *filterDataDictionary;
+    NSUInteger selectedFilterIndex;
 }
 @property (weak, nonatomic) IBOutlet UITableView *filterTableView;
 
@@ -29,18 +30,19 @@
 @synthesize selectedPickerValueIndex;
 @synthesize filterProductId;
 @synthesize selectedPickerIndexDict;
+@synthesize isProductList;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     filterDataArray = [NSMutableArray new];
-    tempDataDict=[[NSMutableDictionary alloc]init];
-    slectedAttributeId = @"";
-    slectedAttributeCode = @"";
+    filterDataDictionary=[[NSMutableDictionary alloc]init];
+    selctedFilterDataArray=[[NSMutableArray alloc]init];
     //remove extra lines from table view
     _filterTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     tempDataDict=[selectedPickerIndexDict mutableCopy];
+    isFilterApplied=@"0";
     [self addCustomPickerView];
     [self setRequestAttributes];
 }
@@ -86,7 +88,7 @@
 
 #pragma mark - IBActions
 - (IBAction)cancelButtonAction:(id)sender {
-    [self dismissView];
+     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (IBAction)applyfilterButtonAction:(id)sender {
@@ -97,14 +99,13 @@
 #pragma mark - Dismiss View
 - (void)dismissView {
     NSIndexPath *tempIndex=[NSIndexPath indexPathForRow:0 inSection:0];
-    if ([slectedAttributeCode isEqualToString:@""]) {
+    if ([isFilterApplied isEqualToString:@"1"]) {
         productListViewObj.sortFilterRequest = 1;
-    } else {
-        productListViewObj.sortFilterRequest = 2;
     }
     FilterTableViewCell *cell = (FilterTableViewCell *)[_filterTableView cellForRowAtIndexPath:tempIndex];
-    productListViewObj.filterDictionary = @{@"maxPrice":cell.maxPriceValue,@"minPrice":cell.minPriceValue, @"attributeId":slectedAttributeId, @"attributedCode":slectedAttributeCode};
-    DLog(@"productListViewObj.filterDictionary = %@",productListViewObj.filterDictionary);
+    productListViewObj.filterDictionary = @{@"maxPrice":cell.maxPriceValue,@"minPrice":cell.minPriceValue};
+    productListViewObj.filterValueDataArray = [selctedFilterDataArray mutableCopy];
+    DLog(@"productListViewObj.filterDictionary = %@ %@",productListViewObj.filterDictionary,productListViewObj.filterValueDataArray);
     productListViewObj.isSortFilter = true;
     productListViewObj.selectedPickerValueDict=[tempDataDict mutableCopy];
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
@@ -132,11 +133,40 @@
             FilterTableViewCell *tempCountryCell = (FilterTableViewCell *)[_filterTableView cellForRowAtIndexPath:tempIndex];
             tempCountryCell.selectedFilterLabel.text=[filterValueDataArray objectAtIndex:tempSelectedIndex];
             [tempDataDict setObject:[NSString stringWithFormat:@"%d",tempSelectedIndex] forKey:[NSString stringWithFormat:@"%ld",tempIndex.row-1]];
+            if (![[[[[filterDataArray objectAtIndex:tempIndex.row-1] filterOptionsArray] objectAtIndex:tempSelectedIndex] filterCountryValue] isEqualToString:@""]) {
+            NSDictionary *tempDict = @{@"field":[[filterDataArray objectAtIndex:tempIndex.row-1] filterAttributeCode],@"value":[[[[filterDataArray objectAtIndex:tempIndex.row-1] filterOptionsArray] objectAtIndex:tempSelectedIndex] filterCountryValue], @"condition_type":@"eq"};
+            NSMutableArray *tempArray=[NSMutableArray new];
+            [tempArray addObject:tempDict];
+            [filterDataDictionary setObject:tempArray forKey:@"filters"];
+            
+            if ([self checkIFValueExists:[tempDict objectForKey:@"field"]]) {
+                [selctedFilterDataArray replaceObjectAtIndex:selectedFilterIndex withObject:[filterDataDictionary mutableCopy]];
+            }
+            else {
+            [selctedFilterDataArray addObject:[filterDataDictionary mutableCopy]];
+            }
+            }
+            isFilterApplied=@"1";
         }
     }
 }
-#pragma mark - end
 
+- (BOOL)checkIFValueExists:(NSString *)fieldValue {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"filters.field contains[cd] %@", fieldValue];
+    NSArray *filteredarray = [selctedFilterDataArray filteredArrayUsingPredicate:predicate];
+    if (filteredarray.count>0) {
+        NSUInteger index = [selctedFilterDataArray indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
+            return [predicate evaluateWithObject:obj];
+        }];
+        selectedFilterIndex=index;
+        DLog(@"%lu",(unsigned long)selectedFilterIndex);
+        return YES;
+    }
+    else {
+        return false;
+    }
+}
+#pragma mark - end
 
 #pragma mark - TableView DataSource and Delegate Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
