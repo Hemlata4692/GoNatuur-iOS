@@ -15,6 +15,9 @@
 #import "ChatStyling.h"
 #import <ZendeskSDK/ZendeskSDK.h>
 #import <ZDCChat/ZDCChat.h>
+#import "ProductDetailViewController.h"
+#import "EventDetailViewController.h"
+#import "NewsCentreDetailViewController.h"
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -39,6 +42,8 @@
 @synthesize productCartItemKeys;
 @synthesize firstTime;
 @synthesize notificationStatus;
+@synthesize shareEventIdDataDict;
+@synthesize isShareUrlScreen;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -77,16 +82,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
  
-    //Call crashlytics method
-    //[self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
+   // Call crashlytics method
+    [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
   
-    NSString* useragent = @"Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0";
-    NSLog(@"Setting User-Agent to: %@", useragent);
-    NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:useragent, @"UserAgent", nil];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+//    NSString* useragent = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Safari/604.1.38";
+//    NSLog(@"Setting User-Agent to: %@", useragent);
+//    NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:useragent, @"UserAgent", nil];
+//    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
     
     firstTime=true;
-    
+    isShareUrlScreen=@"0";
+    shareEventIdDataDict=[[NSMutableDictionary alloc]init];
     //set default language to english
     if (nil==[UserDefaultManager getValue:@"Language"]) {
         [UserDefaultManager setValue:@"en" key:@"Language"];
@@ -111,6 +117,50 @@
         [self.window makeKeyAndVisible];
     }
     //[self registerForRemoteNotification];
+    return YES;
+}
+
+//deeplinking open url handler
+-(BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
+    if ([userActivity.activityType isEqualToString: NSUserActivityTypeBrowsingWeb]) {
+        NSURL *url = userActivity.webpageURL;
+        NSLog(@"----------------------%@---------------",url);
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Basic"
+                                                       message: [NSString stringWithFormat:@"%@",url]
+                                                      delegate:self
+                                             cancelButtonTitle:@"Yes, please"
+                                             otherButtonTitles:@"No, thanks", nil];
+        [alert show];
+
+        NSMutableDictionary *queryStringDictionary = [[NSMutableDictionary alloc] init];
+        NSArray *urlComponents = [url.absoluteString componentsSeparatedByString:@"?"];
+        NSArray *urlComponents2 = [[urlComponents objectAtIndex:1] componentsSeparatedByString:@"&"];
+        for (NSString *keyValuePair in urlComponents2) {
+            NSArray *pairComponents = [keyValuePair componentsSeparatedByString:@"="];
+            NSString *key = [[pairComponents firstObject] stringByRemovingPercentEncoding];
+            NSString *value = [[pairComponents lastObject] stringByRemovingPercentEncoding];
+            [queryStringDictionary setObject:value forKey:key];
+        }
+        if ([[queryStringDictionary allKeys] containsObject:@"product_id"]) {
+            isShareUrlScreen=@"1";
+            shareEventIdDataDict=[queryStringDictionary mutableCopy];
+        }
+        else if ([[queryStringDictionary allKeys] containsObject:@"event_id"]) {
+            isShareUrlScreen=@"1";
+            shareEventIdDataDict=[queryStringDictionary mutableCopy];
+        }
+        else if ([[queryStringDictionary allKeys] containsObject:@"post_id"]) {
+            isShareUrlScreen=@"1";
+            shareEventIdDataDict=[queryStringDictionary mutableCopy];
+        }
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        navigationController = (UINavigationController *)[self.window rootViewController];
+        UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        [self.window setRootViewController:objReveal];
+        [self.window setBackgroundColor:[UIColor whiteColor]];
+        [self.window makeKeyAndVisible];
+    }
     return YES;
 }
 

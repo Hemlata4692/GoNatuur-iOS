@@ -207,21 +207,6 @@
     return cell;
 }
 
-- (void)addSwipeGesture:(UIView *)view {
-    //Swipe gesture to swipe images to left
-    UISwipeGestureRecognizer *swipeImageLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeIntroImageLeft)];
-    swipeImageLeft.delegate=self;
-    UISwipeGestureRecognizer *swipeImageRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeIntroImageRight)];
-    swipeImageRight.delegate=self;
-    
-    // Setting the swipe direction.
-    [swipeImageLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [swipeImageRight setDirection:UISwipeGestureRecognizerDirectionRight];
-    // Adding the swipe gesture on image view
-    [view addGestureRecognizer:swipeImageLeft];
-    [view addGestureRecognizer:swipeImageRight];
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==3 && ![[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"media_type"] isEqualToString:@"image"]) {
         NSURL *videoURL = [NSURL URLWithString:[[[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"extension_attributes"] objectForKey:@"video_content"] objectForKey:@"video_url"]];
@@ -275,6 +260,8 @@
         popView.mediaURL=[temDict objectForKey:@"file"];
         popView.name=productDetailModelData.productName;
         popView.productDescription=productDetailModelData.productShortDescription;
+        popView.shareType=@"0";
+        popView.shareURL=[NSString stringWithFormat:@"%@%@/%@.html?product_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId];
         [self.navigationController pushViewController:popView animated:YES];
     }
     else if (indexPath.row==15) {
@@ -285,6 +272,21 @@
         webView.productDetaiData=productDetailModelData.productWhereToBuy;
         [self.navigationController pushViewController:webView animated:YES];
     }
+}
+
+- (void)addSwipeGesture:(UIView *)view {
+    //Swipe gesture to swipe images to left
+    UISwipeGestureRecognizer *swipeImageLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeIntroImageLeft)];
+    swipeImageLeft.delegate=self;
+    UISwipeGestureRecognizer *swipeImageRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeIntroImageRight)];
+    swipeImageRight.delegate=self;
+    
+    // Setting the swipe direction.
+    [swipeImageLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [swipeImageRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    // Adding the swipe gesture on image view
+    [view addGestureRecognizer:swipeImageLeft];
+    [view addGestureRecognizer:swipeImageRight];
 }
 
 - (void)navigateToView:(NSString *)navTitle webViewData:(NSString *)webViewData viewIdentifier:(NSString *)viewIdentifier productId:(NSNumber *)productId reviewId:(NSString *)reviewId {
@@ -366,6 +368,12 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData getProductDetailOnSuccess:^(ProductDataModel *productDetailData)  {
+        if ([productDetailData.redeemPointsRequired isEqualToString:@""] || productDetailData.redeemPointsRequired==nil) {
+            isRedeemProduct=false;
+        }
+        else {
+            isRedeemProduct=true;
+        }
         productDetailModelData=productDetailData;
         reviewAdded=productDetailModelData.reviewAdded;
         [myDelegate stopIndicator];

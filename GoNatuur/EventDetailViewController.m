@@ -309,6 +309,8 @@
         NSDictionary *temDict=[productDetailModelData.productMediaArray objectAtIndex:0];
         popView.mediaURL=[temDict objectForKey:@"file"];
         popView.name=productDetailModelData.productName;
+        popView.shareType=@"0";
+        popView.shareURL=[NSString stringWithFormat:@"%@%@/%@.html?event_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId];
         popView.productDescription=productDetailModelData.productShortDescription;
         [self.navigationController pushViewController:popView animated:YES];
     }

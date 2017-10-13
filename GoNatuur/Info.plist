@@ -47,12 +47,19 @@
 		<string>com.paypal.ppclient.touch.v1</string>
 		<string>com.paypal.ppclient.touch.v2</string>
 		<string>org-appextension-feature-password-management</string>
+		<string>weixin</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSIncludesSubdomains</key>
+		<true/>
+		<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
+		<false/>
+		<key>NSExceptionAllowsInsecureHTTPLoads</key>
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
