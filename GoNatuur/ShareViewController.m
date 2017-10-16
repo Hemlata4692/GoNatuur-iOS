@@ -8,11 +8,12 @@
 
 #import "ShareViewController.h"
 #import "ShareDataModel.h"
-static NSString *JSHandler;
+@import SafariServices;
 
+static NSString *JSHandler;
 #define CocoaJSHandler          @"mpajaxhandler"
 
-@interface ShareViewController () {
+@interface ShareViewController ()<SFSafariViewControllerDelegate> {
     @private
     NSString *loadURL;
 }
@@ -88,8 +89,12 @@ static NSString *JSHandler;
     NSLog(@"%@",request);
     NSLog(@"%@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
     loadURL=[request.URL absoluteString];
-    NSLog(@"loadURL %@",loadURL);
+    // [[UIApplication sharedApplication] openURL:[NSURL URLWithString:loadURL]];
+//    SFSafariViewController *safariVC = [[SFSafariViewController alloc]initWithURL:[NSURL URLWithString:loadURL] entersReaderIfAvailable:NO];
+//    safariVC.delegate = self;
+//    [self presentViewController:safariVC animated:NO completion:nil];
 
+    NSLog(@"loadURL %@",loadURL);
     if ([loadURL containsString:@"weixin://"]) {
         if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:loadURL]]) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:loadURL]];
@@ -102,12 +107,21 @@ static NSString *JSHandler;
             [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:@"Please install wechat app to share"  closeButtonTitle:nil duration:0.0f];
         }
     }
-    else if ([loadURL containsString:@"resource/BoardResource/get/"] || [loadURL containsString:@"https://service.t.sina.com.cn/widget/jssdk/aj_addmblog.php"]) {
+    else if ([loadURL containsString:@"resource/BoardResource/get/"]) {
         [self loadShareRequestURL];
     }
     
     return YES;
     
+}
+
+#pragma mark - SFSafariViewController delegate methods
+-(void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
+    // Load finished
+}
+
+-(void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    // Done button pressed
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -123,15 +137,41 @@ static NSString *JSHandler;
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    NSLog(@"error----- %@",error.localizedDescription);
     if ([error code] != NSURLErrorCancelled) {
         //show error alert, etc.
         [myDelegate stopIndicator];
-//        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-//        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-//            [self.navigationController popViewControllerAnimated:YES];
-//        }];
-//        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrongMessage")  closeButtonTitle:nil duration:0.0f];
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:error.localizedDescription  closeButtonTitle:nil duration:0.0f];
     }
+}
+
+-(void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge{
+    
+    //code to cancel authentication challenge
+    
+}
+#pragma NSURLConnectionDelegate
+
+-(void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+        NSURL* baseURL = [NSURL URLWithString:loadURL];
+        if ([challenge.protectionSpace.host isEqualToString:baseURL.host]) {
+            NSLog(@"trusting connection to host %@", challenge.protectionSpace.host);
+            [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
+        } else
+            NSLog(@"Not trusting connection to host %@", challenge.protectionSpace.host);
+    }
+    [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
+}
+
+-(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)pResponse {
+//    _Authenticated = YES;
+//    [connection cancel];
+//    [_shareWebView loadRequest:_FailedRequest];
 }
 #pragma mark - end
 
