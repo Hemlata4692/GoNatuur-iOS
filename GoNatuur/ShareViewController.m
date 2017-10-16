@@ -101,7 +101,6 @@ static NSString *JSHandler;
             }];
             [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:@"Please install wechat app to share"  closeButtonTitle:nil duration:0.0f];
         }
-
     }
     else if ([loadURL containsString:@"resource/BoardResource/get/"] || [loadURL containsString:@"https://service.t.sina.com.cn/widget/jssdk/aj_addmblog.php"]) {
         [self loadShareRequestURL];
