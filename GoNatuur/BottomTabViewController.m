@@ -62,6 +62,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+    NSLog(@"bottom view initialise");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -97,6 +98,8 @@
 }
 
 - (void)updateCartBadge {
+    NSLog(@"quote count %@",[UserDefaultManager getValue:@"quoteCount"]);
+    NSLog(@"quote count int value %d",[[UserDefaultManager getValue:@"quoteCount"] intValue]);
     if ([[UserDefaultManager getValue:@"quoteCount"] intValue]>0) {
         _cartBadgeLabel.hidden=false;
         _cartBadgeLabel.text=[NSString stringWithFormat:@"%d",[[UserDefaultManager getValue:@"quoteCount"] intValue]];

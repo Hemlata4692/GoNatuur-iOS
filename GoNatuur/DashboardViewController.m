@@ -15,6 +15,7 @@
 #import "ProductListingViewController.h"
 #import "UIView+Toast.h"
 #import "EventDetailViewController.h"
+#import "NewsCentreDetailViewController.h"
 
 @interface DashboardViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -68,8 +69,16 @@
     myDelegate.selectedCategoryIndex=-1;
     [self showSelectedTab:1];
     if (myDelegate.firstTime) {
+        if ([myDelegate.isShareUrlScreen isEqualToString:@"1"]) {
+            if (nil==[UserDefaultManager getValue:@"quoteId"] || NULL==[UserDefaultManager getValue:@"quoteId"]) {
+                [myDelegate showIndicator];
+                [self performSelector:@selector(userLoginAsGuestDashboard) withObject:nil afterDelay:.1];
+            }
+        }
+        else {
         [myDelegate showIndicator];
         [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
+        }
     }
     else {
         [myDelegate showIndicator];
@@ -252,7 +261,6 @@
                 }
             }
         }
-        
         [self getDashboardData];
     } onfailure:^(NSError *error) {
         
@@ -278,6 +286,17 @@
     DashboardDataModel *dashboardData = [DashboardDataModel sharedUser];
     [dashboardData getDashboardData:^(DashboardDataModel *userData)  {
         bannerImageData=userData;
+        if ([myDelegate.isShareUrlScreen isEqualToString:@"1"]) {
+            myDelegate.isShareUrlScreen=@"0";
+             [myDelegate stopIndicator];
+//            if (nil==[UserDefaultManager getValue:@"quoteId"] || NULL==[UserDefaultManager getValue:@"quoteId"]) {
+//                [self performSelector:@selector(userLoginAsGuestDashboard) withObject:nil afterDelay:.1];
+//            }
+//            else {
+                [self navigateToDetailScreen];
+            
+//            }
+        }
         [self displayData];
         if (nil!=[UserDefaultManager getValue:@"deviceToken"]&&NULL!=[UserDefaultManager getValue:@"deviceToken"]&&nil!=[UserDefaultManager getValue:@"enableNotification"]) {
             [self saveDeviceToken];
@@ -285,6 +304,38 @@
         else{
             [myDelegate stopIndicator];
         }
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)navigateToDetailScreen {
+    if ([[myDelegate.shareEventIdDataDict allKeys] containsObject:@"product_id"]) {
+        ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+        obj.selectedProductId=[[myDelegate.shareEventIdDataDict objectForKey:@"product_id"] intValue];
+        [self.navigationController pushViewController:obj animated:YES];
+        return;
+    }
+    else if ([[myDelegate.shareEventIdDataDict allKeys] containsObject:@"event_id"]) {
+        //StoryBoard navigation
+        EventDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EventDetailViewController"];
+        obj.selectedProductId=[[myDelegate.shareEventIdDataDict objectForKey:@"event_id"] intValue];
+        [self.navigationController pushViewController:obj animated:YES];
+        return;
+    }
+    else if ([[myDelegate.shareEventIdDataDict allKeys] containsObject:@"post_id"]) {
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        NewsCentreDetailViewController * webView=[sb instantiateViewControllerWithIdentifier:@"NewsCentreDetailViewController"];
+        webView.newsPostId=[myDelegate.shareEventIdDataDict objectForKey:@"post_id"];
+        [self.navigationController pushViewController:webView animated:YES];
+        return;
+    }
+}
+
+- (void)userLoginAsGuestDashboard {
+    LoginModel *userLogin = [LoginModel sharedUser];
+    [userLogin loginGuestUserOnSuccess:^(LoginModel *userData) {
+        [self getCategoryListData];
     } onfailure:^(NSError *error) {
         
     }];

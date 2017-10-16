@@ -45,7 +45,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
-    self.title=navigationTitle;
     [self addLeftBarButtonWithImage:true ];
     cellIdentifierArray = @[@"imageCell", @"dateCell", @"categoriesCell", @"tagsCell", @"byCell",@"contentCell"];
 }
@@ -58,6 +57,7 @@
     productList.productId=newsPostId;
     [productList getNewsDetailDataService:^(DashboardDataModel *productData)  {
         newsDetailDict=[productData.productDataArray objectAtIndex:0];
+        self.title=[newsDetailDict objectForKey:@"title"];
         [_newsDetailTableView reloadData];
     } onfailure:^(NSError *error) {
     }];
@@ -126,7 +126,6 @@
     if (cell == nil){
         cell = [[NewsCentreDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
     if (indexPath.row==0) {
         [cell displayNewsTitleImage:[newsDetailDict objectForKey:@"featured_image"] title:[newsDetailDict objectForKey:@"title"]];
     }

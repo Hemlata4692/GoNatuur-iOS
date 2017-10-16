@@ -97,7 +97,7 @@
     LoginService *loginService = [[LoginService alloc] init];
     [loginService loginGuestUser:^(id response) {
         //Parse data from server response and store in data model
-        DLog(@"guest login response %@",response);
+        NSLog(@"guest login response %@",response);
         userData.quoteId=[response objectForKey:@"quote_id"];
         [UserDefaultManager setValue:[response objectForKey:@"local_language"] key:@"Language"];
         [UserDefaultManager setValue:[response objectForKey:@"local_currency_code"] key:@"DefaultCurrencyCode"];
@@ -665,6 +665,7 @@
             tempModel.productId=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"post_id"];
             tempModel.productName=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"title"];
             tempModel.productImageThumbnail=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"featured_image"];
+            tempModel.newsURL=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"post_url"];
             tempModel.newsContent=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"content"];
             if ([[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"short_filtered_content"]!=nil) {
                 tempModel.productDescription=[self stringByStrippingHTML:[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"short_filtered_content"]];
@@ -709,7 +710,8 @@
     ProductService *productDetailData=[[ProductService alloc]init];
     [productDetailData getProductDetailService:productData success:^(id response) {
         //Parse data from server response and store in data model
-        DLog(@"product details response %@",response);
+        NSLog(@"product details response %@",response);
+        NSLog(@"[self stringByStrippingHTML:[customAttributeDict objectForKey: %@",[[[response objectForKey:@"custom_attribute"] objectAtIndex:0] copy]);
         NSDictionary *customAttributeDict=[[[response objectForKey:@"custom_attribute"] objectAtIndex:0] copy];
         productData.productRating=[response objectForKey:@"avg_rating_percent"];
         productData.productName=[response objectForKey:@"name"];
@@ -718,6 +720,7 @@
         productData.categoryId=[[customAttributeDict objectForKey:@"category_ids"] objectAtIndex:0];
         productData.productSubtitle=[customAttributeDict objectForKey:@"subtitle"];
         productData.productUrlKey=[customAttributeDict objectForKey:@"url_key"];
+         NSLog(@"[customAttributeDict objectForKey:] %@",[customAttributeDict objectForKey:@"shipping_text"]);
         if ([customAttributeDict objectForKey:@"shipping_text"]!=nil) {
            productData.shippingText=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"shipping_text"]];
         }

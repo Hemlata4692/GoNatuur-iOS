@@ -41,6 +41,7 @@
 @property (strong, nonatomic) NSString *lastName;
 @property (strong, nonatomic) NSString *newsType;
 @property (strong, nonatomic) NSString *newsContent;
+@property (strong, nonatomic) NSString *newsURL;
 @property (strong, nonatomic) NSMutableArray *archiveOptionsForNews;
 @property (strong, nonatomic) NSString *filterValue;
 @property (strong, nonatomic) NSString *filterValue2;

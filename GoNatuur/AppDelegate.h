@@ -13,7 +13,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property(nonatomic,assign)ConstantType selectedLoginType;
+@property (nonatomic,assign) ConstantType selectedLoginType;
 @property (nonatomic,strong) NSString *deviceToken;
 @property (nonatomic,assign) int selectedCategoryIndex;
 @property (strong, nonatomic) NSMutableArray *categoryNameArray;
@@ -25,6 +25,8 @@
 @property (strong, nonatomic) NSMutableDictionary *productCartItemsDetail;
 @property (nonatomic)BOOL firstTime;
 @property (nonatomic,strong) NSString *notificationStatus;
+@property (nonatomic,strong) NSString *isShareUrlScreen;
+@property (nonatomic,strong) NSMutableDictionary *shareEventIdDataDict;
 - (void)showIndicator;
 - (void)stopIndicator;
 

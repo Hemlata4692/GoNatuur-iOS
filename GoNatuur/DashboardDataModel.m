@@ -44,6 +44,7 @@
 @synthesize sortingValue;
 @synthesize redeemPointsRequired;
 @synthesize selectedFiltersDataArray;
+@synthesize newsURL;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
