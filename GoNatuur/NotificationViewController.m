@@ -135,7 +135,8 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];
     [self markNotificationAsRead:notiData.notificationId];
-    if ([notiData.notificationType isEqualToString:@"1"]) {
+    //enable when releasing milestone 3
+   /* if ([notiData.notificationType isEqualToString:@"1"]) {
         // navigate to product listing
         ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
         obj.selectedProductCategoryId=[notiData.targetId intValue];
@@ -172,7 +173,7 @@
         // navigate to profile screen
         ProfileViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProfileViewController"];
         [self.navigationController pushViewController:obj animated:YES];
-    }
+    } */
 }
 
 #pragma mark - end

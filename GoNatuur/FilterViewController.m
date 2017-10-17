@@ -101,13 +101,18 @@
     NSIndexPath *tempIndex=[NSIndexPath indexPathForRow:0 inSection:0];
     if ([isFilterApplied isEqualToString:@"1"]) {
         productListViewObj.sortFilterRequest = 1;
+        _redeemListObj.sortFilterRequest = 1;
     }
     FilterTableViewCell *cell = (FilterTableViewCell *)[_filterTableView cellForRowAtIndexPath:tempIndex];
     productListViewObj.filterDictionary = @{@"maxPrice":cell.maxPriceValue,@"minPrice":cell.minPriceValue};
     productListViewObj.filterValueDataArray = [selctedFilterDataArray mutableCopy];
+    _redeemListObj.filterDictionary = @{@"maxPrice":cell.maxPriceValue,@"minPrice":cell.minPriceValue};
+    _redeemListObj.filterValueDataArray = [selctedFilterDataArray mutableCopy];
     DLog(@"productListViewObj.filterDictionary = %@ %@",productListViewObj.filterDictionary,productListViewObj.filterValueDataArray);
     productListViewObj.isSortFilter = true;
     productListViewObj.selectedPickerValueDict=[tempDataDict mutableCopy];
+    _redeemListObj.isSortFilter = true;
+    _redeemListObj.selectedPickerValueDict=[tempDataDict mutableCopy];
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 #pragma mark - end

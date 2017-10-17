@@ -109,8 +109,7 @@
 #pragma mark - end
 
 #pragma mark - Send device token
-- (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure
-{
+- (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *loginService = [[LoginService alloc] init];
     [loginService saveDeviceTokenService:userData onSuccess:^(id response) {
         success(userData);
@@ -285,20 +284,25 @@
         //Check login/guest group
         if ([response[@"group_id"] isKindOfClass:[NSString class]]) {
             [UserDefaultManager setValue:@"promo_apply_Guest" key:@"GroupType"];
+            [UserDefaultManager setValue:@"0" key:@"GroupId"];
         }
         else {
             switch ([response[@"group_id"] intValue]) {
                 case 1:
                     [UserDefaultManager setValue:@"promo_apply_b2_ccustomer_check" key:@"GroupType"];
+                    [UserDefaultManager setValue:response[@"group_id"] key:@"GroupId"];
                     break;
                 case 3:
                     [UserDefaultManager setValue:@"promo_apply_b2_breseller_check" key:@"GroupType"];
+                    [UserDefaultManager setValue:response[@"group_id"] key:@"GroupId"];
                     break;
                 case 4:
                     [UserDefaultManager setValue:@"promo_apply_b2_bfranchise_check" key:@"GroupType"];
+                    [UserDefaultManager setValue:response[@"group_id"] key:@"GroupId"];
                     break;
                 default:
                     [UserDefaultManager setValue:@"promo_apply_Guest" key:@"GroupType"];
+                    [UserDefaultManager setValue:response[@"group_id"] key:@"GroupId"];
                     break;
             }
         }
@@ -334,6 +338,7 @@
         productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
     }
     productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+    productData.ribbons = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"ribbons"];
     productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
     productData.specialPriceStartDate = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_from_date"];
     productData.specialPriceEndDate = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_to_date"];
@@ -342,6 +347,7 @@
     }
     productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
     productData.productType=productDataDict[@"type_id"];
+    productData.tierPriceArray=productDataDict[@"tier_prices"];
     return productData;
 }
 #pragma mark - end
@@ -433,6 +439,8 @@
             }
             productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             productData.productType=[productDataDict objectForKey:@"type_id"];
+            productData.teirPriceArray=[productDataDict objectForKey:@"tier_prices"];
+            productData.ribbons = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"ribbons"];
             [searchData.searchProductListArray addObject:productData];
         }
         searchData.searchResultCount=response[@"total_count"];
@@ -460,6 +468,7 @@
             productData.productId = productDataDict[@"id"];
             productData.productPrice = [productDataDict[@"price"] stringValue];
             productData.productName = productDataDict[@"name"];
+             productData.productImpactPoint = [NSNumber numberWithDouble:[[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"points_required"] doubleValue]];
             if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
@@ -472,6 +481,8 @@
             }
             productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             productData.productType=[productDataDict objectForKey:@"type_id"];
+            productData.teirPriceArray=[productDataDict objectForKey:@"tier_prices"];
+            productData.ribbons = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"ribbons"];
             [searchData.searchProductListArray addObject:productData];
         }
         searchData.searchResultCount=response[@"total_count"];
@@ -499,8 +510,8 @@
             productData.wishlistItemId=[[wishlistArray objectAtIndex:i]objectForKey:@"wishlist_item_id"];
             productData.productId = dataDict[@"id"];
             productData.productPrice = [dataDict[@"price"] stringValue];
-            
             productData.productName = dataDict[@"name"];
+            productData.productImpactPoint = [NSNumber numberWithDouble:[[[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"points_required"] doubleValue]];
             if ([[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 productData.productDescription=[self stringByStrippingHTML:[[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
@@ -513,6 +524,8 @@
             }
             productData.productRating = [[dataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             productData.productType=[dataDict objectForKey:@"type_id"];
+            productData.teirPriceArray=[dataDict objectForKey:@"tier_prices"];
+            productData.ribbons = [[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"ribbons"];
             [searchData.searchProductListArray addObject:productData];
         }
         searchData.searchResultCount=response[@"total_count"];
@@ -536,9 +549,7 @@
     } onfailure:^(NSError *error) {
         failure(error);
     }] ;
-    
 }
-
 #pragma mark - end
 
 #pragma mark - Notification listing
@@ -618,6 +629,7 @@
             tempModel.productName=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"name"];
             tempModel.productPrice=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"price"];
             tempModel.productImageThumbnail=[[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            tempModel.ribbons = [[[response objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"ribbons"];
             if ([[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 tempModel.productDescription=[self stringByStrippingHTML:[[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
@@ -630,6 +642,7 @@
             tempModel.productRating = [[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
             tempModel.productType=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"type_id"];
             tempModel.redeemPointsRequired=[[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"points_required"];
+            tempModel.tierPriceArray=response[@"tier_prices"];
             [productData.productDataArray addObject:tempModel];
         }
         success(productData);
@@ -711,7 +724,6 @@
     [productDetailData getProductDetailService:productData success:^(id response) {
         //Parse data from server response and store in data model
         NSLog(@"product details response %@",response);
-        NSLog(@"[self stringByStrippingHTML:[customAttributeDict objectForKey: %@",[[[response objectForKey:@"custom_attribute"] objectAtIndex:0] copy]);
         NSDictionary *customAttributeDict=[[[response objectForKey:@"custom_attribute"] objectAtIndex:0] copy];
         productData.productRating=[response objectForKey:@"avg_rating_percent"];
         productData.productName=[response objectForKey:@"name"];
@@ -720,7 +732,8 @@
         productData.categoryId=[[customAttributeDict objectForKey:@"category_ids"] objectAtIndex:0];
         productData.productSubtitle=[customAttributeDict objectForKey:@"subtitle"];
         productData.productUrlKey=[customAttributeDict objectForKey:@"url_key"];
-         NSLog(@"[customAttributeDict objectForKey:] %@",[customAttributeDict objectForKey:@"shipping_text"]);
+        productData.productVideoDefaultThumbnail=[customAttributeDict objectForKey:@"product_video_preview"];
+        productData.productVideoDefault=[customAttributeDict objectForKey:@"product_video"];
         if ([customAttributeDict objectForKey:@"shipping_text"]!=nil) {
            productData.shippingText=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"shipping_text"]];
         }
@@ -755,6 +768,7 @@
         else {
             productData.eventPrice=[NSString stringWithFormat:@"%@",productData.productPrice];
         }
+        productData.tierPricesArray=response[@"tier_prices"];
         productData.redeemPointsRequired = [customAttributeDict objectForKey:@"points_required"];
         productData.productMediaArray=[NSMutableArray new];
         for (NSDictionary *tempDict in [response objectForKey:@"media"]) {
@@ -895,7 +909,7 @@
 }
 #pragma mark - end
 
-#pragma mark - Renove from wishlist service
+#pragma mark - Remove from wishlist service
 - (void)removeWishlistService:(ProductDataModel *)wishlistData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
     ProductService *addToWishlist=[[ProductService alloc]init];
     [addToWishlist removeProductFromWishlist:wishlistData success:^(id response) {

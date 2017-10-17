@@ -288,14 +288,8 @@
         bannerImageData=userData;
         if ([myDelegate.isShareUrlScreen isEqualToString:@"1"]) {
             myDelegate.isShareUrlScreen=@"0";
-             [myDelegate stopIndicator];
-//            if (nil==[UserDefaultManager getValue:@"quoteId"] || NULL==[UserDefaultManager getValue:@"quoteId"]) {
-//                [self performSelector:@selector(userLoginAsGuestDashboard) withObject:nil afterDelay:.1];
-//            }
-//            else {
-                [self navigateToDetailScreen];
-            
-//            }
+            [myDelegate stopIndicator];
+            [self navigateToDetailScreen];
         }
         [self displayData];
         if (nil!=[UserDefaultManager getValue:@"deviceToken"]&&NULL!=[UserDefaultManager getValue:@"deviceToken"]&&nil!=[UserDefaultManager getValue:@"enableNotification"]) {

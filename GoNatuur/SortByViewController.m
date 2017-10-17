@@ -137,6 +137,8 @@
 - (IBAction)applyButtonAction:(id)sender {
     productListViewObj.sortingType = sortingType;
     productListViewObj.sortBasis = sortBasis;
+    _redeemListObj.sortingType = sortingType;
+    _redeemListObj.sortBasis = sortBasis;
     [self dismissView];
 }
 #pragma mark - end
@@ -145,6 +147,8 @@
 - (void)dismissView {
     productListViewObj.sortFilterRequest = 1;
     productListViewObj.isSortFilter = true;
+    _redeemListObj.sortFilterRequest = 1;
+    _redeemListObj.isSortFilter = true;
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 #pragma mark - end

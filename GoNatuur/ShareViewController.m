@@ -89,7 +89,7 @@ static NSString *JSHandler;
     NSLog(@"%@",request);
     NSLog(@"%@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
     loadURL=[request.URL absoluteString];
-    // [[UIApplication sharedApplication] openURL:[NSURL URLWithString:loadURL]];
+  
 //    SFSafariViewController *safariVC = [[SFSafariViewController alloc]initWithURL:[NSURL URLWithString:loadURL] entersReaderIfAvailable:NO];
 //    safariVC.delegate = self;
 //    [self presentViewController:safariVC animated:NO completion:nil];
@@ -110,9 +110,10 @@ static NSString *JSHandler;
     else if ([loadURL containsString:@"resource/BoardResource/get/"]) {
         [self loadShareRequestURL];
     }
-    
+//    else if ([loadURL containsString:@"https://api.weibo.com/"]){
+//           [[UIApplication sharedApplication] openURL:[NSURL URLWithString:loadURL]];
+//    }
     return YES;
-    
 }
 
 #pragma mark - SFSafariViewController delegate methods

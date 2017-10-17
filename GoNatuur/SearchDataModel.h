@@ -33,6 +33,8 @@
 @property (strong, nonatomic) NSString *wishlistItemId;
 @property (strong, nonatomic) NSNumber *isRedeemProduct;
 @property (strong, nonatomic) NSNumber *productImpactPoint;
+@property (strong, nonatomic) NSMutableArray *teirPriceArray;
+@property (strong, nonatomic) NSString *ribbons;
 
 //Singleton method
 + (instancetype)sharedUser;
