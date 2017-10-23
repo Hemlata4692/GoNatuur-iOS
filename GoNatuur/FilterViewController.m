@@ -101,13 +101,18 @@
     NSIndexPath *tempIndex=[NSIndexPath indexPathForRow:0 inSection:0];
     if ([isFilterApplied isEqualToString:@"1"]) {
         productListViewObj.sortFilterRequest = 1;
+        _redeemListObj.sortFilterRequest = 1;
     }
     FilterTableViewCell *cell = (FilterTableViewCell *)[_filterTableView cellForRowAtIndexPath:tempIndex];
     productListViewObj.filterDictionary = @{@"maxPrice":cell.maxPriceValue,@"minPrice":cell.minPriceValue};
     productListViewObj.filterValueDataArray = [selctedFilterDataArray mutableCopy];
+    _redeemListObj.filterDictionary = @{@"maxPrice":cell.maxPriceValue,@"minPrice":cell.minPriceValue};
+    _redeemListObj.filterValueDataArray = [selctedFilterDataArray mutableCopy];
     DLog(@"productListViewObj.filterDictionary = %@ %@",productListViewObj.filterDictionary,productListViewObj.filterValueDataArray);
     productListViewObj.isSortFilter = true;
     productListViewObj.selectedPickerValueDict=[tempDataDict mutableCopy];
+    _redeemListObj.isSortFilter = true;
+    _redeemListObj.selectedPickerValueDict=[tempDataDict mutableCopy];
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 #pragma mark - end
@@ -204,7 +209,7 @@
     }
     else  {
         [cell displayCountry:[filterDataArray objectAtIndex:indexPath.row-1]];
-         selectedPickerValueIndex=[[tempDataDict objectForKey:[NSString stringWithFormat:@"%ld",indexPath.row-1]] intValue];
+         selectedPickerValueIndex=[[tempDataDict objectForKey:[NSString stringWithFormat:@"%d",indexPath.row-1]] intValue];
         if ([[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:selectedPickerValueIndex] filterCountry] isEqualToString:@""] || [[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:selectedPickerValueIndex] filterCountry] isEqualToString:@" "]) {
              cell.selectedFilterLabel.text=NSLocalizedText(@"All");
         }
@@ -227,7 +232,7 @@
             [filterValueDataArray addObject:[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:i] filterCountry]];
         }
     }
-    selectedPickerValueIndex=[[tempDataDict objectForKey:[NSString stringWithFormat:@"%ld",indexPath.row-1]] intValue];
+    selectedPickerValueIndex=[[tempDataDict objectForKey:[NSString stringWithFormat:@"%d",indexPath.row-1]] intValue];
     [gNPickerViewObj showPickerView:filterValueDataArray selectedIndex:selectedPickerValueIndex option:1 isCancelDelegate:false isFilterScreen:true];
 }
 }

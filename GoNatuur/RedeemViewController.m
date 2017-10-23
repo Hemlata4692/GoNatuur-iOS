@@ -17,6 +17,8 @@
 #import "ProfileModel.h"
 #import "ProductDetailViewController.h"
 #import "UIView+Toast.h"
+#import "SortByViewController.h"
+#import "FilterViewController.h"
 
 @interface RedeemViewController ()<UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
     NSMutableArray *productListDataArray, *subCategoryDataList, *subCategoryPickerArray;
@@ -56,11 +58,15 @@
     menuArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"filterCell", @"productListCell", @"refreshCell"];
     myDelegate.isProductList=true;
     //Set default sort values
+    //Set default sort values
     _sortingType = NSLocalizedText(@"sortPrice");
     _sortFilterRequest = 0;
-    _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0", @"attributeId":@"9", @"attributedCode":@"country"};
+    _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0"};
     _sortBasis = DESC; //ASC/DESC
-
+    _isSortFilter=false;
+    [self viewInitialization];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getRedeemCategoryListData) withObject:nil afterDelay:.1];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -80,12 +86,6 @@
         isPullToRefresh=true;
         [myDelegate showIndicator];
         [self performSelector:@selector(getRedeemListData) withObject:nil afterDelay:.1];
-    } else {
-        if (!isImagePicker) {
-            [self viewInitialization];
-            [myDelegate showIndicator];
-            [self performSelector:@selector(getRedeemCategoryListData) withObject:nil afterDelay:.1];
-        }
     }
 }
 
@@ -371,9 +371,10 @@
     productList.productSortingValue = _sortBasis;
     productList.minPriceValue = _filterDictionary[@"minPrice"];
     productList.maxPriceValue = _filterDictionary[@"maxPrice"];
-    productList.filterAttributeCode = _filterDictionary[@"attributedCode"];;
-    productList.filterAttributeId = _filterDictionary[@"attributeId"];
     productList.sortFilterRequestParameter=_sortFilterRequest;
+    if (_sortFilterRequest!=0) {
+        productList.selectedFiltersDataArray = [_filterValueDataArray mutableCopy];
+    }
     [productList getProductListService:^(DashboardDataModel *productData)  {
         [myDelegate stopIndicator];
         [self serviceDataHandling:productData];
@@ -457,6 +458,33 @@
         if (subCategoryPickerArray.count>0) {
             [gNPickerViewObj showPickerView:subCategoryPickerArray selectedIndex:selectedSubCategoryIndex option:1 isCancelDelegate:false isFilterScreen:false];
         }
+    }
+    else if (option==3) {
+        NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
+        SortByViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SortByViewController"];
+        preview.redeemListObj = self;
+        preview.sortProductId = currentCategoryId;
+        preview.sortBasis = _sortBasis;
+        preview.sortingType = _sortingType;
+        UINavigationController *navigationController =
+        [[UINavigationController alloc] initWithRootViewController:preview];
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigation"] forBarMetrics:UIBarMetricsDefault];
+        //now present this navigation controller modally
+        [self presentViewController:navigationController animated:YES completion:^{
+        }];
+    }
+    else if (option==2) {
+        FilterViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FilterViewController"];
+        preview.filterProductId = currentCategoryId;
+        preview.selectedPickerIndexDict=[_selectedPickerValueDict mutableCopy];
+        preview.isProductList=myDelegate.isProductList;
+        preview.redeemListObj = self;
+        UINavigationController *navigationController =
+        [[UINavigationController alloc] initWithRootViewController:preview];
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigation"] forBarMetrics:UIBarMetricsDefault];
+        //now present this navigation controller modally
+        [self presentViewController:navigationController animated:YES completion:^{
+        }];
     }
 }
 #pragma mark - end

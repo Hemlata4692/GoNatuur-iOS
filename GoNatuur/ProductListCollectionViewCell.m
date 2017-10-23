@@ -21,7 +21,6 @@
         _productDescription.text=productListData.productDescription;
     }
     [ImageCaching downloadImages:_productImageView imageUrl:productListData.productImageThumbnail placeholderImage:@"product_placeholder" isDashboardCell:true];
-    _statusBannerImage.hidden=YES;
     if ([productListData.productRating isEqualToString:@""] || productListData.productRating==nil || [productListData.productRating isEqualToString:@"0"]) {
         _productRating.hidden=YES;
         _ratingStarImage.hidden=YES;
@@ -33,18 +32,22 @@
         _productRating.text=[NSString stringWithFormat:@"(%.1f)",rating];
     }
     double productCalculatedPrice;
-    if (nil!=productListData.specialPrice&&![productListData.specialPrice isEqualToString:@""]) {
-        _statusBannerImage.hidden=false;
-        _statusBannerImage.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@%@",@"clear_",[UserDefaultManager getValue:@"Language"]]];
-        productCalculatedPrice =[productListData.specialPrice doubleValue]*[exchangeRates doubleValue];
+    
+    if (nil!=productListData.tierPriceArray || productListData.tierPriceArray.count!=0) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"customer_group_id == %@", [UserDefaultManager getValue:@"GroupId"]];
+        NSArray *filteredArray = [productListData.tierPriceArray filteredArrayUsingPredicate:predicate];
+        if (filteredArray.count!=0) {
+            NSDictionary *tempDict=[[filteredArray objectAtIndex:0] mutableCopy];
+            productCalculatedPrice=[[tempDict objectForKey:@"value"] doubleValue]*[exchangeRates doubleValue];
+        }
+        else {
+            productCalculatedPrice=[self calculatePrice:productListData exchangeRates:[exchangeRates doubleValue]];
+        }
     }
     else {
-        if ((!myDelegate.isProductList || [productListData.productType isEqualToString:eventIdentifier])&&(nil==productListData.productQty||NULL==productListData.productQty||[productListData.productQty intValue]<1)) {
-             _statusBannerImage.hidden=false;
-             _statusBannerImage.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@%@",@"sold_",[UserDefaultManager getValue:@"Language"]]];
-            }
-        productCalculatedPrice =[productListData.productPrice doubleValue]*[exchangeRates doubleValue];
+        productCalculatedPrice=[self calculatePrice:productListData exchangeRates:[exchangeRates doubleValue]];
     }
+    
     if (isRedeemPoints) {
         NSString *ipString=@"ip";
         NSString *str=[NSString stringWithFormat:@"%.0f%@",[productListData.redeemPointsRequired floatValue],ipString];
@@ -56,7 +59,19 @@
     else {
     _productPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
     }
+    _statusBannerImage.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@_%@",productListData.ribbons,[UserDefaultManager getValue:@"Language"]]];
     [self customizedCellObject:productListData];
+}
+
+- (double)calculatePrice:(DashboardDataModel *)productListData exchangeRates:(double)exchangeRates {
+    double price;
+    if (nil!=productListData.specialPrice&&![productListData.specialPrice isEqualToString:@""]) {
+        price =[productListData.specialPrice doubleValue]*exchangeRates;
+    }
+    else {
+        price =[productListData.productPrice doubleValue]*exchangeRates;
+    }
+    return price;
 }
 
 - (void)customizedCellObject:(DashboardDataModel *)productListData {

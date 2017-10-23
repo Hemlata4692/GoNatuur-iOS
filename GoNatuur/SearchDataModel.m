@@ -32,6 +32,8 @@
 @synthesize wishlistItemId;
 @synthesize isRedeemProduct;
 @synthesize productImpactPoint;
+@synthesize teirPriceArray;
+@synthesize ribbons;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser {

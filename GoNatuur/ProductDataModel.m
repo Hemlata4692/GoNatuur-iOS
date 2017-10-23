@@ -50,6 +50,8 @@
 @synthesize redeemPointsRequired;
 @synthesize shippingText;
 @synthesize tierPricesArray;
+@synthesize productVideoDefault;
+@synthesize productVideoDefaultThumbnail;
 
 - (id)copyWithZone:(NSZone *)zone {
     ProductDataModel *another = [[ProductDataModel alloc] init];
@@ -82,6 +84,8 @@
     another.redeemPointsRequired= [self.redeemPointsRequired copyWithZone: zone];
     another.shippingText=[self.shippingText copyWithZone:zone];
     another.tierPricesArray=[self.tierPricesArray copyWithZone:zone];
+    another.productVideoDefault=[self.productVideoDefault copyWithZone:zone];
+    another.productVideoDefaultThumbnail=[self.productVideoDefaultThumbnail copyWithZone:zone];
     return another;
 }
 
