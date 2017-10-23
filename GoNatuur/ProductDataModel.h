@@ -49,6 +49,8 @@
 @property (strong, nonatomic) NSString *redeemPointsRequired;
 @property (strong, nonatomic) NSString *shippingText;
 @property (strong, nonatomic) NSMutableArray *tierPricesArray;
+@property (strong, nonatomic) NSString *productVideoDefault;
+@property (strong, nonatomic) NSString *productVideoDefaultThumbnail;
 
 //Singleton method
 + (instancetype)sharedUser;

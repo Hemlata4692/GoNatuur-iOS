@@ -55,10 +55,17 @@
     }
 }
 
-- (void)displayProductMediaImage:(NSDictionary *)productImageDict {
+- (void)displayProductMediaImage:(NSDictionary *)productImageDict defaultVideoThumbnail:(NSString *)defaultVideoThumbnail {
     _transparentView.hidden=true;
     _productImageView.translatesAutoresizingMaskIntoConstraints=true;
-        _productImageView.frame=CGRectMake(40, 20, [[UIScreen mainScreen] bounds].size.width-80, 250);
+    _productImageView.frame=CGRectMake(40, 20, [[UIScreen mainScreen] bounds].size.width-80, 250);
+    if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"default-video"]) {
+        _transparentView.hidden=false;
+        _videoIcon.hidden=false;
+        _video360Icon.hidden=true;
+        [ImageCaching downloadImages:_productImageView imageUrl:[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,defaultVideoThumbnail] placeholderImage:@"product_placeholder" isDashboardCell:false];
+    }
+    else {
         if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
             _transparentView.hidden=false;
             _videoIcon.hidden=false;
@@ -71,15 +78,35 @@
          _video360Icon.hidden=false;
          }
         [ImageCaching downloadImages:_productImageView imageUrl:[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,[productImageDict objectForKey:@"file"]] placeholderImage:@"product_placeholder" isDashboardCell:false];
+    }
 }
 
 - (void)displayProductPrice:(ProductDataModel *)productData currentQuantity:(int)currentQuantity isRedeemPoints:(BOOL)isRedeemPoints {
     double productCalculatedPrice;
-    if (nil!=productData.specialPrice&&![productData.specialPrice isEqualToString:@""]) {
-        productCalculatedPrice =[productData.specialPrice doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+    
+    if (nil!=productData.tierPricesArray || productData.tierPricesArray.count!=0) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"customer_group_id == %@", [UserDefaultManager getValue:@"GroupId"]];
+        NSArray *filteredArray = [productData.tierPricesArray filteredArrayUsingPredicate:predicate];
+        if (filteredArray.count!=0) {
+            NSDictionary *tempDict=[[filteredArray objectAtIndex:0] mutableCopy];
+            productCalculatedPrice=[[tempDict objectForKey:@"value"] doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+        }
+        else {
+            if (nil!=productData.specialPrice&&![productData.specialPrice isEqualToString:@""]) {
+                productCalculatedPrice =[productData.specialPrice doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+            }
+            else {
+                productCalculatedPrice =[productData.productPrice doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+            }
+        }
     }
     else {
-        productCalculatedPrice =[productData.productPrice doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+        if (nil!=productData.specialPrice&&![productData.specialPrice isEqualToString:@""]) {
+            productCalculatedPrice =[productData.specialPrice doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+        }
+        else {
+            productCalculatedPrice =[productData.productPrice doubleValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue];
+        }
     }
     NSMutableAttributedString *string;
     if (isRedeemPoints) {

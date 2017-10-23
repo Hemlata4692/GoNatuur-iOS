@@ -47,6 +47,8 @@
 @property (strong, nonatomic) NSString *filterValue2;
 @property (strong, nonatomic) NSString *sortingValue;
 @property (strong, nonatomic) NSString *redeemPointsRequired;
+@property (strong, nonatomic) NSMutableArray *tierPriceArray;
+@property (strong, nonatomic) NSString *ribbons;
 
 @property (nonatomic) int sortFilterRequestParameter;
 //Sorting

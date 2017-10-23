@@ -158,7 +158,7 @@
         [cell displayRating:productDetailModelData.productRating];
     }
     else if (indexPath.row==3) {
-        [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex]];
+        [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] defaultVideoThumbnail:productDetailModelData.productVideoDefaultThumbnail];
         cell.productImageView.userInteractionEnabled=YES;
         [self addSwipeGesture:cell.contentView];
     }
@@ -248,10 +248,24 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row==3 && ![[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"media_type"] isEqualToString:@"image"]) {
-        NSURL *videoURL = [NSURL URLWithString:[[[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"extension_attributes"] objectForKey:@"video_content"] objectForKey:@"video_url"]];
-        [myDelegate showIndicator];
-        [self performSelector:@selector(showYouTubeVideo:) withObject:videoURL afterDelay:.1];
+    if (indexPath.row==3) {
+        if (![[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"media_type"] isEqualToString:@"image"]) {
+            if ([[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"media_type"] isEqualToString:@"default-video"]) {
+                NSURL *videoURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,productDetailModelData.productVideoDefault]];
+                NSArray * arrayOfThingsIWantToPassAlong =
+                [NSArray arrayWithObjects: videoURL, @"false", nil];
+                [myDelegate showIndicator];
+                [self performSelector:@selector(showYouTubeVideo:) withObject:arrayOfThingsIWantToPassAlong afterDelay:.1];
+            }
+            else {
+                NSURL *videoURL = [NSURL URLWithString:[[[[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] objectForKey:@"extension_attributes"] objectForKey:@"video_content"] objectForKey:@"video_url"]];
+                [myDelegate showIndicator];
+                NSArray * arrayOfThingsIWantToPassAlong =
+                [NSArray arrayWithObjects: videoURL, @"true", nil];
+                [myDelegate showIndicator];
+                [self performSelector:@selector(showYouTubeVideo:) withObject:arrayOfThingsIWantToPassAlong afterDelay:.1];
+            }
+        }
     }
     else if (indexPath.row==9) {
         //Description action
@@ -347,32 +361,43 @@
 #pragma mark - end
 
 #pragma mark - HCYoutubeParser method
-- (void)showYouTubeVideo:(NSURL *)url {
-    [HCYoutubeParser thumbnailForYoutubeURL:url thumbnailSize:YouTubeThumbnailDefaultHighQuality completeBlock:^(UIImage *image, NSError *error) {
-        if (!error) {
-            [HCYoutubeParser h264videosWithYoutubeURL:url completeBlock:^(NSDictionary *videoDictionary, NSError *error) {
-                
+- (void)showYouTubeVideo:(NSArray *)dataArray {
+    NSString *isYouTube = [dataArray objectAtIndex:1];
+    NSURL *url=[dataArray objectAtIndex:0];
+    if ([isYouTube isEqualToString:@"true"]) {
+        [HCYoutubeParser thumbnailForYoutubeURL:url thumbnailSize:YouTubeThumbnailDefaultHighQuality completeBlock:^(UIImage *image, NSError *error) {
+            if (!error) {
+                [HCYoutubeParser h264videosWithYoutubeURL:url completeBlock:^(NSDictionary *videoDictionary, NSError *error) {
+                    [myDelegate stopIndicator];
+                    NSDictionary *qualities = videoDictionary;
+                    NSString *URLString = nil;
+                    if ([qualities objectForKey:@"small"] != nil) {
+                        URLString = [qualities objectForKey:@"small"];
+                    }
+                    else if ([qualities objectForKey:@"live"] != nil) {
+                        URLString = [qualities objectForKey:@"live"];
+                    }
+                    else {
+                        return;
+                    }
+                    MPMoviePlayerViewController *mp = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:URLString]];
+                    isServiceCalledMPMoviePlayerDone=false;
+                    [self presentViewController:mp animated:YES completion:NULL];
+                }];
+            }
+            else {
                 [myDelegate stopIndicator];
-                NSDictionary *qualities = videoDictionary;
-                NSString *URLString = nil;
-                if ([qualities objectForKey:@"small"] != nil) {
-                    URLString = [qualities objectForKey:@"small"];
-                }
-                else if ([qualities objectForKey:@"live"] != nil) {
-                    URLString = [qualities objectForKey:@"live"];
-                }
-                else {
-                    return;
-                }
-                MPMoviePlayerViewController *mp = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:URLString]];
-                isServiceCalledMPMoviePlayerDone=false;
-                [self presentViewController:mp animated:YES completion:NULL];
-            }];
-        }
-        else {
-            [myDelegate stopIndicator];
-        }
-    }];
+            }
+        }];
+    }
+    else {
+        [myDelegate stopIndicator];
+        AVPlayer *player = [AVPlayer playerWithURL:url];
+        AVPlayerViewController *playerViewController = [AVPlayerViewController new];
+        playerViewController.player = player;
+        [playerViewController.player play];//used to play on start
+        [self presentViewController:playerViewController animated:YES completion:nil];
+    }
 }
 #pragma mark - end
 
@@ -386,14 +411,14 @@
 
 - (ProductDetailCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProductDetailCollectionViewCell *productMediaCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"productImageVideoCell" forIndexPath:indexPath];
-    [productMediaCell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:indexPath.row] selectedIndex:selectedMediaIndex currentIndex:(int)indexPath.row];
+    [productMediaCell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:indexPath.row] selectedIndex:selectedMediaIndex currentIndex:(int)indexPath.row defaultVideoThumbnail:productDetailModelData.productVideoDefaultThumbnail];
     return productMediaCell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     selectedMediaIndex=(int)indexPath.row;
     ProductDetailTableViewCell *tempCell = [_productDetailTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
-    [tempCell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex]];
+    [tempCell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] defaultVideoThumbnail:productDetailModelData.productVideoDefaultThumbnail];
     [collectionView reloadData];
 }
 #pragma mark - end
@@ -406,6 +431,9 @@
     [productData getProductDetailOnSuccess:^(ProductDataModel *productDetailData)  {
         productDetailModelData=productDetailData;
         reviewAdded=productDetailModelData.reviewAdded;
+        if (nil!=productDetailModelData.productVideoDefault && ![productDetailModelData.productVideoDefault isEqualToString:@""]) {
+            [productDetailModelData.productMediaArray addObject:@{@"media_type":@"default-video"}];
+        }
         [myDelegate stopIndicator];
         isServiceCalled=true;
         currentQuantity=[productDetailData.productMinQuantity intValue];
@@ -621,7 +649,7 @@
     ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
     selectedMediaIndex++;
     if (selectedMediaIndex < productDetailModelData.productMediaArray.count) {
-        [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex]];
+        [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] defaultVideoThumbnail:productDetailModelData.productVideoDefaultThumbnail];
         UIView *moveIMageView = cell.contentView;
         [self addLeftAnimationPresentToView:moveIMageView];
         [self scrollMediaCollectionViewAtIndex];
@@ -637,7 +665,7 @@
     ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
     selectedMediaIndex--;
     if (selectedMediaIndex>=0) {
-        [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex]];
+        [cell displayProductMediaImage:[productDetailModelData.productMediaArray objectAtIndex:selectedMediaIndex] defaultVideoThumbnail:productDetailModelData.productVideoDefaultThumbnail];
         UIView *moveIMageView = cell.contentView;
         [self addRightAnimationPresentToView:moveIMageView];
         [self scrollMediaCollectionViewAtIndex];

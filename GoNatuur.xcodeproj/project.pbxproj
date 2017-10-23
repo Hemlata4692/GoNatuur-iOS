@@ -47,6 +47,7 @@
 		181853271F3D833F00EEB73B /* DashboardDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181853261F3D833F00EEB73B /* DashboardDataModel.m */; };
 		1818532B1F3D8A7F00EEB73B /* DashboardService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532A1F3D8A7F00EEB73B /* DashboardService.m */; };
 		1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */ = {isa = PBXBuildFile; fileRef = 1818532E1F3DFED000EEB73B /* ImageCaching.m */; };
+		181F86DA1F9468E8009C7FD8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181F86D91F9468E8009C7FD8 /* Default-568h@2x.png */; };
 		181FD2201F60194700C5373C /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD21F1F60194700C5373C /* SafariServices.framework */; };
 		181FD2221F60194C00C5373C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2211F60194C00C5373C /* Security.framework */; };
 		181FD2241F60195200C5373C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2231F60195200C5373C /* SystemConfiguration.framework */; };
@@ -265,6 +266,7 @@
 		1818532A1F3D8A7F00EEB73B /* DashboardService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardService.m; sourceTree = "<group>"; };
 		1818532D1F3DFED000EEB73B /* ImageCaching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCaching.h; sourceTree = "<group>"; };
 		1818532E1F3DFED000EEB73B /* ImageCaching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCaching.m; sourceTree = "<group>"; };
+		181F86D91F9468E8009C7FD8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		181FD21F1F60194700C5373C /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		181FD2211F60194C00C5373C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		181FD2231F60195200C5373C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1751,6 +1753,7 @@
 		32BAA5FB1F1360280015E355 = {
 			isa = PBXGroup;
 			children = (
+				181F86D91F9468E8009C7FD8 /* Default-568h@2x.png */,
 				32BAA6061F1360280015E355 /* GoNatuur */,
 				32BAA6051F1360280015E355 /* Products */,
 				E2BA2CD89648C4DC2D21544A /* Pods */,
@@ -2538,6 +2541,7 @@
 				188605AE1F39D7620005D1E2 /* Montserrat-Medium.otf in Resources */,
 				B77A8A7E1F346C1200233782 /* SocialLoginViewController.xib in Resources */,
 				181844571F70E08C0077E48C /* ZDCChatStrings.bundle in Resources */,
+				181F86DA1F9468E8009C7FD8 /* Default-568h@2x.png in Resources */,
 				B75E6F391F75063E0059D8E1 /* weChatPayIcon.png in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
 				B73E00E31F4184DF001DEBA2 /* Montserrat-Bold.otf in Resources */,

@@ -34,7 +34,7 @@
 - (void)displayProductName:(NSString *)productName;
 - (void)displayProductDescription:(NSString *)productDescription;
 - (void)displayRating:(NSString *)productRating;
-- (void)displayProductMediaImage:(NSDictionary *)productImageDict;
+- (void)displayProductMediaImage:(NSDictionary *)productImageDict defaultVideoThumbnail:(NSString *)defaultVideoThumbnail;
 - (void)displayProductPrice:(ProductDataModel *)productData currentQuantity:(int)currentQuantity isRedeemPoints:(BOOL)isRedeemPoints;
 - (void)displayProductInfo:(NSString *)shippingTextData;
 - (void)displayAddToCartButton:(NSString *)screenType;
