@@ -67,6 +67,7 @@ static NSString *JSHandler;
         customerToken=@"";
     }
     NSString *webViewString=[NSString stringWithFormat:@"%@%@/%@url=%@&media=%@&name=%@&description=%@&token=%@&sharedpoint-nap=%@",BaseUrl,[UserDefaultManager getValue:@"Language"],@"socailsharing/product/share/?",shareURL,mediaURL,name,productDescription,customerToken,shareType];
+    //NSString *webViewString=@"https://in.pinterest.com/pin/create/button/?url=https%3A%2F%2Fdev.gonatuur.com%2Fen%2Fhappy-yak-milk.html%3Fproduct_id%3D26&media=https%3A%2F%2Fdev.gonatuur.com%2Fmedia%2Fcatalog%2Fproduct%2Fy%2Fa%2Fyak-milk_1.jpg&description=Protein%20rich.";
     NSString *encodedString = [webViewString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *webViewURL = [NSURL URLWithString:encodedString];
     NSURLRequest *shareRequest=[NSURLRequest requestWithURL:webViewURL];
@@ -137,11 +138,11 @@ static NSString *JSHandler;
     if ([error code] != NSURLErrorCancelled) {
         //show error alert, etc.
         [myDelegate stopIndicator];
-        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:error.localizedDescription  closeButtonTitle:nil duration:0.0f];
+//        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+//        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
+//            [self.navigationController popViewControllerAnimated:YES];
+//        }];
+//        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:error.localizedDescription  closeButtonTitle:nil duration:0.0f];
     }
 }
 

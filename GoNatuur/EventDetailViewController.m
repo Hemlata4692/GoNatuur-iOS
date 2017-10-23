@@ -321,7 +321,7 @@
         ShareViewController *popView =
         [storyboard instantiateViewControllerWithIdentifier:@"ShareViewController"];
         NSDictionary *temDict=[productDetailModelData.productMediaArray objectAtIndex:0];
-        popView.mediaURL=[temDict objectForKey:@"file"];
+        popView.mediaURL=[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,[temDict objectForKey:@"file"]];
         popView.name=productDetailModelData.productName;
         popView.shareType=@"0";
         popView.shareURL=[NSString stringWithFormat:@"%@%@/%@.html?event_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId];

@@ -277,6 +277,8 @@
 "close"="close";
 "return"="return";
 "cancel"="cancel";
+"cancelButtonTitle"="Cancel";
+"applyButtonTitle"="Apply";
 "productNameTitle"="Product Name:";
 "skuTitle"="SKU:";
 "optionSelectTitle"="Option Select:";

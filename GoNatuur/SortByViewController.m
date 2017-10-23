@@ -18,7 +18,9 @@
     BOOL isFirstTime;
     NSString *requestValuesString;
 }
+@property (weak, nonatomic) IBOutlet UIButton *cancelButtonOutlet;
 @property (weak, nonatomic) IBOutlet UITableView *sortByTableView;
+@property (weak, nonatomic) IBOutlet UIButton *applyButtonOutlet;
 
 @end
 
@@ -33,6 +35,8 @@
     sortDataModel = [SortFilterModel new];
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"SortByTitle");
+    [_cancelButtonOutlet setTitle:NSLocalizedText(@"cancel") forState:UIControlStateNormal];
+    [_applyButtonOutlet setTitle:NSLocalizedText(@"apply") forState:UIControlStateNormal];
     NSLog(@"basis = %@, type = %@",sortBasis,sortingType);
     //remove extra lines from table view
     _sortByTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];

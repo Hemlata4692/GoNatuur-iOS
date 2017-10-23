@@ -21,7 +21,9 @@
     NSMutableDictionary *tempDataDict, *filterDataDictionary;
     NSUInteger selectedFilterIndex;
 }
+@property (weak, nonatomic) IBOutlet UIButton *cancelButtonOutlet;
 @property (weak, nonatomic) IBOutlet UITableView *filterTableView;
+@property (weak, nonatomic) IBOutlet UIButton *applyButtonOutlet;
 
 @end
 
@@ -50,6 +52,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"filterTitle");
+    [_cancelButtonOutlet setTitle:NSLocalizedText(@"cancel") forState:UIControlStateNormal];
+    [_applyButtonOutlet setTitle:NSLocalizedText(@"apply") forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {

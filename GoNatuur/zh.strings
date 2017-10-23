@@ -328,4 +328,6 @@
 "grandTotal"="累計";
 "rewardProductExistAlert"="你有一些獎勵產品的價值超過了影響點.";
 "total"="總:";
-"RequestTimeout"="Request time out. Please try again.";
+"RequestTimeout"="請求超時。請再試一次.";
+"cancelButtonTitle"="取消";
+"applyButtonTitle"="應用";
