@@ -14,4 +14,5 @@
 @property (nonatomic) int filterProductId;
 @property (nonatomic) int selectedPickerValueIndex;
 @property (nonatomic, strong) NSMutableDictionary *selectedPickerIndexDict;
+@property (nonatomic,assign) bool isProductList;
 @end

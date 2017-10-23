@@ -33,7 +33,7 @@ static NSString *kLoggedinAddToCartEvent=@"ranosys/add-event-to-cart/mine";
     NSDictionary *parameters = @{@"productId":productDetail.productId,
                                  @"customerId":customerID
                                  };
-    DLog(@"producy detail request %@",parameters);
+    NSLog(@"event detail request %@",parameters);
     [super post:kProductDetail parameters:parameters success:success failure:failure];
 }
 #pragma mark - end

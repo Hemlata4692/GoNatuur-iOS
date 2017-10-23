@@ -8,6 +8,9 @@
 
 #import "ShareViewController.h"
 #import "ShareDataModel.h"
+static NSString *JSHandler;
+
+#define CocoaJSHandler          @"mpajaxhandler"
 
 @interface ShareViewController () {
     @private
@@ -39,6 +42,8 @@
     [[UITapGestureRecognizer alloc] initWithTarget:self
                                             action:@selector(dismissNewsView:)];
     [_mainView addGestureRecognizer:singleFingerTap];
+    
+      JSHandler = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"ajax_handler" withExtension:@"js"] encoding:NSUTF8StringEncoding error:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,24 +61,48 @@
 
 - (void)loadShareRequestURL {
     [myDelegate showIndicator];
-    shareURL=@"http%3A%2F%2F192.121.166.226%3A81%2Fgopurpose%2Fen%2Fexciting-corn.html";
-    NSString *webViewString=[NSString stringWithFormat:@"%@%@/%@url=%@&media=%@&name=%@&description=%@&token=%@&sharedpoint-nap=%@",BaseUrl,[UserDefaultManager getValue:@"Language"],@"socailsharing/product/share/?",shareURL,mediaURL,name,productDescription,[UserDefaultManager getValue:@"Authorization"],@"0"];
+    NSString *customerToken=[UserDefaultManager getValue:@"Authorization"];
+    if ([[UserDefaultManager getValue:@"Authorization"] isEqualToString:@""] || [UserDefaultManager getValue:@"Authorization"]==nil || [UserDefaultManager getValue:@"Authorization"]==NULL) {
+        customerToken=@"";
+    }
+    NSString *webViewString=[NSString stringWithFormat:@"%@%@/%@url=%@&media=%@&name=%@&description=%@&token=%@&sharedpoint-nap=%@",BaseUrl,[UserDefaultManager getValue:@"Language"],@"socailsharing/product/share/?",shareURL,mediaURL,name,productDescription,customerToken,shareType];
     NSString *encodedString = [webViewString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *webViewURL = [NSURL URLWithString:encodedString];
     NSURLRequest *shareRequest=[NSURLRequest requestWithURL:webViewURL];
     [_shareWebView loadRequest: shareRequest];
-
 }
 #pragma mark - end
 
 #pragma mark - Webview delegates
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    [webView stringByEvaluatingJavaScriptFromString:JSHandler];
+}
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    //https://service.t.sina.com.cn/widget/jssdk/aj_addmblog.php - weibo error url
     NSLog(@"%@",request);
     NSLog(@"%@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
     loadURL=[request.URL absoluteString];
-    //URL: https://m.facebook.com/v2.10/dialog/share/submit - facebook
-    //https://twitter.com/intent/tweet - twitter p=tweetbutton
+    NSLog(@"loadURL %@",loadURL);
+
+    if ([loadURL containsString:@"weixin://"]) {
+        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:loadURL]]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:loadURL]];
+        }
+        else {
+            SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+            [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:@"Please install wechat app to share"  closeButtonTitle:nil duration:0.0f];
+        }
+    }
+    else if ([loadURL containsString:@"resource/BoardResource/get/"] || [loadURL containsString:@"https://service.t.sina.com.cn/widget/jssdk/aj_addmblog.php"]) {
+        [self loadShareRequestURL];
+    }
+    
     return YES;
+    
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -82,10 +111,9 @@
         return;
     else {
         [myDelegate stopIndicator];
-        if ([loadURL isEqualToString:@"https://m.facebook.com/v2.10/dialog/share/submit"] || [loadURL containsString:@"p=tweetbutton"]) {
+        if ([loadURL isEqualToString:@"https://m.facebook.com/v2.10/dialog/share/submit"] || [loadURL containsString:@"https://twitter.com/intent/tweet/complete"] || [loadURL containsString:@"resource/BoardResource/get/"]) {
             [self loadShareRequestURL];
         }
-        
     }
 }
 
@@ -93,26 +121,7 @@
     if ([error code] != NSURLErrorCancelled) {
         //show error alert, etc.
         [myDelegate stopIndicator];
-        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrongMessage")  closeButtonTitle:nil duration:0.0f];
     }
-}
-#pragma mark - end
-
-#pragma mark - Webservices
-- (void)sharingService {
-    ShareDataModel *shareData = [ShareDataModel sharedUser];
-    shareData.deeplinkURL=shareURL;
-    shareData.imageURL=mediaURL;
-    shareData.name=name;
-    shareData.productDescription=productDescription;
-    [shareData getShareDataWebView:^(ShareDataModel *userData) {
-        [myDelegate stopIndicator];
-    } onfailure:^(NSError *error) {
-    }];
 }
 #pragma mark - end
 
@@ -120,25 +129,6 @@
 //The event handling method
 - (void)dismissNewsView:(UITapGestureRecognizer *)recognizer {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-#pragma mark - end
-
-#pragma mark - IBActionss
-- (IBAction)weiboButtonAction:(id)sender {
-}
-
-- (IBAction)wechatButtonAction:(id)sender {
-}
-- (IBAction)twitterButtonAction:(id)sender {
-}
-
-- (IBAction)pinterestButtonAction:(id)sender {
-}
-- (IBAction)instagramButtonAction:(id)sender {
-}
-- (IBAction)googlePlusButtonAction:(id)sender {
-}
-- (IBAction)facebookButtonAction:(id)sender {
 }
 #pragma mark - end
 @end

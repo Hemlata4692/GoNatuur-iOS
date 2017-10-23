@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *ratingStarImage;
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
 @property (weak, nonatomic) IBOutlet UIView *borderView;
+
 //wishlist screen
 @property (weak, nonatomic) IBOutlet UIButton *removeItemButton;
 

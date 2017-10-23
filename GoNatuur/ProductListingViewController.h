@@ -15,5 +15,6 @@
 @property (nonatomic) BOOL isSortFilter;
 @property (nonatomic) int sortFilterRequest;
 @property (nonatomic,strong) NSDictionary * filterDictionary;
+@property (nonatomic,strong) NSMutableArray * filterValueDataArray;
 @property (nonatomic, strong) NSMutableDictionary *selectedPickerValueDict;
 @end

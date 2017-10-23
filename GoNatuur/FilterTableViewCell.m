@@ -25,7 +25,7 @@
 
 - (void)displaySlider:(NSString *)maxPrice {
     _minimumPriceLabel.text=[NSString stringWithFormat:@"$%s","0"];
-    _maximumPriceLabel.text=[NSString stringWithFormat:@"$%.01f",[maxPrice floatValue]];
+    _maximumPriceLabel.text=[NSString stringWithFormat:@"$%.0f",[maxPrice floatValue]];
     
     _priceRangeSliderView.requireSegments = NO;
     _priceRangeSliderView.sliderSize = CGSizeMake(20, 20);
@@ -35,12 +35,12 @@
     _priceRangeSliderView.rangeSliderButtonImage = [UIImage imageNamed:@"slide-arrow"];
     [_priceRangeSliderView setDelegate:self];
     
-    [_priceRangeSliderView scrollStartSliderToStartRange:[[NSString stringWithFormat:@"%.01f", [_minimumPriceLabel.text floatValue]] floatValue] andEndRange:[[NSString stringWithFormat:@"%.01f", [maxPrice floatValue]] floatValue]];
+    [_priceRangeSliderView scrollStartSliderToStartRange:[[NSString stringWithFormat:@"%.0f", [_minimumPriceLabel.text floatValue]] floatValue] andEndRange:[[NSString stringWithFormat:@"%.0f", [maxPrice floatValue]] floatValue]];
 }
 
 - (void)sliderScrolling:(VPRangeSlider *)slider withMinPercent:(CGFloat)minPercent andMaxPercent:(CGFloat)maxPercent {
-    _priceRangeSliderView.minRangeText = [NSString stringWithFormat:@"%.01f", minPercent];
-    _priceRangeSliderView.maxRangeText = [NSString stringWithFormat:@"%.01f", maxPercent];
+    _priceRangeSliderView.minRangeText = [NSString stringWithFormat:@"%.0f", minPercent];
+    _priceRangeSliderView.maxRangeText = [NSString stringWithFormat:@"%.0f", maxPercent];
     _minPriceValue = _priceRangeSliderView.minRangeText;
     _maxPriceValue = _priceRangeSliderView.maxRangeText;
 }

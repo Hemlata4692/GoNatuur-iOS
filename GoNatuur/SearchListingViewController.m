@@ -12,6 +12,7 @@
 #import "SearchDataModel.h"
 #import "ProductDetailViewController.h"
 #import "UIView+Toast.h"
+#import "EventDetailViewController.h"
 
 @interface SearchListingViewController ()<UICollectionViewDelegateFlowLayout> {
 @private
@@ -125,12 +126,18 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([[[searchedProductsArray objectAtIndex:indexPath.item] productType] isEqualToString:eventIdentifier]) {
-        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+        //StoryBoard navigation
+        EventDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EventDetailViewController"];
+        obj.selectedProductId=[[[searchedProductsArray objectAtIndex:indexPath.row] productId] intValue];
+        [self.navigationController pushViewController:obj animated:YES];
     }
     else {
         //StoryBoard navigation
         ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
         obj.selectedProductId=[[[searchedProductsArray objectAtIndex:indexPath.item] productId] intValue];
+        if (nil!=[[searchedProductsArray objectAtIndex:indexPath.item] productImpactPoint] && [[searchedProductsArray objectAtIndex:indexPath.item] productImpactPoint]!=[NSNumber numberWithDouble:0]) {
+            obj.isRedeemProduct=true;
+        }
         [self.navigationController pushViewController:obj animated:YES];
     }
 }

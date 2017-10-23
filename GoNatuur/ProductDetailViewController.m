@@ -111,9 +111,13 @@
         return 75;
     }
     else if (indexPath.row==6) {
-        float tempHeight=[DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"Shipping is free if the total purchase is above USD$100.") font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80];
-        tempHeight+=[DynamicHeightWidth getDynamicLabelHeight:NSLocalizedText(@"Products can be returned within 30 days of purchase, subject to the following conditions.") font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80];
+        if ([productDetailModelData.shippingText isEqualToString:@""] && nil!=productDetailModelData.shippingText) {
+            return 1;
+        }
+        else {
+        float tempHeight=[DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.shippingText font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80];
         return tempHeight+5;
+        }
     }
     else if (indexPath.row==7) {
         return 50;
@@ -153,7 +157,7 @@
         [cell.removeFromCartButton addTarget:self action:@selector(removeQuantityAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     else if (indexPath.row==6) {
-        [cell displayProductInfo];
+        [cell displayProductInfo:productDetailModelData.shippingText];
     }
     else if (indexPath.row==7) {
         [cell displayAddToCartButton:@"ProductDetail"];
@@ -201,21 +205,6 @@
         cellLabel.text=NSLocalizedText(@"Where to buy");
     }
     return cell;
-}
-
-- (void)addSwipeGesture:(UIView *)view {
-    //Swipe gesture to swipe images to left
-    UISwipeGestureRecognizer *swipeImageLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeIntroImageLeft)];
-    swipeImageLeft.delegate=self;
-    UISwipeGestureRecognizer *swipeImageRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeIntroImageRight)];
-    swipeImageRight.delegate=self;
-    
-    // Setting the swipe direction.
-    [swipeImageLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [swipeImageRight setDirection:UISwipeGestureRecognizerDirectionRight];
-    // Adding the swipe gesture on image view
-    [view addGestureRecognizer:swipeImageLeft];
-    [view addGestureRecognizer:swipeImageRight];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -271,6 +260,8 @@
         popView.mediaURL=[temDict objectForKey:@"file"];
         popView.name=productDetailModelData.productName;
         popView.productDescription=productDetailModelData.productShortDescription;
+        popView.shareType=@"0";
+        popView.shareURL=[NSString stringWithFormat:@"%@%@/%@.html?product_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId];
         [self.navigationController pushViewController:popView animated:YES];
     }
     else if (indexPath.row==15) {
@@ -281,6 +272,21 @@
         webView.productDetaiData=productDetailModelData.productWhereToBuy;
         [self.navigationController pushViewController:webView animated:YES];
     }
+}
+
+- (void)addSwipeGesture:(UIView *)view {
+    //Swipe gesture to swipe images to left
+    UISwipeGestureRecognizer *swipeImageLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeIntroImageLeft)];
+    swipeImageLeft.delegate=self;
+    UISwipeGestureRecognizer *swipeImageRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeIntroImageRight)];
+    swipeImageRight.delegate=self;
+    
+    // Setting the swipe direction.
+    [swipeImageLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [swipeImageRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    // Adding the swipe gesture on image view
+    [view addGestureRecognizer:swipeImageLeft];
+    [view addGestureRecognizer:swipeImageRight];
 }
 
 - (void)navigateToView:(NSString *)navTitle webViewData:(NSString *)webViewData viewIdentifier:(NSString *)viewIdentifier productId:(NSNumber *)productId reviewId:(NSString *)reviewId {
@@ -362,6 +368,12 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData getProductDetailOnSuccess:^(ProductDataModel *productDetailData)  {
+        if ([productDetailData.redeemPointsRequired isEqualToString:@""] || productDetailData.redeemPointsRequired==nil) {
+            isRedeemProduct=false;
+        }
+        else {
+            isRedeemProduct=true;
+        }
         productDetailModelData=productDetailData;
         reviewAdded=productDetailModelData.reviewAdded;
         [myDelegate stopIndicator];

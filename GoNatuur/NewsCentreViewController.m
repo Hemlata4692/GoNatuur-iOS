@@ -229,7 +229,6 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     NewsCentreDetailViewController * webView=[sb instantiateViewControllerWithIdentifier:@"NewsCentreDetailViewController"];
-    webView.navigationTitle=[[productListDataArray objectAtIndex:indexPath.item]productName];
     webView.newsPostId=[[productListDataArray objectAtIndex:indexPath.item]productId];
     [self.navigationController pushViewController:webView animated:YES];
 }
@@ -245,6 +244,7 @@
     popView.shareType=@"1";
     popView.name=newsDataModel.productName;
     popView.productDescription=newsDataModel.productDescription;
+    popView.shareURL=[NSString stringWithFormat:@"%@?post_id=%@",newsDataModel.newsURL,newsDataModel.productId];
     [self.navigationController pushViewController:popView animated:YES];
 }
 #pragma mark - end

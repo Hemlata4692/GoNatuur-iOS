@@ -52,7 +52,6 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
     else {
         typeId=[UserDefaultManager getValue:@"productIdentifier"];
     }
-    
     NSMutableDictionary *parameters=[NSMutableDictionary new];
     NSDictionary *bottomDictParam=@{@"sort_orders" : @[
                                             @{@"field":productData.productSortingType,
@@ -84,62 +83,32 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
     [filterGroups addEntriesFromDictionary:bottomDictParam];
     if (productData.sortFilterRequestParameter == 0) {
         [parameters setObject:filterGroups forKey:@"searchCriteria"];
-    } else if (productData.sortFilterRequestParameter == 1) {
-        parameters=[[self priceFilterDictionary:filterGroups productData:productData] mutableCopy];
-        
-    } else {
+    }  else {
         parameters=[[self additionalFilterDictionary:filterGroups productData:productData] mutableCopy];
     }
-    NSLog(@"request %@",parameters);
+    DLog(@"request %@",parameters);
     [super post:kProductListData parameters:parameters success:success failure:failure];
 }
-//Price filter
-- (NSMutableDictionary*)priceFilterDictionary:(NSMutableDictionary *)filterDict productData:(DashboardDataModel *)productData {
-    NSDictionary *parametersDict;
-    NSMutableArray *tempArray = [filterDict[@"filter_groups"] mutableCopy];
-    [tempArray addObject:@{ @"filters":@[
-                                    @{@"field":@"price",
-                                      @"value":productData.maxPriceValue,
-                                      @"condition_type": @"gteq"
-                                      }
-                                    ]
-                            }];
-    [tempArray addObject:@{ @"filters":@[
-                                    @{@"field":@"price",
-                                      @"value":productData.minPriceValue,
-                                      @"condition_type": @"lteq"
-                                      }]}];
-    [filterDict setObject:tempArray forKey:@"filter_groups"];
-    
-    parametersDict = @{@"searchCriteria" : filterDict
-                       };
-    return [parametersDict mutableCopy];
-}
-//Country filter
+
+//Country and price filter
 - (NSMutableDictionary*)additionalFilterDictionary:(NSMutableDictionary *)filterDict productData:(DashboardDataModel *)productData {
     NSDictionary *parametersDict;
     NSMutableArray *tempArray = [filterDict[@"filter_groups"] mutableCopy];
     [tempArray addObject:@{ @"filters":@[
                                     @{@"field":@"price",
                                       @"value":productData.maxPriceValue,
-                                      @"condition_type": @"gteq"
+                                      @"condition_type": @"lteq"
                                       }
                                     ]
                             }];
     [tempArray addObject:@{ @"filters":@[
                                     @{@"field":@"price",
                                       @"value":productData.minPriceValue,
-                                      @"condition_type": @"lteq"
+                                      @"condition_type": @"gteq"
                                       }]}];
     
-    [tempArray addObject:@{ @"filters":@[
-                                    @{@"field":productData.filterAttributeCode,
-                                      @"value":productData.filterAttributeId,
-                                      @"condition_type": @"eq"
-                                      }]}];
-    
+    [tempArray addObjectsFromArray:productData.selectedFiltersDataArray];
     [filterDict setObject:tempArray forKey:@"filter_groups"];
-    
     parametersDict = @{@"searchCriteria" : filterDict
                        };
     return [parametersDict mutableCopy];
