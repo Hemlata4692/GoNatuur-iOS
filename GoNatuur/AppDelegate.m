@@ -125,13 +125,6 @@
     if ([userActivity.activityType isEqualToString: NSUserActivityTypeBrowsingWeb]) {
         NSURL *url = userActivity.webpageURL;
         NSLog(@"----------------------%@---------------",url);
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Basic"
-                                                       message: [NSString stringWithFormat:@"%@",url]
-                                                      delegate:self
-                                             cancelButtonTitle:@"Yes, please"
-                                             otherButtonTitles:@"No, thanks", nil];
-        [alert show];
-
         NSMutableDictionary *queryStringDictionary = [[NSMutableDictionary alloc] init];
         NSArray *urlComponents = [url.absoluteString componentsSeparatedByString:@"?"];
         NSArray *urlComponents2 = [[urlComponents objectAtIndex:1] componentsSeparatedByString:@"&"];

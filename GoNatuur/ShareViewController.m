@@ -65,9 +65,8 @@ static NSString *JSHandler;
     NSString *customerToken=[UserDefaultManager getValue:@"Authorization"];
     if ([[UserDefaultManager getValue:@"Authorization"] isEqualToString:@""] || [UserDefaultManager getValue:@"Authorization"]==nil || [UserDefaultManager getValue:@"Authorization"]==NULL) {
         customerToken=@"";
-    }//https://dev.gonatuur.com/weibo.html
+    }
     NSString *webViewString=[NSString stringWithFormat:@"%@%@/%@url=%@&media=%@&name=%@&description=%@&token=%@&sharedpoint-nap=%@",BaseUrl,[UserDefaultManager getValue:@"Language"],@"socailsharing/product/share/?",shareURL,mediaURL,name,productDescription,customerToken,shareType];
-   // NSString *webViewString=@"https://www.pinterest.com/pin/create/button/?url=https%3A%2F%2Fdev.gonatuur.com%2Fen%2Fhappy-camel-milk.html%3Fproduct_id%3D25&media=https://dev.gonatuur.com/media/catalog/product/cache/image/700x560/9ee77d5eff6347d11ee14bb52dd8885c/c/a/cammel-milk.jpg&description=Healthy+milk+of+camel%2C+good+for+health";
     NSString *encodedString = [webViewString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *webViewURL = [NSURL URLWithString:encodedString];
     NSURLRequest *shareRequest=[NSURLRequest requestWithURL:webViewURL];
@@ -76,10 +75,6 @@ static NSString *JSHandler;
 #pragma mark - end
 
 #pragma mark - Webview delegates
-//+ (void)initialize {
-//    JSHandler = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"ajax_handler" withExtension:@"js"] encoding:NSUTF8StringEncoding error:nil];
-//}
-
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     [webView stringByEvaluatingJavaScriptFromString:JSHandler];
 }
@@ -182,42 +177,4 @@ static NSString *JSHandler;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark - end
-//webservice calling if not used then remove
-/*
-#pragma mark - Webservices
-- (void)sharingService {
-    ShareDataModel *shareData = [ShareDataModel sharedUser];
-    shareData.deeplinkURL=shareURL;
-    shareData.imageURL=mediaURL;
-    shareData.name=name;
-    shareData.productDescription=productDescription;
-    [shareData getShareDataWebView:^(ShareDataModel *userData) {
-        [myDelegate stopIndicator];
-    } onfailure:^(NSError *error) {
-    }];
-}
-#pragma mark - end
-*/
-
-//folded code for button actions if not required then remove afterwards 
-/*
-#pragma mark - IBActions
-- (IBAction)weiboButtonAction:(id)sender {
-}
-
-- (IBAction)wechatButtonAction:(id)sender {
-}
-- (IBAction)twitterButtonAction:(id)sender {
-}
-
-- (IBAction)pinterestButtonAction:(id)sender {
-}
-- (IBAction)instagramButtonAction:(id)sender {
-}
-- (IBAction)googlePlusButtonAction:(id)sender {
-}
-- (IBAction)facebookButtonAction:(id)sender {
-}
-#pragma mark - end
- */
 @end

@@ -36,7 +36,6 @@
     _notificationTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//remove extra cell from table view
     _notificationTableView.backgroundColor=[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
     _noRecordLabel.hidden=YES;
-    notificationArray=[[NSMutableArray alloc]init];
     pageCount=1;
 }
 
@@ -53,6 +52,7 @@
     [self initFooterView];
     _noRecordLabel.text=NSLocalizedText(@"norecord");
     //call notification list webservice
+    notificationArray=[[NSMutableArray alloc]init];
     [myDelegate showIndicator];
     [self performSelector:@selector(getNotificationListing) withObject:nil afterDelay:.1];
 }
@@ -78,10 +78,13 @@
     }];
 }
 
-- (void)markNotificationAsRead:(NSString *)notificationId {
+- (void)markNotificationAsRead:(NSString *)notificationId currentIndex:(int)currentIndex {
     NotificationDataModel *notificationList = [NotificationDataModel sharedUser];
     notificationList.notificationId=notificationId;
-    [notificationList markNotificationRead:^(NotificationDataModel *userData)  {
+    [notificationList markNotificationRead:^(NotificationDataModel *userData) {
+        NotificationDataModel *notiData=[notificationArray objectAtIndex:currentIndex];
+        notiData.notificationStatus=@"1";
+        [_notificationTableView reloadData];
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
         
@@ -175,7 +178,6 @@
         [self.navigationController pushViewController:obj animated:YES];
     } */
 }
-
 #pragma mark - end
 
 #pragma mark - Pagignation for table view
