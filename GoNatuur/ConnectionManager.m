@@ -723,7 +723,7 @@
     ProductService *productDetailData=[[ProductService alloc]init];
     [productDetailData getProductDetailService:productData success:^(id response) {
         //Parse data from server response and store in data model
-        NSLog(@"product details response %@",response);
+        DLog(@"product details response %@",response);
         NSDictionary *customAttributeDict=[[[response objectForKey:@"custom_attribute"] objectAtIndex:0] copy];
         productData.productRating=[response objectForKey:@"avg_rating_percent"];
         productData.productName=[response objectForKey:@"name"];

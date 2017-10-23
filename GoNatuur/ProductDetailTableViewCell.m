@@ -55,10 +55,17 @@
     }
 }
 
-- (void)displayProductMediaImage:(NSDictionary *)productImageDict {
+- (void)displayProductMediaImage:(NSDictionary *)productImageDict defaultVideoThumbnail:(NSString *)defaultVideoThumbnail {
     _transparentView.hidden=true;
     _productImageView.translatesAutoresizingMaskIntoConstraints=true;
-        _productImageView.frame=CGRectMake(40, 20, [[UIScreen mainScreen] bounds].size.width-80, 250);
+    _productImageView.frame=CGRectMake(40, 20, [[UIScreen mainScreen] bounds].size.width-80, 250);
+    if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"default-video"]) {
+        _transparentView.hidden=false;
+        _videoIcon.hidden=false;
+        _video360Icon.hidden=true;
+        [ImageCaching downloadImages:_productImageView imageUrl:[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,defaultVideoThumbnail] placeholderImage:@"product_placeholder" isDashboardCell:false];
+    }
+    else {
         if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
             _transparentView.hidden=false;
             _videoIcon.hidden=false;
@@ -71,6 +78,7 @@
          _video360Icon.hidden=false;
          }
         [ImageCaching downloadImages:_productImageView imageUrl:[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,[productImageDict objectForKey:@"file"]] placeholderImage:@"product_placeholder" isDashboardCell:false];
+    }
 }
 
 - (void)displayProductPrice:(ProductDataModel *)productData currentQuantity:(int)currentQuantity isRedeemPoints:(BOOL)isRedeemPoints {

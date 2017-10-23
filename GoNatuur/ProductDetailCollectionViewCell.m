@@ -10,7 +10,7 @@
 
 @implementation ProductDetailCollectionViewCell
 
-- (void)displayProductMediaImage:(NSDictionary *)productImageDict selectedIndex:(int)selectedIndex currentIndex:(int)currentIndex {
+- (void)displayProductMediaImage:(NSDictionary *)productImageDict selectedIndex:(int)selectedIndex currentIndex:(int)currentIndex defaultVideoThumbnail:(NSString *)defaultVideoThumbnail {
     _blackTransparentView.hidden=true;
     _blackTransparentView.layer.borderWidth=0.0;
     _blackTransparentView.clipsToBounds=true;
@@ -19,6 +19,14 @@
     _productthumbnailImageView.layer.borderWidth=0.0;
     _productthumbnailImageView.clipsToBounds=true;
     _productthumbnailImageView.layer.borderColor=[UIColor whiteColor].CGColor;
+    
+    if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"default-video"]) {
+        _blackTransparentView.hidden=false;
+        _videoIconImageView.hidden=false;
+        _icon360ImageView.hidden=true;;
+        [ImageCaching downloadImages:_productthumbnailImageView imageUrl:[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,defaultVideoThumbnail] placeholderImage:@"product_placeholder" isDashboardCell:false];
+    }
+    else {
         if([[productImageDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
             _blackTransparentView.hidden=false;
             _videoIconImageView.hidden=false;
@@ -32,6 +40,7 @@
          _icon360ImageView.hidden=false;
          }
         [ImageCaching downloadImages:_productthumbnailImageView imageUrl:[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,[productImageDict objectForKey:@"file"]] placeholderImage:@"product_placeholder" isDashboardCell:true];
+    }
     if (currentIndex==selectedIndex) {
         if ([[productImageDict objectForKey:@"media_type"] isEqualToString:@"external-video"]) {
             _blackTransparentView.layer.borderWidth=2.0;

@@ -209,7 +209,7 @@
     }
     else  {
         [cell displayCountry:[filterDataArray objectAtIndex:indexPath.row-1]];
-         selectedPickerValueIndex=[[tempDataDict objectForKey:[NSString stringWithFormat:@"%ld",indexPath.row-1]] intValue];
+         selectedPickerValueIndex=[[tempDataDict objectForKey:[NSString stringWithFormat:@"%d",indexPath.row-1]] intValue];
         if ([[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:selectedPickerValueIndex] filterCountry] isEqualToString:@""] || [[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:selectedPickerValueIndex] filterCountry] isEqualToString:@" "]) {
              cell.selectedFilterLabel.text=NSLocalizedText(@"All");
         }
@@ -232,7 +232,7 @@
             [filterValueDataArray addObject:[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:i] filterCountry]];
         }
     }
-    selectedPickerValueIndex=[[tempDataDict objectForKey:[NSString stringWithFormat:@"%ld",indexPath.row-1]] intValue];
+    selectedPickerValueIndex=[[tempDataDict objectForKey:[NSString stringWithFormat:@"%d",indexPath.row-1]] intValue];
     [gNPickerViewObj showPickerView:filterValueDataArray selectedIndex:selectedPickerValueIndex option:1 isCancelDelegate:false isFilterScreen:true];
 }
 }
