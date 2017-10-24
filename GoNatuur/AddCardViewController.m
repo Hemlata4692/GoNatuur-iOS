@@ -28,6 +28,8 @@
 @end
 
 @implementation AddCardViewController
+@synthesize cardListObj;
+@synthesize cardCount;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -60,6 +62,10 @@
 
 #pragma mark - Webview delegates
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSLog(@"error log %@",[request.URL absoluteString]);
+    if ([[request.URL absoluteString] containsString:[NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"],@"magedelight_cybersource/cards/save/"]]) {
+        cardListObj.cardAdded=@"1";
+    }
     if ([[request.URL absoluteString] isEqualToString:[NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"],@"magedelight_cybersource/cards/listing/"]]) {
         [self.navigationController popViewControllerAnimated:YES];
     }

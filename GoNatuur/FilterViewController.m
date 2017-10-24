@@ -10,6 +10,7 @@
 #import "FilterTableViewCell.h"
 #import "SortFilterModel.h"
 #import "GoNatuurPickerView.h"
+#import "DashboardDataModel.h"
 
 @interface FilterViewController ()<GoNatuurPickerViewDelegate> {
 @private
@@ -46,14 +47,15 @@
     tempDataDict=[selectedPickerIndexDict mutableCopy];
     isFilterApplied=@"0";
     [self addCustomPickerView];
-    [self setRequestAttributes];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getProductListData) withObject:nil afterDelay:.1];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"filterTitle");
-    [_cancelButtonOutlet setTitle:NSLocalizedText(@"cancel") forState:UIControlStateNormal];
-    [_applyButtonOutlet setTitle:NSLocalizedText(@"apply") forState:UIControlStateNormal];
+    [_cancelButtonOutlet setTitle:NSLocalizedText(@"cancelButtonTitle") forState:UIControlStateNormal];
+    [_applyButtonOutlet setTitle:NSLocalizedText(@"applyButtonTitle") forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,12 +71,26 @@
 #pragma mark - end
 
 #pragma mark - Get additional sort values
+//Get product list service
+- (void)getProductListData {
+    DashboardDataModel *productList = [DashboardDataModel sharedUser];
+    productList.pageSize=[NSNumber numberWithInt:1];
+    productList.currentPage=[NSNumber numberWithInt:1];
+    productList.productSortingType = NSLocalizedText(@"sortPrice");
+    productList.productSortingValue = DESC;
+    productList.sortFilterRequestParameter=5;
+    [productList getProductListService:^(DashboardDataModel *productData)  {
+        [UserDefaultManager setValue:[[productData.productDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
+        [self setRequestAttributes];
+    } onfailure:^(NSError *error) {
+    }];
+}
+
 - (void)setRequestAttributes {
     //Set additional filter attribute code
     if ([[[UserDefaultManager getValue:@"AdditionalSortsFilters"] allKeys] containsObject:[NSString stringWithFormat:@"%d",filterProductId]] ) {
         requestValuesString = [[[[UserDefaultManager getValue:@"AdditionalSortsFilters"] objectForKey:[NSString stringWithFormat:@"%d",filterProductId]] objectForKey:@"additional_filter"] componentsJoinedByString:@","];
         NSLog(@"requestValuesString = %@",requestValuesString);
-        [myDelegate showIndicator];
         [self performSelector:@selector(getFilterData) withObject:nil afterDelay:.1];
     } else {
         [_filterTableView reloadData];
@@ -104,8 +120,8 @@
 - (void)dismissView {
     NSIndexPath *tempIndex=[NSIndexPath indexPathForRow:0 inSection:0];
     if ([isFilterApplied isEqualToString:@"1"]) {
-        productListViewObj.sortFilterRequest = 1;
-        _redeemListObj.sortFilterRequest = 1;
+        productListViewObj.isFilterApplied=true;
+        _redeemListObj.isFilterApplied=true;
     }
     FilterTableViewCell *cell = (FilterTableViewCell *)[_filterTableView cellForRowAtIndexPath:tempIndex];
     productListViewObj.filterDictionary = @{@"maxPrice":cell.maxPriceValue,@"minPrice":cell.minPriceValue};
@@ -213,7 +229,7 @@
     }
     else  {
         [cell displayCountry:[filterDataArray objectAtIndex:indexPath.row-1]];
-         selectedPickerValueIndex=[[tempDataDict objectForKey:[NSString stringWithFormat:@"%d",indexPath.row-1]] intValue];
+         selectedPickerValueIndex=[[tempDataDict objectForKey:[NSString stringWithFormat:@"%ld",indexPath.row-1]] intValue];
         if ([[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:selectedPickerValueIndex] filterCountry] isEqualToString:@""] || [[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:selectedPickerValueIndex] filterCountry] isEqualToString:@" "]) {
              cell.selectedFilterLabel.text=NSLocalizedText(@"All");
         }

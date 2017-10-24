@@ -35,8 +35,8 @@
     sortDataModel = [SortFilterModel new];
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"SortByTitle");
-    [_cancelButtonOutlet setTitle:NSLocalizedText(@"cancel") forState:UIControlStateNormal];
-    [_applyButtonOutlet setTitle:NSLocalizedText(@"apply") forState:UIControlStateNormal];
+    [_cancelButtonOutlet setTitle:NSLocalizedText(@"cancelButtonTitle") forState:UIControlStateNormal];
+    [_applyButtonOutlet setTitle:NSLocalizedText(@"applyButtonTitle") forState:UIControlStateNormal];
     NSLog(@"basis = %@, type = %@",sortBasis,sortingType);
     //remove extra lines from table view
     _sortByTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -135,7 +135,7 @@
 
 #pragma mark - IBActions
 - (IBAction)cancelButtonAction:(id)sender {
-    [self dismissView];
+    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (IBAction)applyButtonAction:(id)sender {
@@ -149,9 +149,9 @@
 
 #pragma mark - Dismiss View
 - (void)dismissView {
-    productListViewObj.sortFilterRequest = 1;
+    productListViewObj.isSortApplied=true;
     productListViewObj.isSortFilter = true;
-    _redeemListObj.sortFilterRequest = 1;
+    _redeemListObj.isSortApplied = true;
     _redeemListObj.isSortFilter = true;
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }

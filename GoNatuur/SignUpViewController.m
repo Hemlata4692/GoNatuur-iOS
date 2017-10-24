@@ -482,9 +482,7 @@
     }
     else {
         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
-    }
-    
-    
+    }    
 }
 #pragma mark - end
 

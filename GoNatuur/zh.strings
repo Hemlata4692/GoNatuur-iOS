@@ -331,3 +331,4 @@
 "RequestTimeout"="請求超時。請再試一次.";
 "cancelButtonTitle"="取消";
 "applyButtonTitle"="應用";
+"cardNotAdded"="無法添加卡。稍後再試.";

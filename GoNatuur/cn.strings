@@ -320,3 +320,4 @@
 "RequestTimeout"="请求超时。请再试一次.";
 "cancelButtonTitle"="取消";
 "applyButtonTitle"="应用";
+"cardNotAdded"="无法添加卡。稍后再试.";

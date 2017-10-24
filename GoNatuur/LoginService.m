@@ -23,10 +23,25 @@ static NSString *kNewsSubscription=@"ranosys/newsletter/subscribe";
 
 #pragma mark - Login user service
 - (void)loginUser:(LoginModel *)loginData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
-    NSDictionary *parameters = @{@"email" : loginData.email,
-                                 @"password" : loginData.password,
-                                 @"isSocialLogin" : loginData.isSocialLogin,
-                                 @"countryCode" : [ConstantCode localeCountryCode]};
+    NSDictionary *parameters;
+    if ([loginData.isSocialLogin isEqual:@0]) {
+        parameters = @{@"email" : loginData.email,
+                       @"password" : loginData.password,
+                       @"isSocialLogin" : loginData.isSocialLogin,
+                       @"countryCode" : [ConstantCode localeCountryCode],
+                       @"socialType":@"",
+                       @"socialUserId":@""
+                       };
+    }
+    else {
+        parameters = @{@"email" : loginData.email,
+                       @"password" : loginData.password,
+                       @"isSocialLogin" : loginData.isSocialLogin,
+                       @"countryCode" : [ConstantCode localeCountryCode],
+                       @"socialType":[NSNumber numberWithInt:myDelegate.selectedLoginType],
+                       @"socialUserId":loginData.socialUserId};
+    }
+     DLog(@"login request %@",parameters);
     [super post:kLogin parameters:parameters success:success failure:failure];
 }
 #pragma mark - end

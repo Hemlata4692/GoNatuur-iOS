@@ -37,6 +37,9 @@
 
 //Display address data
 - (void)displayAddressData:(CGSize)rectSize addressData:(NSDictionary *)addressData {
+    _editAddressButton.hidden=false;
+    _deleteAddressButton.hidden=false;
+    _defaultEditAddress.hidden=false;
     _addressListLabel.text = NSLocalizedText(@"addressList");
     _userNameLabel.text = [NSString stringWithFormat:@"%@ %@",addressData[@"firstname"],addressData[@"lastname"]];
     _userNameLabel.translatesAutoresizingMaskIntoConstraints=YES;
@@ -45,12 +48,24 @@
     NSString *addressType;
     if ([addressData[@"default_billing"]boolValue]==1 && [addressData[@"default_shipping"]boolValue]==1) {
         addressType = NSLocalizedText(@"bothAddressSelected");
+        _editAddressButton.hidden=true;
+        _deleteAddressButton.hidden=true;
+        _defaultEditAddress.hidden=false;
     } else if ([addressData[@"default_shipping"]boolValue]==1) {
         addressType = NSLocalizedText(@"shippingAddress");
+        _editAddressButton.hidden=true;
+        _deleteAddressButton.hidden=true;
+         _defaultEditAddress.hidden=false;
     } else if ([addressData[@"default_billing"]boolValue]==1) {
         addressType = NSLocalizedText(@"billingAddress");
+        _editAddressButton.hidden=true;
+        _deleteAddressButton.hidden=true;
+         _defaultEditAddress.hidden=false;
     } else {
         addressType = @"";
+        _editAddressButton.hidden=false;
+        _deleteAddressButton.hidden=false;
+        _defaultEditAddress.hidden=true;
     }
     _addressTypeLabel.translatesAutoresizingMaskIntoConstraints=YES;
     if ([addressType isEqualToString:@""]) {

@@ -530,7 +530,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="87" y="274" width="146.5" height="21"/>
+                                <rect key="frame" x="87.5" y="274" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -3757,7 +3757,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="hYm-mi-9wh" kind="show" id="PWK-Yt-vtX"/>
+                                    <action selector="addCardButtonAction:" destination="B8o-Kd-ceu" eventType="touchUpInside" id="cYF-Ih-8fN"/>
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cla-et-z0E">
@@ -3811,7 +3811,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sc5-SM-fbS">
-                                <rect key="frame" x="0.0" y="115" width="320" height="393"/>
+                                <rect key="frame" x="0.0" y="71" width="320" height="437"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Card Details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oF2-B3-Mbq">
                                         <rect key="frame" x="20" y="8" width="279" height="18"/>
@@ -3946,7 +3946,7 @@
                                 </constraints>
                             </view>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LMa-71-gIi">
-                                <rect key="frame" x="0.0" y="115" width="320" height="393"/>
+                                <rect key="frame" x="0.0" y="71" width="320" height="437"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="hYm-mi-9wh" id="ht1-Zb-Kpn"/>
@@ -7258,7 +7258,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="87.5" y="274" width="146.5" height="21"/>
+                                <rect key="frame" x="87" y="274" width="146.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>
@@ -7886,15 +7886,26 @@
                                                     <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SrA-Nb-ipI">
+                                                    <rect key="frame" x="256" y="28" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="7J8-03-4op"/>
+                                                        <constraint firstAttribute="width" constant="30" id="CwN-Pr-RAc"/>
+                                                    </constraints>
+                                                    <state key="normal" image="editIcon"/>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" red="0.98039215690000003" green="0.94509803920000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="fGs-8V-7yB" firstAttribute="top" secondItem="fLN-7e-BCF" secondAttribute="bottom" id="2sH-Pn-xau"/>
                                                 <constraint firstItem="fLN-7e-BCF" firstAttribute="top" secondItem="pWA-9B-amA" secondAttribute="top" constant="10" id="5wk-hM-sxg"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="SrA-Nb-ipI" secondAttribute="trailing" constant="2" id="KUx-Rk-ja7"/>
                                                 <constraint firstItem="fLN-7e-BCF" firstAttribute="leading" secondItem="pWA-9B-amA" secondAttribute="leading" constant="15" id="MUR-ny-Jxt"/>
                                                 <constraint firstAttribute="trailing" secondItem="fLN-7e-BCF" secondAttribute="trailing" constant="15" id="Pdr-ff-Icr"/>
                                                 <constraint firstItem="fGs-8V-7yB" firstAttribute="leading" secondItem="Qc2-OH-oVJ" secondAttribute="trailing" constant="1" id="PgF-by-cCC"/>
+                                                <constraint firstItem="SrA-Nb-ipI" firstAttribute="leading" secondItem="Qc2-OH-oVJ" secondAttribute="trailing" constant="1" id="UEK-ZQ-XeU"/>
                                                 <constraint firstItem="cx8-MT-OwS" firstAttribute="leading" secondItem="pWA-9B-amA" secondAttribute="leading" constant="15" id="Z0K-0U-lb8"/>
+                                                <constraint firstItem="SrA-Nb-ipI" firstAttribute="bottom" secondItem="fGs-8V-7yB" secondAttribute="bottom" id="bhQ-Lu-jg6"/>
                                                 <constraint firstItem="Qc2-OH-oVJ" firstAttribute="top" secondItem="fLN-7e-BCF" secondAttribute="bottom" id="dGk-Jd-FAB"/>
                                                 <constraint firstAttribute="trailing" secondItem="cx8-MT-OwS" secondAttribute="trailing" constant="15" id="dkD-Gh-PVI"/>
                                                 <constraint firstItem="fGs-8V-7yB" firstAttribute="leading" secondItem="Qc2-OH-oVJ" secondAttribute="trailing" constant="1" id="e9e-2z-E2B"/>
@@ -7906,6 +7917,7 @@
                                         <connections>
                                             <outlet property="addressLabel" destination="5LS-1C-Ozl" id="ScB-vw-Cqy"/>
                                             <outlet property="addressTypeLabel" destination="fLN-7e-BCF" id="aO0-Q3-7fj"/>
+                                            <outlet property="defaultEditAddress" destination="SrA-Nb-ipI" id="iwU-Lr-rEC"/>
                                             <outlet property="deleteAddressButton" destination="fGs-8V-7yB" id="YwJ-E3-zpR"/>
                                             <outlet property="editAddressButton" destination="Qc2-OH-oVJ" id="a4C-Rp-2Kd"/>
                                             <outlet property="listingSeparatorLabel" destination="cx8-MT-OwS" id="Gta-Lr-lRF"/>

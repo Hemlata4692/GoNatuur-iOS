@@ -59,6 +59,8 @@
     _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0"};
     _sortBasis = DESC; //ASC/DESC
     _isSortFilter=false;
+    _isSortApplied=true;
+    _isFilterApplied=false;
     [self viewInitialization];
     [myDelegate showIndicator];
     [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
@@ -73,7 +75,7 @@
     if (_isSortFilter) {
         NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
         NSLog(@"filter dict %@",_filterDictionary);
-        isPullToRefresh=true;
+//        isPullToRefresh=true;
         [myDelegate showIndicator];
         [self performSelector:@selector(getProductListData) withObject:nil afterDelay:.1];
     }
@@ -319,8 +321,16 @@
     productList.productSortingValue = _sortBasis;
     productList.minPriceValue = _filterDictionary[@"minPrice"];
     productList.maxPriceValue = _filterDictionary[@"maxPrice"];
-    productList.sortFilterRequestParameter=_sortFilterRequest;
-    if (_sortFilterRequest!=0) {
+    if (_isSortApplied && _isFilterApplied) {
+         productList.sortFilterRequestParameter=2;
+    }
+    else if (_isSortApplied) {
+        productList.sortFilterRequestParameter=1;
+    }
+    else {
+        productList.sortFilterRequestParameter=0;
+    }
+    if (productList.sortFilterRequestParameter!=0) {
         productList.selectedFiltersDataArray = [filterValueDataArray mutableCopy];
     }
     [productList getProductListService:^(DashboardDataModel *productData)  {
@@ -349,10 +359,6 @@
     
     if (productListDataArray.count>0) {
         _noRecordLabel.hidden=true;
-        if (firstTimePriceCalculation) {
-            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
-            firstTimePriceCalculation=false;
-        }
     }
     else {
         _noRecordLabel.hidden=false;
@@ -371,6 +377,13 @@
 
 #pragma mark - Pull to refresh
 - (void)refreshControlAction {
+    _sortingType = NSLocalizedText(@"sortPrice");
+    _sortFilterRequest = 0;
+    _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0"};
+    _sortBasis = DESC; //ASC/DESC
+    _isSortFilter=false;
+    _isSortApplied=true;
+    _isFilterApplied=false;
     firstTimePriceCalculation=true;
     isPullToRefresh=true;
     currentpage=1;

@@ -10,7 +10,7 @@
 #import "DashboardDataModel.h"
 #import "CurrencyDataModel.h"
 
-static NSString *kCategoryList=@"ranosys/categories";
+static NSString *kCategoryList=@"ranosys/getCategoryList";
 static NSString *kDashboardData=@"ranosys/dashboard";
 static NSString *kCurrencyData=@"directory/currency";
 static NSString *kProductListData=@"ranosys/productsList";
@@ -27,7 +27,9 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
 - (void)getCategoryListData:(DashboardDataModel *)categoryList success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{@"rootCategoryId":categoryList.categoryId};
     NSLog(@"product/event category list request %@",parameters);
-    [super get:[NSString stringWithFormat:@"%@",kCategoryList] parameters:parameters onSuccess:success onFailure:failure];
+   // [UserDefaultManager setValue:@"" key:@"Authorization"];
+   // [super get:[NSString stringWithFormat:@"%@",kCategoryList] parameters:parameters onSuccess:success onFailure:failure];
+    [super post:kCategoryList parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 
@@ -53,6 +55,33 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
         typeId=[UserDefaultManager getValue:@"productIdentifier"];
     }
     NSMutableDictionary *parameters=[NSMutableDictionary new];
+    if (productData.sortFilterRequestParameter==5) {
+        NSDictionary *bottomDictParam=@{@"sort_orders" : @[
+                                                @{@"field":productData.productSortingType,
+                                                  @"direction":productData.productSortingValue
+                                                  }
+                                                ],
+                                        @"page_size" : productData.pageSize,
+                                        @"current_page" : productData.currentPage
+                                        };
+        NSMutableDictionary *filterGroups = [NSMutableDictionary new] ;
+        [filterGroups setObject:@[
+                                  @{ @"filters":@[
+                                             @{@"field":@"type_id",
+                                               @"value":typeId,
+                                               @"condition_type": @"eq"
+                                               },
+                                             @{@"field":@"status",
+                                               @"value":@"1",
+                                               @"condition_type": @"eq"
+                                               }
+                                             ]
+                                     },
+                                  ] forKey:@"filter_groups"];
+        [filterGroups addEntriesFromDictionary:bottomDictParam];
+        [parameters setObject:filterGroups forKey:@"searchCriteria"];
+    }
+    else {
     NSDictionary *bottomDictParam=@{@"sort_orders" : @[
                                             @{@"field":productData.productSortingType,
                                               @"direction":productData.productSortingValue
@@ -83,8 +112,13 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
     [filterGroups addEntriesFromDictionary:bottomDictParam];
     if (productData.sortFilterRequestParameter == 0) {
         [parameters setObject:filterGroups forKey:@"searchCriteria"];
-    }  else {
+    }
+    else if (productData.sortFilterRequestParameter == 1) {
+        [parameters setObject:filterGroups forKey:@"searchCriteria"];
+    }
+    else if (productData.sortFilterRequestParameter == 2) {
         parameters=[[self additionalFilterDictionary:filterGroups productData:productData] mutableCopy];
+    }
     }
     DLog(@"request %@",parameters);
     [super post:kProductListData parameters:parameters success:success failure:failure];
@@ -247,6 +281,27 @@ static NSString *kNwesFilters=@"ranosys/news/get-news-archive";
                                                  }
                            };
         }
+    }
+    else if ([productData.newsType isEqualToString:@"sort"]) {
+            parameters = @{@"searchCriteria" : @{@"filter_groups" : @[
+                                                         @{
+                                                             @"filters": @[
+                                                                     @{@"field":@"is_active",
+                                                                       @"value":@"1",
+                                                                       @"condition_type": @"eq"
+                                                                       }
+                                                                     ]
+                                                             }
+                                                         ],
+                                                 @"sort_orders":@[@{
+                                                                      @"field":@"publish_time",
+                                                                      @"direction":productData.sortingValue
+                                                                      }
+                                                                  ],
+                                                 @"page_size" : productData.pageSize,
+                                                 @"current_page" : productData.currentPage
+                                                 }
+                           };
     }
     else {
         parameters = @{@"searchCriteria" : @{@"filter_groups" : @[

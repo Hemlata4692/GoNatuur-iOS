@@ -54,6 +54,8 @@
 @property (strong, nonatomic) NSString *totalPoints;
 @property (strong, nonatomic) NSString *recentEarnedPoints;
 @property (strong, nonatomic) NSString *userImageURL;
+@property (strong, nonatomic) NSString *billingAddressID;
+@property (strong, nonatomic) NSString *shippingAddressID;
 @property (strong, nonatomic) UIImage *userImage;
 
 + (instancetype)sharedUser;

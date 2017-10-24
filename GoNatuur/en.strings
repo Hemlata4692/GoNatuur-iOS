@@ -311,3 +311,4 @@
 "applyCouponCode"="Apply coupon code";
 "deleteCardMessage"="Are you sure you want to delete this card?";
 "RequestTimeout"="Request time out. Please try again.";
+"cardNotAdded"="Unable to add card. Try again later.";
