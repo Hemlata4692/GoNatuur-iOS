@@ -390,7 +390,7 @@
 #pragma mark - Validations
 - (BOOL)performValidations {
     SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-    if ([_firstNameField isEmpty] || [_lastNameField isEmpty] || [_phoneNumberField isEmpty] || [_countryField isEmpty] || [_phoneNumberField isEmpty] || [_cityField isEmpty] || [_firstAddressField isEmpty] || [_ZipcodeField isEmpty]) {
+    if ([_firstNameField isEmpty] || [_lastNameField isEmpty] || [_phoneNumberField isEmpty] || [_countryField isEmpty] || [_phoneNumberField isEmpty] || [_cityField isEmpty] || [_firstAddressField isEmpty] || [_ZipcodeField isEmpty] || [_stateField isEmpty]) {
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     } else {
@@ -451,19 +451,24 @@
                 continue;
             }
             else {
-                NSDictionary *addressDict = [NSDictionary new];
+                NSMutableDictionary *addressDict = [NSMutableDictionary new];
                 addressDict = [profileData.addressArray objectAtIndex:i];
-                if (addressDict[@"default_billing"]) {
-                    [addressDict setValue:@"0" forKey:@"default_billing"];
+                
+                NSMutableDictionary *addressDict1 = [NSMutableDictionary new];
+                addressDict1 = [profileData.addressArray objectAtIndex:[addressIndex longValue]];
+                if ([addressDict1[@"default_billing"] boolValue] && [addressDict1[@"default_shipping"] boolValue]) {
+                    [addressDict setValue:[NSNumber numberWithBool:false] forKey:@"default_billing"];
+                    [addressDict setValue:[NSNumber numberWithBool:false] forKey:@"default_shipping"];
                 }
-                else  if (addressDict[@"default_shipping"]) {
-                    [addressDict setValue:@"0" forKey:@"default_shipping"];
+                else if ([addressDict1[@"default_shipping"]boolValue] && ![addressDict1[@"default_billing"] boolValue]) {
+                    [addressDict setValue:[NSNumber numberWithBool:false] forKey:@"default_shipping"];
+                }
+                else if (![addressDict1[@"default_shipping"]boolValue] && [addressDict1[@"default_billing"]boolValue]) {
+                     [addressDict setValue:[NSNumber numberWithBool:false] forKey:@"default_billing"];
                 }
                 [dataModel.addressArray replaceObjectAtIndex:i withObject:addressDict];
             }
         }
-        
-        
     } else {
         [dataModel.addressArray addObject:dataDict];
     }

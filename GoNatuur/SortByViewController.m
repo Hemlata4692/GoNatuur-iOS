@@ -135,6 +135,8 @@
 
 #pragma mark - IBActions
 - (IBAction)cancelButtonAction:(id)sender {
+    _redeemListObj.isSortFilter=false;
+    productListViewObj.isSortFilter = false;
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 

@@ -166,7 +166,7 @@
 "thankYou"="谢谢！";
 "purchaseOrder"="采购订单：";
 "chat"="和我们聊天";
-"raiseTicket"="查看和加注票.";
+"raiseTicket"="查看和加注票";
 "yourPurchase"="您的购买";
 "shippingFee"="包括运费：";
 "continueShopping"="继续购物";
@@ -225,7 +225,7 @@
 "state"="州*";
 "country"="國家*";
 "address"="地址";
-"fax"="傳真*";
+"fax"="傳真";
 "deleteAddressMessage"="你确定要删除地址吗?";
 "addAddressSuccessMessage" = "地址已成功添加.";
 "updateAddressSuccessMessage" = "地址更新成功.";

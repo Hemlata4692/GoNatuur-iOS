@@ -47,15 +47,22 @@
     else {
         productCalculatedPrice=[self calculatePrice:productListData exchangeRates:[exchangeRates doubleValue]];
     }
-    
-    if (isRedeemPoints) {
+    if (productCalculatedPrice==0) {
         NSString *ipString=@"ip";
         NSString *str=[NSString stringWithFormat:@"%.0f%@",[productListData.redeemPointsRequired floatValue],ipString];
-       NSMutableAttributedString* string = [[NSMutableAttributedString alloc]initWithString:str];
+        NSMutableAttributedString* string = [[NSMutableAttributedString alloc]initWithString:str];
         NSRange decimalTextRange = [str rangeOfString:ipString];
         [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:14]} range:decimalTextRange];
         _productPrice.attributedText=string;
     }
+//    if (isRedeemPoints) {
+//        NSString *ipString=@"ip";
+//        NSString *str=[NSString stringWithFormat:@"%.0f%@",[productListData.redeemPointsRequired floatValue],ipString];
+//       NSMutableAttributedString* string = [[NSMutableAttributedString alloc]initWithString:str];
+//        NSRange decimalTextRange = [str rangeOfString:ipString];
+//        [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:14]} range:decimalTextRange];
+//        _productPrice.attributedText=string;
+//    }
     else {
     _productPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
     }

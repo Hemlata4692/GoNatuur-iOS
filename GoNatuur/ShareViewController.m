@@ -11,7 +11,7 @@
 @import SafariServices;
 
 static NSString *JSHandler;
-#define CocoaJSHandler          @"mpajaxhandler"
+#define CocoaJSHandler          @"mpajaxHandler"
 
 @interface ShareViewController ()<SFSafariViewControllerDelegate> {
     @private
@@ -43,8 +43,7 @@ static NSString *JSHandler;
     [[UITapGestureRecognizer alloc] initWithTarget:self
                                             action:@selector(dismissNewsView:)];
     [_mainView addGestureRecognizer:singleFingerTap];
-    
-      JSHandler = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"ajax_handler" withExtension:@"js"] encoding:NSUTF8StringEncoding error:nil];
+     JSHandler = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"ajax_handler" withExtension:@"js"] encoding:NSUTF8StringEncoding error:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,11 +66,15 @@ static NSString *JSHandler;
         customerToken=@"";
     }
     NSString *webViewString=[NSString stringWithFormat:@"%@%@/%@url=%@&media=%@&name=%@&description=%@&token=%@&sharedpoint-nap=%@",BaseUrl,[UserDefaultManager getValue:@"Language"],@"socailsharing/product/share/?",shareURL,mediaURL,name,productDescription,customerToken,shareType];
-    //NSString *webViewString=@"https://in.pinterest.com/pin/create/button/?url=https%3A%2F%2Fdev.gonatuur.com%2Fen%2Fhappy-yak-milk.html%3Fproduct_id%3D26&media=https%3A%2F%2Fdev.gonatuur.com%2Fmedia%2Fcatalog%2Fproduct%2Fy%2Fa%2Fyak-milk_1.jpg&description=Protein%20rich.";
+//   // NSString *webViewString=@"https://in.pinterest.com/pin/create/button/?url=https%3A%2F%2Fdev.gonatuur.com%2Fen%2Fhappy-yak-milk.html%3Fproduct_id%3D26&media=https%3A%2F%2Fdev.gonatuur.com%2Fmedia%2Fcatalog%2Fproduct%2Fy%2Fa%2Fyak-milk_1.jpg&description=Protein%20rich";
     NSString *encodedString = [webViewString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *webViewURL = [NSURL URLWithString:encodedString];
     NSURLRequest *shareRequest=[NSURLRequest requestWithURL:webViewURL];
-    [_shareWebView loadRequest: shareRequest];
+   [_shareWebView loadRequest: shareRequest];
+   
+//        SFSafariViewController *safariVC = [[SFSafariViewController alloc]initWithURL:webViewURL entersReaderIfAvailable:YES];
+//        safariVC.delegate = self;
+//        [self presentViewController:safariVC animated:NO completion:nil];
 }
 #pragma mark - end
 
@@ -115,11 +118,20 @@ static NSString *JSHandler;
 #pragma mark - SFSafariViewController delegate methods
 -(void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
     // Load finished
+   // [self safariViewController: controller initialLoadDidRedirectToURL:controller];
+     NSLog(@"%@",controller);
 }
 
 -(void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     // Done button pressed
+     NSLog(@"%@",controller);
 }
+
+- (void)safariViewController:(SFSafariViewController *)controller
+ initialLoadDidRedirectToURL:(NSURL *)URL {
+    NSLog(@"%@",URL);
+}
+
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     NSLog(@"loading comleted");

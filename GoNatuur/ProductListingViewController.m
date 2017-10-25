@@ -43,6 +43,8 @@
 @synthesize selectedProductCategoryId;
 @synthesize selectedPickerValueDict;
 @synthesize filterValueDataArray;
+@synthesize maximumPrice;
+@synthesize minimumPrice;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -75,7 +77,7 @@
     if (_isSortFilter) {
         NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
         NSLog(@"filter dict %@",_filterDictionary);
-//        isPullToRefresh=true;
+        isPullToRefresh=true;
         [myDelegate showIndicator];
         [self performSelector:@selector(getProductListData) withObject:nil afterDelay:.1];
     }
@@ -413,6 +415,22 @@
         }];
     }
     else if (option==2) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getHighestFilterPrice) withObject:nil afterDelay:.1];
+    }
+}
+
+//Get product list service
+- (void)getHighestFilterPrice {
+    DashboardDataModel *productList = [DashboardDataModel sharedUser];
+    productList.pageSize=[NSNumber numberWithInt:1];
+    productList.currentPage=[NSNumber numberWithInt:1];
+    productList.productSortingType = NSLocalizedText(@"sortPrice");
+    productList.productSortingValue = DESC;
+    productList.sortFilterRequestParameter=5;
+    [productList getProductListService:^(DashboardDataModel *productData)  {
+      //  [myDelegate stopIndicator];
+        [UserDefaultManager setValue:[[productData.productDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
         FilterViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FilterViewController"];
         preview.filterProductId = currentCategoryId;
         preview.selectedPickerIndexDict=[selectedPickerValueDict mutableCopy];
@@ -424,8 +442,10 @@
         //now present this navigation controller modally
         [self presentViewController:navigationController animated:YES completion:^{
         }];
-    }
+    } onfailure:^(NSError *error) {
+    }];
 }
+
 #pragma mark - end
 
 #pragma mark - Custom picker delegate method

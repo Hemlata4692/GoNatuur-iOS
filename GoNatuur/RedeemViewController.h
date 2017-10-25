@@ -20,4 +20,6 @@
 @property (nonatomic,strong) NSDictionary * filterDictionary;
 @property (nonatomic,strong) NSMutableArray * filterValueDataArray;
 @property (nonatomic, strong) NSMutableDictionary *selectedPickerValueDict;
+@property (nonatomic,strong) NSString * maximumPrice;
+@property (nonatomic,strong) NSString * minimumPrice;
 @end

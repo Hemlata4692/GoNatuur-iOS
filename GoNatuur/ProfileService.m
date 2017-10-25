@@ -9,7 +9,7 @@
 #import "ProfileService.h"
 #import "ProfileModel.h"
 
-static NSString *kChangePassword=@"customers/me/password";
+static NSString *kChangePassword=@"ranosys/customer/changePassword";
 static NSString *kCountryCode=@"directory/countries";
 static NSString *kUserProfile=@"customers/me";
 static NSString *kUserImpactsPoints=@"ranosys/myimpactpoints";
@@ -22,7 +22,7 @@ static NSString *kEditProfilePicture=@"customerprofile/index";
     NSDictionary *parameters = @{@"currentPassword" : profileData.currentPassword,
                                  @"newPassword" : profileData.changePassword
                                  };
-    [super put:kChangePassword parameters:parameters success:success failure:failure];
+    [super post:kChangePassword parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 

@@ -107,6 +107,7 @@
 		18E5D5851F342DE500829292 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E5D5841F342DE500829292 /* ForgotPasswordViewController.m */; };
 		18F464EC1F698FFC001006EB /* RedeemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F464EB1F698FFC001006EB /* RedeemViewController.m */; };
 		18F464EF1F69902B001006EB /* RedeemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F464EE1F69902B001006EB /* RedeemTableViewCell.m */; };
+		18F7941D1FA0442400D55E04 /* TTRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7941B1FA0442400D55E04 /* TTRangeSlider.m */; };
 		18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F31F32E09800430842 /* GoNatuurViewController.m */; };
 		18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8F71F32E2EA00430842 /* SWRevealViewController.m */; };
 		18F7A8FC1F32F46800430842 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7A8FB1F32F46800430842 /* SearchViewController.m */; };
@@ -367,6 +368,9 @@
 		18F464EB1F698FFC001006EB /* RedeemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedeemViewController.m; sourceTree = "<group>"; };
 		18F464ED1F69902B001006EB /* RedeemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedeemTableViewCell.h; sourceTree = "<group>"; };
 		18F464EE1F69902B001006EB /* RedeemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedeemTableViewCell.m; sourceTree = "<group>"; };
+		18F7941A1FA0442400D55E04 /* TTRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTRangeSlider.h; sourceTree = "<group>"; };
+		18F7941B1FA0442400D55E04 /* TTRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTRangeSlider.m; sourceTree = "<group>"; };
+		18F7941C1FA0442400D55E04 /* TTRangeSliderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTRangeSliderDelegate.h; sourceTree = "<group>"; };
 		18F7A8F21F32E09800430842 /* GoNatuurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoNatuurViewController.h; sourceTree = "<group>"; };
 		18F7A8F31F32E09800430842 /* GoNatuurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoNatuurViewController.m; sourceTree = "<group>"; };
 		18F7A8F61F32E2EA00430842 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
@@ -910,6 +914,9 @@
 		185ECB661F73C532002BA64A /* RangeSlider */ = {
 			isa = PBXGroup;
 			children = (
+				18F7941A1FA0442400D55E04 /* TTRangeSlider.h */,
+				18F7941B1FA0442400D55E04 /* TTRangeSlider.m */,
+				18F7941C1FA0442400D55E04 /* TTRangeSliderDelegate.h */,
 				185EF5121F753CCC00C5A07A /* VPRangeSlider.h */,
 				185EF5131F753CCC00C5A07A /* VPRangeSlider.m */,
 			);
@@ -2628,6 +2635,7 @@
 				18FA12021F6A84190001A3B0 /* ProductGuideViewController.m in Sources */,
 				18FFBC821F629612006C088B /* NewsLetterSubscriptionViewController.m in Sources */,
 				18F464EF1F69902B001006EB /* RedeemTableViewCell.m in Sources */,
+				18F7941D1FA0442400D55E04 /* TTRangeSlider.m in Sources */,
 				B75E6F301F7505380059D8E1 /* CartListingViewController.m in Sources */,
 				3207617B1F163B12001F1790 /* UITextField+Validations.m in Sources */,
 				185ECB6D1F73E237002BA64A /* FilterViewController.m in Sources */,

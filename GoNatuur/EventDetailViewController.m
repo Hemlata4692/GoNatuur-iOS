@@ -23,6 +23,7 @@
 #import "TicketingViewController.h"
 #import "GoNatuurPickerView.h"
 #import "ShareViewController.h"
+#import "UITextField+Validations.h"
 
 @interface EventDetailViewController ()<UIGestureRecognizerDelegate,GoNatuurPickerViewDelegate> {
 @private
@@ -558,9 +559,17 @@
 }
 
 - (IBAction)insertInCartItemAction:(UIButton *)sender {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:5 inSection:0];
+    ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
+    if ([cell.ticketSelectionTypeField isEmpty]) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+    }
+    else {
     productDetailModelData.productQuantity=[NSNumber numberWithInt:currentQuantity];
     [myDelegate showIndicator];
     [self performSelector:@selector(addTicketsToCartProductService) withObject:nil afterDelay:.1];
+    }
 }
 
 - (IBAction)selectTicketType:(UIButton *)sender {

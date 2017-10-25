@@ -85,7 +85,7 @@
     if (_isSortFilter) {
         NSLog(@"basis = %@, type = %@",_sortBasis,_sortingType);
         NSLog(@"filter dict %@",_filterDictionary);
-        //isPullToRefresh=true;
+        isPullToRefresh=true;
         [myDelegate showIndicator];
         [self performSelector:@selector(getRedeemListData) withObject:nil afterDelay:.1];
     }
