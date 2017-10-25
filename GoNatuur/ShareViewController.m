@@ -105,9 +105,6 @@ static NSString *JSHandler;
     else if ([loadURL containsString:@"resource/BoardResource/get/"]) {
         [self loadShareRequestURL];
     }
-//    else if ([loadURL containsString:@"https://api.weibo.com/"]){
-//           [[UIApplication sharedApplication] openURL:[NSURL URLWithString:loadURL]];
-//    }
     return YES;
 }
 
