@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *editAddressButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteAddressButton;
 @property (weak, nonatomic) IBOutlet UIButton *editProfileImageButton;
+@property (weak, nonatomic) IBOutlet UIButton *defaultEditAddress;
 @property (weak, nonatomic) IBOutlet UILabel *listingSeparatorLabel;
 
 - (void)displayData:(CGSize)rectSize;

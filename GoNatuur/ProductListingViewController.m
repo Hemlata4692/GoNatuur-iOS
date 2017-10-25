@@ -43,6 +43,8 @@
 @synthesize selectedProductCategoryId;
 @synthesize selectedPickerValueDict;
 @synthesize filterValueDataArray;
+@synthesize maximumPrice;
+@synthesize minimumPrice;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -59,6 +61,8 @@
     _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0"};
     _sortBasis = DESC; //ASC/DESC
     _isSortFilter=false;
+    _isSortApplied=true;
+    _isFilterApplied=false;
     [self viewInitialization];
     [myDelegate showIndicator];
     [self performSelector:@selector(getCategoryListData) withObject:nil afterDelay:.1];
@@ -319,8 +323,16 @@
     productList.productSortingValue = _sortBasis;
     productList.minPriceValue = _filterDictionary[@"minPrice"];
     productList.maxPriceValue = _filterDictionary[@"maxPrice"];
-    productList.sortFilterRequestParameter=_sortFilterRequest;
-    if (_sortFilterRequest!=0) {
+    if (_isSortApplied && _isFilterApplied) {
+         productList.sortFilterRequestParameter=2;
+    }
+    else if (_isSortApplied) {
+        productList.sortFilterRequestParameter=1;
+    }
+    else {
+        productList.sortFilterRequestParameter=0;
+    }
+    if (productList.sortFilterRequestParameter!=0) {
         productList.selectedFiltersDataArray = [filterValueDataArray mutableCopy];
     }
     [productList getProductListService:^(DashboardDataModel *productData)  {
@@ -349,10 +361,6 @@
     
     if (productListDataArray.count>0) {
         _noRecordLabel.hidden=true;
-        if (firstTimePriceCalculation) {
-            [UserDefaultManager setValue:[[productListDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
-            firstTimePriceCalculation=false;
-        }
     }
     else {
         _noRecordLabel.hidden=false;
@@ -371,6 +379,13 @@
 
 #pragma mark - Pull to refresh
 - (void)refreshControlAction {
+    _sortingType = NSLocalizedText(@"sortPrice");
+    _sortFilterRequest = 0;
+    _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0"};
+    _sortBasis = DESC; //ASC/DESC
+    _isSortFilter=false;
+    _isSortApplied=true;
+    _isFilterApplied=false;
     firstTimePriceCalculation=true;
     isPullToRefresh=true;
     currentpage=1;
@@ -400,6 +415,22 @@
         }];
     }
     else if (option==2) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getHighestFilterPrice) withObject:nil afterDelay:.1];
+    }
+}
+
+//Get product list service
+- (void)getHighestFilterPrice {
+    DashboardDataModel *productList = [DashboardDataModel sharedUser];
+    productList.pageSize=[NSNumber numberWithInt:1];
+    productList.currentPage=[NSNumber numberWithInt:1];
+    productList.productSortingType = NSLocalizedText(@"sortPrice");
+    productList.productSortingValue = DESC;
+    productList.sortFilterRequestParameter=5;
+    [productList getProductListService:^(DashboardDataModel *productData)  {
+      //  [myDelegate stopIndicator];
+        [UserDefaultManager setValue:[[productData.productDataArray objectAtIndex:0] productPrice] key:@"maximumPrice"];
         FilterViewController * preview = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FilterViewController"];
         preview.filterProductId = currentCategoryId;
         preview.selectedPickerIndexDict=[selectedPickerValueDict mutableCopy];
@@ -411,8 +442,10 @@
         //now present this navigation controller modally
         [self presentViewController:navigationController animated:YES completion:^{
         }];
-    }
+    } onfailure:^(NSError *error) {
+    }];
 }
+
 #pragma mark - end
 
 #pragma mark - Custom picker delegate method

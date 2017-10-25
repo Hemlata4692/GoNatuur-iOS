@@ -64,6 +64,8 @@
     _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0"};
     _sortBasis = DESC; //ASC/DESC
     _isSortFilter=false;
+    _isFilterApplied=false;
+    _isSortApplied=true;
     [self viewInitialization];
     [myDelegate showIndicator];
     [self performSelector:@selector(getRedeemCategoryListData) withObject:nil afterDelay:.1];
@@ -444,6 +446,13 @@
 
 #pragma mark - Pull to refresh
 - (void)refreshControlAction {
+    _sortingType = NSLocalizedText(@"sortPrice");
+    _sortFilterRequest = 0;
+    _filterDictionary = @{@"maxPrice":@"0",@"minPrice":@"0"};
+    _sortBasis = DESC; //ASC/DESC
+    _isSortFilter=false;
+    _isFilterApplied=false;
+    _isSortApplied=true;
     isPullToRefresh=true;
     currentpage=1;
     [self performSelector:@selector(getRedeemListData) withObject:nil afterDelay:.1];

@@ -24,8 +24,15 @@
 - (void)displaySortData:(CGSize)rectSize sortData:(SortFilterModel *)sortData {
     UIColor *selectedColor = [UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
     UIColor *deSelectedColor = [UIColor colorWithRed:26/255.0 green:26/255.0 blue:26/255.0 alpha:1.0];
-    _ascLabel.text = sortData.ascValue;
-    _descLabel.text = sortData.descValue;
+    
+    if ([NSLocalizedText(sortData.attributeValue) isEqualToString:@""] || NSLocalizedText(sortData.attributeValue)==nil) {
+        _ascLabel.text = sortData.ascValue;
+        _descLabel.text = sortData.descValue;
+    }
+    else {
+        _ascLabel.text = NSLocalizedText(sortData.attributeValue);
+        _descLabel.text = NSLocalizedText(sortData.attributeValue);
+    }
     if (sortData.selectedValue == 1) {
         if (sortData.sortBasis == DESC) {
             _ascLabel.textColor=selectedColor;

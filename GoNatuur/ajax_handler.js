@@ -1,3 +1,38 @@
+//
+//var s_ajaxListener = new Object();
+//s_ajaxListener.tempOpen = XMLHttpRequest.prototype.open;
+//s_ajaxListener.tempSend = XMLHttpRequest.prototype.send;
+//s_ajaxListener.callback = function () {
+//    window.location = this.url;
+//};
+//
+//XMLHttpRequest.prototype.open = function (a, b) {
+//    if (!a)
+//        var a = '';
+//    if (!b)
+//        var b = '';
+//    s_ajaxListener.tempOpen.apply(this, arguments);
+//    s_ajaxListener.method = a;
+//    s_ajaxListener.url = b;
+//    //    alert(s_ajaxListener.method);
+//    
+//    alert(s_ajaxListener.url);
+//    //  if (a.toLowerCase() == 'get') {
+//    //    s_ajaxListener.data = b.split('?');
+//    //    s_ajaxListener.data = s_ajaxListener.data[1];
+//    //  }
+//}
+//
+//XMLHttpRequest.prototype.send = function (a, b) {
+//    if (!a)
+//        var a = '';
+//    if (!b)
+//        var b = '';
+//    s_ajaxListener.tempSend.apply(this, arguments);
+//    //if(s_ajaxListener.method.toLowerCase() == 'post')s_ajaxListener.data = a;
+//    s_ajaxListener.callback();
+//}
+//
 var s_ajaxListener = new Object();
 s_ajaxListener.tempOpen = XMLHttpRequest.prototype.open;
 s_ajaxListener.tempSend = XMLHttpRequest.prototype.send;
@@ -6,21 +41,22 @@ s_ajaxListener.callback = function () {
 };
 
 XMLHttpRequest.prototype.open = function(a,b) {
-  if (!a) var a='';
-  if (!b) var b='';
-  s_ajaxListener.tempOpen.apply(this, arguments);
-  s_ajaxListener.method = a;  
-  s_ajaxListener.url = b;
-  if (a.toLowerCase() == 'get') {
-    s_ajaxListener.data = b.split('?');
-    s_ajaxListener.data = s_ajaxListener.data[1];
-  }
+    if (!a) var a='';
+    if (!b) var b='';
+    s_ajaxListener.tempOpen.apply(this, arguments);
+    s_ajaxListener.method = a;
+    s_ajaxListener.url = b;
+    if (a.toLowerCase() == 'get') {
+       // s_ajaxListener.data = b.split('?');
+        s_ajaxListener.data = s_ajaxListener.data[1];
+       // s_ajaxListener.data = s_ajaxListener.url;
+    }
 }
 
 XMLHttpRequest.prototype.send = function(a,b) {
-  if (!a) var a='';
-  if (!b) var b='';
-  s_ajaxListener.tempSend.apply(this, arguments);
-  if(s_ajaxListener.method.toLowerCase() == 'post')s_ajaxListener.data = a;
-  s_ajaxListener.callback();
+    if (!a) var a='';
+    if (!b) var b='';
+    s_ajaxListener.tempSend.apply(this, arguments);
+    if(s_ajaxListener.method.toLowerCase() == 'post')s_ajaxListener.data = a;
+    s_ajaxListener.callback();
 }

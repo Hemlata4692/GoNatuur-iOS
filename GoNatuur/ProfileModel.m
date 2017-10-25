@@ -47,6 +47,8 @@
 @synthesize recentEarnedPoints;
 @synthesize userImageURL;
 @synthesize userImage;
+@synthesize billingAddressID;
+@synthesize shippingAddressID;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{

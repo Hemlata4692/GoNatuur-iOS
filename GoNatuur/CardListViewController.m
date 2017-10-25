@@ -9,9 +9,9 @@
 #import "CardListViewController.h"
 #import "CardListTableViewCell.h"
 #import "PaymentModel.h"
+#import "AddCardViewController.h"
 
-@interface CardListViewController ()
-{
+@interface CardListViewController () {
     NSMutableArray *cardListArray;
 }
 @property (weak, nonatomic) IBOutlet UITableView *cardsListTableView;
@@ -21,11 +21,13 @@
 @end
 
 @implementation CardListViewController
+@synthesize cardAdded;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     cardListArray = [NSMutableArray new];
+    cardAdded=@"0";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,6 +82,13 @@
     }];
     [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"deleteCardMessage") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
 }
+
+- (IBAction)addCardButtonAction:(id)sender {
+    AddCardViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"AddCardViewController"];
+    obj.cardListObj=self;
+    _cardCount=(int)cardListArray.count;
+    [self.navigationController pushViewController:obj animated:YES];
+}
 #pragma mark - end
 
 #pragma mark - Webservices
@@ -87,8 +96,15 @@
     PaymentModel *paymentDataModel = [PaymentModel sharedUser];
     [paymentDataModel getCardListing:^(PaymentModel *userData) {
         cardListArray = [userData.cardListArray mutableCopy];
+        if ([cardAdded isEqualToString:@"1"]) {
+            if (_cardCount==cardListArray.count) {
+                SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+                [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"cardNotAdded") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+            }
+        }
         if (cardListArray.count == 0) {
             _noRecordLabel.hidden = NO;
+           
         } else {
             _noRecordLabel.hidden = YES;
         }

@@ -23,7 +23,7 @@
     NSString *bannerImageUrl;
     float productListHeight;
     UIView *footerView;
-    bool isPullToRefresh, isFilter;
+    bool isPullToRefresh, isFilter, isSorting;
     GoNatuurFilterView *filterViewObj;
     int selectedFirstFilterIndex, selectedSubCategoryIndex, selectedSecondFilterIndex;
     GoNatuurPickerView *gNPickerViewObj;
@@ -283,7 +283,6 @@
         self.navigationItem.title=userData.cmsTitle;
         [self parseImageFromTag:userData.cmsContent];
         [self getNewsArchiveFilters];
-        
     } onfailure:^(NSError *error) {
     }];
 }
@@ -313,14 +312,19 @@
 //Get product list service
 - (void)getNewsListData {
     DashboardDataModel *productList = [DashboardDataModel sharedUser];
-    if (currentCategoryId==0&&!isFilter) {
+    if (currentCategoryId==0&&!isFilter&&!isSorting) {
         productList.newsType=@"All";
     }
-    else if (isFilter) {
+    else if (isFilter && isSorting) {
         productList.newsType=@"filter";
         productList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
         productList.filterValue=filterValue1;
         productList.filterValue2=filterValue2;
+        productList.sortingValue=sortingType;
+    }
+    else if (!isFilter && isSorting) {
+        productList.newsType=@"sort";
+        productList.categoryId=[NSString stringWithFormat:@"%d",currentCategoryId];
         productList.sortingValue=sortingType;
     }
     else {
@@ -402,7 +406,8 @@
     filterValue2=@"";
     filterValue1=@"";
     currentCategoryId=0;
-     isFilter=false;
+    isFilter=false;
+    isSorting=false;
     subCategoryPickerArray=[NSMutableArray new];
     archiveOptionsArray=[NSMutableArray new];
     [filterViewObj.secondFilterButtonOutlet setTitle:[sortingDataArray objectAtIndex:0] forState:UIControlStateNormal];
@@ -438,12 +443,9 @@
             selectedSubCategoryIndex=tempSelectedIndex;
             [filterViewObj.subCategoryButtonOutlet setTitle:[subCategoryPickerArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
             currentCategoryId=[[[subCategoryDataList objectAtIndex:tempSelectedIndex] objectForKey:@"category_id"] intValue];
-            bannerImageUrl=@"";
             productListDataArray=[NSMutableArray new];
             totalProductCount=0;
             currentpage=1;
-            [myDelegate showIndicator];
-            [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
         }
     }
     else  if (option==2) {
@@ -452,10 +454,11 @@
             [filterViewObj.firstFilterButtonOutlet setTitle:[archiveOptionsArray objectAtIndex:tempSelectedIndex] forState:UIControlStateNormal];
             if (tempSelectedIndex!=0) {
                 NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
-                [dateFormatter setDateFormat:dateFormatterConverted];
+                [dateFormatter setDateFormat:dateFormatterService];
                 NSDate *dateValue = [dateFormatter dateFromString:[archiveOptionsArray objectAtIndex:tempSelectedIndex]];
                 [self returnDate:dateValue];
                 isFilter=true;
+                isSorting=true;
             }
             else {
                 isFilter=false;
@@ -463,8 +466,6 @@
             productListDataArray=[NSMutableArray new];
             totalProductCount=0;
             currentpage=1;
-            [myDelegate showIndicator];
-            [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
         }
     }
     else {
@@ -480,11 +481,11 @@
             productListDataArray=[NSMutableArray new];
             totalProductCount=0;
             currentpage=1;
-            isFilter=true;
-            [myDelegate showIndicator];
-            [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
+            isSorting=true;
         }
     }
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getNewsListData) withObject:nil afterDelay:.1];
 }
 #pragma mark - end
 

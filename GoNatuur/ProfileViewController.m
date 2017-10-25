@@ -33,7 +33,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"customerSupportCell", @"changePasswordCell", @"notificationCell"];
-    customerSupportArray=@[NSLocalizedText(@"chat"), NSLocalizedText(@"raiseTicket")];
     [self addCustomPickerView];
     isImagePicker=false;
     
@@ -51,6 +50,7 @@
     self.title=NSLocalizedText(@"profileTitle");
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:false];
+    customerSupportArray=@[NSLocalizedText(@"chat"), NSLocalizedText(@"raiseTicket")];
     [self showSelectedTab:4];
     if (!isImagePicker) {
         [_profileTableView reloadData];

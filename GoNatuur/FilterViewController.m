@@ -10,6 +10,7 @@
 #import "FilterTableViewCell.h"
 #import "SortFilterModel.h"
 #import "GoNatuurPickerView.h"
+#import "DashboardDataModel.h"
 
 @interface FilterViewController ()<GoNatuurPickerViewDelegate> {
 @private
@@ -20,8 +21,11 @@
     int selectedRowIndex;
     NSMutableDictionary *tempDataDict, *filterDataDictionary;
     NSUInteger selectedFilterIndex;
+    BOOL cellReload;
 }
+@property (weak, nonatomic) IBOutlet UIButton *cancelButtonOutlet;
 @property (weak, nonatomic) IBOutlet UITableView *filterTableView;
+@property (weak, nonatomic) IBOutlet UIButton *applyButtonOutlet;
 
 @end
 
@@ -43,6 +47,8 @@
     _filterTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     tempDataDict=[selectedPickerIndexDict mutableCopy];
     isFilterApplied=@"0";
+    // _filterTableView.hidden=true;
+    cellReload=false;
     [self addCustomPickerView];
     [self setRequestAttributes];
 }
@@ -50,6 +56,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"filterTitle");
+    [_cancelButtonOutlet setTitle:NSLocalizedText(@"cancelButtonTitle") forState:UIControlStateNormal];
+    [_applyButtonOutlet setTitle:NSLocalizedText(@"applyButtonTitle") forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,9 +78,10 @@
     if ([[[UserDefaultManager getValue:@"AdditionalSortsFilters"] allKeys] containsObject:[NSString stringWithFormat:@"%d",filterProductId]] ) {
         requestValuesString = [[[[UserDefaultManager getValue:@"AdditionalSortsFilters"] objectForKey:[NSString stringWithFormat:@"%d",filterProductId]] objectForKey:@"additional_filter"] componentsJoinedByString:@","];
         NSLog(@"requestValuesString = %@",requestValuesString);
-        [myDelegate showIndicator];
+        //[myDelegate showIndicator];
         [self performSelector:@selector(getFilterData) withObject:nil afterDelay:.1];
     } else {
+        [myDelegate stopIndicator];
         [_filterTableView reloadData];
     }
 }
@@ -80,7 +89,7 @@
 
 #pragma mark - Custom picker view
 - (void)addCustomPickerView {
-     //Set initial index of picker view and initialized picker view
+    //Set initial index of picker view and initialized picker view
     gNPickerViewObj=[[GoNatuurPickerView alloc] initWithFrame:[[UIScreen mainScreen] bounds] delegate:self pickerHeight:230];
     [self.view addSubview:gNPickerViewObj.goNatuurPickerViewObj];
 }
@@ -88,7 +97,9 @@
 
 #pragma mark - IBActions
 - (IBAction)cancelButtonAction:(id)sender {
-     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+    _redeemListObj.isSortFilter=false;
+    productListViewObj.isSortFilter = false;
+    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (IBAction)applyfilterButtonAction:(id)sender {
@@ -99,20 +110,30 @@
 #pragma mark - Dismiss View
 - (void)dismissView {
     NSIndexPath *tempIndex=[NSIndexPath indexPathForRow:0 inSection:0];
-    if ([isFilterApplied isEqualToString:@"1"]) {
-        productListViewObj.sortFilterRequest = 1;
-        _redeemListObj.sortFilterRequest = 1;
-    }
     FilterTableViewCell *cell = (FilterTableViewCell *)[_filterTableView cellForRowAtIndexPath:tempIndex];
+    if ((cell.maxPriceValue==nil || [cell.maxPriceValue isEqualToString:@""]) && (cell.minPriceValue==nil || [cell.minPriceValue isEqualToString:@""] )) {
+        cell.maxPriceValue=[UserDefaultManager getValue:@"maximumPrice"];
+        cell.minPriceValue=[NSString stringWithFormat:@"%s","0"];
+    }
+    isFilterApplied=cell.filterApplied;
     productListViewObj.filterDictionary = @{@"maxPrice":cell.maxPriceValue,@"minPrice":cell.minPriceValue};
     productListViewObj.filterValueDataArray = [selctedFilterDataArray mutableCopy];
+    productListViewObj.minimumPrice=cell.minPriceValue;
+    productListViewObj.maximumPrice=cell.maxPriceValue;
+    _redeemListObj.minimumPrice=cell.minPriceValue;
+    _redeemListObj.maximumPrice=cell.maxPriceValue;
     _redeemListObj.filterDictionary = @{@"maxPrice":cell.maxPriceValue,@"minPrice":cell.minPriceValue};
     _redeemListObj.filterValueDataArray = [selctedFilterDataArray mutableCopy];
-    DLog(@"productListViewObj.filterDictionary = %@ %@",productListViewObj.filterDictionary,productListViewObj.filterValueDataArray);
+    if ([isFilterApplied isEqualToString:@"1"]) {
+        productListViewObj.isFilterApplied=true;
+        _redeemListObj.isFilterApplied=true;
+    }
     productListViewObj.isSortFilter = true;
     productListViewObj.selectedPickerValueDict=[tempDataDict mutableCopy];
     _redeemListObj.isSortFilter = true;
     _redeemListObj.selectedPickerValueDict=[tempDataDict mutableCopy];
+    DLog(@"productListViewObj.filterDictionary = %@ %@",productListViewObj.filterDictionary,productListViewObj.filterValueDataArray);
+    
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 #pragma mark - end
@@ -139,17 +160,17 @@
             tempCountryCell.selectedFilterLabel.text=[filterValueDataArray objectAtIndex:tempSelectedIndex];
             [tempDataDict setObject:[NSString stringWithFormat:@"%d",tempSelectedIndex] forKey:[NSString stringWithFormat:@"%ld",tempIndex.row-1]];
             if (![[[[[filterDataArray objectAtIndex:tempIndex.row-1] filterOptionsArray] objectAtIndex:tempSelectedIndex] filterCountryValue] isEqualToString:@""]) {
-            NSDictionary *tempDict = @{@"field":[[filterDataArray objectAtIndex:tempIndex.row-1] filterAttributeCode],@"value":[[[[filterDataArray objectAtIndex:tempIndex.row-1] filterOptionsArray] objectAtIndex:tempSelectedIndex] filterCountryValue], @"condition_type":@"eq"};
-            NSMutableArray *tempArray=[NSMutableArray new];
-            [tempArray addObject:tempDict];
-            [filterDataDictionary setObject:tempArray forKey:@"filters"];
-            
-            if ([self checkIFValueExists:[tempDict objectForKey:@"field"]]) {
-                [selctedFilterDataArray replaceObjectAtIndex:selectedFilterIndex withObject:[filterDataDictionary mutableCopy]];
-            }
-            else {
-            [selctedFilterDataArray addObject:[filterDataDictionary mutableCopy]];
-            }
+                NSDictionary *tempDict = @{@"field":[[filterDataArray objectAtIndex:tempIndex.row-1] filterAttributeCode],@"value":[[[[filterDataArray objectAtIndex:tempIndex.row-1] filterOptionsArray] objectAtIndex:tempSelectedIndex] filterCountryValue], @"condition_type":@"eq"};
+                NSMutableArray *tempArray=[NSMutableArray new];
+                [tempArray addObject:tempDict];
+                [filterDataDictionary setObject:tempArray forKey:@"filters"];
+                
+                if ([self checkIFValueExists:[tempDict objectForKey:@"field"]]) {
+                    [selctedFilterDataArray replaceObjectAtIndex:selectedFilterIndex withObject:[filterDataDictionary mutableCopy]];
+                }
+                else {
+                    [selctedFilterDataArray addObject:[filterDataDictionary mutableCopy]];
+                }
             }
             isFilterApplied=@"1";
         }
@@ -205,16 +226,19 @@
         cell = [[FilterTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     if (indexPath.row == 0) {
-        [cell displaySlider:[UserDefaultManager getValue:@"maximumPrice"]];
+        if (!cellReload) {
+            [cell displaySlider:[UserDefaultManager getValue:@"maximumPrice"] minLabelPrice:productListViewObj.minimumPrice maxLabelPrice:productListViewObj.maximumPrice];
+        }
+        cellReload=true;
     }
     else  {
         [cell displayCountry:[filterDataArray objectAtIndex:indexPath.row-1]];
-         selectedPickerValueIndex=[[tempDataDict objectForKey:[NSString stringWithFormat:@"%d",indexPath.row-1]] intValue];
+        selectedPickerValueIndex=[[tempDataDict objectForKey:[NSString stringWithFormat:@"%ld",indexPath.row-1]] intValue];
         if ([[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:selectedPickerValueIndex] filterCountry] isEqualToString:@""] || [[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:selectedPickerValueIndex] filterCountry] isEqualToString:@" "]) {
-             cell.selectedFilterLabel.text=NSLocalizedText(@"All");
+            cell.selectedFilterLabel.text=NSLocalizedText(@"All");
         }
         else {
-        cell.selectedFilterLabel.text=[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:selectedPickerValueIndex] filterCountry];
+            cell.selectedFilterLabel.text=[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:selectedPickerValueIndex] filterCountry];
         }
     }
     return cell;
@@ -222,19 +246,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row!=0) {
-    selectedRowIndex=(int)indexPath.row ;
-    filterValueDataArray= [[NSMutableArray alloc]init];
-    for (int i=0; i<[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] count]; i++) {
-        if ([[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:i] filterCountry] isEqualToString:@""] || [[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:i] filterCountry] isEqualToString:@" "]) {
-            [filterValueDataArray addObject:NSLocalizedText(@"All")];
+        selectedRowIndex=(int)indexPath.row ;
+        filterValueDataArray= [[NSMutableArray alloc]init];
+        for (int i=0; i<[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] count]; i++) {
+            if ([[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:i] filterCountry] isEqualToString:@""] || [[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:i] filterCountry] isEqualToString:@" "]) {
+                [filterValueDataArray addObject:NSLocalizedText(@"All")];
+            }
+            else {
+                [filterValueDataArray addObject:[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:i] filterCountry]];
+            }
         }
-        else {
-            [filterValueDataArray addObject:[[[[filterDataArray objectAtIndex:indexPath.row-1] filterOptionsArray] objectAtIndex:i] filterCountry]];
-        }
+        selectedPickerValueIndex=[[tempDataDict objectForKey:[NSString stringWithFormat:@"%ld",indexPath.row-1]] intValue];
+        [gNPickerViewObj showPickerView:filterValueDataArray selectedIndex:selectedPickerValueIndex option:1 isCancelDelegate:false isFilterScreen:true];
     }
-    selectedPickerValueIndex=[[tempDataDict objectForKey:[NSString stringWithFormat:@"%d",indexPath.row-1]] intValue];
-    [gNPickerViewObj showPickerView:filterValueDataArray selectedIndex:selectedPickerValueIndex option:1 isCancelDelegate:false isFilterScreen:true];
-}
 }
 #pragma mark - end
 @end
