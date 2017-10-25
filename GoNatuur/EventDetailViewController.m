@@ -563,7 +563,7 @@
     ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
     if ([cell.ticketSelectionTypeField isEmpty]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"eventTicket") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
     }
     else {
     productDetailModelData.productQuantity=[NSNumber numberWithInt:currentQuantity];

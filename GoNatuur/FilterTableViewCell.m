@@ -24,6 +24,7 @@
 }
 
 - (void)displaySlider:(NSString *)maxPrice minLabelPrice:(NSString *)minLabelPrice maxLabelPrice:(NSString *)maxLabelPrice {
+    _priceFilterLabel.text=NSLocalizedText(@"rangeSlider");
      _filterApplied=@"1";
     _minimumPriceLabel.text=[NSString stringWithFormat:@"$%s","0"];
     _maximumPriceLabel.text=[NSString stringWithFormat:@"$%.0f",[maxPrice floatValue]];
@@ -54,7 +55,6 @@
     }
 }
 
-
 - (void)sliderScrolling:(VPRangeSlider *)slider withMinPercent:(CGFloat)minPercent andMaxPercent:(CGFloat)maxPercent {
 //    _priceRangeSliderView.minRangeText = [NSString stringWithFormat:@"%.0f", minPercent];
 //    _priceRangeSliderView.maxRangeText = [NSString stringWithFormat:@"%.0f", maxPercent];
@@ -63,6 +63,11 @@
 }
 
 - (void)displayCountry:(SortFilterModel *)data {
-    _countryLabel.text=data.filterLabelValue;
+    if ([NSLocalizedText(data.filterAttributeCode) isEqualToString:@""] || NSLocalizedText(data.filterAttributeCode)==nil) {
+       _countryLabel.text=data.filterLabelValue;
+    }
+    else {
+         _countryLabel.text=NSLocalizedText(data.filterAttributeCode);
+    }
 }
 @end

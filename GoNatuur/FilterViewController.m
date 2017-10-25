@@ -81,6 +81,7 @@
         //[myDelegate showIndicator];
         [self performSelector:@selector(getFilterData) withObject:nil afterDelay:.1];
     } else {
+        [myDelegate stopIndicator];
         [_filterTableView reloadData];
     }
 }
