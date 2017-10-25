@@ -42,9 +42,6 @@
     self.priceRangeSliderView.tintColorBetweenHandles = [UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0];
     self.priceRangeSliderView.lineBorderWidth = 0.5;
     self.priceRangeSliderView.lineBorderColor = [UIColor grayColor];
-//    NSNumberFormatter *customFormatter = [[NSNumberFormatter alloc] init];
-//    customFormatter.positiveSuffix = @"$";
-//    self.priceRangeSliderView.numberFormatterOverride = customFormatter;
 }
 
 #pragma mark TTRangeSliderViewDelegate
@@ -53,13 +50,6 @@
         _maxPriceValue=[NSString stringWithFormat:@"%.0f",selectedMaximum];
         _minPriceValue=[NSString stringWithFormat:@"%.0f",selectedMinimum];
     }
-}
-
-- (void)sliderScrolling:(VPRangeSlider *)slider withMinPercent:(CGFloat)minPercent andMaxPercent:(CGFloat)maxPercent {
-//    _priceRangeSliderView.minRangeText = [NSString stringWithFormat:@"%.0f", minPercent];
-//    _priceRangeSliderView.maxRangeText = [NSString stringWithFormat:@"%.0f", maxPercent];
-//    _minPriceValue = _priceRangeSliderView.minRangeText;
-//    _maxPriceValue = _priceRangeSliderView.maxRangeText;
 }
 
 - (void)displayCountry:(SortFilterModel *)data {

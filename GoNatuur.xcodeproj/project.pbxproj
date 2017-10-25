@@ -64,7 +64,6 @@
 		185C58021F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185C58011F68E41E0027E7BC /* NewsCentreDetailTableViewCell.m */; };
 		185ECB6D1F73E237002BA64A /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185ECB6C1F73E237002BA64A /* FilterViewController.m */; };
 		185ECB721F73E279002BA64A /* FilterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185ECB711F73E279002BA64A /* FilterTableViewCell.m */; };
-		185EF5141F753CCC00C5A07A /* VPRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 185EF5131F753CCC00C5A07A /* VPRangeSlider.m */; };
 		185F707F1F55A839007F49F7 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185F707E1F55A839007F49F7 /* ProfileViewController.m */; };
 		1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */; };
 		187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 187129061F48D5BC00D16581 /* UpdateCartItem.m */; };
@@ -291,8 +290,6 @@
 		185ECB6C1F73E237002BA64A /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		185ECB701F73E279002BA64A /* FilterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterTableViewCell.h; sourceTree = "<group>"; };
 		185ECB711F73E279002BA64A /* FilterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterTableViewCell.m; sourceTree = "<group>"; };
-		185EF5121F753CCC00C5A07A /* VPRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPRangeSlider.h; sourceTree = "<group>"; };
-		185EF5131F753CCC00C5A07A /* VPRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPRangeSlider.m; sourceTree = "<group>"; };
 		185F707D1F55A839007F49F7 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		185F707E1F55A839007F49F7 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		1870F0BC1F44185F008B2CE5 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
@@ -917,8 +914,6 @@
 				18F7941A1FA0442400D55E04 /* TTRangeSlider.h */,
 				18F7941B1FA0442400D55E04 /* TTRangeSlider.m */,
 				18F7941C1FA0442400D55E04 /* TTRangeSliderDelegate.h */,
-				185EF5121F753CCC00C5A07A /* VPRangeSlider.h */,
-				185EF5131F753CCC00C5A07A /* VPRangeSlider.m */,
 			);
 			name = RangeSlider;
 			sourceTree = "<group>";
@@ -2719,7 +2714,6 @@
 				1807D50D1F7257FD00A0251F /* NewsCentreCollectionViewCell.m in Sources */,
 				184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */,
 				5DAC39551F61783F00702F92 /* AddressListingCell.m in Sources */,
-				185EF5141F753CCC00C5A07A /* VPRangeSlider.m in Sources */,
 				188B2C1B1F41F45A0001A7AE /* CurrencyDataModel.m in Sources */,
 				3207618B1F164BE1001F1790 /* UncaughtExceptionHandler.m in Sources */,
 				320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */,

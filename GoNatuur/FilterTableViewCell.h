@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "SortFilterModel.h"
-#import "VPRangeSlider.h"
 #import "TTRangeSlider.h"
 
 @interface FilterTableViewCell : UITableViewCell<TTRangeSliderDelegate>
