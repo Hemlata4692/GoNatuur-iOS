@@ -22,6 +22,8 @@
 @property (readwrite, nonatomic, copy) id success;
 @property (readwrite, nonatomic, copy) id failure;
 @property (strong, nonatomic) NSString *retryPath;
+@property (nonatomic) BOOL retryBoolean;
+@property (strong, nonatomic) UIImage *retryImage;
 @property (strong, nonatomic) NSDictionary *retryParameters;
 
 //Singleton instance

@@ -88,7 +88,6 @@ static NSString *JSHandler;
     NSLog(@"%@",request);
     NSLog(@"%@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
     loadURL=[request.URL absoluteString];
-
     NSLog(@"loadURL %@",loadURL);
     if ([loadURL containsString:@"weixin://"]) {
         if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:loadURL]]) {
@@ -106,6 +105,18 @@ static NSString *JSHandler;
         [self loadShareRequestURL];
     }
     return YES;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    NSLog(@"loading comleted");
+    if (webView.isLoading)
+        return;
+    else {
+        [myDelegate stopIndicator];
+        if ([loadURL isEqualToString:@"https://m.facebook.com/v2.10/dialog/share/submit"] || [loadURL containsString:@"https://twitter.com/intent/tweet/complete"] || [loadURL containsString:@"resource/BoardResource/get/"]) {
+            [self loadShareRequestURL];
+        }
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {

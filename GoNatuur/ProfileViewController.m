@@ -50,6 +50,7 @@
     self.title=NSLocalizedText(@"profileTitle");
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:false];
+    myDelegate.selectedCategoryIndex=-1;
     customerSupportArray=@[NSLocalizedText(@"chat"), NSLocalizedText(@"raiseTicket")];
     [self showSelectedTab:4];
     if (!isImagePicker) {
