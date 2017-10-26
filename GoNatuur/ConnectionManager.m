@@ -337,6 +337,9 @@
     if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
         productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
     }
+    else {
+        productData.productDescription=nil;
+    }
     productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
     productData.ribbons = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"ribbons"];
     productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
@@ -430,6 +433,9 @@
             if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
             }
+            else {
+                productData.productDescription=nil;
+            }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
             productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
             productData.specialPriceStartDate = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_from_date"];
@@ -471,6 +477,9 @@
              productData.productImpactPoint = [NSNumber numberWithDouble:[[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"points_required"] doubleValue]];
             if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+            }
+            else {
+                productData.productDescription=nil;
             }
             productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
             productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
@@ -514,6 +523,9 @@
             productData.productImpactPoint = [NSNumber numberWithDouble:[[[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"points_required"] doubleValue]];
             if ([[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 productData.productDescription=[self stringByStrippingHTML:[[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+            }
+            else {
+                productData.productDescription=nil;
             }
             productData.productImageThumbnail = [[[dataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
             productData.productQty = [[dataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
@@ -629,9 +641,12 @@
             tempModel.productName=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"name"];
             tempModel.productPrice=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"price"];
             tempModel.productImageThumbnail=[[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
-            tempModel.ribbons = [[[response objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"ribbons"];
+            tempModel.ribbons = [[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"ribbons"];
             if ([[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 tempModel.productDescription=[self stringByStrippingHTML:[[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+            }
+            else {
+                productData.productDescription=nil;
             }
             tempModel.specialPriceStartDate = [[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_from_date"];
             tempModel.specialPriceEndDate = [[[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_to_date"];
@@ -682,6 +697,9 @@
             tempModel.newsContent=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"content"];
             if ([[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"short_filtered_content"]!=nil) {
                 tempModel.productDescription=[self stringByStrippingHTML:[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"short_filtered_content"]];
+            }
+            else {
+                productData.productDescription=nil;
             }
             [productData.productDataArray addObject:tempModel];
         }
@@ -737,17 +755,32 @@
         if ([customAttributeDict objectForKey:@"shipping_text"]!=nil) {
            productData.shippingText=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"shipping_text"]];
         }
+        else {
+            productData.shippingText=nil;
+        }
         if ([customAttributeDict objectForKey:@"description"]!=nil) {
             productData.productDescription=[customAttributeDict objectForKey:@"description"];
+        }
+        else {
+            productData.productDescription=nil;
         }
         if ([customAttributeDict objectForKey:@"short_description"]!=nil) {
             productData.productShortDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"short_description"]];
         }
+        else {
+            productData.productShortDescription=nil;
+        }
         if ([customAttributeDict objectForKey:@"benefits_usage"]!=nil) {
             productData.productBenefitsUsage=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"benefits_usage"]];
         }
+        else {
+            productData.productBenefitsUsage=nil;
+        }
         if ([customAttributeDict objectForKey:@"brand_story"]!=nil) {
             productData.productBrandStory=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"brand_story"]];
+        }
+        else {
+            productData.productBrandStory=nil;
         }
         productData.productWhereToBuy=[customAttributeDict objectForKey:@"where_buy"];
         productData.productMinQuantity=([[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"min_qty"] intValue]==0?@1:[[[response objectForKey:@"extension_attribute"] objectAtIndex:0] objectForKey:@"min_qty"]);
@@ -1248,6 +1281,9 @@
             productData.productName = productDataDict[@"name"];
             if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
                 productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+            }
+            else {
+                productData.productDescription=nil;
             }
             if ([productDataDict[@"attribute_set_id"] intValue]==10) {
                 productData.isRedeemProduct=[NSNumber numberWithBool:true];

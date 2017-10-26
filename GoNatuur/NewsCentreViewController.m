@@ -15,6 +15,7 @@
 #import "SearchViewController.h"
 #import "NewsCentreDetailViewController.h"
 #import "ShareViewController.h"
+#import "UIView+Toast.h"
 
 @interface NewsCentreViewController () <UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
     @private
@@ -236,16 +237,17 @@
 
 #pragma mark - IBAction
 - (IBAction)shareNewsAction:(id)sender {
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ShareViewController *popView =
-    [storyboard instantiateViewControllerWithIdentifier:@"ShareViewController"];
-    DashboardDataModel * newsDataModel=[productListDataArray objectAtIndex:[sender tag]];
-    popView.mediaURL=newsDataModel.productImageThumbnail;
-    popView.shareType=@"1";
-    popView.name=newsDataModel.productName;
-    popView.productDescription=newsDataModel.productDescription;
-    popView.shareURL=[NSString stringWithFormat:@"%@?post_id=%@",newsDataModel.newsURL,newsDataModel.productId];
-    [self.navigationController pushViewController:popView animated:YES];
+     [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+//    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    ShareViewController *popView =
+//    [storyboard instantiateViewControllerWithIdentifier:@"ShareViewController"];
+//    DashboardDataModel * newsDataModel=[productListDataArray objectAtIndex:[sender tag]];
+//    popView.mediaURL=newsDataModel.productImageThumbnail;
+//    popView.shareType=@"1";
+//    popView.name=newsDataModel.productName;
+//    popView.productDescription=newsDataModel.productDescription;
+//    popView.shareURL=[NSString stringWithFormat:@"%@?post_id=%@",newsDataModel.newsURL,newsDataModel.productId];
+//    [self.navigationController pushViewController:popView animated:YES];
 }
 #pragma mark - end
 

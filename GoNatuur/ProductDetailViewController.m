@@ -75,6 +75,7 @@
     productDetailCellHeight=0.0;
     selectedMediaIndex=0;
     currentQuantity=1;
+    productDetailModelData=[[ProductDataModel alloc]init];
 }
 #pragma mark - end
 
@@ -267,16 +268,17 @@
     }
     else if (indexPath.row==14) {
         //Share action
-        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ShareViewController *popView =
-        [storyboard instantiateViewControllerWithIdentifier:@"ShareViewController"];
-        NSDictionary *temDict=[productDetailModelData.productMediaArray objectAtIndex:0];
-        popView.mediaURL=[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,[temDict objectForKey:@"file"]];
-        popView.name=productDetailModelData.productName;
-        popView.productDescription=productDetailModelData.productShortDescription;
-        popView.shareType=@"0";
-        popView.shareURL=[NSString stringWithFormat:@"%@%@/%@.html?product_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId];
-        [self.navigationController pushViewController:popView animated:YES];
+         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+//        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//        ShareViewController *popView =
+//        [storyboard instantiateViewControllerWithIdentifier:@"ShareViewController"];
+//        NSDictionary *temDict=[productDetailModelData.productMediaArray objectAtIndex:0];
+//        popView.mediaURL=[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,[temDict objectForKey:@"file"]];
+//        popView.name=productDetailModelData.productName;
+//        popView.productDescription=productDetailModelData.productShortDescription;
+//        popView.shareType=@"0";
+//        popView.shareURL=[NSString stringWithFormat:@"%@%@/%@.html?product_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId];
+//        [self.navigationController pushViewController:popView animated:YES];
     }
     else if (indexPath.row==15) {
         //Location action
@@ -399,6 +401,7 @@
         else {
             isRedeemProduct=true;
         }
+        productDetailModelData=nil;
         productDetailModelData=productDetailData;
         reviewAdded=productDetailModelData.reviewAdded;
         if (nil!=productDetailModelData.productVideoDefault && ![productDetailModelData.productVideoDefault isEqualToString:@""]) {
