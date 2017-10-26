@@ -89,6 +89,18 @@ static NSString *JSHandler;
     NSLog(@"%@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
     loadURL=[request.URL absoluteString];
     NSLog(@"loadURL %@",loadURL);
+    
+    
+    NSString *requestString = [[[request URL] absoluteString] stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+    //NSLog(requestString);
+    
+    if ([requestString hasPrefix:@"ios-log:"]) {
+        NSString* logString = [[requestString componentsSeparatedByString:@":#iOS#"] objectAtIndex:1];
+        NSLog(@"UIWebView console: %@", logString);
+        return NO;
+    }
+    
+    
     if ([loadURL containsString:@"weixin://"]) {
         if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:loadURL]]) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:loadURL]];

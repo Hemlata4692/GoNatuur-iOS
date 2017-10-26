@@ -150,8 +150,7 @@
     if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
     }
-    path = [NSString stringWithFormat:@"%@%@",WEB_BASE_URL,path];
-    [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@",WEB_BASE_URL,path] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     }
@@ -172,14 +171,14 @@
     if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
     }
-    path = [NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"], path];
-    [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"], path] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     }
          failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
              NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
              [myDelegate stopIndicator];
+              [myDelegate stopIndicator];
              [self parseHeaderData:task error:error path:path parameters:parameters requestType:@"getSearch" image:nil isBoolean:false onSuccess:success onFailure:failure];
          }];
 }
@@ -192,8 +191,7 @@
     [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    path = [NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"], path];
-    [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"], path] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     }

@@ -846,6 +846,7 @@
             NSDictionary * dataDict =[reviewArray objectAtIndex:i];
             ReviewDataModel *tempModel=[[ReviewDataModel alloc] init];
             tempModel.username=[dataDict objectForKey:@"nickname"];
+            tempModel.userLocation=[dataDict objectForKey:@"customer_country"];
             tempModel.userImageUrl=[dataDict objectForKey:@"profile_pic"];
             tempModel.reviewDescription=[dataDict objectForKey:@"detail"];
             tempModel.reviewTitle=[dataDict objectForKey:@"title"];
