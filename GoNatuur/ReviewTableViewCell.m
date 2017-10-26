@@ -32,7 +32,7 @@
     [self removeAutolayouts];
     _userName.text=listData.username;
     _reviewTitleLabel.text=listData.reviewTitle;
-    _location.text=NSLocalizedText(@"dataNotAdded");
+    _location.text=listData.userLocation;
     float titleHeight =[DynamicHeightWidth getDynamicLabelHeight:_reviewTitleLabel.text font:[UIFont montserratBoldWithSize:14] widthValue:rectSize.width-93];
     _reviewTitleLabel.numberOfLines=2;
     
