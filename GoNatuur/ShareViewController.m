@@ -71,13 +71,6 @@ static NSString *JSHandler;
     NSURL *webViewURL = [NSURL URLWithString:encodedString];
     NSURLRequest *shareRequest=[NSURLRequest requestWithURL:webViewURL];
     [_shareWebView loadRequest: shareRequest];
-    
-    /*
-     //   // NSString *webViewString=@"https://in.pinterest.com/pin/create/button/?url=https%3A%2F%2Fdev.gonatuur.com%2Fen%2Fhappy-yak-milk.html%3Fproduct_id%3D26&media=https%3A%2F%2Fdev.gonatuur.com%2Fmedia%2Fcatalog%2Fproduct%2Fy%2Fa%2Fyak-milk_1.jpg&description=Protein%20rich";
-     
-     //        SFSafariViewController *safariVC = [[SFSafariViewController alloc]initWithURL:webViewURL entersReaderIfAvailable:YES];
-     //        safariVC.delegate = self;
-     //        [self presentViewController:safariVC animated:NO completion:nil]; */
 }
 #pragma mark - end
 
@@ -127,11 +120,6 @@ static NSString *JSHandler;
     if ([error code] != NSURLErrorCancelled) {
         //show error alert, etc.
         [myDelegate stopIndicator];
-        //        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        //        [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-        //            [self.navigationController popViewControllerAnimated:YES];
-        //        }];
-        //        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:error.localizedDescription  closeButtonTitle:nil duration:0.0f];
     }
 }
 #pragma mark - end

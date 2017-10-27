@@ -238,16 +238,6 @@
 #pragma mark - IBAction
 - (IBAction)shareNewsAction:(id)sender {
      [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
-//    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    ShareViewController *popView =
-//    [storyboard instantiateViewControllerWithIdentifier:@"ShareViewController"];
-//    DashboardDataModel * newsDataModel=[productListDataArray objectAtIndex:[sender tag]];
-//    popView.mediaURL=newsDataModel.productImageThumbnail;
-//    popView.shareType=@"1";
-//    popView.name=newsDataModel.productName;
-//    popView.productDescription=newsDataModel.productDescription;
-//    popView.shareURL=[NSString stringWithFormat:@"%@?post_id=%@",newsDataModel.newsURL,newsDataModel.productId];
-//    [self.navigationController pushViewController:popView animated:YES];
 }
 #pragma mark - end
 

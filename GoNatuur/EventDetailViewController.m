@@ -320,16 +320,6 @@
     else if (indexPath.row==16) {
         //Share action
          [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
-//        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        ShareViewController *popView =
-//        [storyboard instantiateViewControllerWithIdentifier:@"ShareViewController"];
-//        NSDictionary *temDict=[productDetailModelData.productMediaArray objectAtIndex:0];
-//        popView.mediaURL=[NSString stringWithFormat:@"%@%@%@",BaseUrl,productDetailImageBaseUrl,[temDict objectForKey:@"file"]];
-//        popView.name=productDetailModelData.productName;
-//        popView.shareType=@"0";
-//        popView.shareURL=[NSString stringWithFormat:@"%@%@/%@.html?event_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId];
-//        popView.productDescription=productDetailModelData.productShortDescription;
-//        [self.navigationController pushViewController:popView animated:YES];
     }
     else if (indexPath.row==17) {
         //Location action
