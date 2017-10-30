@@ -14,6 +14,7 @@
     [_borderView setBorder:_borderView color:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0] borderWidth:1.0];
     [_borderView setCornerRadius:5.0];
     _productName.text=productListData.productName;
+    _statusBannerImage.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@_%@",productListData.ribbons,[UserDefaultManager getValue:@"Language"]]];
     if ((nil==productListData.productDescription)||[productListData.productDescription isEqualToString:@""]) {
         _productDescription.text=NSLocalizedText(@"dataNotAdded");
     }
@@ -47,19 +48,25 @@
     else {
         productCalculatedPrice=[self calculatePrice:productListData exchangeRates:[exchangeRates doubleValue]];
     }
-    
-    if (isRedeemPoints) {
+    if (productCalculatedPrice==0) {
         NSString *ipString=@"ip";
         NSString *str=[NSString stringWithFormat:@"%.0f%@",[productListData.redeemPointsRequired floatValue],ipString];
-       NSMutableAttributedString* string = [[NSMutableAttributedString alloc]initWithString:str];
+        NSMutableAttributedString* string = [[NSMutableAttributedString alloc]initWithString:str];
         NSRange decimalTextRange = [str rangeOfString:ipString];
         [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:14]} range:decimalTextRange];
         _productPrice.attributedText=string;
     }
+//    if (isRedeemPoints) {
+//        NSString *ipString=@"ip";
+//        NSString *str=[NSString stringWithFormat:@"%.0f%@",[productListData.redeemPointsRequired floatValue],ipString];
+//       NSMutableAttributedString* string = [[NSMutableAttributedString alloc]initWithString:str];
+//        NSRange decimalTextRange = [str rangeOfString:ipString];
+//        [string setAttributes:@{NSFontAttributeName: [UIFont montserratLightWithSize:14]} range:decimalTextRange];
+//        _productPrice.attributedText=string;
+//    }
     else {
     _productPrice.text=[NSString stringWithFormat:@"%@ %@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],[ConstantCode decimalFormatter:productCalculatedPrice]];
     }
-    _statusBannerImage.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@_%@",productListData.ribbons,[UserDefaultManager getValue:@"Language"]]];
     [self customizedCellObject:productListData];
 }
 

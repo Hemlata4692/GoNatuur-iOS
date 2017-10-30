@@ -158,7 +158,7 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
 
 -(void)callCrashWebservice :(NSString *)crashString {
     //[UserDefaultManager getValue:@"emailForCrashingiOS"]
-    NSDictionary *requestDict = @{@"content":crashString,@"to":@"hemlata@ranosys.com",@"subject":@"GoNatuur crash report"};
+    NSDictionary *requestDict = @{@"content":crashString,@"to":[UserDefaultManager getValue:@"emailForCrashingiOS"],@"subject":@"GoNatuur crash report"};
     NSError *error;
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];

@@ -95,10 +95,12 @@
 
 - (void)localizedText {
     _noRecordLabel.text=NSLocalizedText(@"norecord");
-    _searchTextField.placeholder=NSLocalizedText(@"search");
+    _searchTextField.placeholder=NSLocalizedText(@"username");
+    _searchLabel.text=NSLocalizedText(@"search");
     _sortByLabel.text=NSLocalizedText(@"Sortby");
     _starFilterLabel.text=NSLocalizedText(@"stars");
     [_writeReviewButton setTitle:NSLocalizedText(@"writereview") forState:UIControlStateNormal];
+     [_sortByFilterButton setTitle:[sortByDataArray objectAtIndex:0] forState:UIControlStateNormal];
 
 }
 #pragma mark - end

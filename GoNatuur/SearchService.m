@@ -14,7 +14,7 @@ static NSString *kSearchSuggestions=@"search/ajax/suggest/?";
 static NSString *kSearchListing=@"ranosys/getSearchList";
 static NSString *kWishlistService=@"ipwishlist/items";
 static NSString *kRemoveWishlistService=@"ipwishlist/delete/wishlistItem";
-static NSString *kNewsSearchingService=@"ipwishlist/delete/wishlistItem";
+//static NSString *kNewsSearchingService=@"ipwishlist/delete/wishlistItem";
 
 @implementation SearchService
 
@@ -68,8 +68,7 @@ static NSString *kNewsSearchingService=@"ipwishlist/delete/wishlistItem";
                                                                    }
                                                                ],
                                                        @"sort_orders" : @[
-                                                               
-                                                                           @{@"field":@"name",
+                                                                           @{@"field":@"wishlist_item_id",
                                                                              @"direction":DESC,
                                                                              }
                                                                            ],

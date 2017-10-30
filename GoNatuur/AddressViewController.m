@@ -260,7 +260,6 @@
         [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     }
 }
-
 #pragma mark - end
 
 #pragma mark - IBActions
@@ -365,16 +364,20 @@
         isBilling = true;
         _shippingImageView.image = [UIImage imageNamed:@"selected"];
         _billingImageView.image = [UIImage imageNamed:@"selected"];
+        _isBillingButton.userInteractionEnabled=false;
+        _isShippingButton.userInteractionEnabled=false;
     } else if ([addressDict[@"default_shipping"]boolValue]==1) {
         isShipping = true;
         isBilling = false;
         _shippingImageView.image = [UIImage imageNamed:@"selected"];
         _billingImageView.image = [UIImage imageNamed:@"unselected"];
+        _isShippingButton.userInteractionEnabled=false;
     } else if ([addressDict[@"default_billing"]boolValue]==1) {
         isShipping = false;
         isBilling = true;
         _shippingImageView.image = [UIImage imageNamed:@"unselected"];
         _billingImageView.image = [UIImage imageNamed:@"selected"];
+        _isBillingButton.userInteractionEnabled=false;
     } else {
         isShipping = false;
         isBilling = false;
@@ -387,7 +390,7 @@
 #pragma mark - Validations
 - (BOOL)performValidations {
     SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-    if ([_firstNameField isEmpty] || [_lastNameField isEmpty] || [_phoneNumberField isEmpty] || [_countryField isEmpty] || [_phoneNumberField isEmpty] || [_cityField isEmpty] || [_firstAddressField isEmpty] || [_ZipcodeField isEmpty]) {
+    if ([_firstNameField isEmpty] || [_lastNameField isEmpty] || [_phoneNumberField isEmpty] || [_countryField isEmpty] || [_phoneNumberField isEmpty] || [_cityField isEmpty] || [_firstAddressField isEmpty] || [_ZipcodeField isEmpty] || [_stateField isEmpty]) {
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     } else {
@@ -420,8 +423,8 @@
                                 @"company" : _companyField.text,
                                 @"country_id":selectedCountryId,
                                 @"customer_id":[UserDefaultManager getValue:@"userId"],
-                                @"default_billing":isBilling ? @"YES" : @"NO",
-                                @"default_shipping":isShipping ? @"YES" : @"NO",
+                                @"default_billing":isBilling ? @"1" : @"0",
+                                @"default_shipping":isShipping ? @"1" : @"0",
                                 @"firstname":_firstNameField.text,
                                 @"lastname":_lastNameField.text,
                                 @"postcode":_ZipcodeField.text,
@@ -438,10 +441,34 @@
         return;
     }
     if (isEditScreen) {
-        NSDictionary *addressDict = [NSDictionary new];
-        addressDict = [profileData.addressArray objectAtIndex:[addressIndex longValue]];
+//        NSDictionary *addressDict = [NSDictionary new];
+//        addressDict = [profileData.addressArray objectAtIndex:[addressIndex longValue]];
         [dataModel.addressArray removeObjectAtIndex:[addressIndex longValue]];
         [dataModel.addressArray insertObject:dataDict atIndex:[addressIndex longValue]];
+        
+        for (int i=0; i<profileData.addressArray.count; i++) {
+            if (i==[addressIndex longValue]) {
+                continue;
+            }
+            else {
+                NSMutableDictionary *addressDict = [NSMutableDictionary new];
+                addressDict = [profileData.addressArray objectAtIndex:i];
+                
+                NSMutableDictionary *addressDict1 = [NSMutableDictionary new];
+                addressDict1 = [profileData.addressArray objectAtIndex:[addressIndex longValue]];
+                if ([addressDict1[@"default_billing"] boolValue] && [addressDict1[@"default_shipping"] boolValue]) {
+                    [addressDict setValue:[NSNumber numberWithBool:false] forKey:@"default_billing"];
+                    [addressDict setValue:[NSNumber numberWithBool:false] forKey:@"default_shipping"];
+                }
+                else if ([addressDict1[@"default_shipping"]boolValue] && ![addressDict1[@"default_billing"] boolValue]) {
+                    [addressDict setValue:[NSNumber numberWithBool:false] forKey:@"default_shipping"];
+                }
+                else if (![addressDict1[@"default_shipping"]boolValue] && [addressDict1[@"default_billing"]boolValue]) {
+                     [addressDict setValue:[NSNumber numberWithBool:false] forKey:@"default_billing"];
+                }
+                [dataModel.addressArray replaceObjectAtIndex:i withObject:addressDict];
+            }
+        }
     } else {
         [dataModel.addressArray addObject:dataDict];
     }

@@ -9,6 +9,7 @@
 #import "WishlistViewController.h"
 #import "SearchCollectionViewCell.h"
 #import "ProductDetailViewController.h"
+#import "EventDetailViewController.h"
 
 @interface WishlistViewController () {
 @private
@@ -80,7 +81,6 @@
     wishlistData.searchPageCount=[@(pageCount) stringValue];
     wishlistData.pageSize=[@(currentpage) stringValue] ;
     [wishlistData getWishlistService:^(SearchDataModel *userData)  {
-        
         if (isPullToRefresh) {
             wishlistProductsArray=[NSMutableArray new];
             totalProductCount=0;
@@ -149,6 +149,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([[[wishlistProductsArray objectAtIndex:indexPath.item] productType] isEqualToString:eventIdentifier]) {
        //event details
+        EventDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EventDetailViewController"];
+        obj.selectedProductId=[[[wishlistProductsArray objectAtIndex:indexPath.item] productId] intValue];
+        [self.navigationController pushViewController:obj animated:YES];
     }
     else {
         //StoryBoard navigation

@@ -21,6 +21,7 @@
     float loginBackViewY;
     int isSocialLogin;
     float mainViewHeight;
+    NSString *socialLoginID;
 }
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -295,6 +296,7 @@
     userLogin.email = _emailTextField.text;
     userLogin.password = _passwordTextField.text;
     userLogin.isSocialLogin=[NSNumber numberWithInt:isSocialLogin];
+    userLogin.socialUserId=socialLoginID;
     [userLogin loginUserOnSuccess:^(LoginModel *userData) {
         [myDelegate stopIndicator];
         //Navigate user to dashboard
@@ -308,8 +310,6 @@
     LoginModel *userLogin = [LoginModel sharedUser];
     [userLogin loginGuestUserOnSuccess:^(LoginModel *userData) {
         [myDelegate stopIndicator];
-        // Navigate user to dashboard
-        //        [self navigateToDashboard];
         UIViewController * objReveal = [self.storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
         [myDelegate.window setRootViewController:objReveal];
         [myDelegate.window setBackgroundColor:[UIColor whiteColor]];
@@ -334,6 +334,7 @@
     [_keyboardControls.activeField resignFirstResponder];
     if (option==FacebookLogin || option==GoogleLogin) {
         isSocialLogin=1;
+        socialLoginID=[result objectForKey:@"id"];
         _emailTextField.text=[result objectForKey:@"email"];
         if (![_emailTextField isEmpty]) {
             [myDelegate showIndicator];

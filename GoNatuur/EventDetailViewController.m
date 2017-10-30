@@ -23,6 +23,7 @@
 #import "TicketingViewController.h"
 #import "GoNatuurPickerView.h"
 #import "ShareViewController.h"
+#import "UITextField+Validations.h"
 
 @interface EventDetailViewController ()<UIGestureRecognizerDelegate,GoNatuurPickerViewDelegate> {
 @private
@@ -91,6 +92,7 @@
     productDetailCellHeight=0.0;
     selectedMediaIndex=0;
     currentQuantity=1;
+    productDetailModelData=[[ProductDataModel alloc]init];
 }
 #pragma mark - end
 
@@ -317,16 +319,7 @@
     }
     else if (indexPath.row==16) {
         //Share action
-        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ShareViewController *popView =
-        [storyboard instantiateViewControllerWithIdentifier:@"ShareViewController"];
-        NSDictionary *temDict=[productDetailModelData.productMediaArray objectAtIndex:0];
-        popView.mediaURL=[temDict objectForKey:@"file"];
-        popView.name=productDetailModelData.productName;
-        popView.shareType=@"0";
-        popView.shareURL=[NSString stringWithFormat:@"%@%@/%@.html?event_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId];
-        popView.productDescription=productDetailModelData.productShortDescription;
-        [self.navigationController pushViewController:popView animated:YES];
+         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
     }
     else if (indexPath.row==17) {
         //Location action
@@ -558,9 +551,17 @@
 }
 
 - (IBAction)insertInCartItemAction:(UIButton *)sender {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:5 inSection:0];
+    ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
+    if ([cell.ticketSelectionTypeField isEmpty]) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"eventTicket") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+    }
+    else {
     productDetailModelData.productQuantity=[NSNumber numberWithInt:currentQuantity];
     [myDelegate showIndicator];
     [self performSelector:@selector(addTicketsToCartProductService) withObject:nil afterDelay:.1];
+    }
 }
 
 - (IBAction)selectTicketType:(UIButton *)sender {

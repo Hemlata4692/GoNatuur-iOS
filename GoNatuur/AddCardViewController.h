@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CardListViewController.h"
 
 @interface AddCardViewController : GoNatuurViewController
-
+@property (nonatomic, strong) CardListViewController *cardListObj;
+@property (nonatomic, assign) int cardCount;
 @end

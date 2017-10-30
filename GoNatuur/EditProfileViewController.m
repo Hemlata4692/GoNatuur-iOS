@@ -467,7 +467,7 @@
         myDelegate.categoryNameArray=[userData.categoryNameArray mutableCopy];
         self.categorySliderObjc.categoryDataArray=[myDelegate.categoryNameArray mutableCopy];
         [self.categorySliderObjc.categorySliderCollectionView reloadData];
-         [myDelegate stopIndicator];
+        [myDelegate stopIndicator];
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
             [self.navigationController popViewControllerAnimated:YES];

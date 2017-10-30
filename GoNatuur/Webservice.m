@@ -51,7 +51,7 @@
     } failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
         NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
         [myDelegate stopIndicator];
-        [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
+        [self parseHeaderData:task error:error path:path parameters:parameters requestType:@"post" image:nil isBoolean:false onSuccess:success onFailure:failure];
     }];
 }
 
@@ -74,7 +74,7 @@
     } failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
         NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
         [myDelegate stopIndicator];
-        [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
+        [self parseHeaderData:task error:error path:path parameters:parameters requestType:@"put" image:nil isBoolean:false onSuccess:success onFailure:failure];
     }];
 }
 
@@ -110,7 +110,7 @@
     } failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
         NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
         [myDelegate stopIndicator];
-        [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
+        [self parseHeaderData:task error:error path:path parameters:parameters requestType:@"delete" image:nil isBoolean:isBoolean onSuccess:success onFailure:failure];
     }];
 }
 
@@ -136,7 +136,7 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
         [myDelegate stopIndicator];
-        [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
+        [self parseHeaderData:task error:error path:path parameters:parameters requestType:@"postImage" image:image isBoolean:false onSuccess:success onFailure:failure];
     }];
 }
 
@@ -150,8 +150,7 @@
     if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
     }
-    path = [NSString stringWithFormat:@"%@%@",WEB_BASE_URL,path];
-    [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@",WEB_BASE_URL,path] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     }
@@ -159,7 +158,7 @@
              NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
              [myDelegate stopIndicator];
              [myDelegate stopIndicator];
-             [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
+             [self parseHeaderData:task error:error path:path parameters:parameters requestType:@"get" image:nil isBoolean:false onSuccess:success onFailure:failure];
          }];
 }
 
@@ -172,15 +171,15 @@
     if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
     }
-    path = [NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"], path];
-    [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"], path] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     }
          failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
              NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
              [myDelegate stopIndicator];
-             [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
+              [myDelegate stopIndicator];
+             [self parseHeaderData:task error:error path:path parameters:parameters requestType:@"getSearch" image:nil isBoolean:false onSuccess:success onFailure:failure];
          }];
 }
 
@@ -192,24 +191,23 @@
     [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    path = [NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"], path];
-    [manager GET:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"], path] parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
         success(responseObject);
     }
          failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
              NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
              [myDelegate stopIndicator];
-             [self parseHeaderData:task error:error path:path parameters:parameters onSuccess:success onFailure:failure];
+             [self parseHeaderData:task error:error path:path parameters:parameters requestType:@"getConstant" image:nil isBoolean:false onSuccess:success onFailure:failure];
          }];
 }
 
-- (void)parseHeaderData:(NSURLSessionDataTask *)task error:(NSError *)error  path:(NSString *)path parameters:(NSDictionary *)parameters onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+- (void)parseHeaderData:(NSURLSessionDataTask *)task error:(NSError *)error  path:(NSString *)path parameters:(NSDictionary *)parameters requestType:(NSString *)requestType image:(UIImage *)image isBoolean:(BOOL)isBoolean onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
     if ((error.code == -1009)||(error.code == -1005)) {
-        [self showRetryAlertMessage:NSLocalizedText(@"Internet connection") path:path parameters:parameters success:success failure:failure error:error];
+        [self showRetryAlertMessage:NSLocalizedText(@"Internet connection") path:path parameters:parameters requestType:requestType image:image isBoolean:isBoolean success:success failure:failure error:error];
     }
     else if (error.code == -1001) {
-        [self showRetryAlertMessage:NSLocalizedText(@"RequestTimeout") path:path parameters:parameters success:success failure:failure error:error];
+        [self showRetryAlertMessage:NSLocalizedText(@"RequestTimeout") path:path parameters:parameters requestType:requestType image:image isBoolean:isBoolean success:success failure:failure error:error];
     }
     else {
         NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
@@ -276,15 +274,17 @@
 #pragma mark - end
 
 #pragma mark - Retry webservice
-- (void)showRetryAlertMessage:(NSString *)message path:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(NSError *))failure error:(NSError *)error {
+- (void)showRetryAlertMessage:(NSString *)message path:(NSString *)path parameters:(NSDictionary *)parameters requestType:(NSString*)requestType image:(UIImage *)image isBoolean:(BOOL)isBoolean success:(void (^)(id))success failure:(void (^)(NSError *))failure error:(NSError *)error {
     SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
     [alert addButton:NSLocalizedText(@"alertRetry") actionBlock:^(void) {
         self.success=success;
         self.failure=failure;
         self.retryPath=path;
         self.retryParameters=parameters;
+        self.retryImage=image;
+        self.retryBoolean=isBoolean;
         [myDelegate showIndicator];
-        [self performSelector:@selector(retryWebservice) withObject:nil afterDelay:.1];
+        [self performSelector:@selector(retryWebservice:) withObject:requestType afterDelay:.1];
         
     }];
     [alert addButton:NSLocalizedText(@"alertCancel") actionBlock:^(void) {
@@ -293,8 +293,29 @@
     [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:message closeButtonTitle:nil duration:0.0f];
 }
 
-- (void)retryWebservice {
-    [self post:self.retryPath parameters:self.retryParameters success:self.success failure:self.failure];
+- (void)retryWebservice:(NSString *)requestType {
+    DLog(@"self.retryPath self.retryParameters %@ %@",self.retryPath,self.retryParameters);
+    if ([requestType isEqualToString:@"post"]) {
+         [self post:self.retryPath parameters:self.retryParameters success:self.success failure:self.failure];
+    }
+    else if ([requestType isEqualToString:@"put"]) {
+        [self put:self.retryPath parameters:self.retryParameters success:self.success failure:self.failure];
+    }
+    else if ([requestType isEqualToString:@"delete"]) {
+        [self deleteService:self.retryPath parameters:self.retryParameters isBoolean:self.retryBoolean success:self.success failure:self.failure];
+    }
+    else if ([requestType isEqualToString:@"postImage"]) {
+        [self postImage:self.retryPath parameters:self.retryParameters image:self.retryImage success:self.success failure:self.failure];
+    }
+    else if ([requestType isEqualToString:@"get"]) {
+        [self get:self.retryPath parameters:self.retryParameters onSuccess:self.success onFailure:self.failure];
+    }
+    else if ([requestType isEqualToString:@"getSearch"]) {
+        [self getSearchData:self.retryPath parameters:self.retryParameters onSuccess:self.success onFailure:self.failure];
+    }
+    else if ([requestType isEqualToString:@"getConstant"]) {
+         [self getConstantsData:self.retryPath parameters:self.retryParameters onSuccess:self.success onFailure:self.failure];
+    }
 }
 #pragma mark - end
 @end

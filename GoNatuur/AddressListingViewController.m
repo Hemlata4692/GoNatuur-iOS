@@ -49,10 +49,22 @@
     [_addAddressButton addShadow:_addAddressButton color:[UIColor blackColor]];
     [_addAddressButton setTitle:NSLocalizedText(@"addAddressButton") forState:UIControlStateNormal];
     if (!isImagePicker) {
-        [self checkRecordStatus];
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getUserAddressData) withObject:nil afterDelay:.1];
     }
 }
 #pragma mark - end
+
+- (void)getUserAddressData {
+    ProfileModel *userData = [ProfileModel sharedUser];
+    [userData getUserProfile:^(ProfileModel *userData) {
+        profileData = userData;
+        [self checkRecordStatus];
+        [myDelegate stopIndicator];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
 
 #pragma mark - Check Record status
 - (void)checkRecordStatus {
@@ -190,6 +202,7 @@
         [cell displayData:_addressTableView.frame.size];
     } else if (indexPath.row > 2) {
         cell.editAddressButton.tag = indexPath.row-3;
+        cell.defaultEditAddress.tag = indexPath.row-3;
         cell.deleteAddressButton.tag = indexPath.row-3;
         NSDictionary *addressDict = [NSDictionary new];
         if (nil!=checkoutAddressViewObj) {
@@ -211,8 +224,8 @@
             }
         }
         else {
-            cell.editAddressButton.hidden=false;
-            cell.deleteAddressButton.hidden=false;
+//            cell.editAddressButton.hidden=false;
+//            cell.deleteAddressButton.hidden=false;
             //Hide cell separator
             if (indexPath.row == profileData.addressArray.count+2) {
                 cell.listingSeparatorLabel.hidden = YES;
@@ -221,6 +234,7 @@
             }
         }
         [cell.editAddressButton addTarget:self action:@selector(editUserAddress:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.defaultEditAddress addTarget:self action:@selector(editUserAddress:) forControlEvents:UIControlEventTouchUpInside];
         [cell.deleteAddressButton addTarget:self action:@selector(deleteUserAddress:) forControlEvents:UIControlEventTouchUpInside];
     }
     return cell;
