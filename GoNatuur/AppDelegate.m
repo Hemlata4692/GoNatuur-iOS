@@ -223,8 +223,7 @@
     NSLog(@"Failed to get token, error: %@", error);
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void(^)(UIBackgroundFetchResult))completionHandler
-{
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void(^)(UIBackgroundFetchResult))completionHandler {
     NSLog(@"Received notification: %@", userInfo);
     //    [self notifcationResponseDict:userInfo];
 }
