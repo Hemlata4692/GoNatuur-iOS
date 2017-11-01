@@ -72,7 +72,6 @@
 		187561911F469BD500F609AB /* NotificationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187561901F469BD500F609AB /* NotificationDataModel.m */; };
 		187561931F469E1000F609AB /* BottomTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187561921F469E1000F609AB /* BottomTabViewController.xib */; };
 		187561971F469F3800F609AB /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187561961F469F3800F609AB /* NotificationViewController.m */; };
-		1875619A1F469F8600F609AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187561981F469F8600F609AB /* Main.storyboard */; };
 		1875619D1F46AAC500F609AB /* dashboard_banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619B1F46AAC500F609AB /* dashboard_banner1.png */; };
 		1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619C1F46AAC500F609AB /* dashboard_banner2.png */; };
 		187A89B91F6F93EB00E7431A /* ProductGuideSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */; };
@@ -147,6 +146,7 @@
 		32CC20951F25B1D90054C344 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20941F25B1D90054C344 /* LoginModel.m */; };
 		32CC20991F25B1F80054C344 /* LoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20981F25B1F80054C344 /* LoginService.m */; };
 		5D0CB20E1F63FF16008043B6 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0CB20D1F63FF16008043B6 /* OrderDetailViewController.m */; };
+		5D193AC01FA853D3004CAD0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D193ABF1FA85358004CAD0E /* Main.storyboard */; };
 		5D1E5E3B1F56845D006E6C63 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D1E5E3A1F56845D006E6C63 /* AddressViewController.m */; };
 		5D2760A61F62767F00B6D0FF /* OrderListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D2760A31F62767F00B6D0FF /* OrderListingViewController.m */; };
 		5D2760A71F62767F00B6D0FF /* OrderListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D2760A51F62767F00B6D0FF /* OrderListingCell.m */; };
@@ -304,7 +304,6 @@
 		187561921F469E1000F609AB /* BottomTabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomTabViewController.xib; sourceTree = "<group>"; };
 		187561951F469F3800F609AB /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
 		187561961F469F3800F609AB /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
-		187561991F469F8600F609AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1875619B1F46AAC500F609AB /* dashboard_banner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner1.png; sourceTree = "<group>"; };
 		1875619C1F46AAC500F609AB /* dashboard_banner2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner2.png; sourceTree = "<group>"; };
 		187A89B71F6F93EB00E7431A /* ProductGuideSearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGuideSearchListViewController.h; sourceTree = "<group>"; };
@@ -438,6 +437,7 @@
 		32CC20981F25B1F80054C344 /* LoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginService.m; sourceTree = "<group>"; };
 		5D0CB20C1F63FF16008043B6 /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
 		5D0CB20D1F63FF16008043B6 /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
+		5D193ABF1FA85358004CAD0E /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5D1E5E391F56845D006E6C63 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
 		5D1E5E3A1F56845D006E6C63 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
 		5D2760A21F62767F00B6D0FF /* OrderListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListingViewController.h; sourceTree = "<group>"; };
@@ -1777,7 +1777,7 @@
 				1891620D1F617735005ED12E /* GoNatuur.entitlements */,
 				320761621F162706001F1790 /* AppDelegate */,
 				320761631F162712001F1790 /* Classes */,
-				187561981F469F8600F609AB /* Main.storyboard */,
+				5D193ABF1FA85358004CAD0E /* Main.storyboard */,
 				32BAA6131F1360290015E355 /* Assets.xcassets */,
 				32BAA6151F1360290015E355 /* LaunchScreen.storyboard */,
 				32BAA6181F1360290015E355 /* Info.plist */,
@@ -2547,9 +2547,9 @@
 				B75E6F391F75063E0059D8E1 /* weChatPayIcon.png in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
 				B73E00E31F4184DF001DEBA2 /* Montserrat-Bold.otf in Resources */,
+				5D193AC01FA853D3004CAD0E /* Main.storyboard in Resources */,
 				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
 				1809BE771F90CF8000B1DF2D /* ajax_handler.js in Resources */,
-				1875619A1F469F8600F609AB /* Main.storyboard in Resources */,
 				B75E6F381F75063E0059D8E1 /* paypalIcon.png in Resources */,
 				B75E6F361F75063E0059D8E1 /* alipayIcon.png in Resources */,
 				B73A653E1F3DF0870051E4C5 /* cn.strings in Resources */,
@@ -2763,14 +2763,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		187561981F469F8600F609AB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				187561991F469F8600F609AB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		32BAA6151F1360290015E355 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
