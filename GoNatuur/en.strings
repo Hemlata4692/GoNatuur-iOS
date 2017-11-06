@@ -60,6 +60,8 @@
 "textViewPlaceholder"="  Write your review here....";
 "follow"="Follow this Product";
 "unfollow"="Unfollow this Product";
+"unfollowEvent"="Unfollow this Event";
+"followEvent"="Follow this Event";
 "wishlist"="Add to Wishlist";
 "wishlistAdded"="Added to Wishlist";
 "Where to buy"="Where To Buy";

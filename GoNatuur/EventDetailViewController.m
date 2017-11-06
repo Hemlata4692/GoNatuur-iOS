@@ -206,11 +206,11 @@
     else if (indexPath.row==14) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
-            cellLabel.text=NSLocalizedText(@"unfollow");
+            cellLabel.text=NSLocalizedText(@"unfollowEvent");
             cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
         }
         else{
-            cellLabel.text=NSLocalizedText(@"follow");
+            cellLabel.text=NSLocalizedText(@"followEvent");
             cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
     }
@@ -493,7 +493,7 @@
     NSIndexPath *index=[NSIndexPath indexPathForRow:btnTag inSection:0];
     ProductDetailTableViewCell * cell = (ProductDetailTableViewCell *)[_productDetailTableView cellForRowAtIndexPath:index];
     UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
-    cellLabel.text=NSLocalizedText(@"unfollow");
+    cellLabel.text=NSLocalizedText(@"unfollowEvent");
     cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
     productDetailModelData.following=@"1";
     ProductDataModel *productData = [ProductDataModel sharedUser];
@@ -501,7 +501,7 @@
     [productData followProductOnSuccess:^(ProductDataModel *productDetailData)  {
         
     } onfailure:^(NSError *error) {
-        cellLabel.text=NSLocalizedText(@"follow");
+        cellLabel.text=NSLocalizedText(@"followEvent");
         cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         productDetailModelData.following=@"0";
     }];
@@ -512,7 +512,7 @@
     NSIndexPath *index=[NSIndexPath indexPathForRow:btnTag inSection:0];
     ProductDetailTableViewCell * cell = (ProductDetailTableViewCell *)[_productDetailTableView cellForRowAtIndexPath:index];
     UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
-    cellLabel.text=NSLocalizedText(@"follow");
+    cellLabel.text=NSLocalizedText(@"followEvent");
     cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
     productDetailModelData.following=@"0";
     ProductDataModel *productData = [ProductDataModel sharedUser];
@@ -520,7 +520,7 @@
     [productData unFollowProductOnSuccess:^(ProductDataModel *productDetailData)  {
         
     } onfailure:^(NSError *error) {
-        cellLabel.text=NSLocalizedText(@"unfollow");
+        cellLabel.text=NSLocalizedText(@"unfollowEvent");
         cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
         productDetailModelData.following=@"1";
     }];
