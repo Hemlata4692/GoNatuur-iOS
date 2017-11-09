@@ -268,7 +268,20 @@
     }
     else if (indexPath.row==14) {
         //Share action
-         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+         //[self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+
+        NSString *shareText=[NSString stringWithFormat:@"%@ %@ %@ %@", NSLocalizedText(@"checkThisOut"),productDetailModelData.productName,[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@.html?product_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId]],NSLocalizedText(@"onGonatuur")];
+        NSArray *items = @[shareText];
+        
+        // build an activity view controller
+        UIActivityViewController *controller = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
+        
+        // exclude several items (for example, facebook and twitter)
+        NSArray *excluded = @[UIActivityTypePrint, UIActivityTypeSaveToCameraRoll, UIActivityTypeAirDrop, UIActivityTypeAddToReadingList,UIActivityTypeMail,UIActivityTypeMessage,UIActivityTypeOpenInIBooks,UIActivityTypeAssignToContact,UIActivityTypeAddToReadingList,UIActivityTypeCopyToPasteboard,UIActivityTypePostToVimeo,UIActivityTypePostToFlickr];
+        controller.excludedActivityTypes = excluded;
+        
+        // and present it
+        [self presentActivityController:controller];
     }
     else if (indexPath.row==15) {
         //Location action
@@ -278,6 +291,37 @@
         webView.productDetaiData=productDetailModelData.productWhereToBuy;
         [self.navigationController pushViewController:webView animated:YES];
     }
+}
+
+- (void)presentActivityController:(UIActivityViewController *)controller {
+    
+    // for iPad: make the presentation a Popover
+    controller.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+    popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    popController.barButtonItem = self.navigationItem.leftBarButtonItem;
+    
+    // access the completion handler
+    controller.completionWithItemsHandler = ^(NSString *activityType,
+                                              BOOL completed,
+                                              NSArray *returnedItems,
+                                              NSError *error){
+        // react to the completion
+        if (completed) {
+            // user shared an item
+            NSLog(@"We used activity type %@", activityType);
+            
+        } else {
+            // user cancelled
+            NSLog(@"We didn't want to share anything after all.");
+        }
+        
+        if (error) {
+            NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
+        }
+    };
 }
 
 - (void)addSwipeGesture:(UIView *)view {
