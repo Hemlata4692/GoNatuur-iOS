@@ -205,9 +205,9 @@
 #pragma mark - end
 
 #pragma mark - UNUserNotificationCenter Delegate // >= iOS 10
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler{
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSLog(@"User Info = %@",response.notification.request.content.userInfo);
-    //    [self notifcationResponseDict:response.notification.request.content.userInfo];
+
 }
 #pragma mark - end
 

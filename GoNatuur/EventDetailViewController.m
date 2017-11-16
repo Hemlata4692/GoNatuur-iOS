@@ -370,11 +370,9 @@
     // for iPad: make the presentation a Popover
     controller.modalPresentationStyle = UIModalPresentationPopover;
     [self presentViewController:controller animated:YES completion:nil];
-    
     UIPopoverPresentationController *popController = [controller popoverPresentationController];
     popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
     popController.barButtonItem = self.navigationItem.leftBarButtonItem;
-    
     // access the completion handler
     controller.completionWithItemsHandler = ^(NSString *activityType,
                                               BOOL completed,
@@ -417,9 +415,13 @@
                     else {
                         return;
                     }
-                    MPMoviePlayerViewController *mp = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:URLString]];
+                    AVPlayer *player = [AVPlayer playerWithURL:[NSURL URLWithString:URLString]];
+                    AVPlayerViewController *playerViewController = [AVPlayerViewController new];
+                    playerViewController.player = player;
+                    [playerViewController.player play];//used to play on start
                     isServiceCalledMPMoviePlayerDone=false;
-                    [self presentViewController:mp animated:YES completion:NULL];
+                    [self presentViewController:playerViewController animated:YES completion:nil];
+                    
                 }];
             }
             else {

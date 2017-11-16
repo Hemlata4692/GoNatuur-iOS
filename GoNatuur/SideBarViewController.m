@@ -112,8 +112,7 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==0) {
         if (![myDelegate checkGuestAccess]) {
-          //   myDelegate.selectedCategoryIndex=-1;
-        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+            myDelegate.selectedCategoryIndex=-1;
         }
     }
     else if (indexPath.row==1) {

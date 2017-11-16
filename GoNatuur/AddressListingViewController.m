@@ -181,7 +181,9 @@
     if (nil!=checkoutAddressViewObj) {
         return checkoutAddressViewObj.cartModelData.customerSavedAddressArray.count+3;
     }
+    else {
     return profileData.addressArray.count+3;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -216,6 +218,7 @@
         if (nil!=checkoutAddressViewObj) {
             cell.editAddressButton.hidden=true;
             cell.deleteAddressButton.hidden=true;
+            cell.defaultEditAddress.hidden=true;
             //Hide cell separator
             if (indexPath.row == checkoutAddressViewObj.cartModelData.customerSavedAddressArray.count+2) {
                 cell.listingSeparatorLabel.hidden = YES;
@@ -224,8 +227,6 @@
             }
         }
         else {
-//            cell.editAddressButton.hidden=false;
-//            cell.deleteAddressButton.hidden=false;
             //Hide cell separator
             if (indexPath.row == profileData.addressArray.count+2) {
                 cell.listingSeparatorLabel.hidden = YES;
@@ -248,9 +249,9 @@
         return [DynamicHeightWidth getDynamicLabelHeight:[UserDefaultManager getValue:@"emailId"] font:[UIFont montserratLightWithSize:16] widthValue:[[UIScreen mainScreen] bounds].size.width-50 heightValue:60]+10;
     }
     else if (indexPath.row==2) {
-        NSDictionary *addressData;
+//        NSDictionary *addressData;
         if (nil!=checkoutAddressViewObj) {
-            addressData = [checkoutAddressViewObj.cartModelData.customerSavedAddressArray objectAtIndex:indexPath.row-3];
+//            addressData = [checkoutAddressViewObj.cartModelData.customerSavedAddressArray objectAtIndex:indexPath.row-3];
             if (checkoutAddressViewObj.cartModelData.customerSavedAddressArray.count == 0) {
                 return 0.0;
             } else {

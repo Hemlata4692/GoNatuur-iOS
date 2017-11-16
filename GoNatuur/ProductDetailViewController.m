@@ -269,7 +269,6 @@
     else if (indexPath.row==14) {
         //Share action
          //[self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
-
         NSString *shareText=[NSString stringWithFormat:@"%@ %@ %@ %@", NSLocalizedText(@"checkThisOut"),productDetailModelData.productName,[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@.html?product_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId]],NSLocalizedText(@"onGonatuur")];
         NSArray *items = @[shareText];
         
@@ -380,9 +379,15 @@
                 else {
                     return;
                 }
-                MPMoviePlayerViewController *mp = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:URLString]];
+//                MPMoviePlayerViewController *mp = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:URLString]];
+//                isServiceCalledMPMoviePlayerDone=false;
+//                [self presentViewController:mp animated:YES completion:NULL];
+                AVPlayer *player = [AVPlayer playerWithURL:[NSURL URLWithString:URLString]];
+                AVPlayerViewController *playerViewController = [AVPlayerViewController new];
+                playerViewController.player = player;
+                [playerViewController.player play];//used to play on start
                 isServiceCalledMPMoviePlayerDone=false;
-                [self presentViewController:mp animated:YES completion:NULL];
+                [self presentViewController:playerViewController animated:YES completion:nil];
             }];
         }
         else {
