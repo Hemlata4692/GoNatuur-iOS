@@ -340,3 +340,7 @@
 "rangeSlider"="价格范围滑块";
 "benefits"="优点";
 "eventTicket"="请选择一张票.";
+"unfollowEvent"="取消关注此事件";
+"followEvent"="跟随这个事件";
+"checkThisOut"="看一下这个";
+"onGonatuur"="是GoNatuur";

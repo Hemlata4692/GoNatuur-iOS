@@ -206,11 +206,11 @@
     else if (indexPath.row==14) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
-            cellLabel.text=NSLocalizedText(@"unfollow");
+            cellLabel.text=NSLocalizedText(@"unfollowEvent");
             cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
         }
         else{
-            cellLabel.text=NSLocalizedText(@"follow");
+            cellLabel.text=NSLocalizedText(@"followEvent");
             cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
     }
@@ -319,7 +319,20 @@
     }
     else if (indexPath.row==16) {
         //Share action
-         [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+        // [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+        //NSString stringWithFormat:@"%@%@/%@.html?product_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId];
+       NSString *shareText=[NSString stringWithFormat:@"%@ %@ %@ %@", NSLocalizedText(@"checkThisOut"),productDetailModelData.productName,[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@.html?product_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId]],NSLocalizedText(@"onGonatuur")];
+        NSArray *items = @[shareText];
+        
+        // build an activity view controller
+        UIActivityViewController *controller = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
+        
+        // exclude several items (for example, facebook and twitter)
+        NSArray *excluded = @[UIActivityTypePrint, UIActivityTypeSaveToCameraRoll, UIActivityTypeAirDrop, UIActivityTypeAddToReadingList,UIActivityTypeMail,UIActivityTypeMessage,UIActivityTypeOpenInIBooks,UIActivityTypeAssignToContact,UIActivityTypeAddToReadingList,UIActivityTypeCopyToPasteboard,UIActivityTypePostToVimeo,UIActivityTypePostToFlickr];
+        controller.excludedActivityTypes = excluded;
+        
+        // and present it
+        [self presentActivityController:controller];
     }
     else if (indexPath.row==17) {
         //Location action
@@ -350,6 +363,37 @@
         reviewView.eventDetailObj=self;
         [self.navigationController pushViewController:reviewView animated:YES];
     }
+}
+
+- (void)presentActivityController:(UIActivityViewController *)controller {
+    
+    // for iPad: make the presentation a Popover
+    controller.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+    popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    popController.barButtonItem = self.navigationItem.leftBarButtonItem;
+    
+    // access the completion handler
+    controller.completionWithItemsHandler = ^(NSString *activityType,
+                                              BOOL completed,
+                                              NSArray *returnedItems,
+                                              NSError *error){
+        // react to the completion
+        if (completed) {
+            // user shared an item
+            NSLog(@"We used activity type %@", activityType);
+            
+        } else {
+            // user cancelled
+            NSLog(@"We didn't want to share anything after all.");
+        }
+        
+        if (error) {
+            NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
+        }
+    };
 }
 #pragma mark - end
 
@@ -493,7 +537,7 @@
     NSIndexPath *index=[NSIndexPath indexPathForRow:btnTag inSection:0];
     ProductDetailTableViewCell * cell = (ProductDetailTableViewCell *)[_productDetailTableView cellForRowAtIndexPath:index];
     UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
-    cellLabel.text=NSLocalizedText(@"unfollow");
+    cellLabel.text=NSLocalizedText(@"unfollowEvent");
     cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
     productDetailModelData.following=@"1";
     ProductDataModel *productData = [ProductDataModel sharedUser];
@@ -501,7 +545,7 @@
     [productData followProductOnSuccess:^(ProductDataModel *productDetailData)  {
         
     } onfailure:^(NSError *error) {
-        cellLabel.text=NSLocalizedText(@"follow");
+        cellLabel.text=NSLocalizedText(@"followEvent");
         cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         productDetailModelData.following=@"0";
     }];
@@ -512,7 +556,7 @@
     NSIndexPath *index=[NSIndexPath indexPathForRow:btnTag inSection:0];
     ProductDetailTableViewCell * cell = (ProductDetailTableViewCell *)[_productDetailTableView cellForRowAtIndexPath:index];
     UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
-    cellLabel.text=NSLocalizedText(@"follow");
+    cellLabel.text=NSLocalizedText(@"followEvent");
     cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
     productDetailModelData.following=@"0";
     ProductDataModel *productData = [ProductDataModel sharedUser];
@@ -520,7 +564,7 @@
     [productData unFollowProductOnSuccess:^(ProductDataModel *productDetailData)  {
         
     } onfailure:^(NSError *error) {
-        cellLabel.text=NSLocalizedText(@"unfollow");
+        cellLabel.text=NSLocalizedText(@"unfollowEvent");
         cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
         productDetailModelData.following=@"1";
     }];
