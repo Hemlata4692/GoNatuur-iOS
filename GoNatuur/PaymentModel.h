@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSString *cardLastFourDigit;
 @property (strong, nonatomic) NSString *cardType;
 @property (strong, nonatomic) NSString *cardExpYear;
+@property (strong, nonatomic) NSString *encryptedSubscriptionId;
 
 //Singleton instanse
 + (instancetype)sharedUser;

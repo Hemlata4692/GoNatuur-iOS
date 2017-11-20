@@ -55,6 +55,7 @@
 }
 #pragma mark - end
 
+#pragma mark - Webservice
 - (void)getUserAddressData {
     ProfileModel *userData = [ProfileModel sharedUser];
     [userData getUserProfile:^(ProfileModel *userData) {
@@ -65,6 +66,7 @@
         
     }];
 }
+#pragma mark - end
 
 #pragma mark - Check Record status
 - (void)checkRecordStatus {

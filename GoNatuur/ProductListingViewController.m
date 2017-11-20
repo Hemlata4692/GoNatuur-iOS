@@ -135,12 +135,6 @@
     filterViewObj=[[GoNatuurFilterView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35) delegate:self];
     filterViewObj.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 35);
     [filterViewObj setButtonTitles:NSLocalizedText(@"Filter") subCategoryText:((subCategoryPickerArray.count>0)?[subCategoryPickerArray objectAtIndex:selectedSubCategoryIndex]:@"") secondFilterText:NSLocalizedText(@"Sortby")];
-    //Customized filter view
-    //    if (!myDelegate.isProductList) {
-    //        filterViewObj.subCategoryButtonOutlet.enabled=false;
-    //        filterViewObj.subCategoryButtonOutlet.alpha=0.5;
-    //        filterViewObj.subCategoryArrowImageView.alpha=0.4;
-    //    }
     //Set initial index of picker view and initialized picker view
     selectedFirstFilterIndex=0;
     selectedSubCategoryIndex=0;

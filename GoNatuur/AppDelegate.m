@@ -83,7 +83,7 @@
     // Override point for customization after application launch.
  
    // Call crashlytics method
-    [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
+   // [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
   
 //    NSString* useragent = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Safari/604.1.38";
 //    NSLog(@"Setting User-Agent to: %@", useragent);

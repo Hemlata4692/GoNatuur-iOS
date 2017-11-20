@@ -1587,6 +1587,7 @@
                 paymentListData.cardExpYear = paymentDataDict[@"cc_exp_year"];
                 paymentListData.cardLastFourDigit = paymentDataDict[@"cc_last_4"];
                 paymentListData.cardType = paymentDataDict[@"cc_type"];
+                paymentListData.encryptedSubscriptionId = paymentDataDict[@"encrypted_subscription_id"];
                 [paymentData.cardListArray addObject:paymentListData];
             }
             success(paymentData);

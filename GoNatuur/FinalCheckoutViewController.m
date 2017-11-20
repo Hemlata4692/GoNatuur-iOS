@@ -8,6 +8,10 @@
 
 #import "FinalCheckoutViewController.h"
 #import "FinalCheckoutTableViewCell.h"
+#import "UIView+RoundedCorner.h"
+#import "UITextField+Padding.h"
+#import "CardListViewController.h"
+#import "GoNatuurPickerView.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
@@ -15,15 +19,21 @@
 #define paymentBorderColor [UIColor colorWithRed:120.0/255.0 green:120.0/255.0 blue:120.0/255.0 alpha:0.3]
 #define selectedPaymentMethodColor  [UIColor colorWithRed:250.0/255.0 green:241.0/255.0 blue:244.0/255.0 alpha:1.0]
 
-@interface FinalCheckoutViewController () {
+#define textFieldBorderColor  [UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]
+@interface FinalCheckoutViewController ()<GoNatuurPickerViewDelegate> {
 @private
-    NSMutableArray *paymentMethodArray;
+    NSMutableArray *paymentMethodArray, *cardTypeDataArray, *cardTypeCodeArray;
     NSDictionary *cartItemPrice;
     int selectedPaymentMethodIndex;
     NSArray *totalArray;
     NSMutableDictionary *totalDict, *paymentMethodDict;
     bool isCyberSourceExist, isApplyCouponExist;
     bool isCreditUser;
+    bool isCyberSourcePayment;
+    bool isCardAdd, isSelectCard;
+    int selectedPickerIndex;
+    GoNatuurPickerView *gNPickerViewObj;
+    NSString *selectedCardTypeId;
 }
 //View objects declaration
 @property (strong, nonatomic) IBOutlet UILabel *freeShippingLabel;
@@ -40,12 +50,25 @@
 @property (strong, nonatomic) IBOutlet UIView *paymentView;
 @property (strong, nonatomic) IBOutlet UIView *cyberSourceView;
 @property (strong, nonatomic) IBOutlet UICollectionView *paymentCollectionView;
+@property (weak, nonatomic) IBOutlet UIView *addCardView;
+@property (weak, nonatomic) IBOutlet UITextField *cardHolderName;
+@property (weak, nonatomic) IBOutlet UITextField *cardNumber;
+@property (weak, nonatomic) IBOutlet UITextField *cardType;
+@property (weak, nonatomic) IBOutlet UITextField *monthField;
+@property (weak, nonatomic) IBOutlet UITextField *yearField;
+@property (weak, nonatomic) IBOutlet UITextField *cvvField;
+@property (weak, nonatomic) IBOutlet UILabel *selectCarRadioLabel;
+@property (weak, nonatomic) IBOutlet UILabel *selectCardLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addCardRadioLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addCardLabel;
+
 @end
 
 @implementation FinalCheckoutViewController
 @synthesize cartModelData;
 @synthesize cartListDataArray;
 @synthesize finalCheckoutPriceDict;
+@synthesize selectedCardDataArray;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -59,19 +82,33 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:true];
-//    [myDelegate showIndicator];
-//    [self performSelector:@selector(setPaymentMethod) withObject:nil afterDelay:.1];
+    isCyberSourcePayment=false;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    //Bring front view picker view
+    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
+}
+
+- (void)addCustomPickerView {
+    //Set initial index of picker view and initialized picker view
+    selectedPickerIndex=0;
+    cardTypeDataArray=[NSMutableArray new];
+    gNPickerViewObj=[[GoNatuurPickerView alloc] initWithFrame:self.view.frame delegate:self pickerHeight:230];
+    [self.view addSubview:gNPickerViewObj.goNatuurPickerViewObj];
+}
 #pragma mark - end
 
 #pragma mark - View customisation
 - (void)viewInitialization {
     [self showSelectedTab:2];
+    [self addCustomPickerView];
     //Customized steps
     [self customizedSteps];
     [self setLocalizedText];
@@ -80,7 +117,7 @@
     [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Apply coupon code"];
     [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Credit amount"];
     [self setPrices];
-    
+    [self cyberSourcePayment:false];
     [self getDataFromCartModel];
     [self customizedFraming];
 }
@@ -97,6 +134,7 @@
     _paymentView.translatesAutoresizingMaskIntoConstraints=true;
     _cyberSourceView.translatesAutoresizingMaskIntoConstraints=true;
     _paymentCollectionView.translatesAutoresizingMaskIntoConstraints=true;
+    _addCardView.translatesAutoresizingMaskIntoConstraints=true;
 }
 
 - (void)setRoundedStepView {
@@ -106,6 +144,23 @@
     _secondStepLabel.layer.cornerRadius=11;
     _thirdStepLabel.layer.masksToBounds=true;
     _thirdStepLabel.layer.cornerRadius=11;
+    _selectCarRadioLabel.layer.cornerRadius=6;
+    _selectCarRadioLabel.layer.masksToBounds=true;
+    _addCardRadioLabel.layer.cornerRadius=6;
+    _addCardRadioLabel.layer.masksToBounds=true;
+    
+    [_cardType setTextBorder:_cardType color:textFieldBorderColor];
+    [_cardNumber setTextBorder:_cardNumber color:textFieldBorderColor];
+    [_cardHolderName setTextBorder:_cardHolderName color:textFieldBorderColor];
+    [_monthField setTextBorder:_monthField color:textFieldBorderColor];
+    [_yearField setTextBorder:_yearField color:textFieldBorderColor];
+    [_cvvField setTextBorder:_cvvField color:textFieldBorderColor];
+    [_cardType addTextFieldPaddingWithoutImages:_cardType];
+    [_cardNumber addTextFieldPaddingWithoutImages:_cardNumber];
+    [_cardHolderName addTextFieldPaddingWithoutImages:_cardHolderName];
+    [_monthField addTextFieldPaddingWithoutImages:_monthField];
+    [_yearField addTextFieldPaddingWithoutImages:_yearField];
+    [_cvvField addTextFieldPaddingWithoutImages:_cvvField];
 }
 
 - (void)setDefaultStepColor {
@@ -137,10 +192,60 @@
     _thirdStepLabel.backgroundColor=selectedStepColor;
 }
 
+- (void)cyberSourcePayment:(BOOL)isCyberSourcePaymentSelcted {
+    if (isCyberSourcePaymentSelcted) {
+        if (isSelectCard) {
+            _selectCarRadioLabel.backgroundColor=selectedStepColor;
+            _selectCarRadioLabel.layer.borderWidth=1.0;
+            _selectCarRadioLabel.layer.borderColor=selectedStepColor.CGColor;
+            
+            _addCardRadioLabel.backgroundColor=[UIColor whiteColor];
+            _addCardRadioLabel.layer.borderWidth=1.0;
+            _addCardRadioLabel.layer.borderColor=selectedStepColor.CGColor;
+        }
+        else {
+            _selectCarRadioLabel.backgroundColor=[UIColor whiteColor];
+            _selectCarRadioLabel.layer.borderWidth=1.0;
+            _selectCarRadioLabel.layer.borderColor=selectedStepColor.CGColor;
+            
+            _addCardRadioLabel.backgroundColor=selectedStepColor;
+            _addCardRadioLabel.layer.borderWidth=1.0;
+            _addCardRadioLabel.layer.borderColor=selectedStepColor.CGColor;
+        }
+    }
+    else {
+        isCardAdd=false;
+        _selectCarRadioLabel.backgroundColor=[UIColor whiteColor];
+        _selectCarRadioLabel.layer.borderWidth=1.0;
+        _selectCarRadioLabel.layer.borderColor=selectedStepColor.CGColor;
+        
+        _addCardRadioLabel.backgroundColor=[UIColor whiteColor];
+        _addCardRadioLabel.layer.borderWidth=1.0;
+        _addCardRadioLabel.layer.borderColor=selectedStepColor.CGColor;
+        [self customizedFraming];
+    }
+   
+}
+
 - (void)setLocalizedText {
     //Set localized string
     _freeShippingLabel.text=NSLocalizedText(@"cartListFreeShipping");
     _summaryLabel.text=NSLocalizedText(@"summary");
+    _addCardLabel.text=NSLocalizedText(@"addCardCheckout");
+    _selectCardLabel.text=NSLocalizedText(@"selectCard");
+    _cardHolderName.placeholder=NSLocalizedText(@"cardholder");
+    _cardNumber.placeholder=NSLocalizedText(@"cardnumber");
+    _monthField.placeholder=NSLocalizedText(@"month");
+    _yearField.placeholder=NSLocalizedText(@"year");
+    _cvvField.placeholder=NSLocalizedText(@"cvv");
+    _cardType.placeholder=NSLocalizedText(@"cardType");
+    NSMutableArray *tempArray=[[UserDefaultManager getValue:@"cardTypes"] mutableCopy];
+    for (int i=0; i<tempArray.count; i++) {
+        NSDictionary *dataDict=[[NSDictionary alloc]init];
+        dataDict=[tempArray objectAtIndex:i];
+        [cardTypeDataArray addObject:[dataDict objectForKey:@"name"]];
+        [cardTypeCodeArray addObject:[dataDict objectForKey:@"value"]];
+    }
 }
 
 - (void)customizedFraming {
@@ -152,20 +257,34 @@
     }
     _cartListView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _cartItemsTableView.frame.size.height+_cartItemsTableView.frame.origin.y);
     
-    if (isCyberSourceExist&&paymentMethodArray.count>1) {
+    if (isCyberSourceExist&&paymentMethodArray.count>1&&isCardAdd) {
          _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 44);
-         _paymentCollectionView.frame=CGRectMake(0, _cyberSourceView.frame.origin.y+_cyberSourceView.frame.size.height+17, [[UIScreen mainScreen] bounds].size.width-30, 78);
+        _addCardView.hidden=false;
+        _addCardView.frame=CGRectMake(0, _cyberSourceView.frame.origin.y+_cyberSourceView.frame.size.height+8, [[UIScreen mainScreen] bounds].size.width-30, 204);
+         _paymentCollectionView.frame=CGRectMake(0, _addCardView.frame.origin.y+_addCardView.frame.size.height+12, [[UIScreen mainScreen] bounds].size.width-30, 78);
     }
-    else if (isCyberSourceExist) {
+    else if (isCyberSourceExist&&!isCardAdd&&paymentMethodArray.count>1) {
         _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 44);
-        _paymentCollectionView.frame=CGRectMake(0, 95, [[UIScreen mainScreen] bounds].size.width-30, 0);
+        _addCardView.frame=CGRectMake(0, _cyberSourceView.frame.origin.y+_cyberSourceView.frame.size.height+8, [[UIScreen mainScreen] bounds].size.width-30, 0);
+        _addCardView.hidden=true;
+        _paymentCollectionView.frame=CGRectMake(0, _addCardView.frame.origin.y+_addCardView.frame.size.height+12, [[UIScreen mainScreen] bounds].size.width-30, 78);
+    }
+    else if (isCyberSourceExist&&!isCardAdd) {
+        _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 44);
+        _addCardView.frame=CGRectMake(0, _cyberSourceView.frame.origin.y+_cyberSourceView.frame.size.height+8, [[UIScreen mainScreen] bounds].size.width-30, 0);
+        _addCardView.hidden=true;
+        _paymentCollectionView.frame=CGRectMake(0, _addCardView.frame.origin.y+_addCardView.frame.size.height+12, [[UIScreen mainScreen] bounds].size.width-30, 0);
     }
     else if (!isCyberSourceExist&&paymentMethodArray.count>0) {
         _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
+         _addCardView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
+        _addCardView.hidden=true;
         _paymentCollectionView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 78);
     }
     else {
         _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
+         _addCardView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
+        _addCardView.hidden=true;
         _paymentCollectionView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
     }
     
@@ -173,19 +292,21 @@
         _paymentView.frame=CGRectMake(15, _cartListView.frame.size.height+_cartListView.frame.origin.y+8, [[UIScreen mainScreen] bounds].size.width-30, 0);
     }
     else {
-        _paymentView.frame=CGRectMake(15, _cartListView.frame.size.height+_cartListView.frame.origin.y+8, [[UIScreen mainScreen] bounds].size.width-30, (_cyberSourceView.frame.size.height==0?(_paymentCollectionView.frame.origin.y+_paymentCollectionView.frame.size.height):(_cyberSourceView.frame.origin.y+_cyberSourceView.frame.size.height+17+_paymentCollectionView.frame.size.height)));
+        if (isCardAdd) {
+             _paymentView.frame=CGRectMake(15, _cartListView.frame.size.height+_cartListView.frame.origin.y+8, [[UIScreen mainScreen] bounds].size.width-30, (_cyberSourceView.frame.size.height==0?(_paymentCollectionView.frame.origin.y+_paymentCollectionView.frame.size.height):(_cyberSourceView.frame.origin.y+_cyberSourceView.frame.size.height+17+_paymentCollectionView.frame.size.height+_paymentCollectionView.frame.size.height+204)));
+        }
+        else {
+        _paymentView.frame=CGRectMake(15, _cartListView.frame.size.height+_cartListView.frame.origin.y+8, [[UIScreen mainScreen] bounds].size.width-30, (_cyberSourceView.frame.size.height==0?(_paymentCollectionView.frame.origin.y+_paymentCollectionView.frame.size.height):(_cyberSourceView.frame.origin.y+_cyberSourceView.frame.size.height+17+_paymentCollectionView.frame.size.height+_paymentCollectionView.frame.size.height)));
+        }
     }
-    _mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _paymentView.frame.size.height+_paymentView.frame.origin.y+10);
+    _mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _paymentView.frame.size.height+_paymentView.frame.origin.y+80);
     [_paymentCollectionView reloadData];
-    
-    _cyberSourceView.layer.cornerRadius=22;
-    [_cyberSourceView addShadow:_cyberSourceView color:[UIColor blackColor]];
 }
 
 - (void)getDataFromCartModel {
     selectedPaymentMethodIndex=-1;
     DLog(@"%@",[cartModelData.checkoutFinalData objectForKey:@"payment_methods"]);
-    paymentMethodArray=[NSMutableArray arrayWithObjects:@"magedelight_cybersource", @"paypal", @"tenpaypayment", @"aliChat", nil];
+    paymentMethodArray=[NSMutableArray arrayWithObjects:@"magedelight_cybersource", @"paypal_express", @"tenpaypayment", @"alipay", nil];
     isCyberSourceExist=false;
     paymentMethodDict=[NSMutableDictionary new];
     for (NSDictionary *tempDict in [cartModelData.checkoutFinalData objectForKey:@"payment_methods"]) {
@@ -198,12 +319,12 @@
             [paymentMethodDict setObject:[tempDict copy] forKey:@"tenpaypayment"];
             continue;
         }
-        else if ([tempDict[@"code"] isEqualToString:@"paypal"]) {
-            [paymentMethodDict setObject:[tempDict copy] forKey:@"paypal"];
+        else if ([tempDict[@"code"] isEqualToString:@"paypal_express"]) {
+            [paymentMethodDict setObject:[tempDict copy] forKey:@"paypal_express"];
             continue;
         }
-        else if ([tempDict[@"code"] isEqualToString:@"aliChat"]) {
-            [paymentMethodDict setObject:[tempDict copy] forKey:@"aliChat"];
+        else if ([tempDict[@"code"] isEqualToString:@"alipay"]) {
+            [paymentMethodDict setObject:[tempDict copy] forKey:@"alipay"];
             continue;
         }
     }
@@ -417,10 +538,10 @@
     if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"tenpaypayment"]) {
          paymentmethodImageView.image=[UIImage imageNamed:@"weChatPayIcon.png"];
     }
-    else if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"paypal"]) {
+    else if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"paypal_express"]) {
         paymentmethodImageView.image=[UIImage imageNamed:@"paypalIcon.png"];
     }
-    else if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"aliChat"]) {
+    else if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"alipay"]) {
          paymentmethodImageView.image=[UIImage imageNamed:@"alipayIcon.png"];
     }
     
@@ -452,6 +573,7 @@
     else {
         selectedPaymentMethodIndex=(int)indexPath.row;
     }
+    [self cyberSourcePayment:false];
     [_paymentCollectionView reloadData];
 }
 #pragma mark - end
@@ -459,10 +581,10 @@
 #pragma mark - Webservice
 - (void)setPaymentMethod {
     CartDataModel *cartData = [CartDataModel sharedUser];
-    cartData.paymentMethod=@"cashondelivery";
+    cartData.paymentMethod=[paymentMethodArray objectAtIndex:selectedPaymentMethodIndex];
     [cartData setPaymentMethodOnSuccess:^(CartDataModel *shippmentDetailData)  {
-        [self setCheckoutOrder];
-//        [myDelegate stopIndicator];
+        //[self setCheckoutOrder];
+        [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
         
     }];
@@ -476,6 +598,71 @@
     } onfailure:^(NSError *error) {
         
     }];
+}
+#pragma mark - end
+
+#pragma mark - IBActions
+- (IBAction)selectCardTypeAction:(id)sender {
+    // picker of card type
+     [gNPickerViewObj showPickerView:cardTypeDataArray selectedIndex:selectedPickerIndex option:1 isCancelDelegate:false isFilterScreen:false];
+}
+
+- (IBAction)addCardButtonAction:(id)sender {
+    isCardAdd=true;
+    isSelectCard=false;
+    isCyberSourcePayment=true;
+    _addCardRadioLabel.backgroundColor=selectedStepColor;
+    _addCardRadioLabel.layer.borderWidth=1.0;
+    _addCardRadioLabel.layer.borderColor=selectedStepColor.CGColor;
+    
+    _selectCarRadioLabel.backgroundColor=[UIColor whiteColor];
+    _selectCarRadioLabel.layer.borderWidth=1.0;
+    _selectCarRadioLabel.layer.borderColor=selectedStepColor.CGColor;
+    selectedPaymentMethodIndex=-1;
+    [_paymentCollectionView reloadData];
+    [self cyberSourcePayment:true];
+    [self customizedFraming];
+}
+
+- (IBAction)selectCardButtonAction:(id)sender {
+    isCardAdd=true;
+     isSelectCard=true;
+    isCyberSourcePayment=true;
+    _addCardRadioLabel.backgroundColor=[UIColor whiteColor];
+    _addCardRadioLabel.layer.borderWidth=1.0;
+    _addCardRadioLabel.layer.borderColor=selectedStepColor.CGColor;
+    _selectCarRadioLabel.backgroundColor=selectedStepColor;
+    _selectCarRadioLabel.layer.borderWidth=1.0;
+    _selectCarRadioLabel.layer.borderColor=selectedStepColor.CGColor;
+    selectedPaymentMethodIndex=-1;
+    [_paymentCollectionView reloadData];
+    [self cyberSourcePayment:true];
+     [self customizedFraming];
+    
+//    CardListViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CardListViewController"];
+//    obj.finalCheckoutView=self;
+//    [self.navigationController pushViewController:obj animated:YES];
+}
+
+- (IBAction)placeOrderButtonAction:(id)sender {
+    if (isCyberSourcePayment) {
+        selectedPaymentMethodIndex=0;
+    }
+    [myDelegate showIndicator];
+    [self performSelector:@selector(setPaymentMethod) withObject:nil afterDelay:.1];
+}
+
+#pragma mark - end
+
+#pragma mark - Custom picker delegate method
+- (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {
+    if (option==1) {
+        if (selectedPickerIndex!=tempSelectedIndex) {
+            selectedPickerIndex=tempSelectedIndex;
+            _cardType.text=[cardTypeDataArray objectAtIndex:selectedPickerIndex];
+            selectedCardTypeId=[cardTypeCodeArray objectAtIndex:selectedPickerIndex];
+         }
+    }
 }
 #pragma mark - end
 @end

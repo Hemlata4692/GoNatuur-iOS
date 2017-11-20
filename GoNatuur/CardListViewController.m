@@ -22,6 +22,7 @@
 
 @implementation CardListViewController
 @synthesize cardAdded;
+@synthesize finalCheckoutView;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
