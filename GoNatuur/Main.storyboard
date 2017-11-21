@@ -528,7 +528,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="96.5" y="274" width="129" height="21"/>
+                                <rect key="frame" x="96" y="274" width="129" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -1148,7 +1148,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hrH-TX-Sz3">
                                                 <rect key="frame" x="0.0" y="199" width="320" height="42"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="25c-g1-7yT">
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="25c-g1-7yT">
                                                         <rect key="frame" x="0.0" y="5" width="106" height="35"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -1162,7 +1162,7 @@
                                                             <action selector="bestSellerButtonAction:" destination="fGG-E6-gaS" eventType="touchUpInside" id="amH-bi-bL0"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8K-nt-7hC">
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8K-nt-7hC">
                                                         <rect key="frame" x="107" y="5" width="106" height="35"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -1176,7 +1176,7 @@
                                                             <action selector="healthyLivingButtonAction:" destination="fGG-E6-gaS" eventType="touchUpInside" id="n6R-KE-VX7"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJ0-9c-z5n">
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJ0-9c-z5n">
                                                         <rect key="frame" x="214" y="5" width="106" height="35"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -1190,7 +1190,7 @@
                                                             <action selector="samplersButtonAction:" destination="fGG-E6-gaS" eventType="touchUpInside" id="xeq-xR-jAJ"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SRB-3d-5xT">
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SRB-3d-5xT">
                                                         <rect key="frame" x="35" y="36" width="35" height="2"/>
                                                         <color key="backgroundColor" red="0.57254901960000004" green="0.1058823529" blue="0.2156862745" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -1342,7 +1342,7 @@
                                                                         <constraint firstAttribute="trailing" secondItem="QWA-DX-RrB" secondAttribute="trailing" constant="9" id="vsj-OP-RbM"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sold_en" translatesAutoresizingMaskIntoConstraints="NO" id="frE-ys-Dpf">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="frE-ys-Dpf">
                                                                     <rect key="frame" x="0.0" y="0.0" width="113" height="113"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="113" id="D7Z-u1-YS3"/>
@@ -1515,6 +1515,7 @@
                         <outlet property="noRecordLabel" destination="axF-Jf-mo5" id="DBT-gE-Uw6"/>
                         <outlet property="productCollectionView" destination="2mk-W9-coR" id="LFX-8S-Hvx"/>
                         <outlet property="samplers" destination="fJ0-9c-z5n" id="b7V-Qt-IIK"/>
+                        <outlet property="segmentedControlView" destination="hrH-TX-Sz3" id="qg6-Ma-NyE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KQu-ih-xNU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -7272,7 +7273,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="96" y="274" width="129" height="21"/>
+                                <rect key="frame" x="96.5" y="274" width="129" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>
@@ -12152,6 +12153,7 @@
                         <outlet property="cardHolderName" destination="Tke-hx-WKh" id="uBt-p9-dKl"/>
                         <outlet property="cardNumber" destination="reI-vc-7ge" id="dJp-w3-y5E"/>
                         <outlet property="cardType" destination="EZw-B8-WsK" id="nFt-C9-QyO"/>
+                        <outlet property="cardTypeButton" destination="3bQ-Fj-VWC" id="QZd-Lx-W9S"/>
                         <outlet property="cartItemsTableView" destination="MI6-m5-usp" id="vg7-rr-5UY"/>
                         <outlet property="cartListView" destination="cmm-Dt-oO8" id="PW9-N3-A1P"/>
                         <outlet property="cvvField" destination="yfG-Jn-vHg" id="7Po-XO-OrB"/>
@@ -12163,6 +12165,7 @@
                         <outlet property="monthField" destination="AMJ-7I-PYJ" id="bXQ-lM-qFN"/>
                         <outlet property="paymentCollectionView" destination="mmY-jQ-gE6" id="A1K-q3-qL8"/>
                         <outlet property="paymentView" destination="roa-U1-TbM" id="amK-yK-u4l"/>
+                        <outlet property="placeOrderButton" destination="ZOD-ta-tqA" id="P1B-Qk-hhB"/>
                         <outlet property="scrollView" destination="TvX-VP-9JZ" id="j7B-Fp-6fc"/>
                         <outlet property="secondStepLabel" destination="dpQ-Nn-f1a" id="fy1-K4-U3g"/>
                         <outlet property="secondStepSeperetorLabel" destination="oGQ-cL-CrH" id="RVI-fU-R1A"/>
@@ -13757,7 +13760,7 @@
         <image name="360" width="28" height="28"/>
         <image name="DC" width="132" height="84"/>
         <image name="about" width="26" height="26"/>
-        <image name="alipayIcon.png" width="300" height="225"/>
+        <image name="alipayIcon.png" width="293" height="147"/>
         <image name="arrow" width="18" height="18"/>
         <image name="asc" width="26" height="26"/>
         <image name="attending" width="28" height="28"/>

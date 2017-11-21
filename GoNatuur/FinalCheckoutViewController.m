@@ -12,6 +12,7 @@
 #import "UITextField+Padding.h"
 #import "CardListViewController.h"
 #import "GoNatuurPickerView.h"
+#import "BSKeyboardControls.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
@@ -20,7 +21,7 @@
 #define selectedPaymentMethodColor  [UIColor colorWithRed:250.0/255.0 green:241.0/255.0 blue:244.0/255.0 alpha:1.0]
 
 #define textFieldBorderColor  [UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]
-@interface FinalCheckoutViewController ()<GoNatuurPickerViewDelegate> {
+@interface FinalCheckoutViewController ()<GoNatuurPickerViewDelegate,BSKeyboardControlsDelegate> {
 @private
     NSMutableArray *paymentMethodArray, *cardTypeDataArray, *cardTypeCodeArray;
     NSDictionary *cartItemPrice;
@@ -33,7 +34,7 @@
     bool isCardAdd, isSelectCard;
     int selectedPickerIndex;
     GoNatuurPickerView *gNPickerViewObj;
-    NSString *selectedCardTypeId;
+    NSString *selectedCardTypeId, *encryptedSubscriptionId;
 }
 //View objects declaration
 @property (strong, nonatomic) IBOutlet UILabel *freeShippingLabel;
@@ -58,17 +59,20 @@
 @property (weak, nonatomic) IBOutlet UITextField *yearField;
 @property (weak, nonatomic) IBOutlet UITextField *cvvField;
 @property (weak, nonatomic) IBOutlet UILabel *selectCarRadioLabel;
+@property (weak, nonatomic) IBOutlet UIButton *cardTypeButton;
+@property (weak, nonatomic) IBOutlet UIButton *placeOrderButton;
 @property (weak, nonatomic) IBOutlet UILabel *selectCardLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addCardRadioLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addCardLabel;
-
+//Declare BSKeyboard variable
+@property (strong, nonatomic) BSKeyboardControls *keyboardControls;
 @end
 
 @implementation FinalCheckoutViewController
 @synthesize cartModelData;
 @synthesize cartListDataArray;
 @synthesize finalCheckoutPriceDict;
-@synthesize selectedCardDataArray;
+@synthesize selectedCardDataDict;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -83,6 +87,37 @@
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:true];
     isCyberSourcePayment=false;
+    [self setSelectedCardData];
+}
+
+- (void)setSelectedCardData {
+    if (selectedCardDataDict!=nil) {
+        _cardNumber.text = [NSString stringWithFormat:@"%@ %@",NSLocalizedText(@"cardNumberList"),selectedCardDataDict.cardLastFourDigit];
+        _cardHolderName.text = [NSString stringWithFormat:@"%@ %@",selectedCardDataDict.firstname,selectedCardDataDict.lastname];
+        _monthField.text = selectedCardDataDict.cardExpMonth;
+        _yearField.text = selectedCardDataDict.cardExpYear;
+        _cardType.text=selectedCardDataDict.cardType;
+        encryptedSubscriptionId=selectedCardDataDict.encryptedSubscriptionId;
+        _yearField.userInteractionEnabled=false;
+        _monthField.userInteractionEnabled=false;
+        _cardHolderName.userInteractionEnabled=false;
+        _cardNumber.userInteractionEnabled=false;
+        _cardTypeButton.userInteractionEnabled=false;
+        _cardType.userInteractionEnabled=false;
+    }
+    else {
+        _cardNumber.text = @"";
+        _cardHolderName.text = @"";
+        _monthField.text = @"";
+        _yearField.text = @"";
+        _cardType.text=@"";
+        _yearField.userInteractionEnabled=true;
+        _monthField.userInteractionEnabled=true;
+        _cardHolderName.userInteractionEnabled=true;
+        _cardNumber.userInteractionEnabled=true;
+        _cardTypeButton.userInteractionEnabled=true;
+        _cardType.userInteractionEnabled=true;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,6 +144,9 @@
 - (void)viewInitialization {
     [self showSelectedTab:2];
     [self addCustomPickerView];
+    //Adding textfield to keyboard controls array
+    [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_cardHolderName, _cardNumber, _monthField,_yearField, _cvvField]]];
+    [_keyboardControls setDelegate:self];
     //Customized steps
     [self customizedSteps];
     [self setLocalizedText];
@@ -193,6 +231,7 @@
 }
 
 - (void)cyberSourcePayment:(BOOL)isCyberSourcePaymentSelcted {
+    isCyberSourcePayment=isCyberSourcePaymentSelcted;
     if (isCyberSourcePaymentSelcted) {
         if (isSelectCard) {
             _selectCarRadioLabel.backgroundColor=selectedStepColor;
@@ -224,7 +263,7 @@
         _addCardRadioLabel.layer.borderColor=selectedStepColor.CGColor;
         [self customizedFraming];
     }
-   
+    
 }
 
 - (void)setLocalizedText {
@@ -258,10 +297,10 @@
     _cartListView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _cartItemsTableView.frame.size.height+_cartItemsTableView.frame.origin.y);
     
     if (isCyberSourceExist&&paymentMethodArray.count>1&&isCardAdd) {
-         _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 44);
+        _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 44);
         _addCardView.hidden=false;
         _addCardView.frame=CGRectMake(0, _cyberSourceView.frame.origin.y+_cyberSourceView.frame.size.height+8, [[UIScreen mainScreen] bounds].size.width-30, 204);
-         _paymentCollectionView.frame=CGRectMake(0, _addCardView.frame.origin.y+_addCardView.frame.size.height+12, [[UIScreen mainScreen] bounds].size.width-30, 78);
+        _paymentCollectionView.frame=CGRectMake(0, _addCardView.frame.origin.y+_addCardView.frame.size.height+12, [[UIScreen mainScreen] bounds].size.width-30, 78);
     }
     else if (isCyberSourceExist&&!isCardAdd&&paymentMethodArray.count>1) {
         _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 44);
@@ -277,13 +316,13 @@
     }
     else if (!isCyberSourceExist&&paymentMethodArray.count>0) {
         _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
-         _addCardView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
+        _addCardView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
         _addCardView.hidden=true;
         _paymentCollectionView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 78);
     }
     else {
         _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
-         _addCardView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
+        _addCardView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
         _addCardView.hidden=true;
         _paymentCollectionView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
     }
@@ -293,10 +332,10 @@
     }
     else {
         if (isCardAdd) {
-             _paymentView.frame=CGRectMake(15, _cartListView.frame.size.height+_cartListView.frame.origin.y+8, [[UIScreen mainScreen] bounds].size.width-30, (_cyberSourceView.frame.size.height==0?(_paymentCollectionView.frame.origin.y+_paymentCollectionView.frame.size.height):(_cyberSourceView.frame.origin.y+_cyberSourceView.frame.size.height+17+_paymentCollectionView.frame.size.height+_paymentCollectionView.frame.size.height+204)));
+            _paymentView.frame=CGRectMake(15, _cartListView.frame.size.height+_cartListView.frame.origin.y+8, [[UIScreen mainScreen] bounds].size.width-30, (_cyberSourceView.frame.size.height==0?(_paymentCollectionView.frame.origin.y+_paymentCollectionView.frame.size.height):(_cyberSourceView.frame.origin.y+_cyberSourceView.frame.size.height+17+_paymentCollectionView.frame.size.height+_paymentCollectionView.frame.size.height+204)));
         }
         else {
-        _paymentView.frame=CGRectMake(15, _cartListView.frame.size.height+_cartListView.frame.origin.y+8, [[UIScreen mainScreen] bounds].size.width-30, (_cyberSourceView.frame.size.height==0?(_paymentCollectionView.frame.origin.y+_paymentCollectionView.frame.size.height):(_cyberSourceView.frame.origin.y+_cyberSourceView.frame.size.height+17+_paymentCollectionView.frame.size.height+_paymentCollectionView.frame.size.height)));
+            _paymentView.frame=CGRectMake(15, _cartListView.frame.size.height+_cartListView.frame.origin.y+8, [[UIScreen mainScreen] bounds].size.width-30, (_cyberSourceView.frame.size.height==0?(_paymentCollectionView.frame.origin.y+_paymentCollectionView.frame.size.height):(_cyberSourceView.frame.origin.y+_cyberSourceView.frame.size.height+17+_paymentCollectionView.frame.size.height+_paymentCollectionView.frame.size.height)));
         }
     }
     _mainView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, _paymentView.frame.size.height+_paymentView.frame.origin.y+80);
@@ -391,7 +430,7 @@
         totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Apply coupon code", @"Grand Total"];
         [self setRedeemProductsWithApplyCouponCode];
     }
-     //Only for redeem products without apply coupon code
+    //Only for redeem products without apply coupon code
     else if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
         isApplyCouponExist=false;
         totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
@@ -480,7 +519,7 @@
     if (cell == nil) {
         cell = [[FinalCheckoutTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
-
+    
     if (indexPath.row<cartListDataArray.count) {
         [cell displayCartListData:[cartListDataArray objectAtIndex:indexPath.row] isSeparatorHide:(indexPath.row==cartListDataArray.count-1?true:false)];
     }
@@ -536,13 +575,13 @@
     }
     DLog(@"%@",[paymentMethodArray objectAtIndex:index]);
     if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"tenpaypayment"]) {
-         paymentmethodImageView.image=[UIImage imageNamed:@"weChatPayIcon.png"];
+        paymentmethodImageView.image=[UIImage imageNamed:@"weChatPayIcon.png"];
     }
     else if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"paypal_express"]) {
         paymentmethodImageView.image=[UIImage imageNamed:@"paypalIcon.png"];
     }
     else if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"alipay"]) {
-         paymentmethodImageView.image=[UIImage imageNamed:@"alipayIcon.png"];
+        paymentmethodImageView.image=[UIImage imageNamed:@"alipayIcon.png"];
     }
     
     if (selectedPaymentMethodIndex==index) {
@@ -573,6 +612,7 @@
     else {
         selectedPaymentMethodIndex=(int)indexPath.row;
     }
+    
     [self cyberSourcePayment:false];
     [_paymentCollectionView reloadData];
 }
@@ -592,7 +632,7 @@
 
 - (void)setCheckoutOrder {
     CartDataModel *cartData = [CartDataModel sharedUser];
-     cartData.paymentMethod=@"cashondelivery";
+    cartData.paymentMethod=@"cashondelivery";
     [cartData setCheckoutOrderOnSuccess:^(CartDataModel *shippmentDetailData)  {
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
@@ -604,7 +644,7 @@
 #pragma mark - IBActions
 - (IBAction)selectCardTypeAction:(id)sender {
     // picker of card type
-     [gNPickerViewObj showPickerView:cardTypeDataArray selectedIndex:selectedPickerIndex option:1 isCancelDelegate:false isFilterScreen:false];
+    [gNPickerViewObj showPickerView:cardTypeDataArray selectedIndex:selectedPickerIndex option:1 isCancelDelegate:false isFilterScreen:false];
 }
 
 - (IBAction)addCardButtonAction:(id)sender {
@@ -620,13 +660,15 @@
     _selectCarRadioLabel.layer.borderColor=selectedStepColor.CGColor;
     selectedPaymentMethodIndex=-1;
     [_paymentCollectionView reloadData];
+    selectedCardDataDict=nil;
+    [self setSelectedCardData];
     [self cyberSourcePayment:true];
     [self customizedFraming];
 }
 
 - (IBAction)selectCardButtonAction:(id)sender {
     isCardAdd=true;
-     isSelectCard=true;
+    isSelectCard=true;
     isCyberSourcePayment=true;
     _addCardRadioLabel.backgroundColor=[UIColor whiteColor];
     _addCardRadioLabel.layer.borderWidth=1.0;
@@ -637,14 +679,16 @@
     selectedPaymentMethodIndex=-1;
     [_paymentCollectionView reloadData];
     [self cyberSourcePayment:true];
-     [self customizedFraming];
+    [self customizedFraming];
     
-//    CardListViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CardListViewController"];
-//    obj.finalCheckoutView=self;
-//    [self.navigationController pushViewController:obj animated:YES];
+    CardListViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CardListViewController"];
+    obj.finalCheckoutView=self;
+    [self.navigationController pushViewController:obj animated:YES];
 }
 
 - (IBAction)placeOrderButtonAction:(id)sender {
+    [_keyboardControls.activeField resignFirstResponder];
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     if (isCyberSourcePayment) {
         selectedPaymentMethodIndex=0;
     }
@@ -661,8 +705,38 @@
             selectedPickerIndex=tempSelectedIndex;
             _cardType.text=[cardTypeDataArray objectAtIndex:selectedPickerIndex];
             selectedCardTypeId=[cardTypeCodeArray objectAtIndex:selectedPickerIndex];
-         }
+        }
     }
+}
+#pragma mark - end
+
+#pragma mark - Keyboard control delegate
+- (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction {
+    UIView *view;
+    view = field.superview.superview.superview;
+}
+
+- (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControl {
+    [keyboardControl.activeField resignFirstResponder];
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+}
+#pragma mark - end
+
+#pragma mark - Textfield delegates
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [_keyboardControls setActiveField:textField];
+    [gNPickerViewObj hidePickerView];
+    if (textField.frame.origin.y + textField.frame.size.height + 15 < (_mainView.frame.size.height - 256)) {
+        [_scrollView setContentOffset:CGPointMake(0, textField.frame.origin.y+200) animated:NO];
+    } else {
+        [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    return YES;
 }
 #pragma mark - end
 @end

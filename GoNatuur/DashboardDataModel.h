@@ -25,6 +25,8 @@
 @property (strong, nonatomic) NSMutableArray *footerBannerImageArray;
 @property (strong, nonatomic) NSMutableArray *healthyLivingArray;
 @property (strong, nonatomic) NSMutableArray *samplersDataArray;
+@property (strong, nonatomic) NSMutableArray *promotionsDataArray;
+@property (strong, nonatomic) NSMutableArray *productsDataArray;
 @property (strong, nonatomic) NSMutableArray *productDataArray;
 @property (strong, nonatomic) NSNumber *currentPage;
 @property (strong, nonatomic) NSNumber *pageSize;

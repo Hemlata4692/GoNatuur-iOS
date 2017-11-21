@@ -54,6 +54,7 @@
 		181FD2261F60195900C5373C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2251F60195900C5373C /* OpenGLES.framework */; };
 		181FD2281F60197800C5373C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2271F60197800C5373C /* Accelerate.framework */; };
 		181FD22A1F60198000C5373C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2291F60198000C5373C /* AudioToolbox.framework */; };
+		1843C5901FC405AD0085C52A /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843C58F1FC3FDE30085C52A /* HMSegmentedControl.m */; };
 		184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C385B1F3B0911008B8291 /* SideBarViewController.m */; };
 		184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C38641F3B328A008B8291 /* EnableNotificationViewController.m */; };
 		184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */; };
@@ -179,7 +180,6 @@
 		B75E6F2A1F7505150059D8E1 /* MyCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B75E6F291F7505150059D8E1 /* MyCartViewController.m */; };
 		B75E6F2D1F7505280059D8E1 /* CartListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B75E6F2C1F7505280059D8E1 /* CartListTableViewCell.m */; };
 		B75E6F301F7505380059D8E1 /* CartListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B75E6F2F1F7505380059D8E1 /* CartListingViewController.m */; };
-		B75E6F361F75063E0059D8E1 /* alipayIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B75E6F321F75063E0059D8E1 /* alipayIcon.png */; };
 		B75E6F371F75063E0059D8E1 /* cybersourceIcon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B75E6F331F75063E0059D8E1 /* cybersourceIcon.jpg */; };
 		B75E6F381F75063E0059D8E1 /* paypalIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B75E6F341F75063E0059D8E1 /* paypalIcon.png */; };
 		B75E6F391F75063E0059D8E1 /* weChatPayIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B75E6F351F75063E0059D8E1 /* weChatPayIcon.png */; };
@@ -273,6 +273,9 @@
 		181FD2251F60195900C5373C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		181FD2271F60197800C5373C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		181FD2291F60198000C5373C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1843C58D1FC3FA990085C52A /* alipayIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alipayIcon.png; sourceTree = "<group>"; };
+		1843C58E1FC3FDE00085C52A /* HMSegmentedControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
+		1843C58F1FC3FDE30085C52A /* HMSegmentedControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		184C385A1F3B0911008B8291 /* SideBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideBarViewController.h; sourceTree = "<group>"; };
 		184C385B1F3B0911008B8291 /* SideBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideBarViewController.m; sourceTree = "<group>"; };
 		184C38631F3B328A008B8291 /* EnableNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableNotificationViewController.h; sourceTree = "<group>"; };
@@ -499,7 +502,6 @@
 		B75E6F2C1F7505280059D8E1 /* CartListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartListTableViewCell.m; sourceTree = "<group>"; };
 		B75E6F2E1F7505380059D8E1 /* CartListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartListingViewController.h; sourceTree = "<group>"; };
 		B75E6F2F1F7505380059D8E1 /* CartListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartListingViewController.m; sourceTree = "<group>"; };
-		B75E6F321F75063E0059D8E1 /* alipayIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alipayIcon.png; sourceTree = "<group>"; };
 		B75E6F331F75063E0059D8E1 /* cybersourceIcon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cybersourceIcon.jpg; sourceTree = "<group>"; };
 		B75E6F341F75063E0059D8E1 /* paypalIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paypalIcon.png; sourceTree = "<group>"; };
 		B75E6F351F75063E0059D8E1 /* weChatPayIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weChatPayIcon.png; sourceTree = "<group>"; };
@@ -1507,6 +1509,8 @@
 		320761611F1626FB001F1790 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1843C58E1FC3FDE00085C52A /* HMSegmentedControl.h */,
+				1843C58F1FC3FDE30085C52A /* HMSegmentedControl.m */,
 				320761661F162789001F1790 /* CategoryClasses */,
 				320761651F162733001F1790 /* HelperClasses */,
 			);
@@ -2084,7 +2088,7 @@
 		B75E6F311F75062F0059D8E1 /* CheckoutStep3 */ = {
 			isa = PBXGroup;
 			children = (
-				B75E6F321F75063E0059D8E1 /* alipayIcon.png */,
+				1843C58D1FC3FA990085C52A /* alipayIcon.png */,
 				B75E6F331F75063E0059D8E1 /* cybersourceIcon.jpg */,
 				B75E6F341F75063E0059D8E1 /* paypalIcon.png */,
 				B75E6F351F75063E0059D8E1 /* weChatPayIcon.png */,
@@ -2551,7 +2555,6 @@
 				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
 				1809BE771F90CF8000B1DF2D /* ajax_handler.js in Resources */,
 				B75E6F381F75063E0059D8E1 /* paypalIcon.png in Resources */,
-				B75E6F361F75063E0059D8E1 /* alipayIcon.png in Resources */,
 				B73A653E1F3DF0870051E4C5 /* cn.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2697,6 +2700,7 @@
 				180ECD251F482A38003C936E /* WebViewController.m in Sources */,
 				180ECD291F484A17003C936E /* ReviewViewController.m in Sources */,
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
+				1843C5901FC405AD0085C52A /* HMSegmentedControl.m in Sources */,
 				18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
 				B7A73B8E1F6F916600412656 /* OrderInvoiceTableViewCell.m in Sources */,
