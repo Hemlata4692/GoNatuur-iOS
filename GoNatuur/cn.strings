@@ -349,3 +349,7 @@
 "cardType"="Card Type*";
 "newProduct"="New Products";
 "newPromotions"="New Promotions";
+"transactionId"="TransactionID:";
+"pointsLabel"="Points:";
+"earnedDate"="Earned/Spent Date:";
+"expiryDate"="Expiry Date:";

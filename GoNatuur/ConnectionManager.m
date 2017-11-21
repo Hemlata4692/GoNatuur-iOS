@@ -1092,6 +1092,8 @@
         DLog(@"user imapct point response %@",response);
         profileData.totalPoints=[response[@"balance_points"] stringValue];
         profileData.recentEarnedPoints=response[@"recently_earned_points"];
+        profileData.impactsPointDataArray=[response[@"impact_points_history"] mutableCopy];
+        profileData.impactPointTotalRecord=response[@"total_records"];
         success(profileData);
     } onFailure:^(NSError *error) {
         failure(error);

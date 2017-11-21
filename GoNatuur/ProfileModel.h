@@ -53,6 +53,8 @@
 @property (strong, nonatomic) NSString *pageCount;
 @property (strong, nonatomic) NSString *totalPoints;
 @property (strong, nonatomic) NSString *recentEarnedPoints;
+@property (strong, nonatomic) NSString *impactPointTotalRecord;
+@property (strong, nonatomic) NSMutableArray *impactsPointDataArray;
 @property (strong, nonatomic) NSString *userImageURL;
 @property (strong, nonatomic) NSString *billingAddressID;
 @property (strong, nonatomic) NSString *shippingAddressID;

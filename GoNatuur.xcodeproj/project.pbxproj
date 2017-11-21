@@ -76,6 +76,8 @@
 		1875619D1F46AAC500F609AB /* dashboard_banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619B1F46AAC500F609AB /* dashboard_banner1.png */; };
 		1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619C1F46AAC500F609AB /* dashboard_banner2.png */; };
 		187A89B91F6F93EB00E7431A /* ProductGuideSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */; };
+		1881C8FD1FC43C23001B587F /* ImpactPointsHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881C8FC1FC43C23001B587F /* ImpactPointsHistoryViewController.m */; };
+		1881C9021FC43C58001B587F /* ImapctPointHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881C9011FC43C58001B587F /* ImapctPointHistoryTableViewCell.m */; };
 		188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1886058F1F39AF320005D1E2 /* UserNotifications.framework */; };
 		188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605941F39BC430005D1E2 /* DashboardViewController.m */; };
 		1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605991F39C0FC0005D1E2 /* CategorySliderViewController.m */; };
@@ -311,6 +313,10 @@
 		1875619C1F46AAC500F609AB /* dashboard_banner2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner2.png; sourceTree = "<group>"; };
 		187A89B71F6F93EB00E7431A /* ProductGuideSearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGuideSearchListViewController.h; sourceTree = "<group>"; };
 		187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGuideSearchListViewController.m; sourceTree = "<group>"; };
+		1881C8FB1FC43C23001B587F /* ImpactPointsHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImpactPointsHistoryViewController.h; sourceTree = "<group>"; };
+		1881C8FC1FC43C23001B587F /* ImpactPointsHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImpactPointsHistoryViewController.m; sourceTree = "<group>"; };
+		1881C9001FC43C58001B587F /* ImapctPointHistoryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImapctPointHistoryTableViewCell.h; sourceTree = "<group>"; };
+		1881C9011FC43C58001B587F /* ImapctPointHistoryTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImapctPointHistoryTableViewCell.m; sourceTree = "<group>"; };
 		1886058F1F39AF320005D1E2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		188605931F39BC430005D1E2 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		188605941F39BC430005D1E2 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
@@ -952,6 +958,7 @@
 			children = (
 				1813BDBD1F55E70100D9C9BA /* ProfileView */,
 				18C418E11F57263600749654 /* EditProfileView */,
+				1884D4AC1FC439B2002382AE /* ImpactsPointHistory */,
 				5D27AC571F553A0500AECF40 /* ChangePasswordViewController */,
 			);
 			name = ProfileModule;
@@ -1018,6 +1025,33 @@
 				187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */,
 			);
 			name = ProductGuideSearchListing;
+			sourceTree = "<group>";
+		};
+		1881C8FE1FC43C2B001B587F /* ImpactPointCell */ = {
+			isa = PBXGroup;
+			children = (
+				1881C9001FC43C58001B587F /* ImapctPointHistoryTableViewCell.h */,
+				1881C9011FC43C58001B587F /* ImapctPointHistoryTableViewCell.m */,
+			);
+			name = ImpactPointCell;
+			sourceTree = "<group>";
+		};
+		1881C8FF1FC43C34001B587F /* ImapctPointHistoryView */ = {
+			isa = PBXGroup;
+			children = (
+				1881C8FB1FC43C23001B587F /* ImpactPointsHistoryViewController.h */,
+				1881C8FC1FC43C23001B587F /* ImpactPointsHistoryViewController.m */,
+			);
+			name = ImapctPointHistoryView;
+			sourceTree = "<group>";
+		};
+		1884D4AC1FC439B2002382AE /* ImpactsPointHistory */ = {
+			isa = PBXGroup;
+			children = (
+				1881C8FF1FC43C34001B587F /* ImapctPointHistoryView */,
+				1881C8FE1FC43C2B001B587F /* ImpactPointCell */,
+			);
+			name = ImpactsPointHistory;
 			sourceTree = "<group>";
 		};
 		188605911F39BB720005D1E2 /* DashboardModule */ = {
@@ -2644,6 +2678,7 @@
 				5DC7840D1F6637160025CA4A /* OrderDetailCell.m in Sources */,
 				5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */,
 				B75E6F2A1F7505150059D8E1 /* MyCartViewController.m in Sources */,
+				1881C8FD1FC43C23001B587F /* ImpactPointsHistoryViewController.m in Sources */,
 				B7A73B8B1F6F915E00412656 /* OrderInvoiceViewController.m in Sources */,
 				18A3B1161F669D8400A453A7 /* AddressAnnotation.m in Sources */,
 				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
@@ -2653,6 +2688,7 @@
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
 				5D4D533C1F73B53400A2AEFA /* SortFilterService.m in Sources */,
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
+				1881C9021FC43C58001B587F /* ImapctPointHistoryTableViewCell.m in Sources */,
 				B77A8A781F34388800233782 /* SignUpViewController.m in Sources */,
 				B75E6F271F7504FD0059D8E1 /* CheckoutCollectionViewCell.m in Sources */,
 				18FA12071F6A84870001A3B0 /* ProductGuideTableViewCell.m in Sources */,
