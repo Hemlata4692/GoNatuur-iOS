@@ -16,6 +16,7 @@
 #import "UIView+Toast.h"
 #import "EventDetailViewController.h"
 #import "NewsCentreDetailViewController.h"
+#import "HMSegmentedControl.h"
 
 @interface DashboardViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -25,9 +26,12 @@
     NSMutableArray *footerImageArray;
     NSMutableArray *bestSellerDataArray;
     NSMutableArray *healthyLivingDataArray;
-    NSMutableArray *samplersProductDataArray;
+    NSMutableArray *promotionsDataArray;
+    NSMutableArray *productsDataArray;
+    NSMutableArray *samplersProductDataArray, *sectionTitleArray;
     DashboardDataModel * bannerImageData;
     CurrencyDataModel *exchangeCurrencyData;
+    HMSegmentedControl *segmentView;
 }
 @property (weak, nonatomic) IBOutlet UILabel *noRecordLabel;
 @property (weak, nonatomic) IBOutlet UILabel *buttonSeperator;
@@ -38,7 +42,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *bestSellerButton;
 @property (weak, nonatomic) IBOutlet UIButton *healthyLivingButton;
 @property (weak, nonatomic) IBOutlet UIButton *samplers;
-
+@property (weak, nonatomic) IBOutlet UIView *segmentedControlView;
 @end
 
 @implementation DashboardViewController
@@ -50,6 +54,8 @@
     bannerImageArray=[[NSMutableArray alloc]init];
     bestSellerDataArray=[[NSMutableArray alloc]init];
     footerImageArray=[[NSMutableArray alloc]init];
+    promotionsDataArray=[[NSMutableArray alloc]init];
+    productsDataArray=[[NSMutableArray alloc]init];
     healthyLivingDataArray=[[NSMutableArray alloc]init];
     samplersProductDataArray=[[NSMutableArray alloc]init];
     [self viewCustomisation];
@@ -101,10 +107,64 @@
     flowLayout.itemSize = CGSizeMake(cellWidth, cellWidth);
     
     buttonTag=1;
-    [_bestSellerButton setTitle:NSLocalizedText(@"bestseller") forState:UIControlStateNormal];
-    [_samplers setTitle:NSLocalizedText(@"Samplers") forState:UIControlStateNormal];
-    [_healthyLivingButton setTitle:NSLocalizedText(@"healthyliving") forState:UIControlStateNormal];
+    _bestSellerButton.hidden=YES;
+    _samplers.hidden=YES;
+    _healthyLivingButton.hidden=YES;
     _noRecordLabel.text=NSLocalizedText(@"norecord");
+    
+    sectionTitleArray=[[NSMutableArray alloc] initWithObjects:NSLocalizedText(@"bestseller"), NSLocalizedText(@"Samplers"), NSLocalizedText(@"healthyliving"), NSLocalizedText(@"newProduct"), NSLocalizedText(@"newPromotions"), nil];
+    segmentView = [[HMSegmentedControl alloc]initWithSectionTitles:sectionTitleArray];
+    segmentView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+    segmentView.segmentEdgeInset = UIEdgeInsetsMake(0, 10, 0, 10);
+    segmentView.frame=CGRectMake(0, 0, _segmentedControlView.frame.size.width, _segmentedControlView.frame.size.height-3);
+    segmentView.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
+    segmentView.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    segmentView.selectionIndicatorColor = [UIColor colorWithRed:146.0/255.0 green:27.0/255.0 blue:55.0/255.0 alpha:1.0];
+    segmentView.selectionIndicatorHeight = 2.0;
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [UIFont montserratMediumWithSize:14], NSFontAttributeName,
+                                [UIColor blackColor].CGColor, NSForegroundColorAttributeName, nil];
+    [segmentView setTitleFormatter:^NSAttributedString *(HMSegmentedControl *segmentedControl, NSString *title, NSUInteger index, BOOL selected) {
+        NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:attributes];
+        return attString;
+    }];
+
+    [_segmentedControlView addSubview:segmentView];
+    [_segmentedControlView bringSubviewToFront:segmentView];
+    [segmentView addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
+    if (segmentedControl.selectedSegmentIndex==0) {
+            _noRecordLabel.hidden=YES;
+            buttonTag=1;
+            [self reloadCollectionView];
+    }
+    else if (segmentedControl.selectedSegmentIndex==1) {
+        _noRecordLabel.hidden=YES;
+        buttonTag=2;
+        [self reloadCollectionView];
+
+    }
+    else if (segmentedControl.selectedSegmentIndex==2) {
+        _noRecordLabel.hidden=YES;
+        buttonTag=3;
+        [self reloadCollectionView];
+
+    }
+    else if (segmentedControl.selectedSegmentIndex==3) {
+        _noRecordLabel.hidden=YES;
+        buttonTag=4;
+        [self reloadCollectionView];
+
+    }
+    else if (segmentedControl.selectedSegmentIndex==4) {
+        _noRecordLabel.hidden=YES;
+        buttonTag=5;
+        [self reloadCollectionView];
+
+    }
+
 }
 #pragma mark - end
 
@@ -117,8 +177,14 @@
         else if (buttonTag==2) {
             return healthyLivingDataArray.count;
         }
-        else {
+        else if (buttonTag==3) {
             return samplersProductDataArray.count;
+        }
+        else if (buttonTag==4) {
+            return productsDataArray.count;
+        }
+        else {
+            return promotionsDataArray.count;
         }
     }
     else {
@@ -135,8 +201,14 @@
         else if (buttonTag==2) {
             [productCell displayProductListData:[healthyLivingDataArray objectAtIndex:indexPath.item] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
         }
-        else {
+        else if (buttonTag==3) {
             [productCell displayProductListData:[samplersProductDataArray objectAtIndex:indexPath.item] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
+        }
+        else if (buttonTag==4) {
+            [productCell displayProductListData:[productsDataArray objectAtIndex:indexPath.item] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
+        }
+        else {
+            [productCell displayProductListData:[promotionsDataArray objectAtIndex:indexPath.item] exchangeRates:[UserDefaultManager getValue:@"ExchangeRates"]];
         }
         return productCell;
     }
@@ -166,12 +238,30 @@
             }
             
         }
-        else {
+        else if (buttonTag==3) {
             if ([[[samplersProductDataArray objectAtIndex:indexPath.item] productType] isEqualToString:eventIdentifier]) {
                 [self screenNavigationToDetailScreen:[[[samplersProductDataArray objectAtIndex:indexPath.item] productId] intValue] screenType:@"2"];
             }
             else {
                 [self screenNavigationToDetailScreen:[[[samplersProductDataArray objectAtIndex:indexPath.item] productId] intValue] screenType:@"1"];
+            }
+            
+        }
+        else if (buttonTag==4) {
+            if ([[[productsDataArray objectAtIndex:indexPath.item] productType] isEqualToString:eventIdentifier]) {
+                [self screenNavigationToDetailScreen:[[[productsDataArray objectAtIndex:indexPath.item] productId] intValue] screenType:@"2"];
+            }
+            else {
+                [self screenNavigationToDetailScreen:[[[productsDataArray objectAtIndex:indexPath.item] productId] intValue] screenType:@"1"];
+            }
+            
+        }
+        else {
+            if ([[[promotionsDataArray objectAtIndex:indexPath.item] productType] isEqualToString:eventIdentifier]) {
+                [self screenNavigationToDetailScreen:[[[promotionsDataArray objectAtIndex:indexPath.item] productId] intValue] screenType:@"2"];
+            }
+            else {
+                [self screenNavigationToDetailScreen:[[[promotionsDataArray objectAtIndex:indexPath.item] productId] intValue] screenType:@"1"];
             }
         }
     }
@@ -352,6 +442,8 @@
     bestSellerDataArray=[bannerImageData.bestSellerArray mutableCopy];
     healthyLivingDataArray=[bannerImageData.healthyLivingArray mutableCopy];
     samplersProductDataArray=[bannerImageData.samplersDataArray mutableCopy];
+    productsDataArray=[bannerImageData.productsDataArray mutableCopy];
+    promotionsDataArray=[bannerImageData.promotionsDataArray mutableCopy];
     //footerImageView
     [ImageCaching downloadImages:_footerImageView imageUrl:[[footerImageArray objectAtIndex:0] banerImageUrl] placeholderImage:@"banner_placeholder" isDashboardCell:true];
     [_productCollectionView reloadData];

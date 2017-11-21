@@ -47,6 +47,8 @@
 @synthesize newsURL;
 @synthesize tierPriceArray;
 @synthesize ribbons;
+@synthesize productsDataArray;
+@synthesize promotionsDataArray;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{

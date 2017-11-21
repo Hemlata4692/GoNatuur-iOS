@@ -65,7 +65,7 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
 
 - (void)badAccess
 {
-    void (*nullFunction)() = NULL;
+    void (*nullFunction)(void) = NULL;
     
     nullFunction();
 }

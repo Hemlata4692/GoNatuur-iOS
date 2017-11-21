@@ -821,7 +821,6 @@
 }
 
 - (IBAction)shippingEditAddress:(UIButton *)sender {
-        
     //StoryBoard navigation
     isShippingAddress=true;
     isEditService=false;

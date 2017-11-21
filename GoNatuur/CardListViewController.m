@@ -22,6 +22,7 @@
 
 @implementation CardListViewController
 @synthesize cardAdded;
+@synthesize finalCheckoutView;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -70,6 +71,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+        if (nil!=finalCheckoutView) {
+            finalCheckoutView.selectedCardDataDict=[cardListArray objectAtIndex:indexPath.row];
+            [self.navigationController popViewControllerAnimated:true];
+        }
 }
 #pragma mark - end
 

@@ -334,4 +334,8 @@
 "eventTicket"="Please select a ticket.";
 "checkThisOut"="Check this out";
 "onGonatuur"="on GoNatuur";
-
+"selectCard"="Select Card";
+"addCardCheckout"="Add New Card";
+"cardType"="Card Type*";
+"newProduct"="New Products";
+"newPromotions"="New Promotions";

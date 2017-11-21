@@ -21,7 +21,6 @@ static NSString *kSetCheckoutOrder=@"carts/mine/order";
 
 #pragma mark - Fetch cart listing
 - (void)getCartListing:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    
     if ((nil==[UserDefaultManager getValue:@"userId"])){
         [self get:[NSString stringWithFormat:@"guest-carts/%@/items",[UserDefaultManager getValue:@"quoteId"]] parameters:nil onSuccess:success onFailure:failure];
     }
@@ -44,7 +43,6 @@ static NSString *kSetCheckoutOrder=@"carts/mine/order";
 
 #pragma mark - Fetch shippment methods
 - (void)fetchShippmentMethods:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    
     if ((nil==[UserDefaultManager getValue:@"userId"])){
         [self get:[NSString stringWithFormat:@"guest-carts/%@/shipping-methods",[UserDefaultManager getValue:@"quoteId"]] parameters:nil onSuccess:success onFailure:failure];
     }
@@ -85,7 +83,12 @@ static NSString *kSetCheckoutOrder=@"carts/mine/order";
                                          }
                                  };
     DLog(@"%@",parameters);
-    [super put:kSetPaymentMethod parameters:parameters success:success failure:failure];
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+        [self post:[NSString stringWithFormat:@"guest-carts/%@/items/%@",[UserDefaultManager getValue:@"quoteId"],@"selected-payment-method"] parameters:parameters success:success failure:failure];
+    }
+    else {
+      [super put:kSetPaymentMethod parameters:parameters success:success failure:failure];
+    }
 }
 #pragma mark - end
 

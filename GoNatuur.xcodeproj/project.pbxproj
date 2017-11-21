@@ -54,6 +54,7 @@
 		181FD2261F60195900C5373C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2251F60195900C5373C /* OpenGLES.framework */; };
 		181FD2281F60197800C5373C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2271F60197800C5373C /* Accelerate.framework */; };
 		181FD22A1F60198000C5373C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181FD2291F60198000C5373C /* AudioToolbox.framework */; };
+		1843C5901FC405AD0085C52A /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843C58F1FC3FDE30085C52A /* HMSegmentedControl.m */; };
 		184C385C1F3B0911008B8291 /* SideBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C385B1F3B0911008B8291 /* SideBarViewController.m */; };
 		184C38651F3B328A008B8291 /* EnableNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C38641F3B328A008B8291 /* EnableNotificationViewController.m */; };
 		184C38671F3B3A02008B8291 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184C38661F3B3A02008B8291 /* SF-UI-Display-Regular.otf */; };
@@ -72,7 +73,6 @@
 		187561911F469BD500F609AB /* NotificationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187561901F469BD500F609AB /* NotificationDataModel.m */; };
 		187561931F469E1000F609AB /* BottomTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187561921F469E1000F609AB /* BottomTabViewController.xib */; };
 		187561971F469F3800F609AB /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187561961F469F3800F609AB /* NotificationViewController.m */; };
-		1875619A1F469F8600F609AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187561981F469F8600F609AB /* Main.storyboard */; };
 		1875619D1F46AAC500F609AB /* dashboard_banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619B1F46AAC500F609AB /* dashboard_banner1.png */; };
 		1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619C1F46AAC500F609AB /* dashboard_banner2.png */; };
 		187A89B91F6F93EB00E7431A /* ProductGuideSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */; };
@@ -147,6 +147,7 @@
 		32CC20951F25B1D90054C344 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20941F25B1D90054C344 /* LoginModel.m */; };
 		32CC20991F25B1F80054C344 /* LoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20981F25B1F80054C344 /* LoginService.m */; };
 		5D0CB20E1F63FF16008043B6 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0CB20D1F63FF16008043B6 /* OrderDetailViewController.m */; };
+		5D193AC01FA853D3004CAD0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D193ABF1FA85358004CAD0E /* Main.storyboard */; };
 		5D1E5E3B1F56845D006E6C63 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D1E5E3A1F56845D006E6C63 /* AddressViewController.m */; };
 		5D2760A61F62767F00B6D0FF /* OrderListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D2760A31F62767F00B6D0FF /* OrderListingViewController.m */; };
 		5D2760A71F62767F00B6D0FF /* OrderListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D2760A51F62767F00B6D0FF /* OrderListingCell.m */; };
@@ -179,7 +180,6 @@
 		B75E6F2A1F7505150059D8E1 /* MyCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B75E6F291F7505150059D8E1 /* MyCartViewController.m */; };
 		B75E6F2D1F7505280059D8E1 /* CartListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B75E6F2C1F7505280059D8E1 /* CartListTableViewCell.m */; };
 		B75E6F301F7505380059D8E1 /* CartListingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B75E6F2F1F7505380059D8E1 /* CartListingViewController.m */; };
-		B75E6F361F75063E0059D8E1 /* alipayIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B75E6F321F75063E0059D8E1 /* alipayIcon.png */; };
 		B75E6F371F75063E0059D8E1 /* cybersourceIcon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B75E6F331F75063E0059D8E1 /* cybersourceIcon.jpg */; };
 		B75E6F381F75063E0059D8E1 /* paypalIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B75E6F341F75063E0059D8E1 /* paypalIcon.png */; };
 		B75E6F391F75063E0059D8E1 /* weChatPayIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B75E6F351F75063E0059D8E1 /* weChatPayIcon.png */; };
@@ -273,6 +273,9 @@
 		181FD2251F60195900C5373C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		181FD2271F60197800C5373C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		181FD2291F60198000C5373C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1843C58D1FC3FA990085C52A /* alipayIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alipayIcon.png; sourceTree = "<group>"; };
+		1843C58E1FC3FDE00085C52A /* HMSegmentedControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
+		1843C58F1FC3FDE30085C52A /* HMSegmentedControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		184C385A1F3B0911008B8291 /* SideBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideBarViewController.h; sourceTree = "<group>"; };
 		184C385B1F3B0911008B8291 /* SideBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideBarViewController.m; sourceTree = "<group>"; };
 		184C38631F3B328A008B8291 /* EnableNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnableNotificationViewController.h; sourceTree = "<group>"; };
@@ -304,7 +307,6 @@
 		187561921F469E1000F609AB /* BottomTabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomTabViewController.xib; sourceTree = "<group>"; };
 		187561951F469F3800F609AB /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
 		187561961F469F3800F609AB /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
-		187561991F469F8600F609AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1875619B1F46AAC500F609AB /* dashboard_banner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner1.png; sourceTree = "<group>"; };
 		1875619C1F46AAC500F609AB /* dashboard_banner2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner2.png; sourceTree = "<group>"; };
 		187A89B71F6F93EB00E7431A /* ProductGuideSearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGuideSearchListViewController.h; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 		32CC20981F25B1F80054C344 /* LoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginService.m; sourceTree = "<group>"; };
 		5D0CB20C1F63FF16008043B6 /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
 		5D0CB20D1F63FF16008043B6 /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
+		5D193ABF1FA85358004CAD0E /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5D1E5E391F56845D006E6C63 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
 		5D1E5E3A1F56845D006E6C63 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
 		5D2760A21F62767F00B6D0FF /* OrderListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListingViewController.h; sourceTree = "<group>"; };
@@ -499,7 +502,6 @@
 		B75E6F2C1F7505280059D8E1 /* CartListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartListTableViewCell.m; sourceTree = "<group>"; };
 		B75E6F2E1F7505380059D8E1 /* CartListingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartListingViewController.h; sourceTree = "<group>"; };
 		B75E6F2F1F7505380059D8E1 /* CartListingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartListingViewController.m; sourceTree = "<group>"; };
-		B75E6F321F75063E0059D8E1 /* alipayIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alipayIcon.png; sourceTree = "<group>"; };
 		B75E6F331F75063E0059D8E1 /* cybersourceIcon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cybersourceIcon.jpg; sourceTree = "<group>"; };
 		B75E6F341F75063E0059D8E1 /* paypalIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paypalIcon.png; sourceTree = "<group>"; };
 		B75E6F351F75063E0059D8E1 /* weChatPayIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weChatPayIcon.png; sourceTree = "<group>"; };
@@ -1507,6 +1509,8 @@
 		320761611F1626FB001F1790 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1843C58E1FC3FDE00085C52A /* HMSegmentedControl.h */,
+				1843C58F1FC3FDE30085C52A /* HMSegmentedControl.m */,
 				320761661F162789001F1790 /* CategoryClasses */,
 				320761651F162733001F1790 /* HelperClasses */,
 			);
@@ -1777,7 +1781,7 @@
 				1891620D1F617735005ED12E /* GoNatuur.entitlements */,
 				320761621F162706001F1790 /* AppDelegate */,
 				320761631F162712001F1790 /* Classes */,
-				187561981F469F8600F609AB /* Main.storyboard */,
+				5D193ABF1FA85358004CAD0E /* Main.storyboard */,
 				32BAA6131F1360290015E355 /* Assets.xcassets */,
 				32BAA6151F1360290015E355 /* LaunchScreen.storyboard */,
 				32BAA6181F1360290015E355 /* Info.plist */,
@@ -2084,7 +2088,7 @@
 		B75E6F311F75062F0059D8E1 /* CheckoutStep3 */ = {
 			isa = PBXGroup;
 			children = (
-				B75E6F321F75063E0059D8E1 /* alipayIcon.png */,
+				1843C58D1FC3FA990085C52A /* alipayIcon.png */,
 				B75E6F331F75063E0059D8E1 /* cybersourceIcon.jpg */,
 				B75E6F341F75063E0059D8E1 /* paypalIcon.png */,
 				B75E6F351F75063E0059D8E1 /* weChatPayIcon.png */,
@@ -2470,7 +2474,7 @@
 		32BAA5FC1F1360280015E355 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Hemlata Khajanchi";
 				TargetAttributes = {
 					186260EF1F85EE8B00FAFAE2 = {
@@ -2547,11 +2551,10 @@
 				B75E6F391F75063E0059D8E1 /* weChatPayIcon.png in Resources */,
 				32BAA6141F1360290015E355 /* Assets.xcassets in Resources */,
 				B73E00E31F4184DF001DEBA2 /* Montserrat-Bold.otf in Resources */,
+				5D193AC01FA853D3004CAD0E /* Main.storyboard in Resources */,
 				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
 				1809BE771F90CF8000B1DF2D /* ajax_handler.js in Resources */,
-				1875619A1F469F8600F609AB /* Main.storyboard in Resources */,
 				B75E6F381F75063E0059D8E1 /* paypalIcon.png in Resources */,
-				B75E6F361F75063E0059D8E1 /* alipayIcon.png in Resources */,
 				B73A653E1F3DF0870051E4C5 /* cn.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2697,6 +2700,7 @@
 				180ECD251F482A38003C936E /* WebViewController.m in Sources */,
 				180ECD291F484A17003C936E /* ReviewViewController.m in Sources */,
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
+				1843C5901FC405AD0085C52A /* HMSegmentedControl.m in Sources */,
 				18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */,
 				32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */,
 				B7A73B8E1F6F916600412656 /* OrderInvoiceTableViewCell.m in Sources */,
@@ -2763,14 +2767,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		187561981F469F8600F609AB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				187561991F469F8600F609AB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		32BAA6151F1360290015E355 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2808,7 +2804,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -2816,7 +2814,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2860,7 +2862,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -2868,7 +2872,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

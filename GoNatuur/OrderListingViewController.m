@@ -290,19 +290,17 @@
 }
 
 - (IBAction)editUserImageAction:(UIButton *)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedText(@"TakePhoto")delegate:self cancelButtonTitle: NSLocalizedText(@"alertCancel") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedText(@"Camera"), NSLocalizedText(@"Gallery"), nil];
-    [actionSheet showInView:self.view];
-}
-#pragma mark - end
-
-#pragma mark - Action sheet delegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if (buttonIndex==0) {
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedText(@"TakePhoto") preferredStyle:UIAlertControllerStyleActionSheet];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedText(@"alertCancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        // Cancel button tappped.
+        [self dismissViewControllerAnimated:YES completion:^{
+        }];
+    }]];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedText(@"Camera") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        // Camera button tapped.
         if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedText(@"error")message:NSLocalizedText(@"noCamera")delegate:nil cancelButtonTitle:NSLocalizedText(@"alertOk")otherButtonTitles: nil];
-            [myAlertView show];
+            SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+            [alert showWarning:nil title:NSLocalizedText(@"error") subTitle:NSLocalizedText(@"noCamera") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         }
         else {
             UIImagePickerController *picker = [[UIImagePickerController alloc] init];
@@ -311,8 +309,10 @@
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
             [self presentViewController:picker animated:YES completion:NULL];
         }
-    }
-    if ([buttonTitle isEqualToString:NSLocalizedText(@"Gallery")]) {
+    }]];
+    
+    [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedText(@"Gallery") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        // Gallery button tapped.
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
         picker.allowsEditing = YES;
@@ -322,7 +322,10 @@
         picker.navigationBar.tintColor = [UIColor blackColor];
         picker.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor blackColor]};
         [self presentViewController:picker animated:YES completion:NULL];
-    }
+    }]];
+    // Present action sheet.
+    [self presentViewController:actionSheet animated:YES completion:nil];
+    
 }
 #pragma mark - end
 

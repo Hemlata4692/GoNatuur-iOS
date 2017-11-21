@@ -89,7 +89,7 @@
             notificationBadgeLabel.text=[[UserDefaultManager getValue:@"notificationsCount"] stringValue];
         }
         [notificationBadgeLabel sizeToFit];
-        notificationBadgeLabel.frame=CGRectMake(185, notificationBadgeLabel.frame.origin.y,notificationBadgeLabel.frame.size.width+12, 15);
+        notificationBadgeLabel.frame=CGRectMake(200, notificationBadgeLabel.frame.origin.y,notificationBadgeLabel.frame.size.width+12, 15);
         [notificationBadgeLabel setCornerRadius:8.0];
     }
     
@@ -112,8 +112,7 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==0) {
         if (![myDelegate checkGuestAccess]) {
-          //   myDelegate.selectedCategoryIndex=-1;
-        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+            myDelegate.selectedCategoryIndex=-1;
         }
     }
     else if (indexPath.row==1) {
@@ -209,12 +208,12 @@
     }
     else {
         // by default perform the segue transition
-        if([identifier isEqualToString:@"MyOrders"]) {
-            return NO;
-        }
-        else {
+//        if([identifier isEqualToString:@"MyOrders"]) {
+//            return NO;
+//        }
+//        else {
         return YES;
-       }
+//       }
     }
 }
 

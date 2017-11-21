@@ -271,6 +271,16 @@
         for (int i =0; i<samplersArray.count; i++) {
             [userData.samplersDataArray addObject:[self getDashboardParseData:[samplersArray objectAtIndex:i]]];
         }
+        userData.promotionsDataArray=[[NSMutableArray alloc]init];
+        NSArray *promotionsArray=response[@"new_promotions"];
+        for (int i =0; i<promotionsArray.count; i++) {
+            [userData.promotionsDataArray addObject:[self getDashboardParseData:[promotionsArray objectAtIndex:i]]];
+        }
+        userData.productsDataArray=[[NSMutableArray alloc]init];
+        NSArray *productsArray=response[@"new_products"];
+        for (int i =0; i<productsArray.count; i++) {
+            [userData.productsDataArray addObject:[self getDashboardParseData:[productsArray objectAtIndex:i]]];
+        }
         userData.footerBannerImageArray=[[NSMutableArray alloc]init];
         NSArray *footerArray=response[@"footer_top_banners"];
         for (int i =0; i<footerArray.count; i++) {
@@ -1587,6 +1597,7 @@
                 paymentListData.cardExpYear = paymentDataDict[@"cc_exp_year"];
                 paymentListData.cardLastFourDigit = paymentDataDict[@"cc_last_4"];
                 paymentListData.cardType = paymentDataDict[@"cc_type"];
+                paymentListData.encryptedSubscriptionId = paymentDataDict[@"encrypted_subscription_id"];
                 [paymentData.cardListArray addObject:paymentListData];
             }
             success(paymentData);
