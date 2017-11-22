@@ -75,6 +75,7 @@
 		187561971F469F3800F609AB /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187561961F469F3800F609AB /* NotificationViewController.m */; };
 		1875619D1F46AAC500F609AB /* dashboard_banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619B1F46AAC500F609AB /* dashboard_banner1.png */; };
 		1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619C1F46AAC500F609AB /* dashboard_banner2.png */; };
+		1877FA9B1FC54F8A009B44D4 /* AccountSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1877FA9A1FC54F8A009B44D4 /* AccountSettingViewController.m */; };
 		187A89B91F6F93EB00E7431A /* ProductGuideSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */; };
 		1881C8FD1FC43C23001B587F /* ImpactPointsHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881C8FC1FC43C23001B587F /* ImpactPointsHistoryViewController.m */; };
 		1881C9021FC43C58001B587F /* ImapctPointHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881C9011FC43C58001B587F /* ImapctPointHistoryTableViewCell.m */; };
@@ -311,6 +312,8 @@
 		187561961F469F3800F609AB /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		1875619B1F46AAC500F609AB /* dashboard_banner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner1.png; sourceTree = "<group>"; };
 		1875619C1F46AAC500F609AB /* dashboard_banner2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner2.png; sourceTree = "<group>"; };
+		1877FA991FC54F8A009B44D4 /* AccountSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountSettingViewController.h; sourceTree = "<group>"; };
+		1877FA9A1FC54F8A009B44D4 /* AccountSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountSettingViewController.m; sourceTree = "<group>"; };
 		187A89B71F6F93EB00E7431A /* ProductGuideSearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGuideSearchListViewController.h; sourceTree = "<group>"; };
 		187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGuideSearchListViewController.m; sourceTree = "<group>"; };
 		1881C8FB1FC43C23001B587F /* ImpactPointsHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImpactPointsHistoryViewController.h; sourceTree = "<group>"; };
@@ -1018,6 +1021,15 @@
 			name = NotificationListViewController;
 			sourceTree = "<group>";
 		};
+		1877FA981FC54F5A009B44D4 /* AccountSettingView */ = {
+			isa = PBXGroup;
+			children = (
+				1877FA991FC54F8A009B44D4 /* AccountSettingViewController.h */,
+				1877FA9A1FC54F8A009B44D4 /* AccountSettingViewController.m */,
+			);
+			name = AccountSettingView;
+			sourceTree = "<group>";
+		};
 		187A89B61F6F93B900E7431A /* ProductGuideSearchListing */ = {
 			isa = PBXGroup;
 			children = (
@@ -1495,6 +1507,7 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1877FA981FC54F5A009B44D4 /* AccountSettingView */,
 				188605961F39C05A0005D1E2 /* GlobalViewModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
 				188605911F39BB720005D1E2 /* DashboardModule */,
@@ -2664,6 +2677,7 @@
 				185036E61F67A7510008C0F1 /* EventDetailViewController.m in Sources */,
 				189162081F614CD2005ED12E /* CardListViewController.m in Sources */,
 				32A3D6FF1F1CD2B800062B86 /* FacebookConnect.m in Sources */,
+				1877FA9B1FC54F8A009B44D4 /* AccountSettingViewController.m in Sources */,
 				18FA12021F6A84190001A3B0 /* ProductGuideViewController.m in Sources */,
 				18FFBC821F629612006C088B /* NewsLetterSubscriptionViewController.m in Sources */,
 				18F464EF1F69902B001006EB /* RedeemTableViewCell.m in Sources */,

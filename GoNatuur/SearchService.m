@@ -46,7 +46,7 @@ static NSString *kRemoveWishlistService=@"ipwishlist/delete/wishlistItem";
                                                                            ]
                                                                    }
                                                                ],
-                                                       @"page_size" : @0,
+                                                       @"page_size" : productData.searchPageCount,
                                                        @"current_page" : @0
                                                        }
                                  };

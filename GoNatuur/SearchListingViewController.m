@@ -19,7 +19,6 @@
     int pageCount;
     int totalProducts;
     NSMutableArray *searchedProductsArray;
-    NSMutableArray *searchListIds;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *searchCollectionView;
 @property (weak, nonatomic) IBOutlet UIView *paginationView;
@@ -29,6 +28,8 @@
 
 @implementation SearchListingViewController
 @synthesize searchKeyword;
+@synthesize screenType;
+@synthesize searchListIds;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -38,8 +39,18 @@
     _paginationView.hidden=YES;
     _noRecordLabel.hidden=YES;
      pageCount=[[UserDefaultManager getValue:@"paginationSize"] intValue];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(getSerachProductListing) withObject:nil afterDelay:.1];
+    if ([screenType isEqualToString:@"searchListing"]) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getSerachProductListing) withObject:nil afterDelay:.1];
+    }
+    else if ([screenType isEqualToString:@"guestRecentViewed"]) {
+        NSLog(@"%@",searchListIds);
+        [myDelegate showIndicator];
+        [self performSelector:@selector(recentlyViewedProducts) withObject:nil afterDelay:.1];
+    }
+    else if ([screenType isEqualToString:@"loggedInRecentViewed"]) {
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,6 +91,26 @@
     }];
 }
 
+- (void)recentlyViewedProducts {
+    SearchDataModel *searchData = [SearchDataModel sharedUser];
+    NSString *productIds=[NSString stringWithFormat:@"%@",[searchListIds objectAtIndex:0]];
+    for (int i=1; i<pageCount; i++) {
+        if (i<searchListIds.count) {
+            productIds=[NSString stringWithFormat:@"%@,%@",productIds,[searchListIds objectAtIndex:i]];
+        }
+    }
+    searchData.productId=productIds;
+    searchData.searchPageCount=[@(pageCount) stringValue];
+    [searchData getProductListServiceOnSuccess:^(SearchDataModel *userData)  {
+        [myDelegate stopIndicator];
+        [self removeObectsFromSearchListWithLimit];
+        totalProducts=[userData.searchResultCount intValue];
+        [searchedProductsArray addObjectsFromArray:userData.searchProductListArray];
+         [_searchCollectionView reloadData];
+    } onfailure:^(NSError *error) {
+    }];
+}
+
 - (void)getSearchPaginationList {
     SearchDataModel *searchData = [SearchDataModel sharedUser];
     NSString *productIds=[NSString stringWithFormat:@"%@",[searchListIds objectAtIndex:0]];
@@ -89,7 +120,8 @@
         }
     }
     searchData.productId=productIds;
-    [searchData getProductListServiceOnSuccess:^(SearchDataModel *userData)  {
+     searchData.searchPageCount=@"0";
+    [searchData getProductListServiceOnSuccess:^(SearchDataModel *userData) {
         [self removeObectsFromSearchListWithLimit];
         [searchedProductsArray addObjectsFromArray:userData.searchProductListArray];
         [self hideactivityIndicator];

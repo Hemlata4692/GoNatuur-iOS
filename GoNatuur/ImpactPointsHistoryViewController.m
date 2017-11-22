@@ -214,14 +214,13 @@
     userData.currentPage=[NSString stringWithFormat:@"%d",currentpage];
     [userData getImpactPoints:^(ProfileModel *userData) {
         [myDelegate stopIndicator];
-        impactsPointDataArray=[userData.impactsPointDataArray mutableCopy];
+        [impactsPointDataArray addObjectsFromArray:userData.impactsPointDataArray];
         totalProductCount=[userData.impactPointTotalRecord intValue];
         [_impactsPointTableView reloadData];
     } onfailure:^(NSError *error) {
         
     }];
 }
-
 
 - (void)editUserProfileImage {
     ProfileModel *userData = [ProfileModel sharedUser];
@@ -237,21 +236,29 @@
 #pragma mark - end
 
 #pragma mark - Pagignation for table view
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (impactsPointDataArray.count==totalProductCount) {
-        [(UIActivityIndicatorView *)[footerView viewWithTag:10] stopAnimating];
-        [(UILabel *)[footerView viewWithTag:11] setHidden:true];
-    }
-    else if(indexPath.row==[impactsPointDataArray count]) {
-        if(impactsPointDataArray.count < totalProductCount) {
-            tableView.tableFooterView = footerView;
-            [(UIActivityIndicatorView *)[footerView viewWithTag:10] startAnimating];
-            currentpage++;
-            [self getUserImapctPoints];
-        }
-        else {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if ((int)_impactsPointTableView.contentOffset.y == (int)_impactsPointTableView.contentSize.height - (int)scrollView.frame.size.height) {
+        if (impactsPointDataArray.count == totalProductCount) {
+            [(UIActivityIndicatorView *)[footerView viewWithTag:10] stopAnimating];
+            [(UILabel *)[footerView viewWithTag:11] setHidden:true];
             _impactsPointTableView.tableFooterView = nil;
         }
+        else {
+            if(impactsPointDataArray.count < totalProductCount) {
+                _impactsPointTableView.tableFooterView = footerView;
+                [(UIActivityIndicatorView *)[footerView viewWithTag:10] startAnimating];
+                currentpage+=1;
+                [self getUserImapctPoints];
+            }
+            else {
+                _impactsPointTableView.tableFooterView = nil;
+            }
+        }
+    }
+    else {
+        [(UIActivityIndicatorView *)[footerView viewWithTag:10] stopAnimating];
+        [(UILabel *)[footerView viewWithTag:11] setHidden:true];
+        _impactsPointTableView.tableFooterView = nil;
     }
 }
 #pragma mark - end

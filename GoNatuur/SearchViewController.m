@@ -136,6 +136,7 @@
         if (![textField.text isEqualToString:@""]) {
             SearchListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListingViewController"];
             obj.searchKeyword=_searchTextField.text;
+            obj.screenType=@"searchListing";
             [self.navigationController pushViewController:obj animated:true];
         }
     }
@@ -183,6 +184,7 @@
     [_searchTextField resignFirstResponder];
     SearchListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListingViewController"];
     obj.searchKeyword=[[searchArray objectAtIndex:indexPath.row] keywordName];
+    obj.screenType=@"searchListing";
     [self.navigationController pushViewController:obj animated:true];
 }
 #pragma mark - end

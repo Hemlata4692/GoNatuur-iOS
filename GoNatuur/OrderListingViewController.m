@@ -240,7 +240,7 @@
             _orderListTableView.tableFooterView = nil;
         }
         else {
-            if(orderListArray.count <= totalProductCount) {
+            if(orderListArray.count < totalProductCount) {
                 _orderListTableView.tableFooterView = footerView;
                 [(UIActivityIndicatorView *)[footerView viewWithTag:10] startAnimating];
                 currentpage+=1;

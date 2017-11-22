@@ -263,7 +263,7 @@
 "yes"="Yes";
 "redeemPoint"="Redeem Points";
 "checkoutAddressImpactPoint"="My Available Impact Points:";
-"impactPointsOverview"="IMPACTS POINT OVERVIEW";
+"impactPointsOverview"="IMPACT POINTS OVERVIEW";
 "redeemCenter"="Redeem Centre";
 "sideBarProductGuide"="PRODUCT GUIDE";
 "productGuide"="Product Guide";
@@ -343,3 +343,8 @@
 "pointsLabel"="Points:";
 "earnedDate"="Earned/Spent Date:";
 "expiryDate"="Expiry Date:";
+"impactPointHistory"="Impact Points Overview";
+"recentlyViewd"="Recently Viewed Products";
+"sideBarAccountSetting"="ACCOUNT SETTINGS";
+"returnOrderAccount"="Return Order";
+"accountSetting"="Account Settings";

@@ -44,6 +44,7 @@
 @synthesize notificationStatus;
 @synthesize shareEventIdDataDict;
 @synthesize isShareUrlScreen;
+@synthesize recentlyViewedItemsArrayGuest;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -93,6 +94,7 @@
     firstTime=true;
     isShareUrlScreen=@"0";
     shareEventIdDataDict=[[NSMutableDictionary alloc]init];
+    recentlyViewedItemsArrayGuest=[[NSMutableArray alloc]init];
     //set default language to english
     if (nil==[UserDefaultManager getValue:@"Language"]) {
         [UserDefaultManager setValue:@"en" key:@"Language"];

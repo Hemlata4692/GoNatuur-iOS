@@ -27,6 +27,7 @@
 @property (nonatomic,strong) NSString *notificationStatus;
 @property (nonatomic,strong) NSString *isShareUrlScreen;
 @property (nonatomic,strong) NSMutableDictionary *shareEventIdDataDict;
+@property (strong, nonatomic) NSMutableArray *recentlyViewedItemsArrayGuest;
 - (void)showIndicator;
 - (void)stopIndicator;
 
