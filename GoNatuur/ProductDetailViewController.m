@@ -58,7 +58,7 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"Product");
     [self addLeftBarButtonWithImage:true];
-    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"productDetailPriceCell", @"productDetailInfoCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"benefitCell",@"brandCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
+    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"productDetailPriceCell", @"productDetailInfoCell",@"subscriptionCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"benefitCell",@"brandCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
     [myDelegate.recentlyViewedItemsArrayGuest addObject:[NSNumber numberWithInt:selectedProductId]];
     [UserDefaultManager setValue:myDelegate.recentlyViewedItemsArrayGuest key:@"recentlyViewedGuest"];
 }
@@ -161,25 +161,26 @@
     }
     else if (indexPath.row==6) {
         [cell displayProductInfo:productDetailModelData.shippingText];
+    } else if (indexPath.row==7) {
     }
-    else if (indexPath.row==7) {
+    else if (indexPath.row==8) {
         [cell displayAddToCartButton:@"ProductDetail"];
         cell.addToCartButton.tag=indexPath.row;
         [cell.addToCartButton addTarget:self action:@selector(insertInCartItemAction:) forControlEvents:UIControlEventTouchUpInside];
     }
-    else if (indexPath.row==8) {
+    else if (indexPath.row==9) {
         cellLabel.text=NSLocalizedText(@"Description");
     }
-    else if (indexPath.row==9) {
+    else if (indexPath.row==10) {
         cellLabel.text=NSLocalizedText(@"Benefits&Usage");
     }
-    else if (indexPath.row==10) {
+    else if (indexPath.row==11) {
         cellLabel.text=NSLocalizedText(@"BrandStory");
     }
-    else if (indexPath.row==11) {
+    else if (indexPath.row==12) {
         cellLabel.text=NSLocalizedText(@"Review");
     }
-    else if (indexPath.row==12) {
+    else if (indexPath.row==13) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"unfollow");
@@ -190,7 +191,7 @@
             cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
     }
-    else if (indexPath.row==13) {
+    else if (indexPath.row==14) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:11];
         if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"wishlistAdded");
@@ -201,10 +202,10 @@
             cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
     }
-    else if (indexPath.row==14) {
+    else if (indexPath.row==15) {
         cellLabel.text=NSLocalizedText(@"socialMedia");
     }
-    else if (indexPath.row==15) {
+    else if (indexPath.row==16) {
         cellLabel.text=NSLocalizedText(@"Where to buy");
     }
     return cell;
@@ -229,6 +230,10 @@
                 [self performSelector:@selector(showYouTubeVideo:) withObject:arrayOfThingsIWantToPassAlong afterDelay:.1];
             }
         }
+    }  else if (indexPath.row==7) {
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"SubscriptionViewController"];
+        [self.navigationController pushViewController:nextView animated:YES];
     }
     else if (indexPath.row==8) {
         //Description action

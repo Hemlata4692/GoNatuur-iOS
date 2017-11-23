@@ -56,6 +56,7 @@
     self.title=NSLocalizedText(@"subscriptionOption");
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
+    [self customizedTextField];
     //Allocate keyboard notification
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -151,7 +152,7 @@
 
 #pragma mark - IBActions
 - (IBAction)selectDateAction:(id)sender {
-    datepicker=[[UIDatePicker alloc] initWithFrame:CGRectMake(0, 250, 325, 300)];
+    datepicker=[[UIDatePicker alloc] initWithFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - 230 - 64, [[UIScreen mainScreen] bounds].size.width, 230)];
     datepicker.datePickerMode = UIDatePickerModeDate;
     datepicker.hidden = NO;
     datepicker.date = [NSDate date];
@@ -159,13 +160,13 @@
     [datepicker addTarget:self action:@selector(LabelChange:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:datepicker];
     NSDateFormatter * df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"dd/mm/yyyy"];
+    [df setDateFormat:@"dd/MM/yyyy"];
     _startDateField.text=[df stringFromDate:datepicker.date];
 }
 
 - (void)LabelChange:(id)sender{
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"dd/mm/yyyy"];
+    [df setDateFormat:@"dd/MM/yyyy"];
     _startDateField.text = [NSString stringWithFormat:@"%@",
                           [df stringFromDate:datepicker.date]];
     [datepicker removeFromSuperview];
