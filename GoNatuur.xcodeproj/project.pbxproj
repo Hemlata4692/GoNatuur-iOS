@@ -159,6 +159,7 @@
 		5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC591F553A3500AECF40 /* ChangePasswordViewController.m */; };
 		5D27AC5E1F55649E00AECF40 /* ProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC5D1F55649E00AECF40 /* ProfileModel.m */; };
 		5D27AC621F55678C00AECF40 /* ProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC611F55678C00AECF40 /* ProfileService.m */; };
+		5D27D1381FC6BB310022C6E7 /* SubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27D1371FC6BB310022C6E7 /* SubscriptionViewController.m */; };
 		5D4D53331F73965400A2AEFA /* SortByViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D53301F73965400A2AEFA /* SortByViewController.m */; };
 		5D4D53341F73965400A2AEFA /* SortByCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D53321F73965400A2AEFA /* SortByCell.m */; };
 		5D4D53381F73B1AE00A2AEFA /* SortFilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D53371F73B1AE00A2AEFA /* SortFilterModel.m */; };
@@ -466,6 +467,8 @@
 		5D27AC5D1F55649E00AECF40 /* ProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileModel.m; sourceTree = "<group>"; };
 		5D27AC601F55678C00AECF40 /* ProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileService.h; sourceTree = "<group>"; };
 		5D27AC611F55678C00AECF40 /* ProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileService.m; sourceTree = "<group>"; };
+		5D27D1361FC6BB310022C6E7 /* SubscriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubscriptionViewController.h; sourceTree = "<group>"; };
+		5D27D1371FC6BB310022C6E7 /* SubscriptionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscriptionViewController.m; sourceTree = "<group>"; };
 		5D4D532F1F73965400A2AEFA /* SortByViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortByViewController.h; sourceTree = "<group>"; };
 		5D4D53301F73965400A2AEFA /* SortByViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortByViewController.m; sourceTree = "<group>"; };
 		5D4D53311F73965400A2AEFA /* SortByCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortByCell.h; sourceTree = "<group>"; };
@@ -1507,6 +1510,7 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5D50432A1FC6B9D500CECEBC /* SubscriptionModule */,
 				1877FA981FC54F5A009B44D4 /* AccountSettingView */,
 				188605961F39C05A0005D1E2 /* GlobalViewModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
@@ -2021,6 +2025,15 @@
 				5D4D533B1F73B53400A2AEFA /* SortFilterService.m */,
 			);
 			name = SortFilterService;
+			sourceTree = "<group>";
+		};
+		5D50432A1FC6B9D500CECEBC /* SubscriptionModule */ = {
+			isa = PBXGroup;
+			children = (
+				5D27D1361FC6BB310022C6E7 /* SubscriptionViewController.h */,
+				5D27D1371FC6BB310022C6E7 /* SubscriptionViewController.m */,
+			);
+			name = SubscriptionModule;
 			sourceTree = "<group>";
 		};
 		5D95200E1F6672C40036645F /* OrderDetailViewController */ = {
@@ -2749,6 +2762,7 @@
 				181844631F70FBFE0077E48C /* ShareDataService.m in Sources */,
 				180ECD251F482A38003C936E /* WebViewController.m in Sources */,
 				180ECD291F484A17003C936E /* ReviewViewController.m in Sources */,
+				5D27D1381FC6BB310022C6E7 /* SubscriptionViewController.m in Sources */,
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
 				1843C5901FC405AD0085C52A /* HMSegmentedControl.m in Sources */,
 				18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */,
