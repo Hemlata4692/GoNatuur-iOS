@@ -202,7 +202,6 @@
         // converting into our required date format
         [dateFormatter setDateFormat:dateFormatterDate];
         NSString *reqDateString = [dateFormatter stringFromDate:date];
-        
         str=[NSString stringWithFormat:@"%@ %@",NSLocalizedText(@"orderDateHeading"), reqDateString];
         string = [[NSMutableAttributedString alloc]initWithString:str];
         registerTextRange = [str rangeOfString:NSLocalizedText(@"orderDateHeading")];

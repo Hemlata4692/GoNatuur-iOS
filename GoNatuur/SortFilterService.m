@@ -25,8 +25,8 @@ static NSString *kSortData=@"ranosys/products/attributes";
                                                                               }
                                                                             ],
                                                                     @"sort_orders":@[
-                                                                            @{@"field":@"attribute_id",
-                                                                              @"direction":DESC,
+                                                                            @{@"field":@"attribute_code",
+                                                                              @"direction":ASC,
                                                                               }
                                                                             ],
                                                                     @"page_size" : @0,

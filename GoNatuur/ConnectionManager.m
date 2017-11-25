@@ -425,6 +425,50 @@
 }
 #pragma mark - end
 
+#pragma mark - Recently viewed products
+- (void)getRecentlyViewedData:(SearchDataModel *)searchData onSuccess:(void (^)(SearchDataModel *searchData))success onFailure:(void (^)(NSError *))failure {
+    SearchService *serachSuggestions=[[SearchService alloc]init];
+    [serachSuggestions getRecentlyViewdDataFromService:searchData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"Recently viewed response %@",response);
+        searchData.searchProductListArray=[[NSMutableArray alloc]init];
+        NSArray *productDataArray=response[@"items"];
+        for (int i =0; i<productDataArray.count; i++) {
+            NSDictionary * productDataDict =[productDataArray objectAtIndex:i];
+            SearchDataModel * productData = [[SearchDataModel alloc]init];
+            productData.productId = productDataDict[@"id"];
+            productData.productPrice = [productDataDict[@"price"] stringValue];
+            productData.productName = productDataDict[@"name"];
+            productData.productImpactPoint = [NSNumber numberWithDouble:[[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"points_required"] doubleValue]];
+            if ([[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]!=nil) {
+                productData.productDescription=[self stringByStrippingHTML:[[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"short_description"]];
+            }
+            else {
+                productData.productDescription=nil;
+            }
+            productData.productImageThumbnail = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"thumbnail"];
+            productData.productQty = [[productDataDict objectForKey:@"extension_attributes"]objectForKey:@"qty"];
+            productData.specialPriceStartDate = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_from_date"];
+            productData.specialPriceEndDate = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_to_date"];
+            if ([self checkSpecialPriceSale:productData.specialPriceStartDate endDate:productData.specialPriceEndDate]) {
+                productData.specialPrice = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"special_price"];
+            }
+            productData.productRating = [[productDataDict objectForKey:@"reviews"] objectForKey:@"avg_rating_percent"];
+            productData.productType=[productDataDict objectForKey:@"type_id"];
+            productData.teirPriceArray=[productDataDict objectForKey:@"tier_prices"];
+            productData.ribbons = [[[productDataDict objectForKey:@"custom_attributes"] objectAtIndex:0] objectForKey:@"ribbons"];
+            [searchData.searchProductListArray addObject:productData];
+        }
+        searchData.searchResultCount=response[@"total_count"];
+        searchData.searchProductIds=[response[@"relevance_items"] mutableCopy];
+        success(searchData);
+        
+    } onfailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
 #pragma mark - Search listing data
 - (void)getSearchData:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     SearchService *serachSuggestions=[[SearchService alloc]init];
@@ -1347,7 +1391,7 @@
             orderListData.fullBillingAddress=orderDataDict[@"billing_address"];
             orderListData.fullShippingAddress=[[[[orderDataDict[@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"];
             orderListData.shippingMethod = orderDataDict[@"shipping_description"];
-            orderListData.paymentMethod = [[orderDataDict[@"payment"] objectForKey:@"additional_information"] objectAtIndex:0];
+            orderListData.paymentMethod = [orderDataDict[@"payment"] objectForKey:@"method"];
             orderListData.tax = orderDataDict[@"tax_amount"];
             //Use reusable code order detail handling
             [orderData.orderListingArray addObject:[self orderDetailHandling:orderDataDict orderDataModel:orderListData isOrderInvoice:false]];
@@ -1649,10 +1693,12 @@
         [UserDefaultManager setValue:response[@"privacyPolicy"] key:@"privacyPolicy"];
         [UserDefaultManager setValue:response[@"contactUs"] key:@"contactUs"];
         [UserDefaultManager setValue:response[@"aboutUs"] key:@"aboutUs"];
+        [UserDefaultManager setValue:response[@"return_policy"] key:@"returnPolicy"];
         [UserDefaultManager setValue:response[@"newsCentre"] key:@"newsCentre"];
         [UserDefaultManager setValue:response[@"rewardProductAttributeId"] key:@"rewardProductAttributeId"];
         [UserDefaultManager setValue:response[@"AdditionalSortsFilters"] key:@"AdditionalSortsFilters"];
         [UserDefaultManager setValue:response[@"DefaultSortsFilters"] key:@"DefaultSortsFilters"];
+        [UserDefaultManager setValue:response[@"payment_methods"] key:@"paymentMethods"];
         success(userData);
     } onfailure:^(NSError *error) {
     }];

@@ -65,6 +65,9 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row==0) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%s",BaseUrl,[UserDefaultManager getValue:@"Language"],"/amasty_rma/guest/login/"]]];
+    }
     if (indexPath.row==1) {
         SearchListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListingViewController"];
         obj.searchKeyword=NSLocalizedText(@"recentlyViewd");

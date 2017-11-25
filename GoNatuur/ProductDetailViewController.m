@@ -59,7 +59,20 @@
     self.title=NSLocalizedText(@"Product");
     [self addLeftBarButtonWithImage:true];
     cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"productDetailPriceCell", @"productDetailInfoCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"benefitCell",@"brandCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
-    [myDelegate.recentlyViewedItemsArrayGuest addObject:[NSNumber numberWithInt:selectedProductId]];
+    
+    if ([myDelegate.recentlyViewedItemsArrayGuest containsObject:[NSNumber numberWithInt:selectedProductId]]) {
+        [myDelegate.recentlyViewedItemsArrayGuest removeObject:[NSNumber numberWithInt:selectedProductId]];
+        if (myDelegate.recentlyViewedItemsArrayGuest.count==5) {
+            [myDelegate.recentlyViewedItemsArrayGuest removeObjectAtIndex:0];
+        }
+         [myDelegate.recentlyViewedItemsArrayGuest addObject:[NSNumber numberWithInt:selectedProductId]];
+    }
+    else {
+        if (myDelegate.recentlyViewedItemsArrayGuest.count==5) {
+            [myDelegate.recentlyViewedItemsArrayGuest removeObjectAtIndex:0];
+        }
+        [myDelegate.recentlyViewedItemsArrayGuest addObject:[NSNumber numberWithInt:selectedProductId]];
+    }
     [UserDefaultManager setValue:myDelegate.recentlyViewedItemsArrayGuest key:@"recentlyViewedGuest"];
 }
 

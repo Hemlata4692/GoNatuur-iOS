@@ -344,7 +344,8 @@
         }];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"cancelOrderMessage") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
     } else {
-        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+        //https://dev.gonatuur.com/en/amasty_rma/request/new/order_id/116/
+         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%s,%@",BaseUrl,[UserDefaultManager getValue:@"Language"],"/amasty_rma/request/new/order_id/",orderDataModel.orderId]]];
     }
 }
 #pragma mark - end

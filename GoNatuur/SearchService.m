@@ -14,7 +14,7 @@ static NSString *kSearchSuggestions=@"search/ajax/suggest/?";
 static NSString *kSearchListing=@"ranosys/getSearchList";
 static NSString *kWishlistService=@"ipwishlist/items";
 static NSString *kRemoveWishlistService=@"ipwishlist/delete/wishlistItem";
-//static NSString *kNewsSearchingService=@"ipwishlist/delete/wishlistItem";
+static NSString *kRecentlyViewedService=@"recentlyviewed/mine?";
 
 @implementation SearchService
 
@@ -23,6 +23,15 @@ static NSString *kRemoveWishlistService=@"ipwishlist/delete/wishlistItem";
     NSDictionary *parameters = @{@"q":searchData.serachKeyword};
     NSLog(@"search list request %@",parameters);
     [super getSearchData:kSearchSuggestions parameters:parameters onSuccess:success onFailure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Recently viewd products
+- (void)getRecentlyViewdDataFromService:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    //pageSize=10&curPage=1
+    NSDictionary *parameters = @{@"pageSize":@"0",@"curPage":@1};
+    NSLog(@"recently viewed request %@",parameters);
+    [super get:kRecentlyViewedService parameters:parameters onSuccess:success onFailure:failure];
 }
 #pragma mark - end
 

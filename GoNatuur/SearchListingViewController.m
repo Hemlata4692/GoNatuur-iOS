@@ -16,7 +16,7 @@
 
 @interface SearchListingViewController ()<UICollectionViewDelegateFlowLayout> {
 @private
-    int pageCount;
+    int pageCount, currentPage;
     int totalProducts;
     NSMutableArray *searchedProductsArray;
 }
@@ -46,10 +46,12 @@
     else if ([screenType isEqualToString:@"guestRecentViewed"]) {
         NSLog(@"%@",searchListIds);
         [myDelegate showIndicator];
-        [self performSelector:@selector(recentlyViewedProducts) withObject:nil afterDelay:.1];
+        [self performSelector:@selector(recentlyViewedProductsGuest) withObject:nil afterDelay:.1];
     }
     else if ([screenType isEqualToString:@"loggedInRecentViewed"]) {
-        
+        currentPage=1;
+        [myDelegate showIndicator];
+        [self performSelector:@selector(recentProdutsForLoggedInUser) withObject:nil afterDelay:.1];
     }
 }
 
@@ -91,12 +93,35 @@
     }];
 }
 
-- (void)recentlyViewedProducts {
+- (void)recentProdutsForLoggedInUser {
+    SearchDataModel *serachData = [SearchDataModel sharedUser];
+    serachData.pageSize=[@(currentPage) stringValue];
+    [serachData recentlyViewedProducts:^(SearchDataModel *userData)  {
+        [myDelegate stopIndicator];
+        totalProducts=[userData.searchResultCount intValue];
+        if (userData.searchProductListArray.count==0) {
+            _noRecordLabel.hidden=NO;
+        }
+        else {
+            searchListIds=[[userData searchProductIds] mutableCopy];
+            [self removeObectsFromSearchListWithLimit];
+            _noRecordLabel.hidden=YES;
+            [searchedProductsArray addObjectsFromArray:userData.searchProductListArray];
+            [_searchCollectionView reloadData];
+        }
+    } onfailure:^(NSError *error) {
+        _noRecordLabel.hidden=NO;
+        _searchCollectionView.hidden=YES;
+    }];
+}
+
+- (void)recentlyViewedProductsGuest {
     SearchDataModel *searchData = [SearchDataModel sharedUser];
-    NSString *productIds=[NSString stringWithFormat:@"%@",[searchListIds objectAtIndex:0]];
+    NSArray* reversedIDArray = [[searchListIds reverseObjectEnumerator] allObjects];
+    NSString *productIds=[NSString stringWithFormat:@"%@",[reversedIDArray objectAtIndex:0]];
     for (int i=1; i<pageCount; i++) {
-        if (i<searchListIds.count) {
-            productIds=[NSString stringWithFormat:@"%@,%@",productIds,[searchListIds objectAtIndex:i]];
+        if (i<reversedIDArray.count) {
+            productIds=[NSString stringWithFormat:@"%@,%@",productIds,[reversedIDArray objectAtIndex:i]];
         }
     }
     searchData.productId=productIds;
@@ -105,11 +130,18 @@
         [myDelegate stopIndicator];
         [self removeObectsFromSearchListWithLimit];
         totalProducts=[userData.searchResultCount intValue];
-        [searchedProductsArray addObjectsFromArray:userData.searchProductListArray];
+        for (int i=0; i<reversedIDArray.count; i++) {
+            for (int j=0; j<userData.searchProductListArray.count; j++) {
+                if ([reversedIDArray objectAtIndex:i]==[[userData.searchProductListArray objectAtIndex:j] productId]) {
+                    [searchedProductsArray addObject:[userData.searchProductListArray objectAtIndex:j]];
+                }
+            }
+        }
          [_searchCollectionView reloadData];
     } onfailure:^(NSError *error) {
     }];
 }
+
 
 - (void)getSearchPaginationList {
     SearchDataModel *searchData = [SearchDataModel sharedUser];

@@ -1003,8 +1003,45 @@
                                             <segue destination="3Qt-Wz-AMN" kind="custom" identifier="ProductGuide" customClass="SWRevealViewControllerSeguePushController" id="ks5-MO-p0V"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="accountSettings" rowHeight="50" id="5AI-9V-dId">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReturnPolicy" rowHeight="50" id="Vma-aq-7VV">
                                         <rect key="frame" x="0.0" y="501" width="310" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vma-aq-7VV" id="ko0-Zc-E6E">
+                                            <rect key="frame" x="0.0" y="0.0" width="277" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RETURN REFUND POLICY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T54-S2-0i9">
+                                                    <rect key="frame" x="54" y="14" width="210" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="TJa-hW-Vnv"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                                                    <color key="textColor" red="0.8862745098" green="0.88235294119999996" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="setting" translatesAutoresizingMaskIntoConstraints="NO" id="KHn-KI-46N">
+                                                    <rect key="frame" x="19" y="14" width="22" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="22" id="3bB-dQ-y6d"/>
+                                                        <constraint firstAttribute="height" constant="22" id="fzC-lT-1UB"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="T54-S2-0i9" firstAttribute="leading" secondItem="ko0-Zc-E6E" secondAttribute="leadingMargin" constant="46" id="01r-1D-EZz"/>
+                                                <constraint firstItem="T54-S2-0i9" firstAttribute="centerY" secondItem="ko0-Zc-E6E" secondAttribute="centerY" id="1ao-ow-9jG"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="T54-S2-0i9" secondAttribute="trailing" constant="5" id="3m6-na-duX"/>
+                                                <constraint firstItem="KHn-KI-46N" firstAttribute="leading" secondItem="ko0-Zc-E6E" secondAttribute="leadingMargin" constant="11" id="kPY-4q-DrL"/>
+                                                <constraint firstItem="KHn-KI-46N" firstAttribute="centerY" secondItem="ko0-Zc-E6E" secondAttribute="centerY" id="r1q-y1-rVh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="XWf-OM-sSx" kind="custom" identifier="ReturnPolicy" customClass="SWRevealViewControllerSeguePushController" id="NKl-v2-lDk"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountSettings" rowHeight="50" id="5AI-9V-dId">
+                                        <rect key="frame" x="0.0" y="551" width="310" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5AI-9V-dId" id="v6o-Cc-gdj">
                                             <rect key="frame" x="0.0" y="0.0" width="310" height="49.5"/>
@@ -1037,11 +1074,11 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <segue destination="lwr-1J-R7j" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="qWh-Qa-EoL"/>
+                                            <segue destination="lwr-1J-R7j" kind="custom" identifier="" customClass="SWRevealViewControllerSeguePushController" id="qWh-Qa-EoL"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Signout" rowHeight="50" id="H4n-ww-eHY">
-                                        <rect key="frame" x="0.0" y="551" width="310" height="50"/>
+                                        <rect key="frame" x="0.0" y="601" width="310" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H4n-ww-eHY" id="sYu-MB-ZpA">
                                             <rect key="frame" x="0.0" y="0.0" width="310" height="49.5"/>
@@ -3648,7 +3685,7 @@
         <!--Notification View Controller-->
         <scene sceneID="HPF-P1-UKt">
             <objects>
-                <viewController storyboardIdentifier="NotificationViewController" extendedLayoutIncludesOpaqueBars="YES" id="bqH-17-cmY" customClass="NotificationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NotificationViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="bqH-17-cmY" customClass="NotificationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3CJ-vy-thq"/>
                         <viewControllerLayoutGuide type="bottom" id="32O-bm-V2i"/>
@@ -14397,6 +14434,6 @@
         <image name="weibo-icon" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DTD-gL-hM6"/>
+        <segue reference="NKl-v2-lDk"/>
     </inferredMetricsTieBreakers>
 </document>
