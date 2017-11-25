@@ -41,6 +41,7 @@ extern NSString * const dateFormatterService;
 extern NSString * const dateFormatterConverted;
 extern NSString * const dateFormatterDate;
 extern NSString * const specialPriceDateFormatter;
+extern NSString * const orderListingDateFormat;
 //end
 
 + (ConstantType)checkDeviceType;

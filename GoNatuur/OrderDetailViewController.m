@@ -218,7 +218,7 @@
             if ((nil==orderDataModel.shippingMethod)||[orderDataModel.shippingMethod isEqualToString:@""]) {
                 return 55;
             } else {
-                return [DynamicHeightWidth getDynamicLabelHeight:orderDataModel.shippingMethod font:[UIFont montserratLightWithSize:13] widthValue:(_orderDetailTable.frame.size.width/2)-15 heightValue:500]+45;
+                return [DynamicHeightWidth getDynamicLabelHeight:orderDataModel.shippingMethod font:[UIFont montserratLightWithSize:13] widthValue:(_orderDetailTable.frame.size.width/2)-15 heightValue:500]+55;
             }
         }
     }
@@ -344,7 +344,6 @@
         }];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"cancelOrderMessage") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
     } else {
-        //https://dev.gonatuur.com/en/amasty_rma/request/new/order_id/116/
          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%s,%@",BaseUrl,[UserDefaultManager getValue:@"Language"],"/amasty_rma/request/new/order_id/",orderDataModel.orderId]]];
     }
 }

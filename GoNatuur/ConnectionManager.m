@@ -885,8 +885,6 @@
     formatter.dateFormat = specialPriceDateFormatter;
     NSString *currentDate = [formatter stringFromDate:[NSDate date]];
     if (([currentDate compare:startDate] == NSOrderedDescending || [currentDate compare:startDate]==NSOrderedSame) && ([currentDate compare:endDate] == NSOrderedAscending|| [currentDate compare:endDate]==NSOrderedSame)) {
-        DLog(@"date1 is later than date2 - NSOrderedDescending");
-        DLog(@"date1 is earlier than date2 - NSOrderedAscending");
         return true;
     }
     else {
