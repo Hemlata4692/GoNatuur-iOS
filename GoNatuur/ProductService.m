@@ -10,6 +10,7 @@
 #import "ProductDataModel.h"
 
 static NSString *kProductDetail=@"ranosys/getProductsDetails";
+static NSString *kSubscriptionDetail=@"ranosys/get-subscription-options?productId=";
 static NSString *kAddWishlist=@"ipwishlist/add/product";
 static NSString *kFollowProduct=@"ranosys/product/follow/mine";
 static NSString *kRemoveWishlist=@"ipwishlist/delete/wishlistItem";
@@ -37,6 +38,13 @@ static NSString *kLoggedinAddToCartEvent=@"ranosys/add-event-to-cart/mine";
     [super post:kProductDetail parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
+
+#pragma mark - Get subscription detail service
+- (void)getSubscriptionDetailService:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    [super get:[NSString stringWithFormat:@"%@%@",kSubscriptionDetail,productDetail.productId] parameters:nil onSuccess:success onFailure:failure];
+}
+#pragma mark - end
+
 
 #pragma mark - Add to wish list
 //add prodcut to wishlist

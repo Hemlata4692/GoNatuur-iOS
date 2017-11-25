@@ -112,6 +112,18 @@
 }
 #pragma mark - end
 
+#pragma mark - Fetch subscription detail
+- (void)getSubscriptionDetailOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getSubscriptionDetail:self onSuccess:^(ProductDataModel *productData) {
+        if (success) {
+            success (productData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
 #pragma mark - Add to wishlist
 - (void)addProductWishlistOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] addToWishlistService:self onSuccess:^(ProductDataModel *productData) {

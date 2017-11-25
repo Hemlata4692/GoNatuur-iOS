@@ -762,6 +762,8 @@
         productData.productUrlKey=[customAttributeDict objectForKey:@"url_key"];
         productData.productVideoDefaultThumbnail=[customAttributeDict objectForKey:@"product_video_preview"];
         productData.productVideoDefault=[customAttributeDict objectForKey:@"product_video"];
+        productData.enableSubscription=[[customAttributeDict objectForKey:@"enable_subscription"] intValue];
+
         if ([customAttributeDict objectForKey:@"shipping_text"]!=nil) {
            productData.shippingText=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"shipping_text"]];
         }
@@ -835,7 +837,31 @@
     } onfailure:^(NSError *error) {
     }];
 }
+#pragma mark - end
 
+#pragma mark - subscription detail service
+- (void)getSubscriptionDetail:(ProductDataModel *)productData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
+    ProductService *productDetailData=[[ProductService alloc]init];
+    [productDetailData getSubscriptionDetailService:productData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"subscription details response %@",response);
+        productData.subscriptionArray=[NSMutableArray new];
+        for (int i=0; i<[[response objectForKey:@"items"] count]; i++) {
+            ProductDataModel *tempModel=[[ProductDataModel alloc] init];
+            tempModel.selectedUnit=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"selectedUnit"];
+            tempModel.optionName=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"optionName"];
+            tempModel.frequency=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"frequency"];
+            tempModel.maxCycles=[[[response objectForKey:@"items"] objectAtIndex:i] objectForKey:@"maxCycles"];
+           
+            [productData.subscriptionArray addObject:tempModel];
+        }
+        success(productData);
+    } onfailure:^(NSError *error) {
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Check special price
 - (BOOL)checkSpecialPriceSale:(NSString *)startDate endDate:(NSString *)endDate {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = specialPriceDateFormatter;

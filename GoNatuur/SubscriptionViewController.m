@@ -12,6 +12,7 @@
 #import "UITextField+Padding.h"
 #import <MessageUI/MessageUI.h>
 #import "UITextField+Validations.h"
+#import "ProductDataModel.h"
 
 @interface SubscriptionViewController ()<BSKeyboardControlsDelegate,GoNatuurPickerViewDelegate,MFMailComposeViewControllerDelegate>
 {
@@ -20,6 +21,7 @@
     GoNatuurPickerView *gNPickerViewObj;
     int selectedIndex;
     BOOL isPickerEnable;
+    NSMutableArray *subscriptionArray;
 }
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *startDateField;
@@ -29,24 +31,28 @@
 @property (weak, nonatomic) IBOutlet UILabel *subscriptionReminderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *mailInfoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *emailLabel;
-@property (strong, nonatomic) UIDatePicker *datepicker;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datepicker;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
 //Declare BSKeyboard variable
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
 @end
 
 @implementation SubscriptionViewController
-@synthesize datepicker;
+@synthesize datepicker,productId;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self addCustomPickerView];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getSubscriptionDetailData) withObject:nil afterDelay:.1];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
+    subscriptionArray = [[NSMutableArray alloc]init];
     //Bring front view picker view
     [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
 }
@@ -106,6 +112,7 @@
 #pragma mark - Textfield delegates
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     [_keyboardControls setActiveField:textField];
+    [self hidePickerWithAnimation];
     [gNPickerViewObj hidePickerView];
     currentSelectedTextField=textField;
 }
@@ -152,33 +159,60 @@
 
 #pragma mark - IBActions
 - (IBAction)selectDateAction:(id)sender {
-    datepicker=[[UIDatePicker alloc] initWithFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - 230 - 64, [[UIScreen mainScreen] bounds].size.width, 230)];
+    [_keyboardControls.activeField resignFirstResponder];
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
     datepicker.datePickerMode = UIDatePickerModeDate;
-    datepicker.hidden = NO;
-    datepicker.date = [NSDate date];
-    
-    [datepicker addTarget:self action:@selector(LabelChange:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:datepicker];
-    NSDateFormatter * df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"dd/MM/yyyy"];
-    _startDateField.text=[df stringFromDate:datepicker.date];
+    datepicker.minimumDate=[NSDate date];
+    if([[UIScreen mainScreen] bounds].size.height<568){
+        [_scrollView setContentOffset:CGPointMake(0, _scrollView.frame.origin.y+50) animated:YES];
+    }
+    datepicker.frame = CGRectMake(datepicker.frame.origin.x, self.view.frame.size.height-(datepicker.frame.size.height+44) - 64, self.view.frame.size.width, datepicker.frame.size.height);
+    _toolbar.frame = CGRectMake(_toolbar.frame.origin.x, datepicker.frame.origin.y-44, self.view.frame.size.width, 44);
+    [UIView commitAnimations];
 }
 
-- (void)LabelChange:(id)sender{
-    NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"dd/MM/yyyy"];
-    _startDateField.text = [NSString stringWithFormat:@"%@",
-                          [df stringFromDate:datepicker.date]];
-    [datepicker removeFromSuperview];
+- (IBAction)toolbarCancelAction:(id)sender {
+    [self hidePickerWithAnimation];
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [UIView commitAnimations];
+}
+
+- (IBAction)toolbarDoneAction:(id)sender {
+    [self hidePickerWithAnimation];
+    NSDateFormatter * datepickerValue = [[NSDateFormatter alloc] init];
+    [datepickerValue setDateFormat:@"dd/MM/yyyy"]; // from here u can change format..
+    _startDateField.text=[datepickerValue stringFromDate:datepicker.date];
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [UIView commitAnimations];
+}
+
+- (void)hidePickerWithAnimation {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    _toolbar.frame = CGRectMake(_toolbar.frame.origin.x, 1000, self.view.frame.size.width, 44);
+    datepicker.frame = CGRectMake(datepicker.frame.origin.x, 1000, self.view.frame.size.width, datepicker.frame.size.height);
+    [UIView commitAnimations];
 }
 
 - (IBAction)periodUnitAction:(id)sender {
+    [self hidePickerWithAnimation];
     isPickerEnable = true;
     [self.keyboardControls.activeField resignFirstResponder];
     currentSelectedTextField=_periodUnitField;
     [self showKeyboardScrollView:230.0];
-    NSArray *arr = [NSArray arrayWithObjects:@"a",@"b", nil];
-    [gNPickerViewObj showPickerView:arr selectedIndex:selectedIndex option:1 isCancelDelegate:false isFilterScreen:false];
+    NSMutableArray *periodUnitArray = [NSMutableArray new];
+
+    for (int i = 0; i < subscriptionArray.count; i++) {
+        NSDictionary *tempDict = [subscriptionArray objectAtIndex:i];
+        [periodUnitArray addObject:[tempDict objectForKey:@"optionName"]];
+    }
+    [gNPickerViewObj showPickerView:periodUnitArray selectedIndex:selectedIndex option:1 isCancelDelegate:false isFilterScreen:false];
 }
 
 - (IBAction)subscriptionReminderAction:(id)sender {
@@ -261,4 +295,44 @@
     }
 }
 #pragma mark - end
+
+#pragma mark - Login validation
+//- (BOOL)performValidationsForLogin {
+//    if ([_maxBillingField.text || [_passwordTextField isEmpty] ) {
+//        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+//        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+//        return NO;
+//    }
+//    else {
+//        return YES;
+//    }
+//}
+#pragma mark - end
+
+#pragma mark - Web services
+//Get subscription detail
+- (void)getSubscriptionDetailData {
+    ProductDataModel *productData = [ProductDataModel sharedUser];
+    productData.productId=[NSNumber numberWithInt:productId];
+    [productData getSubscriptionDetailOnSuccess:^(ProductDataModel *productDetailData)  {
+        if (productDetailData.subscriptionArray.count > 0) {
+            subscriptionArray = [productDetailData.subscriptionArray mutableCopy];
+//            [self displaySubscriptionData];
+        }
+        [myDelegate stopIndicator];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+#pragma mark - end
+
+#pragma mark - Display subscription data
+- (void)displaySubscriptionData {
+    
+    _maxBillingField.text = [[subscriptionArray objectAtIndex:0] objectForKey:@"maxCycles"];
+    _billingFrequencyField.text = [[subscriptionArray objectAtIndex:0] objectForKey:@"frequency"];
+}
+#pragma mark - end
+
 @end

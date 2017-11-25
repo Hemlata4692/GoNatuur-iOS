@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SubscriptionViewController : GoNatuurViewController
-
+@property (nonatomic)int productId;
 @end

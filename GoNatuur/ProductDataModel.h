@@ -51,12 +51,22 @@
 @property (strong, nonatomic) NSMutableArray *tierPricesArray;
 @property (strong, nonatomic) NSString *productVideoDefault;
 @property (strong, nonatomic) NSString *productVideoDefaultThumbnail;
+@property (nonatomic) int enableSubscription;
+//Subscription
+@property (strong, nonatomic) NSMutableArray *subscriptionArray;
+@property (strong, nonatomic) NSString *optionName;
+@property (strong, nonatomic) NSString *selectedUnit;
+@property (strong, nonatomic) NSString *frequency;
+@property (strong, nonatomic) NSString *maxCycles;
 
 //Singleton method
 + (instancetype)sharedUser;
 
 //Fetch product detail 
 - (void)getProductDetailOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
+
+//Fetch subscription detail
+- (void)getSubscriptionDetailOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
 
 //Add to wish list
 - (void)addProductWishlistOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;

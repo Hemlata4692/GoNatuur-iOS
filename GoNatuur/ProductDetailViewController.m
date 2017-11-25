@@ -20,6 +20,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "HCYoutubeParser.h"
 #import "ShareViewController.h"
+#import "SubscriptionViewController.h"
 
 @interface ProductDetailViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -29,7 +30,7 @@
     int selectedMediaIndex, currentQuantity;
     NSArray *cellIdentifierArray;
     bool isServiceCalledMPMoviePlayerDone;
-   
+    
 }
 @property (strong, nonatomic) IBOutlet UITableView *productDetailTableView;
 @end
@@ -118,11 +119,18 @@
             return 1;
         }
         else {
-        float tempHeight=[DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.shippingText font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80];
-        return tempHeight+5;
+            float tempHeight=[DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.shippingText font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80];
+            return tempHeight+5;
         }
     }
     else if (indexPath.row==7) {
+//        if (productDetailModelData.enableSubscription == 0) {
+//            return 0;
+//        } else {
+            return 40;
+//        }
+    }
+    else if (indexPath.row==8) {
         return 50;
     }
     return 50;
@@ -232,7 +240,8 @@
         }
     }  else if (indexPath.row==7) {
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"SubscriptionViewController"];
+        SubscriptionViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"SubscriptionViewController"];
+        nextView.productId = selectedProductId;
         [self.navigationController pushViewController:nextView animated:YES];
     }
     else if (indexPath.row==8) {
@@ -275,7 +284,7 @@
     }
     else if (indexPath.row==14) {
         //Share action
-         //[self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+        //[self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
         NSString *shareText=[NSString stringWithFormat:@"%@ %@ %@ %@", NSLocalizedText(@"checkThisOut"),productDetailModelData.productName,[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@.html?product_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId]],NSLocalizedText(@"onGonatuur")];
         NSArray *items = @[shareText];
         
@@ -372,35 +381,35 @@
     NSURL *url=[dataArray objectAtIndex:0];
     if ([isYouTube isEqualToString:@"true"]) {
         [HCYoutubeParser thumbnailForYoutubeURL:url thumbnailSize:YouTubeThumbnailDefaultHighQuality completeBlock:^(UIImage *image, NSError *error) {
-        if (!error) {
-            [HCYoutubeParser h264videosWithYoutubeURL:url completeBlock:^(NSDictionary *videoDictionary, NSError *error) {
+            if (!error) {
+                [HCYoutubeParser h264videosWithYoutubeURL:url completeBlock:^(NSDictionary *videoDictionary, NSError *error) {
+                    [myDelegate stopIndicator];
+                    NSDictionary *qualities = videoDictionary;
+                    NSString *URLString = nil;
+                    if ([qualities objectForKey:@"small"] != nil) {
+                        URLString = [qualities objectForKey:@"small"];
+                    }
+                    else if ([qualities objectForKey:@"live"] != nil) {
+                        URLString = [qualities objectForKey:@"live"];
+                    }
+                    else {
+                        return;
+                    }
+                    //                MPMoviePlayerViewController *mp = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:URLString]];
+                    //                isServiceCalledMPMoviePlayerDone=false;
+                    //                [self presentViewController:mp animated:YES completion:NULL];
+                    AVPlayer *player = [AVPlayer playerWithURL:[NSURL URLWithString:URLString]];
+                    AVPlayerViewController *playerViewController = [AVPlayerViewController new];
+                    playerViewController.player = player;
+                    [playerViewController.player play];//used to play on start
+                    isServiceCalledMPMoviePlayerDone=false;
+                    [self presentViewController:playerViewController animated:YES completion:nil];
+                }];
+            }
+            else {
                 [myDelegate stopIndicator];
-                NSDictionary *qualities = videoDictionary;
-                NSString *URLString = nil;
-                if ([qualities objectForKey:@"small"] != nil) {
-                    URLString = [qualities objectForKey:@"small"];
-                }
-                else if ([qualities objectForKey:@"live"] != nil) {
-                    URLString = [qualities objectForKey:@"live"];
-                }
-                else {
-                    return;
-                }
-//                MPMoviePlayerViewController *mp = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:URLString]];
-//                isServiceCalledMPMoviePlayerDone=false;
-//                [self presentViewController:mp animated:YES completion:NULL];
-                AVPlayer *player = [AVPlayer playerWithURL:[NSURL URLWithString:URLString]];
-                AVPlayerViewController *playerViewController = [AVPlayerViewController new];
-                playerViewController.player = player;
-                [playerViewController.player play];//used to play on start
-                isServiceCalledMPMoviePlayerDone=false;
-                [self presentViewController:playerViewController animated:YES completion:nil];
-            }];
-        }
-        else {
-            [myDelegate stopIndicator];
-        }
-    }];
+            }
+        }];
     }
     else {
         [myDelegate stopIndicator];
@@ -473,11 +482,11 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData addProductWishlistOnSuccess:^(ProductDataModel *productDetailData)  {
-    
+        
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"wishlist");
-         productDetailModelData.wishlist=@"0";
-         cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
+        productDetailModelData.wishlist=@"0";
+        cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
     }];
     
 }
@@ -512,7 +521,7 @@
         
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"follow");
-         cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
+        cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         productDetailModelData.following=@"0";
     }];
 }
@@ -528,10 +537,10 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData unFollowProductOnSuccess:^(ProductDataModel *productDetailData)  {
-       
+        
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"unfollow");
-         cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
+        cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
         productDetailModelData.following=@"1";
     }];
     
