@@ -13,6 +13,7 @@
 #import "CurrencyDataModel.h"
 #import "UIView+Toast.h"
 #import "OrderInvoiceViewController.h"
+#import "OrderShipmentViewController.h"
 
 @interface OrderDetailViewController ()
 {
@@ -325,7 +326,10 @@
 
 #pragma mark - IBActions
 - (IBAction)orderShipmentButtonAction:(id)sender {
-    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    UIStoryboard *storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    OrderShipmentViewController * nextView=[storyBoard instantiateViewControllerWithIdentifier:@"OrderShipmentViewController"];
+    nextView.orderId=orderDataModel.orderId;
+    [self.navigationController pushViewController:nextView animated:YES];
 }
 
 - (IBAction)invoiceButtonAction:(id)sender {

@@ -18,7 +18,8 @@ static NSString *kGuestAddToCartProduct=@"guest-carts/";
 static NSString *kLoginedAddToCartProduct=@"carts/mine/items";
 static NSString *kGuestAddToCartEvent=@"ranosys/add-event-to-cart";
 static NSString *kLoggedinAddToCartEvent=@"ranosys/add-event-to-cart/mine";
-
+static NSString *kshareProductNews=@"socialmediasharing";
+//https://dev.gonatuur.com/en/socialmediasharing
 @implementation ProductService
 
 #pragma mark - Get product detail service
@@ -35,6 +36,17 @@ static NSString *kLoggedinAddToCartEvent=@"ranosys/add-event-to-cart/mine";
                                  };
     NSLog(@"event detail request %@",parameters);
     [super post:kProductDetail parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Sahre product/newws
+- (void)shareProductNewsService:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"np_id":productDetail.productId,
+                                 @"customer_id":[UserDefaultManager getValue:@"userId"],@"social_media_type":productDetail.productId,
+                                 @"share_type":productDetail.sharingType,@"np_name":productDetail.productName
+                                 };
+    NSLog(@"sharing request %@",parameters);
+    [super postSharing:kshareProductNews parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 

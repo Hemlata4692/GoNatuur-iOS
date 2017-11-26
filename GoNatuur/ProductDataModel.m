@@ -52,6 +52,7 @@
 @synthesize tierPricesArray;
 @synthesize productVideoDefault;
 @synthesize productVideoDefaultThumbnail;
+@synthesize sharingType;
 
 - (id)copyWithZone:(NSZone *)zone {
     ProductDataModel *another = [[ProductDataModel alloc] init];
@@ -86,6 +87,7 @@
     another.tierPricesArray=[self.tierPricesArray copyWithZone:zone];
     another.productVideoDefault=[self.productVideoDefault copyWithZone:zone];
     another.productVideoDefaultThumbnail=[self.productVideoDefaultThumbnail copyWithZone:zone];
+    another.sharingType=[self.sharingType copyWithZone:zone];
     return another;
 }
 
@@ -111,6 +113,18 @@
     }] ;
 }
 #pragma mark - end
+
+#pragma mark - Share service
+- (void)shareProductDataService:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] shareProductService:self onSuccess:^(ProductDataModel *productData) {
+        if (success) {
+            success (productData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end//shareProductService
 
 #pragma mark - Add to wishlist
 - (void)addProductWishlistOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {

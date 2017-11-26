@@ -55,6 +55,29 @@
     }];
 }
 
+- (void)postSharing:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(NSError *))failure {
+    path = [NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"], path];
+    DLog(@"%@",[NSString stringWithFormat:@"%@%@/%@",BaseUrl,[UserDefaultManager getValue:@"Language"], path]);
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"parse-application-id-removed" forHTTPHeaderField:@"X-Parse-Application-Id"];
+    [manager.requestSerializer setValue:@"parse-rest-api-key-removed" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    if ([UserDefaultManager getValue:@"Authorization"] != NULL) {
+        DLog(@"%@",[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]]);
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
+    }
+    [manager POST:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
+        NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
+        [myDelegate stopIndicator];
+        [self parseHeaderData:task error:error path:path parameters:parameters requestType:@"post" image:nil isBoolean:false onSuccess:success onFailure:failure];
+    }];
+}
+
+
 - (void)put:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(id))success failure:(void (^)(NSError *))failure {
     path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     DLog(@"%@",[NSString stringWithFormat:@"%@%@/rest/%@/V1/",BaseUrl,[UserDefaultManager getValue:@"Language"], [UserDefaultManager getValue:@"Language"]]);

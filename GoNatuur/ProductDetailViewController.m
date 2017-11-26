@@ -326,6 +326,17 @@
         if (completed) {
             // user shared an item
             NSLog(@"We used activity type %@", activityType);
+            if ([activityType isEqualToString:UIActivityTypePostToFacebook]) {
+               // message = @"text for email";
+            } else if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
+              //  message = @"text for iMessage";
+            } else if ([activityType isEqualToString:UIActivityTypePostToWeibo]) {
+              //  message = @"text for facebook";
+            } else if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
+               // message = @"text for twitter.";
+            } else {
+               // message = @"a default text";
+            }
             
         } else {
             // user cancelled

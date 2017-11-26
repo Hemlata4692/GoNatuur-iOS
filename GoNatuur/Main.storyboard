@@ -528,7 +528,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="96.5" y="274" width="129" height="21"/>
+                                <rect key="frame" x="96" y="274" width="129" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -7399,7 +7399,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="96.5" y="274" width="129" height="21"/>
+                                <rect key="frame" x="96" y="274" width="129" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>
@@ -9540,7 +9540,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="detailArrow" translatesAutoresizingMaskIntoConstraints="NO" id="xhH-3e-3tK">
-                                                    <rect key="frame" x="150" y="0.5" width="20" height="20"/>
+                                                    <rect key="frame" x="150" y="0.0" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="nTp-Nd-2UK"/>
                                                         <constraint firstAttribute="height" constant="20" id="xBl-ME-vIM"/>
@@ -14357,7 +14357,7 @@
         <!--Order Shipment View Controller-->
         <scene sceneID="cKe-Ty-IId">
             <objects>
-                <viewController storyboardIdentifier="OrderShipmentViewController" automaticallyAdjustsScrollViewInsets="NO" id="Tap-fu-gar" customClass="OrderShipmentViewController" customModule="GoNatuur" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OrderShipmentViewController" automaticallyAdjustsScrollViewInsets="NO" id="Tap-fu-gar" customClass="OrderShipmentViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Wl2-8O-SPE"/>
                         <viewControllerLayoutGuide type="bottom" id="mOK-cL-MMy"/>
@@ -14517,6 +14517,8 @@
                                             <outlet property="eventSkuLabel" destination="qZz-Pm-bNC" id="O8R-HO-ayr"/>
                                             <outlet property="eventView" destination="gqS-fE-5r5" id="mlW-Yi-00C"/>
                                             <outlet property="productView" destination="4SU-g2-T7F" id="6Qg-UF-NJj"/>
+                                            <outlet property="quantityHeadingLabel" destination="F3B-rn-YjO" id="jpe-g2-r9O"/>
+                                            <outlet property="quantityLabel" destination="PEk-gi-YdM" id="wze-JZ-v5e"/>
                                             <outlet property="skuHeadingLabel" destination="379-EB-EEm" id="zDg-EI-dAq"/>
                                             <outlet property="skuLabel" destination="iAo-cC-tuQ" id="gjO-Hv-K8i"/>
                                         </connections>

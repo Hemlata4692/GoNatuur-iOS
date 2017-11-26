@@ -51,6 +51,7 @@
 @property (strong, nonatomic) NSMutableArray *tierPricesArray;
 @property (strong, nonatomic) NSString *productVideoDefault;
 @property (strong, nonatomic) NSString *productVideoDefaultThumbnail;
+@property (strong, nonatomic) NSString *sharingType;
 
 //Singleton method
 + (instancetype)sharedUser;
@@ -75,4 +76,7 @@
 
 //Add to events to cart
 - (void)addEventsToCartProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
+
+//Share dervice
+- (void)shareProductDataService:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

@@ -892,6 +892,17 @@
     }
 }
 #pragma mark - end
+//shareProductNewsService
+- (void)shareProductService:(ProductDataModel *)productData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
+    ProductService *productDetailData=[[ProductService alloc]init];
+    [productDetailData shareProductNewsService:productData success:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"share response %@",response);
+       
+        success(productData);
+    } onfailure:^(NSError *error) {
+    }];
+}
 
 #pragma mark - Add to cart service
 - (void)addToCartProductService:(ProductDataModel *)productData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure {
@@ -1591,20 +1602,27 @@
         }
         else {
             NSArray *dataArray=response[@"items"];
-            orderData.trackArray=[NSMutableArray new];
             for (int i =0; i<dataArray.count; i++) {
                 NSDictionary * orderDataDict =[dataArray objectAtIndex:i];
-                OrderModel * orderListData = [[OrderModel alloc]init];
-                orderListData.purchaseOrderId = orderDataDict[@"increment_id"];
-                orderListData.trackArray=[NSMutableArray new];
-                for (NSDictionary *tempDict in orderDataDict[@"tracks"]) {
-                    OrderModel * orderTempTrack = [[OrderModel alloc]init];
-                    orderTempTrack.productName=tempDict[@"title"];
-                    orderTempTrack.trackNumber=tempDict[@"track_number"];
-                    [orderListData.trackArray addObject:orderTempTrack];
-                }
+                orderData.purchaseOrderId = orderDataDict[@"increment_id"];
+                orderData.trackArray=[NSMutableArray new];
+                orderData.orderShipmentDataArray=[NSMutableArray new];
                 if (nil!=orderDataDict[@"tracks"]&&[orderDataDict[@"tracks"] count]>0) {
-                    [orderData.trackArray addObject:orderListData];
+                    for (NSDictionary *tempDict in orderDataDict[@"tracks"]) {
+                        OrderModel * orderTempTrack = [[OrderModel alloc]init];
+                        orderTempTrack.productName=tempDict[@"title"];
+                        orderTempTrack.trackNumber=tempDict[@"track_number"];
+                        [orderData.trackArray addObject:orderTempTrack];
+                    }
+                }
+                if (nil!=orderDataDict[@"items"]&&[orderDataDict[@"items"] count]>0) {
+                    for (NSDictionary *tempDict in orderDataDict[@"items"]) {
+                        OrderModel * orderShipment = [[OrderModel alloc]init];
+                        orderShipment.productName=tempDict[@"name"];
+                        orderShipment.productSku=tempDict[@"sku"];
+                        orderShipment.productQuantity=tempDict[@"qty"];
+                        [orderData.orderShipmentDataArray addObject:orderShipment];
+                    }
                 }
             }
         }
