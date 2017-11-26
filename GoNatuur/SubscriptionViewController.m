@@ -13,6 +13,7 @@
 #import <MessageUI/MessageUI.h>
 #import "UITextField+Validations.h"
 #import "ProductDataModel.h"
+#import "DynamicHeightWidth.h"
 
 @interface SubscriptionViewController ()<BSKeyboardControlsDelegate,GoNatuurPickerViewDelegate,MFMailComposeViewControllerDelegate>
 {
@@ -22,6 +23,7 @@
     int selectedIndex;
     BOOL isPickerEnable;
     NSMutableArray *subscriptionArray;
+    NSString *selectedUnit, *subscriptionReminder;
 }
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *startDateField;
@@ -40,7 +42,7 @@
 @end
 
 @implementation SubscriptionViewController
-@synthesize datepicker,productId;
+@synthesize datepicker,productId,productDetailControllerObj;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -63,6 +65,8 @@
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
     [self customizedTextField];
+    _scrollView.scrollEnabled = NO;
+    subscriptionReminder = @"0";
     //Allocate keyboard notification
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -78,8 +82,18 @@
 }
 #pragma mark - end
 
+#pragma mark - Localisation
+- (void)localisation {
+    
+}
+#pragma mark - end
+
 #pragma mark - Customise view
 - (void)customizedTextField {
+    float newHeight =[DynamicHeightWidth getDynamicLabelHeight:_emailLabel.text font:[UIFont montserratLightWithSize:16] widthValue:[[UIScreen mainScreen] bounds].size.width-120 heightValue:45];
+    _emailLabel.translatesAutoresizingMaskIntoConstraints = YES;
+    _emailLabel.frame=CGRectMake(20, _mailInfoLabel.frame.origin.y+10,[[UIScreen mainScreen] bounds].size.width-40, newHeight);
+    [_emailLabel setBottomBorder:_emailLabel color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     //Adding textfield to keyboard controls array
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_maxBillingField, _billingFrequencyField]]];
     [_keyboardControls setDelegate:self];
@@ -207,10 +221,10 @@
     currentSelectedTextField=_periodUnitField;
     [self showKeyboardScrollView:230.0];
     NSMutableArray *periodUnitArray = [NSMutableArray new];
-
     for (int i = 0; i < subscriptionArray.count; i++) {
-        NSDictionary *tempDict = [subscriptionArray objectAtIndex:i];
-        [periodUnitArray addObject:[tempDict objectForKey:@"optionName"]];
+        ProductDataModel *productDataModel = [[ProductDataModel alloc] init];
+        productDataModel = [subscriptionArray objectAtIndex:i];
+        [periodUnitArray addObject:productDataModel.optionName];
     }
     [gNPickerViewObj showPickerView:periodUnitArray selectedIndex:selectedIndex option:1 isCancelDelegate:false isFilterScreen:false];
 }
@@ -218,8 +232,10 @@
 - (IBAction)subscriptionReminderAction:(id)sender {
     if ([sender isSelected]) {
         [sender setSelected:false];
+        subscriptionReminder = @"0";
     } else {
         [sender setSelected:true];
+        subscriptionReminder = @"1";
     }
 }
 
@@ -263,6 +279,23 @@
 }
 
 - (IBAction)saveAction:(id)sender {
+    NSString *dateString = _startDateField.text;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:dateFormatterDate];
+    NSDate *date = [[NSDate alloc] init];
+    date = [dateFormatter dateFromString:dateString];
+    // converting into our required date format
+    [dateFormatter setDateFormat:subscriptionDateFormatter];
+    NSString *reqDateString = [dateFormatter stringFromDate:date];
+    
+    if ([self performValidations]) {
+        if (_isEventScreen) {
+            _eventDetailControllerObj.subscriptionDetailDict = @{@"startDate":reqDateString,@"maxBilling":_maxBillingField.text,@"frequencyField":_billingFrequencyField.text,@"periodUnit":selectedUnit,@"subscriptionReminder":subscriptionReminder};
+        } else {
+            productDetailControllerObj.subscriptionDetailDict = @{@"startDate":reqDateString,@"maxBilling":_maxBillingField.text,@"frequencyField":_billingFrequencyField.text,@"periodUnit":selectedUnit,@"subscriptionReminder":subscriptionReminder};
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 #pragma mark - end
 
@@ -272,7 +305,11 @@
     if ([_startDateField isEmpty] || [_maxBillingField isEmpty] || [_billingFrequencyField isEmpty] || [_periodUnitField isEmpty]) {
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
-    } else {
+    } else if ([_maxBillingField.text intValue] == 0 || [_billingFrequencyField.text intValue] == 0) {
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"maxBillingAlertMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        return NO;
+    }
+    else {
         return YES;
     }
 }
@@ -290,23 +327,15 @@
 #pragma mark - Custom picker delegate method
 - (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {
     if (option==1) {
-        _periodUnitField.text = @"";
+        ProductDataModel *productDataModel = [[ProductDataModel alloc] init];
+        productDataModel = [subscriptionArray objectAtIndex:tempSelectedIndex];
+        _periodUnitField.text = productDataModel.optionName;
+        selectedUnit = productDataModel.selectedUnit;
+        _maxBillingField.text = productDataModel.maxCycles;
+        _billingFrequencyField.text = productDataModel.frequency;
         selectedIndex=tempSelectedIndex;
     }
 }
-#pragma mark - end
-
-#pragma mark - Login validation
-//- (BOOL)performValidationsForLogin {
-//    if ([_maxBillingField.text || [_passwordTextField isEmpty] ) {
-//        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-//        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
-//        return NO;
-//    }
-//    else {
-//        return YES;
-//    }
-//}
 #pragma mark - end
 
 #pragma mark - Web services
@@ -317,7 +346,7 @@
     [productData getSubscriptionDetailOnSuccess:^(ProductDataModel *productDetailData)  {
         if (productDetailData.subscriptionArray.count > 0) {
             subscriptionArray = [productDetailData.subscriptionArray mutableCopy];
-//            [self displaySubscriptionData];
+            [self displaySubscriptionData];
         }
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
@@ -329,9 +358,12 @@
 
 #pragma mark - Display subscription data
 - (void)displaySubscriptionData {
-    
-    _maxBillingField.text = [[subscriptionArray objectAtIndex:0] objectForKey:@"maxCycles"];
-    _billingFrequencyField.text = [[subscriptionArray objectAtIndex:0] objectForKey:@"frequency"];
+    ProductDataModel *productDataModel = [[ProductDataModel alloc] init];
+    productDataModel = [subscriptionArray objectAtIndex:0];
+    _maxBillingField.text = productDataModel.maxCycles;
+    _billingFrequencyField.text = productDataModel.frequency;
+    _periodUnitField.text = productDataModel.optionName;
+    selectedUnit = productDataModel.selectedUnit;
 }
 #pragma mark - end
 

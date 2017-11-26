@@ -163,4 +163,13 @@
     [_ticketSelectionTypeField addTextFieldPaddingWithoutImages:_ticketSelectionTypeField];
     [_ticketSelectionTypeField setBorder:_ticketSelectionTypeField color:[UIColor blackColor] borderWidth:1.0];
 }
+
+- (void)displaySubscriptionData:(BOOL)isSubscribed {
+    if (isSubscribed) {
+        _subscriptionImage.image = [UIImage imageNamed:@"selected"];
+    } else {
+        _subscriptionImage.image = [UIImage imageNamed:@"unselected"];
+    }
+}
+
 @end

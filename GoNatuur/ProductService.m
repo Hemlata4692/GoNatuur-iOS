@@ -93,25 +93,59 @@ static NSString *kLoggedinAddToCartEvent=@"ranosys/add-event-to-cart/mine";
 
 #pragma mark - Add to cart service
 - (void)addToCartProduct:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters;
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
-        NSDictionary *parameters = @{@"cartItem":@{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
-                                                   @"sku":productDetail.productSku,
-                                                   @"qty":productDetail.productQuantity
-                                                   }
-                                     };
+        if (productDetail.isSubscribed) {
+            parameters = [self subscriptionParamDict:productDetail];
+        } else {
+            parameters = @{@"cartItem":@{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
+                                         @"sku":productDetail.productSku,
+                                         @"qty":productDetail.productQuantity
+                                         }
+                           };
+        }
         DLog(@"Add to cart parameters: %@",parameters);
         [super post:[NSString stringWithFormat:@"%@%@/items",kGuestAddToCartProduct,[UserDefaultManager getValue:@"quoteId"]] parameters:parameters success:success failure:failure];
     }
     else {
-        NSDictionary *parameters = @{@"cartItem":@{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
-                                                   @"sku":productDetail.productSku,
-                                                   @"qty":productDetail.productQuantity
-                                                   }
-                                     };
-        
+        if (productDetail.isSubscribed) {
+            parameters = [self subscriptionParamDict:productDetail];
+        } else {
+            parameters = @{@"cartItem":@{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
+                                         @"sku":productDetail.productSku,
+                                         @"qty":productDetail.productQuantity
+                                         }
+                           };
+        }
         DLog(@"Add to cart parameters: %@",parameters);
         [super post:kLoginedAddToCartProduct parameters:parameters success:success failure:failure];
     }
+}
+
+-(NSDictionary *)subscriptionParamDict:(ProductDataModel *)productDetail {
+    NSDictionary *parameters;
+    parameters = @{@"cartItem":@{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
+                                 @"sku":productDetail.productSku,
+                                 @"qty":productDetail.productQuantity,
+                                 @"product_option":@{@"extension_attributes":@{@"custom_options":@[@{
+                                                                                                       @"option_id":@"Start Date",
+                                                                                                       @"option_value":productDetail.subscribeDataDict[@"startDate"]
+                                                                                                       },
+                                                                                                   @{@"option_id":@"Main Period",
+                                                                                                     @"option_value":[NSString stringWithFormat:@"%@ cycle of %@ %@",productDetail.subscribeDataDict[@"maxBilling"], productDetail.subscribeDataDict[@"frequencyField"], productDetail.subscribeDataDict[@"periodUnit"]]
+                                                                                                     },
+                                                                                                   @{@"option_id":@"Trial Period",
+                                                                                                     @"option_value":@""                                                                                                                                                                          },
+                                                                                                   @{@"option_id":@"Trial Amount",
+                                                                                                     @"option_value":@""},
+                                                                                                   @{@"option_id":@"Initial Fee",
+                                                                                                     @"option_value":@""},
+                                                                                                   @{@"option_id":@"subsEmailCheck",
+                                                                                                     @"option_value":productDetail.subscribeDataDict[@"subscriptionReminder"]
+                                                                                                     }]}
+                                                     }
+                                 }};
+    return parameters;
 }
 #pragma mark - end
 
@@ -121,18 +155,18 @@ static NSString *kLoggedinAddToCartEvent=@"ranosys/add-event-to-cart/mine";
     
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
         parameters = @{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
-                                     @"item":@{@"product_id":productDetail.productId,
-                                               @"option_id":@"2",
-                                               @"option_value":productDetail.selectedTicketOptionValue,
-                                               @"ticket_price":productDetail.productPrice,
-                                               @"dropdow":productDetail.selectedTicketOption,
-                                               @"ticket_location":@"",
-                                               @"ticket_date":@"",
-                                               @"ticket_session":@"",
-                                               @"checkbox":@"",
-                                               @"qty":productDetail.productQuantity
-                                               }
-                                     };
+                       @"item":@{@"product_id":productDetail.productId,
+                                 @"option_id":@"2",
+                                 @"option_value":productDetail.selectedTicketOptionValue,
+                                 @"ticket_price":productDetail.productPrice,
+                                 @"dropdow":productDetail.selectedTicketOption,
+                                 @"ticket_location":@"",
+                                 @"ticket_date":@"",
+                                 @"ticket_session":@"",
+                                 @"checkbox":@"",
+                                 @"qty":productDetail.productQuantity
+                                 }
+                       };
         
         DLog(@"Add tickets to cart parameters: %@",parameters);
         [super post:kGuestAddToCartEvent parameters:parameters success:success failure:failure];
@@ -152,9 +186,9 @@ static NSString *kLoggedinAddToCartEvent=@"ranosys/add-event-to-cart/mine";
                        };
         
         DLog(@"Add tickets to cart parameters: %@",parameters);
-         [super post:kLoggedinAddToCartEvent parameters:parameters success:success failure:failure];
+        [super post:kLoggedinAddToCartEvent parameters:parameters success:success failure:failure];
     }
-   
+    
 }
 #pragma mark - end
 @end

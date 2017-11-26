@@ -26,7 +26,7 @@
 @private
     ProductDataModel *productDetailModelData;
     float productDetailCellHeight;
-    BOOL isServiceCalled;
+    BOOL isServiceCalled, isSubscribed;
     int selectedMediaIndex, currentQuantity;
     NSArray *cellIdentifierArray;
     bool isServiceCalledMPMoviePlayerDone;
@@ -62,6 +62,13 @@
     cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"productDetailPriceCell", @"productDetailInfoCell",@"subscriptionCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"benefitCell",@"brandCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
     [myDelegate.recentlyViewedItemsArrayGuest addObject:[NSNumber numberWithInt:selectedProductId]];
     [UserDefaultManager setValue:myDelegate.recentlyViewedItemsArrayGuest key:@"recentlyViewedGuest"];
+    NSLog(@"%@",_subscriptionDetailDict);
+    if (_subscriptionDetailDict != nil) {
+        isSubscribed = true;
+        [_productDetailTableView reloadData];
+    } else {
+        isSubscribed = false;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -124,11 +131,11 @@
         }
     }
     else if (indexPath.row==7) {
-//        if (productDetailModelData.enableSubscription == 0) {
-//            return 0;
-//        } else {
+        if (productDetailModelData.enableSubscription == 0) {
+            return 0;
+        } else {
             return 40;
-//        }
+        }
     }
     else if (indexPath.row==8) {
         return 50;
@@ -170,6 +177,7 @@
     else if (indexPath.row==6) {
         [cell displayProductInfo:productDetailModelData.shippingText];
     } else if (indexPath.row==7) {
+        [cell displaySubscriptionData:isSubscribed];
     }
     else if (indexPath.row==8) {
         [cell displayAddToCartButton:@"ProductDetail"];
@@ -242,6 +250,8 @@
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         SubscriptionViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"SubscriptionViewController"];
         nextView.productId = selectedProductId;
+        nextView.isEventScreen = false;
+        nextView.productDetailControllerObj = self;
         [self.navigationController pushViewController:nextView animated:YES];
     }
     else if (indexPath.row==8) {
@@ -496,6 +506,8 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productQuantity=productDetailModelData.productQuantity;
     productData.productSku=productDetailModelData.productSku;
+    productData.isSubscribed = isSubscribed;
+    productData.subscribeDataDict = _subscriptionDetailDict;
     [productData addToCartProductOnSuccess:^(ProductDataModel *productDetailData)  {
         [myDelegate stopIndicator];
         [UserDefaultManager setValue:[NSNumber numberWithInt:[[UserDefaultManager getValue:@"quoteCount"] intValue]+currentQuantity] key:@"quoteCount"];

@@ -24,6 +24,7 @@
 #import "GoNatuurPickerView.h"
 #import "ShareViewController.h"
 #import "UITextField+Validations.h"
+#import "SubscriptionViewController.h"
 
 @interface EventDetailViewController ()<UIGestureRecognizerDelegate,GoNatuurPickerViewDelegate> {
 @private
@@ -38,6 +39,7 @@
     NSMutableArray *ticketArray;
     NSString *selectedTicketOption;
     NSString *convertedPrice;
+    BOOL isSubscribed;
 }
 @property (strong, nonatomic) IBOutlet UITableView *productDetailTableView;
 @end
@@ -71,6 +73,13 @@
     cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"ticketingPriceCell",@"productDetailPriceCell", @"productDetailInfoCell",@"subscriptionCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"mapCell",@"attendingCell",@"ticketCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
     [myDelegate.recentlyViewedItemsArrayGuest addObject:[NSNumber numberWithInt:selectedProductId]];
      [UserDefaultManager setValue:myDelegate.recentlyViewedItemsArrayGuest key:@"recentlyViewedGuest"];
+    NSLog(@"%@",_subscriptionDetailDict);
+    if (_subscriptionDetailDict != nil) {
+        isSubscribed = true;
+        [_productDetailTableView reloadData];
+    } else {
+        isSubscribed = false;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -140,7 +149,11 @@
         }
     }
     else if (indexPath.row==8) {
-        return 50;
+        if (productDetailModelData.enableSubscription == 0) {
+            return 0;
+        } else {
+            return 40;
+        }
     }
     return 50;
 }
@@ -185,6 +198,9 @@
         [cell displayProductInfo:productDetailModelData.shippingText];
     }
     else if (indexPath.row==8) {
+        [cell displayAddToCartButton:@"ProductDetail"];
+        cell.addToCartButton.tag=indexPath.row;
+        [cell.addToCartButton addTarget:self action:@selector(insertInCartItemAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     else if (indexPath.row==9) {
         [cell displayAddToCartButton:@"EventDetail"];
@@ -275,7 +291,10 @@
     }
     else if (indexPath.row==8) {
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"SubscriptionViewController"];
+        SubscriptionViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"SubscriptionViewController"];
+        nextView.productId = selectedProductId;
+        nextView.isEventScreen = true;
+        nextView.eventDetailControllerObj = self;
         [self.navigationController pushViewController:nextView animated:YES];
     }
     else if (indexPath.row==9) {

@@ -5769,6 +5769,10 @@
                                                 <constraint firstItem="CTH-5f-8AB" firstAttribute="leading" secondItem="cOE-gc-KwJ" secondAttribute="trailing" constant="10" id="xYJ-IQ-WLc"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="subscriptionImage" destination="cOE-gc-KwJ" id="apk-Mj-fvu"/>
+                                            <outlet property="subscriptionLabel" destination="CTH-5f-8AB" id="tpc-mg-Cvd"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="productDetailAddCartButtonCell" rowHeight="50" id="ger-XV-bW0" customClass="ProductDetailTableViewCell">
                                         <rect key="frame" x="0.0" y="656" width="320" height="50"/>
@@ -7308,6 +7312,7 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info@gonatuur.com" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGl-Eu-77r">
                                                 <rect key="frame" x="20" y="185" width="280" height="18"/>
+                                                <color key="backgroundColor" red="0.71372549019999998" green="0.1450980392" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="dLG-2B-hAC"/>
                                                 </constraints>

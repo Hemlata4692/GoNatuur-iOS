@@ -58,6 +58,8 @@
 @property (strong, nonatomic) NSString *selectedUnit;
 @property (strong, nonatomic) NSString *frequency;
 @property (strong, nonatomic) NSString *maxCycles;
+@property (nonatomic)BOOL isSubscribed;
+@property (strong, nonatomic) NSDictionary *subscribeDataDict;
 
 //Singleton method
 + (instancetype)sharedUser;
