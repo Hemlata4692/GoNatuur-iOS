@@ -15,6 +15,7 @@
 @property (strong, nonatomic) NSString *productMediaType;
 @property (strong, nonatomic) NSNumber *productPrice;
 @property (strong, nonatomic) NSString *productDescription;
+@property (strong, nonatomic) NSString *organiser;
 @property (strong, nonatomic) NSString *productSubtitle;
 @property (strong, nonatomic) NSString *productShortDescription;
 @property (strong, nonatomic) NSString *productImageThumbnail;

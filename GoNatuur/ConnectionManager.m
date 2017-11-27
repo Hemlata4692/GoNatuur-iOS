@@ -776,6 +776,12 @@
         else {
             productData.productDescription=nil;
         }
+        if ([customAttributeDict objectForKey:@"organizer"]!=nil) {
+            productData.organiser=[customAttributeDict objectForKey:@"organizer"];
+        }
+        else {
+            productData.organiser=nil;
+        }
         if ([customAttributeDict objectForKey:@"short_description"]!=nil) {
             productData.productShortDescription=[self stringByStrippingHTML:[customAttributeDict objectForKey:@"short_description"]];
         }

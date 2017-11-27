@@ -361,4 +361,15 @@
 "subscriptionOption"="订阅选项";
 "maxBillingAlertMessage"="计费值应该大于0";
 "subscription"="订阅";
-
+ "thanksText"="谢谢!";
+"purchaseOrderText"="采购订单:";
+"thankDescText"="感谢您与GoNatuur的购买。我们正在处理您的订单，一旦准备就会将其发送到您的送货地址。\n \n如有任何疑问，请不要犹豫与我们聊天，我们的客户服务主管将与您联系.";
+"purchaseText"="你的购买";
+"totalText"="总:";
+"shippingIncludedFeeText"="包括运费:";
+"guestMessage"="您没有注册成为会员。请注册并享受特别折扣，优惠并赚取积分，以兑换可使您受益的奖励.";
+"orderTotal"="合计订单";
+"cartSubtotal"="购物车小计";
+"pointsSubtotal"="点小计";
+"promotionDiscount"="促销折扣";
+"creditPoints"="信用点";

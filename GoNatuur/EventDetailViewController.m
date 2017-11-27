@@ -70,7 +70,7 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"EventDetails");
     [self addLeftBarButtonWithImage:true];
-    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"ticketingPriceCell",@"productDetailPriceCell", @"productDetailInfoCell",@"subscriptionCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"mapCell",@"attendingCell",@"ticketCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
+    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"ticketingPriceCell",@"productDetailPriceCell", @"productDetailInfoCell",@"subscriptionCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"mapCell",@"attendingCell",@"ticketCell",@"organiserCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
     [myDelegate.recentlyViewedItemsArrayGuest addObject:[NSNumber numberWithInt:selectedProductId]];
      [UserDefaultManager setValue:myDelegate.recentlyViewedItemsArrayGuest key:@"recentlyViewedGuest"];
     NSLog(@"%@",_subscriptionDetailDict);
@@ -115,7 +115,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     if (isServiceCalled) {
-        return 18;
+        return 20;
     }
     return 0;
 }
@@ -222,11 +222,13 @@
     else if (indexPath.row==14) {
         cellLabel.text=NSLocalizedText(@"ticketing");
     }
-
     else if (indexPath.row==15) {
-        cellLabel.text=NSLocalizedText(@"Comments");//Comments
+        cellLabel.text=NSLocalizedText(@"Organizers");
     }
     else if (indexPath.row==16) {
+        cellLabel.text=NSLocalizedText(@"Comments");//Comments
+    }
+    else if (indexPath.row==17) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"unfollowEvent");
@@ -237,7 +239,7 @@
             cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
     }
-    else if (indexPath.row==17) {
+    else if (indexPath.row==18) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:11];
         if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"wishlistAdded");
@@ -248,10 +250,10 @@
             cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
     }
-    else if (indexPath.row==18) {
+    else if (indexPath.row==19) {
         cellLabel.text=NSLocalizedText(@"socialMedia");
     }
-    else if (indexPath.row==19) {
+    else if (indexPath.row==20) {
         cellLabel.text=NSLocalizedText(@"Where to buy");
     }
     return cell;
@@ -300,33 +302,37 @@
         nextView.eventDetailControllerObj = self;
         [self.navigationController pushViewController:nextView animated:YES];
     }
-    else if (indexPath.row==9) {
+    else if (indexPath.row==11) {
         //Description action
         [self navigateToView:NSLocalizedText(@"Description") webViewData:productDetailModelData.productDescription viewIdentifier:@"webView" productId:0 reviewId:@"" isLocation:@"No"];
     }
-    else if (indexPath.row==10) {
+    else if (indexPath.row==12) {
         //map action
         [self navigateToView:NSLocalizedText(@"mapLocation") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0 reviewId:@"" isLocation:@"Yes"];
     }
-    else if (indexPath.row==11) {
+    else if (indexPath.row==13) {
         //attending action
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         AttendeesViewController * attendeeView=[sb instantiateViewControllerWithIdentifier:@"AttendeesViewController"];
         attendeeView.attendeesArray=[productDetailModelData.attendiesArray mutableCopy];
         [self.navigationController pushViewController:attendeeView animated:YES];
     }
-    else if (indexPath.row==12) {
+    else if (indexPath.row==14) {
         //ticket action
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         TicketingViewController * ticketView=[sb instantiateViewControllerWithIdentifier:@"TicketingViewController"];
         ticketView.ticketingArray=[productDetailModelData.ticketingArray mutableCopy];
         [self.navigationController pushViewController:ticketView animated:YES];
     }
-    else if (indexPath.row==13) {
+    else if (indexPath.row==15) {
+        //Organiser action
+        [self navigateToView:NSLocalizedText(@"Organizers") webViewData:productDetailModelData.organiser viewIdentifier:@"webView" productId:0 reviewId:@"" isLocation:@"No"];
+    }
+    else if (indexPath.row==16) {
         //Review action
         [self navigateToView:NSLocalizedText(@"Comments") webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId] reviewId:productDetailModelData.reviewId isLocation:@"No"];
     }
-    else if (indexPath.row==14) {
+    else if (indexPath.row==17) {
         //Follow action
         if (![myDelegate checkGuestAccess]) {
             if ([productDetailModelData.following isEqualToString:@"1"]) {
@@ -337,7 +343,7 @@
             }
         }
     }
-    else if (indexPath.row==15) {
+    else if (indexPath.row==18) {
         //Wishlist action
         if (![myDelegate checkGuestAccess]) {
             if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
@@ -348,7 +354,7 @@
             }
         }
     }
-    else if (indexPath.row==16) {
+    else if (indexPath.row==19) {
         //Share action
         // [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
         //NSString stringWithFormat:@"%@%@/%@.html?product_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId];
@@ -365,7 +371,7 @@
         // and present it
         [self presentActivityController:controller];
     }
-    else if (indexPath.row==17) {
+    else if (indexPath.row==20) {
         //Location action
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];

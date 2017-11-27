@@ -13,6 +13,7 @@
 #import "CardListViewController.h"
 #import "GoNatuurPickerView.h"
 #import "BSKeyboardControls.h"
+#import "ThankYouViewController.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
@@ -692,8 +693,13 @@
     if (isCyberSourcePayment) {
         selectedPaymentMethodIndex=0;
     }
-    [myDelegate showIndicator];
-    [self performSelector:@selector(setPaymentMethod) withObject:nil afterDelay:.1];
+    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ThankYouViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
+    nextView.cartListDataArray = cartListDataArray;
+    nextView.finalCheckoutPriceDict=totalDict;
+    [self.navigationController pushViewController:nextView animated:YES];
+//    [myDelegate showIndicator];
+//    [self performSelector:@selector(setPaymentMethod) withObject:nil afterDelay:.1];
 }
 
 #pragma mark - end
