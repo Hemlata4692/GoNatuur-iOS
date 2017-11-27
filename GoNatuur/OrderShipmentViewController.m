@@ -14,7 +14,8 @@
 
 @interface OrderShipmentViewController (){
     NSMutableArray *shipmentDataArray, *trackShippmentArray;
-    NSMutableDictionary *sectionList;
+    NSString *shipmentId;
+    
 }
 @property (weak, nonatomic) IBOutlet UITableView *orderShipmentTableView;
 @property (weak, nonatomic) IBOutlet UILabel *noRecordLabel;
@@ -34,6 +35,7 @@
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"orderShipment");
+
     _noRecordLabel.text=NSLocalizedText(@"norecord");
     [self addLeftBarButtonWithImage:true];
     shipmentDataArray=[NSMutableArray new];
@@ -56,7 +58,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    DLog(@"%d",(int)section);
     if (shipmentDataArray.count > 0) {
         if (section==0) {
             return 0;
@@ -83,12 +84,18 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (shipmentDataArray.count > 0) {
     if (indexPath.section==0) {
         return 0;
     }
     else if (indexPath.section==shipmentDataArray.count+1) {
-        OrderModel * orderData = [trackShippmentArray objectAtIndex:indexPath.row];
-        return [DynamicHeightWidth getDynamicLabelHeight:orderData.productName font:[UIFont montserratLightWithSize:13] widthValue:[[UIScreen mainScreen] bounds].size.width-40-124 heightValue:1000]+20;
+        if (trackShippmentArray.count > 0) {
+            OrderModel * orderData = [trackShippmentArray objectAtIndex:indexPath.row];
+            return [DynamicHeightWidth getDynamicLabelHeight:orderData.productName font:[UIFont montserratLightWithSize:13] widthValue:[[UIScreen mainScreen] bounds].size.width-40-124 heightValue:1000]+20;
+        }
+        else {
+            return 0;
+        }
     }
     else {
         OrderModel * orderData = [shipmentDataArray objectAtIndex:indexPath.section-1];
@@ -100,6 +107,7 @@
             return height + 25;
         }
     }
+    }
     return 1;
 }
 
@@ -107,7 +115,6 @@
     DLog(@"%d",(int)section);
     UIView * sectionView;
     if (section==0) {
-        OrderModel * orderData = [shipmentDataArray objectAtIndex:[[[[sectionList objectForKey:[NSNumber numberWithInt:(int)section]] componentsSeparatedByString:@","] objectAtIndex:1] intValue]];
             sectionView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320,40)];
             sectionView.backgroundColor = [UIColor whiteColor];
             UILabel *orderIdLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 5, [[UIScreen mainScreen] bounds].size.width-40, 30)];
@@ -115,9 +122,9 @@
             orderIdLabel.textAlignment=NSTextAlignmentLeft;
             NSMutableAttributedString *string;
         //shipment id
-            NSString *str=[NSString stringWithFormat:@"%@ #%@",NSLocalizedText(@"invoice"), orderData.purchaseOrderId];
+            NSString *str=[NSString stringWithFormat:@"%@ #%@",NSLocalizedText(@"shipment"), shipmentId];
             string = [[NSMutableAttributedString alloc]initWithString:str];
-            NSRange attributTextRange = [str rangeOfString:NSLocalizedText(@"invoice")];
+            NSRange attributTextRange = [str rangeOfString:NSLocalizedText(@"shipment")];
             [string setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName: [UIFont montserratSemiBoldWithSize:16]} range:attributTextRange];
             orderIdLabel.attributedText=string;
             [sectionView addSubview:orderIdLabel];
@@ -173,58 +180,32 @@
 
 #pragma mark - IBActions
 - (IBAction)navigateToTrack:(UIButton *)sender {
-   // [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    //http://gonatuur.aftership.com/593159230543
+   OrderModel * orderData = [shipmentDataArray objectAtIndex:[sender tag]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%s%@","http://gonatuur.aftership.com/",orderData.trackNumber]]];
 }
 #pragma mark - end
 
 #pragma mark - Web services
-//- (void)getOrderInvoice {
-//    OrderModel *orderDataModel = [OrderModel sharedUser];
-//    orderDataModel.orderId=orderId;
-//    orderDataModel.isOrderInvoice=true;
-//    orderDataModel.isTrackShippment=false;
-//    [orderDataModel getOrderInvoiceOnSuccess:^(OrderModel *userData) {
-//        shipmentDataArray=userData.orderInvoiceArray;
-//        sectionList=[NSMutableDictionary new];
-//        int i=-1;
-//        for (int k=0; k<shipmentDataArray.count; k++) {
-//            OrderModel *tempModel=shipmentDataArray[k];
-//            i+=1;
-//            [sectionList setObject:[NSString stringWithFormat:@"%@,%@",[NSNumber numberWithInt:0],[NSNumber numberWithInt:k]] forKey:[NSNumber numberWithInt:i]];
-//            for (int j=0; j<tempModel.productListingArray.count; j++)  {
-//                i+=1;
-//                [sectionList setObject:[NSString stringWithFormat:@"%@,%@,%@",[NSNumber numberWithInt:3],[NSNumber numberWithInt:k],[NSNumber numberWithInt:j]] forKey:[NSNumber numberWithInt:i]];
-//            }
-//            i+=1;
-//            [sectionList setObject:[NSString stringWithFormat:@"%@,%@",[NSNumber numberWithInt:4],[NSNumber numberWithInt:k]] forKey:[NSNumber numberWithInt:i]];
-//        }
-//
-//        if (shipmentDataArray.count==0) {
-//            [myDelegate stopIndicator];
-//            _noRecordLabel.hidden=NO;
-//            _orderShipmentTableView.hidden = YES;
-//        }
-//        else {
-//            _noRecordLabel.hidden=YES;
-//            _orderShipmentTableView.hidden = NO;
-//            [self getTrackShippment];
-//        }
-//    } onfailure:^(NSError *error) {
-//
-//    }];
-//}
-
 - (void)getTrackShippment {
     OrderModel *orderDataModel = [OrderModel sharedUser];
     orderDataModel.orderId=orderId;
     orderDataModel.isTrackShippment=true;
     orderDataModel.isOrderInvoice=false;
     [orderDataModel getOrderInvoiceOnSuccess:^(OrderModel *userData) {
-        [myDelegate stopIndicator];
+         [myDelegate stopIndicator];
         shipmentDataArray=userData.orderShipmentDataArray;
-        trackShippmentArray=userData.trackArray;
-        [_orderShipmentTableView reloadData];
-        
+        shipmentId=userData.purchaseOrderId;
+        if (shipmentDataArray.count==0) {
+            _noRecordLabel.hidden=NO;
+            _orderShipmentTableView.hidden = YES;
+        }
+        else {
+            trackShippmentArray=userData.trackArray;
+            _noRecordLabel.hidden=YES;
+            _orderShipmentTableView.hidden = NO;
+            [_orderShipmentTableView reloadData];
+        }
     } onfailure:^(NSError *error) {
         
     }];

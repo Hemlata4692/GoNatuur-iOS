@@ -1019,7 +1019,7 @@
                                                     <color key="textColor" red="0.8862745098" green="0.88235294119999996" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="setting" translatesAutoresizingMaskIntoConstraints="NO" id="KHn-KI-46N">
+                                                <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="refund" translatesAutoresizingMaskIntoConstraints="NO" id="KHn-KI-46N">
                                                     <rect key="frame" x="19" y="14" width="22" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="22" id="3bB-dQ-y6d"/>
@@ -9540,7 +9540,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="detailArrow" translatesAutoresizingMaskIntoConstraints="NO" id="xhH-3e-3tK">
-                                                    <rect key="frame" x="150" y="0.0" width="20" height="20"/>
+                                                    <rect key="frame" x="150" y="0.5" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="nTp-Nd-2UK"/>
                                                         <constraint firstAttribute="height" constant="20" id="xBl-ME-vIM"/>
@@ -14660,6 +14660,7 @@
         <image name="profile_placeholder" width="600" height="600"/>
         <image name="recentely-view-product" width="28" height="28"/>
         <image name="reddempoint" width="26" height="26"/>
+        <image name="refund" width="26" height="26"/>
         <image name="remove" width="28" height="28"/>
         <image name="review" width="28" height="28"/>
         <image name="review-placeholder" width="100" height="100"/>

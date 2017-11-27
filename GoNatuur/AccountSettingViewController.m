@@ -38,7 +38,7 @@
     self.title=NSLocalizedText(@"accountSetting");
     [self addLeftBarButtonWithImage:false];
     settingsDataArray=[[NSMutableArray alloc]initWithObjects:NSLocalizedText(@"returnOrderAccount"), NSLocalizedText(@"recentlyViewd"), nil];
-    settingsImagesArray=[[NSMutableArray alloc]initWithObjects:@"recentely-view-product",@"recentely-view-product", nil];
+    settingsImagesArray=[[NSMutableArray alloc]initWithObjects:@"return-order",@"recentely-view-product", nil];
 }
 #pragma mark - end
 
