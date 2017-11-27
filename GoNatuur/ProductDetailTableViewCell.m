@@ -165,8 +165,9 @@
 }
 
 - (void)displaySubscriptionData:(BOOL)isSubscribed {
+    _subscriptionLabel.text = NSLocalizedText(@"subscription");
     if (isSubscribed) {
-        _subscriptionImage.image = [UIImage imageNamed:@"selected"];
+        _subscriptionImage.image = [UIImage imageNamed:@"sunscriptionSelected"];
     } else {
         _subscriptionImage.image = [UIImage imageNamed:@"unselected"];
     }

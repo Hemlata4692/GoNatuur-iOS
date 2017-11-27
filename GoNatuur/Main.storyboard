@@ -7312,7 +7312,7 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info@gonatuur.com" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGl-Eu-77r">
                                                 <rect key="frame" x="20" y="185" width="280" height="18"/>
-                                                <color key="backgroundColor" red="0.71372549019999998" green="0.1450980392" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="dLG-2B-hAC"/>
                                                 </constraints>
@@ -7351,7 +7351,6 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="invoiceButtonAction:" destination="1Hf-jg-SVC" eventType="touchUpInside" id="dzD-ln-yhS"/>
                                                     <action selector="saveAction:" destination="tCs-VL-YbW" eventType="touchUpInside" id="CAb-RB-hB6"/>
                                                 </connections>
                                             </button>
@@ -7451,12 +7450,14 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="billingFrequencyField" destination="Euv-G3-gkg" id="23V-3w-0AA"/>
+                        <outlet property="cancelButton" destination="jXG-Zk-XUG" id="13Q-J0-RRt"/>
                         <outlet property="containerView" destination="h2z-h2-8ZU" id="Zcc-5o-Cu9"/>
                         <outlet property="datepicker" destination="PSW-RM-2an" id="ceu-re-ViO"/>
                         <outlet property="emailLabel" destination="JGl-Eu-77r" id="K0h-oJ-s31"/>
                         <outlet property="mailInfoLabel" destination="5J2-Fc-Ijq" id="hJG-EC-lqR"/>
                         <outlet property="maxBillingField" destination="lrt-zO-SyX" id="RIP-Fn-pG7"/>
                         <outlet property="periodUnitField" destination="1ul-4k-0Dz" id="ARN-M9-7Ap"/>
+                        <outlet property="saveButton" destination="FHB-n2-ll1" id="nVX-Yc-BYS"/>
                         <outlet property="scrollView" destination="7wB-dF-oeW" id="IbZ-SD-X3Z"/>
                         <outlet property="startDateField" destination="r2a-fi-rdH" id="S0Z-9z-s1Q"/>
                         <outlet property="subscriptionReminderLabel" destination="dV7-mn-sMK" id="UFC-4y-gTr"/>

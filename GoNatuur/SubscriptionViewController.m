@@ -36,6 +36,8 @@
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datepicker;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 //Declare BSKeyboard variable
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
@@ -65,6 +67,7 @@
     self.navigationController.navigationBarHidden=false;
     [self addLeftBarButtonWithImage:true];
     [self customizedTextField];
+    [self localisation];
     _scrollView.scrollEnabled = NO;
     subscriptionReminder = @"0";
     //Allocate keyboard notification
@@ -84,15 +87,17 @@
 
 #pragma mark - Localisation
 - (void)localisation {
-    
+    [_cancelButton setTitle:[NSLocalizedText(@"cancel") uppercaseString] forState:UIControlStateNormal];
+    [_saveButton setTitle:NSLocalizedText(@"save") forState:UIControlStateNormal];
 }
 #pragma mark - end
 
 #pragma mark - Customise view
 - (void)customizedTextField {
-    float newHeight =[DynamicHeightWidth getDynamicLabelHeight:_emailLabel.text font:[UIFont montserratLightWithSize:16] widthValue:[[UIScreen mainScreen] bounds].size.width-120 heightValue:45];
     _emailLabel.translatesAutoresizingMaskIntoConstraints = YES;
-    _emailLabel.frame=CGRectMake(20, _mailInfoLabel.frame.origin.y+10,[[UIScreen mainScreen] bounds].size.width-40, newHeight);
+    float newHeight =[DynamicHeightWidth getDynamicLabelHeight:_emailLabel.text font:[UIFont montserratLightWithSize:16] widthValue:[[UIScreen mainScreen] bounds].size.width-40 heightValue:60];
+    [_emailLabel sizeToFit];
+    _emailLabel.frame=CGRectMake(20, _mailInfoLabel.frame.origin.y+10,_emailLabel.frame.size.width, newHeight);
     [_emailLabel setBottomBorder:_emailLabel color:[UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]];
     //Adding textfield to keyboard controls array
     [self setKeyboardControls:[[BSKeyboardControls alloc] initWithFields:@[_maxBillingField, _billingFrequencyField]]];
@@ -243,7 +248,7 @@
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
         mail.mailComposeDelegate = self;
-        [mail setSubject:@"GoNatuur"];
+        [mail setSubject:NSLocalizedText(@"GoNatuur")];
         [mail setToRecipients:@[_emailLabel.text]];
         [self presentViewController:mail animated:YES completion:NULL];
     }

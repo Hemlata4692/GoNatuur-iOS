@@ -349,5 +349,6 @@
 "returnOrderAccount"="Return Order";
 "accountSetting"="Account Settings";
 "subscriptionOption"="Subscription Option";
+"subscription"="Subscription";
 "maxBillingAlertMessage"="Billing value should be greater then 0";
 

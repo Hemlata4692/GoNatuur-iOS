@@ -368,6 +368,7 @@
 "sideBarAccountSetting"="ACCOUNT SETTINGS";
 "returnOrderAccount"="Return Order";
 "accountSetting"="Account Settings";
-"subscriptionOption"="Subscription Option";
-"maxBillingAlertMessage"="Billing value should be greater then 0";
+"subscriptionOption"="訂閱選項";
+"maxBillingAlertMessage"="計費值應該大於0";
+"subscription"="訂閱";
 
