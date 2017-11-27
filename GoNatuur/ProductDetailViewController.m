@@ -322,27 +322,21 @@
                                               BOOL completed,
                                               NSArray *returnedItems,
                                               NSError *error){
-        // react to the completion
-        if (completed) {
-            // user shared an item
-            NSLog(@"We used activity type %@", activityType);
-            if ([activityType isEqualToString:UIActivityTypePostToFacebook]) {
-               // message = @"text for email";
-            } else if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
-              //  message = @"text for iMessage";
-            } else if ([activityType isEqualToString:UIActivityTypePostToWeibo]) {
-              //  message = @"text for facebook";
-            } else if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
-               // message = @"text for twitter.";
-            } else {
-               // message = @"a default text";
-            }
-            
-        } else {
-            // user cancelled
-            NSLog(@"We didn't want to share anything after all.");
+        if ([activityType isEqualToString:UIActivityTypePostToFacebook]) {
+            [self shareProductData:@"facebook"];
+        } else if ([activityType isEqualToString:@"com.tencent.xin.sharetimeline"]) {
+            [self shareProductData:@"wechat"];
+        } else if ([activityType isEqualToString:UIActivityTypePostToWeibo]) {
+            [self shareProductData:@"weibo"];
+        } else if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
+             [self shareProductData:@"twitter"];
         }
-        
+        else if ([activityType isEqualToString:@"com.google.GooglePlus.ShareExtension"]) {
+            [self shareProductData:@"google"];
+        } else if ([activityType isEqualToString:@"pinterest.ShareExtension"]) {
+            [self shareProductData:@"pintrest"];
+        }
+        // react to the completion
         if (error) {
             NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
         }
@@ -476,6 +470,21 @@
         isServiceCalled=true;
         currentQuantity=[productDetailData.productMinQuantity intValue];
         [_productDetailTableView reloadData];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+//Share product
+- (void)shareProductData:(NSString*) mediaType {
+    ProductDataModel *productData = [ProductDataModel sharedUser];
+    productData.productId=[NSNumber numberWithInt:selectedProductId];
+    productData.socialMediaType=mediaType;
+    productData.sharingType=@"product";
+    productData.productName=productDetailModelData.productName;
+    [productData shareProductDataService:^(ProductDataModel *productDetailData)  {
+        [myDelegate stopIndicator];
+        isServiceCalled=true;
     } onfailure:^(NSError *error) {
         
     }];

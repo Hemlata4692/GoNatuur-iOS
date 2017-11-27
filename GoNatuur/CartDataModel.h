@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSNumber *checkoutImpactPoint;
 @property (strong, nonatomic) NSMutableArray *itemList;
 @property (strong, nonatomic) NSMutableDictionary *billingAddressDict;
+@property (strong, nonatomic) NSMutableDictionary *extensionAttributeDict;
 @property (strong, nonatomic) NSMutableDictionary *shippingAddressDict;
 @property (strong, nonatomic) NSString *selectedShippingMethod;
 @property (strong, nonatomic) NSMutableDictionary *customerDict;
@@ -37,6 +38,8 @@
 @property (strong, nonatomic) NSNumber *isRedeemProduct;
 @property (strong, nonatomic) NSNumber *isRedeemProductExist;
 @property (strong, nonatomic) NSNumber *isSimpleProductExist;
+@property (strong, nonatomic) NSString *couponCode;
+@property (strong, nonatomic) NSString *isCouponApplied;
 
 //Singleton instanse
 + (instancetype)sharedUser;
@@ -57,4 +60,8 @@
 - (void)setPaymentMethodOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 //Set checkout order
 - (void)setCheckoutOrderOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Coupon code
+- (void)applyCouponCode:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
+//remove
+- (void)removeCouponCode:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

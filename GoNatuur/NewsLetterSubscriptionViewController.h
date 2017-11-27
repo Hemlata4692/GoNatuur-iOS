@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FinalCheckoutViewController.h"
 
-@interface NewsLetterSubscriptionViewController : UIViewController
+@protocol ApplyCouponDelegate <NSObject>
+- (void)applyCoupon:(NSString *)couponApplied;
+@end
 
+@interface NewsLetterSubscriptionViewController : UIViewController<ApplyCouponDelegate> {
+        id <ApplyCouponDelegate> _delegate;
+    }
+@property (nonatomic, strong) NSString *screeType;
+@property (nonatomic, weak) id<ApplyCouponDelegate> _delegate;
 @end

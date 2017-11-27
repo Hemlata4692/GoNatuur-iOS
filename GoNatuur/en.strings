@@ -352,3 +352,5 @@
 "ReturnPolicy"="Return Refund Policy";
 "orderShipment"="Order Shipment";
 "invoiceScreen"="Invoice";
+"couponCode"="Coupon code";
+"removeCouponCode"="Remove Coupon Code";

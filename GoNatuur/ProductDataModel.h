@@ -52,6 +52,7 @@
 @property (strong, nonatomic) NSString *productVideoDefault;
 @property (strong, nonatomic) NSString *productVideoDefaultThumbnail;
 @property (strong, nonatomic) NSString *sharingType;
+@property (strong, nonatomic) NSString *socialMediaType;
 
 //Singleton method
 + (instancetype)sharedUser;

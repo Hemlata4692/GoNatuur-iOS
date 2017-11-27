@@ -362,3 +362,5 @@
 "ReturnPolicy"="退货退款政策";
 "orderShipment"="Order Shipment";
 "invoiceScreen"="Invoice";
+"couponCode"="Coupon code";
+"removeCouponCode"="Remove Coupon Code";

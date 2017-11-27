@@ -6902,6 +6902,7 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="emailIcon" destination="kKM-ta-bpx" id="VS4-r6-6eF"/>
                         <outlet property="emailTextField" destination="bdb-Oc-A2I" id="5lh-tf-nC7"/>
                         <outlet property="headingLabel" destination="W0z-WJ-dUZ" id="tQg-fF-yhT"/>
                         <outlet property="mainView" destination="BRu-2n-K1d" id="fmq-o6-29x"/>
@@ -7399,7 +7400,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="96" y="274" width="129" height="21"/>
+                                <rect key="frame" x="96.5" y="274" width="129" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>
@@ -9540,7 +9541,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="detailArrow" translatesAutoresizingMaskIntoConstraints="NO" id="xhH-3e-3tK">
-                                                    <rect key="frame" x="150" y="0.5" width="20" height="20"/>
+                                                    <rect key="frame" x="150" y="0.0" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="nTp-Nd-2UK"/>
                                                         <constraint firstAttribute="height" constant="20" id="xBl-ME-vIM"/>
@@ -12263,15 +12264,15 @@
                                                                     <outlet property="priceTitleLabel" destination="7oG-pc-fyZ" id="udI-XY-xSB"/>
                                                                 </connections>
                                                             </tableViewCell>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="applyCouponCell" rowHeight="35" id="qiX-J0-WNx" customClass="FinalCheckoutTableViewCell">
-                                                                <rect key="frame" x="0.0" y="126" width="320" height="35"/>
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="applyCouponCell" rowHeight="45" id="qiX-J0-WNx" customClass="FinalCheckoutTableViewCell">
+                                                                <rect key="frame" x="0.0" y="126" width="320" height="45"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qiX-J0-WNx" id="c9W-tt-xTU">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S$25000.00" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLz-yN-XCg">
-                                                                            <rect key="frame" x="165" y="0.0" width="145" height="35"/>
+                                                                            <rect key="frame" x="165" y="0.0" width="145" height="40"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="145" id="C0Y-ti-LiH"/>
                                                                             </constraints>
@@ -12280,29 +12281,37 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lry-ye-5OY">
-                                                                            <rect key="frame" x="10" y="7" width="147" height="20"/>
+                                                                            <rect key="frame" x="10" y="3" width="147" height="20"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="13"/>
                                                                             <state key="normal" title="Apply coupon code">
                                                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             </state>
                                                                         </button>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDN-Hb-YFe">
+                                                                            <rect key="frame" x="10" y="25" width="147" height="21"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="13"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="trailing" secondItem="hLz-yN-XCg" secondAttribute="trailing" constant="10" id="5p9-ny-uz1"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="hLz-yN-XCg" secondAttribute="bottom" id="Hgt-PF-Pz2"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="hLz-yN-XCg" secondAttribute="bottom" constant="5" id="Hgt-PF-Pz2"/>
                                                                         <constraint firstItem="hLz-yN-XCg" firstAttribute="top" secondItem="c9W-tt-xTU" secondAttribute="top" id="zzY-Cy-lVH"/>
                                                                     </constraints>
                                                                 </tableViewCellContentView>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <connections>
                                                                     <outlet property="applyCouponButton" destination="Lry-ye-5OY" id="0Wm-jQ-N94"/>
+                                                                    <outlet property="cuponCodeLabel" destination="MDN-Hb-YFe" id="fH3-NP-s6n"/>
                                                                     <outlet property="priceLabel" destination="hLz-yN-XCg" id="TnG-uh-KV4"/>
                                                                 </connections>
                                                             </tableViewCell>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="infoCell" rowHeight="55" id="Scf-zm-vp7" customClass="FinalCheckoutTableViewCell">
-                                                                <rect key="frame" x="0.0" y="161" width="320" height="55"/>
+                                                                <rect key="frame" x="0.0" y="171" width="320" height="55"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Scf-zm-vp7" id="JiE-W6-yOg">
                                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>

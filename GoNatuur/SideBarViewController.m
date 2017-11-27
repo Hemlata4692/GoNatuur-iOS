@@ -157,6 +157,7 @@
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         NewsLetterSubscriptionViewController *popView =
         [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterSubscriptionViewController"];
+        popView.screeType=@"1";
         popView.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4f];
         [popView setModalPresentationStyle:UIModalPresentationOverCurrentContext];
         dispatch_async(dispatch_get_main_queue(), ^{

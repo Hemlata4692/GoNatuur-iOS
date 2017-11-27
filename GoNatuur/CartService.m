@@ -16,7 +16,7 @@ static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-
 static NSString *kGetCheckoutPromo=@"ranosys/setcheckoutpromo";
 static NSString *kSetPaymentMethod=@"carts/mine/selected-payment-method";
 static NSString *kSetCheckoutOrder=@"carts/mine/order";
-
+static NSString *kApplyCouponCode=@"carts/mine/coupons/";
 @implementation CartService
 
 #pragma mark - Fetch cart listing
@@ -40,7 +40,6 @@ static NSString *kSetCheckoutOrder=@"carts/mine/order";
     }
     
 }
-
 #pragma mark - Fetch shippment methods
 - (void)fetchShippmentMethods:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     if ((nil==[UserDefaultManager getValue:@"userId"])){
@@ -72,6 +71,28 @@ static NSString *kSetCheckoutOrder=@"carts/mine/order";
                                  };
     DLog(@"%@",parameters);
     [super post:kGetCheckoutPromo parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Apply coupon code
+- (void)applyCouponCode:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+        [self get:[NSString stringWithFormat:@"guest-carts/%@/%@/%@",[UserDefaultManager getValue:@"quoteId"],@"coupons",cartData.couponCode] parameters:nil onSuccess:success onFailure:failure];
+    }
+    else {
+        [self put:[NSString stringWithFormat:@"%@%@",kApplyCouponCode,cartData.couponCode] parameters:nil success:success failure:failure];
+    }
+}
+#pragma mark - end
+
+#pragma mark - Remove coupon code
+- (void)removeCouponCode:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+         [super deleteService:[NSString stringWithFormat:@"guest-carts/%@/%@",[UserDefaultManager getValue:@"quoteId"],@"coupons"] parameters:nil isBoolean:true success:success failure:failure];
+    }
+    else {
+          [super deleteService:[NSString stringWithFormat:@"%@",kApplyCouponCode] parameters:nil isBoolean:true success:success failure:failure];
+    }
 }
 #pragma mark - end
 

@@ -10,6 +10,7 @@
 #import "UITextField+Padding.h"
 #import "LoginModel.h"
 #import "UITextField+Validations.h"
+#import "CartDataModel.h"
 
 @interface NewsLetterSubscriptionViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *headingLabel;
@@ -17,9 +18,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *subscribeButton;
 @property (weak, nonatomic) IBOutlet UIView *newsLetterView;
 @property (weak, nonatomic) IBOutlet UIView *mainView;
+@property (weak, nonatomic) IBOutlet UIImageView *emailIcon;
 @end
 
 @implementation NewsLetterSubscriptionViewController
+@synthesize screeType;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -36,9 +39,18 @@
 
 #pragma mark - Localized text and view customisation
 - (void)viewCustomisation {
-    _headingLabel.text=NSLocalizedText(@"newlettersubscription");
-    _emailTextField.placeholder=NSLocalizedText(@"Email");
-    [_subscribeButton setTitle:NSLocalizedText(@"subscribe") forState:UIControlStateNormal];
+    if ([screeType isEqualToString:@"1"]) {
+        //news letter
+        _headingLabel.text=NSLocalizedText(@"newlettersubscription");
+        _emailTextField.placeholder=NSLocalizedText(@"Email");
+        [_subscribeButton setTitle:NSLocalizedText(@"subscribe") forState:UIControlStateNormal];
+    }
+    else {
+        _headingLabel.text=NSLocalizedText(@"applyCouponCode");
+        _emailTextField.placeholder=NSLocalizedText(@"couponCode");
+        [_subscribeButton setTitle:NSLocalizedText(@"applyButtonTitle") forState:UIControlStateNormal];
+        _emailIcon.hidden=true;
+    }
     [_emailTextField addTextFieldLeftRightPadding:_emailTextField];
     [_emailTextField setTextBorder:_emailTextField color:[UIColor colorWithRed:199.0/255.0 green:201.0/255.0 blue:201.0/255.0 alpha:1.0]];
     [_newsLetterView setCornerRadius:2.0];
@@ -71,10 +83,16 @@
 #pragma mark - IBActions
 - (IBAction)subscribeForNewsLetter:(id)sender {
     [_emailTextField resignFirstResponder];
+      if ([screeType isEqualToString:@"1"]) {
     if([self performValidations]) {
         [myDelegate showIndicator];
         [self performSelector:@selector(subscribeForNews) withObject:nil afterDelay:.1];
     }
+      }
+      else {
+          [myDelegate showIndicator];
+          [self performSelector:@selector(applyCouponService) withObject:nil afterDelay:.1];
+      }
 }
 #pragma mark - end
 
@@ -85,6 +103,20 @@
     [userLogin newsLetterSubscribe:^(LoginModel *userData) {
         [myDelegate stopIndicator];
         [self dismissViewControllerAnimated:YES completion:nil];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)applyCouponService {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    cartData.couponCode = _emailTextField.text;
+    [cartData applyCouponCode:^(CartDataModel *cartData)  {
+        [myDelegate stopIndicator];
+        myDelegate.isCouponApplied=@"1";
+        [self dismissViewControllerAnimated:YES completion:^{
+            [_delegate applyCoupon:myDelegate.isCouponApplied];
+        }];
     } onfailure:^(NSError *error) {
         
     }];

@@ -1200,8 +1200,9 @@
         cartData.billingAddressDict=[NSMutableDictionary new];
         cartData.shippingAddressDict=[NSMutableDictionary new];
         cartData.customerDict=[NSMutableDictionary new];
+        cartData.extensionAttributeDict=[NSMutableDictionary new];
         cartData.customerSavedAddressArray=[NSMutableArray new];
-        cartData.selectedShippingMethod=@"flatrate";
+        cartData.selectedShippingMethod=@"freeshipping";
         if ((nil==[UserDefaultManager getValue:@"userId"])){
             int cartCount=0;
             for (NSDictionary *tempDict in response) {
@@ -1209,16 +1210,17 @@
                 [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
             }
             cartData.itemQty=[NSNumber numberWithInt:cartCount];
-            cartData.selectedShippingMethod=@"flatrate";
+            cartData.selectedShippingMethod=@"freeshipping";
         }
         else {
+            cartData.extensionAttributeDict=[response objectForKey:@"extension_attributes"];
             cartData.billingAddressDict=[response[@"billing_address"] mutableCopy];
             cartData.customerDict=[response[@"customer"] mutableCopy];
             cartData.customerSavedAddressArray=[cartData.customerDict[@"addresses"] mutableCopy];
             if ([[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] count]>0) {
                 cartData.shippingAddressDict=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"];
             }
-            cartData.selectedShippingMethod=([cartData.selectedShippingMethod isEqualToString:@""]?@"flatrate":cartData.selectedShippingMethod);
+            cartData.selectedShippingMethod=([cartData.selectedShippingMethod isEqualToString:@""]?@"freeshipping":cartData.selectedShippingMethod);
             for (NSDictionary *tempDict in response[@"items"]) {
                 [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
             }
@@ -1796,6 +1798,30 @@
     }
                             onfailure:^(NSError *error) {
                             }];
+}
+#pragma mark - end
+
+#pragma mark - Apply coupon
+- (void)applyCouponCodeService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList applyCouponCode:cartData success:^(id response) {
+        DLog(@"applyCouponCode response %@",response);
+        success(cartData);
+    }
+                            onfailure:^(NSError *error) {
+                            }];
+}
+#pragma mark - end
+
+#pragma mark - Remove coupon
+- (void)removeCouponCodeService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList removeCouponCode:cartData success:^(id response) {
+        DLog(@"applyCouponCode response %@",response);
+        success(cartData);
+    }
+                    onfailure:^(NSError *error) {
+                    }];
 }
 #pragma mark - end
 

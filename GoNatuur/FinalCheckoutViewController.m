@@ -13,15 +13,18 @@
 #import "CardListViewController.h"
 #import "GoNatuurPickerView.h"
 #import "BSKeyboardControls.h"
+#import "NewsLetterSubscriptionViewController.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
 #define borderRadioColor [UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]
 #define paymentBorderColor [UIColor colorWithRed:120.0/255.0 green:120.0/255.0 blue:120.0/255.0 alpha:0.3]
 #define selectedPaymentMethodColor  [UIColor colorWithRed:250.0/255.0 green:241.0/255.0 blue:244.0/255.0 alpha:1.0]
-
 #define textFieldBorderColor  [UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0]
-@interface FinalCheckoutViewController ()<GoNatuurPickerViewDelegate,BSKeyboardControlsDelegate> {
+
+
+
+@interface FinalCheckoutViewController ()<GoNatuurPickerViewDelegate,BSKeyboardControlsDelegate,ApplyCouponDelegate> {
 @private
     NSMutableArray *paymentMethodArray, *cardTypeDataArray, *cardTypeCodeArray;
     NSDictionary *cartItemPrice;
@@ -90,6 +93,21 @@
     [self setSelectedCardData];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    //Bring front view picker view
+    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
+   
+}
+
+- (void)applyCoupon:(NSString *)couponApplied {
+    if ([couponApplied isEqualToString:@"1"]) {
+        //removeCouponCode
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getCartList) withObject:nil afterDelay:.1];
+    }
+}
+
 - (void)setSelectedCardData {
     if (selectedCardDataDict!=nil) {
         _cardNumber.text = [NSString stringWithFormat:@"%@ %@",NSLocalizedText(@"cardNumberList"),selectedCardDataDict.cardLastFourDigit];
@@ -123,12 +141,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:YES];
-    //Bring front view picker view
-    [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
 }
 
 - (void)addCustomPickerView {
@@ -525,13 +537,13 @@
     }
     else if (indexPath.row<(cartListDataArray.count+totalArray.count)) {
         [cell displayPriceCellData:[totalDict mutableCopy] priceTitleArray:[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] islastIndex:(((cartListDataArray.count+totalArray.count)-1)==indexPath.row)?true:false isApplyCoupon:([[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] isEqualToString:@"Apply coupon code"]?true:false)];
+         [cell.applyCouponButton addTarget:self action:@selector(applyCouponAction:) forControlEvents:UIControlEventTouchUpInside];
     }
-    else {}
+    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (indexPath.row<cartListDataArray.count) {
         return 93.0;
     }
@@ -540,7 +552,12 @@
             return 55.0;
         }
         else {
+            if ([myDelegate.isCouponApplied isEqualToString:@"1"]) {
+                 return 45.0;
+            }
+            else {
             return 35.0;
+            }
         }
     }
 }
@@ -619,6 +636,20 @@
 #pragma mark - end
 
 #pragma mark - Webservice
+- (void)getCartList {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    [cartData getCartListingData:^(CartDataModel *userData)  {
+        [myDelegate stopIndicator];
+        if (userData.itemList.count>0) {
+        }
+        else {
+            [myDelegate stopIndicator];
+        }
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
 - (void)setPaymentMethod {
     CartDataModel *cartData = [CartDataModel sharedUser];
     cartData.paymentMethod=[paymentMethodArray objectAtIndex:selectedPaymentMethodIndex];
@@ -645,6 +676,19 @@
 - (IBAction)selectCardTypeAction:(id)sender {
     // picker of card type
     [gNPickerViewObj showPickerView:cardTypeDataArray selectedIndex:selectedPickerIndex option:1 isCancelDelegate:false isFilterScreen:false];
+}
+
+- (IBAction)applyCouponAction:(id)sender {
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    NewsLetterSubscriptionViewController *popView =
+    [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterSubscriptionViewController"];
+    popView._delegate=self;
+    popView.screeType=@"2";
+    popView.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4f];
+    [popView setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:popView animated:YES completion:nil];
+    });
 }
 
 - (IBAction)addCardButtonAction:(id)sender {

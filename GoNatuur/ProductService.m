@@ -42,7 +42,7 @@ static NSString *kshareProductNews=@"socialmediasharing";
 #pragma mark - Sahre product/newws
 - (void)shareProductNewsService:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{@"np_id":productDetail.productId,
-                                 @"customer_id":[UserDefaultManager getValue:@"userId"],@"social_media_type":productDetail.productId,
+                                 @"customer_id":[UserDefaultManager getValue:@"userId"],@"social_media_type":productDetail.socialMediaType,
                                  @"share_type":productDetail.sharingType,@"np_name":productDetail.productName
                                  };
     NSLog(@"sharing request %@",parameters);
