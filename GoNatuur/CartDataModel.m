@@ -108,6 +108,18 @@
 }
 #pragma mark - end
 
+#pragma mark - Get shipping method data
+- (void)getShippingMethodData:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getShippingMethod:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
 #pragma mark - Fetch checkout promos
 - (void)fetchCheckoutPromosOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] fetchCheckoutPromos:self onSuccess:^(CartDataModel *userData) {

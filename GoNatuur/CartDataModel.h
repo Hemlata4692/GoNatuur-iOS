@@ -85,4 +85,6 @@
 - (void)removeCouponCode:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 //cybersource
 - (void)setCyberSourcePaymentData:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Get shipping method data
+- (void)getShippingMethodData:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

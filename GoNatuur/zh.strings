@@ -389,3 +389,5 @@
 "invoiceScreen"="Invoice";
 "couponCode"="Coupon code";
 "removeCouponCode"="Remove Coupon Code";
+"makePayment"="付款";
+"selectPaymentMessage"="Please select payment method.";

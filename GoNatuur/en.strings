@@ -369,4 +369,6 @@
 "invoiceScreen"="Invoice";
 "couponCode"="Coupon code";
 "removeCouponCode"="Remove Coupon Code";
+"makePayment"="Make Payment";
+"selectPaymentMessage"="Please select payment method.";
 

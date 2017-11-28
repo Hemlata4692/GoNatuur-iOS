@@ -1023,42 +1023,54 @@
 
 //Set addresses and shipping methods
 - (void)setUpdatedAddressShippingMethods:(NSNumber *)serviceType {
-    CartDataModel *cartData = [CartDataModel sharedUser];
-    cartData=[cartModelData copy];
-    cartData.shippingAddressDict=[[self setShippingAddressInCartModel] mutableCopy];
-    cartData.billingAddressDict=[[self setBillingAddressInCartModel] mutableCopy];
-    cartModelData.shippingAddressDict=[cartData.shippingAddressDict mutableCopy];
-    cartModelData.billingAddressDict=[cartData.billingAddressDict mutableCopy];
-    [cartData setUpdatedAddressShippingMethodsOnSuccess:^(CartDataModel *shippmentDetailData)  {
-        cartModelData.checkoutFinalData=[shippmentDetailData.checkoutFinalData mutableCopy];
-        if ([serviceType intValue]==1) {
-            [self getShippmentMethodData:false];
-        }
-        else if ([serviceType intValue]==0) {
-            if (selectedShippingMethodIndex==-1) {
-                [self getShippmentMethodData:true];
+    if ([cartModelData.selectedShippingMethod isEqualToString:@""]) {
+        CartDataModel *cartData = [CartDataModel sharedUser];
+        cartData.shippingAddressDict=[[self setShippingAddressInCartModel] mutableCopy];
+        [cartData getShippingMethodData:^(CartDataModel *userData)  {
+            cartModelData.selectedShippingMethod=userData.selectedShippingMethod;
+            [self setUpdatedAddressShippingMethods:serviceType];
+        } onfailure:^(NSError *error) {
+            
+        }];
+    }
+    else {
+        CartDataModel *cartData = [CartDataModel sharedUser];
+        cartData=[cartModelData copy];
+        cartData.shippingAddressDict=[[self setShippingAddressInCartModel] mutableCopy];
+        cartData.billingAddressDict=[[self setBillingAddressInCartModel] mutableCopy];
+        cartModelData.shippingAddressDict=[cartData.shippingAddressDict mutableCopy];
+        cartModelData.billingAddressDict=[cartData.billingAddressDict mutableCopy];
+        [cartData setUpdatedAddressShippingMethodsOnSuccess:^(CartDataModel *shippmentDetailData)  {
+            cartModelData.checkoutFinalData=[shippmentDetailData.checkoutFinalData mutableCopy];
+            if ([serviceType intValue]==1) {
+                [self getShippmentMethodData:false];
             }
-            else {
-                DLog(@"called checkout promo");
-                if (selectedCheckoutPromoIndex==-1||(nil==[UserDefaultManager getValue:@"userId"])) {
-                    [myDelegate stopIndicator];
-                    //Navigate to step3
-                    [self navigateToFinalCheckout];
+            else if ([serviceType intValue]==0) {
+                if (selectedShippingMethodIndex==-1) {
+                    [self getShippmentMethodData:true];
                 }
                 else {
-                    [self setCheckoutPromos];
+                    DLog(@"called checkout promo");
+                    if (selectedCheckoutPromoIndex==-1||(nil==[UserDefaultManager getValue:@"userId"])) {
+                        [myDelegate stopIndicator];
+                        //Navigate to step3
+                        [self navigateToFinalCheckout];
+                    }
+                    else {
+                        [self setCheckoutPromos];
+                    }
                 }
             }
-        }
-        else if ([serviceType intValue]==2) {
+            else if ([serviceType intValue]==2) {
+                
+                [myDelegate stopIndicator];
+                //Navigate to step3
+                [self navigateToFinalCheckout];
+            }
+        } onfailure:^(NSError *error) {
             
-            [myDelegate stopIndicator];
-             //Navigate to step3
-            [self navigateToFinalCheckout];
-        }
-    } onfailure:^(NSError *error) {
-        
-    }];
+        }];
+    }
 }
 
 //Get shippment methods

@@ -15,6 +15,7 @@
 #import "BSKeyboardControls.h"
 #import "ThankYouViewController.h"
 #import "NewsLetterSubscriptionViewController.h"
+#import "PaymentWebViewController.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
@@ -663,6 +664,12 @@
     cartData.paymentMethod=[paymentMethodArray objectAtIndex:selectedPaymentMethodIndex];
     [cartData setPaymentMethodOnSuccess:^(CartDataModel *shippmentDetailData)  {
         //[self setCheckoutOrder];
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        PaymentWebViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"PaymentWebViewController"];
+        nextView.paymentMethod = [paymentMethodArray objectAtIndex:selectedPaymentMethodIndex];
+        nextView.finalCheckoutPriceDict = totalDict;
+        nextView.cartListDataArray = cartListDataArray;
+        [self.navigationController pushViewController:nextView animated:YES];
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
         
@@ -756,15 +763,26 @@
     if (isCyberSourcePayment) {
         selectedPaymentMethodIndex=0;
     }
-    UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ThankYouViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
-    nextView.cartListDataArray = cartListDataArray;
-    nextView.finalCheckoutPriceDict=totalDict;
-    [self.navigationController pushViewController:nextView animated:YES];
-//    [myDelegate showIndicator];
-//    [self performSelector:@selector(setPaymentMethod) withObject:nil afterDelay:.1];
-}
 
+    if ([self performValidations]) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(setPaymentMethod) withObject:nil afterDelay:.1];
+    }
+}
+#pragma mark - end
+
+#pragma mark - Perform Validatios
+- (BOOL)performValidations {
+    NSLog(@"%d",selectedPaymentMethodIndex);
+    if (selectedPaymentMethodIndex == -1){
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"selectPaymentMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        return NO;
+    }
+    else {
+        return YES;
+    }
+}
 #pragma mark - end
 
 #pragma mark - Custom picker delegate method

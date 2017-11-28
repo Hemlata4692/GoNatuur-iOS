@@ -13,4 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *continueShoppingButton;
 @property (nonatomic, strong) NSMutableArray *cartListDataArray;
 @property (nonatomic, strong) NSDictionary *finalCheckoutPriceDict;
+@property (nonatomic, strong) NSString *orderId;
+
 @end

@@ -143,6 +143,7 @@
 		32A3D7131F1CE3BB00062B86 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 32A3D70E1F1CE3BB00062B86 /* GoogleSignIn.bundle */; };
 		32A3D7141F1CE3BB00062B86 /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A3D70F1F1CE3BB00062B86 /* GoogleSignIn.framework */; };
 		32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32A3D7151F1CE4A500062B86 /* GoogleService-Info.plist */; };
+		32B329E11FCD1ABC0035B684 /* PaymentWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B329E01FCD1ABC0035B684 /* PaymentWebViewController.m */; };
 		32BAA6091F1360280015E355 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BAA6081F1360280015E355 /* main.m */; };
 		32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BAA60B1F1360280015E355 /* AppDelegate.m */; };
 		32BAA6141F1360290015E355 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32BAA6131F1360290015E355 /* Assets.xcassets */; };
@@ -440,6 +441,8 @@
 		32A3D70E1F1CE3BB00062B86 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleSignIn.bundle; sourceTree = "<group>"; };
 		32A3D70F1F1CE3BB00062B86 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSignIn.framework; sourceTree = "<group>"; };
 		32A3D7151F1CE4A500062B86 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		32B329DF1FCD1ABC0035B684 /* PaymentWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentWebViewController.h; sourceTree = "<group>"; };
+		32B329E01FCD1ABC0035B684 /* PaymentWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentWebViewController.m; sourceTree = "<group>"; };
 		32BAA6041F1360280015E355 /* GoNatuur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoNatuur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32BAA6081F1360280015E355 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32BAA60A1F1360280015E355 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -809,6 +812,7 @@
 		181FD22B1F601F6300C5373C /* PaymentMethodModule */ = {
 			isa = PBXGroup;
 			children = (
+				32B329DE1FCD1A450035B684 /* PaymentWebViewController */,
 			);
 			name = PaymentMethodModule;
 			sourceTree = "<group>";
@@ -1833,6 +1837,15 @@
 			name = GoogleLogin;
 			sourceTree = "<group>";
 		};
+		32B329DE1FCD1A450035B684 /* PaymentWebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				32B329DF1FCD1ABC0035B684 /* PaymentWebViewController.h */,
+				32B329E01FCD1ABC0035B684 /* PaymentWebViewController.m */,
+			);
+			name = PaymentWebViewController;
+			sourceTree = "<group>";
+		};
 		32BAA5FB1F1360280015E355 = {
 			isa = PBXGroup;
 			children = (
@@ -2756,6 +2769,7 @@
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
 				1881C9021FC43C58001B587F /* ImapctPointHistoryTableViewCell.m in Sources */,
 				B77A8A781F34388800233782 /* SignUpViewController.m in Sources */,
+				32B329E11FCD1ABC0035B684 /* PaymentWebViewController.m in Sources */,
 				B75E6F271F7504FD0059D8E1 /* CheckoutCollectionViewCell.m in Sources */,
 				18FA12071F6A84870001A3B0 /* ProductGuideTableViewCell.m in Sources */,
 				B7A86ECD1F3B3D85004DA530 /* CMSPageViewController.m in Sources */,

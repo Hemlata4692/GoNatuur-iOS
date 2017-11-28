@@ -40,7 +40,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *rewardInfoLabel;
 
-- (void)displayData:(CGSize)rectSize ;
+- (void)displayData:(CGSize)rectSize orderId:(NSString *)orderId;
 - (void)displayPurchaseData:(CGSize)rectSize ;
 - (void)displayOrderTotalData:(CGSize)rectSize finalCheckoutPriceDict:(NSDictionary *)finalCheckoutPriceDict;
 - (void)displayCartListData:(CartDataModel *)cartData rectSize:(CGSize)rectSize;

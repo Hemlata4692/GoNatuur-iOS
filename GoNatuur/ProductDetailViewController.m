@@ -59,8 +59,8 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"Product");
     [self addLeftBarButtonWithImage:true];
-    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"productDetailPriceCell", @"productDetailInfoCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"benefitCell",@"brandCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
-    
+    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"productDetailPriceCell", @"productDetailInfoCell",@"subscriptionCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"benefitCell",@"brandCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
+
     if ([myDelegate.recentlyViewedItemsArrayGuest containsObject:[NSNumber numberWithInt:selectedProductId]]) {
         [myDelegate.recentlyViewedItemsArrayGuest removeObject:[NSNumber numberWithInt:selectedProductId]];
         if (myDelegate.recentlyViewedItemsArrayGuest.count==5) {
@@ -110,7 +110,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     if (isServiceCalled) {
-        return 16;
+        return 17;
     }
     return 0;
 }
@@ -267,23 +267,23 @@
         nextView.productDetailControllerObj = self;
         [self.navigationController pushViewController:nextView animated:YES];
     }
-    else if (indexPath.row==8) {
+    else if (indexPath.row==9) {
         //Description action
         [self navigateToView:NSLocalizedText(@"Description") webViewData:productDetailModelData.productDescription viewIdentifier:@"webView" productId:0 reviewId:@""];
     }
-    else if (indexPath.row==9) {
+    else if (indexPath.row==10) {
         //Benefit action
         [self navigateToView:NSLocalizedText(@"Benefits&Usage") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0 reviewId:@""];
     }
-    else if (indexPath.row==10) {
+    else if (indexPath.row==11) {
         //Brand action
         [self navigateToView:NSLocalizedText(@"BrandStory") webViewData:productDetailModelData.productBrandStory viewIdentifier:@"webView" productId:0 reviewId:@""];
     }
-    else if (indexPath.row==11) {
+    else if (indexPath.row==12) {
         //Review action
         [self navigateToView:NSLocalizedText(@"Review") webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId] reviewId:productDetailModelData.reviewId];
     }
-    else if (indexPath.row==12) {
+    else if (indexPath.row==13) {
         //Follow action
         if (![myDelegate checkGuestAccess]) {
             if ([productDetailModelData.following isEqualToString:@"1"]) {
@@ -294,7 +294,7 @@
             }
         }
     }
-    else if (indexPath.row==13) {
+    else if (indexPath.row==14) {
         //Wishlist action
         if (![myDelegate checkGuestAccess]) {
             if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
@@ -305,7 +305,7 @@
             }
         }
     }
-    else if (indexPath.row==14) {
+    else if (indexPath.row==15) {
         //Share action
         //[self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
         NSString *shareText=[NSString stringWithFormat:@"%@ %@ %@ %@", NSLocalizedText(@"checkThisOut"),productDetailModelData.productName,[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@.html?product_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId]],NSLocalizedText(@"onGonatuur")];
@@ -321,7 +321,7 @@
         // and present it
         [self presentActivityController:controller];
     }
-    else if (indexPath.row==15) {
+    else if (indexPath.row==16) {
         //Location action
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];

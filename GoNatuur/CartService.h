@@ -10,6 +10,8 @@
 @class CartDataModel;
 @interface CartService : Webservice
 
+//Fetch shipping methods
+- (void)getShippingMethod:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 //Fetch cart listing
 - (void)getCartListing:(CartDataModel *)reviewData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 //Remove item from cart

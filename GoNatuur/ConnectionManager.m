@@ -1234,7 +1234,7 @@
         cartData.customerDict=[NSMutableDictionary new];
         cartData.extensionAttributeDict=[NSMutableDictionary new];
         cartData.customerSavedAddressArray=[NSMutableArray new];
-        cartData.selectedShippingMethod=@"freeshipping";
+        cartData.selectedShippingMethod=@"";
         if ((nil==[UserDefaultManager getValue:@"userId"])){
             int cartCount=0;
             for (NSDictionary *tempDict in response) {
@@ -1242,7 +1242,7 @@
                 [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
             }
             cartData.itemQty=[NSNumber numberWithInt:cartCount];
-            cartData.selectedShippingMethod=@"freeshipping";
+            cartData.selectedShippingMethod=@"";
         }
         else {
             cartData.extensionAttributeDict=[response objectForKey:@"extension_attributes"];
@@ -1251,8 +1251,8 @@
             cartData.customerSavedAddressArray=[cartData.customerDict[@"addresses"] mutableCopy];
             if ([[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] count]>0) {
                 cartData.shippingAddressDict=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"];
+                 cartData.selectedShippingMethod=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"method"];
             }
-            cartData.selectedShippingMethod=([cartData.selectedShippingMethod isEqualToString:@""]?@"freeshipping":cartData.selectedShippingMethod);
             for (NSDictionary *tempDict in response[@"items"]) {
                 [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
             }
@@ -1894,4 +1894,18 @@
                             }];
 }
 #pragma mark - end
+
+#pragma mark - Get shipping method service
+- (void)getShippingMethod:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList getShippingMethod:cartData success:^(id response) {
+        DLog(@"Get shipping method response %@",response);
+        cartData.selectedShippingMethod=[NSString stringWithFormat:@"%@_%@",[[response objectAtIndex:0] objectForKey:@"carrier_code"],[[response objectAtIndex:0] objectForKey:@"carrier_code"]];
+        success(cartData);
+    }
+                      onfailure:^(NSError *error) {
+                      }];
+}
+#pragma mark - end
+
 @end

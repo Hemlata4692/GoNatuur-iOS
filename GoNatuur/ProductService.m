@@ -55,7 +55,7 @@ static NSString *kshareProductNews=@"socialmediasharing";
                                  };
     NSLog(@"sharing request %@",parameters);
     [super postSharing:kshareProductNews parameters:parameters success:success failure:failure];
-
+}
 #pragma mark - Add to wish list
 //add prodcut to wishlist
 - (void)addProductToWishlist:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {

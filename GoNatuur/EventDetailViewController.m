@@ -70,8 +70,8 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"EventDetails");
     [self addLeftBarButtonWithImage:true];
-    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"ticketingPriceCell",@"productDetailPriceCell", @"productDetailInfoCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"mapCell",@"attendingCell",@"ticketCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
-   
+    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"ticketingPriceCell",@"productDetailPriceCell", @"productDetailInfoCell",@"subscriptionCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"mapCell",@"attendingCell",@"ticketCell",@"organiserCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
+
     if ([myDelegate.recentlyViewedItemsArrayGuest containsObject:[NSNumber numberWithInt:selectedProductId]]) {
         [myDelegate.recentlyViewedItemsArrayGuest removeObject:[NSNumber numberWithInt:selectedProductId]];
         if (myDelegate.recentlyViewedItemsArrayGuest.count==5) {
@@ -303,9 +303,13 @@
         nextView.eventDetailControllerObj = self;
         [self.navigationController pushViewController:nextView animated:YES];
     }
-    else if (indexPath.row==11) {
+    else if (indexPath.row==10) {
         //Description action
         [self navigateToView:NSLocalizedText(@"Description") webViewData:productDetailModelData.productDescription viewIdentifier:@"webView" productId:0 reviewId:@"" isLocation:@"No"];
+    }
+    else if (indexPath.row==11) {
+        //map action
+        [self navigateToView:NSLocalizedText(@"mapLocation") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0 reviewId:@"" isLocation:@"Yes"];
     }
     else if (indexPath.row==12) {
         //map action

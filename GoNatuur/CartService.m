@@ -18,7 +18,24 @@ static NSString *kSetPaymentMethod=@"carts/mine/selected-payment-method";
 static NSString *kSetCheckoutOrder=@"carts/mine/order";
 static NSString *kApplyCouponCode=@"carts/mine/coupons/";
 static NSString *kCyberSourcePayment=@"carts/mine/payment-information";
+static NSString *kGetshippingMethod=@"carts/mine/estimate-shipping-methods";
 @implementation CartService
+
+#pragma mark - Fetch shipping methods
+- (void)getShippingMethod:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSMutableDictionary *tempDict=[[self setAddressMethod:[cartData.shippingAddressDict copy]] mutableCopy];
+    [tempDict setObject:[NSNumber numberWithInt:0] forKey:@"same_as_billing"];
+    NSDictionary *parameters = @{@"address" : [tempDict copy]};
+    DLog(@"%@",parameters);
+    
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+//        [self get:[NSString stringWithFormat:@"guest-carts/%@/estimate-shipping-methods",[UserDefaultManager getValue:@"quoteId"]] parameters:parameters onSuccess:success onFailure:failure];
+         [self post:[NSString stringWithFormat:@"guest-carts/%@/estimate-shipping-methods",[UserDefaultManager getValue:@"quoteId"]] parameters:parameters success:success failure:failure];
+    }
+    else {
+        [self post:kGetshippingMethod parameters:parameters success:success failure:failure];
+    }
+}
 
 #pragma mark - Fetch cart listing
 - (void)getCartListing:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {

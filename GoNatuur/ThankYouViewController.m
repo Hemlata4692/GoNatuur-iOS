@@ -58,7 +58,7 @@
         cell = [[ThankYouTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     if (indexPath.row == 0) {
-        [cell displayData:_thankYouTable.frame.size];
+        [cell displayData:_thankYouTable.frame.size orderId:_orderId];
     } else if (indexPath.row == 1) {
         [cell displayPurchaseData:_thankYouTable.frame.size];
     } else if (indexPath.row < cartListDataArray.count+2) {
@@ -68,7 +68,7 @@
         [cell displayOrderTotalData:_thankYouTable.frame.size finalCheckoutPriceDict:_finalCheckoutPriceDict];
     }
     else if (indexPath.row == cartListDataArray.count+3) {
-        [cell displayData:_thankYouTable.frame.size];
+        [cell displayData:_thankYouTable.frame.size orderId:_orderId];
     }
     return cell;
 }
