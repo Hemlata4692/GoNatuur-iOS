@@ -20,7 +20,8 @@ static NSString *kLoginedAddToCartProduct=@"carts/mine/items";
 static NSString *kSubscriptionAddToCartProduct=@"ranosys/quote-add-item";
 static NSString *kGuestAddToCartEvent=@"ranosys/add-event-to-cart";
 static NSString *kLoggedinAddToCartEvent=@"ranosys/add-event-to-cart/mine";
-
+static NSString *kshareProductNews=@"socialmediasharing";
+//https://dev.gonatuur.com/en/socialmediasharing
 @implementation ProductService
 
 #pragma mark - Get product detail service

@@ -66,6 +66,7 @@
 		185ECB6D1F73E237002BA64A /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185ECB6C1F73E237002BA64A /* FilterViewController.m */; };
 		185ECB721F73E279002BA64A /* FilterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185ECB711F73E279002BA64A /* FilterTableViewCell.m */; };
 		185F707F1F55A839007F49F7 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185F707E1F55A839007F49F7 /* ProfileViewController.m */; };
+		186A80C21FCA08CD005CC479 /* OrderShipmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186A80C11FCA08CD005CC479 /* OrderShipmentViewController.m */; };
 		1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */; };
 		187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 187129061F48D5BC00D16581 /* UpdateCartItem.m */; };
 		187129091F48DD2B00D16581 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 187129081F48DD2A00D16581 /* MediaPlayer.framework */; };
@@ -301,6 +302,8 @@
 		185ECB711F73E279002BA64A /* FilterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterTableViewCell.m; sourceTree = "<group>"; };
 		185F707D1F55A839007F49F7 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		185F707E1F55A839007F49F7 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		186A80C01FCA08CD005CC479 /* OrderShipmentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderShipmentViewController.h; sourceTree = "<group>"; };
+		186A80C11FCA08CD005CC479 /* OrderShipmentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderShipmentViewController.m; sourceTree = "<group>"; };
 		1870F0BC1F44185F008B2CE5 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		187129051F48D5BC00D16581 /* UpdateCartItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateCartItem.h; sourceTree = "<group>"; };
@@ -985,6 +988,24 @@
 			name = ProfileViewController;
 			sourceTree = "<group>";
 		};
+		186A80BE1FCA0861005CC479 /* HMSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				1843C58E1FC3FDE00085C52A /* HMSegmentedControl.h */,
+				1843C58F1FC3FDE30085C52A /* HMSegmentedControl.m */,
+			);
+			name = HMSegmentedControl;
+			sourceTree = "<group>";
+		};
+		186A80BF1FCA089E005CC479 /* OrderShipmentView */ = {
+			isa = PBXGroup;
+			children = (
+				186A80C01FCA08CD005CC479 /* OrderShipmentViewController.h */,
+				186A80C11FCA08CD005CC479 /* OrderShipmentViewController.m */,
+			);
+			name = OrderShipmentView;
+			sourceTree = "<group>";
+		};
 		1870F0BB1F44184F008B2CE5 /* ToastView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1566,8 +1587,7 @@
 		320761611F1626FB001F1790 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1843C58E1FC3FDE00085C52A /* HMSegmentedControl.h */,
-				1843C58F1FC3FDE30085C52A /* HMSegmentedControl.m */,
+				186A80BE1FCA0861005CC479 /* HMSegmentedControl */,
 				320761661F162789001F1790 /* CategoryClasses */,
 				320761651F162733001F1790 /* HelperClasses */,
 			);
@@ -1947,6 +1967,7 @@
 		5D2760A11F62765400B6D0FF /* OrderModule */ = {
 			isa = PBXGroup;
 			children = (
+				186A80BF1FCA089E005CC479 /* OrderShipmentView */,
 				B7A73B861F6F912700412656 /* OrderInvoiceView */,
 				5D0CB20A1F63FEE8008043B6 /* OrderListView */,
 				5D0CB20B1F63FEF7008043B6 /* OrderDetailView */,
@@ -2839,6 +2860,7 @@
 				188B2C0A1F419E8B0001A7AE /* SearchListingViewController.m in Sources */,
 				180409E01F58744B00EA3E17 /* NewsCentreViewController.m in Sources */,
 				B7F570F01F67B4B20006C9BB /* WishlistViewController.m in Sources */,
+				186A80C21FCA08CD005CC479 /* OrderShipmentViewController.m in Sources */,
 				5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */,
 				32CC20951F25B1D90054C344 /* LoginModel.m in Sources */,
 				1813BDBC1F55E6F300D9C9BA /* ProfileTableViewCell.m in Sources */,

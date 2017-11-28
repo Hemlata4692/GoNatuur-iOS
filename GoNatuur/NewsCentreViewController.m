@@ -16,6 +16,7 @@
 #import "NewsCentreDetailViewController.h"
 #import "ShareViewController.h"
 #import "UIView+Toast.h"
+#import "ProductDataModel.h"
 
 @interface NewsCentreViewController () <UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate> {
     @private
@@ -31,7 +32,7 @@
     int currentCategoryId;
     int lastSelectedCategoryId;
     NSMutableArray *archiveOptionsArray, *sortingDataArray;
-    NSString *sortingType, *filterValue1, *filterValue2;
+    NSString *sortingType, *filterValue1, *filterValue2, *shareProductNameText;
 }
 
 @property (strong, nonatomic) IBOutlet UILabel *noRecordLabel;
@@ -238,8 +239,8 @@
 #pragma mark - IBAction
 - (IBAction)shareNewsAction:(id)sender {
    //  [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
-    
     DashboardDataModel * newsDataModel=[productListDataArray objectAtIndex:[sender tag]];
+    shareProductNameText=newsDataModel.productName;
     NSString *shareText=[NSString stringWithFormat:@"%@ %@ %@ %@", NSLocalizedText(@"checkThisOut"),newsDataModel.productName,[NSURL URLWithString:[NSString stringWithFormat:@"%@?post_id=%@",newsDataModel.newsURL,newsDataModel.productId]],NSLocalizedText(@"onGonatuur")];
     NSArray *items = @[shareText];
     
@@ -269,14 +270,19 @@
                                               BOOL completed,
                                               NSArray *returnedItems,
                                               NSError *error){
-        // react to the completion
-        if (completed) {
-            // user shared an item
-            NSLog(@"We used activity type %@", activityType);
-            
-        } else {
-            // user cancelled
-            NSLog(@"We didn't want to share anything after all.");
+        if ([activityType isEqualToString:UIActivityTypePostToFacebook]) {
+            [self shareProductData:@"facebook"];
+        } else if ([activityType isEqualToString:@"com.tencent.xin.sharetimeline"]) {
+            [self shareProductData:@"wechat"];
+        } else if ([activityType isEqualToString:UIActivityTypePostToWeibo]) {
+            [self shareProductData:@"weibo"];
+        } else if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
+            [self shareProductData:@"twitter"];
+        }
+        else if ([activityType isEqualToString:@"com.google.GooglePlus.ShareExtension"]) {
+            [self shareProductData:@"google"];
+        } else if ([activityType isEqualToString:@"pinterest.ShareExtension"]) {
+            [self shareProductData:@"pintrest"];
         }
         
         if (error) {
@@ -287,6 +293,21 @@
 #pragma mark - end
 
 #pragma mark - Webservice
+
+//Share product
+- (void)shareProductData:(NSString*) mediaType {
+    ProductDataModel *productData = [ProductDataModel sharedUser];
+    productData.productId=[NSNumber numberWithInt:currentCategoryId];
+    productData.socialMediaType=mediaType;
+    productData.sharingType=@"news";
+    productData.productName=shareProductNameText;
+    [productData shareProductDataService:^(ProductDataModel *productDetailData)  {
+        [myDelegate stopIndicator];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
 //Get sub category list data
 - (void)getNewsCategoryListData {
     DashboardDataModel *subCategoryList = [DashboardDataModel sharedUser];

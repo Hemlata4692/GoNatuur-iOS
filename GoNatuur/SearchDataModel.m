@@ -58,6 +58,18 @@
 }
 #pragma mark - end
 
+#pragma mark - Recent products
+- (void)recentlyViewedProducts:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getRecentlyViewedData:self onSuccess:^(SearchDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
 #pragma mark - Get search listing
 - (void)getSearchProductListing:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getSearchData:self success:^(SearchDataModel *userData) {

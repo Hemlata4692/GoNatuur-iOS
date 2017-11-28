@@ -52,6 +52,8 @@
 @synthesize tierPricesArray;
 @synthesize productVideoDefault;
 @synthesize productVideoDefaultThumbnail;
+@synthesize sharingType;
+@synthesize socialMediaType;
 
 - (id)copyWithZone:(NSZone *)zone {
     ProductDataModel *another = [[ProductDataModel alloc] init];
@@ -86,6 +88,8 @@
     another.tierPricesArray=[self.tierPricesArray copyWithZone:zone];
     another.productVideoDefault=[self.productVideoDefault copyWithZone:zone];
     another.productVideoDefaultThumbnail=[self.productVideoDefaultThumbnail copyWithZone:zone];
+    another.sharingType=[self.sharingType copyWithZone:zone];
+    another.socialMediaType=[self.socialMediaType copyWithZone:zone];
     return another;
 }
 

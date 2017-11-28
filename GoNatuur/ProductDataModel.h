@@ -88,4 +88,7 @@
 
 //Add to events to cart
 - (void)addEventsToCartProductOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
+
+//Share dervice
+- (void)shareProductDataService:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

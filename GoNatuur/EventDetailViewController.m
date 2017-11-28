@@ -415,16 +415,21 @@
                                               BOOL completed,
                                               NSArray *returnedItems,
                                               NSError *error){
-        // react to the completion
-        if (completed) {
-            // user shared an item
-            NSLog(@"We used activity type %@", activityType);
-            
-        } else {
-            // user cancelled
-            NSLog(@"We didn't want to share anything after all.");
+        if ([activityType isEqualToString:UIActivityTypePostToFacebook]) {
+            [self shareProductData:@"facebook"];
+        } else if ([activityType isEqualToString:@"com.tencent.xin.sharetimeline"]) {
+            [self shareProductData:@"wechat"];
+        } else if ([activityType isEqualToString:UIActivityTypePostToWeibo]) {
+            [self shareProductData:@"weibo"];
+        } else if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
+            [self shareProductData:@"twitter"];
         }
-        
+        else if ([activityType isEqualToString:@"com.google.GooglePlus.ShareExtension"]) {
+            [self shareProductData:@"google"];
+        } else if ([activityType isEqualToString:@"pinterest.ShareExtension"]) {
+            [self shareProductData:@"pintrest"];
+        }
+        // react to the completion
         if (error) {
             NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
         }
@@ -518,6 +523,22 @@
         
     }];
 }
+
+//Share product
+- (void)shareProductData:(NSString*) mediaType {
+    ProductDataModel *productData = [ProductDataModel sharedUser];
+    productData.productId=[NSNumber numberWithInt:selectedProductId];
+    productData.socialMediaType=mediaType;
+    productData.sharingType=@"product";
+    productData.productName=productDetailModelData.productName;
+    [productData shareProductDataService:^(ProductDataModel *productDetailData)  {
+        [myDelegate stopIndicator];
+        isServiceCalled=true;
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
 
 //Add product to wishlist
 - (void)addToWishlist:(int)btnTag {

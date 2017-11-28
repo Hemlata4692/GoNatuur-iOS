@@ -114,7 +114,7 @@
         } else if (indexPath.row==2) {
             return 80;
         } else if (indexPath.row==3) {
-            return 55;
+            return 0;
         } else if (indexPath.row==4) {
             return 12;
         }
@@ -196,13 +196,11 @@
         
         NSString *dateString = orderDataModel.orderDate;
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:specialPriceDateFormatter];
-        NSDate *date = [[NSDate alloc] init];
-        date = [dateFormatter dateFromString:dateString];
+        [dateFormatter setDateFormat:orderListingDateFormat];
+        NSDate *convertedDate = [dateFormatter dateFromString:dateString];
         // converting into our required date format
         [dateFormatter setDateFormat:dateFormatterDate];
-        NSString *reqDateString = [dateFormatter stringFromDate:date];
-        
+        NSString *reqDateString = [dateFormatter stringFromDate:convertedDate];
         str=[NSString stringWithFormat:@"%@ %@",NSLocalizedText(@"orderDateHeading"), reqDateString];
         string = [[NSMutableAttributedString alloc]initWithString:str];
         registerTextRange = [str rangeOfString:NSLocalizedText(@"orderDateHeading")];

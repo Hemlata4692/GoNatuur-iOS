@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSMutableDictionary *productCartItemsDetail;
 @property (nonatomic)BOOL firstTime;
 @property (nonatomic,strong) NSString *notificationStatus;
+@property (nonatomic,strong) NSString *isCouponApplied;
 @property (nonatomic,strong) NSString *isShareUrlScreen;
 @property (nonatomic,strong) NSMutableDictionary *shareEventIdDataDict;
 @property (strong, nonatomic) NSMutableArray *recentlyViewedItemsArrayGuest;

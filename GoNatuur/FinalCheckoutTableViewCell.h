@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *guestInformationLabel;
 @property (strong, nonatomic) IBOutlet UIButton *applyCouponButton;
 @property (strong, nonatomic) IBOutlet UILabel *separatorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cuponCodeLabel;
 - (void)displayCartListData:(CartDataModel *)cartData isSeparatorHide:(BOOL)isSeparatorHide;
 - (void)displayPriceCellData:(NSMutableDictionary *)priceDetail priceTitleArray:(NSString *)priceTitle islastIndex:(BOOL)islastIndex isApplyCoupon:(BOOL)isApplyCoupon;
 @end

@@ -79,7 +79,7 @@
 - (void)getWislistItemsData {
     SearchDataModel *wishlistData = [SearchDataModel sharedUser];
     wishlistData.searchPageCount=[@(pageCount) stringValue];
-    wishlistData.pageSize=[@(currentpage) stringValue] ;
+    wishlistData.pageSize=[@(currentpage) stringValue];
     [wishlistData getWishlistService:^(SearchDataModel *userData)  {
         if (isPullToRefresh) {
             wishlistProductsArray=[NSMutableArray new];

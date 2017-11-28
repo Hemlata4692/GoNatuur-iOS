@@ -1003,8 +1003,45 @@
                                             <segue destination="3Qt-Wz-AMN" kind="custom" identifier="ProductGuide" customClass="SWRevealViewControllerSeguePushController" id="ks5-MO-p0V"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="accountSettings" rowHeight="50" id="5AI-9V-dId">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReturnPolicy" rowHeight="50" id="Vma-aq-7VV">
                                         <rect key="frame" x="0.0" y="501" width="310" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vma-aq-7VV" id="ko0-Zc-E6E">
+                                            <rect key="frame" x="0.0" y="0.0" width="277" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RETURN REFUND POLICY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T54-S2-0i9">
+                                                    <rect key="frame" x="54" y="14" width="210" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="TJa-hW-Vnv"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                                                    <color key="textColor" red="0.8862745098" green="0.88235294119999996" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="refund" translatesAutoresizingMaskIntoConstraints="NO" id="KHn-KI-46N">
+                                                    <rect key="frame" x="19" y="14" width="22" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="22" id="3bB-dQ-y6d"/>
+                                                        <constraint firstAttribute="height" constant="22" id="fzC-lT-1UB"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="T54-S2-0i9" firstAttribute="leading" secondItem="ko0-Zc-E6E" secondAttribute="leadingMargin" constant="46" id="01r-1D-EZz"/>
+                                                <constraint firstItem="T54-S2-0i9" firstAttribute="centerY" secondItem="ko0-Zc-E6E" secondAttribute="centerY" id="1ao-ow-9jG"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="T54-S2-0i9" secondAttribute="trailing" constant="5" id="3m6-na-duX"/>
+                                                <constraint firstItem="KHn-KI-46N" firstAttribute="leading" secondItem="ko0-Zc-E6E" secondAttribute="leadingMargin" constant="11" id="kPY-4q-DrL"/>
+                                                <constraint firstItem="KHn-KI-46N" firstAttribute="centerY" secondItem="ko0-Zc-E6E" secondAttribute="centerY" id="r1q-y1-rVh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="XWf-OM-sSx" kind="custom" identifier="ReturnPolicy" customClass="SWRevealViewControllerSeguePushController" id="NKl-v2-lDk"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountSettings" rowHeight="50" id="5AI-9V-dId">
+                                        <rect key="frame" x="0.0" y="551" width="310" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5AI-9V-dId" id="v6o-Cc-gdj">
                                             <rect key="frame" x="0.0" y="0.0" width="310" height="49.5"/>
@@ -1037,11 +1074,11 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <segue destination="lwr-1J-R7j" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="qWh-Qa-EoL"/>
+                                            <segue destination="lwr-1J-R7j" kind="custom" identifier="" customClass="SWRevealViewControllerSeguePushController" id="qWh-Qa-EoL"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Signout" rowHeight="50" id="H4n-ww-eHY">
-                                        <rect key="frame" x="0.0" y="551" width="310" height="50"/>
+                                        <rect key="frame" x="0.0" y="601" width="310" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H4n-ww-eHY" id="sYu-MB-ZpA">
                                             <rect key="frame" x="0.0" y="0.0" width="310" height="49.5"/>
@@ -3648,7 +3685,7 @@
         <!--Notification View Controller-->
         <scene sceneID="HPF-P1-UKt">
             <objects>
-                <viewController storyboardIdentifier="NotificationViewController" extendedLayoutIncludesOpaqueBars="YES" id="bqH-17-cmY" customClass="NotificationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NotificationViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="bqH-17-cmY" customClass="NotificationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3CJ-vy-thq"/>
                         <viewControllerLayoutGuide type="bottom" id="32O-bm-V2i"/>
@@ -6903,6 +6940,7 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="emailIcon" destination="kKM-ta-bpx" id="VS4-r6-6eF"/>
                         <outlet property="emailTextField" destination="bdb-Oc-A2I" id="5lh-tf-nC7"/>
                         <outlet property="headingLabel" destination="W0z-WJ-dUZ" id="tQg-fF-yhT"/>
                         <outlet property="mainView" destination="BRu-2n-K1d" id="fmq-o6-29x"/>
@@ -12609,15 +12647,15 @@
                                                                     <outlet property="priceTitleLabel" destination="7oG-pc-fyZ" id="udI-XY-xSB"/>
                                                                 </connections>
                                                             </tableViewCell>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="applyCouponCell" rowHeight="35" id="qiX-J0-WNx" customClass="FinalCheckoutTableViewCell">
-                                                                <rect key="frame" x="0.0" y="126" width="320" height="35"/>
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="applyCouponCell" rowHeight="45" id="qiX-J0-WNx" customClass="FinalCheckoutTableViewCell">
+                                                                <rect key="frame" x="0.0" y="126" width="320" height="45"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qiX-J0-WNx" id="c9W-tt-xTU">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S$25000.00" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLz-yN-XCg">
-                                                                            <rect key="frame" x="165" y="0.0" width="145" height="35"/>
+                                                                            <rect key="frame" x="165" y="0.0" width="145" height="40"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="145" id="C0Y-ti-LiH"/>
                                                                             </constraints>
@@ -12626,29 +12664,37 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lry-ye-5OY">
-                                                                            <rect key="frame" x="10" y="7" width="147" height="20"/>
+                                                                            <rect key="frame" x="10" y="3" width="147" height="20"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="13"/>
                                                                             <state key="normal" title="Apply coupon code">
                                                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             </state>
                                                                         </button>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDN-Hb-YFe">
+                                                                            <rect key="frame" x="10" y="25" width="147" height="21"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="13"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="trailing" secondItem="hLz-yN-XCg" secondAttribute="trailing" constant="10" id="5p9-ny-uz1"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="hLz-yN-XCg" secondAttribute="bottom" id="Hgt-PF-Pz2"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="hLz-yN-XCg" secondAttribute="bottom" constant="5" id="Hgt-PF-Pz2"/>
                                                                         <constraint firstItem="hLz-yN-XCg" firstAttribute="top" secondItem="c9W-tt-xTU" secondAttribute="top" id="zzY-Cy-lVH"/>
                                                                     </constraints>
                                                                 </tableViewCellContentView>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <connections>
                                                                     <outlet property="applyCouponButton" destination="Lry-ye-5OY" id="0Wm-jQ-N94"/>
+                                                                    <outlet property="cuponCodeLabel" destination="MDN-Hb-YFe" id="fH3-NP-s6n"/>
                                                                     <outlet property="priceLabel" destination="hLz-yN-XCg" id="TnG-uh-KV4"/>
                                                                 </connections>
                                                             </tableViewCell>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="infoCell" rowHeight="55" id="Scf-zm-vp7" customClass="FinalCheckoutTableViewCell">
-                                                                <rect key="frame" x="0.0" y="161" width="320" height="55"/>
+                                                                <rect key="frame" x="0.0" y="171" width="320" height="55"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Scf-zm-vp7" id="JiE-W6-yOg">
                                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
@@ -15232,6 +15278,7 @@
         <image name="profile_placeholder" width="600" height="600"/>
         <image name="recentely-view-product" width="28" height="28"/>
         <image name="reddempoint" width="26" height="26"/>
+        <image name="refund" width="26" height="26"/>
         <image name="remove" width="28" height="28"/>
         <image name="review" width="28" height="28"/>
         <image name="review-placeholder" width="100" height="100"/>
@@ -15256,6 +15303,6 @@
         <image name="weibo-icon" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DTD-gL-hM6"/>
+        <segue reference="NKl-v2-lDk"/>
     </inferredMetricsTieBreakers>
 </document>

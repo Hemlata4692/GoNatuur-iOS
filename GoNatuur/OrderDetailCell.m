@@ -186,7 +186,13 @@
         _paymentMethodLabel.text = NSLocalizedText(@"dataNotAdded");
         _paymentMethodLabel.frame=CGRectMake(_shippingMethodLabel.frame.origin.x + _shippingMethodLabel.frame.size.width +10, 33,(rectSize.width/2)-15, 20);
     } else {
-        _paymentMethodLabel.text = orderData.paymentMethod;
+        NSMutableDictionary *paymentMethodDict=[[UserDefaultManager getValue:@"paymentMethods"] mutableCopy];
+        if ([[paymentMethodDict allKeys] containsObject:[NSString stringWithFormat:@"%@",orderData.paymentMethod]]) {
+              _paymentMethodLabel.text=[paymentMethodDict objectForKey:orderData.paymentMethod];
+        }
+        else {
+            _paymentMethodLabel.text=orderData.paymentMethod;
+        }
         height =[DynamicHeightWidth getDynamicLabelHeight:_paymentMethodLabel.text font:[UIFont montserratLightWithSize:13] widthValue:(rectSize.width/2)-15 heightValue:500];
         _paymentMethodLabel.frame=CGRectMake(_shippingMethodLabel.frame.origin.x + _shippingMethodLabel.frame.size.width +10, 33,(rectSize.width/2)-15, height);
     }

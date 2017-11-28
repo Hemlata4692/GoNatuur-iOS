@@ -17,7 +17,6 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
 }
 
@@ -44,10 +43,20 @@
         _priceTitleLabel.text=priceTitle;
     }
     else {
+        if ([myDelegate.isCouponApplied isEqualToString:@"1"]) {
+             [_applyCouponButton setTitle:NSLocalizedText(@"removeCouponCode") forState:UIControlStateNormal];
+            _cuponCodeLabel.text=@"123455";
+            [_cuponCodeLabel sizeToFit];
+            _cuponCodeLabel.frame=CGRectMake(10, 25, _cuponCodeLabel.frame.size.width, 20);
+        }
+        else {
         [_applyCouponButton setTitle:NSLocalizedText(@"applyCouponCode") forState:UIControlStateNormal];
+           [_cuponCodeLabel sizeToFit];
+            _cuponCodeLabel.frame=CGRectMake(10, 25, _cuponCodeLabel.frame.size.width, 0);
+        }
         [_applyCouponButton setTitleColor:[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0] forState:UIControlStateNormal];
         [_applyCouponButton sizeToFit];
-        _applyCouponButton.frame=CGRectMake(10, 7, _applyCouponButton.frame.size.width, 20);
+        _applyCouponButton.frame=CGRectMake(10, 3, _applyCouponButton.frame.size.width, 20);
         [_applyCouponButton setBottomBorder:_applyCouponButton color:[UIColor colorWithRed:182.0/255.0 green:37.0/255.0 blue:70.0/255.0 alpha:1.0]];
     }
     _priceLabel.text=[priceDetail objectForKey:priceTitle];

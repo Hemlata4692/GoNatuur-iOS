@@ -36,6 +36,9 @@
 @synthesize productImpactPoint;
 @synthesize isRedeemProductExist;
 @synthesize isSimpleProductExist;
+@synthesize extensionAttributeDict;
+@synthesize couponCode;
+@synthesize isCouponApplied;
 
 - (id)copyWithZone:(NSZone *)zone {
     CartDataModel *another = [[CartDataModel alloc] init];
@@ -65,6 +68,8 @@
     another.productImpactPoint= [self.productImpactPoint copyWithZone: zone];
     another.isRedeemProductExist= [self.isRedeemProductExist copyWithZone: zone];
     another.isSimpleProductExist= [self.isSimpleProductExist copyWithZone: zone];
+    another.extensionAttributeDict= [self.extensionAttributeDict copyWithZone: zone];
+    another.couponCode= [self.couponCode copyWithZone: zone];
     return another;
 }
 
@@ -166,6 +171,42 @@
 #pragma mark - Set checkout order
 - (void)setCheckoutOrderOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] setCheckoutOrderService:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - CyberSource payment
+- (void)setCyberSourcePaymentData:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] cyberSourcePaymentService:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Apply coupon code
+- (void)applyCouponCode:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] applyCouponCodeService:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Remove coupon code
+- (void)removeCouponCode:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] removeCouponCodeService:self onSuccess:^(CartDataModel *userData) {
         if (success) {
             success (userData);
         }
