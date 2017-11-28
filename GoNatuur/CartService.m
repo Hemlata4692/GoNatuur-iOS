@@ -130,12 +130,13 @@ static NSString *kCyberSourcePayment=@"carts/mine/payment-information";
 #pragma mark - Cybersource
 - (void)cyberSourcePaymentData:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{
-                                 @"paymentMethod":@{
-                                         @"method":cartData.paymentMethod
-                                         }
-                                 };
+                                 @"billingAddress":@{
+                                         @"city":cartData.city,@"countryId":cartData.countryId,@"customerId":[UserDefaultManager getValue:@"userId"],@"firstname":cartData.firstName,@"lastname":cartData.lastName,@"postcode":cartData.postcode,@"region":cartData.region,@"regionCode":cartData.regionCode,@"saveInAddressBook":cartData.saveCard,@"street":cartData.street,@"telephone":cartData.telephone
+                                         
+                                         },
+                                 @"email":@"cartData.email",@"paymentMethod":@{@"additional_data":@{@"cc_cid":cartData.ccId,@"cc_number":cartData.ccNumber,@"cc_type":cartData.ccType,@"expiration":@"",@"expiration_yr":cartData.expirationYear,@"save_card":cartData.saveCard,@"subscription_id":cartData.subscriptionID},@"method":cartData.method}};
     
-//    {"billingAddress":{"city":cartData.city,"countryId":cartData.,"customerId":[UserDefaultManager getValue:@"userId"],"firstname":cartData.,"lastname":"Modi Ji","postcode":"334001","region":"Rajasthan","regionCode":"Rajasthan","saveInAddressBook":"0","street":["abc","abc2"],"telephone":"9879874445454564"},"email":"sourabh@ranosys.com","paymentMethod":{"additional_data":{"cc_cid":"111","cc_number":"","cc_type":"","expiration":"","expiration_yr":"","save_card":"true","subscription_id":"0:2:yJJdpjxVEo1c1QoxFYMgCnDyXPFeLv29:vuUOokR6dbbg9EUklB1U58O52cBGNSFaZirNQKxy2mY="},"method":"magedelight_cybersource"}}
+   
 
     DLog(@"kCyberSourcePayment %@",parameters);
     //https://dev.gonatuur.com/en/rest/en/V1/carts/mine/payment-information
