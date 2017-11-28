@@ -180,6 +180,18 @@
 }
 #pragma mark - end
 
+#pragma mark - CyberSource payment
+- (void)setCyberSourcePaymentData:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] cyberSourcePaymentService:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
 #pragma mark - Apply coupon code
 - (void)applyCouponCode:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] applyCouponCodeService:self onSuccess:^(CartDataModel *userData) {

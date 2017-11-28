@@ -41,6 +41,25 @@
 @property (strong, nonatomic) NSString *couponCode;
 @property (strong, nonatomic) NSString *isCouponApplied;
 
+@property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSString *countryId;
+@property (strong, nonatomic) NSString *firstName;
+@property (strong, nonatomic) NSString *lastName;
+@property (strong, nonatomic) NSString *postcode;
+@property (strong, nonatomic) NSString *region;
+@property (strong, nonatomic) NSString *regionCode;
+@property (strong, nonatomic) NSString *sabeInAddress;
+@property (strong, nonatomic) NSString *street;
+@property (strong, nonatomic) NSString *telephone;
+@property (strong, nonatomic) NSString *ccId;
+@property (strong, nonatomic) NSString *ccNumber;
+@property (strong, nonatomic) NSString *ccType;
+@property (strong, nonatomic) NSString *expirationYear;
+@property (strong, nonatomic) NSString *saveCard;
+@property (strong, nonatomic) NSString *subscriptionID;
+@property (strong, nonatomic) NSString *method;
+
+
 //Singleton instanse
 + (instancetype)sharedUser;
 
@@ -64,4 +83,6 @@
 - (void)applyCouponCode:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 //remove
 - (void)removeCouponCode:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
+//cybersource
+- (void)setCyberSourcePaymentData:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

@@ -17,6 +17,7 @@ static NSString *kGetCheckoutPromo=@"ranosys/setcheckoutpromo";
 static NSString *kSetPaymentMethod=@"carts/mine/selected-payment-method";
 static NSString *kSetCheckoutOrder=@"carts/mine/order";
 static NSString *kApplyCouponCode=@"carts/mine/coupons/";
+static NSString *kCyberSourcePayment=@"carts/mine/payment-information";
 @implementation CartService
 
 #pragma mark - Fetch cart listing
@@ -122,6 +123,23 @@ static NSString *kApplyCouponCode=@"carts/mine/coupons/";
                                  };
     DLog(@"%@",parameters);
     [super put:kSetCheckoutOrder parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+
+#pragma mark - Cybersource
+- (void)cyberSourcePaymentData:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{
+                                 @"paymentMethod":@{
+                                         @"method":cartData.paymentMethod
+                                         }
+                                 };
+    
+//    {"billingAddress":{"city":"Ghoo","countryId":"IN","customerId":"1","firstname":"Sourabh","lastname":"Modi Ji","postcode":"334001","region":"Rajasthan","regionCode":"Rajasthan","saveInAddressBook":"0","street":["abc","abc2"],"telephone":"9879874445454564"},"email":"sourabh@ranosys.com","paymentMethod":{"additional_data":{"cc_cid":"111","cc_number":"","cc_type":"","expiration":"","expiration_yr":"","save_card":"true","subscription_id":"0:2:yJJdpjxVEo1c1QoxFYMgCnDyXPFeLv29:vuUOokR6dbbg9EUklB1U58O52cBGNSFaZirNQKxy2mY="},"method":"magedelight_cybersource"}}
+//    
+    DLog(@"kCyberSourcePayment %@",parameters);
+    //https://dev.gonatuur.com/en/rest/en/V1/carts/mine/payment-information
+    [super post:kCyberSourcePayment parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 

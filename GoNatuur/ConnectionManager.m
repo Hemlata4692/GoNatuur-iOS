@@ -1801,6 +1801,19 @@
 }
 #pragma mark - end
 
+#pragma mark - Set checkout order
+- (void)cyberSourcePaymentService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList cyberSourcePaymentData:cartData success:^(id response) {
+        DLog(@"Set checkout order response %@",response);
+        success(cartData);
+    }
+                            onfailure:^(NSError *error) {
+                            }];
+}
+#pragma mark - end
+
+
 #pragma mark - Apply coupon
 - (void)applyCouponCodeService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     CartService *cartList=[[CartService alloc]init];

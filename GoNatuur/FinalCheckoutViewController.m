@@ -552,8 +552,13 @@
             return 55.0;
         }
         else {
-            if ([myDelegate.isCouponApplied isEqualToString:@"1"]) {
-                 return 45.0;
+             if ([[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] isEqualToString:@"Apply coupon code"]) {
+                 if ([myDelegate.isCouponApplied isEqualToString:@"1"]) {
+                     return 45.0;
+                 }
+                 else {
+                     return 35.0;
+                 }
             }
             else {
             return 35.0;
@@ -641,6 +646,8 @@
     [cartData getCartListingData:^(CartDataModel *userData)  {
         [myDelegate stopIndicator];
         if (userData.itemList.count>0) {
+            [_cartItemsTableView reloadData];
+            [_paymentCollectionView reloadData];
         }
         else {
             [myDelegate stopIndicator];
@@ -670,6 +677,16 @@
         
     }];
 }
+
+- (void)callCyberSourcePaymentService {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    cartData.paymentMethod=@"cashondelivery";
+    [cartData setCyberSourcePaymentData:^(CartDataModel *cartData)  {
+        [myDelegate stopIndicator];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
 #pragma mark - end
 
 #pragma mark - IBActions
@@ -682,12 +699,14 @@
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     NewsLetterSubscriptionViewController *popView =
     [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterSubscriptionViewController"];
-    popView._delegate=self;
+    popView.delegate=self;;
     popView.screeType=@"2";
     popView.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4f];
     [popView setModalPresentationStyle:UIModalPresentationOverCurrentContext];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self presentViewController:popView animated:YES completion:nil];
+        [self presentViewController:popView animated:YES completion:^{
+        }];
+        
     });
 }
 

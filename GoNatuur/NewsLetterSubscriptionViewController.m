@@ -23,12 +23,14 @@
 
 @implementation NewsLetterSubscriptionViewController
 @synthesize screeType;
+@synthesize delegate;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self viewCustomisation];
+    _delegate=delegate;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -121,6 +123,8 @@
         
     }];
 }
+
+
 #pragma mark - end
 
 #pragma mark - Perform Validatios

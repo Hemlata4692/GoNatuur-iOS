@@ -81,7 +81,6 @@
             }
         }
     }
-//    @"<html><body style='font-family: Montserrat-Light; color:'#000000' link='#B62546' text-align:'left' font-size:16px'>%@</body></html>";
 
 }
 
