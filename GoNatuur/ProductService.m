@@ -47,6 +47,14 @@ static NSString *kshareProductNews=@"socialmediasharing";
 }
 #pragma mark - end
 
+#pragma mark - Sahre product/newws
+- (void)shareProductNewsService:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"np_id":productDetail.productId,
+                                 @"customer_id":[UserDefaultManager getValue:@"userId"],@"social_media_type":productDetail.socialMediaType,
+                                 @"share_type":productDetail.sharingType,@"np_name":productDetail.productName
+                                 };
+    NSLog(@"sharing request %@",parameters);
+    [super postSharing:kshareProductNews parameters:parameters success:success failure:failure];
 
 #pragma mark - Add to wish list
 //add prodcut to wishlist

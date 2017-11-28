@@ -126,7 +126,19 @@
         
     }] ;
 }
-#pragma mark - end
+#pragma mark - end//shareProductService
+
+#pragma mark - Share service
+- (void)shareProductDataService:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] shareProductService:self onSuccess:^(ProductDataModel *productData) {
+        if (success) {
+            success (productData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end//shareProductService
 
 #pragma mark - Add to wishlist
 - (void)addProductWishlistOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure {

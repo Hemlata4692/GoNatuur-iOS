@@ -61,6 +61,8 @@
 @property (strong, nonatomic) NSString *maxCycles;
 @property (nonatomic)BOOL isSubscribed;
 @property (strong, nonatomic) NSDictionary *subscribeDataDict;
+@property (strong, nonatomic) NSString *sharingType;
+@property (strong, nonatomic) NSString *socialMediaType;
 
 //Singleton method
 + (instancetype)sharedUser;

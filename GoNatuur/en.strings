@@ -363,3 +363,10 @@
 "pointsSubtotal"="Points subtotal";
 "promotionDiscount"="Promotion Discount";
 "creditPoints"="Credit points";
+"sideBarReturnPolicy"="RETURN REFUND POLICY";
+"ReturnPolicy"="Return Refund Policy";
+"orderShipment"="Order Shipment";
+"invoiceScreen"="Invoice";
+"couponCode"="Coupon code";
+"removeCouponCode"="Remove Coupon Code";
+

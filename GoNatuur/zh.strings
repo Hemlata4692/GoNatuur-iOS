@@ -383,3 +383,9 @@
 "pointsSubtotal"="點小計";
 "promotionDiscount"="促銷折扣";
 "creditPoints"="信用點";
+"sideBarReturnPolicy"="退貨退款政策";
+"ReturnPolicy"="退貨退款政策";
+"orderShipment"="Order Shipment";
+"invoiceScreen"="Invoice";
+"couponCode"="Coupon code";
+"removeCouponCode"="Remove Coupon Code";

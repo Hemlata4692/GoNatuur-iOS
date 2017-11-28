@@ -14,6 +14,7 @@
 #import "GoNatuurPickerView.h"
 #import "BSKeyboardControls.h"
 #import "ThankYouViewController.h"
+#import "NewsLetterSubscriptionViewController.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
