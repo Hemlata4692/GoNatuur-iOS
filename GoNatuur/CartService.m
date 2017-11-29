@@ -19,6 +19,9 @@ static NSString *kSetCheckoutOrder=@"carts/mine/order";
 static NSString *kApplyCouponCode=@"carts/mine/coupons/";
 static NSString *kCyberSourcePayment=@"carts/mine/payment-information";
 static NSString *kGetshippingMethod=@"carts/mine/estimate-shipping-methods";
+static NSString *kClearCart=@"carts/mine";
+static NSString *kClearCartGuest=@"guest-carts";
+
 @implementation CartService
 
 #pragma mark - Fetch shipping methods
@@ -29,7 +32,6 @@ static NSString *kGetshippingMethod=@"carts/mine/estimate-shipping-methods";
     DLog(@"%@",parameters);
     
     if ((nil==[UserDefaultManager getValue:@"userId"])){
-//        [self get:[NSString stringWithFormat:@"guest-carts/%@/estimate-shipping-methods",[UserDefaultManager getValue:@"quoteId"]] parameters:parameters onSuccess:success onFailure:failure];
          [self post:[NSString stringWithFormat:@"guest-carts/%@/estimate-shipping-methods",[UserDefaultManager getValue:@"quoteId"]] parameters:parameters success:success failure:failure];
     }
     else {
@@ -210,4 +212,16 @@ static NSString *kGetshippingMethod=@"carts/mine/estimate-shipping-methods";
                                  };
     return parameters;
 }
+#pragma mark - end
+
+#pragma mark - Remove coupon code
+- (void)clearCart:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+        [super post:kClearCartGuest parameters:nil success:success failure:failure];
+    }
+    else {
+        [super post:kClearCart parameters:nil success:success failure:failure];
+    }
+}
+#pragma mark - end
 @end

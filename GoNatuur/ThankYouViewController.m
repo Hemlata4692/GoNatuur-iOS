@@ -9,13 +9,16 @@
 #import "ThankYouViewController.h"
 #import "ThankYouTableCell.h"
 #import "DynamicHeightWidth.h"
+#import "OrderModel.h"
 
 @interface ThankYouViewController ()
-
+{
+    NSString *orderIncrementId;
+}
 @end
 
 @implementation ThankYouViewController
-@synthesize cartListDataArray;
+@synthesize cartListDataArray,orderId;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -23,6 +26,8 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:false];
+    [myDelegate showIndicator];
+    [self performSelector:@selector(getOrderListing) withObject:nil afterDelay:.1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,7 +63,7 @@
         cell = [[ThankYouTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     if (indexPath.row == 0) {
-        [cell displayData:_thankYouTable.frame.size orderId:_orderId];
+        [cell displayData:_thankYouTable.frame.size orderId:orderIncrementId];
     } else if (indexPath.row == 1) {
         [cell displayPurchaseData:_thankYouTable.frame.size];
     } else if (indexPath.row < cartListDataArray.count+2) {
@@ -68,7 +73,7 @@
         [cell displayOrderTotalData:_thankYouTable.frame.size finalCheckoutPriceDict:_finalCheckoutPriceDict];
     }
     else if (indexPath.row == cartListDataArray.count+3) {
-        [cell displayData:_thankYouTable.frame.size orderId:_orderId];
+        [cell displayData:_thankYouTable.frame.size orderId:orderIncrementId];
     }
     return cell;
 }
@@ -95,4 +100,30 @@
 }
 #pragma mark - end
 
+#pragma mark - Web services
+- (void)getOrderListing {
+    OrderModel * orderData = [OrderModel sharedUser];
+    orderData.pageSize=[NSNumber numberWithInt:0];
+    orderData.currentPage=[NSNumber numberWithInt:0];
+    orderData.isOrderDetailService=@"1";
+    orderData.orderId=orderId;
+    [orderData getOrderListing:^(OrderModel *userData) {
+        OrderModel *orderData = [userData.orderListingArray objectAtIndex:0];
+        orderIncrementId = orderData.purchaseOrderId;
+        [self performSelector:@selector(clearCart) withObject:nil afterDelay:.1];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)clearCart {
+    CartDataModel * cartData = [CartDataModel sharedUser];
+    [cartData clearCart:^(CartDataModel *userData) {
+        [myDelegate stopIndicator];
+        [_thankYouTable reloadData];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
 @end

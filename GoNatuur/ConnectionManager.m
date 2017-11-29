@@ -1908,4 +1908,15 @@
 }
 #pragma mark - end
 
+#pragma mark - Clear cart
+- (void)clearCart:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList clearCart:cartData success:^(id response) {
+        DLog(@"clearCart response %@",response);
+        success(cartData);
+    }
+                     onfailure:^(NSError *error) {
+                     }];
+}
+#pragma mark - end
 @end

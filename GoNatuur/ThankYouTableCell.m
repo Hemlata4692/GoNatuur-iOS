@@ -55,49 +55,56 @@
     _shippingHeadingLabel.text = NSLocalizedText(@"shipping");
     _promotionDiscountHeadingLabel.text = NSLocalizedText(@"promotionDiscount");
     _taxHeadingLabel.text = NSLocalizedText(@"taxTitle");
-    _couponHeadingLabel.text = @"coupon name";
+    _couponHeadingLabel.text = finalCheckoutPriceDict[@"couponCode"];
     _totalHeadingLabel.text = NSLocalizedText(@"orderTotal");
     
-    
+    //Cart subtotal
     if (finalCheckoutPriceDict[@"Cart subtotal"] == nil) {
         _cartSubtotalLabel.text = [NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],0.00];
     } else {
         _cartSubtotalLabel.text = finalCheckoutPriceDict[@"Cart subtotal"];
     }
+    //Credit points
     if (finalCheckoutPriceDict[@"creditPoints"] == nil) {
         _creditPointsLabel.text = [NSString stringWithFormat:@"%fip",0.00];
     } else {
         _creditPointsLabel.text = finalCheckoutPriceDict[@"creditPoints"];
     }
+    //Points subtotal
     if (finalCheckoutPriceDict[@"Points subtotal"] == nil) {
         _pointsSubtotalLabel.text = [NSString stringWithFormat:@"%fip",0.00];
     } else {
         _pointsSubtotalLabel.text = finalCheckoutPriceDict[@"Points subtotal"];
     }
+    //Shipping
     if (finalCheckoutPriceDict[@"Shipping charges"] == nil) {
         _shippingLabel.text = [NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],0.00];
     } else {
         _shippingLabel.text = finalCheckoutPriceDict[@"Shipping charges"];
     }
+    //Promotion discount
     if (finalCheckoutPriceDict[@"Discount"] == nil) {
         _promotionDiscountLabel.text = [NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],0.00];
     } else {
         _promotionDiscountLabel.text = finalCheckoutPriceDict[@"Discount"];
     }
-    if (finalCheckoutPriceDict[@"Discount"] == nil) {
-        _taxLabel.text = [NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],0.00];
+    //Tax
+    if (finalCheckoutPriceDict[@"Tax"] == nil) {
+        _taxLabel.text = [NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],0.00];
     } else {
-        _taxLabel.text = finalCheckoutPriceDict[@"Discount"];
+        _taxLabel.text = [NSString stringWithFormat:@"%@",finalCheckoutPriceDict[@"Tax"]];
     }
-    if (finalCheckoutPriceDict[@"coupon"] == nil) {
+    //Coupon
+    if (finalCheckoutPriceDict[@"couponCodeDiscount"] == nil) {
         _couponLabel.text = [NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],0.00];
     } else {
-        _couponLabel.text = finalCheckoutPriceDict[@"coupon"];
+        _couponLabel.text = [NSString stringWithFormat:@"%@",finalCheckoutPriceDict[@"couponCodeDiscount"]];
     }
-    if (finalCheckoutPriceDict[@"grandTtotal"] == nil) {
+    //Grand total
+    if (finalCheckoutPriceDict[@"Grand Total"] == nil) {
         totalLabel.text = [NSString stringWithFormat:@"%fip",0.00];
     } else {
-        totalLabel.text = finalCheckoutPriceDict[@"grandTtotal"];
+        totalLabel.text = [NSString stringWithFormat:@"%@",finalCheckoutPriceDict[@"Grand Total"]];
     }
 }
 

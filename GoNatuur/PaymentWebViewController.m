@@ -7,13 +7,10 @@
 //
 
 #import "PaymentWebViewController.h"
-#import "OrderModel.h"
 #import "ThankYouViewController.h"
 
 @interface PaymentWebViewController ()
-{
-    NSString *orderId, *orderIncrementId;
-}
+
 @property (weak, nonatomic) IBOutlet UIWebView *paymentWebView;
 
 @end
@@ -52,11 +49,29 @@
 
 #pragma mark - Webview delegates
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    return YES;
-}
 
+//    NSLog(@"%@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
+//    NSLog(@"loadURL %@",[request.URL absoluteString]);
+    //https://dev.gonatuur.com/en/checkout/onepage/success/121/
+    if ([[request.URL absoluteString] isEqualToString:@"https://dev.gonatuur.com/en/checkout/onepage/success/"]) {
+        
+    }
+    
+   else if ([[request.URL absoluteString] containsString:@"https://dev.gonatuur.com/en/checkout/onepage/success/"]) {
+       NSArray *items = [[request.URL absoluteString] componentsSeparatedByString:@"/"];
+           UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+           ThankYouViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
+           nextView.orderId = [items lastObject];
+           nextView.cartListDataArray = cartListDataArray;
+           nextView.finalCheckoutPriceDict=finalCheckoutPriceDict;
+           [self.navigationController pushViewController:nextView animated:YES];
+   }
+    return YES;
+
+}
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [myDelegate stopIndicator];
+
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -72,28 +87,6 @@
 #pragma mark - IBActions
 - (IBAction)backButtonAction:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
-}
-#pragma mark - end
-
-#pragma mark - Web services
-- (void)getOrderListing {
-    OrderModel * orderData = [OrderModel sharedUser];
-    orderData.pageSize=[NSNumber numberWithInt:0];
-    orderData.currentPage=[NSNumber numberWithInt:0];
-    orderData.isOrderDetailService=@"1";
-    orderData.orderId=orderId;
-    [orderData getOrderListing:^(OrderModel *userData) {
-        OrderModel *orderData = [userData.orderListingArray objectAtIndex:0];
-        orderIncrementId = orderData.purchaseOrderId;
-        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ThankYouViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
-        nextView.cartListDataArray = cartListDataArray;
-        nextView.finalCheckoutPriceDict=finalCheckoutPriceDict;
-        [self.navigationController pushViewController:nextView animated:YES];
-        
-    } onfailure:^(NSError *error) {
-        
-    }];
 }
 #pragma mark - end
 @end

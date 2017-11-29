@@ -150,6 +150,7 @@
 		32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32BAA6151F1360290015E355 /* LaunchScreen.storyboard */; };
 		32C0CA591FCBE941005FC8E7 /* ThankYouViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C0CA561FCBE403005FC8E7 /* ThankYouViewController.m */; };
 		32C0CA5A1FCBE94C005FC8E7 /* ThankYouTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C0CA571FCBE403005FC8E7 /* ThankYouTableCell.m */; };
+		32C5A9D21FCE7BBA00BA2003 /* alipayIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1843C58D1FC3FA990085C52A /* alipayIcon.png */; };
 		32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20901F25B1760054C344 /* ConnectionManager.m */; };
 		32CC20951F25B1D90054C344 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20941F25B1D90054C344 /* LoginModel.m */; };
 		32CC20991F25B1F80054C344 /* LoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20981F25B1F80054C344 /* LoginService.m */; };
@@ -2667,6 +2668,7 @@
 				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
 				1809BE771F90CF8000B1DF2D /* ajax_handler.js in Resources */,
 				B75E6F381F75063E0059D8E1 /* paypalIcon.png in Resources */,
+				32C5A9D21FCE7BBA00BA2003 /* alipayIcon.png in Resources */,
 				B73A653E1F3DF0870051E4C5 /* cn.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

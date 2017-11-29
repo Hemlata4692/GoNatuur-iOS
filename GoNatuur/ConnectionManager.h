@@ -154,7 +154,6 @@
 - (void)setCheckoutOrderService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure ;
 //Get subscription detail
 - (void)getSubscriptionDetail:(ProductDataModel *)productData onSuccess:(void (^)(ProductDataModel *productData))success onFailure:(void (^)(NSError *))failure;
-- (void)setCheckoutOrderService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 //Recent products
 - (void)getRecentlyViewedData:(SearchDataModel *)userData onSuccess:(void (^)(SearchDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 //sahre service
@@ -167,4 +166,7 @@
 - (void)cyberSourcePaymentService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure;
 //Get shipping method service
 - (void)getShippingMethod:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure;
+//Clear cart
+- (void)clearCart:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure;
+
 @end

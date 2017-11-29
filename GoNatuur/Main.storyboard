@@ -13139,6 +13139,7 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="addCardButton" destination="mub-KN-Gpc" id="bJX-56-i8A"/>
                         <outlet property="addCardLabel" destination="gut-b8-m60" id="py2-YJ-W5a"/>
                         <outlet property="addCardRadioLabel" destination="ChT-ZV-0Us" id="Vr2-C0-EVe"/>
                         <outlet property="addCardView" destination="qti-nq-rEd" id="7PK-YP-fkj"/>
@@ -13162,6 +13163,7 @@
                         <outlet property="secondStepLabel" destination="dpQ-Nn-f1a" id="fy1-K4-U3g"/>
                         <outlet property="secondStepSeperetorLabel" destination="oGQ-cL-CrH" id="RVI-fU-R1A"/>
                         <outlet property="selectCarRadioLabel" destination="rQN-CJ-2py" id="NZg-j1-Hzg"/>
+                        <outlet property="selectCardButton" destination="ufJ-j7-Wi2" id="4if-Ac-3dc"/>
                         <outlet property="selectCardLabel" destination="XBa-PG-5VL" id="bJd-Yz-IgC"/>
                         <outlet property="summaryLabel" destination="ai2-Q0-ugh" id="4z7-ys-3s9"/>
                         <outlet property="thirdStepLabel" destination="EeP-6D-EKv" id="Fxk-mb-A5u"/>

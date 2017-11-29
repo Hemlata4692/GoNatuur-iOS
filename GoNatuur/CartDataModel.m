@@ -227,4 +227,15 @@
     }] ;
 }
 #pragma mark - end
+
+#pragma mark - Clear cart
+- (void)clearCart:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure{
+    [[ConnectionManager sharedManager] clearCart:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
 @end
