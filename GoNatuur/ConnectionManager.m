@@ -1234,17 +1234,17 @@
         cartData.customerDict=[NSMutableDictionary new];
         cartData.extensionAttributeDict=[NSMutableDictionary new];
         cartData.customerSavedAddressArray=[NSMutableArray new];
-        cartData.selectedShippingMethod=@"";
-        if ((nil==[UserDefaultManager getValue:@"userId"])){
-            int cartCount=0;
-            for (NSDictionary *tempDict in response) {
-                cartCount+=[tempDict[@"qty"] intValue];
-                [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
-            }
-            cartData.itemQty=[NSNumber numberWithInt:cartCount];
-            cartData.selectedShippingMethod=@"";
-        }
-        else {
+//        cartData.selectedShippingMethod=@"";
+//        if ((nil==[UserDefaultManager getValue:@"userId"])){
+//            int cartCount=0;
+//            for (NSDictionary *tempDict in response) {
+//                cartCount+=[tempDict[@"qty"] intValue];
+//                [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
+//            }
+//            cartData.itemQty=[NSNumber numberWithInt:cartCount];
+//            cartData.selectedShippingMethod=@"";
+//        }
+//        else {
             cartData.extensionAttributeDict=[response objectForKey:@"extension_attributes"];
             cartData.billingAddressDict=[response[@"billing_address"] mutableCopy];
             cartData.customerDict=[response[@"customer"] mutableCopy];
@@ -1256,7 +1256,7 @@
             for (NSDictionary *tempDict in response[@"items"]) {
                 [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
             }
-        }
+//        }
         success(cartData);
     }
                    onfailure:^(NSError *error) {
@@ -1862,7 +1862,7 @@
 - (void)removeCouponCodeService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     CartService *cartList=[[CartService alloc]init];
     [cartList removeCouponCode:cartData success:^(id response) {
-        DLog(@"applyCouponCode response %@",response);
+        DLog(@"remove response %@",response);
         success(cartData);
     }
                     onfailure:^(NSError *error) {

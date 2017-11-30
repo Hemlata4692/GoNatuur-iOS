@@ -92,8 +92,10 @@
     }
       }
       else {
+          if([self performValidations]) {
           [myDelegate showIndicator];
           [self performSelector:@selector(applyCouponService) withObject:nil afterDelay:.1];
+          }
       }
 }
 #pragma mark - end
