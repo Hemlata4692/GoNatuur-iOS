@@ -125,5 +125,12 @@
         
     }];
 }
+- (IBAction)continueShoppingAction:(id)sender {
+    //Navigate to dashboard screen
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController * loginView = [storyboard instantiateViewControllerWithIdentifier:@"DashboardViewController"];
+    [self.navigationController setViewControllers: [NSArray arrayWithObject:loginView]
+                                         animated: NO];
+}
 #pragma mark - end
 @end

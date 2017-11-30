@@ -61,7 +61,7 @@
        NSArray *items = [[request.URL absoluteString] componentsSeparatedByString:@"/"];
            UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
            ThankYouViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
-           nextView.orderId = [items lastObject];
+           nextView.orderId = [items objectAtIndex:items.count - 2];
            nextView.cartListDataArray = cartListDataArray;
            nextView.finalCheckoutPriceDict=finalCheckoutPriceDict;
            [self.navigationController pushViewController:nextView animated:YES];
@@ -76,11 +76,11 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [myDelegate stopIndicator];
-    SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-    [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-    [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrongMessage")  closeButtonTitle:nil duration:0.0f];
+//    SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+//    [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }];
+//    [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrongMessage")  closeButtonTitle:nil duration:0.0f];
 }
 #pragma mark - end
 

@@ -386,6 +386,10 @@
             [paymentMethodDict setObject:[tempDict copy] forKey:@"alipay"];
             continue;
         }
+        else if ([tempDict[@"code"] isEqualToString:@"free"]) {
+            [paymentMethodDict setObject:[tempDict copy] forKey:@"free"];
+            continue;
+        }
     }
     NSMutableArray *tempArray=[paymentMethodArray mutableCopy];
     for (NSString *temp in tempArray) {
@@ -748,6 +752,13 @@
         }
         cartData.method=@"magedelight_cybersource";
     } else {
+        cartData.ccId=@"";
+        cartData.ccNumber=@"";
+        cartData.ccType=@"";
+        cartData.expirationYear=@"";
+        cartData.saveCard=@"0";
+        cartData.expirationMonth=@"";
+        cartData.subscriptionID=@"";
         cartData.method=@"free";
     }
     [cartData setCyberSourcePaymentData:^(CartDataModel *cartData)  {
@@ -755,7 +766,7 @@
         ThankYouViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
         nextView.orderId = @"30";
         nextView.cartListDataArray = cartListDataArray;
-        nextView.finalCheckoutPriceDict=finalCheckoutPriceDict;
+        nextView.finalCheckoutPriceDict=totalDict;
         [self.navigationController pushViewController:nextView animated:YES];
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
@@ -828,6 +839,11 @@
     [_keyboardControls.activeField resignFirstResponder];
     [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     if ([self performValidations]) {
+        if (isFreeProduct) {
+            [myDelegate showIndicator];
+            [self performSelector:@selector(callCyberSourcePaymentService) withObject:nil afterDelay:.1];
+        }
+        else {
         if (isCyberSourcePayment==true) {
             selectedPaymentMethodIndex=0;
             if ([self performValidationsForCard]) {
@@ -838,6 +854,7 @@
             [myDelegate showIndicator];
             [self performSelector:@selector(setPaymentMethod) withObject:nil afterDelay:.1];
         }
+        }
     }
 }
 #pragma mark - end
@@ -845,7 +862,7 @@
 #pragma mark - Perform Validatios
 - (BOOL)performValidations {
     NSLog(@"%d",selectedPaymentMethodIndex);
-    if (selectedPaymentMethodIndex == -1){
+    if (selectedPaymentMethodIndex == -1 && !isFreeProduct){
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"selectPaymentMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
