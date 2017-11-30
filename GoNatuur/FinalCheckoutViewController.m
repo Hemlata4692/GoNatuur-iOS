@@ -172,8 +172,9 @@
     [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Apply coupon code"];
     [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Credit amount"];
     if (nil==[UserDefaultManager getValue:@"userId"]) {
-        _selectCardButton.userInteractionEnabled=false;
-        _selectCardLabel.alpha=0.8;
+        _selectCardButton.enabled=false;
+        _selectCardLabel.alpha=0.3;
+        _selectCardButton.alpha=0.3;
     }
     [self setPrices];
     [self cyberSourcePayment:false];
@@ -552,7 +553,7 @@
         [cell displayCartListData:[cartListDataArray objectAtIndex:indexPath.row] isSeparatorHide:(indexPath.row==cartListDataArray.count-1?true:false)];
     }
     else if (indexPath.row<(cartListDataArray.count+totalArray.count)) {
-        [cell displayPriceCellData:[totalDict mutableCopy] priceTitleArray:[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] islastIndex:(((cartListDataArray.count+totalArray.count)-1)==indexPath.row)?true:false isApplyCoupon:([[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] isEqualToString:@"Apply coupon code"]?true:false)];
+        [cell displayPriceCellData:[totalDict mutableCopy] priceTitleArray:[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] islastIndex:(((cartListDataArray.count+totalArray.count)-1)==indexPath.row)?true:false isApplyCoupon:([[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] isEqualToString:@"Apply coupon code"]?true:false) couponCode:[totalDict mutableCopy]];
         [cell.applyCouponButton addTarget:self action:@selector(applyCouponAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
@@ -663,7 +664,7 @@
         [myDelegate stopIndicator];
         if (userData.itemList.count>0) {
             [totalDict setObject:userData.couponCode forKey:@"couponCode"];
-            [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([[userData.extensionAttributeDict objectForKey:@"coupon_discount_price"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"couponCodeDiscount"];
+            [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([[userData.extensionAttributeDict objectForKey:@"coupon_discount_price"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Apply coupon code"];
             [_cartItemsTableView reloadData];
             [_paymentCollectionView reloadData];
         }
@@ -762,6 +763,16 @@
         
     }];
 }
+
+- (void)removeCouponService {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    [cartData removeCouponCode:^(CartDataModel *cartData)  {
+        myDelegate.isCouponApplied=@"0";
+        [self getCartList];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
 #pragma mark - end
 
 #pragma mark - IBActions
@@ -771,6 +782,11 @@
 }
 
 - (IBAction)applyCouponAction:(id)sender {
+    if ([myDelegate.isCouponApplied isEqualToString:@"1"] ) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(removeCouponService) withObject:nil afterDelay:.1];
+    }
+    else {
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     NewsLetterSubscriptionViewController *popView =
     [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterSubscriptionViewController"];
@@ -783,6 +799,7 @@
         }];
         
     });
+    }
 }
 
 - (IBAction)addCardButtonAction:(id)sender {
