@@ -121,16 +121,25 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
 
 #pragma mark - Set payment method
 - (void)setPaymentMethodService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    NSDictionary *parameters = @{
-                                 @"method":@{
-                                         @"method":cartData.paymentMethod
-                                         }
-                                 };
+    NSDictionary *parameters;
     DLog(@"%@",parameters);
+    
+//    {"email":"yuu@tgh.com","paymentMethod":{"method":"paypal_express"}}
+//    POST https://dev.gonatuur.com/en/rest/en/V1/guest-carts/43bd13fe1cf3ec7f4791f9eebedca89e/set-payment-informationhttp/1.1
+    
     if ((nil==[UserDefaultManager getValue:@"userId"])){
-        [self post:[NSString stringWithFormat:@"guest-carts/%@/items/%@",[UserDefaultManager getValue:@"quoteId"],@"selected-payment-method"] parameters:parameters success:success failure:failure];
+        parameters = @{@"email":cartData.email,
+                                     @"paymentMethod":@{
+                                             @"method":cartData.paymentMethod
+                                             }
+                                     };
+        [self put:[NSString stringWithFormat:@"guest-carts/%@/%@",[UserDefaultManager getValue:@"quoteId"],@"set-payment-information"] parameters:parameters success:success failure:failure];
     }
     else {
+       parameters = @{  @"method":@{
+                                             @"method":cartData.paymentMethod
+                                             }
+                                     };
       [super put:kSetPaymentMethod parameters:parameters success:success failure:failure];
     }
 }
@@ -161,7 +170,7 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
 
     DLog(@"kCyberSourcePayment %@",parameters);
     if ((nil==[UserDefaultManager getValue:@"userId"])){
-        [self postPayment:[NSString stringWithFormat:@"guest-carts/%@/%@",[UserDefaultManager getValue:@"quoteId"],kCyberSourceGuestPayment] parameters:parameters isBoolean:true success:success failure:success];
+        [super postPayment:[NSString stringWithFormat:@"guest-carts/%@/%@",[UserDefaultManager getValue:@"quoteId"],kCyberSourceGuestPayment] parameters:parameters isBoolean:true success:success failure:success];
     }
     else {
         [super postPayment:kCyberSourcePayment parameters:parameters isBoolean:true success:success failure:failure];
@@ -223,10 +232,10 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
 #pragma mark - Remove coupon code
 - (void)clearCart:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     if ((nil==[UserDefaultManager getValue:@"userId"])){
-        [super post:kClearCartGuest parameters:nil success:success failure:failure];
+         [super postPayment:kClearCartGuest parameters:nil isBoolean:true success:success failure:success];
     }
     else {
-        [super post:kClearCart parameters:nil success:success failure:failure];
+        [super postPayment:kClearCart parameters:nil isBoolean:true success:success failure:failure];
     }
 }
 #pragma mark - end

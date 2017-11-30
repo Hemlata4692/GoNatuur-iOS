@@ -41,7 +41,7 @@
 - (void)displayPriceCellData:(NSMutableDictionary *)priceDetail priceTitleArray:(NSString *)priceTitle islastIndex:(BOOL)islastIndex isApplyCoupon:(BOOL)isApplyCoupon couponCode:(NSMutableDictionary *)couponCode {
     
     if (!isApplyCoupon) {
-        _priceTitleLabel.text=[NSString stringWithFormat:@"-%@",priceTitle];
+        _priceTitleLabel.text=priceTitle;
     }
     else {
         if ([myDelegate.isCouponApplied isEqualToString:@"1"]) {
