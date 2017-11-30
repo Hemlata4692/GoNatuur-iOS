@@ -55,38 +55,43 @@
     _shippingHeadingLabel.text = NSLocalizedText(@"shipping");
     _promotionDiscountHeadingLabel.text = NSLocalizedText(@"promotionDiscount");
     _taxHeadingLabel.text = NSLocalizedText(@"taxTitle");
-    _couponHeadingLabel.text = finalCheckoutPriceDict[@"couponCode"];
     _totalHeadingLabel.text = NSLocalizedText(@"orderTotal");
     
     //Cart subtotal
     if (finalCheckoutPriceDict[@"Cart subtotal"] == nil) {
         _cartSubtotalLabel.text = [NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],0.00];
     } else {
-        _cartSubtotalLabel.text = finalCheckoutPriceDict[@"Cart subtotal"];
+        _cartSubtotalLabel.text = [NSString stringWithFormat:@"%@",finalCheckoutPriceDict[@"Cart subtotal"]];
     }
     //Credit points
     if (finalCheckoutPriceDict[@"creditPoints"] == nil) {
-        _creditPointsLabel.text = [NSString stringWithFormat:@"%fip",0.00];
+        _creditPointsHeadingLabel.translatesAutoresizingMaskIntoConstraints = YES;
+        _creditPointsLabel.translatesAutoresizingMaskIntoConstraints = YES;
+        _creditPointsHeadingLabel.frame = CGRectMake(_creditPointsHeadingLabel.frame.origin.x, _creditPointsHeadingLabel.frame.origin.y, _creditPointsHeadingLabel.frame.size.width, 0);
+        _creditPointsLabel.frame = CGRectMake(_creditPointsLabel.frame.origin.x, _creditPointsLabel.frame.origin.y, _creditPointsLabel.frame.size.width, 0);
+//        _creditPointsHeadingLabel.frame = CGRectMake(_creditPointsHeadingLabel.frame.origin.x,self.contentView.frame.origin.y + _cartSubtotalLabel.frame.origin.y + _cartSubtotalLabel.frame.size.height + 2, _creditPointsHeadingLabel.frame.size.width, 0);
+//        _creditPointsLabel.frame = CGRectMake(_creditPointsLabel.frame.origin.x, self.contentView.frame.origin.y + _cartSubtotalLabel.frame.origin.y + _cartSubtotalLabel.frame.size.height + 2, _creditPointsLabel.frame.size.width, 0);
+      
     } else {
-        _creditPointsLabel.text = finalCheckoutPriceDict[@"creditPoints"];
+        _creditPointsLabel.text = [NSString stringWithFormat:@"%@",finalCheckoutPriceDict[@"creditPoints"]];
     }
     //Points subtotal
     if (finalCheckoutPriceDict[@"Points subtotal"] == nil) {
         _pointsSubtotalLabel.text = [NSString stringWithFormat:@"%fip",0.00];
     } else {
-        _pointsSubtotalLabel.text = finalCheckoutPriceDict[@"Points subtotal"];
+        _pointsSubtotalLabel.text = [NSString stringWithFormat:@"%@",finalCheckoutPriceDict[@"Points subtotal"]];
     }
     //Shipping
     if (finalCheckoutPriceDict[@"Shipping charges"] == nil) {
         _shippingLabel.text = [NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],0.00];
     } else {
-        _shippingLabel.text = finalCheckoutPriceDict[@"Shipping charges"];
+        _shippingLabel.text = [NSString stringWithFormat:@"%@",finalCheckoutPriceDict[@"Shipping charges"]];
     }
     //Promotion discount
     if (finalCheckoutPriceDict[@"Discount"] == nil) {
         _promotionDiscountLabel.text = [NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],0.00];
     } else {
-        _promotionDiscountLabel.text = finalCheckoutPriceDict[@"Discount"];
+        _promotionDiscountLabel.text = [NSString stringWithFormat:@"%@",finalCheckoutPriceDict[@"Discount"]];
     }
     //Tax
     if (finalCheckoutPriceDict[@"Tax"] == nil) {
@@ -95,6 +100,19 @@
         _taxLabel.text = [NSString stringWithFormat:@"%@",finalCheckoutPriceDict[@"Tax"]];
     }
     //Coupon
+    if (finalCheckoutPriceDict[@"couponCode"] == nil) {
+//        _couponLabel.hidden = YES;
+//        _couponHeadingLabel.hidden = YES;
+        _couponLabel.translatesAutoresizingMaskIntoConstraints = YES;
+        _couponHeadingLabel.translatesAutoresizingMaskIntoConstraints = YES;
+        
+        _couponHeadingLabel.frame = CGRectMake(_couponHeadingLabel.frame.origin.x, _couponHeadingLabel.frame.origin.y, _couponHeadingLabel.frame.size.width, 0);
+        
+        _couponLabel.frame = CGRectMake(_couponLabel.frame.origin.x,_couponLabel.frame.origin.y, totalLabel.frame.size.width, 0);
+
+    } else {
+        _couponHeadingLabel.text = [NSString stringWithFormat:@"%@",finalCheckoutPriceDict[@"couponCode"]];
+    }
     if (finalCheckoutPriceDict[@"couponCodeDiscount"] == nil) {
         _couponLabel.text = [NSString stringWithFormat:@"-%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],0.00];
     } else {
