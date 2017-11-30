@@ -41,6 +41,8 @@
         paymentString = [NSString stringWithFormat:@"%@en/paymentview?quoteid=%@&paywith=%@",BaseUrl,[UserDefaultManager getValue:@"quoteId"],paymentMethod];
     } else {
         paymentString = [NSString stringWithFormat:@"%@en/paymentview?token=%@&paywith=%@",BaseUrl,[UserDefaultManager getValue:@"Authorization"],paymentMethod];
+        
+        //https://dev.gonatuur.com/en/paymentview?quoteid=41894f352a9444f4a7d02f8acdda2b01&paywith=paypal_express
     }
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:[NSURL URLWithString:paymentString]];
     //Load the request in the UIWebView.
