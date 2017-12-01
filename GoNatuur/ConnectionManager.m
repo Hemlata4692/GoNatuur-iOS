@@ -1843,7 +1843,6 @@
             cartData.cyberSourceOrderId = (NSString *)response;
             cartData.cyberSourceOrderId   = [cartData.cyberSourceOrderId stringByReplacingOccurrencesOfString:@"\"" withString:@""];
             ;
-            
         }
         success(cartData);
     }
@@ -1851,7 +1850,6 @@
                            }];
 }
 #pragma mark - end
-
 
 #pragma mark - Apply coupon
 - (void)applyCouponCodeService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
