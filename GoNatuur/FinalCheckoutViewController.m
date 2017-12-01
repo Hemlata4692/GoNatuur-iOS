@@ -739,6 +739,7 @@
                 cartData.ccNumber=@"";
                 cartData.ccType=@"";
                 cartData.expirationYear=_yearField.text;
+                cartData.expirationMonth=_monthField.text;
                 cartData.saveCard=@"1";
                  cartData.expirationMonth=_monthField.text;
                 cartData.subscriptionID=encryptedSubscriptionId;
@@ -767,7 +768,7 @@
     [cartData setCyberSourcePaymentData:^(CartDataModel *cartData)  {
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ThankYouViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
-        nextView.orderId = @"300";
+        nextView.orderId = cartData.cyberSourceOrderId;
         nextView.cartListDataArray = cartListDataArray;
         nextView.finalCheckoutPriceDict=totalDict;
         [self.navigationController pushViewController:nextView animated:YES];
