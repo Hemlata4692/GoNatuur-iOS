@@ -682,6 +682,7 @@
 
 - (void)setPaymentMethod {
     CartDataModel *cartData = [CartDataModel sharedUser];
+    cartData.email=[cartModelData.billingAddressDict objectForKey:@"email"];
     cartData.paymentMethod=[paymentMethodArray objectAtIndex:selectedPaymentMethodIndex];
     [cartData setPaymentMethodOnSuccess:^(CartDataModel *cartData)  {
         //[self setCheckoutOrder];
@@ -739,6 +740,7 @@
                 cartData.ccType=@"";
                 cartData.expirationYear=_yearField.text;
                 cartData.saveCard=@"1";
+                 cartData.expirationMonth=_monthField.text;
                 cartData.subscriptionID=encryptedSubscriptionId;
             }
             else {

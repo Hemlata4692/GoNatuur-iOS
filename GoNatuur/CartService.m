@@ -122,24 +122,23 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
 #pragma mark - Set payment method
 - (void)setPaymentMethodService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters;
-    DLog(@"%@",parameters);
-    
-//    {"email":"yuu@tgh.com","paymentMethod":{"method":"paypal_express"}}
-//    POST https://dev.gonatuur.com/en/rest/en/V1/guest-carts/43bd13fe1cf3ec7f4791f9eebedca89e/set-payment-informationhttp/1.1
-    
+
     if ((nil==[UserDefaultManager getValue:@"userId"])){
         parameters = @{@"email":cartData.email,
                                      @"paymentMethod":@{
                                              @"method":cartData.paymentMethod
                                              }
                                      };
-        [self put:[NSString stringWithFormat:@"guest-carts/%@/%@",[UserDefaultManager getValue:@"quoteId"],@"set-payment-information"] parameters:parameters success:success failure:failure];
+        DLog(@"%@",parameters);
+
+        [self post:[NSString stringWithFormat:@"guest-carts/%@/%@",[UserDefaultManager getValue:@"quoteId"],@"set-payment-information"] parameters:parameters success:success failure:failure];
     }
     else {
-       parameters = @{  @"method":@{
-                                             @"method":cartData.paymentMethod
+       parameters = @{ @"paymentMethod":@{ @"method":cartData.paymentMethod
                                              }
                                      };
+        DLog(@"%@",parameters);
+
       [super put:kSetPaymentMethod parameters:parameters success:success failure:failure];
     }
 }
@@ -164,7 +163,7 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
                                  @"billingAddress":@{
                                          @"city":cartData.city,@"countryId":cartData.countryId,@"customerId":[UserDefaultManager getValue:@"userId"],@"firstname":cartData.firstName,@"lastname":cartData.lastName,@"postcode":cartData.postcode,@"region":cartData.region,@"regionCode":cartData.regionCode,@"saveInAddressBook":cartData.saveCard,@"street":cartData.street,@"telephone":cartData.telephone
                                          
-                                         },@"email":cartData.email,@"paymentMethod":@{@"additional_data":@{@"cc_cid":cartData.ccId,@"cc_number":cartData.ccNumber,@"cc_type":cartData.ccType,@"expiration":@"",@"expiration_yr":cartData.expirationYear,@"save_card":cartData.saveCard,@"subscription_id":cartData.subscriptionID},@"method":cartData.method}};
+                                         },@"email":cartData.email,@"paymentMethod":@{@"additional_data":@{@"cc_cid":cartData.ccId,@"cc_number":cartData.ccNumber,@"cc_type":cartData.ccType,@"expiration":cartData.expirationMonth,@"expiration_yr":cartData.expirationYear,@"save_card":cartData.saveCard,@"subscription_id":cartData.subscriptionID},@"method":cartData.method}};
     
    
 
