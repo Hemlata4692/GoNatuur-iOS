@@ -286,7 +286,6 @@
             _noRecordLabel.hidden=YES;
             _orderDetailTable.hidden = NO;
             [self setTableFrames];
-            [_orderDetailTable reloadData];
             [self performSelector:@selector(getTicketOption) withObject:nil afterDelay:.1];
         }
     } onfailure:^(NSError *error) {
@@ -356,6 +355,7 @@
 #pragma mark - Set table frames
 - (void)setTableFrames {
     //If order is completed
+    if ((orderDataModel.orderState!=nil) && ![orderDataModel.orderState isEqualToString:@""]) {
     if ([[[UserDefaultManager getValue:@"orderStatuses"] objectForKey:@"complete"] containsString:[orderDataModel.orderState lowercaseString]]) {
         [_cancelOrderButton setTitle:NSLocalizedText(@"returnOrder") forState:UIControlStateNormal];
         _cancelOrderButton.hidden = NO;
@@ -377,6 +377,7 @@
         _cancelOrderButton.hidden = NO;
         _orderShipmentButton.hidden = NO;
         _invoiceButton.hidden = NO;
+    }
     }
 }
 #pragma mark - end

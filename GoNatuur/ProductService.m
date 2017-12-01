@@ -19,9 +19,9 @@ static NSString *kGuestAddToCartProduct=@"guest-carts/";
 static NSString *kLoginedAddToCartProduct=@"carts/mine/items";
 static NSString *kSubscriptionAddToCartProduct=@"ranosys/quote-add-item";
 static NSString *kGuestAddToCartEvent=@"ranosys/add-event-to-cart";
-static NSString *kLoggedinAddToCartEvent=@"ranosys/add-event-to-cart/mine";
+static NSString *kLoggedinAddToCartEvent=@"ranosys/add-event-to-cart";
 static NSString *kshareProductNews=@"socialmediasharing";
-//https://dev.gonatuur.com/en/socialmediasharing
+
 @implementation ProductService
 
 #pragma mark - Get product detail service
@@ -189,7 +189,8 @@ static NSString *kshareProductNews=@"socialmediasharing";
         [super post:kGuestAddToCartEvent parameters:parameters success:success failure:failure];
     }
     else {
-        parameters = @{@"item":@{@"product_id":productDetail.productId,
+        parameters = @{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
+                       @"item":@{@"product_id":productDetail.productId,
                                  @"option_id":@"2",
                                  @"option_value":productDetail.selectedTicketOptionValue,
                                  @"ticket_price":productDetail.productPrice,

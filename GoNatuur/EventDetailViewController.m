@@ -662,9 +662,18 @@
 - (IBAction)insertInCartItemAction:(UIButton *)sender {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:5 inSection:0];
     ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
+    if (productDetailModelData.ticketingArray.count!=0) {
+        if ([productDetailModelData.ticketingArray objectAtIndex:0]!=nil) {
     if ([cell.ticketSelectionTypeField isEmpty]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"eventTicket") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+    }
+    else {
+        productDetailModelData.productQuantity=[NSNumber numberWithInt:currentQuantity];
+        [myDelegate showIndicator];
+        [self performSelector:@selector(addTicketsToCartProductService) withObject:nil afterDelay:.1];
+    }
+        }
     }
     else {
     productDetailModelData.productQuantity=[NSNumber numberWithInt:currentQuantity];
@@ -676,6 +685,8 @@
 - (IBAction)selectTicketType:(UIButton *)sender {
     ticketBtnTag=(int)[sender tag];
     ticketArray=[NSMutableArray new];
+    if ( productDetailModelData.ticketingArray.count!=0) {
+    if ([productDetailModelData.ticketingArray objectAtIndex:0]!=nil) {
     NSMutableDictionary *tempDict=[productDetailModelData.ticketingArray objectAtIndex:0];
     NSArray *dataArray=[[[tempDict objectForKey:@"event_option_type"]objectForKey:@"event_option_options"] mutableCopy];
     for (int i=0; i<dataArray.count; i++) {
@@ -685,6 +696,14 @@
         [ticketArray addObject:[NSString stringWithFormat:@"%@ + %@",[ticketDict objectForKey:@"title"],price]];
     }
     [customerTicketPicker showPickerView:ticketArray selectedIndex:selectedPickerIndex option:1 isCancelDelegate:false isFilterScreen:false];
+    }
+    else {
+        [self.view makeToast:@"No tickets options available"];
+    }
+    }
+    else {
+        [self.view makeToast:@"No tickets options available"];
+    }
 }
 #pragma mark - end
 

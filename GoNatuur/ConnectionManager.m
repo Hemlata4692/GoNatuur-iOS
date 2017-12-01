@@ -1292,6 +1292,7 @@
     CartService *cartList=[[CartService alloc]init];
     [cartList fetchShippmentMethods:cartData success:^(id response) {
         DLog(@"Fetch shippment methods response %@",response);
+        cartData.shippmentMethodsArray=[[NSMutableArray alloc]init];
         cartData.shippmentMethodsArray=[response mutableCopy];
         success(cartData);
     }

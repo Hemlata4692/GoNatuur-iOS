@@ -10,6 +10,7 @@
 
 @interface PaymentWebViewController : UIViewController
 @property(nonatomic,strong)NSString *paymentMethod;
+@property(nonatomic,strong)NSString *isSubscriptionProduct;
 @property (nonatomic, strong) NSMutableArray *cartListDataArray;
 @property (nonatomic, strong) NSDictionary *finalCheckoutPriceDict;
 @end

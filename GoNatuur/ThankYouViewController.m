@@ -25,7 +25,7 @@
     [super viewDidLoad];
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
-    [self addLeftBarButtonWithImage:false];
+    [self addLeftBarButtonWithImage:true];
     [myDelegate showIndicator];
     [self performSelector:@selector(getOrderListing) withObject:nil afterDelay:.1];
 }
@@ -120,7 +120,7 @@
     CartDataModel * cartData = [CartDataModel sharedUser];
     [cartData clearCart:^(CartDataModel *userData) {
         [myDelegate stopIndicator];
-        [_thankYouTable reloadData];
+      
     } onfailure:^(NSError *error) {
         
     }];
