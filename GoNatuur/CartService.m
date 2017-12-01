@@ -164,7 +164,7 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
                                  @"billingAddress":@{
                                          @"city":cartData.city,@"countryId":cartData.countryId,@"customerId":[UserDefaultManager getValue:@"userId"],@"firstname":cartData.firstName,@"lastname":cartData.lastName,@"postcode":cartData.postcode,@"region":cartData.region,@"regionCode":cartData.regionCode,@"saveInAddressBook":cartData.saveCard,@"street":cartData.street,@"telephone":cartData.telephone
                                          
-                                         },@"email":cartData.email,@"paymentMethod":@{@"additional_data":@{@"cc_cid":cartData.ccId,@"cc_number":cartData.ccNumber,@"cc_type":cartData.ccType,@"expiration":@"",@"expiration_yr":cartData.expirationYear,@"save_card":cartData.saveCard,@"subscription_id":cartData.subscriptionID},@"method":cartData.method}};
+                                         },@"email":cartData.email,@"paymentMethod":@{@"additional_data":@{@"cc_cid":cartData.ccId,@"cc_number":cartData.ccNumber,@"cc_type":cartData.ccType,@"expiration":cartData.expirationMonth,@"expiration_yr":cartData.expirationYear,@"save_card":cartData.saveCard,@"subscription_id":cartData.subscriptionID},@"method":cartData.method}};
     
    
 

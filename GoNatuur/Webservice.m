@@ -74,8 +74,9 @@
         [manager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",[UserDefaultManager getValue:@"Authorization"]] forHTTPHeaderField:@"Authorization"];
     }
     [manager POST:path parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
-        success(responseObject);
+//        responseObject=(id)[NullValueChecker checkArrayForNullValue:[responseObject mutableCopy]];
+        NSString *responseObjectString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        success(responseObjectString);
     } failure:^(NSURLSessionDataTask * task, NSError * _Nonnull error) {
         NSLog(@"error.localizedDescription %@ %ld",error.localizedDescription, (long)error.code);
         [myDelegate stopIndicator];

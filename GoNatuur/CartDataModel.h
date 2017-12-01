@@ -44,6 +44,7 @@
 @property (strong, nonatomic) NSString *expirationMonth;
 
 @property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSString *cyberSourceOrderId;
 @property (strong, nonatomic) NSString *countryId;
 @property (strong, nonatomic) NSString *firstName;
 @property (strong, nonatomic) NSString *lastName;
