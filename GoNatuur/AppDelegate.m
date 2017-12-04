@@ -84,7 +84,7 @@
     // Override point for customization after application launch.
  
    // Call crashlytics method
-   // [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
+    [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
     
     firstTime=true;
     isShareUrlScreen=@"0";
@@ -115,6 +115,7 @@
         [self.window setBackgroundColor:[UIColor whiteColor]];
         [self.window makeKeyAndVisible];
     }
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     //[self registerForRemoteNotification];
     return YES;
 }

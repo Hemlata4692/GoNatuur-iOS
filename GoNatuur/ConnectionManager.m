@@ -1919,7 +1919,7 @@
     CartService *cartList=[[CartService alloc]init];
     [cartList clearCart:cartData success:^(id response) {
         DLog(@"clearCart response %@",response);
-        NSString *quoteId = [response stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        NSString *quoteId = [(NSString *)response stringByReplacingOccurrencesOfString:@"\"" withString:@""];
         [UserDefaultManager setValue:quoteId forKey:@"quoteId"];
         success(cartData);
     }
