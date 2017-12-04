@@ -294,6 +294,22 @@
     }];
 }
 
+- (void)getOrderReturnStatus {
+    OrderModel * orderData = [OrderModel sharedUser];
+    orderData.pageSize=[NSNumber numberWithInt:0];
+    orderData.currentPage=[NSNumber numberWithInt:0];
+    orderData.orderId=selectedOrderId;
+    [orderData getOrderReturnStatusData:^(OrderModel *userData) {
+        if([userData.orderReturnSuccess intValue]==1) {
+        _cancelOrderButton.userInteractionEnabled=false;
+        _cancelOrderButton.alpha=0.3;
+        }
+    } onfailure:^(NSError *error) {
+        _noRecordLabel.hidden=NO;
+        _orderDetailTable.hidden = YES;
+    }];
+}
+
 - (void)cancelOrderService {
     OrderModel *orderData = [OrderModel sharedUser];
     orderData.purchaseOrderId = orderDataModel.orderId;
@@ -314,6 +330,9 @@
     OrderModel *orderData = [OrderModel sharedUser];
     orderData.orderId = orderDataModel.orderId;
     [orderData getTicketOption:^(OrderModel *userData) {
+          if ([[[UserDefaultManager getValue:@"orderStatuses"] objectForKey:@"complete"] containsString:[orderDataModel.orderState lowercaseString]]) {
+              [self getOrderReturnStatus];
+          }
         ticketArray = userData.ticketListingArray;
         [myDelegate stopIndicator];
         [_orderDetailTable reloadData];

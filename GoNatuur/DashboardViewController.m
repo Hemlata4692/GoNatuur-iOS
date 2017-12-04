@@ -376,18 +376,18 @@
     DashboardDataModel *dashboardData = [DashboardDataModel sharedUser];
     [dashboardData getDashboardData:^(DashboardDataModel *userData)  {
         bannerImageData=userData;
+        if ((nil!=myDelegate.deviceToken)&&nil!=[UserDefaultManager getValue:@"allowNotification"]) {
+            [self saveDeviceToken];
+        }
+        else{
+            [myDelegate stopIndicator];
+        }
         if ([myDelegate.isShareUrlScreen isEqualToString:@"1"]) {
             myDelegate.isShareUrlScreen=@"0";
             [myDelegate stopIndicator];
             [self navigateToDetailScreen];
         }
         [self displayData];
-        if (nil!=[UserDefaultManager getValue:@"deviceToken"]&&NULL!=[UserDefaultManager getValue:@"deviceToken"]&&nil!=[UserDefaultManager getValue:@"enableNotification"]) {
-            [self saveDeviceToken];
-        }
-        else{
-            [myDelegate stopIndicator];
-        }
     } onfailure:^(NSError *error) {
         
     }];

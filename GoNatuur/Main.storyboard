@@ -528,7 +528,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xd-YH-k9z">
-                                <rect key="frame" x="96" y="273.5" width="129" height="21"/>
+                                <rect key="frame" x="96.5" y="273.5" width="129" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGe-iL-t98"/>
                                 </constraints>
@@ -3695,7 +3695,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="50" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="A4b-N6-8Yd">
-                                <rect key="frame" x="0.0" y="54" width="320" height="464"/>
+                                <rect key="frame" x="0.0" y="100" width="320" height="464"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
@@ -3771,12 +3771,12 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="vM8-29-ev8" firstAttribute="leading" secondItem="2IC-O8-Ojh" secondAttribute="leading" id="BK7-67-2Yp"/>
-                            <constraint firstItem="A4b-N6-8Yd" firstAttribute="top" secondItem="3CJ-vy-thq" secondAttribute="bottom" constant="-10" id="GsP-al-nhU"/>
+                            <constraint firstItem="A4b-N6-8Yd" firstAttribute="top" secondItem="3CJ-vy-thq" secondAttribute="bottom" constant="36" id="GsP-al-nhU"/>
                             <constraint firstAttribute="trailing" secondItem="vM8-29-ev8" secondAttribute="trailing" id="KmP-5k-SCc"/>
                             <constraint firstItem="A4b-N6-8Yd" firstAttribute="leading" secondItem="2IC-O8-Ojh" secondAttribute="leading" id="Pey-yy-apD"/>
                             <constraint firstAttribute="trailing" secondItem="A4b-N6-8Yd" secondAttribute="trailing" id="Yv1-vp-AWy"/>
                             <constraint firstItem="vM8-29-ev8" firstAttribute="centerY" secondItem="2IC-O8-Ojh" secondAttribute="centerY" id="lK9-bk-QRi"/>
-                            <constraint firstItem="32O-bm-V2i" firstAttribute="top" secondItem="A4b-N6-8Yd" secondAttribute="bottom" constant="50" id="mwK-1O-Fwx"/>
+                            <constraint firstItem="32O-bm-V2i" firstAttribute="top" secondItem="A4b-N6-8Yd" secondAttribute="bottom" constant="4" id="mwK-1O-Fwx"/>
                             <constraint firstItem="vM8-29-ev8" firstAttribute="centerX" secondItem="2IC-O8-Ojh" secondAttribute="centerX" id="rmA-nZ-DJt"/>
                         </constraints>
                     </view>
@@ -7029,7 +7029,7 @@
                         <viewControllerLayoutGuide type="bottom" id="CjG-XM-dj5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="fXH-Zl-AcY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dtq-bd-ddC">
@@ -7206,7 +7206,7 @@
                     <navigationItem key="navigationItem" id="R7x-Tx-lLi">
                         <barButtonItem key="leftBarButtonItem" id="m3L-uk-hno">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="EdV-Gv-aKs">
-                                <rect key="frame" x="16" y="6" width="71" height="32"/>
+                                <rect key="frame" x="16" y="8" width="71" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="16"/>
                                 <state key="normal" title="Cancel">
@@ -7219,7 +7219,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" id="rmL-NS-NRa">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="N0h-8h-Fli">
-                                <rect key="frame" x="233" y="6" width="71" height="32"/>
+                                <rect key="frame" x="233" y="8" width="71" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="16"/>
                                 <state key="normal" title="Apply">
@@ -7702,7 +7702,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No record(s) found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdt-n4-S8N">
-                                <rect key="frame" x="96.5" y="273.5" width="129" height="21"/>
+                                <rect key="frame" x="96" y="273.5" width="129" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="cGS-yT-KWU"/>
                                 </constraints>

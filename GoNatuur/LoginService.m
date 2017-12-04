@@ -90,6 +90,7 @@ static NSString *kNewsSubscription=@"ranosys/newsletter/subscribe";
     NSDictionary *parameters = @{@"customerId" : [UserDefaultManager getValue:@"userId"],
                                  @"deviceType" : [NSNumber numberWithInt:2],
                                  @"deviceToken" : myDelegate.deviceToken};
+
     [super post:kSaveDeviceToken parameters:parameters success:success failure:failure];
 }
 #pragma mark - end

@@ -112,6 +112,7 @@
 - (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *loginService = [[LoginService alloc] init];
     [loginService saveDeviceTokenService:userData onSuccess:^(id response) {
+         NSLog(@"saveDeviceTokenServicee %@",response);
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -1139,7 +1140,7 @@
     ProfileService *profileService = [[ProfileService alloc] init];
     [profileService getUserProfileServiceData:profileData onSuccess:^(id response) {
         //Parse data from server response and store in data model
-        DLog(@"user profile response %@",response);
+        NSLog(@"user profile response %@",response);
         profileData.firstName=response[@"firstname"];
         profileData.lastName=response[@"lastname"];
         profileData.email=response[@"email"];
@@ -1440,6 +1441,19 @@
             //Use reusable code order detail handling
             [orderData.orderListingArray addObject:[self orderDetailHandling:orderDataDict orderDataModel:orderListData isOrderInvoice:false]];
         }
+        success(orderData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Get order return status
+- (void)getOrderReturnStatus:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure {
+    OrderService *orderService = [[OrderService alloc] init];
+    [orderService getOrderStatusReturnData:orderData onSuccess:^(id response) {
+        DLog(@"order status response %@",response);
+        orderData.orderReturnSuccess=response[@"return_status"];
         success(orderData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -1918,9 +1932,9 @@
 - (void)clearCart:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     CartService *cartList=[[CartService alloc]init];
     [cartList clearCart:cartData success:^(id response) {
-        DLog(@"clearCart response %@",response);
-        NSString *quoteId = [(NSString *)response stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-        [UserDefaultManager setValue:quoteId forKey:@"quoteId"];
+        NSLog(@"clearCart response %@",[(NSString *)response stringByReplacingOccurrencesOfString:@"\"" withString:@""]);
+       // NSString *quoteId = [(NSString *)response stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        [UserDefaultManager setValue:[(NSString *)response stringByReplacingOccurrencesOfString:@"\"" withString:@""] key:@"quoteId"];
         success(cartData);
     }
               onfailure:^(NSError *error) {

@@ -11,8 +11,7 @@
 #import "DynamicHeightWidth.h"
 #import "OrderModel.h"
 
-@interface ThankYouViewController ()
-{
+@interface ThankYouViewController () {
     NSString *orderIncrementId;
 }
 @end
@@ -26,8 +25,8 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:true];
-    [myDelegate showIndicator];
-    [self performSelector:@selector(getOrderListing) withObject:nil afterDelay:.1];
+    orderIncrementId = orderId;
+    [self performSelector:@selector(clearCart) withObject:nil afterDelay:.1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -101,27 +100,12 @@
 #pragma mark - end
 
 #pragma mark - Web services
-- (void)getOrderListing {
-    OrderModel * orderData = [OrderModel sharedUser];
-    orderData.pageSize=[NSNumber numberWithInt:0];
-    orderData.currentPage=[NSNumber numberWithInt:0];
-    orderData.isOrderDetailService=@"1";
-    orderData.orderId=orderId;
-    [orderData getOrderListing:^(OrderModel *userData) {
-        OrderModel *orderData = [userData.orderListingArray objectAtIndex:0];
-        orderIncrementId = orderData.purchaseOrderId;
-        [_thankYouTable reloadData];
-        [self clearCart];
-    } onfailure:^(NSError *error) {
-        
-    }];
-}
-
 - (void)clearCart {
     CartDataModel * cartData = [CartDataModel sharedUser];
     [cartData clearCart:^(CartDataModel *userData) {
+        [UserDefaultManager setValue:@0 key:@"quoteCount"];
+        [self updateCartBadge];
         [myDelegate stopIndicator];
-      
     } onfailure:^(NSError *error) {
         
     }];

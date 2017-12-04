@@ -14,6 +14,7 @@ static NSString *kCancelOrder=@"ranosys/orders";
 static NSString *kGetTicketOption=@"ranosys/customer/getOrderTicketOptions?orderId=";
 static NSString *kOrderInvoice=@"invoices";
 static NSString *kTrackShippment=@"shipments";
+static NSString *kOrderReturnStatus=@"returns";
 
 @implementation OrderService
 
@@ -66,6 +67,17 @@ static NSString *kTrackShippment=@"shipments";
     }
     
     [super post:kOrderListing parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Get order staus
+- (void)getOrderStatusReturnData:(OrderModel *)orderData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+           NSDictionary * parameters =  @{ @"orderId":orderData.orderId,
+                    @"pageSize" : orderData.pageSize,
+                             @"currentPage" : orderData.currentPage
+                       };
+        DLog(@"order status request %@",parameters);
+    [super post:kOrderReturnStatus parameters:parameters success:success failure:failure];
 }
 #pragma mark - end
 

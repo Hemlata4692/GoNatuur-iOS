@@ -209,6 +209,15 @@
     NSLog(@"User Info = %@",response.notification.request.content.userInfo);
 
 }
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+       willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    NSLog( @"Handle push from foreground" );
+    // custom code to handle push while app is in the foreground
+    NSLog(@"%@", notification.request.content.userInfo);
+    completionHandler(UNNotificationPresentationOptionAlert);
+}
 #pragma mark - end
 
 #pragma mark - PushNotification delegate

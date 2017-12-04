@@ -41,6 +41,7 @@
 @property (strong, nonatomic) NSString *productSubTotal;
 @property (strong, nonatomic) NSString *productType;
 @property (strong, nonatomic) NSString *productId;
+@property (strong, nonatomic) NSString *orderReturnSuccess;
 
 //Order total
 @property (strong, nonatomic) NSString *baseCurrencyCode;
@@ -76,4 +77,6 @@
 - (void)getTicketOption:(void (^)(OrderModel *))success onfailure:(void (^)(NSError *))failure;
 //Get order invoice
 - (void)getOrderInvoiceOnSuccess:(void (^)(OrderModel *))success onfailure:(void (^)(NSError *))failure;
+//return status
+- (void)getOrderReturnStatusData:(void (^)(OrderModel *))success onfailure:(void (^)(NSError *))failure;
 @end
