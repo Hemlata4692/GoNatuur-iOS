@@ -110,7 +110,8 @@
     [orderData getOrderListing:^(OrderModel *userData) {
         OrderModel *orderData = [userData.orderListingArray objectAtIndex:0];
         orderIncrementId = orderData.purchaseOrderId;
-        [self performSelector:@selector(clearCart) withObject:nil afterDelay:.1];
+        [_thankYouTable reloadData];
+        [self clearCart];
     } onfailure:^(NSError *error) {
         
     }];
