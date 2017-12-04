@@ -17,6 +17,7 @@
 #import "EventDetailViewController.h"
 #import "NewsCentreDetailViewController.h"
 #import "HMSegmentedControl.h"
+#import "OrderDetailViewController.h"
 
 @interface DashboardViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -74,6 +75,30 @@
     [self addLeftBarButtonWithImage:false];
     myDelegate.selectedCategoryIndex=-1;
     [self showSelectedTab:1];
+    if ([myDelegate.isNotificationArrived isEqualToString:@"1"]) {
+        if (myDelegate.notificationType==2) {
+            // navigate to product details
+            ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+            obj.selectedProductId=[myDelegate.screenTargetId intValue];
+            obj.isRedeemProduct=false;
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+        else  if (myDelegate.notificationType==4) {
+            // navigate to event details
+            EventDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EventDetailViewController"];
+            obj.selectedProductId=[myDelegate.screenTargetId intValue];
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+
+        else  if (myDelegate.notificationType==5 || myDelegate.notificationType==6 || myDelegate.notificationType==6 || myDelegate.notificationType==7 || myDelegate.notificationType==8 || myDelegate.notificationType==9 || myDelegate.notificationType==11) {
+            // navigate to order details
+            OrderDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
+            obj.selectedOrderId=myDelegate.screenTargetId;
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+       
+    }
+    else {
     if (myDelegate.firstTime) {
         if ([myDelegate.isShareUrlScreen isEqualToString:@"1"]) {
             if (nil==[UserDefaultManager getValue:@"quoteId"] || NULL==[UserDefaultManager getValue:@"quoteId"]) {
@@ -89,6 +114,7 @@
     else {
         [myDelegate showIndicator];
         [self performSelector:@selector(getDashboardData) withObject:nil afterDelay:.1];
+    }
     }
 }
 

@@ -18,6 +18,11 @@
 #import "ProductDetailViewController.h"
 #import "EventDetailViewController.h"
 #import "NewsCentreDetailViewController.h"
+#import "ProductDetailViewController.h"
+#import "ProfileViewController.h"
+#import "ProductListingViewController.h"
+#import "OrderDetailViewController.h"
+#import "NotificationDataModel.h"
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -45,6 +50,9 @@
 @synthesize shareEventIdDataDict;
 @synthesize isShareUrlScreen;
 @synthesize recentlyViewedItemsArrayGuest;
+@synthesize screenTargetId;
+@synthesize isNotificationArrived;
+@synthesize notificationType;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -207,7 +215,7 @@
 #pragma mark - UNUserNotificationCenter Delegate // >= iOS 10
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSLog(@"User Info = %@",response.notification.request.content.userInfo);
-
+    [self notifcationResponseDict:response.notification.request.content.userInfo];
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
@@ -241,11 +249,111 @@
     [UIApplication sharedApplication].applicationIconBadgeNumber=0;
     NSDictionary *dict = [userInfo objectForKey:@"aps"] ;
     NSLog(@"notification response === %@",dict);
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-        //if app is in active state
-    } else {
-        //if app is not active
+//    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+//        //if app is in active state
+//    } else {
+//        //if app is not active
+//    }
+    
+    //    aps =     {
+    //        alert = "Earned points for sharing Exciting Corn on Facebook";
+    //        "customer_id" = 238;
+    //        "notification_id" = 326;
+    //        status = 0;
+    //        "targat_id" = 0;
+    //        type = 10;
+    //    };
+    //}
+    [self markNotificationAsRead:dict[@"notification_id"]];
+    isNotificationArrived=@"1";
+    int notificationTypeId= [dict[@"type"] intValue];
+    switch(notificationTypeId) {
+        case 1 : {
+            // navigate to product listing
+            ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
+            obj.selectedProductCategoryId=[dict[@"targat_id"] intValue];
+            myDelegate.isProductList=true;
+            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+            [self.window setRootViewController:obj];
+            [self.window setBackgroundColor:[UIColor whiteColor]];
+            [self.window makeKeyAndVisible];        }
+            break;
+        case 2 :{
+            // navigate to product details
+            UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+            self.screenTargetId=dict[@"targat_id"];
+            self.notificationType=notificationTypeId;
+            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+            [self.window setRootViewController:objReveal];
+            [self.window setBackgroundColor:[UIColor whiteColor]];
+            [self.window makeKeyAndVisible];
+        }
+            break;
+        case 3 : {
+            // navigate to event listing
+            ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
+            obj.selectedProductCategoryId=[dict[@"targat_id"] intValue];
+            myDelegate.isProductList=false;
+            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+            [self.window setRootViewController:obj];
+            [self.window setBackgroundColor:[UIColor whiteColor]];
+            [self.window makeKeyAndVisible];
+            
+        }
+            break;
+        case 4 :{
+            UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+            self.screenTargetId=dict[@"targat_id"];
+            self.notificationType=notificationTypeId;
+            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+            [self.window setRootViewController:objReveal];
+            [self.window setBackgroundColor:[UIColor whiteColor]];
+            [self.window makeKeyAndVisible];
+            // navigate to event details
+   
+        }
+            break;
+        case 5 :
+        case 6 :
+        case 7 :
+        case 8 :
+        case 9 :
+        case 11 :{
+            UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+            self.screenTargetId=dict[@"targat_id"];
+            self.notificationType=notificationTypeId;
+            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+            [self.window setRootViewController:objReveal];
+            [self.window setBackgroundColor:[UIColor whiteColor]];
+            [self.window makeKeyAndVisible];
+        }
+            break;
+        case 10 :{
+            // navigate to profile screen
+            ProfileViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+            [self.window setRootViewController:obj];
+            [self.window setBackgroundColor:[UIColor whiteColor]];
+            [self.window makeKeyAndVisible];
+        }
+            break;
+        default :
+            DLog(@"Invalid notification type");
     }
+}
+
+- (void)markNotificationAsRead:(NSString *)notificationId {
+    NotificationDataModel *notificationList = [NotificationDataModel sharedUser];
+    notificationList.notificationId=notificationId;
+    [notificationList markNotificationRead:^(NotificationDataModel *userData) {
+        userData.notificationStatus=@"1";
+        [myDelegate stopIndicator];
+    } onfailure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)showNotificationAlert:(NSString *)message {
