@@ -134,7 +134,7 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
         [self post:[NSString stringWithFormat:@"guest-carts/%@/%@",[UserDefaultManager getValue:@"quoteId"],@"set-payment-information"] parameters:parameters success:success failure:failure];
     }
     else {
-       parameters = @{ @"paymentMethod":@{ @"method":cartData.paymentMethod
+       parameters = @{ @"method":@{ @"method":cartData.paymentMethod
                                              }
                                      };
         DLog(@"%@",parameters);

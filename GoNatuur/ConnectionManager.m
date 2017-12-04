@@ -1292,6 +1292,7 @@
     CartService *cartList=[[CartService alloc]init];
     [cartList fetchShippmentMethods:cartData success:^(id response) {
         DLog(@"Fetch shippment methods response %@",response);
+        cartData.shippmentMethodsArray=[[NSMutableArray alloc]init];
         cartData.shippmentMethodsArray=[response mutableCopy];
         success(cartData);
     }
@@ -1843,7 +1844,6 @@
             cartData.cyberSourceOrderId = (NSString *)response;
             cartData.cyberSourceOrderId   = [cartData.cyberSourceOrderId stringByReplacingOccurrencesOfString:@"\"" withString:@""];
             ;
-            
         }
         success(cartData);
     }
@@ -1851,7 +1851,6 @@
                            }];
 }
 #pragma mark - end
-
 
 #pragma mark - Apply coupon
 - (void)applyCouponCodeService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
@@ -1920,7 +1919,7 @@
     CartService *cartList=[[CartService alloc]init];
     [cartList clearCart:cartData success:^(id response) {
         DLog(@"clearCart response %@",response);
-        NSString *quoteId = [cartData.cyberSourceOrderId stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        NSString *quoteId = [response stringByReplacingOccurrencesOfString:@"\"" withString:@""];
         [UserDefaultManager setValue:quoteId forKey:@"quoteId"];
         success(cartData);
     }

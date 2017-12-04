@@ -12,6 +12,7 @@
 @interface CheckoutAddressViewController : GoNatuurViewController
 @property (nonatomic, strong) NSMutableArray *cartListDataArray;
 @property (nonatomic, assign) BOOL isBillingAddress;
+@property (nonatomic, assign) NSString* isSuscribedProdut;
 @property (nonatomic, assign) BOOL isShippingAddress;
 @property (nonatomic, assign) BOOL isEditService;
 @property (nonatomic, strong) CartDataModel *cartModelData;

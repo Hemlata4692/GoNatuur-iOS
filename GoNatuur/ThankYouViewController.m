@@ -25,7 +25,7 @@
     [super viewDidLoad];
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
-    [self addLeftBarButtonWithImage:false];
+    [self addLeftBarButtonWithImage:true];
     [myDelegate showIndicator];
     [self performSelector:@selector(getOrderListing) withObject:nil afterDelay:.1];
 }
@@ -110,7 +110,8 @@
     [orderData getOrderListing:^(OrderModel *userData) {
         OrderModel *orderData = [userData.orderListingArray objectAtIndex:0];
         orderIncrementId = orderData.purchaseOrderId;
-        [self performSelector:@selector(clearCart) withObject:nil afterDelay:.1];
+        [_thankYouTable reloadData];
+        [self clearCart];
     } onfailure:^(NSError *error) {
         
     }];
@@ -120,7 +121,7 @@
     CartDataModel * cartData = [CartDataModel sharedUser];
     [cartData clearCart:^(CartDataModel *userData) {
         [myDelegate stopIndicator];
-        [_thankYouTable reloadData];
+      
     } onfailure:^(NSError *error) {
         
     }];

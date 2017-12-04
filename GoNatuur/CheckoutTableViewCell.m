@@ -35,7 +35,7 @@
         _radioLabel.backgroundColor=[UIColor whiteColor];
         _radioLabel.layer.borderColor=unSelectedStepColor.CGColor;
     }
-    _shippingMethodLabel.text=[NSString stringWithFormat:@"%@\n%@",shippingMethodData[@"method_title"],shippingMethodData[@"method_title"]];
+    _shippingMethodLabel.text=[NSString stringWithFormat:@"%@",shippingMethodData[@"carrier_title"]];
     _shippingMethodPriceLabel.text=[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([shippingMethodData[@"base_amount"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])];
 }
 

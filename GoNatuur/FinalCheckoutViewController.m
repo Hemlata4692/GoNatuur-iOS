@@ -95,6 +95,14 @@
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:true];
     [self setSelectedCardData];
+    if ([cartModelData.extensionAttributeDict[@"has_subscription_product"] isEqualToString:@"1"]) {
+        _selectCardButton.enabled=false;
+        _addCardButton.enabled=false;
+        _selectCardLabel.alpha=0.3;
+        _selectCardButton.alpha=0.3;
+        _addCardLabel.alpha=0.3;
+        _addCardButton.alpha=0.3;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -618,12 +626,20 @@
     }
     DLog(@"%@",[paymentMethodArray objectAtIndex:index]);
     if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"tenpaypayment"]) {
+        if ([cartModelData.extensionAttributeDict[@"has_subscription_product"] isEqualToString:@"1"]) {
+            [cell setUserInteractionEnabled:NO];
+            [cell setAlpha:0.5];
+        }
         paymentmethodImageView.image=[UIImage imageNamed:@"weChatPayIcon.png"];
     }
     else if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"paypal_express"]) {
         paymentmethodImageView.image=[UIImage imageNamed:@"paypalIcon.png"];
     }
     else if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"alipay"]) {
+        if ([cartModelData.extensionAttributeDict[@"has_subscription_product"] isEqualToString:@"1"]) {
+            [cell setUserInteractionEnabled:NO];
+            [cell setAlpha:0.5];
+        }
         paymentmethodImageView.image=[UIImage imageNamed:@"alipayIcon.png"];
     }
     
@@ -649,7 +665,6 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-   
     if (isCyberSourceExist) {
         selectedPaymentMethodIndex=(int)indexPath.row+1;
     }
@@ -688,6 +703,7 @@
         //[self setCheckoutOrder];
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         PaymentWebViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"PaymentWebViewController"];
+        nextView.isSubscriptionProduct=cartModelData.extensionAttributeDict[@"has_subscription_product"];
         nextView.paymentMethod = [paymentMethodArray objectAtIndex:selectedPaymentMethodIndex];
         nextView.finalCheckoutPriceDict = totalDict;
         nextView.cartListDataArray = cartListDataArray;
@@ -792,6 +808,7 @@
 #pragma mark - IBActions
 - (IBAction)selectCardTypeAction:(id)sender {
     // picker of card type
+     [_keyboardControls.activeField resignFirstResponder];
     [gNPickerViewObj showPickerView:cardTypeDataArray selectedIndex:selectedPickerIndex option:1 isCancelDelegate:false isFilterScreen:false];
 }
 
@@ -938,16 +955,13 @@
 #pragma mark - Card validation
 - (BOOL)performValidationsForCard {
      if ([_cvvField isEmpty] || [_cardHolderName isEmpty] || [_monthField isEmpty] || [_yearField isEmpty]) {
-        
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-        
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
-        
         return NO;
         
     }
     
-//    else if (_monthField.text.length != 2) {
+//    else if (_monthField.text.length != 4) {
 //
 //        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
 //
@@ -956,8 +970,8 @@
 //        return NO;
 //
 //    }
-    
-//    else if (_yearField.text.length != 2) {
+//    
+//    else if (_yearField.text.length != 4) {
 //
 //        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
 //

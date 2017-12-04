@@ -16,7 +16,7 @@
 @end
 
 @implementation PaymentWebViewController
-@synthesize paymentMethod,cartListDataArray,finalCheckoutPriceDict;
+@synthesize paymentMethod,cartListDataArray,finalCheckoutPriceDict,isSubscriptionProduct;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -37,9 +37,17 @@
     self.navigationItem.title=NSLocalizedText(@"makePayment");
     [myDelegate showIndicator];
     NSString *paymentString;
-    if ((nil==[UserDefaultManager getValue:@"userId"])){
+    //paypal_subscription
+    
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+        if ([isSubscriptionProduct isEqualToString:@"1"]) {
+            paymentMethod=@"paypal_subscription";
+        }
         paymentString = [NSString stringWithFormat:@"%@en/paymentview?quoteid=%@&paywith=%@",BaseUrl,[UserDefaultManager getValue:@"quoteId"],paymentMethod];
     } else {
+        if ([isSubscriptionProduct isEqualToString:@"1"]) {
+            paymentMethod=@"paypal_subscription";
+        }
         paymentString = [NSString stringWithFormat:@"%@en/paymentview?token=%@&paywith=%@",BaseUrl,[UserDefaultManager getValue:@"Authorization"],paymentMethod];
     }
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:[NSURL URLWithString:paymentString]];
