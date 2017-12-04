@@ -15,6 +15,7 @@
 #import "RedeemViewController.h"
 #import <ZDCChat/ZDCChat.h>
 #import <ZendeskSDK/ZendeskSDK.h>
+#import "SearchListingViewController.h"
 
 @interface ProfileViewController ()<GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     NSArray *menuItemsArray, *customerSupportArray;
@@ -32,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"customerSupportCell", @"changePasswordCell", @"notificationCell"];
+    menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"customerSupportCell", @"changePasswordCell", @"recentlyViewedCell", @"notificationCell"];
     [self addCustomPickerView];
     isImagePicker=false;
     
@@ -166,6 +167,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==5) {
         [customerSupportPicker showPickerView:customerSupportArray selectedIndex:selectedPickerIndex option:1 isCancelDelegate:false isFilterScreen:false];
+    }
+    if (indexPath.row==7) {
+        SearchListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SearchListingViewController"];
+        obj.searchKeyword=NSLocalizedText(@"recentlyViewd");
+        obj.screenType=@"loggedInRecentViewed";
+        [self.navigationController pushViewController:obj animated:true];
     }
 }
 #pragma mark - end

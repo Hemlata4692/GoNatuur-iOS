@@ -41,7 +41,12 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"CardList");
     _noRecordLabel.text=NSLocalizedText(@"norecord");
-    [self addLeftBarButtonWithImage:false];
+    if (finalCheckoutView==nil) {
+        [self addLeftBarButtonWithImage:false];
+    }
+    else {
+        [self addLeftBarButtonWithImage:true];
+    }
     [_addCardButton setTitle:NSLocalizedText(@"addCard") forState:UIControlStateNormal];
     [_addCardButton setCornerRadius:20.0];
     [_addCardButton addShadow:_addCardButton color:[UIColor blackColor]];

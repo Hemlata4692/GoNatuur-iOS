@@ -27,8 +27,7 @@
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    menuItemsArray = @[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications",@"AboutUs",@"ContactUs",@"NewsLetter",@"ProductGuide", @"Signout"];
-
+    menuItemsArray = @[@"My Orders", @"Payment", @"Redeem Points", @"Events", @"News Centre",@"Notifications",@"AboutUs",@"ContactUs",@"NewsLetter",@"ProductGuide",@"ReturnPolicy",@"AccountSettings", @"Signout"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,7 +38,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.revealViewController.frontViewController.view setUserInteractionEnabled:NO];
-     sideBarLabelArray=@[NSLocalizedText(@"sideBarOrder"), NSLocalizedText(@"sideBarPayment"), NSLocalizedText(@"sideBarRedeemPoints"),NSLocalizedText(@"sideBarEvents"), NSLocalizedText(@"sideBarNewsCentre"), NSLocalizedText(@"sideBarNotifications"), NSLocalizedText(@"sideBarAboutUs"), NSLocalizedText(@"sideBarContactUs"), NSLocalizedText(@"sideBarNewsLetter"),NSLocalizedText(@"sideBarProductGuide"),NSLocalizedText(@"sideBarSignOut")];
+     sideBarLabelArray=@[NSLocalizedText(@"sideBarOrder"), NSLocalizedText(@"sideBarPayment"), NSLocalizedText(@"sideBarRedeemPoints"),NSLocalizedText(@"sideBarEvents"), NSLocalizedText(@"sideBarNewsCentre"), NSLocalizedText(@"sideBarNotifications"), NSLocalizedText(@"sideBarAboutUs"), NSLocalizedText(@"sideBarContactUs"), NSLocalizedText(@"sideBarNewsLetter"),NSLocalizedText(@"sideBarProductGuide"),NSLocalizedText(@"sideBarReturnPolicy"),NSLocalizedText(@"sideBarAccountSetting"),NSLocalizedText(@"sideBarSignOut")];
     [self viewCustomisationAndData];
     [_sideBarTableView reloadData];
 }
@@ -95,7 +94,7 @@
     
     UILabel *cellLabel=(UILabel *) [cell viewWithTag:1];
     UIImageView *cellImage=(UIImageView *) [cell viewWithTag:20];
-    if (indexPath.row==10&&(nil==[UserDefaultManager getValue:@"userId"])) {
+    if (indexPath.row==12&&(nil==[UserDefaultManager getValue:@"userId"])) {
         cellLabel.text=NSLocalizedText(@"sideBarLogin");
         cellImage.image=[UIImage imageNamed:@"login"];
     }
@@ -106,7 +105,17 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50.0;
+    if (nil!=[UserDefaultManager getValue:@"userId"]) {
+        if (indexPath.row==11) {
+            return 0.0;
+        }
+        else {
+           return 50.0;
+        }
+    }
+    else {
+        return 50.0;
+    }
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -148,6 +157,7 @@
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         NewsLetterSubscriptionViewController *popView =
         [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterSubscriptionViewController"];
+        popView.screeType=@"1";
         popView.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4f];
         [popView setModalPresentationStyle:UIModalPresentationOverCurrentContext];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -158,6 +168,13 @@
         myDelegate.selectedCategoryIndex=-1;
     }
     else if (indexPath.row==10) {
+        myDelegate.selectedCategoryIndex=-1;
+        //redirect to account setting screen
+    }
+    else if (indexPath.row==11) {
+           myDelegate.selectedCategoryIndex=-1;
+    }
+    else if (indexPath.row==12) {
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
             myDelegate.selectedCategoryIndex=-1;
             [myDelegate logoutUser];
@@ -202,18 +219,16 @@
         else if([identifier isEqualToString:@"ContactUs"]) {
             return YES;
         }
+        else if([identifier isEqualToString:@"ReturnPolicy"]) {
+            return YES;
+        }
         else {
             return YES;
         }
     }
     else {
         // by default perform the segue transition
-//        if([identifier isEqualToString:@"MyOrders"]) {
-//            return NO;
-//        }
-//        else {
         return YES;
-//       }
     }
 }
 
@@ -227,6 +242,11 @@
         UINavigationController *navController = [segue destinationViewController];
         WebPageViewController *destViewController = (WebPageViewController *)navController.topViewController;
         destViewController.pageIdentifier = @"ContactUs";
+    }
+    else if ([segue.identifier isEqualToString:@"ReturnPolicy"]) {
+        UINavigationController *navController = [segue destinationViewController];
+        WebPageViewController *destViewController = (WebPageViewController *)navController.topViewController;
+        destViewController.pageIdentifier = @"ReturnPolicy";
     }
 }
 #pragma mark - end

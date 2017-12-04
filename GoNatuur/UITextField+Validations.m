@@ -60,4 +60,33 @@
                                                  }
      ];
 }
+- (BOOL)isValidAmericanExpress {
+    NSString *emailRegEx = @"(?:3[47][0-9]{13})";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
+    return [emailTest evaluateWithObject:self.text];
+}
+
+- (BOOL)isValidVisaCard {
+    NSString *emailRegEx = @"(?:4[0-9]{12}(?:[0-9]{3})?)";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
+    return [emailTest evaluateWithObject:self.text];
+}
+
+- (BOOL)isValidMasterCard {
+    NSString *emailRegEx = @"(?:5[1-5][0-9]{14})";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
+    return [emailTest evaluateWithObject:self.text];
+}
+
+- (BOOL)isValidDiscoverCard {
+    NSString *emailRegEx = @"(?:6(?:011|5[0-9][0-9])[0-9]{12})";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
+    return [emailTest evaluateWithObject:self.text];
+}
+
+- (BOOL)isDinnerClubCard {
+    NSString *emailRegEx = @"(?:3(?:0[0-5]|[68][0-9])[0-9]{11})";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
+    return [emailTest evaluateWithObject:self.text];
+}
 @end

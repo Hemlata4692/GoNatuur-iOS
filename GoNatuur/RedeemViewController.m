@@ -19,6 +19,7 @@
 #import "UIView+Toast.h"
 #import "SortByViewController.h"
 #import "FilterViewController.h"
+#import "ImpactPointsHistoryViewController.h"
 
 @interface RedeemViewController ()<UICollectionViewDelegateFlowLayout, GoNatuurFilterViewDelegate, GoNatuurPickerViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
     NSMutableArray *productListDataArray, *subCategoryDataList, *subCategoryPickerArray;
@@ -273,7 +274,9 @@
 }
 
 - (IBAction)imapctPointsOverviewButtonAction:(id)sender {
-    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+   // [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    ImpactPointsHistoryViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ImpactPointsHistoryViewController"];
+    [self.navigationController pushViewController:obj animated:YES];
 }
 #pragma mark - end
 

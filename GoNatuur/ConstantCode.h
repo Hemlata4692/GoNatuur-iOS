@@ -15,9 +15,9 @@
 typedef NS_ENUM (NSInteger, ConstantType) {
     SignUp,
     FacebookLogin,
+   GoogleLogin,
     WeChatLogin,
     WeiboLogin,
-    GoogleLogin,
     Device5s,
     Device6,
     Device7Plus
@@ -41,6 +41,9 @@ extern NSString * const dateFormatterService;
 extern NSString * const dateFormatterConverted;
 extern NSString * const dateFormatterDate;
 extern NSString * const specialPriceDateFormatter;
+extern NSString * const subscriptionDateFormatter;
+
+extern NSString * const orderListingDateFormat;
 //end
 
 + (ConstantType)checkDeviceType;

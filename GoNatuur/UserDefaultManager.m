@@ -8,7 +8,7 @@
 #import "UserDefaultManager.h"
 
 @implementation UserDefaultManager
-
+//- (void)setObject:(nullable id)value forKey:(NSString *)defaultName;
 + (void)setValue:(id)value key:(NSString *)key {
     [[NSUserDefaults standardUserDefaults]setObject:value forKey:key];
     [[NSUserDefaults standardUserDefaults]synchronize];

@@ -14,7 +14,7 @@ NSString * const iOS_Version = @"10.0";
 //Client
 NSString * const BaseUrl = @"https://dev.gonatuur.com/";
 //Beta
-//NSString * const BaseUrl = @"http://192.121.166.226:81/gopurpose/";
+//NSString * const BaseUrl = @"http://192.168.18.141/gopurpose/";
 NSString * const productImageBaseUrl = @"media/catalog/category";//remove pub when using in live/@"pub/media/catalog/category"
 NSString * const productDetailImageBaseUrl = @"media/catalog/product";//remove pub when using in live/@"pub/media/catalog/product"
 NSString * const eventIdentifier = @"ticket";
@@ -28,6 +28,8 @@ NSString * const dateFormatterService=@"MM/yyyy";
 NSString * const dateFormatterConverted=@"MMMM yyyy";
 NSString * const dateFormatterDate=@"dd/MM/yyyy";
 NSString * const specialPriceDateFormatter=@"yyyy-MM-dd hh:mm:ss";
+NSString * const subscriptionDateFormatter=@"yyyy-MM-dd";
+NSString * const orderListingDateFormat=@"yyyy-MM-dd HH:mm:ss";
 
 //Check device type
 + (ConstantType)checkDeviceType {

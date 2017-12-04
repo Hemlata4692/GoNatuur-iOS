@@ -16,13 +16,37 @@ static NSString *kcheckoutShippingInformationManagementV1=@"carts/mine/shipping-
 static NSString *kGetCheckoutPromo=@"ranosys/setcheckoutpromo";
 static NSString *kSetPaymentMethod=@"carts/mine/selected-payment-method";
 static NSString *kSetCheckoutOrder=@"carts/mine/order";
+static NSString *kApplyCouponCode=@"carts/mine/coupons/";
+static NSString *kCyberSourcePayment=@"carts/mine/payment-information";
+static NSString *kCyberSourceGuestPayment=@"payment-information";
+static NSString *kGetshippingMethod=@"carts/mine/estimate-shipping-methods";
+static NSString *kClearCart=@"carts/mine";
+static NSString *kClearCartGuest=@"guest-carts";
+static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
 
 @implementation CartService
 
+#pragma mark - Fetch shipping methods
+- (void)getShippingMethod:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSMutableDictionary *tempDict=[[self setAddressMethod:[cartData.shippingAddressDict copy]] mutableCopy];
+    [tempDict setObject:[NSNumber numberWithInt:0] forKey:@"same_as_billing"];
+    NSDictionary *parameters = @{@"address" : [tempDict copy]};
+    DLog(@"%@",parameters);
+    
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+         [self post:[NSString stringWithFormat:@"guest-carts/%@/estimate-shipping-methods",[UserDefaultManager getValue:@"quoteId"]] parameters:parameters success:success failure:failure];
+    }
+    else {
+        [self post:kGetshippingMethod parameters:parameters success:success failure:failure];
+    }
+}
+
 #pragma mark - Fetch cart listing
 - (void)getCartListing:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    if ((nil==[UserDefaultManager getValue:@"userId"])){
-        [self get:[NSString stringWithFormat:@"guest-carts/%@/items",[UserDefaultManager getValue:@"quoteId"]] parameters:nil onSuccess:success onFailure:failure];
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+         NSDictionary *parameters = @{@"quoteId" : [UserDefaultManager getValue:@"quoteId"]};
+        //https://dev.gonatuur.com/en/rest/en/V1/ranosys/get-cart-quote/guest?&quoteId=7cd19b9fa980b338fa0cf666005bb5ad
+        [self get:kCartGuestListing parameters:parameters onSuccess:success onFailure:failure];
     }
     else {
         [self post:kCartListing parameters:nil success:success failure:failure];
@@ -31,7 +55,6 @@ static NSString *kSetCheckoutOrder=@"carts/mine/order";
 
 #pragma mark - Remove item from cart
 - (void)removeItemFromCart:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    
     if ((nil==[UserDefaultManager getValue:@"userId"])){
         [super deleteService:[NSString stringWithFormat:@"guest-carts/%@/items/%@",cartData.itemQuoteId,cartData.itemId] parameters:nil isBoolean:true success:success failure:failure];
     }
@@ -40,7 +63,6 @@ static NSString *kSetCheckoutOrder=@"carts/mine/order";
     }
     
 }
-
 #pragma mark - Fetch shippment methods
 - (void)fetchShippmentMethods:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     if ((nil==[UserDefaultManager getValue:@"userId"])){
@@ -75,18 +97,48 @@ static NSString *kSetCheckoutOrder=@"carts/mine/order";
 }
 #pragma mark - end
 
-#pragma mark - Set payment method
-- (void)setPaymentMethodService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    NSDictionary *parameters = @{
-                                 @"method":@{
-                                         @"method":cartData.paymentMethod
-                                         }
-                                 };
-    DLog(@"%@",parameters);
+#pragma mark - Apply coupon code
+- (void)applyCouponCode:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     if ((nil==[UserDefaultManager getValue:@"userId"])){
-        [self post:[NSString stringWithFormat:@"guest-carts/%@/items/%@",[UserDefaultManager getValue:@"quoteId"],@"selected-payment-method"] parameters:parameters success:success failure:failure];
+        [self put:[NSString stringWithFormat:@"guest-carts/%@/%@/%@",[UserDefaultManager getValue:@"quoteId"],@"coupons",cartData.couponCode] parameters:nil success:success failure:failure];
     }
     else {
+        [self put:[NSString stringWithFormat:@"%@%@",kApplyCouponCode,cartData.couponCode] parameters:nil success:success failure:failure];
+    }
+}
+#pragma mark - end
+
+#pragma mark - Remove coupon code
+- (void)removeCouponCode:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+         [super deleteService:[NSString stringWithFormat:@"guest-carts/%@/%@",[UserDefaultManager getValue:@"quoteId"],@"coupons"] parameters:nil isBoolean:true success:success failure:failure];
+    }
+    else {
+          [super deleteService:[NSString stringWithFormat:@"%@",kApplyCouponCode] parameters:nil isBoolean:true success:success failure:failure];
+    }
+}
+#pragma mark - end
+
+#pragma mark - Set payment method
+- (void)setPaymentMethodService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters;
+
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+        parameters = @{@"email":cartData.email,
+                                     @"paymentMethod":@{
+                                             @"method":cartData.paymentMethod
+                                             }
+                                     };
+        DLog(@"%@",parameters);
+
+        [self post:[NSString stringWithFormat:@"guest-carts/%@/%@",[UserDefaultManager getValue:@"quoteId"],@"set-payment-information"] parameters:parameters success:success failure:failure];
+    }
+    else {
+       parameters = @{ @"method":@{ @"method":cartData.paymentMethod
+                                             }
+                                     };
+        DLog(@"%@",parameters);
+
       [super put:kSetPaymentMethod parameters:parameters success:success failure:failure];
     }
 }
@@ -101,6 +153,27 @@ static NSString *kSetCheckoutOrder=@"carts/mine/order";
                                  };
     DLog(@"%@",parameters);
     [super put:kSetCheckoutOrder parameters:parameters success:success failure:failure];
+}
+#pragma mark - end
+
+
+#pragma mark - Cybersource
+- (void)cyberSourcePaymentData:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{
+                                 @"billingAddress":@{
+                                         @"city":cartData.city,@"countryId":cartData.countryId,@"customerId":[UserDefaultManager getValue:@"userId"],@"firstname":cartData.firstName,@"lastname":cartData.lastName,@"postcode":cartData.postcode,@"region":cartData.region,@"regionCode":cartData.regionCode,@"saveInAddressBook":cartData.saveCard,@"street":cartData.street,@"telephone":cartData.telephone
+                                         
+                                         },@"email":cartData.email,@"paymentMethod":@{@"additional_data":@{@"cc_cid":cartData.ccId,@"cc_number":cartData.ccNumber,@"cc_type":cartData.ccType,@"expiration":cartData.expirationMonth,@"expiration_yr":cartData.expirationYear,@"save_card":cartData.saveCard,@"subscription_id":cartData.subscriptionID},@"method":cartData.method}};
+    
+   
+
+    DLog(@"kCyberSourcePayment %@",parameters);
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+        [super postPayment:[NSString stringWithFormat:@"guest-carts/%@/%@",[UserDefaultManager getValue:@"quoteId"],kCyberSourceGuestPayment] parameters:parameters isBoolean:true success:success failure:success];
+    }
+    else {
+        [super postPayment:kCyberSourcePayment parameters:parameters isBoolean:true success:success failure:failure];
+    }
 }
 #pragma mark - end
 
@@ -153,4 +226,16 @@ static NSString *kSetCheckoutOrder=@"carts/mine/order";
                                  };
     return parameters;
 }
+#pragma mark - end
+
+#pragma mark - Remove coupon code
+- (void)clearCart:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+         [super postPayment:kClearCartGuest parameters:nil isBoolean:true success:success failure:success];
+    }
+    else {
+        [super postPayment:kClearCart parameters:nil isBoolean:true success:success failure:failure];
+    }
+}
+#pragma mark - end
 @end

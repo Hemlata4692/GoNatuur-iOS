@@ -34,7 +34,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden=false;
-    self.title=NSLocalizedText(@"invoiceTitle");
+    self.title=NSLocalizedText(@"invoiceScreen");
     _noRecordLabel.text=NSLocalizedText(@"norecord");
     [self addLeftBarButtonWithImage:true];
     invoiceListArray=[NSMutableArray new];
@@ -48,7 +48,7 @@
 }
 #pragma mark - end
 
-#pragma mark TableView DataSource and Delegate Methods
+#pragma mark - TableView DataSource and Delegate Methods
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (invoiceListArray.count > 0) {
         return sectionList.count+trackShippmentArray.count;
@@ -88,7 +88,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-   DLog(@"%d,%d",(int)indexPath.section, (int)indexPath.row);
+    DLog(@"%d,%d",(int)indexPath.section, (int)indexPath.row);
     if ((int)indexPath.section==6 && (int)indexPath.row==1) {
         DLog(@"%d,%d",(int)indexPath.section, (int)indexPath.row);
     }
@@ -200,10 +200,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-     DLog(@"%d,%d",(int)indexPath.section, (int)indexPath.row);
+    DLog(@"%d,%d",(int)indexPath.section, (int)indexPath.row);
     NSString *simpleTableIdentifier=@"";
     if (indexPath.section<sectionList.count) {
-    if ([[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] intValue]==3) {
+        if ([[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] intValue]==3) {
             NSInteger index = indexPath.row % 3;
             switch (index) {
                 case 0:
@@ -216,18 +216,18 @@
                     simpleTableIdentifier=@"orderListPriceCell";
                     break;
             }
-    } else if ([[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] intValue]==4) {
-        if (indexPath.row == 0) {
-            simpleTableIdentifier=@"subtotalPriceCell";
-        } else if (indexPath.row == 1) {
-            simpleTableIdentifier=@"DiscountPriceCell";
-        } else if (indexPath.row == 2) {
-            simpleTableIdentifier=@"taxPriceCell";
-        } else {
-            simpleTableIdentifier=@"totalPriceCell";
+        } else if ([[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] intValue]==4) {
+            if (indexPath.row == 0) {
+                simpleTableIdentifier=@"subtotalPriceCell";
+            } else if (indexPath.row == 1) {
+                simpleTableIdentifier=@"DiscountPriceCell";
+            } else if (indexPath.row == 2) {
+                simpleTableIdentifier=@"taxPriceCell";
+            } else {
+                simpleTableIdentifier=@"totalPriceCell";
+            }
         }
-    }
-    else {}
+        else {}
     }
     else {
         simpleTableIdentifier=@"shippmentCell";
@@ -238,14 +238,14 @@
     }
     
     if (indexPath.section<sectionList.count) {
-    if ([[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] intValue]==0) {
-    } else if ([[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] intValue]==3) {
-        OrderModel * orderData = [[[invoiceListArray objectAtIndex:[[[[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] componentsSeparatedByString:@","] objectAtIndex:1] intValue]] productListingArray] objectAtIndex:[[[[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] componentsSeparatedByString:@","] objectAtIndex:2] intValue]];
-        [cell displayProductData:[[UIScreen mainScreen] bounds].size.width-20 orderData:orderData currencyCode:orderData.currencyCode];
-    } else if ([[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] intValue]==4) {
-        OrderModel * orderData = [invoiceListArray objectAtIndex:[[[[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] componentsSeparatedByString:@","] objectAtIndex:1] intValue]];
-        [cell displayTotalAmountData:[[UIScreen mainScreen] bounds].size.width-20 orderData:orderData];
-    }
+        if ([[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] intValue]==0) {
+        } else if ([[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] intValue]==3) {
+            OrderModel * orderData = [[[invoiceListArray objectAtIndex:[[[[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] componentsSeparatedByString:@","] objectAtIndex:1] intValue]] productListingArray] objectAtIndex:[[[[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] componentsSeparatedByString:@","] objectAtIndex:2] intValue]];
+            [cell displayProductData:[[UIScreen mainScreen] bounds].size.width-20 orderData:orderData currencyCode:orderData.currencyCode];
+        } else if ([[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] intValue]==4) {
+            OrderModel * orderData = [invoiceListArray objectAtIndex:[[[[sectionList objectForKey:[NSNumber numberWithInt:(int)indexPath.section]] componentsSeparatedByString:@","] objectAtIndex:1] intValue]];
+            [cell displayTotalAmountData:[[UIScreen mainScreen] bounds].size.width-20 orderData:orderData];
+        }
     }
     else {
         OrderModel * orderData = [[[trackShippmentArray objectAtIndex:(int)(indexPath.section-sectionList.count)] trackArray] objectAtIndex:indexPath.row];
@@ -293,7 +293,8 @@
         else {
             _noRecordLabel.hidden=YES;
             _orderInvoiceTableView.hidden = NO;
-            [self getTrackShippment];
+            [myDelegate stopIndicator];
+            [_orderInvoiceTableView reloadData];
         }
     } onfailure:^(NSError *error) {
         
@@ -317,3 +318,4 @@
 #pragma mark - end
 
 @end
+

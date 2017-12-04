@@ -10,4 +10,6 @@
 
 @interface SearchListingViewController : GoNatuurViewController
 @property (nonatomic, strong) NSString *searchKeyword;
+@property (nonatomic, strong) NSString *screenType;
+@property (nonatomic, strong) NSMutableArray *searchListIds;
 @end

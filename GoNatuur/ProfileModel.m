@@ -49,6 +49,8 @@
 @synthesize userImage;
 @synthesize billingAddressID;
 @synthesize shippingAddressID;
+@synthesize impactsPointDataArray;
+@synthesize impactPointTotalRecord;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{

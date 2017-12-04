@@ -52,4 +52,6 @@
 - (void)removeFromWishlist:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
 //Search list by name data
 - (void)getProductListByNameServiceOnSuccess:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Recently viewed products
+- (void)recentlyViewedProducts:(void (^)(SearchDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

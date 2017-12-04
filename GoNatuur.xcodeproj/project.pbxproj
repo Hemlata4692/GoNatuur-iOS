@@ -66,6 +66,7 @@
 		185ECB6D1F73E237002BA64A /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185ECB6C1F73E237002BA64A /* FilterViewController.m */; };
 		185ECB721F73E279002BA64A /* FilterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185ECB711F73E279002BA64A /* FilterTableViewCell.m */; };
 		185F707F1F55A839007F49F7 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185F707E1F55A839007F49F7 /* ProfileViewController.m */; };
+		186A80C21FCA08CD005CC479 /* OrderShipmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186A80C11FCA08CD005CC479 /* OrderShipmentViewController.m */; };
 		1870F0BE1F44185F008B2CE5 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */; };
 		187129071F48D5BC00D16581 /* UpdateCartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 187129061F48D5BC00D16581 /* UpdateCartItem.m */; };
 		187129091F48DD2B00D16581 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 187129081F48DD2A00D16581 /* MediaPlayer.framework */; };
@@ -75,7 +76,10 @@
 		187561971F469F3800F609AB /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187561961F469F3800F609AB /* NotificationViewController.m */; };
 		1875619D1F46AAC500F609AB /* dashboard_banner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619B1F46AAC500F609AB /* dashboard_banner1.png */; };
 		1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619C1F46AAC500F609AB /* dashboard_banner2.png */; };
+		1877FA9B1FC54F8A009B44D4 /* AccountSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1877FA9A1FC54F8A009B44D4 /* AccountSettingViewController.m */; };
 		187A89B91F6F93EB00E7431A /* ProductGuideSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */; };
+		1881C8FD1FC43C23001B587F /* ImpactPointsHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881C8FC1FC43C23001B587F /* ImpactPointsHistoryViewController.m */; };
+		1881C9021FC43C58001B587F /* ImapctPointHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881C9011FC43C58001B587F /* ImapctPointHistoryTableViewCell.m */; };
 		188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1886058F1F39AF320005D1E2 /* UserNotifications.framework */; };
 		188605951F39BC430005D1E2 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605941F39BC430005D1E2 /* DashboardViewController.m */; };
 		1886059B1F39C0FC0005D1E2 /* CategorySliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188605991F39C0FC0005D1E2 /* CategorySliderViewController.m */; };
@@ -139,10 +143,14 @@
 		32A3D7131F1CE3BB00062B86 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 32A3D70E1F1CE3BB00062B86 /* GoogleSignIn.bundle */; };
 		32A3D7141F1CE3BB00062B86 /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A3D70F1F1CE3BB00062B86 /* GoogleSignIn.framework */; };
 		32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32A3D7151F1CE4A500062B86 /* GoogleService-Info.plist */; };
+		32B329E11FCD1ABC0035B684 /* PaymentWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B329E01FCD1ABC0035B684 /* PaymentWebViewController.m */; };
 		32BAA6091F1360280015E355 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BAA6081F1360280015E355 /* main.m */; };
 		32BAA60C1F1360280015E355 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BAA60B1F1360280015E355 /* AppDelegate.m */; };
 		32BAA6141F1360290015E355 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32BAA6131F1360290015E355 /* Assets.xcassets */; };
 		32BAA6171F1360290015E355 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32BAA6151F1360290015E355 /* LaunchScreen.storyboard */; };
+		32C0CA591FCBE941005FC8E7 /* ThankYouViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C0CA561FCBE403005FC8E7 /* ThankYouViewController.m */; };
+		32C0CA5A1FCBE94C005FC8E7 /* ThankYouTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C0CA571FCBE403005FC8E7 /* ThankYouTableCell.m */; };
+		32C5A9D21FCE7BBA00BA2003 /* alipayIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1843C58D1FC3FA990085C52A /* alipayIcon.png */; };
 		32CC20911F25B1760054C344 /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20901F25B1760054C344 /* ConnectionManager.m */; };
 		32CC20951F25B1D90054C344 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20941F25B1D90054C344 /* LoginModel.m */; };
 		32CC20991F25B1F80054C344 /* LoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CC20981F25B1F80054C344 /* LoginService.m */; };
@@ -156,6 +164,7 @@
 		5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC591F553A3500AECF40 /* ChangePasswordViewController.m */; };
 		5D27AC5E1F55649E00AECF40 /* ProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC5D1F55649E00AECF40 /* ProfileModel.m */; };
 		5D27AC621F55678C00AECF40 /* ProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27AC611F55678C00AECF40 /* ProfileService.m */; };
+		5D27D1381FC6BB310022C6E7 /* SubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D27D1371FC6BB310022C6E7 /* SubscriptionViewController.m */; };
 		5D4D53331F73965400A2AEFA /* SortByViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D53301F73965400A2AEFA /* SortByViewController.m */; };
 		5D4D53341F73965400A2AEFA /* SortByCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D53321F73965400A2AEFA /* SortByCell.m */; };
 		5D4D53381F73B1AE00A2AEFA /* SortFilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D53371F73B1AE00A2AEFA /* SortFilterModel.m */; };
@@ -295,6 +304,8 @@
 		185ECB711F73E279002BA64A /* FilterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterTableViewCell.m; sourceTree = "<group>"; };
 		185F707D1F55A839007F49F7 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		185F707E1F55A839007F49F7 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		186A80C01FCA08CD005CC479 /* OrderShipmentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderShipmentViewController.h; sourceTree = "<group>"; };
+		186A80C11FCA08CD005CC479 /* OrderShipmentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderShipmentViewController.m; sourceTree = "<group>"; };
 		1870F0BC1F44185F008B2CE5 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		1870F0BD1F44185F008B2CE5 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		187129051F48D5BC00D16581 /* UpdateCartItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateCartItem.h; sourceTree = "<group>"; };
@@ -309,8 +320,14 @@
 		187561961F469F3800F609AB /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		1875619B1F46AAC500F609AB /* dashboard_banner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner1.png; sourceTree = "<group>"; };
 		1875619C1F46AAC500F609AB /* dashboard_banner2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_banner2.png; sourceTree = "<group>"; };
+		1877FA991FC54F8A009B44D4 /* AccountSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountSettingViewController.h; sourceTree = "<group>"; };
+		1877FA9A1FC54F8A009B44D4 /* AccountSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountSettingViewController.m; sourceTree = "<group>"; };
 		187A89B71F6F93EB00E7431A /* ProductGuideSearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGuideSearchListViewController.h; sourceTree = "<group>"; };
 		187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGuideSearchListViewController.m; sourceTree = "<group>"; };
+		1881C8FB1FC43C23001B587F /* ImpactPointsHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImpactPointsHistoryViewController.h; sourceTree = "<group>"; };
+		1881C8FC1FC43C23001B587F /* ImpactPointsHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImpactPointsHistoryViewController.m; sourceTree = "<group>"; };
+		1881C9001FC43C58001B587F /* ImapctPointHistoryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImapctPointHistoryTableViewCell.h; sourceTree = "<group>"; };
+		1881C9011FC43C58001B587F /* ImapctPointHistoryTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImapctPointHistoryTableViewCell.m; sourceTree = "<group>"; };
 		1886058F1F39AF320005D1E2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		188605931F39BC430005D1E2 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		188605941F39BC430005D1E2 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
@@ -425,6 +442,8 @@
 		32A3D70E1F1CE3BB00062B86 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleSignIn.bundle; sourceTree = "<group>"; };
 		32A3D70F1F1CE3BB00062B86 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSignIn.framework; sourceTree = "<group>"; };
 		32A3D7151F1CE4A500062B86 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		32B329DF1FCD1ABC0035B684 /* PaymentWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentWebViewController.h; sourceTree = "<group>"; };
+		32B329E01FCD1ABC0035B684 /* PaymentWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentWebViewController.m; sourceTree = "<group>"; };
 		32BAA6041F1360280015E355 /* GoNatuur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoNatuur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32BAA6081F1360280015E355 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32BAA60A1F1360280015E355 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -432,6 +451,10 @@
 		32BAA6131F1360290015E355 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32BAA6161F1360290015E355 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		32BAA6181F1360290015E355 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32C0CA551FCBE403005FC8E7 /* ThankYouViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThankYouViewController.h; sourceTree = "<group>"; };
+		32C0CA561FCBE403005FC8E7 /* ThankYouViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThankYouViewController.m; sourceTree = "<group>"; };
+		32C0CA571FCBE403005FC8E7 /* ThankYouTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThankYouTableCell.m; sourceTree = "<group>"; };
+		32C0CA581FCBE404005FC8E7 /* ThankYouTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThankYouTableCell.h; sourceTree = "<group>"; };
 		32CC208F1F25B1760054C344 /* ConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionManager.h; sourceTree = "<group>"; };
 		32CC20901F25B1760054C344 /* ConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionManager.m; sourceTree = "<group>"; };
 		32CC20931F25B1D90054C344 /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
@@ -457,6 +480,8 @@
 		5D27AC5D1F55649E00AECF40 /* ProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileModel.m; sourceTree = "<group>"; };
 		5D27AC601F55678C00AECF40 /* ProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileService.h; sourceTree = "<group>"; };
 		5D27AC611F55678C00AECF40 /* ProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileService.m; sourceTree = "<group>"; };
+		5D27D1361FC6BB310022C6E7 /* SubscriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubscriptionViewController.h; sourceTree = "<group>"; };
+		5D27D1371FC6BB310022C6E7 /* SubscriptionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubscriptionViewController.m; sourceTree = "<group>"; };
 		5D4D532F1F73965400A2AEFA /* SortByViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortByViewController.h; sourceTree = "<group>"; };
 		5D4D53301F73965400A2AEFA /* SortByViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortByViewController.m; sourceTree = "<group>"; };
 		5D4D53311F73965400A2AEFA /* SortByCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortByCell.h; sourceTree = "<group>"; };
@@ -788,6 +813,7 @@
 		181FD22B1F601F6300C5373C /* PaymentMethodModule */ = {
 			isa = PBXGroup;
 			children = (
+				32B329DE1FCD1A450035B684 /* PaymentWebViewController */,
 			);
 			name = PaymentMethodModule;
 			sourceTree = "<group>";
@@ -952,6 +978,7 @@
 			children = (
 				1813BDBD1F55E70100D9C9BA /* ProfileView */,
 				18C418E11F57263600749654 /* EditProfileView */,
+				1884D4AC1FC439B2002382AE /* ImpactsPointHistory */,
 				5D27AC571F553A0500AECF40 /* ChangePasswordViewController */,
 			);
 			name = ProfileModule;
@@ -964,6 +991,24 @@
 				185F707E1F55A839007F49F7 /* ProfileViewController.m */,
 			);
 			name = ProfileViewController;
+			sourceTree = "<group>";
+		};
+		186A80BE1FCA0861005CC479 /* HMSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				1843C58E1FC3FDE00085C52A /* HMSegmentedControl.h */,
+				1843C58F1FC3FDE30085C52A /* HMSegmentedControl.m */,
+			);
+			name = HMSegmentedControl;
+			sourceTree = "<group>";
+		};
+		186A80BF1FCA089E005CC479 /* OrderShipmentView */ = {
+			isa = PBXGroup;
+			children = (
+				186A80C01FCA08CD005CC479 /* OrderShipmentViewController.h */,
+				186A80C11FCA08CD005CC479 /* OrderShipmentViewController.m */,
+			);
+			name = OrderShipmentView;
 			sourceTree = "<group>";
 		};
 		1870F0BB1F44184F008B2CE5 /* ToastView */ = {
@@ -1011,6 +1056,15 @@
 			name = NotificationListViewController;
 			sourceTree = "<group>";
 		};
+		1877FA981FC54F5A009B44D4 /* AccountSettingView */ = {
+			isa = PBXGroup;
+			children = (
+				1877FA991FC54F8A009B44D4 /* AccountSettingViewController.h */,
+				1877FA9A1FC54F8A009B44D4 /* AccountSettingViewController.m */,
+			);
+			name = AccountSettingView;
+			sourceTree = "<group>";
+		};
 		187A89B61F6F93B900E7431A /* ProductGuideSearchListing */ = {
 			isa = PBXGroup;
 			children = (
@@ -1018,6 +1072,33 @@
 				187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */,
 			);
 			name = ProductGuideSearchListing;
+			sourceTree = "<group>";
+		};
+		1881C8FE1FC43C2B001B587F /* ImpactPointCell */ = {
+			isa = PBXGroup;
+			children = (
+				1881C9001FC43C58001B587F /* ImapctPointHistoryTableViewCell.h */,
+				1881C9011FC43C58001B587F /* ImapctPointHistoryTableViewCell.m */,
+			);
+			name = ImpactPointCell;
+			sourceTree = "<group>";
+		};
+		1881C8FF1FC43C34001B587F /* ImapctPointHistoryView */ = {
+			isa = PBXGroup;
+			children = (
+				1881C8FB1FC43C23001B587F /* ImpactPointsHistoryViewController.h */,
+				1881C8FC1FC43C23001B587F /* ImpactPointsHistoryViewController.m */,
+			);
+			name = ImapctPointHistoryView;
+			sourceTree = "<group>";
+		};
+		1884D4AC1FC439B2002382AE /* ImpactsPointHistory */ = {
+			isa = PBXGroup;
+			children = (
+				1881C8FF1FC43C34001B587F /* ImapctPointHistoryView */,
+				1881C8FE1FC43C2B001B587F /* ImpactPointCell */,
+			);
+			name = ImpactsPointHistory;
 			sourceTree = "<group>";
 		};
 		188605911F39BB720005D1E2 /* DashboardModule */ = {
@@ -1461,6 +1542,8 @@
 		3207615F1F1626E2001F1790 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5D50432A1FC6B9D500CECEBC /* SubscriptionModule */,
+				1877FA981FC54F5A009B44D4 /* AccountSettingView */,
 				188605961F39C05A0005D1E2 /* GlobalViewModule */,
 				32A3D6B51F1CBABA00062B86 /* LoginModule */,
 				188605911F39BB720005D1E2 /* DashboardModule */,
@@ -1509,8 +1592,7 @@
 		320761611F1626FB001F1790 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1843C58E1FC3FDE00085C52A /* HMSegmentedControl.h */,
-				1843C58F1FC3FDE30085C52A /* HMSegmentedControl.m */,
+				186A80BE1FCA0861005CC479 /* HMSegmentedControl */,
 				320761661F162789001F1790 /* CategoryClasses */,
 				320761651F162733001F1790 /* HelperClasses */,
 			);
@@ -1756,6 +1838,15 @@
 			name = GoogleLogin;
 			sourceTree = "<group>";
 		};
+		32B329DE1FCD1A450035B684 /* PaymentWebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				32B329DF1FCD1ABC0035B684 /* PaymentWebViewController.h */,
+				32B329E01FCD1ABC0035B684 /* PaymentWebViewController.m */,
+			);
+			name = PaymentWebViewController;
+			sourceTree = "<group>";
+		};
 		32BAA5FB1F1360280015E355 = {
 			isa = PBXGroup;
 			children = (
@@ -1804,6 +1895,17 @@
 				320761841F16483A001F1790 /* GoNatuur-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		32C0CA541FCBE3CC005FC8E7 /* ThankyouViewController */ = {
+			isa = PBXGroup;
+			children = (
+				32C0CA551FCBE403005FC8E7 /* ThankYouViewController.h */,
+				32C0CA561FCBE403005FC8E7 /* ThankYouViewController.m */,
+				32C0CA581FCBE404005FC8E7 /* ThankYouTableCell.h */,
+				32C0CA571FCBE403005FC8E7 /* ThankYouTableCell.m */,
+			);
+			name = ThankyouViewController;
 			sourceTree = "<group>";
 		};
 		32CC20921F25B1990054C344 /* LoginModel */ = {
@@ -1879,6 +1981,7 @@
 		5D2760A11F62765400B6D0FF /* OrderModule */ = {
 			isa = PBXGroup;
 			children = (
+				186A80BF1FCA089E005CC479 /* OrderShipmentView */,
 				B7A73B861F6F912700412656 /* OrderInvoiceView */,
 				5D0CB20A1F63FEE8008043B6 /* OrderListView */,
 				5D0CB20B1F63FEF7008043B6 /* OrderDetailView */,
@@ -1974,6 +2077,15 @@
 				5D4D533B1F73B53400A2AEFA /* SortFilterService.m */,
 			);
 			name = SortFilterService;
+			sourceTree = "<group>";
+		};
+		5D50432A1FC6B9D500CECEBC /* SubscriptionModule */ = {
+			isa = PBXGroup;
+			children = (
+				5D27D1361FC6BB310022C6E7 /* SubscriptionViewController.h */,
+				5D27D1371FC6BB310022C6E7 /* SubscriptionViewController.m */,
+			);
+			name = SubscriptionModule;
 			sourceTree = "<group>";
 		};
 		5D95200E1F6672C40036645F /* OrderDetailViewController */ = {
@@ -2118,6 +2230,7 @@
 		B77D86DE1F5D83A40041D646 /* MyCartModule */ = {
 			isa = PBXGroup;
 			children = (
+				32C0CA541FCBE3CC005FC8E7 /* ThankyouViewController */,
 				B7F570F21F67F4EB0006C9BB /* FinalCheckoutView */,
 				B7D100661F5FC94300D964D8 /* CheckoutAddressView */,
 				B77D86E21F5D83CF0041D646 /* MyCartViewController */,
@@ -2555,6 +2668,7 @@
 				188605AA1F39D7230005D1E2 /* Montserrat-Regular.ttf in Resources */,
 				1809BE771F90CF8000B1DF2D /* ajax_handler.js in Resources */,
 				B75E6F381F75063E0059D8E1 /* paypalIcon.png in Resources */,
+				32C5A9D21FCE7BBA00BA2003 /* alipayIcon.png in Resources */,
 				B73A653E1F3DF0870051E4C5 /* cn.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2630,6 +2744,7 @@
 				185036E61F67A7510008C0F1 /* EventDetailViewController.m in Sources */,
 				189162081F614CD2005ED12E /* CardListViewController.m in Sources */,
 				32A3D6FF1F1CD2B800062B86 /* FacebookConnect.m in Sources */,
+				1877FA9B1FC54F8A009B44D4 /* AccountSettingViewController.m in Sources */,
 				18FA12021F6A84190001A3B0 /* ProductGuideViewController.m in Sources */,
 				18FFBC821F629612006C088B /* NewsLetterSubscriptionViewController.m in Sources */,
 				18F464EF1F69902B001006EB /* RedeemTableViewCell.m in Sources */,
@@ -2644,6 +2759,7 @@
 				5DC7840D1F6637160025CA4A /* OrderDetailCell.m in Sources */,
 				5DAC39541F61783F00702F92 /* AddressListingViewController.m in Sources */,
 				B75E6F2A1F7505150059D8E1 /* MyCartViewController.m in Sources */,
+				1881C8FD1FC43C23001B587F /* ImpactPointsHistoryViewController.m in Sources */,
 				B7A73B8B1F6F915E00412656 /* OrderInvoiceViewController.m in Sources */,
 				18A3B1161F669D8400A453A7 /* AddressAnnotation.m in Sources */,
 				188B2C0E1F41D1870001A7AE /* SearchCollectionViewCell.m in Sources */,
@@ -2653,7 +2769,9 @@
 				32CC20991F25B1F80054C344 /* LoginService.m in Sources */,
 				5D4D533C1F73B53400A2AEFA /* SortFilterService.m in Sources */,
 				18F7A8F41F32E09800430842 /* GoNatuurViewController.m in Sources */,
+				1881C9021FC43C58001B587F /* ImapctPointHistoryTableViewCell.m in Sources */,
 				B77A8A781F34388800233782 /* SignUpViewController.m in Sources */,
+				32B329E11FCD1ABC0035B684 /* PaymentWebViewController.m in Sources */,
 				B75E6F271F7504FD0059D8E1 /* CheckoutCollectionViewCell.m in Sources */,
 				18FA12071F6A84870001A3B0 /* ProductGuideTableViewCell.m in Sources */,
 				B7A86ECD1F3B3D85004DA530 /* CMSPageViewController.m in Sources */,
@@ -2662,6 +2780,7 @@
 				B7AA39C01F47108D00423121 /* ProductListingViewController.m in Sources */,
 				1818532F1F3DFED000EEB73B /* ImageCaching.m in Sources */,
 				5D1E5E3B1F56845D006E6C63 /* AddressViewController.m in Sources */,
+				32C0CA591FCBE941005FC8E7 /* ThankYouViewController.m in Sources */,
 				18DA65D41F665BB10057B5B4 /* AttendeesTableViewCell.m in Sources */,
 				B75E6F2D1F7505280059D8E1 /* CartListTableViewCell.m in Sources */,
 				18F7A8F81F32E2EA00430842 /* SWRevealViewController.m in Sources */,
@@ -2699,6 +2818,7 @@
 				181844631F70FBFE0077E48C /* ShareDataService.m in Sources */,
 				180ECD251F482A38003C936E /* WebViewController.m in Sources */,
 				180ECD291F484A17003C936E /* ReviewViewController.m in Sources */,
+				5D27D1381FC6BB310022C6E7 /* SubscriptionViewController.m in Sources */,
 				188605A01F39C1FA0005D1E2 /* CategorySliderCell.m in Sources */,
 				1843C5901FC405AD0085C52A /* HMSegmentedControl.m in Sources */,
 				18C418E41F57266A00749654 /* EditProfileViewController.m in Sources */,
@@ -2707,6 +2827,7 @@
 				320761871F164986001F1790 /* Webservice.m in Sources */,
 				18FFBC861F62CEBC006C088B /* NewsCenterSearchListViewController.m in Sources */,
 				5D4D53341F73965400A2AEFA /* SortByCell.m in Sources */,
+				32C0CA5A1FCBE94C005FC8E7 /* ThankYouTableCell.m in Sources */,
 				B75E6F1B1F7504B50059D8E1 /* FinalCheckoutTableViewCell.m in Sources */,
 				B77D86EF1F5D85190041D646 /* CartDataModel.m in Sources */,
 				18F464EC1F698FFC001006EB /* RedeemViewController.m in Sources */,
@@ -2755,6 +2876,7 @@
 				188B2C0A1F419E8B0001A7AE /* SearchListingViewController.m in Sources */,
 				180409E01F58744B00EA3E17 /* NewsCentreViewController.m in Sources */,
 				B7F570F01F67B4B20006C9BB /* WishlistViewController.m in Sources */,
+				186A80C21FCA08CD005CC479 /* OrderShipmentViewController.m in Sources */,
 				5D27AC5A1F553A3500AECF40 /* ChangePasswordViewController.m in Sources */,
 				32CC20951F25B1D90054C344 /* LoginModel.m in Sources */,
 				1813BDBC1F55E6F300D9C9BA /* ProfileTableViewCell.m in Sources */,

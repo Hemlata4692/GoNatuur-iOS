@@ -15,4 +15,9 @@
 - (BOOL)isValidURL;
 - (void)setPlaceholderFontSize : (UITextField *)textfield string:(NSString *)string;
 - (BOOL)isValidPassword;
+- (BOOL)isValidAmericanExpress;
+- (BOOL)isValidVisaCard;
+- (BOOL)isValidMasterCard;
+- (BOOL)isValidDiscoverCard;
+- (BOOL)isDinnerClubCard;
 @end
