@@ -13,7 +13,10 @@
 #import "CardListViewController.h"
 #import "GoNatuurPickerView.h"
 #import "BSKeyboardControls.h"
+#import "ThankYouViewController.h"
 #import "NewsLetterSubscriptionViewController.h"
+#import "PaymentWebViewController.h"
+#import "UITextField+Validations.h"
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
@@ -34,7 +37,7 @@
     bool isCyberSourceExist, isApplyCouponExist;
     bool isCreditUser;
     bool isCyberSourcePayment;
-    bool isCardAdd, isSelectCard;
+    bool isCardAdd, isSelectCard, isFreeProduct;
     int selectedPickerIndex;
     GoNatuurPickerView *gNPickerViewObj;
     NSString *selectedCardTypeId, *encryptedSubscriptionId;
@@ -67,6 +70,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *selectCardLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addCardRadioLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addCardLabel;
+@property (weak, nonatomic) IBOutlet UIButton *addCardButton;
+@property (weak, nonatomic) IBOutlet UIButton *selectCardButton;
 //Declare BSKeyboard variable
 @property (strong, nonatomic) BSKeyboardControls *keyboardControls;
 @end
@@ -89,15 +94,22 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:true];
-    isCyberSourcePayment=false;
     [self setSelectedCardData];
+    if ([cartModelData.extensionAttributeDict[@"has_subscription_product"] isEqualToString:@"1"]) {
+        _selectCardButton.enabled=false;
+        _addCardButton.enabled=false;
+        _selectCardLabel.alpha=0.3;
+        _selectCardButton.alpha=0.3;
+        _addCardLabel.alpha=0.3;
+        _addCardButton.alpha=0.3;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
     //Bring front view picker view
     [self.view bringSubviewToFront:gNPickerViewObj.goNatuurPickerViewObj];
-   
+    
 }
 
 - (void)applyCoupon:(NSString *)couponApplied {
@@ -110,6 +122,7 @@
 
 - (void)setSelectedCardData {
     if (selectedCardDataDict!=nil) {
+        isCyberSourcePayment=true;
         _cardNumber.text = [NSString stringWithFormat:@"%@ %@",NSLocalizedText(@"cardNumberList"),selectedCardDataDict.cardLastFourDigit];
         _cardHolderName.text = [NSString stringWithFormat:@"%@ %@",selectedCardDataDict.firstname,selectedCardDataDict.lastname];
         _monthField.text = selectedCardDataDict.cardExpMonth;
@@ -166,6 +179,11 @@
     totalArray=@[];
     [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Apply coupon code"];
     [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Credit amount"];
+    if (nil==[UserDefaultManager getValue:@"userId"]) {
+        _selectCardButton.enabled=false;
+        _selectCardLabel.alpha=0.3;
+        _selectCardButton.alpha=0.3;
+    }
     [self setPrices];
     [self cyberSourcePayment:false];
     [self getDataFromCartModel];
@@ -265,6 +283,7 @@
         }
     }
     else {
+         isCyberSourceExist = true;
         isCardAdd=false;
         _selectCarRadioLabel.backgroundColor=[UIColor whiteColor];
         _selectCarRadioLabel.layer.borderWidth=1.0;
@@ -275,7 +294,6 @@
         _addCardRadioLabel.layer.borderColor=selectedStepColor.CGColor;
         [self customizedFraming];
     }
-    
 }
 
 - (void)setLocalizedText {
@@ -327,13 +345,13 @@
         _paymentCollectionView.frame=CGRectMake(0, _addCardView.frame.origin.y+_addCardView.frame.size.height+12, [[UIScreen mainScreen] bounds].size.width-30, 0);
     }
     else if (!isCyberSourceExist&&paymentMethodArray.count>0) {
-        _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
+        _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 44);
         _addCardView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
         _addCardView.hidden=true;
         _paymentCollectionView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 78);
     }
     else {
-        _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
+        _cyberSourceView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 44);
         _addCardView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
         _addCardView.hidden=true;
         _paymentCollectionView.frame=CGRectMake(0, 34, [[UIScreen mainScreen] bounds].size.width-30, 0);
@@ -357,12 +375,11 @@
 - (void)getDataFromCartModel {
     selectedPaymentMethodIndex=-1;
     DLog(@"%@",[cartModelData.checkoutFinalData objectForKey:@"payment_methods"]);
-    paymentMethodArray=[NSMutableArray arrayWithObjects:@"magedelight_cybersource", @"paypal_express", @"tenpaypayment", @"alipay", nil];
-    isCyberSourceExist=false;
+    paymentMethodArray=[NSMutableArray arrayWithObjects:@"free",@"magedelight_cybersource", @"paypal_express", @"tenpaypayment", @"alipay", nil];
     paymentMethodDict=[NSMutableDictionary new];
+     isCyberSourceExist=true;
     for (NSDictionary *tempDict in [cartModelData.checkoutFinalData objectForKey:@"payment_methods"]) {
         if ([tempDict[@"code"] isEqualToString:@"magedelight_cybersource"]) {
-            isCyberSourceExist=true;
             [paymentMethodDict setObject:[tempDict copy] forKey:@"magedelight_cybersource"];
             continue;
         }
@@ -378,6 +395,10 @@
             [paymentMethodDict setObject:[tempDict copy] forKey:@"alipay"];
             continue;
         }
+        else if ([tempDict[@"code"] isEqualToString:@"free"]) {
+            [paymentMethodDict setObject:[tempDict copy] forKey:@"free"];
+            continue;
+        }
     }
     NSMutableArray *tempArray=[paymentMethodArray mutableCopy];
     for (NSString *temp in tempArray) {
@@ -386,6 +407,13 @@
         }
     }
     cartItemPrice=[[cartModelData.checkoutFinalData objectForKey:@"totals"] copy];
+    if ([paymentMethodArray containsObject:@"free"]) {
+        isFreeProduct=true;
+        _paymentView.hidden=true;
+    }
+    else{
+        isFreeProduct=false;
+    }
 }
 #pragma mark - end
 
@@ -394,7 +422,7 @@
     isApplyCouponExist=true;
     //For guest user
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
-        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Apply coupon code", @"Grand Total"];
+        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Tax" ,@"Apply coupon code", @"Grand Total"];
         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Cart subtotal"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Cart subtotal"];
         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Apply coupon code"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Apply coupon code"];
         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],(([finalCheckoutPriceDict[@"Cart subtotal"] floatValue]+[finalCheckoutPriceDict[@"Shipping charges"] floatValue])*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Grand Total"];
@@ -406,6 +434,7 @@
         [self setPriceForCashUser];
     }
     [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Shipping charges"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Shipping charges"];
+    [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Tax"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Tax"];
 }
 
 - (void)setRedeemProductsWithApplyCouponCode {
@@ -439,23 +468,23 @@
 - (void)setPriceForCashUser {
     //Only for redeem products with apply coupon code
     if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]&&([finalCheckoutPriceDict[@"Shipping charges"] floatValue]-[finalCheckoutPriceDict[@"Discount"] floatValue])>0) {
-        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Apply coupon code", @"Grand Total"];
+        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount",@"Tax", @"Apply coupon code", @"Grand Total"];
         [self setRedeemProductsWithApplyCouponCode];
     }
     //Only for redeem products without apply coupon code
     else if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
         isApplyCouponExist=false;
-        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Grand Total"];
+        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount",@"Tax", @"Grand Total"];
         [self setRedeemProductsWithOutApplyCouponCode];
     }
     //Only for simple products
     else if ([cartModelData.isSimpleProductExist boolValue]&&![cartModelData.isRedeemProductExist boolValue]) {
-        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount", @"Apply coupon code", @"Grand Total"];
+        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount",@"Tax", @"Apply coupon code", @"Grand Total"];
         [self setOnlyForSimpleProducts];
     }
     //For both simple and redeem products
     else {
-        totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount", @"Apply coupon code", @"Grand Total"];
+        totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount",@"Tax", @"Apply coupon code", @"Grand Total"];
         [self setForBothSimpleAndRedeemProducts];
     }
 }
@@ -463,24 +492,24 @@
 - (void)setPriceForCreditUser {
     //Only for redeem products with apply coupon code
     if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]&&([finalCheckoutPriceDict[@"Shipping charges"] floatValue]-[finalCheckoutPriceDict[@"Discount"] floatValue])>0) {
-        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"credit usage", @"Apply coupon code", @"Grand Total"];
+        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"credit usage",@"Tax", @"Apply coupon code", @"Grand Total"];
         [self setRedeemProductsWithApplyCouponCode];
         
     }
     //Only for redeem products without apply coupon code
     else if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
         isApplyCouponExist=false;
-        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"credit usage", @"Grand Total"];
+        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"credit usage",@"Tax", @"Grand Total"];
         [self setRedeemProductsWithOutApplyCouponCode];
     }
     //Only for simple products
     else if ([cartModelData.isSimpleProductExist boolValue]&&![cartModelData.isRedeemProductExist boolValue]) {
-        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount", @"credit usage", @"Apply coupon code", @"Grand Total"];
+        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount", @"credit usage",@"Tax", @"Apply coupon code", @"Grand Total"];
         [self setOnlyForSimpleProducts];
     }
     //For both simple and redeem products
     else {
-        totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount", @"credit usage", @"Apply coupon code", @"Grand Total"];
+        totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount", @"credit usage",@"Tax", @"Apply coupon code", @"Grand Total"];
         [self setForBothSimpleAndRedeemProducts];
     }
     [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"credit usage"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"credit usage"];
@@ -536,8 +565,8 @@
         [cell displayCartListData:[cartListDataArray objectAtIndex:indexPath.row] isSeparatorHide:(indexPath.row==cartListDataArray.count-1?true:false)];
     }
     else if (indexPath.row<(cartListDataArray.count+totalArray.count)) {
-        [cell displayPriceCellData:[totalDict mutableCopy] priceTitleArray:[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] islastIndex:(((cartListDataArray.count+totalArray.count)-1)==indexPath.row)?true:false isApplyCoupon:([[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] isEqualToString:@"Apply coupon code"]?true:false)];
-         [cell.applyCouponButton addTarget:self action:@selector(applyCouponAction:) forControlEvents:UIControlEventTouchUpInside];
+        [cell displayPriceCellData:[totalDict mutableCopy] priceTitleArray:[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] islastIndex:(((cartListDataArray.count+totalArray.count)-1)==indexPath.row)?true:false isApplyCoupon:([[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] isEqualToString:@"Apply coupon code"]?true:false) couponCode:[totalDict mutableCopy]];
+        [cell.applyCouponButton addTarget:self action:@selector(applyCouponAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return cell;
@@ -552,16 +581,16 @@
             return 55.0;
         }
         else {
-             if ([[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] isEqualToString:@"Apply coupon code"]) {
-                 if ([myDelegate.isCouponApplied isEqualToString:@"1"]) {
-                     return 45.0;
-                 }
-                 else {
-                     return 35.0;
-                 }
+            if ([[totalArray objectAtIndex:(indexPath.row-cartListDataArray.count)] isEqualToString:@"Apply coupon code"]) {
+                if ([myDelegate.isCouponApplied isEqualToString:@"1"]) {
+                    return 45.0;
+                }
+                else {
+                    return 35.0;
+                }
             }
             else {
-            return 35.0;
+                return 35.0;
             }
         }
     }
@@ -597,12 +626,20 @@
     }
     DLog(@"%@",[paymentMethodArray objectAtIndex:index]);
     if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"tenpaypayment"]) {
+        if ([cartModelData.extensionAttributeDict[@"has_subscription_product"] isEqualToString:@"1"]) {
+            [cell setUserInteractionEnabled:NO];
+            [cell setAlpha:0.5];
+        }
         paymentmethodImageView.image=[UIImage imageNamed:@"weChatPayIcon.png"];
     }
     else if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"paypal_express"]) {
         paymentmethodImageView.image=[UIImage imageNamed:@"paypalIcon.png"];
     }
     else if ([[paymentMethodArray objectAtIndex:index] isEqualToString:@"alipay"]) {
+        if ([cartModelData.extensionAttributeDict[@"has_subscription_product"] isEqualToString:@"1"]) {
+            [cell setUserInteractionEnabled:NO];
+            [cell setAlpha:0.5];
+        }
         paymentmethodImageView.image=[UIImage imageNamed:@"alipayIcon.png"];
     }
     
@@ -634,8 +671,7 @@
     else {
         selectedPaymentMethodIndex=(int)indexPath.row;
     }
-    
-    [self cyberSourcePayment:false];
+     [self cyberSourcePayment:false];
     [_paymentCollectionView reloadData];
 }
 #pragma mark - end
@@ -646,6 +682,8 @@
     [cartData getCartListingData:^(CartDataModel *userData)  {
         [myDelegate stopIndicator];
         if (userData.itemList.count>0) {
+            [totalDict setObject:userData.couponCode forKey:@"couponCode"];
+            [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([[userData.extensionAttributeDict objectForKey:@"coupon_discount_price"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Apply coupon code"];
             [_cartItemsTableView reloadData];
             [_paymentCollectionView reloadData];
         }
@@ -659,9 +697,18 @@
 
 - (void)setPaymentMethod {
     CartDataModel *cartData = [CartDataModel sharedUser];
+    cartData.email=[cartModelData.billingAddressDict objectForKey:@"email"];
     cartData.paymentMethod=[paymentMethodArray objectAtIndex:selectedPaymentMethodIndex];
-    [cartData setPaymentMethodOnSuccess:^(CartDataModel *shippmentDetailData)  {
+    [cartData setPaymentMethodOnSuccess:^(CartDataModel *cartData)  {
         //[self setCheckoutOrder];
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        PaymentWebViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"PaymentWebViewController"];
+        nextView.isSubscriptionProduct=cartModelData.extensionAttributeDict[@"has_subscription_product"];
+        nextView.paymentMethod = [paymentMethodArray objectAtIndex:selectedPaymentMethodIndex];
+        nextView.finalCheckoutPriceDict = totalDict;
+        nextView.cartListDataArray = cartListDataArray;
+        [self.navigationController pushViewController:nextView animated:YES];
+        
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
         
@@ -680,9 +727,78 @@
 
 - (void)callCyberSourcePaymentService {
     CartDataModel *cartData = [CartDataModel sharedUser];
-    cartData.paymentMethod=@"cashondelivery";
+    cartData.city=[cartModelData.billingAddressDict objectForKey:@"city"];
+    cartData.countryId=[cartModelData.billingAddressDict objectForKey:@"country_id"];
+    cartData.firstName=[cartModelData.billingAddressDict objectForKey:@"firstname"];
+    cartData.lastName=[cartModelData.billingAddressDict objectForKey:@"lastname"];
+    cartData.postcode=[cartModelData.billingAddressDict objectForKey:@"postcode"];
+    cartData.region=[cartModelData.billingAddressDict objectForKey:@"region"];
+    cartData.regionCode=[cartModelData.billingAddressDict objectForKey:@"region_code"];
+    cartData.saveCard=@"0";
+    cartData.street=[cartModelData.billingAddressDict objectForKey:@"street"];
+    cartData.telephone=[cartModelData.billingAddressDict objectForKey:@"telephone"];
+    cartData.email=[cartModelData.billingAddressDict objectForKey:@"email"];
+    
+    if (!isFreeProduct) {
+        if (nil==[UserDefaultManager getValue:@"userId"]) {
+            cartData.ccId=_cvvField.text;
+            cartData.ccNumber=_cardNumber.text;
+            cartData.ccType=_cardType.text;
+            cartData.expirationYear=_yearField.text;
+            cartData.saveCard=@"1";
+            cartData.expirationMonth=_monthField.text;
+            cartData.subscriptionID=@"new";
+        }
+        else {
+            if (isSelectCard) {
+                cartData.ccId=_cvvField.text;
+                cartData.ccNumber=@"";
+                cartData.ccType=@"";
+                cartData.expirationYear=_yearField.text;
+                cartData.expirationMonth=_monthField.text;
+                cartData.saveCard=@"1";
+                 cartData.expirationMonth=_monthField.text;
+                cartData.subscriptionID=encryptedSubscriptionId;
+            }
+            else {
+                cartData.ccId=_cvvField.text;
+                cartData.ccNumber=_cardNumber.text;
+                cartData.ccType=_cardType.text;
+                cartData.expirationYear=_yearField.text;
+                cartData.saveCard=@"1";
+                cartData.expirationMonth=_monthField.text;
+                cartData.subscriptionID=@"new";
+            }
+        }
+        cartData.method=@"magedelight_cybersource";
+    } else {
+        cartData.ccId=@"";
+        cartData.ccNumber=@"";
+        cartData.ccType=@"";
+        cartData.expirationYear=@"";
+        cartData.saveCard=@"0";
+        cartData.expirationMonth=@"";
+        cartData.subscriptionID=@"";
+        cartData.method=@"free";
+    }
     [cartData setCyberSourcePaymentData:^(CartDataModel *cartData)  {
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ThankYouViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
+        nextView.orderId = cartData.cyberSourceOrderId;
+        nextView.cartListDataArray = cartListDataArray;
+        nextView.finalCheckoutPriceDict=totalDict;
+        [self.navigationController pushViewController:nextView animated:YES];
         [myDelegate stopIndicator];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)removeCouponService {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    [cartData removeCouponCode:^(CartDataModel *cartData)  {
+        myDelegate.isCouponApplied=@"0";
+        [self getCartList];
     } onfailure:^(NSError *error) {
         
     }];
@@ -692,10 +808,16 @@
 #pragma mark - IBActions
 - (IBAction)selectCardTypeAction:(id)sender {
     // picker of card type
+     [_keyboardControls.activeField resignFirstResponder];
     [gNPickerViewObj showPickerView:cardTypeDataArray selectedIndex:selectedPickerIndex option:1 isCancelDelegate:false isFilterScreen:false];
 }
 
 - (IBAction)applyCouponAction:(id)sender {
+    if ([myDelegate.isCouponApplied isEqualToString:@"1"] ) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(removeCouponService) withObject:nil afterDelay:.1];
+    }
+    else {
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     NewsLetterSubscriptionViewController *popView =
     [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterSubscriptionViewController"];
@@ -708,6 +830,7 @@
         }];
         
     });
+    }
 }
 
 - (IBAction)addCardButtonAction:(id)sender {
@@ -721,7 +844,7 @@
     _selectCarRadioLabel.backgroundColor=[UIColor whiteColor];
     _selectCarRadioLabel.layer.borderWidth=1.0;
     _selectCarRadioLabel.layer.borderColor=selectedStepColor.CGColor;
-    selectedPaymentMethodIndex=-1;
+    selectedPaymentMethodIndex=0;
     [_paymentCollectionView reloadData];
     selectedCardDataDict=nil;
     [self setSelectedCardData];
@@ -739,7 +862,7 @@
     _selectCarRadioLabel.backgroundColor=selectedStepColor;
     _selectCarRadioLabel.layer.borderWidth=1.0;
     _selectCarRadioLabel.layer.borderColor=selectedStepColor.CGColor;
-    selectedPaymentMethodIndex=-1;
+    selectedPaymentMethodIndex=0;
     [_paymentCollectionView reloadData];
     [self cyberSourcePayment:true];
     [self customizedFraming];
@@ -752,13 +875,39 @@
 - (IBAction)placeOrderButtonAction:(id)sender {
     [_keyboardControls.activeField resignFirstResponder];
     [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    if (isCyberSourcePayment) {
-        selectedPaymentMethodIndex=0;
+    if ([self performValidations]) {
+        if (isFreeProduct) {
+            [myDelegate showIndicator];
+            [self performSelector:@selector(callCyberSourcePaymentService) withObject:nil afterDelay:.1];
+        }
+        else {
+        if (isCyberSourcePayment==true) {
+            selectedPaymentMethodIndex=0;
+            if ([self performValidationsForCard]) {
+                [myDelegate showIndicator];
+                [self performSelector:@selector(callCyberSourcePaymentService) withObject:nil afterDelay:.1];
+            }
+        } else {
+            [myDelegate showIndicator];
+            [self performSelector:@selector(setPaymentMethod) withObject:nil afterDelay:.1];
+        }
+        }
     }
-    [myDelegate showIndicator];
-    [self performSelector:@selector(setPaymentMethod) withObject:nil afterDelay:.1];
 }
+#pragma mark - end
 
+#pragma mark - Perform Validatios
+- (BOOL)performValidations {
+    NSLog(@"%d",selectedPaymentMethodIndex);
+    if (selectedPaymentMethodIndex == -1 && !isFreeProduct){
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"selectPaymentMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        return NO;
+    }
+    else {
+        return YES;
+    }
+}
 #pragma mark - end
 
 #pragma mark - Custom picker delegate method
@@ -802,4 +951,130 @@
     return YES;
 }
 #pragma mark - end
+
+#pragma mark - Card validation
+- (BOOL)performValidationsForCard {
+     if ([_cvvField isEmpty] || [_cardHolderName isEmpty] || [_monthField isEmpty] || [_yearField isEmpty]) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"emptyFieldMessage") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        return NO;
+        
+    }
+    
+//    else if (_monthField.text.length != 4) {
+//
+//        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+//
+//        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:@"Please enter a valid month." closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+//
+//        return NO;
+//
+//    }
+//    
+//    else if (_yearField.text.length != 4) {
+//
+//        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+//
+//        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:@"Please enter a valid year." closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+//
+//        return NO;
+//
+//    }
+    
+    else if (_cvvField.text.length != 3) {
+        
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:@"Please enter a valid CVV." closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        
+        return NO;
+        
+    }
+    else if ([_cardType.text isEqualToString:@"Visa"] || [_cardType.text isEqualToString:@"VI"]) {
+        if ([_cardNumber isValidVisaCard]) {
+            SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:@"Invalid card number" closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+            return NO;
+        }
+        
+        else {
+            return YES;
+        }
+    }
+    else  if ([_cardType.text isEqualToString:@"MasterCard"] || [_cardType.text isEqualToString:@"Maestro International"] || [_cardType.text isEqualToString:@"Maestro UK"] || [_cardType.text isEqualToString:@"MC"] || [_cardType.text isEqualToString:@"MAESTRO"] || [_cardType.text isEqualToString:@"SWITCH"]) {
+        if ([_cardNumber isValidMasterCard]) {
+            SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:@"Invalid card number" closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+            return NO;
+        }
+        else {
+            return YES;
+        }
+    }
+    
+    else  if ([_cardType.text isEqualToString:@"Discover"] || [_cardType.text isEqualToString:@"DI"]) {
+        if ( [_cardNumber isValidDiscoverCard] ) {
+            
+            SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+            
+            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:@"Invalid card number" closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+            
+            return NO;
+            
+        }
+        
+        else {
+            
+            return YES;
+            
+        }
+        
+    }
+    
+    else  if ([_cardType.text isEqualToString:@"Diners Club"] || [_cardType.text isEqualToString:@"DC"]) {
+        
+        if ([_cardNumber isDinnerClubCard]) {
+            
+            SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+            
+            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:@"Invalid card number" closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+            
+            return NO;
+            
+        }
+        
+        else {
+            
+            return YES;
+            
+        }
+        
+    }
+    
+    else  if ([_cardType.text isEqualToString:@"American Express"] || [_cardType.text isEqualToString:@"AE"]) {
+        
+        if ([_cardNumber isValidAmericanExpress]) {
+            
+            SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+            
+            [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:@"Invalid card number" closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+            
+            return NO;
+            
+        }
+        
+        else {
+            
+            return YES;
+            
+        }
+        
+    }
+    
+   
+    else {
+        
+        return YES;
+    }
+}
 @end

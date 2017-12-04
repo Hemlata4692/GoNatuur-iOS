@@ -163,4 +163,14 @@
     [_ticketSelectionTypeField addTextFieldPaddingWithoutImages:_ticketSelectionTypeField];
     [_ticketSelectionTypeField setBorder:_ticketSelectionTypeField color:[UIColor blackColor] borderWidth:1.0];
 }
+
+- (void)displaySubscriptionData:(BOOL)isSubscribed {
+    _subscriptionLabel.text = NSLocalizedText(@"subscription");
+    if (isSubscribed) {
+        _subscriptionImage.image = [UIImage imageNamed:@"sunscriptionSelected"];
+    } else {
+        _subscriptionImage.image = [UIImage imageNamed:@"unselected"];
+    }
+}
+
 @end

@@ -38,14 +38,15 @@
     }
 }
 
-- (void)displayPriceCellData:(NSMutableDictionary *)priceDetail priceTitleArray:(NSString *)priceTitle islastIndex:(BOOL)islastIndex isApplyCoupon:(BOOL)isApplyCoupon  {
+- (void)displayPriceCellData:(NSMutableDictionary *)priceDetail priceTitleArray:(NSString *)priceTitle islastIndex:(BOOL)islastIndex isApplyCoupon:(BOOL)isApplyCoupon couponCode:(NSMutableDictionary *)couponCode {
+    
     if (!isApplyCoupon) {
         _priceTitleLabel.text=priceTitle;
     }
     else {
         if ([myDelegate.isCouponApplied isEqualToString:@"1"]) {
              [_applyCouponButton setTitle:NSLocalizedText(@"removeCouponCode") forState:UIControlStateNormal];
-            _cuponCodeLabel.text=@"123455";
+            _cuponCodeLabel.text=[NSString stringWithFormat:@"(%@)",[couponCode objectForKey:@"couponCode"]];
             [_cuponCodeLabel sizeToFit];
             _cuponCodeLabel.frame=CGRectMake(10, 25, _cuponCodeLabel.frame.size.width, 20);
         }

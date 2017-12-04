@@ -10,16 +10,18 @@
 #import "ProductDataModel.h"
 
 static NSString *kProductDetail=@"ranosys/getProductsDetails";
+static NSString *kSubscriptionDetail=@"ranosys/get-subscription-options?productId=";
 static NSString *kAddWishlist=@"ipwishlist/add/product";
 static NSString *kFollowProduct=@"ranosys/product/follow/mine";
 static NSString *kRemoveWishlist=@"ipwishlist/delete/wishlistItem";
 static NSString *kUnFollowProduct=@"ranosys/product/unfollow/mine";
 static NSString *kGuestAddToCartProduct=@"guest-carts/";
 static NSString *kLoginedAddToCartProduct=@"carts/mine/items";
+static NSString *kSubscriptionAddToCartProduct=@"ranosys/quote-add-item";
 static NSString *kGuestAddToCartEvent=@"ranosys/add-event-to-cart";
-static NSString *kLoggedinAddToCartEvent=@"ranosys/add-event-to-cart/mine";
+static NSString *kLoggedinAddToCartEvent=@"ranosys/add-event-to-cart";
 static NSString *kshareProductNews=@"socialmediasharing";
-//https://dev.gonatuur.com/en/socialmediasharing
+
 @implementation ProductService
 
 #pragma mark - Get product detail service
@@ -39,6 +41,12 @@ static NSString *kshareProductNews=@"socialmediasharing";
 }
 #pragma mark - end
 
+#pragma mark - Get subscription detail service
+- (void)getSubscriptionDetailService:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    [super get:[NSString stringWithFormat:@"%@%@",kSubscriptionDetail,productDetail.productId] parameters:nil onSuccess:success onFailure:failure];
+}
+#pragma mark - end
+
 #pragma mark - Sahre product/newws
 - (void)shareProductNewsService:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     NSDictionary *parameters = @{@"np_id":productDetail.productId,
@@ -48,8 +56,6 @@ static NSString *kshareProductNews=@"socialmediasharing";
     NSLog(@"sharing request %@",parameters);
     [super postSharing:kshareProductNews parameters:parameters success:success failure:failure];
 }
-#pragma mark - end
-
 #pragma mark - Add to wish list
 //add prodcut to wishlist
 - (void)addProductToWishlist:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
@@ -97,25 +103,66 @@ static NSString *kshareProductNews=@"socialmediasharing";
 
 #pragma mark - Add to cart service
 - (void)addToCartProduct:(ProductDataModel *)productDetail success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters;
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
-        NSDictionary *parameters = @{@"cartItem":@{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
-                                                   @"sku":productDetail.productSku,
-                                                   @"qty":productDetail.productQuantity
-                                                   }
-                                     };
-        DLog(@"Add to cart parameters: %@",parameters);
-        [super post:[NSString stringWithFormat:@"%@%@/items",kGuestAddToCartProduct,[UserDefaultManager getValue:@"quoteId"]] parameters:parameters success:success failure:failure];
+        if (productDetail.isSubscribed) {
+            parameters = [self subscriptionParamDict:productDetail cartId:[UserDefaultManager getValue:@"quoteId"]];
+            DLog(@"Add to cart parameters: %@",parameters);
+            [super post:kSubscriptionAddToCartProduct parameters:parameters success:success failure:failure];
+        } else {
+            parameters = @{@"cartItem":@{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
+                                         @"sku":productDetail.productSku,
+                                         @"qty":productDetail.productQuantity
+                                         }
+                           };
+            DLog(@"Add to cart parameters: %@",parameters);
+            [super post:[NSString stringWithFormat:@"%@%@/items",kGuestAddToCartProduct,[UserDefaultManager getValue:@"quoteId"]] parameters:parameters success:success failure:failure];
+        }
+      
     }
     else {
-        NSDictionary *parameters = @{@"cartItem":@{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
-                                                   @"sku":productDetail.productSku,
-                                                   @"qty":productDetail.productQuantity
-                                                   }
-                                     };
-        
-        DLog(@"Add to cart parameters: %@",parameters);
-        [super post:kLoginedAddToCartProduct parameters:parameters success:success failure:failure];
+        if (productDetail.isSubscribed) {
+            parameters = [self subscriptionParamDict:productDetail cartId:@""];
+            DLog(@"Add to cart parameters: %@",parameters);
+            [super post:kSubscriptionAddToCartProduct parameters:parameters success:success failure:failure];
+
+        } else {
+            parameters = @{@"cartItem":@{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
+                                         @"sku":productDetail.productSku,
+                                         @"qty":productDetail.productQuantity
+                                         }
+                           };
+            DLog(@"Add to cart parameters: %@",parameters);
+            [super post:kLoginedAddToCartProduct parameters:parameters success:success failure:failure];
+        }
+     
     }
+}
+
+-(NSDictionary *)subscriptionParamDict:(ProductDataModel *)productDetail cartId:(NSString *)cartId {
+    NSDictionary *parameters;
+    parameters = @{@"cartId":cartId,@"cartItem":@{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
+                                 @"sku":productDetail.productSku,
+                                 @"qty":productDetail.productQuantity,
+                                 @"product_option":@{@"extension_attributes":@{@"custom_options":@[@{
+                                                                                                       @"option_id":@"Start Date",
+                                                                                                       @"option_value":productDetail.subscribeDataDict[@"startDate"]
+                                                                                                       },
+                                                                                                   @{@"option_id":@"Main Period",
+                                                                                                     @"option_value":[NSString stringWithFormat:@"%@ cycle of %@ %@",productDetail.subscribeDataDict[@"maxBilling"], productDetail.subscribeDataDict[@"frequencyField"], productDetail.subscribeDataDict[@"periodUnit"]]
+                                                                                                     },
+                                                                                                   @{@"option_id":@"Trial Period",
+                                                                                                     @"option_value":@""                                                                                                                                                                          },
+                                                                                                   @{@"option_id":@"Trial Amount",
+                                                                                                     @"option_value":@""},
+                                                                                                   @{@"option_id":@"Initial Fee",
+                                                                                                     @"option_value":@""},
+                                                                                                   @{@"option_id":@"subsEmailCheck",
+                                                                                                     @"option_value":productDetail.subscribeDataDict[@"subscriptionReminder"]
+                                                                                                     }]}
+                                                     }
+                                 }};
+    return parameters;
 }
 #pragma mark - end
 
@@ -125,24 +172,7 @@ static NSString *kshareProductNews=@"socialmediasharing";
     
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
         parameters = @{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
-                                     @"item":@{@"product_id":productDetail.productId,
-                                               @"option_id":@"2",
-                                               @"option_value":productDetail.selectedTicketOptionValue,
-                                               @"ticket_price":productDetail.productPrice,
-                                               @"dropdow":productDetail.selectedTicketOption,
-                                               @"ticket_location":@"",
-                                               @"ticket_date":@"",
-                                               @"ticket_session":@"",
-                                               @"checkbox":@"",
-                                               @"qty":productDetail.productQuantity
-                                               }
-                                     };
-        
-        DLog(@"Add tickets to cart parameters: %@",parameters);
-        [super post:kGuestAddToCartEvent parameters:parameters success:success failure:failure];
-    }
-    else {
-        parameters = @{@"item":@{@"product_id":productDetail.productId,
+                       @"item":@{@"product_id":productDetail.productId,
                                  @"option_id":@"2",
                                  @"option_value":productDetail.selectedTicketOptionValue,
                                  @"ticket_price":productDetail.productPrice,
@@ -156,9 +186,27 @@ static NSString *kshareProductNews=@"socialmediasharing";
                        };
         
         DLog(@"Add tickets to cart parameters: %@",parameters);
-         [super post:kLoggedinAddToCartEvent parameters:parameters success:success failure:failure];
+        [super post:kGuestAddToCartEvent parameters:parameters success:success failure:failure];
     }
-   
+    else {
+        parameters = @{@"quote_id":[UserDefaultManager getValue:@"quoteId"],
+                       @"item":@{@"product_id":productDetail.productId,
+                                 @"option_id":@"2",
+                                 @"option_value":productDetail.selectedTicketOptionValue,
+                                 @"ticket_price":productDetail.productPrice,
+                                 @"dropdow":productDetail.selectedTicketOption,
+                                 @"ticket_location":@"",
+                                 @"ticket_date":@"",
+                                 @"ticket_session":@"",
+                                 @"checkbox":@"",
+                                 @"qty":productDetail.productQuantity
+                                 }
+                       };
+        
+        DLog(@"Add tickets to cart parameters: %@",parameters);
+        [super post:kLoggedinAddToCartEvent parameters:parameters success:success failure:failure];
+    }
+    
 }
 #pragma mark - end
 @end

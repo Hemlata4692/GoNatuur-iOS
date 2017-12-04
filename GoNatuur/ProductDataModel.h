@@ -15,6 +15,7 @@
 @property (strong, nonatomic) NSString *productMediaType;
 @property (strong, nonatomic) NSNumber *productPrice;
 @property (strong, nonatomic) NSString *productDescription;
+@property (strong, nonatomic) NSString *organiser;
 @property (strong, nonatomic) NSString *productSubtitle;
 @property (strong, nonatomic) NSString *productShortDescription;
 @property (strong, nonatomic) NSString *productImageThumbnail;
@@ -51,6 +52,15 @@
 @property (strong, nonatomic) NSMutableArray *tierPricesArray;
 @property (strong, nonatomic) NSString *productVideoDefault;
 @property (strong, nonatomic) NSString *productVideoDefaultThumbnail;
+@property (nonatomic) int enableSubscription;
+//Subscription
+@property (strong, nonatomic) NSMutableArray *subscriptionArray;
+@property (strong, nonatomic) NSString *optionName;
+@property (strong, nonatomic) NSString *selectedUnit;
+@property (strong, nonatomic) NSString *frequency;
+@property (strong, nonatomic) NSString *maxCycles;
+@property (nonatomic)BOOL isSubscribed;
+@property (strong, nonatomic) NSDictionary *subscribeDataDict;
 @property (strong, nonatomic) NSString *sharingType;
 @property (strong, nonatomic) NSString *socialMediaType;
 
@@ -59,6 +69,9 @@
 
 //Fetch product detail 
 - (void)getProductDetailOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
+
+//Fetch subscription detail
+- (void)getSubscriptionDetailOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;
 
 //Add to wish list
 - (void)addProductWishlistOnSuccess:(void (^)(ProductDataModel *))success onfailure:(void (^)(NSError *))failure;

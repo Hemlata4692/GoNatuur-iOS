@@ -28,6 +28,7 @@ NSString * const dateFormatterService=@"MM/yyyy";
 NSString * const dateFormatterConverted=@"MMMM yyyy";
 NSString * const dateFormatterDate=@"dd/MM/yyyy";
 NSString * const specialPriceDateFormatter=@"yyyy-MM-dd hh:mm:ss";
+NSString * const subscriptionDateFormatter=@"yyyy-MM-dd";
 NSString * const orderListingDateFormat=@"yyyy-MM-dd HH:mm:ss";
 
 //Check device type

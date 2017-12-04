@@ -11,4 +11,6 @@
 @interface EventDetailViewController : GoNatuurViewController
 @property (nonatomic,assign) int selectedProductId;
 @property (nonatomic,strong) NSString *reviewAdded;
+@property (nonatomic,strong) NSDictionary *subscriptionDetailDict;
+
 @end

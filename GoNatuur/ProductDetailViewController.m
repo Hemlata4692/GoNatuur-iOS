@@ -20,16 +20,17 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "HCYoutubeParser.h"
 #import "ShareViewController.h"
+#import "SubscriptionViewController.h"
 
 @interface ProductDetailViewController ()<UIGestureRecognizerDelegate> {
 @private
     ProductDataModel *productDetailModelData;
     float productDetailCellHeight;
-    BOOL isServiceCalled;
+    BOOL isServiceCalled, isSubscribed;
     int selectedMediaIndex, currentQuantity;
     NSArray *cellIdentifierArray;
     bool isServiceCalledMPMoviePlayerDone;
-   
+    
 }
 @property (strong, nonatomic) IBOutlet UITableView *productDetailTableView;
 @end
@@ -58,8 +59,8 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"Product");
     [self addLeftBarButtonWithImage:true];
-    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"productDetailPriceCell", @"productDetailInfoCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"benefitCell",@"brandCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
-    
+    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"productDetailPriceCell", @"productDetailInfoCell",@"subscriptionCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"benefitCell",@"brandCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
+
     if ([myDelegate.recentlyViewedItemsArrayGuest containsObject:[NSNumber numberWithInt:selectedProductId]]) {
         [myDelegate.recentlyViewedItemsArrayGuest removeObject:[NSNumber numberWithInt:selectedProductId]];
         if (myDelegate.recentlyViewedItemsArrayGuest.count==5) {
@@ -74,6 +75,13 @@
         [myDelegate.recentlyViewedItemsArrayGuest addObject:[NSNumber numberWithInt:selectedProductId]];
     }
     [UserDefaultManager setValue:myDelegate.recentlyViewedItemsArrayGuest key:@"recentlyViewedGuest"];
+    NSLog(@"%@",_subscriptionDetailDict);
+    if (_subscriptionDetailDict != nil) {
+        isSubscribed = true;
+        [_productDetailTableView reloadData];
+    } else {
+        isSubscribed = false;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -102,7 +110,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     if (isServiceCalled) {
-        return 16;
+        return 17;
     }
     return 0;
 }
@@ -131,11 +139,18 @@
             return 1;
         }
         else {
-        float tempHeight=[DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.shippingText font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80];
-        return tempHeight+5;
+            float tempHeight=[DynamicHeightWidth getDynamicLabelHeight:productDetailModelData.shippingText font:[UIFont montserratLightWithSize:12] widthValue:[[UIScreen mainScreen] bounds].size.width-80];
+            return tempHeight+5;
         }
     }
     else if (indexPath.row==7) {
+        if (productDetailModelData.enableSubscription == 0) {
+            return 0;
+        } else {
+            return 40;
+        }
+    }
+    else if (indexPath.row==8) {
         return 50;
     }
     return 50;
@@ -174,25 +189,27 @@
     }
     else if (indexPath.row==6) {
         [cell displayProductInfo:productDetailModelData.shippingText];
+    } else if (indexPath.row==7) {
+        [cell displaySubscriptionData:isSubscribed];
     }
-    else if (indexPath.row==7) {
+    else if (indexPath.row==8) {
         [cell displayAddToCartButton:@"ProductDetail"];
         cell.addToCartButton.tag=indexPath.row;
         [cell.addToCartButton addTarget:self action:@selector(insertInCartItemAction:) forControlEvents:UIControlEventTouchUpInside];
     }
-    else if (indexPath.row==8) {
+    else if (indexPath.row==9) {
         cellLabel.text=NSLocalizedText(@"Description");
     }
-    else if (indexPath.row==9) {
+    else if (indexPath.row==10) {
         cellLabel.text=NSLocalizedText(@"Benefits&Usage");
     }
-    else if (indexPath.row==10) {
+    else if (indexPath.row==11) {
         cellLabel.text=NSLocalizedText(@"BrandStory");
     }
-    else if (indexPath.row==11) {
+    else if (indexPath.row==12) {
         cellLabel.text=NSLocalizedText(@"Review");
     }
-    else if (indexPath.row==12) {
+    else if (indexPath.row==13) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"unfollow");
@@ -203,7 +220,7 @@
             cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
     }
-    else if (indexPath.row==13) {
+    else if (indexPath.row==14) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:11];
         if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"wishlistAdded");
@@ -214,10 +231,10 @@
             cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
     }
-    else if (indexPath.row==14) {
+    else if (indexPath.row==15) {
         cellLabel.text=NSLocalizedText(@"socialMedia");
     }
-    else if (indexPath.row==15) {
+    else if (indexPath.row==16) {
         cellLabel.text=NSLocalizedText(@"Where to buy");
     }
     return cell;
@@ -242,24 +259,31 @@
                 [self performSelector:@selector(showYouTubeVideo:) withObject:arrayOfThingsIWantToPassAlong afterDelay:.1];
             }
         }
+    }  else if (indexPath.row==7) {
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        SubscriptionViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"SubscriptionViewController"];
+        nextView.productId = selectedProductId;
+        nextView.isEventScreen = false;
+        nextView.productDetailControllerObj = self;
+        [self.navigationController pushViewController:nextView animated:YES];
     }
-    else if (indexPath.row==8) {
+    else if (indexPath.row==9) {
         //Description action
         [self navigateToView:NSLocalizedText(@"Description") webViewData:productDetailModelData.productDescription viewIdentifier:@"webView" productId:0 reviewId:@""];
     }
-    else if (indexPath.row==9) {
+    else if (indexPath.row==10) {
         //Benefit action
         [self navigateToView:NSLocalizedText(@"Benefits&Usage") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0 reviewId:@""];
     }
-    else if (indexPath.row==10) {
+    else if (indexPath.row==11) {
         //Brand action
         [self navigateToView:NSLocalizedText(@"BrandStory") webViewData:productDetailModelData.productBrandStory viewIdentifier:@"webView" productId:0 reviewId:@""];
     }
-    else if (indexPath.row==11) {
+    else if (indexPath.row==12) {
         //Review action
         [self navigateToView:NSLocalizedText(@"Review") webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId] reviewId:productDetailModelData.reviewId];
     }
-    else if (indexPath.row==12) {
+    else if (indexPath.row==13) {
         //Follow action
         if (![myDelegate checkGuestAccess]) {
             if ([productDetailModelData.following isEqualToString:@"1"]) {
@@ -270,7 +294,7 @@
             }
         }
     }
-    else if (indexPath.row==13) {
+    else if (indexPath.row==14) {
         //Wishlist action
         if (![myDelegate checkGuestAccess]) {
             if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
@@ -281,9 +305,9 @@
             }
         }
     }
-    else if (indexPath.row==14) {
+    else if (indexPath.row==15) {
         //Share action
-         //[self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+        //[self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
         NSString *shareText=[NSString stringWithFormat:@"%@ %@ %@ %@", NSLocalizedText(@"checkThisOut"),productDetailModelData.productName,[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@.html?product_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId]],NSLocalizedText(@"onGonatuur")];
         NSArray *items = @[shareText];
         
@@ -297,7 +321,7 @@
         // and present it
         [self presentActivityController:controller];
     }
-    else if (indexPath.row==15) {
+    else if (indexPath.row==16) {
         //Location action
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
@@ -385,35 +409,35 @@
     NSURL *url=[dataArray objectAtIndex:0];
     if ([isYouTube isEqualToString:@"true"]) {
         [HCYoutubeParser thumbnailForYoutubeURL:url thumbnailSize:YouTubeThumbnailDefaultHighQuality completeBlock:^(UIImage *image, NSError *error) {
-        if (!error) {
-            [HCYoutubeParser h264videosWithYoutubeURL:url completeBlock:^(NSDictionary *videoDictionary, NSError *error) {
+            if (!error) {
+                [HCYoutubeParser h264videosWithYoutubeURL:url completeBlock:^(NSDictionary *videoDictionary, NSError *error) {
+                    [myDelegate stopIndicator];
+                    NSDictionary *qualities = videoDictionary;
+                    NSString *URLString = nil;
+                    if ([qualities objectForKey:@"small"] != nil) {
+                        URLString = [qualities objectForKey:@"small"];
+                    }
+                    else if ([qualities objectForKey:@"live"] != nil) {
+                        URLString = [qualities objectForKey:@"live"];
+                    }
+                    else {
+                        return;
+                    }
+                    //                MPMoviePlayerViewController *mp = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:URLString]];
+                    //                isServiceCalledMPMoviePlayerDone=false;
+                    //                [self presentViewController:mp animated:YES completion:NULL];
+                    AVPlayer *player = [AVPlayer playerWithURL:[NSURL URLWithString:URLString]];
+                    AVPlayerViewController *playerViewController = [AVPlayerViewController new];
+                    playerViewController.player = player;
+                    [playerViewController.player play];//used to play on start
+                    isServiceCalledMPMoviePlayerDone=false;
+                    [self presentViewController:playerViewController animated:YES completion:nil];
+                }];
+            }
+            else {
                 [myDelegate stopIndicator];
-                NSDictionary *qualities = videoDictionary;
-                NSString *URLString = nil;
-                if ([qualities objectForKey:@"small"] != nil) {
-                    URLString = [qualities objectForKey:@"small"];
-                }
-                else if ([qualities objectForKey:@"live"] != nil) {
-                    URLString = [qualities objectForKey:@"live"];
-                }
-                else {
-                    return;
-                }
-//                MPMoviePlayerViewController *mp = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:URLString]];
-//                isServiceCalledMPMoviePlayerDone=false;
-//                [self presentViewController:mp animated:YES completion:NULL];
-                AVPlayer *player = [AVPlayer playerWithURL:[NSURL URLWithString:URLString]];
-                AVPlayerViewController *playerViewController = [AVPlayerViewController new];
-                playerViewController.player = player;
-                [playerViewController.player play];//used to play on start
-                isServiceCalledMPMoviePlayerDone=false;
-                [self presentViewController:playerViewController animated:YES completion:nil];
-            }];
-        }
-        else {
-            [myDelegate stopIndicator];
-        }
-    }];
+            }
+        }];
     }
     else {
         [myDelegate stopIndicator];
@@ -501,11 +525,11 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData addProductWishlistOnSuccess:^(ProductDataModel *productDetailData)  {
-    
+        
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"wishlist");
-         productDetailModelData.wishlist=@"0";
-         cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
+        productDetailModelData.wishlist=@"0";
+        cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
     }];
     
 }
@@ -515,6 +539,8 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productQuantity=productDetailModelData.productQuantity;
     productData.productSku=productDetailModelData.productSku;
+    productData.isSubscribed = isSubscribed;
+    productData.subscribeDataDict = _subscriptionDetailDict;
     [productData addToCartProductOnSuccess:^(ProductDataModel *productDetailData)  {
         [myDelegate stopIndicator];
         [UserDefaultManager setValue:[NSNumber numberWithInt:[[UserDefaultManager getValue:@"quoteCount"] intValue]+currentQuantity] key:@"quoteCount"];
@@ -540,7 +566,7 @@
         
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"follow");
-         cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
+        cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         productDetailModelData.following=@"0";
     }];
 }
@@ -556,10 +582,10 @@
     ProductDataModel *productData = [ProductDataModel sharedUser];
     productData.productId=[NSNumber numberWithInt:selectedProductId];
     [productData unFollowProductOnSuccess:^(ProductDataModel *productDetailData)  {
-       
+        
     } onfailure:^(NSError *error) {
         cellLabel.text=NSLocalizedText(@"unfollow");
-         cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
+        cellLabel.textColor=[UIColor colorWithRed:127.0/255.0 green:127.0/255.0 blue:127.0/255.0 alpha:1.0];
         productDetailModelData.following=@"1";
     }];
     

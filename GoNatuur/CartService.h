@@ -10,6 +10,8 @@
 @class CartDataModel;
 @interface CartService : Webservice
 
+//Fetch shipping methods
+- (void)getShippingMethod:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 //Fetch cart listing
 - (void)getCartListing:(CartDataModel *)reviewData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 //Remove item from cart
@@ -32,4 +34,6 @@
 - (void)removeCouponCode:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 //cybersource
 - (void)cyberSourcePaymentData:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
+//Remove coupon code
+- (void)clearCart:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 @end
