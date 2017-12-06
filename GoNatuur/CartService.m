@@ -21,6 +21,7 @@ static NSString *kCyberSourcePayment=@"carts/mine/payment-information";
 static NSString *kCyberSourceGuestPayment=@"payment-information";
 static NSString *kGetshippingMethod=@"carts/mine/estimate-shipping-methods";
 static NSString *kClearCart=@"carts/mine";
+static NSString *kOrderIDCart=@"carts/mine";
 static NSString *kClearCartGuest=@"guest-carts";
 static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
 
@@ -200,6 +201,7 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
 }
 #pragma mark - end
 
+#pragma mark - Set address
 - (NSDictionary *)setAddressMethod:(NSDictionary *)tempDict {
     NSMutableArray *streetTempArray=[NSMutableArray new];
     for (NSString *street in tempDict[@"street"]) {
@@ -208,7 +210,6 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
     if (streetTempArray.count<1) {
         [streetTempArray addObject:@""];
     }
-    
     NSDictionary *parameters = @{@"region" : [UserDefaultManager checkStringNull:@"region" dictData:tempDict],
                                  @"region_id" : [UserDefaultManager getNumberValue:[tempDict objectForKey:@"region_id"] dictData:tempDict],
                                  @"region_code" : [UserDefaultManager checkStringNull:@"region_code" dictData:tempDict],
@@ -230,12 +231,20 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
 
 #pragma mark - Remove coupon code
 - (void)clearCart:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    if ((nil==[UserDefaultManager getValue:@"userId"])){
-         [super postPayment:kClearCartGuest parameters:nil isBoolean:true success:success failure:success];
+    if ([cartData.clearCartEnabled isEqualToString:@"1"]) {
+        if ((nil==[UserDefaultManager getValue:@"userId"])){
+            [super postPayment:kClearCartGuest parameters:nil isBoolean:true success:success failure:success];
+        }
+        else {
+            [super postPayment:kClearCart parameters:nil isBoolean:true success:success failure:failure];
+        }
     }
     else {
-        [super postPayment:kClearCart parameters:nil isBoolean:true success:success failure:failure];
+        if ((nil==[UserDefaultManager getValue:@"userId"])){
+            [self get:[NSString stringWithFormat:@"%@/%@",kClearCartGuest,[UserDefaultManager getValue:@"quoteId"]] parameters:nil onSuccess:success onFailure:failure];
+        }
     }
+   
 }
 #pragma mark - end
 @end

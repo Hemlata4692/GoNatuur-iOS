@@ -233,6 +233,7 @@
     NSString *tokenString = [[token description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     tokenString = [tokenString stringByReplacingOccurrencesOfString:@" " withString:@""];
     deviceToken = tokenString;
+    [UserDefaultManager setValue:deviceToken key:@"deviceToken"];
     NSLog(@"My device token is: %@", deviceToken);
 }
 
@@ -249,100 +250,16 @@
     [UIApplication sharedApplication].applicationIconBadgeNumber=0;
     NSDictionary *dict = [userInfo objectForKey:@"aps"] ;
     NSLog(@"notification response === %@",dict);
-//    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-//        //if app is in active state
-//    } else {
-//        //if app is not active
-//    }
-    
-    //    aps =     {
-    //        alert = "Earned points for sharing Exciting Corn on Facebook";
-    //        "customer_id" = 238;
-    //        "notification_id" = 326;
-    //        status = 0;
-    //        "targat_id" = 0;
-    //        type = 10;
-    //    };
-    //}
     [self markNotificationAsRead:dict[@"notification_id"]];
+    self.screenTargetId=dict[@"targat_id"];
+    self.notificationType=[dict[@"type"] intValue];
     isNotificationArrived=@"1";
-    int notificationTypeId= [dict[@"type"] intValue];
-    switch(notificationTypeId) {
-        case 1 : {
-            // navigate to product listing
-            ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
-            obj.selectedProductCategoryId=[dict[@"targat_id"] intValue];
-            myDelegate.isProductList=true;
-            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-            [self.window setRootViewController:obj];
-            [self.window setBackgroundColor:[UIColor whiteColor]];
-            [self.window makeKeyAndVisible];        }
-            break;
-        case 2 :{
-            // navigate to product details
-            UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-            self.screenTargetId=dict[@"targat_id"];
-            self.notificationType=notificationTypeId;
-            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-            [self.window setRootViewController:objReveal];
-            [self.window setBackgroundColor:[UIColor whiteColor]];
-            [self.window makeKeyAndVisible];
-        }
-            break;
-        case 3 : {
-            // navigate to event listing
-            ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
-            obj.selectedProductCategoryId=[dict[@"targat_id"] intValue];
-            myDelegate.isProductList=false;
-            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-            [self.window setRootViewController:obj];
-            [self.window setBackgroundColor:[UIColor whiteColor]];
-            [self.window makeKeyAndVisible];
-            
-        }
-            break;
-        case 4 :{
-            UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-            self.screenTargetId=dict[@"targat_id"];
-            self.notificationType=notificationTypeId;
-            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-            [self.window setRootViewController:objReveal];
-            [self.window setBackgroundColor:[UIColor whiteColor]];
-            [self.window makeKeyAndVisible];
-            // navigate to event details
-   
-        }
-            break;
-        case 5 :
-        case 6 :
-        case 7 :
-        case 8 :
-        case 9 :
-        case 11 :{
-            UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-            self.screenTargetId=dict[@"targat_id"];
-            self.notificationType=notificationTypeId;
-            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-            [self.window setRootViewController:objReveal];
-            [self.window setBackgroundColor:[UIColor whiteColor]];
-            [self.window makeKeyAndVisible];
-        }
-            break;
-        case 10 :{
-            // navigate to profile screen
-            ProfileViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProfileViewController"];
-            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-            [self.window setRootViewController:obj];
-            [self.window setBackgroundColor:[UIColor whiteColor]];
-            [self.window makeKeyAndVisible];
-        }
-            break;
-        default :
-            DLog(@"Invalid notification type");
-    }
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window setRootViewController:objReveal];
+    [self.window setBackgroundColor:[UIColor whiteColor]];
+    [self.window makeKeyAndVisible];
 }
 
 - (void)markNotificationAsRead:(NSString *)notificationId {
@@ -451,6 +368,7 @@
 
 #pragma mark - Logout user
 - (void)logoutUser {
+    [myDelegate unregisterForRemoteNotifications];
     //Logout user
     [UserDefaultManager removeValue:@"quoteCount"];
     [UserDefaultManager removeValue:@"userId"];

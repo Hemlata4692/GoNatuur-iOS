@@ -25,8 +25,15 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"GoNatuur");
     [self addLeftBarButtonWithImage:true];
-    orderIncrementId = orderId;
-    [self performSelector:@selector(clearCart) withObject:nil afterDelay:.1];
+//    orderIncrementId = orderId;
+    
+    [myDelegate showIndicator];
+    if ([UserDefaultManager getValue:@"userId"]==nil) {
+    [self performSelector:@selector(getOrderIdAfterCheckout) withObject:nil afterDelay:.1];
+    }
+    else {
+        [self performSelector:@selector(getOrderIDLoggedin) withObject:nil afterDelay:.1];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,16 +107,45 @@
 #pragma mark - end
 
 #pragma mark - Web services
+- (void)getOrderIDLoggedin {
+    OrderModel * orderData = [OrderModel sharedUser];
+    orderData.pageSize=[NSNumber numberWithInt:1];
+    orderData.currentPage=[NSNumber numberWithInt:1];
+    orderData.isOrderDetailService=@"0";
+    [orderData getOrderListing:^(OrderModel *userData) {
+        OrderModel *orderData = [userData.orderListingArray objectAtIndex:0];
+        orderIncrementId = orderData.purchaseOrderId;
+        [self clearCart];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+
+- (void)getOrderIdAfterCheckout {
+    CartDataModel * cartData = [CartDataModel sharedUser];
+    cartData.clearCartEnabled=@"0";
+    [cartData clearCart:^(CartDataModel *userData) {
+        orderIncrementId=[NSString stringWithFormat:@"000000%@",cartData.orderIncrementId];
+        [self clearCart];
+    } onfailure:^(NSError *error) {
+        [self clearCart];
+    }];
+}
+
 - (void)clearCart {
     CartDataModel * cartData = [CartDataModel sharedUser];
+    cartData.clearCartEnabled=@"1";
     [cartData clearCart:^(CartDataModel *userData) {
         [UserDefaultManager setValue:@0 key:@"quoteCount"];
         [self updateCartBadge];
+        [_thankYouTable reloadData];
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
         
     }];
 }
+
 - (IBAction)continueShoppingAction:(id)sender {
     //Navigate to dashboard screen
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

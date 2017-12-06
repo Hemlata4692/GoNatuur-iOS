@@ -39,6 +39,8 @@
 @synthesize extensionAttributeDict;
 @synthesize couponCode;
 @synthesize isCouponApplied;
+@synthesize clearCartEnabled;
+@synthesize orderIncrementId;
 
 - (id)copyWithZone:(NSZone *)zone {
     CartDataModel *another = [[CartDataModel alloc] init];
@@ -223,7 +225,7 @@
             success (userData);
         }
     } onFailure:^(NSError *error) {
-        
+        failure(error);
     }] ;
 }
 #pragma mark - end

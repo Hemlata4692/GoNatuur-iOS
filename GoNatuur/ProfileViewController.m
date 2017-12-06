@@ -63,6 +63,10 @@
     [self.view bringSubviewToFront:customerSupportPicker.goNatuurPickerViewObj];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    myDelegate.isNotificationArrived=@"0";
+}
 //add picker view
 - (void)addCustomPickerView {
     selectedPickerIndex=-1;

@@ -1089,6 +1089,20 @@
     }] ;
 }
 #pragma mark - end
+//setShippingLatLongService
+
+#pragma mark - Shipping lat long service
+- (void)setShippingLatLongService:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
+    ProfileService *profileService = [[ProfileService alloc] init];
+    [profileService shippingaddressLatLongService:profileData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"Shipping response %@",response);
+        success(profileData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
 
 #pragma mark - Country list service
 - (void)getCountryCodeService:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
@@ -1932,12 +1946,18 @@
 - (void)clearCart:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     CartService *cartList=[[CartService alloc]init];
     [cartList clearCart:cartData success:^(id response) {
-        NSLog(@"clearCart response %@",[(NSString *)response stringByReplacingOccurrencesOfString:@"\"" withString:@""]);
-       // NSString *quoteId = [(NSString *)response stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-        [UserDefaultManager setValue:[(NSString *)response stringByReplacingOccurrencesOfString:@"\"" withString:@""] key:@"quoteId"];
+        NSLog(@"clearCart response %@",response);
+        if ([cartData.clearCartEnabled isEqualToString:@"1"]) {
+            [UserDefaultManager setValue:[(NSString *)response stringByReplacingOccurrencesOfString:@"\"" withString:@""] key:@"quoteId"];
+
+        }
+        else {
+            cartData.orderIncrementId=response[@"reserved_order_id"];
+        }
         success(cartData);
     }
               onfailure:^(NSError *error) {
+                  failure(error);
               }];
 }
 #pragma mark - end

@@ -99,6 +99,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    myDelegate.isNotificationArrived=@"0";
+}
 #pragma mark - end
 
 #pragma mark - Initialized view

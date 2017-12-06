@@ -16,6 +16,7 @@
 #import "CheckoutCollectionViewCell.h"
 #import "AddressListingViewController.h"
 #import "FinalCheckoutViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 #define selectedStepColor   [UIColor colorWithRed:182.0/255.0 green:36.0/255.0 blue:70.0/255.0 alpha:1.0]
 #define unSelectedStepColor [UIColor lightGrayColor]
@@ -35,6 +36,8 @@
     BOOL isShippingAddreesSame;
     NSArray *totalArray;
     NSMutableDictionary *totalDict, *finalCheckoutPriceDict;
+    double userLatitude;
+   double userLongitude;
 }
 //Other view objects declaration
 @property (strong, nonatomic) IBOutlet UILabel *freeShippingLabel;
@@ -815,10 +818,10 @@
     isPickerEnable=false;
     [gNPickerViewObj hidePickerView];
     [self.view endEditing:true];
-    if ([self shippingAddressFieldValidations:true]&&[self billingAddressFieldValidations]) {
-        [myDelegate showIndicator];
-        [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithInt:0] afterDelay:.1];
-    }
+     [myDelegate showIndicator];
+    NSString *addressString =[NSString stringWithFormat:@"%@,%@,%@,%@,%@",_shippingAddressLine1TextField.text,_shippingCityTextField.text,_shippingStateTextField.text,_shippingCountryTextField.text,_shippingZipCodeTextField.text];
+    [self getLocationFromAddressString:addressString];
+    [self performSelector:@selector(setLocationService) withObject:[NSNumber numberWithInt:0] afterDelay:.1];
 }
 
 - (IBAction)shippingEditAddress:(UIButton *)sender {
@@ -977,6 +980,22 @@
         }
         else {
             [self getImpactPoints];
+        }
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)setLocationService {
+    ProfileModel *latLong = [ProfileModel sharedUser];
+    latLong.longitude=[NSString stringWithFormat:@"%f",userLongitude];
+    latLong.latitude=[NSString stringWithFormat:@"%f",userLatitude];
+    [latLong setShippingLatLong:^(ProfileModel *userData) {
+        if ([self shippingAddressFieldValidations:true]&&[self billingAddressFieldValidations]) {
+            [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithInt:0] afterDelay:.1];
+        }
+        else {
+            [myDelegate stopIndicator];
         }
     } onfailure:^(NSError *error) {
         
@@ -1343,6 +1362,32 @@
     obj.finalCheckoutPriceDict=[finalCheckoutPriceDict mutableCopy];
     obj.cartListDataArray=[cartListDataArray mutableCopy];
     [self.navigationController pushViewController:obj animated:YES];
+}
+#pragma mark - end
+
+#pragma mark - Lat long
+- (CLLocationCoordinate2D) getLocationFromAddressString:(NSString*) addressStr {
+    double latitude = 0, longitude = 0;
+    NSString *esc_addr =  [addressStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *req = [NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?sensor=false&address=%@", esc_addr];
+    NSString *result = [NSString stringWithContentsOfURL:[NSURL URLWithString:req] encoding:NSUTF8StringEncoding error:NULL];
+    if (result) {
+        NSScanner *scanner = [NSScanner scannerWithString:result];
+        if ([scanner scanUpToString:@"\"lat\" :" intoString:nil] && [scanner scanString:@"\"lat\" :" intoString:nil]) {
+            [scanner scanDouble:&latitude];
+            if ([scanner scanUpToString:@"\"lng\" :" intoString:nil] && [scanner scanString:@"\"lng\" :" intoString:nil]) {
+                [scanner scanDouble:&longitude];
+            }
+        }
+    }
+    CLLocationCoordinate2D center;
+    center.latitude = latitude;
+    center.longitude = longitude;
+    userLatitude = center.latitude;
+    userLongitude =center.longitude;
+    NSLog(@"View Controller get Location Logitute : %f",userLatitude);
+    NSLog(@"View Controller get Location Latitute : %f",userLongitude);
+    return center;
 }
 #pragma mark - end
 @end

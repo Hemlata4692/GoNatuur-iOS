@@ -18,6 +18,7 @@
 #import "NewsCentreDetailViewController.h"
 #import "HMSegmentedControl.h"
 #import "OrderDetailViewController.h"
+#import "ProfileViewController.h"
 
 @interface DashboardViewController ()<UIGestureRecognizerDelegate> {
 @private
@@ -75,26 +76,61 @@
     [self addLeftBarButtonWithImage:false];
     myDelegate.selectedCategoryIndex=-1;
     [self showSelectedTab:1];
+    
     if ([myDelegate.isNotificationArrived isEqualToString:@"1"]) {
-        if (myDelegate.notificationType==2) {
-            // navigate to product details
-            ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
-            obj.selectedProductId=[myDelegate.screenTargetId intValue];
-            obj.isRedeemProduct=false;
-            [self.navigationController pushViewController:obj animated:YES];
-        }
-        else  if (myDelegate.notificationType==4) {
-            // navigate to event details
-            EventDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EventDetailViewController"];
-            obj.selectedProductId=[myDelegate.screenTargetId intValue];
-            [self.navigationController pushViewController:obj animated:YES];
-        }
-
-        else  if (myDelegate.notificationType==5 || myDelegate.notificationType==6 || myDelegate.notificationType==6 || myDelegate.notificationType==7 || myDelegate.notificationType==8 || myDelegate.notificationType==9 || myDelegate.notificationType==11) {
-            // navigate to order details
-            OrderDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
-            obj.selectedOrderId=myDelegate.screenTargetId;
-            [self.navigationController pushViewController:obj animated:YES];
+        int notificationTypeId=myDelegate.notificationType;
+        switch(notificationTypeId) {
+            case 1 : {
+                // navigate to product listing
+                ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
+                obj.selectedProductCategoryId=[myDelegate.screenTargetId intValue];
+                myDelegate.isProductList=true;
+                [self.navigationController pushViewController:obj animated:YES];
+            }
+                break;
+            case 2 :{
+                // navigate to product details
+                ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+                obj.selectedProductId=[myDelegate.screenTargetId intValue];
+                obj.isRedeemProduct=false;
+                [self.navigationController pushViewController:obj animated:YES];
+            }
+                break;
+            case 3 : {
+                // navigate to event listing
+                ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
+                obj.selectedProductCategoryId=[myDelegate.screenTargetId intValue];
+                myDelegate.isProductList=false;
+                [self.navigationController pushViewController:obj animated:YES];
+            }
+                break;
+            case 4 :{
+                // navigate to event details
+                EventDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EventDetailViewController"];
+                obj.selectedProductId=[myDelegate.screenTargetId intValue];
+                [self.navigationController pushViewController:obj animated:YES];
+            }
+                break;
+            case 5 :
+            case 6 :
+            case 7 :
+            case 8 :
+            case 9 :
+            case 11 :{
+                // navigate to order details
+                OrderDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
+                obj.selectedOrderId=myDelegate.screenTargetId;
+                [self.navigationController pushViewController:obj animated:YES];
+            }
+                break;
+            case 10 :{
+                // navigate to profile screen
+                ProfileViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+                [self.navigationController pushViewController:obj animated:YES];
+            }
+                break;
+            default :
+                DLog(@"Invalid notification type");
         }
        
     }
@@ -402,7 +438,8 @@
     DashboardDataModel *dashboardData = [DashboardDataModel sharedUser];
     [dashboardData getDashboardData:^(DashboardDataModel *userData)  {
         bannerImageData=userData;
-        if ((nil!=myDelegate.deviceToken)&&nil!=[UserDefaultManager getValue:@"allowNotification"]) {
+        //[UserDefaultManager setValue:deviceToken key:@"deviceToken"];
+        if ((nil!=[UserDefaultManager getValue:@"deviceToken"])&&nil!=[UserDefaultManager getValue:@"allowNotification"]) {
             [self saveDeviceToken];
         }
         else{

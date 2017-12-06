@@ -60,6 +60,9 @@
 @property (strong, nonatomic) NSString *shippingAddressID;
 @property (strong, nonatomic) UIImage *userImage;
 
+@property (strong, nonatomic) NSString *latitude;
+@property (strong, nonatomic) NSString *longitude;
+
 + (instancetype)sharedUser;
 //Login user
 - (void)changePasswordService:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;
@@ -75,4 +78,6 @@
 - (void)getImpactPoints:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;
 //Update user profile image
 - (void)updateUserProfileImage:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;
+//Set lat lng
+- (void)setShippingLatLong:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure;
 @end

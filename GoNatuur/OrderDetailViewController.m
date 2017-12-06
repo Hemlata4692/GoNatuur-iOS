@@ -52,6 +52,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    myDelegate.isNotificationArrived=@"0";
+}
 #pragma mark - end
 
 #pragma mark TableView DataSource and Delegate Methods

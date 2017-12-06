@@ -89,7 +89,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewDidDisappear:YES];
     myDelegate.isNotificationArrived=@"0";
 }

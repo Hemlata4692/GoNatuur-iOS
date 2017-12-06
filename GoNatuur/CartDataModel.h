@@ -61,8 +61,8 @@
 @property (strong, nonatomic) NSString *saveCard;
 @property (strong, nonatomic) NSString *subscriptionID;
 @property (strong, nonatomic) NSString *method;
-
-
+@property (strong, nonatomic) NSString *clearCartEnabled;
+@property (strong, nonatomic) NSString *orderIncrementId;
 //Singleton instanse
 + (instancetype)sharedUser;
 
