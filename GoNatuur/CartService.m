@@ -180,14 +180,11 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
 
 #pragma mark - Set addresses and shipping methods
 - (void)setUpdatedAddressShippingMethodsService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    if ([cartData.selectedShippingMethod containsString:@"_"]) {
-        cartData.selectedShippingMethod=[[cartData.selectedShippingMethod componentsSeparatedByString:@"_"] objectAtIndex:0];
-    }
     NSDictionary *parameters = @{@"addressInformation" : @{
                                          @"shipping_address":[self setAddressMethod:[cartData.shippingAddressDict copy]],
                                          @"billing_address":[self setAddressMethod:[cartData.billingAddressDict copy]],
                                          @"shipping_method_code":cartData.selectedShippingMethod,
-                                         @"shipping_carrier_code":cartData.selectedShippingMethod
+                                         @"shipping_carrier_code":cartData.selectedCarrierCode
                                          }
                                  };
     DLog(@"%@",parameters);

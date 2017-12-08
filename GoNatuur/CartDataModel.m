@@ -41,6 +41,7 @@
 @synthesize isCouponApplied;
 @synthesize clearCartEnabled;
 @synthesize orderIncrementId;
+@synthesize selectedCarrierCode;
 
 - (id)copyWithZone:(NSZone *)zone {
     CartDataModel *another = [[CartDataModel alloc] init];
@@ -72,6 +73,7 @@
     another.isSimpleProductExist= [self.isSimpleProductExist copyWithZone: zone];
     another.extensionAttributeDict= [self.extensionAttributeDict copyWithZone: zone];
     another.couponCode= [self.couponCode copyWithZone: zone];
+    another.selectedCarrierCode= [self.selectedCarrierCode copyWithZone: zone];
     return another;
 }
 

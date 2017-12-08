@@ -1312,6 +1312,10 @@
             cell = [[CheckoutTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
         }
         [cell displayCellData:[cartModelData.shippmentMethodsArray objectAtIndex:indexPath.row] isSelected:(selectedShippingMethodIndex==(int)indexPath.row?true:false) totalPrice:subTotalPrice];
+        if (![[cartModelData.shippmentMethodsArray[indexPath.row] objectForKey:@"available"] boolValue]) {
+            cell.userInteractionEnabled=false;
+            cell.contentView.alpha=0.4;
+        }
         return cell;
     }
 }
@@ -1320,6 +1324,7 @@
     if (tableView!=_totalTableView) {
         selectedShippingMethodIndex=(int)indexPath.row;
         cartModelData.selectedShippingMethod=[cartModelData.shippmentMethodsArray[selectedShippingMethodIndex] objectForKey:@"method_code"];
+         cartModelData.selectedCarrierCode=[cartModelData.shippmentMethodsArray[selectedShippingMethodIndex] objectForKey:@"carrier_code"];
         [_shippmentMethodTableView reloadData];
         [self setPrices];
     }

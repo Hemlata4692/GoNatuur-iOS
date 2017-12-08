@@ -959,16 +959,16 @@
         return NO;
         
     }
-//    else if (_monthField.text.length != 4) {
-//        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-//        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validMonth") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
-//        return NO;
-//    }
-//    else if (_yearField.text.length != 4) {
-//        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-//        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validYear") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
-//        return NO;
-//    }
+    else if (_monthField.text.length != 2) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validMonth") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        return NO;
+    }
+    else if (_yearField.text.length != 4) {
+        SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+        [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validYear") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+        return NO;
+    }
     else if (_cvvField.text.length != 3) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validCVV") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];

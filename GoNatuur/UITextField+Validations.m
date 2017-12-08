@@ -60,14 +60,15 @@
                                                  }
      ];
 }
+
 - (BOOL)isValidAmericanExpress {
-    NSString *emailRegEx = @"(?:3[47][0-9]{14})";
+    NSString *emailRegEx = @"(?:3[47][0-9]{13})";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
     return [emailTest evaluateWithObject:self.text];
 }
 
 - (BOOL)isValidVisaCard {
-    NSString *emailRegEx = @"(?:4[0-9]{15})";
+    NSString *emailRegEx = @"(?:4[0-9]{12}(?:[0-9]{3})?)";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
     return [emailTest evaluateWithObject:self.text];
 }

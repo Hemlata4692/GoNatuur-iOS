@@ -58,7 +58,7 @@
 #pragma mark - Webview delegates
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 
-    if ([[request.URL absoluteString] isEqualToString:@"https://dev.gonatuur.com/en/checkout/onepage/success/"]) {
+    if ([[request.URL absoluteString] isEqualToString:[NSString stringWithFormat:@"%@%@%s",BaseUrl,[UserDefaultManager getValue:@"Language"],"/checkout/onepage/success/"]]) {
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ThankYouViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
         nextView.cartListDataArray = cartListDataArray;
@@ -75,11 +75,6 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [myDelegate stopIndicator];
-//    SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-//    [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }];
-//    [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrongMessage")  closeButtonTitle:nil duration:0.0f];
 }
 #pragma mark - end
 

@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSMutableDictionary *extensionAttributeDict;
 @property (strong, nonatomic) NSMutableDictionary *shippingAddressDict;
 @property (strong, nonatomic) NSString *selectedShippingMethod;
+@property (strong, nonatomic) NSString *selectedCarrierCode;
 @property (strong, nonatomic) NSMutableDictionary *customerDict;
 @property (strong, nonatomic) NSMutableArray *customerSavedAddressArray;
 @property (strong, nonatomic) NSMutableArray *shippmentMethodsArray;
