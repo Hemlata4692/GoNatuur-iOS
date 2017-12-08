@@ -13,6 +13,7 @@
 #import "CurrencyDataModel.h"
 #import "UIView+Toast.h"
 #import "OrderInvoiceViewController.h"
+#import "OrderShipmentViewController.h"
 
 @interface OrderDetailViewController ()
 {
@@ -218,7 +219,7 @@
             if ((nil==orderDataModel.shippingMethod)||[orderDataModel.shippingMethod isEqualToString:@""]) {
                 return 55;
             } else {
-                return [DynamicHeightWidth getDynamicLabelHeight:orderDataModel.shippingMethod font:[UIFont montserratLightWithSize:13] widthValue:(_orderDetailTable.frame.size.width/2)-15 heightValue:500]+45;
+                return [DynamicHeightWidth getDynamicLabelHeight:orderDataModel.shippingMethod font:[UIFont montserratLightWithSize:13] widthValue:(_orderDetailTable.frame.size.width/2)-15 heightValue:500]+55;
             }
         }
     }
@@ -285,7 +286,6 @@
             _noRecordLabel.hidden=YES;
             _orderDetailTable.hidden = NO;
             [self setTableFrames];
-            [_orderDetailTable reloadData];
             [self performSelector:@selector(getTicketOption) withObject:nil afterDelay:.1];
         }
     } onfailure:^(NSError *error) {
@@ -325,7 +325,10 @@
 
 #pragma mark - IBActions
 - (IBAction)orderShipmentButtonAction:(id)sender {
-    [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+    UIStoryboard *storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    OrderShipmentViewController * nextView=[storyBoard instantiateViewControllerWithIdentifier:@"OrderShipmentViewController"];
+    nextView.orderId=orderDataModel.orderId;
+    [self.navigationController pushViewController:nextView animated:YES];
 }
 
 - (IBAction)invoiceButtonAction:(id)sender {
@@ -344,7 +347,7 @@
         }];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"cancelOrderMessage") closeButtonTitle:NSLocalizedText(@"alertCancel") duration:0.0f];
     } else {
-        [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
+         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%s,%@",BaseUrl,[UserDefaultManager getValue:@"Language"],"/amasty_rma/request/new/order_id/",orderDataModel.orderId]]];
     }
 }
 #pragma mark - end
@@ -352,6 +355,7 @@
 #pragma mark - Set table frames
 - (void)setTableFrames {
     //If order is completed
+    if ((orderDataModel.orderState!=nil) && ![orderDataModel.orderState isEqualToString:@""]) {
     if ([[[UserDefaultManager getValue:@"orderStatuses"] objectForKey:@"complete"] containsString:[orderDataModel.orderState lowercaseString]]) {
         [_cancelOrderButton setTitle:NSLocalizedText(@"returnOrder") forState:UIControlStateNormal];
         _cancelOrderButton.hidden = NO;
@@ -373,6 +377,7 @@
         _cancelOrderButton.hidden = NO;
         _orderShipmentButton.hidden = NO;
         _invoiceButton.hidden = NO;
+    }
     }
 }
 #pragma mark - end

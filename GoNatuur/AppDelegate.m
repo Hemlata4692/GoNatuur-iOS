@@ -44,6 +44,7 @@
 @synthesize notificationStatus;
 @synthesize shareEventIdDataDict;
 @synthesize isShareUrlScreen;
+@synthesize recentlyViewedItemsArrayGuest;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -83,16 +84,14 @@
     // Override point for customization after application launch.
  
    // Call crashlytics method
-   // [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
-  
-//    NSString* useragent = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Safari/604.1.38";
-//    NSLog(@"Setting User-Agent to: %@", useragent);
-//    NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:useragent, @"UserAgent", nil];
-//    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+    [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
     
     firstTime=true;
     isShareUrlScreen=@"0";
     shareEventIdDataDict=[[NSMutableDictionary alloc]init];
+    recentlyViewedItemsArrayGuest=[[NSMutableArray alloc]init];
+    recentlyViewedItemsArrayGuest=[[UserDefaultManager getValue:@"recentlyViewedGuest"] mutableCopy];
+    
     //set default language to english
     if (nil==[UserDefaultManager getValue:@"Language"]) {
         [UserDefaultManager setValue:@"en" key:@"Language"];
@@ -116,6 +115,7 @@
         [self.window setBackgroundColor:[UIColor whiteColor]];
         [self.window makeKeyAndVisible];
     }
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     //[self registerForRemoteNotification];
     return YES;
 }

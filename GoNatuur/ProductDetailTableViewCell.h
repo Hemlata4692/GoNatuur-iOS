@@ -30,6 +30,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *addToCartButton;
 @property (weak, nonatomic) IBOutlet UIButton *selectTicketingButton;
 @property (weak, nonatomic) IBOutlet UITextField *ticketSelectionTypeField;
+//Subscription
+@property (weak, nonatomic) IBOutlet UIImageView *subscriptionImage;
+@property (weak, nonatomic) IBOutlet UILabel *subscriptionLabel;
 
 - (void)displayProductName:(NSString *)productName;
 - (void)displayProductDescription:(NSString *)productDescription;
@@ -39,4 +42,5 @@
 - (void)displayProductInfo:(NSString *)shippingTextData;
 - (void)displayAddToCartButton:(NSString *)screenType;
 - (void)displayTicketingData:(NSString *)ticket;
+- (void)displaySubscriptionData:(BOOL)isSubscribed;
 @end

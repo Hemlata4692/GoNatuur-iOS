@@ -36,6 +36,9 @@
 @synthesize productImpactPoint;
 @synthesize isRedeemProductExist;
 @synthesize isSimpleProductExist;
+@synthesize extensionAttributeDict;
+@synthesize couponCode;
+@synthesize isCouponApplied;
 
 - (id)copyWithZone:(NSZone *)zone {
     CartDataModel *another = [[CartDataModel alloc] init];
@@ -65,6 +68,8 @@
     another.productImpactPoint= [self.productImpactPoint copyWithZone: zone];
     another.isRedeemProductExist= [self.isRedeemProductExist copyWithZone: zone];
     another.isSimpleProductExist= [self.isSimpleProductExist copyWithZone: zone];
+    another.extensionAttributeDict= [self.extensionAttributeDict copyWithZone: zone];
+    another.couponCode= [self.couponCode copyWithZone: zone];
     return another;
 }
 
@@ -94,6 +99,18 @@
 #pragma mark - Fetch shippment methods
 - (void)fetchShippmentMethodsOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] fetchShippmentMethods:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Get shipping method data
+- (void)getShippingMethodData:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getShippingMethod:self onSuccess:^(CartDataModel *userData) {
         if (success) {
             success (userData);
         }
@@ -174,4 +191,51 @@
     }] ;
 }
 #pragma mark - end
+
+#pragma mark - CyberSource payment
+- (void)setCyberSourcePaymentData:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] cyberSourcePaymentService:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Apply coupon code
+- (void)applyCouponCode:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] applyCouponCodeService:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Remove coupon code
+- (void)removeCouponCode:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] removeCouponCodeService:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Clear cart
+- (void)clearCart:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure{
+    [[ConnectionManager sharedManager] clearCart:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
 @end

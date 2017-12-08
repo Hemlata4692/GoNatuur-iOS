@@ -138,60 +138,60 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NotificationDataModel *notiData=[notificationArray objectAtIndex:indexPath.row];
     [self markNotificationAsRead:notiData.notificationId currentIndex:(int)indexPath.row];
-//    int notificationTypeId= [notiData.notificationType intValue];
-//    switch(notificationTypeId) {
-//        case 1 : {
-//            // navigate to product listing
-//            ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
-//            obj.selectedProductCategoryId=[notiData.targetId intValue];
-//            myDelegate.isProductList=true;
-//            [self.navigationController pushViewController:obj animated:YES];
-//        }
-//        break;
-//        case 2 :{
-//            // navigate to product details
-//            ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
-//            obj.selectedProductId=[notiData.targetId intValue];
-//            obj.isRedeemProduct=false;
-//            [self.navigationController pushViewController:obj animated:YES];
-//        }
-//        break;
-//        case 3 : {
-//            // navigate to event listing
-//            ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
-//            obj.selectedProductCategoryId=[notiData.targetId intValue];
-//            myDelegate.isProductList=false;
-//            [self.navigationController pushViewController:obj animated:YES];
-//        }
-//        break;
-//        case 4 :{
-//            // navigate to event details
-//            EventDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EventDetailViewController"];
-//            obj.selectedProductId=[notiData.targetId intValue];
-//            [self.navigationController pushViewController:obj animated:YES];
-//        }
-//        break;
-//        case 5 :
-//        case 6 :
-//        case 7 :
-//        case 8 :
-//        case 9 :
-//        case 11 :{
-//            // navigate to order details
-//            OrderDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
-//            obj.selectedOrderId=notiData.targetId;
-//            [self.navigationController pushViewController:obj animated:YES];
-//        }
-//        break;
-//        case 10 :{
-//            // navigate to profile screen
-//            ProfileViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProfileViewController"];
-//            [self.navigationController pushViewController:obj animated:YES];
-//        }
-//        break;
-//        default :
-//            DLog(@"Invalid notification type");
-//    }
+    int notificationTypeId= [notiData.notificationType intValue];
+    switch(notificationTypeId) {
+        case 1 : {
+            // navigate to product listing
+            ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
+            obj.selectedProductCategoryId=[notiData.targetId intValue];
+            myDelegate.isProductList=true;
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+        break;
+        case 2 :{
+            // navigate to product details
+            ProductDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductDetailViewController"];
+            obj.selectedProductId=[notiData.targetId intValue];
+            obj.isRedeemProduct=false;
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+        break;
+        case 3 : {
+            // navigate to event listing
+            ProductListingViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProductListingViewController"];
+            obj.selectedProductCategoryId=[notiData.targetId intValue];
+            myDelegate.isProductList=false;
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+        break;
+        case 4 :{
+            // navigate to event details
+            EventDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EventDetailViewController"];
+            obj.selectedProductId=[notiData.targetId intValue];
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+        break;
+        case 5 :
+        case 6 :
+        case 7 :
+        case 8 :
+        case 9 :
+        case 11 :{
+            // navigate to order details
+            OrderDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
+            obj.selectedOrderId=notiData.targetId;
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+        break;
+        case 10 :{
+            // navigate to profile screen
+            ProfileViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+            [self.navigationController pushViewController:obj animated:YES];
+        }
+        break;
+        default :
+            DLog(@"Invalid notification type");
+    }
 }
 #pragma mark - end
 

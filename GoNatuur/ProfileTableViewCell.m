@@ -33,6 +33,7 @@
     _personalDetailLabel.text=NSLocalizedText(@"personalDetails");
     _changePasswordLabel.text=NSLocalizedText(@"changePasswordProfile");
     _notificationLabel.text=NSLocalizedText(@"Notifications");
+    _recentViewLabel.text=NSLocalizedText(@"recentlyViewd");
     _customerSupportLabel.text=NSLocalizedText(@"customerSupport");
     [_redeemPointButton setTitle:NSLocalizedText(@"sideBarRedeemPoints") forState:UIControlStateNormal];
     _notificationSwitch.backgroundColor = [UIColor colorWithRed:194.0/255.0 green:194.0/255.0 blue:194.0/255.0 alpha:1.0];

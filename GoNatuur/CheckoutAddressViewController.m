@@ -101,6 +101,7 @@
 @synthesize isBillingAddress,isShippingAddress;
 @synthesize isEditService;
 
+
 #pragma mark - View life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -112,7 +113,7 @@
     isShippingAddress=false;
     tempShippingRegionNameArray=[NSMutableArray new];
     tempbillingRegionNameArray=[NSMutableArray new];
-
+    
     [myDelegate showIndicator];
     [self performSelector:@selector(getCountryCode) withObject:nil afterDelay:.1];
     // Do any additional setup after loading the view.
@@ -227,7 +228,7 @@
     if (!isPickerEnable) {
         _nextOutlet.enabled=true;
         _nextOutlet.alpha=1.0;
-         _scrollView.contentSize = CGSizeMake(0,_mainCheckoutAddressView.frame.size.height);
+        _scrollView.contentSize = CGSizeMake(0,_mainCheckoutAddressView.frame.size.height);
         if ([self shippingAddressFieldValidations:false]&&[self isShippingAddressDifferent]) {
             [self calledUpdateAddressServiceMethod];
         }
@@ -664,7 +665,7 @@
             temp=[countryCodeArray objectAtIndex:index];
             billingCountryIndex=(int)index;
             _billingCountryTextField.text=temp.countryLocale;
-             billingRegionNameArray = [[[countryCodeArray objectAtIndex:billingCountryIndex] regionArray] mutableCopy];
+            billingRegionNameArray = [[[countryCodeArray objectAtIndex:billingCountryIndex] regionArray] mutableCopy];
             [tempbillingRegionNameArray removeAllObjects];
             for (ProfileModel *tempRegionName in billingRegionNameArray) {
                 [tempbillingRegionNameArray addObject:tempRegionName.regionName];
@@ -672,7 +673,7 @@
             DLog(@"%@",temp.countryLocale);
         }
         else {
-             billingRegionNameArray=[NSMutableArray new];
+            billingRegionNameArray=[NSMutableArray new];
             [tempbillingRegionNameArray removeAllObjects];
             billingCountryIndex=-1;
             _billingCountryTextField.text=@"";
@@ -889,13 +890,13 @@
 
 #pragma mark - Called update address service 
 - (void)calledUpdateAddressServiceMethod {
-        isPickerEnable=false;
-        [gNPickerViewObj hidePickerView];
-        [self.view endEditing:true];
-        if ([self shippingAddressFieldValidations:true]) {
-            [myDelegate showIndicator];
-            [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithInt:1] afterDelay:.1];
-        }
+    isPickerEnable=false;
+    [gNPickerViewObj hidePickerView];
+    [self.view endEditing:true];
+    if ([self shippingAddressFieldValidations:true]) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithInt:1] afterDelay:.1];
+    }
 }
 #pragma mark - end
 
@@ -1023,42 +1024,54 @@
 
 //Set addresses and shipping methods
 - (void)setUpdatedAddressShippingMethods:(NSNumber *)serviceType {
-    CartDataModel *cartData = [CartDataModel sharedUser];
-    cartData=[cartModelData copy];
-    cartData.shippingAddressDict=[[self setShippingAddressInCartModel] mutableCopy];
-    cartData.billingAddressDict=[[self setBillingAddressInCartModel] mutableCopy];
-    cartModelData.shippingAddressDict=[cartData.shippingAddressDict mutableCopy];
-    cartModelData.billingAddressDict=[cartData.billingAddressDict mutableCopy];
-    [cartData setUpdatedAddressShippingMethodsOnSuccess:^(CartDataModel *shippmentDetailData)  {
-        cartModelData.checkoutFinalData=[shippmentDetailData.checkoutFinalData mutableCopy];
-        if ([serviceType intValue]==1) {
-            [self getShippmentMethodData:false];
-        }
-        else if ([serviceType intValue]==0) {
-            if (selectedShippingMethodIndex==-1) {
-                [self getShippmentMethodData:true];
+    if ([cartModelData.selectedShippingMethod isEqualToString:@""]) {
+        CartDataModel *cartData = [CartDataModel sharedUser];
+        cartData.shippingAddressDict=[[self setShippingAddressInCartModel] mutableCopy];
+        [cartData getShippingMethodData:^(CartDataModel *userData)  {
+            cartModelData.selectedShippingMethod=userData.selectedShippingMethod;
+            [self setUpdatedAddressShippingMethods:serviceType];
+        } onfailure:^(NSError *error) {
+            
+        }];
+    }
+    else {
+        CartDataModel *cartData = [CartDataModel sharedUser];
+        cartData=[cartModelData copy];
+        cartData.shippingAddressDict=[[self setShippingAddressInCartModel] mutableCopy];
+        cartData.billingAddressDict=[[self setBillingAddressInCartModel] mutableCopy];
+        cartModelData.shippingAddressDict=[cartData.shippingAddressDict mutableCopy];
+        cartModelData.billingAddressDict=[cartData.billingAddressDict mutableCopy];
+        [cartData setUpdatedAddressShippingMethodsOnSuccess:^(CartDataModel *shippmentDetailData)  {
+            cartModelData.checkoutFinalData=[shippmentDetailData.checkoutFinalData mutableCopy];
+            if ([serviceType intValue]==1) {
+                [self getShippmentMethodData:false];
             }
-            else {
-                DLog(@"called checkout promo");
-                if (selectedCheckoutPromoIndex==-1||(nil==[UserDefaultManager getValue:@"userId"])) {
-                    [myDelegate stopIndicator];
-                    //Navigate to step3
-                    [self navigateToFinalCheckout];
+            else if ([serviceType intValue]==0) {
+                if (selectedShippingMethodIndex==-1) {
+                    [self getShippmentMethodData:true];
                 }
                 else {
-                    [self setCheckoutPromos];
+                    DLog(@"called checkout promo");
+                    if (selectedCheckoutPromoIndex==-1||(nil==[UserDefaultManager getValue:@"userId"])) {
+                        [myDelegate stopIndicator];
+                        //Navigate to step3
+                        [self navigateToFinalCheckout];
+                    }
+                    else {
+                        [self setCheckoutPromos];
+                    }
                 }
             }
-        }
-        else if ([serviceType intValue]==2) {
+            else if ([serviceType intValue]==2) {
+                
+                [myDelegate stopIndicator];
+                //Navigate to step3
+                [self navigateToFinalCheckout];
+            }
+        } onfailure:^(NSError *error) {
             
-            [myDelegate stopIndicator];
-             //Navigate to step3
-            [self navigateToFinalCheckout];
-        }
-    } onfailure:^(NSError *error) {
-        
-    }];
+        }];
+    }
 }
 
 //Get shippment methods
@@ -1113,21 +1126,21 @@
         [streetTempArray addObject:_shippingAddressLine2TextField.text];
     }
     NSDictionary *shippingAddress = @{@"id" : [UserDefaultManager getNumberValue:@"id" dictData:[cartModelData.shippingAddressDict copy]],
-                                 @"region" : _shippingStateTextField.text,
-                                 @"region_id" : [NSNumber numberWithInt:selectedShippingRegionId],
-                                 @"region_code" : selectedShippingRegionCode,
+                                      @"region" : _shippingStateTextField.text,
+                                      @"region_id" : [NSNumber numberWithInt:selectedShippingRegionId],
+                                      @"region_code" : selectedShippingRegionCode,
                                       @"country_id" : (shippingCountryIndex!=-1?[[countryCodeArray objectAtIndex:shippingCountryIndex] countryId]:@""),
-                                 @"company" : [UserDefaultManager checkStringNull:@"company" dictData:[cartModelData.shippingAddressDict copy]],
-                                 @"telephone" : _shippingPhoneNumberTextField.text,
-                                 @"fax" : [UserDefaultManager checkStringNull:@"fax" dictData:[cartModelData.shippingAddressDict copy]],
-                                 @"postcode" : _shippingZipCodeTextField.text,
-                                 @"city" : _shippingCityTextField.text,
-                                 @"firstname" : _shippingFirstNameTextField.text,
-                                 @"lastname" : _shippingLastNameTextField.text,
-                                 @"email" : _shippingEmailTextField.text,
-                                 @"customer_id": (nil!=[UserDefaultManager getValue:@"userId"]?[UserDefaultManager getValue:@"userId"]:[NSNumber numberWithInt:0]),
-                                 @"street":[streetTempArray copy]
-                                 };
+                                      @"company" : [UserDefaultManager checkStringNull:@"company" dictData:[cartModelData.shippingAddressDict copy]],
+                                      @"telephone" : _shippingPhoneNumberTextField.text,
+                                      @"fax" : [UserDefaultManager checkStringNull:@"fax" dictData:[cartModelData.shippingAddressDict copy]],
+                                      @"postcode" : _shippingZipCodeTextField.text,
+                                      @"city" : _shippingCityTextField.text,
+                                      @"firstname" : _shippingFirstNameTextField.text,
+                                      @"lastname" : _shippingLastNameTextField.text,
+                                      @"email" : _shippingEmailTextField.text,
+                                      @"customer_id": (nil!=[UserDefaultManager getValue:@"userId"]?[UserDefaultManager getValue:@"userId"]:[NSNumber numberWithInt:0]),
+                                      @"street":[streetTempArray copy]
+                                      };
     return shippingAddress;
 }
 
@@ -1138,21 +1151,21 @@
         [streetTempArray addObject:_billingAddressLine2TextField.text];
     }
     NSDictionary *billingAddress = @{@"id" : [UserDefaultManager getNumberValue:@"id" dictData:[cartModelData.billingAddressDict copy]],
-                                      @"region" : _billingStateTextField.text,
-                                      @"region_id" : [NSNumber numberWithInt:selectedBillingRegionId],
-                                      @"region_code" : selectedBillingRegionCode,
-                                      @"country_id" : (billingCountryIndex!=-1?[[countryCodeArray objectAtIndex:billingCountryIndex] countryId]:@""),
-                                      @"company" : [UserDefaultManager checkStringNull:@"company" dictData:[cartModelData.billingAddressDict copy]],
-                                      @"telephone" : _billingPhoneNumberTextField.text,
-                                      @"fax" : [UserDefaultManager checkStringNull:@"fax" dictData:[cartModelData.billingAddressDict copy]],
-                                      @"postcode" : _billingZipCodeTextField.text,
-                                      @"city" : _billingCityTextField.text,
-                                      @"firstname" : _billingFirstNameTextField.text,
-                                      @"lastname" : _billingLastNameTextField.text,
-                                      @"email" : _billingEmailTextField.text,
-                                      @"customer_id": (nil!=[UserDefaultManager getValue:@"userId"]?[UserDefaultManager getValue:@"userId"]:[NSNumber numberWithInt:0]),
-                                      @"street":[streetTempArray copy]
-                                      };
+                                     @"region" : _billingStateTextField.text,
+                                     @"region_id" : [NSNumber numberWithInt:selectedBillingRegionId],
+                                     @"region_code" : selectedBillingRegionCode,
+                                     @"country_id" : (billingCountryIndex!=-1?[[countryCodeArray objectAtIndex:billingCountryIndex] countryId]:@""),
+                                     @"company" : [UserDefaultManager checkStringNull:@"company" dictData:[cartModelData.billingAddressDict copy]],
+                                     @"telephone" : _billingPhoneNumberTextField.text,
+                                     @"fax" : [UserDefaultManager checkStringNull:@"fax" dictData:[cartModelData.billingAddressDict copy]],
+                                     @"postcode" : _billingZipCodeTextField.text,
+                                     @"city" : _billingCityTextField.text,
+                                     @"firstname" : _billingFirstNameTextField.text,
+                                     @"lastname" : _billingLastNameTextField.text,
+                                     @"email" : _billingEmailTextField.text,
+                                     @"customer_id": (nil!=[UserDefaultManager getValue:@"userId"]?[UserDefaultManager getValue:@"userId"]:[NSNumber numberWithInt:0]),
+                                     @"street":[streetTempArray copy]
+                                     };
     return billingAddress;
 }
 
@@ -1300,7 +1313,7 @@
 }
 
 - (CheckoutCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-        CheckoutCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"checkoutPromoCell" forIndexPath:indexPath];
+    CheckoutCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"checkoutPromoCell" forIndexPath:indexPath];
     [cell displayPromoData:[cartModelData.checkoutPromosArray objectAtIndex:indexPath.row] isSelected:(selectedCheckoutPromoIndex==(int)indexPath.row?true:false)];
     return cell;
 }
@@ -1326,6 +1339,7 @@
 - (void)navigateToFinalCheckout {
     FinalCheckoutViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FinalCheckoutViewController"];
     obj.cartModelData=[cartModelData copy];
+    [finalCheckoutPriceDict setObject:[[cartModelData.checkoutFinalData objectForKey:@"totals"] objectForKey:@"base_tax_amount"] forKey:@"Tax"];
     obj.finalCheckoutPriceDict=[finalCheckoutPriceDict mutableCopy];
     obj.cartListDataArray=[cartListDataArray mutableCopy];
     [self.navigationController pushViewController:obj animated:YES];

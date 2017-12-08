@@ -40,6 +40,11 @@
         [myDelegate showIndicator];
         [self performSelector:@selector(CMSPageService:) withObject:[UserDefaultManager getValue:@"aboutUs"] afterDelay:.1];
     }
+    else if ([pageIdentifier isEqualToString:@"ReturnPolicy"]) {
+        self.navigationItem.title=NSLocalizedText(@"ReturnPolicy");
+        [myDelegate showIndicator];
+        [self performSelector:@selector(CMSPageService:) withObject:[UserDefaultManager getValue:@"returnPolicy"] afterDelay:.1];
+    }
     else {
         self.navigationItem.title=NSLocalizedText(@"ContactUs");
         [myDelegate showIndicator];

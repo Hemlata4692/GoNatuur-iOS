@@ -50,6 +50,7 @@ static NSString *kEditProfilePicture=@"customerprofile/index";
     NSDictionary *parameters = @{@"currentPage" : profileData.currentPage,
                                  @"pageSize" : profileData.pageCount
                                  };
+    DLog(@"impact point request %@",parameters);
     [super post:kUserImpactsPoints parameters:parameters success:success failure:failure];
 }
 #pragma mark - end

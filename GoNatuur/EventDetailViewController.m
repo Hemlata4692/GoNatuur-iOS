@@ -24,6 +24,7 @@
 #import "GoNatuurPickerView.h"
 #import "ShareViewController.h"
 #import "UITextField+Validations.h"
+#import "SubscriptionViewController.h"
 
 @interface EventDetailViewController ()<UIGestureRecognizerDelegate,GoNatuurPickerViewDelegate> {
 @private
@@ -38,6 +39,7 @@
     NSMutableArray *ticketArray;
     NSString *selectedTicketOption;
     NSString *convertedPrice;
+    BOOL isSubscribed;
 }
 @property (strong, nonatomic) IBOutlet UITableView *productDetailTableView;
 @end
@@ -68,7 +70,22 @@
     self.navigationController.navigationBarHidden=false;
     self.title=NSLocalizedText(@"EventDetails");
     [self addLeftBarButtonWithImage:true];
-    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"ticketingPriceCell",@"productDetailPriceCell", @"productDetailInfoCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"mapCell",@"attendingCell",@"ticketCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
+    cellIdentifierArray = @[@"productDetailNameCell", @"productDetailDescriptionCell", @"productDetailRatingCell", @"productDetailImageCell", @"productDetailMediaCell",@"ticketingPriceCell",@"productDetailPriceCell", @"productDetailInfoCell",@"subscriptionCell",@"productDetailAddCartButtonCell",@"descriptionCell",@"mapCell",@"attendingCell",@"ticketCell",@"organiserCell",@"reviewCell",@"followCell",@"wishlistCell",@"shareCell",@"locationCell"];
+
+    if ([myDelegate.recentlyViewedItemsArrayGuest containsObject:[NSNumber numberWithInt:selectedProductId]]) {
+        [myDelegate.recentlyViewedItemsArrayGuest removeObject:[NSNumber numberWithInt:selectedProductId]];
+        if (myDelegate.recentlyViewedItemsArrayGuest.count==5) {
+            [myDelegate.recentlyViewedItemsArrayGuest removeObjectAtIndex:0];
+        }
+        [myDelegate.recentlyViewedItemsArrayGuest addObject:[NSNumber numberWithInt:selectedProductId]];
+    }
+    else {
+        if (myDelegate.recentlyViewedItemsArrayGuest.count==5) {
+            [myDelegate.recentlyViewedItemsArrayGuest removeObjectAtIndex:0];
+        }
+        [myDelegate.recentlyViewedItemsArrayGuest addObject:[NSNumber numberWithInt:selectedProductId]];
+    }
+    [UserDefaultManager setValue:myDelegate.recentlyViewedItemsArrayGuest key:@"recentlyViewedGuest"];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -104,7 +121,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     if (isServiceCalled) {
-        return 18;
+        return 20;
     }
     return 0;
 }
@@ -138,7 +155,11 @@
         }
     }
     else if (indexPath.row==8) {
-        return 50;
+        if (productDetailModelData.enableSubscription == 0) {
+            return 0;
+        } else {
+            return 40;
+        }
     }
     return 50;
 }
@@ -183,27 +204,32 @@
         [cell displayProductInfo:productDetailModelData.shippingText];
     }
     else if (indexPath.row==8) {
+        [cell displaySubscriptionData:isSubscribed];
+    }
+    else if (indexPath.row==9) {
         [cell displayAddToCartButton:@"EventDetail"];
         cell.addToCartButton.tag=indexPath.row;
         [cell.addToCartButton addTarget:self action:@selector(insertInCartItemAction:) forControlEvents:UIControlEventTouchUpInside];
     }
-    else if (indexPath.row==9) {
+    else if (indexPath.row==10) {
         cellLabel.text=NSLocalizedText(@"Description");
     }
-    else if (indexPath.row==10) {
+    else if (indexPath.row==11) {
         cellLabel.text=NSLocalizedText(@"mapLocation");
     }
-    else if (indexPath.row==11) {
+    else if (indexPath.row==12) {
         cellLabel.text=NSLocalizedText(@"attending");
     }
-    else if (indexPath.row==12) {
+    else if (indexPath.row==13) {
         cellLabel.text=NSLocalizedText(@"ticketing");
     }
-
-    else if (indexPath.row==13) {
+    else if (indexPath.row==14) {
+        cellLabel.text=NSLocalizedText(@"Organizers");
+    }
+    else if (indexPath.row==15) {
         cellLabel.text=NSLocalizedText(@"Comments");//Comments
     }
-    else if (indexPath.row==14) {
+    else if (indexPath.row==16) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:10];
         if ([productDetailModelData.following isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"unfollowEvent");
@@ -214,7 +240,7 @@
             cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
     }
-    else if (indexPath.row==15) {
+    else if (indexPath.row==17) {
         UILabel *cellLabel=(UILabel *)[cell viewWithTag:11];
         if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
             cellLabel.text=NSLocalizedText(@"wishlistAdded");
@@ -225,10 +251,10 @@
             cellLabel.textColor=[UIColor colorWithRed:38.0/255.0 green:38.0/255.0 blue:38.0/255.0 alpha:1.0];
         }
     }
-    else if (indexPath.row==16) {
+    else if (indexPath.row==18) {
         cellLabel.text=NSLocalizedText(@"socialMedia");
     }
-    else if (indexPath.row==17) {
+    else if (indexPath.row==19) {
         cellLabel.text=NSLocalizedText(@"Where to buy");
     }
     return cell;
@@ -269,33 +295,49 @@
             }
         }
     }
-    else if (indexPath.row==9) {
+    else if (indexPath.row==8) {
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        SubscriptionViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"SubscriptionViewController"];
+        nextView.productId = selectedProductId;
+        nextView.isEventScreen = true;
+        nextView.eventDetailControllerObj = self;
+        [self.navigationController pushViewController:nextView animated:YES];
+    }
+    else if (indexPath.row==10) {
         //Description action
         [self navigateToView:NSLocalizedText(@"Description") webViewData:productDetailModelData.productDescription viewIdentifier:@"webView" productId:0 reviewId:@"" isLocation:@"No"];
     }
-    else if (indexPath.row==10) {
+    else if (indexPath.row==11) {
         //map action
         [self navigateToView:NSLocalizedText(@"mapLocation") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0 reviewId:@"" isLocation:@"Yes"];
     }
-    else if (indexPath.row==11) {
+    else if (indexPath.row==12) {
+        //map action
+        [self navigateToView:NSLocalizedText(@"mapLocation") webViewData:productDetailModelData.productBenefitsUsage viewIdentifier:@"webView" productId:0 reviewId:@"" isLocation:@"Yes"];
+    }
+    else if (indexPath.row==13) {
         //attending action
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         AttendeesViewController * attendeeView=[sb instantiateViewControllerWithIdentifier:@"AttendeesViewController"];
         attendeeView.attendeesArray=[productDetailModelData.attendiesArray mutableCopy];
         [self.navigationController pushViewController:attendeeView animated:YES];
     }
-    else if (indexPath.row==12) {
+    else if (indexPath.row==14) {
         //ticket action
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         TicketingViewController * ticketView=[sb instantiateViewControllerWithIdentifier:@"TicketingViewController"];
         ticketView.ticketingArray=[productDetailModelData.ticketingArray mutableCopy];
         [self.navigationController pushViewController:ticketView animated:YES];
     }
-    else if (indexPath.row==13) {
+    else if (indexPath.row==15) {
+        //Organiser action
+        [self navigateToView:NSLocalizedText(@"Organizers") webViewData:productDetailModelData.organiser viewIdentifier:@"webView" productId:0 reviewId:@"" isLocation:@"No"];
+    }
+    else if (indexPath.row==16) {
         //Review action
         [self navigateToView:NSLocalizedText(@"Comments") webViewData:@"" viewIdentifier:@"reviewView" productId:[NSNumber numberWithInt:selectedProductId] reviewId:productDetailModelData.reviewId isLocation:@"No"];
     }
-    else if (indexPath.row==14) {
+    else if (indexPath.row==17) {
         //Follow action
         if (![myDelegate checkGuestAccess]) {
             if ([productDetailModelData.following isEqualToString:@"1"]) {
@@ -306,7 +348,7 @@
             }
         }
     }
-    else if (indexPath.row==15) {
+    else if (indexPath.row==18) {
         //Wishlist action
         if (![myDelegate checkGuestAccess]) {
             if ([productDetailModelData.wishlist isEqualToString:@"1"]) {
@@ -317,10 +359,10 @@
             }
         }
     }
-    else if (indexPath.row==16) {
+    else if (indexPath.row==19) {
         //Share action
         // [self.view makeToast:NSLocalizedText(@"featureNotAvailable")];
-        //NSString stringWithFormat:@"%@%@/%@.html?product_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId];
+      
        NSString *shareText=[NSString stringWithFormat:@"%@ %@ %@ %@", NSLocalizedText(@"checkThisOut"),productDetailModelData.productName,[NSURL URLWithString:[NSString stringWithFormat:@"%@%@/%@.html?product_id=%d",BaseUrl,[UserDefaultManager getValue:@"Language"],productDetailModelData.productUrlKey,selectedProductId]],NSLocalizedText(@"onGonatuur")];
         NSArray *items = @[shareText];
         
@@ -334,7 +376,7 @@
         // and present it
         [self presentActivityController:controller];
     }
-    else if (indexPath.row==17) {
+    else if (indexPath.row==20) {
         //Location action
         UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         WebViewController * webView=[sb instantiateViewControllerWithIdentifier:@"WebViewController"];
@@ -378,16 +420,21 @@
                                               BOOL completed,
                                               NSArray *returnedItems,
                                               NSError *error){
-        // react to the completion
-        if (completed) {
-            // user shared an item
-            NSLog(@"We used activity type %@", activityType);
-            
-        } else {
-            // user cancelled
-            NSLog(@"We didn't want to share anything after all.");
+        if ([activityType isEqualToString:UIActivityTypePostToFacebook]) {
+            [self shareProductData:@"facebook"];
+        } else if ([activityType isEqualToString:@"com.tencent.xin.sharetimeline"]) {
+            [self shareProductData:@"wechat"];
+        } else if ([activityType isEqualToString:UIActivityTypePostToWeibo]) {
+            [self shareProductData:@"weibo"];
+        } else if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
+            [self shareProductData:@"twitter"];
         }
-        
+        else if ([activityType isEqualToString:@"com.google.GooglePlus.ShareExtension"]) {
+            [self shareProductData:@"google"];
+        } else if ([activityType isEqualToString:@"pinterest.ShareExtension"]) {
+            [self shareProductData:@"pintrest"];
+        }
+        // react to the completion
         if (error) {
             NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
         }
@@ -481,6 +528,22 @@
         
     }];
 }
+
+//Share product
+- (void)shareProductData:(NSString*) mediaType {
+    ProductDataModel *productData = [ProductDataModel sharedUser];
+    productData.productId=[NSNumber numberWithInt:selectedProductId];
+    productData.socialMediaType=mediaType;
+    productData.sharingType=@"product";
+    productData.productName=productDetailModelData.productName;
+    [productData shareProductDataService:^(ProductDataModel *productDetailData)  {
+        [myDelegate stopIndicator];
+        isServiceCalled=true;
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
 
 //Add product to wishlist
 - (void)addToWishlist:(int)btnTag {
@@ -599,9 +662,18 @@
 - (IBAction)insertInCartItemAction:(UIButton *)sender {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:5 inSection:0];
     ProductDetailTableViewCell *cell = [_productDetailTableView cellForRowAtIndexPath:indexPath];
+    if (productDetailModelData.ticketingArray.count!=0) {
+        if ([productDetailModelData.ticketingArray objectAtIndex:0]!=nil) {
     if ([cell.ticketSelectionTypeField isEmpty]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"eventTicket") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+    }
+    else {
+        productDetailModelData.productQuantity=[NSNumber numberWithInt:currentQuantity];
+        [myDelegate showIndicator];
+        [self performSelector:@selector(addTicketsToCartProductService) withObject:nil afterDelay:.1];
+    }
+        }
     }
     else {
     productDetailModelData.productQuantity=[NSNumber numberWithInt:currentQuantity];
@@ -613,6 +685,8 @@
 - (IBAction)selectTicketType:(UIButton *)sender {
     ticketBtnTag=(int)[sender tag];
     ticketArray=[NSMutableArray new];
+    if ( productDetailModelData.ticketingArray.count!=0) {
+    if ([productDetailModelData.ticketingArray objectAtIndex:0]!=nil) {
     NSMutableDictionary *tempDict=[productDetailModelData.ticketingArray objectAtIndex:0];
     NSArray *dataArray=[[[tempDict objectForKey:@"event_option_type"]objectForKey:@"event_option_options"] mutableCopy];
     for (int i=0; i<dataArray.count; i++) {
@@ -622,6 +696,14 @@
         [ticketArray addObject:[NSString stringWithFormat:@"%@ + %@",[ticketDict objectForKey:@"title"],price]];
     }
     [customerTicketPicker showPickerView:ticketArray selectedIndex:selectedPickerIndex option:1 isCancelDelegate:false isFilterScreen:false];
+    }
+    else {
+        [self.view makeToast:@"No tickets options available"];
+    }
+    }
+    else {
+        [self.view makeToast:@"No tickets options available"];
+    }
 }
 #pragma mark - end
 

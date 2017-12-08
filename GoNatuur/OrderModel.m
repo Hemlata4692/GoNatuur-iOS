@@ -24,6 +24,7 @@
 @synthesize trackArray;
 @synthesize trackNumber;
 @synthesize isOrderDetailService;
+@synthesize orderShipmentDataArray;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{

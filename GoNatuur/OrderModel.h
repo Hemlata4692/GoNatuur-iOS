@@ -62,6 +62,7 @@
 @property (assign, nonatomic) BOOL isTrackShippment;
 @property (strong, nonatomic) NSMutableArray *orderInvoiceArray;
 @property (strong, nonatomic) NSMutableArray *trackArray;
+@property (strong, nonatomic) NSMutableArray *orderShipmentDataArray;
 @property (strong, nonatomic) NSString *trackNumber;
 
 //Singleton instanse
