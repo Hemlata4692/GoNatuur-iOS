@@ -42,7 +42,7 @@ extern NSString * const dateFormatterConverted;
 extern NSString * const dateFormatterDate;
 extern NSString * const specialPriceDateFormatter;
 extern NSString * const subscriptionDateFormatter;
-
+extern NSString * const afterShipURL;
 extern NSString * const orderListingDateFormat;
 //end
 

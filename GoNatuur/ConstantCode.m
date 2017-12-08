@@ -30,7 +30,7 @@ NSString * const dateFormatterDate=@"dd/MM/yyyy";
 NSString * const specialPriceDateFormatter=@"yyyy-MM-dd hh:mm:ss";
 NSString * const subscriptionDateFormatter=@"yyyy-MM-dd";
 NSString * const orderListingDateFormat=@"yyyy-MM-dd HH:mm:ss";
-
+NSString * const afterShipURL = @"//http://gonatuur.aftership.com/";
 //Check device type
 + (ConstantType)checkDeviceType {
     switch ((int)[[UIScreen mainScreen] bounds].size.height) {

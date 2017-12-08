@@ -57,12 +57,10 @@
 
 #pragma mark - Webview delegates
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-
-    if ([[request.URL absoluteString] isEqualToString:@"https://dev.gonatuur.com/en/checkout/onepage/success/"]) {
-        
+    if ([[request.URL absoluteString] isEqualToString:[NSString stringWithFormat:@"%@%@%s",BaseUrl,[UserDefaultManager getValue:@"Language"],"/checkout/onepage/success/"]]) {
     }
     
-   else if ([[request.URL absoluteString] containsString:@"https://dev.gonatuur.com/en/checkout/onepage/success/"]) {
+   else if ([[request.URL absoluteString] containsString:[NSString stringWithFormat:@"%@%@%s",BaseUrl,[UserDefaultManager getValue:@"Language"],"/checkout/onepage/success/"]]) {
        NSArray *items = [[request.URL absoluteString] componentsSeparatedByString:@"/"];
            UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
            ThankYouViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
