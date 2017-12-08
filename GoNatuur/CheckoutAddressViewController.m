@@ -103,7 +103,7 @@
 @synthesize subTotalPrice;
 @synthesize isBillingAddress,isShippingAddress;
 @synthesize isEditService;
-@synthesize isSuscribedProdut;
+
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {

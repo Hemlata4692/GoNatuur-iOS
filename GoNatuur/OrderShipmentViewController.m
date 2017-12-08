@@ -180,9 +180,8 @@
 
 #pragma mark - IBActions
 - (IBAction)navigateToTrack:(UIButton *)sender {
-    //http://gonatuur.aftership.com/593159230543
    OrderModel * orderData = [shipmentDataArray objectAtIndex:[sender tag]];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%s%@","http://gonatuur.aftership.com/",orderData.trackNumber]]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",afterShipURL,orderData.trackNumber]]];
 }
 #pragma mark - end
 
