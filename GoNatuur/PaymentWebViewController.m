@@ -65,16 +65,6 @@
         nextView.finalCheckoutPriceDict=finalCheckoutPriceDict;
         [self.navigationController pushViewController:nextView animated:YES];
     }
-    
-//   else if ([[request.URL absoluteString] containsString:@"https://dev.gonatuur.com/en/checkout/onepage/success/"]) {
-//       NSArray *items = [[request.URL absoluteString] componentsSeparatedByString:@"/"];
-//           UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//           ThankYouViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
-//           nextView.orderId = [items objectAtIndex:items.count - 2];
-//           nextView.cartListDataArray = cartListDataArray;
-//           nextView.finalCheckoutPriceDict=finalCheckoutPriceDict;
-//           [self.navigationController pushViewController:nextView animated:YES];
-//   }
     return YES;
 
 }
