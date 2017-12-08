@@ -280,18 +280,24 @@
     orderData.isOrderDetailService=@"1";
     orderData.orderId=selectedOrderId;
     [orderData getOrderListing:^(OrderModel *userData) {
-        orderDataModel = [userData.orderListingArray objectAtIndex:0];
-        productListArray = [[[userData.orderListingArray objectAtIndex:0] productListingArray] mutableCopy];
-        if (productListArray.count==0) {
-            _noRecordLabel.hidden=NO;
-            _orderDetailTable.hidden = YES;
-            [_orderDetailTable reloadData];
+        if (userData.orderListingArray.count!=0) {
+            orderDataModel = [userData.orderListingArray objectAtIndex:0];
+            productListArray = [[[userData.orderListingArray objectAtIndex:0] productListingArray] mutableCopy];
+            if (productListArray.count==0) {
+                _noRecordLabel.hidden=NO;
+                _orderDetailTable.hidden = YES;
+                [_orderDetailTable reloadData];
+            }
+            else {
+                _noRecordLabel.hidden=YES;
+                _orderDetailTable.hidden = NO;
+                [self setTableFrames];
+                [self performSelector:@selector(getTicketOption) withObject:nil afterDelay:.1];
+            }
         }
         else {
-            _noRecordLabel.hidden=YES;
-            _orderDetailTable.hidden = NO;
-            [self setTableFrames];
-            [self performSelector:@selector(getTicketOption) withObject:nil afterDelay:.1];
+            _noRecordLabel.hidden=NO;
+            _orderDetailTable.hidden = YES;
         }
     } onfailure:^(NSError *error) {
         _noRecordLabel.hidden=NO;
