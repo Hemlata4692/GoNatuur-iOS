@@ -30,6 +30,7 @@
 @synthesize grandTotal;
 @synthesize cartTotal;
 @synthesize pointTotal;
+@synthesize tempListDataArray;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -140,11 +141,13 @@
             [UserDefaultManager setValue:cartTempDataDict[@"items_qty"] key:@"quoteCount"];
         }
         cartModelData.cartListResponse=[cartTempDataDict mutableCopy];
+        
         [cartListDataArray removeObjectAtIndex:[index intValue]];
+        [tempListDataArray removeObjectAtIndex:[index intValue]];
         DLog(@"%@",[UserDefaultManager getValue:@"quoteCount"]);
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"removedProduct") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
-        [_delegate removedItemDelegate:[cartListDataArray mutableCopy]];
+        [_delegate removedItemDelegate:[cartListDataArray mutableCopy] updatedTempCartList:[tempListDataArray mutableCopy]];
     } onfailure:^(NSError *error) {
         
     }];

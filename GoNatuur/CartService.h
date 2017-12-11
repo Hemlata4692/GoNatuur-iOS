@@ -36,4 +36,7 @@
 - (void)cyberSourcePaymentData:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 //Remove coupon code
 - (void)clearCart:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
+//Billing address
+- (void)setUpdatedBillingAddressMethodsService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
+- (void)fetchPaymentMethodsOnService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure;
 @end

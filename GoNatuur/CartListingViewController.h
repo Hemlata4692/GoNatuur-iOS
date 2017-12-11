@@ -11,7 +11,7 @@
 
 @protocol CartListDelegate <NSObject>
 @optional
-- (void)removedItemDelegate:(NSMutableArray *)updatedCartList;
+- (void)removedItemDelegate:(NSMutableArray *)updatedCartList  updatedTempCartList:(NSMutableArray *)updatedTempCartList;
 @end
 
 @interface CartListingViewController : UIViewController {
@@ -20,6 +20,7 @@
 
 @property (nonatomic,strong) id <CartListDelegate>delegate;
 @property (nonatomic, strong) NSMutableArray *cartListDataArray;
+@property (nonatomic, strong) NSMutableArray *tempListDataArray;
 @property (nonatomic, strong) CartDataModel *cartModelData;
 @property (strong, nonatomic) IBOutlet UIButton *continueShoppingOutlet;
 @property (strong, nonatomic) IBOutlet UIButton *nextOutlet;

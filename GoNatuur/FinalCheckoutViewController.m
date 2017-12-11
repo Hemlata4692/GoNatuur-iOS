@@ -959,7 +959,7 @@
         return NO;
         
     }
-    else if (_monthField.text.length != 2) {
+    else if (_monthField.text.length < 1 && _monthField.text.length > 2) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validMonth") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
@@ -975,7 +975,7 @@
         return NO;
     }
     else if ([_cardType.text isEqualToString:@"Visa"] || [_cardType.text isEqualToString:@"VI"]) {
-        if ([_cardNumber isValidVisaCard]) {
+        if (![_cardNumber isValidVisaCard]) {
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
             [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"invalidCard") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
             return NO;
@@ -985,7 +985,7 @@
         }
     }
     else  if ([_cardType.text isEqualToString:@"MasterCard"] || [_cardType.text isEqualToString:@"Maestro International"] || [_cardType.text isEqualToString:@"Maestro UK"] || [_cardType.text isEqualToString:@"MC"] || [_cardType.text isEqualToString:@"MAESTRO"] || [_cardType.text isEqualToString:@"SWITCH"]) {
-        if ([_cardNumber isValidMasterCard]) {
+        if (![_cardNumber isValidMasterCard]) {
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
             [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"invalidCard") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
             return NO;
@@ -995,7 +995,7 @@
         }
     }
     else  if ([_cardType.text isEqualToString:@"Discover"] || [_cardType.text isEqualToString:@"DI"]) {
-        if ( [_cardNumber isValidDiscoverCard] ) {
+        if (![_cardNumber isValidDiscoverCard] ) {
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
             [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"invalidCard") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
             return NO;
@@ -1005,7 +1005,7 @@
         }
     }
     else  if ([_cardType.text isEqualToString:@"Diners Club"] || [_cardType.text isEqualToString:@"DC"]) {
-        if ([_cardNumber isDinnerClubCard]) {
+        if (![_cardNumber isDinnerClubCard]) {
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
             [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"invalidCard") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
             return NO;
@@ -1015,7 +1015,7 @@
         }
     }
     else  if ([_cardType.text isEqualToString:@"American Express"] || [_cardType.text isEqualToString:@"AE"]) {
-        if ([_cardNumber isValidAmericanExpress]) {
+        if (![_cardNumber isValidAmericanExpress]) {
             SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
             [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"invalidCard") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
             return NO;

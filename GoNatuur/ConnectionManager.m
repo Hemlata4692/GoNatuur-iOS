@@ -1235,6 +1235,22 @@
     }] ;
 }
 #pragma mark - end
+//fetchPaymentMethods
+
+#pragma mark - Payment methods
+- (void)fetchPaymentMethods:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList fetchPaymentMethodsOnService:cartData success:^(id response) {
+        cartData.paymentMethodArray=[response mutableCopy];
+        cartData.checkoutFinalData = [[NSMutableDictionary alloc]init];
+        [cartData.checkoutFinalData setObject:cartData.paymentMethodArray forKey:@"payment_methods"];
+        DLog(@"Payment response %@",response);
+        success(cartData);
+    }
+                   onfailure:^(NSError *error) {
+                   }];
+}
+#pragma mark - end
 
 #pragma mark - Cart module services
 //Cart listing service
@@ -1249,17 +1265,6 @@
         cartData.customerDict=[NSMutableDictionary new];
         cartData.extensionAttributeDict=[NSMutableDictionary new];
         cartData.customerSavedAddressArray=[NSMutableArray new];
-        //        cartData.selectedShippingMethod=@"";
-        //        if ((nil==[UserDefaultManager getValue:@"userId"])){
-        //            int cartCount=0;
-        //            for (NSDictionary *tempDict in response) {
-        //                cartCount+=[tempDict[@"qty"] intValue];
-        //                [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
-        //            }
-        //            cartData.itemQty=[NSNumber numberWithInt:cartCount];
-        //            cartData.selectedShippingMethod=@"";
-        //        }
-        //        else {
         cartData.extensionAttributeDict=[response objectForKey:@"extension_attributes"];
         cartData.billingAddressDict=[response[@"billing_address"] mutableCopy];
         cartData.customerDict=[response[@"customer"] mutableCopy];
@@ -1271,7 +1276,6 @@
         for (NSDictionary *tempDict in response[@"items"]) {
             [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
         }
-        //        }
         success(cartData);
     }
                    onfailure:^(NSError *error) {
@@ -1373,6 +1377,19 @@
     [cartList setUpdatedAddressShippingMethodsService:cartData success:^(id response) {
         DLog(@"Set addresses and shipping methods response %@",response);
         cartData.checkoutFinalData=[response mutableCopy];
+        success(cartData);
+    }
+                                            onfailure:^(NSError *error) {
+                                            }];
+}
+#pragma mark - end
+
+#pragma mark - Set billing addresses
+- (void)setUpdatedBillingAddressService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList setUpdatedBillingAddressMethodsService:cartData success:^(id response) {
+        DLog(@"Set billing addresses response %@",response);
+//        cartData.checkoutFinalData=[response mutableCopy];
         success(cartData);
     }
                                             onfailure:^(NSError *error) {

@@ -29,7 +29,7 @@
     int shippingStateIndex, billingStateIndex;
     int selectedCheckoutPromoIndex, selectedShippingMethodIndex;
     GoNatuurPickerView *gNPickerViewObj;
-    NSString *selectedShippingRegionCode,*selectedBillingRegionCode;
+    NSString *selectedShippingRegionCode,*selectedBillingRegionCode, *baseTaxForBillingAddress;
     int selectedShippingRegionId, selectedBillingRegionId;
     BOOL isPickerEnable;
     NSMutableArray *countryNameArray,*shippingRegionNameArray,*billingRegionNameArray, *tempShippingRegionNameArray, *tempbillingRegionNameArray;
@@ -40,6 +40,8 @@
    double userLongitude;
 }
 //Other view objects declaration
+@property (weak, nonatomic) IBOutlet UIView *shippingView;
+@property (weak, nonatomic) IBOutlet UIView *billingView;
 @property (strong, nonatomic) IBOutlet UILabel *freeShippingLabel;
 @property (strong, nonatomic) IBOutlet UILabel *firstStepLabel;
 @property (strong, nonatomic) IBOutlet UILabel *secondStepLabel;
@@ -134,6 +136,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
+    
+    if ([cartModelData.allProductsAreEvents isEqualToString:@"1"]) {
+        _shippingView.translatesAutoresizingMaskIntoConstraints=YES;
+        _shippingView.frame=CGRectMake(_shippingView.frame.origin.x, _shippingView.frame.origin.y, _shippingView.frame.size.width, 0);
+        _billingSameAddressLabel.hidden=YES;
+        _noRadioLabel.hidden=YES;
+        _yesRadioLabel.hidden=YES;
+        _yesSameAddressButton.hidden=YES;
+        _noSameAddressButton.hidden=YES;
+         [self viewObjectFraming];
+        [self setInitailizedBillingAddressData:false];
+    }
+    else {
     if ((isBillingAddress||isShippingAddress)&&isEditService) {
         isBillingAddress=false;
         isShippingAddress=false;
@@ -144,6 +159,7 @@
             [myDelegate showIndicator];
             [self performSelector:@selector(setUpdatedAddressShippingMethods:) withObject:[NSNumber numberWithInt:1] afterDelay:.1];
         }
+    }
     }
 }
 
@@ -396,6 +412,25 @@
     _scrollView.translatesAutoresizingMaskIntoConstraints=true;
     _totalTableView.frame=CGRectMake(13, 8, [[UIScreen mainScreen] bounds].size.width-26, 25*totalArray.count);
     _bottomView.frame=CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-60-(_totalTableView.frame.size.height+59), [[UIScreen mainScreen] bounds].size.width, (_totalTableView.frame.size.height+59));
+    if ([cartModelData.allProductsAreEvents isEqualToString:@"1"]) {
+         _shippmentMethodTableView.frame=CGRectMake(20, 494, [[UIScreen mainScreen] bounds].size.width-40, 0);
+        if ((nil==[UserDefaultManager getValue:@"userId"])) {
+            _rewardBackView.hidden=true;
+            _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 500);
+        }
+        else {
+            _rewardBackView.hidden=false;
+            if (cartModelData.checkoutPromosArray.count>0) {
+                _rewardBackView.frame=CGRectMake(0, _shippmentMethodTableView.frame.origin.y+_shippmentMethodTableView.frame.size.height, [[UIScreen mainScreen] bounds].size.width, 160);
+            }
+            else {
+                _rewardBackView.frame=CGRectMake(0, _shippmentMethodTableView.frame.origin.y+_shippmentMethodTableView.frame.size.height, [[UIScreen mainScreen] bounds].size.width, 64);
+            }
+            _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 500+_rewardBackView.frame.size.height);
+        }
+        _scrollView.frame=CGRectMake(0, 195, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-195-60-_bottomView.frame.size.height);
+    }
+    else {
     _shippmentMethodTableView.frame=CGRectMake(20, 933, [[UIScreen mainScreen] bounds].size.width-40, 50*cartModelData.shippmentMethodsArray.count);
     if ((nil==[UserDefaultManager getValue:@"userId"])) {
         _rewardBackView.hidden=true;
@@ -412,6 +447,7 @@
         _mainCheckoutAddressView.frame=CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 930+_shippmentMethodTableView.frame.size.height+_rewardBackView.frame.size.height);
     }
     _scrollView.frame=CGRectMake(0, 195, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-195-60-_bottomView.frame.size.height);
+    }
     _scrollView.contentSize = CGSizeMake(0,_mainCheckoutAddressView.frame.size.height);
 }
 
@@ -818,10 +854,17 @@
     isPickerEnable=false;
     [gNPickerViewObj hidePickerView];
     [self.view endEditing:true];
+    if ([cartModelData.allProductsAreEvents isEqualToString:@"1"]) {
+        [myDelegate showIndicator];
+        if ([self billingAddressFieldValidations]) {
+            [self performSelector:@selector(setBillingAddressForEvents) withObject:nil afterDelay:.1];
+        }    }
+    else {
      [myDelegate showIndicator];
     NSString *addressString =[NSString stringWithFormat:@"%@,%@,%@,%@,%@",_shippingAddressLine1TextField.text,_shippingCityTextField.text,_shippingStateTextField.text,_shippingCountryTextField.text,_shippingZipCodeTextField.text];
     [self getLocationFromAddressString:addressString];
-    [self performSelector:@selector(setLocationService) withObject:[NSNumber numberWithInt:0] afterDelay:.1];
+    [self performSelector:@selector(setLocationService) withObject:nil afterDelay:.1];
+    }
 }
 
 - (IBAction)shippingEditAddress:(UIButton *)sender {
@@ -1041,6 +1084,48 @@
     }];
 }
 
+- (void)setBillingAddressForEvents {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    cartData=[cartModelData copy];
+    cartData.billingAddressDict=[[self setBillingAddressInCartModel] mutableCopy];
+    cartModelData.billingAddressDict=[cartData.billingAddressDict mutableCopy];
+    [cartData setBillingAddress:^(CartDataModel *shippmentDetailData)  {
+                    [self getPaymentMethods];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)getCartList {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    [cartData getCartListingData:^(CartDataModel *userData)  {
+        [myDelegate stopIndicator];
+        baseTaxForBillingAddress=[userData.extensionAttributeDict objectForKey:@"base_tax_amount"];
+        if (selectedCheckoutPromoIndex==-1||(nil==[UserDefaultManager getValue:@"userId"])) {
+            [myDelegate stopIndicator];
+            //Navigate to step3
+            [self navigateToFinalCheckout];
+        }
+        else {
+         [self setCheckoutPromos];
+        }
+      
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)getPaymentMethods {
+    CartDataModel *cartData = [CartDataModel sharedUser];
+    [cartData getPaymentMethodsForEvents:^(CartDataModel *userData)  {
+        cartModelData.checkoutFinalData=[userData.checkoutFinalData mutableCopy];
+         [self getCartList];
+    } onfailure:^(NSError *error) {
+        
+    }];
+}
+
+
 //Set addresses and shipping methods
 - (void)setUpdatedAddressShippingMethods:(NSNumber *)serviceType {
     if ([cartModelData.selectedShippingMethod isEqualToString:@""]) {
@@ -1082,7 +1167,6 @@
                 }
             }
             else if ([serviceType intValue]==2) {
-                
                 [myDelegate stopIndicator];
                 //Navigate to step3
                 [self navigateToFinalCheckout];
@@ -1130,13 +1214,18 @@
         cartData.promoDiscountValue=[NSString stringWithFormat:@"%f",[[cartModelData.shippmentMethodsArray[selectedShippingMethodIndex] objectForKey:@"base_amount"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue]];
     }
     [cartData setCheckoutPromosOnSuccess:^(CartDataModel *shippmentDetailData)  {
+        if ([cartModelData.allProductsAreEvents isEqualToString:@"1"]) {
+            [myDelegate stopIndicator];
+            //Navigate to step3
+            [self navigateToFinalCheckout];
+        }
+        else {
         [self setUpdatedAddressShippingMethods:[NSNumber numberWithInt:2]];
+        }
     } onfailure:^(NSError *error) {
         
     }];
 }
-
-#pragma mark - end
 
 - (NSDictionary *)setShippingAddressInCartModel {
     NSMutableArray *streetTempArray=[NSMutableArray new];
@@ -1187,6 +1276,7 @@
                                      };
     return billingAddress;
 }
+#pragma mark - end
 
 #pragma mark - Custom picker delegate method
 - (void)goNatuurPickerViewDelegateActionIndex:(int)tempSelectedIndex option:(int)option {
@@ -1363,7 +1453,13 @@
 - (void)navigateToFinalCheckout {
     FinalCheckoutViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FinalCheckoutViewController"];
     obj.cartModelData=[cartModelData copy];
+    //baseTaxForBillingAddress
+    if ([cartModelData.allProductsAreEvents isEqualToString:@"1"]) {
+        [finalCheckoutPriceDict setObject:baseTaxForBillingAddress forKey:@"Tax"];
+    }
+    else {
     [finalCheckoutPriceDict setObject:[[cartModelData.checkoutFinalData objectForKey:@"totals"] objectForKey:@"base_tax_amount"] forKey:@"Tax"];
+    }
     obj.finalCheckoutPriceDict=[finalCheckoutPriceDict mutableCopy];
     obj.cartListDataArray=[cartListDataArray mutableCopy];
     [self.navigationController pushViewController:obj animated:YES];

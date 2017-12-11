@@ -19,7 +19,7 @@
 @interface MyCartViewController ()<CartListDelegate> {
     CartListingViewController *cartListObj;
 //    CheckoutAddressViewController *checkoutAddressObj;
-    NSMutableArray *cartListData;
+    NSMutableArray *cartListData, *tempDataArray;
     float totalCartProductPrice;
     CartDataModel *cartModelData;
 }
@@ -116,25 +116,6 @@
     _firstStepLabel.backgroundColor=selectedStepColor;
 }
 
-//- (void)viewCustomisation:(int)step {
-//    switch (step) {
-//        case 1:
-//            
-//            break;
-//        case 2:
-//            _firstStepSeperetorLabel.backgroundColor=selectedStepColor;
-//            _secondStepLabel.backgroundColor=selectedStepColor;
-//            break;
-//        case 3:
-//            _secondStepSeperetorLabel.backgroundColor=selectedStepColor;
-//            _thirdStepLabel.backgroundColor=selectedStepColor;
-//            break;
-//        default:
-//             _fourthStepLabel.backgroundColor=selectedStepColor;
-//            break;
-//    }
-//}
-
 - (void)addCartListView {
    cartListObj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CartListingViewController"];
     cartListObj.view.translatesAutoresizingMaskIntoConstraints=YES;
@@ -143,6 +124,7 @@
     [self showTotalPriceAndPoints];
     cartListObj.delegate=self;
     cartListObj.cartListDataArray=[cartListData mutableCopy];
+    cartListObj.tempListDataArray=[tempDataArray mutableCopy];
     cartListObj.cartModelData=cartModelData;
     [cartListObj.cartListTableView reloadData];
     [cartListObj.continueShoppingOutlet addTarget:self action:@selector(cartListContinueShopping:) forControlEvents:UIControlEventTouchUpInside];
@@ -179,6 +161,7 @@
     }
     searchData.productName=productIds;
     [searchData getProductListByNameServiceOnSuccess:^(SearchDataModel *userData)  {
+        tempDataArray=[userData.searchProductListArray mutableCopy];
         totalCartProductPrice=0.0;
         float totalImpactPoint=0.0;
         //Add product image and description in already data stored data array
@@ -190,14 +173,11 @@
                 NSUInteger index = [userData.searchProductListArray indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
                     return [predicate evaluateWithObject:obj];
                 }];
-                
                 cartDataTemp.isRedeemProduct=[[userData.searchProductListArray objectAtIndex:index] isRedeemProduct];
-                
                 if ([cartDataTemp.isRedeemProduct boolValue]) {
                     DLog(@"%@",[[userData.searchProductListArray objectAtIndex:index] productImpactPoint]);
                     cartDataTemp.productImpactPoint=[[userData.searchProductListArray objectAtIndex:index] productImpactPoint];
                 }
-                
                 cartDataTemp.itemDescription=[[userData.searchProductListArray objectAtIndex:index] productDescription];
                 cartDataTemp.itemImageUrl=[[userData.searchProductListArray objectAtIndex:index] productImageThumbnail];
                 [cartListData replaceObjectAtIndex:i withObject:cartDataTemp];
@@ -223,7 +203,6 @@
             cartModelData.isRedeemProductExist=[NSNumber numberWithBool:false];
         }
         [self addCartListView];
-        
         if ((nil==[UserDefaultManager getValue:@"userId"])) {
             cartModelData.totalImpactPoints=[NSNumber numberWithInt:0];
             [myDelegate stopIndicator];
@@ -231,7 +210,6 @@
         else {
             [self getImpactPoints];
         }
-        
     } onfailure:^(NSError *error) {
     }];
 }
@@ -261,6 +239,15 @@
 
 - (IBAction)cartListNext:(UIButton *)sender {
     //StoryBoard navigation
+    for (int i =0; i<tempDataArray.count; i++) {
+        if ([[[tempDataArray objectAtIndex:i] productType] isEqualToString:@"ticket"]) {
+            cartModelData.allProductsAreEvents=@"1";
+        }
+        else {
+            cartModelData.allProductsAreEvents=@"0";
+            break;
+        }
+    }
     if (((nil==[UserDefaultManager getValue:@"userId"])&&[cartModelData.isRedeemProductExist boolValue])&&[cartModelData.totalImpactPoints doubleValue]<[cartModelData.impactPoints doubleValue]) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"rewardProductExistAlert") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
@@ -276,9 +263,10 @@
 #pragma mark - end
 
 #pragma mark - Cart list delegate method
-- (void)removedItemDelegate:(NSMutableArray *)updatedCartList {
+- (void)removedItemDelegate:(NSMutableArray *)updatedCartList  updatedTempCartList:(NSMutableArray *)updatedTempCartList {
     [self updateCartBadge];
     cartListData=[updatedCartList mutableCopy];
+    tempDataArray=[updatedTempCartList mutableCopy];
     if ([updatedCartList count]>0) {
         [cartListObj.cartListTableView reloadData];
     }

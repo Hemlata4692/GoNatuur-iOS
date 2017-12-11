@@ -24,6 +24,9 @@ static NSString *kClearCart=@"carts/mine";
 static NSString *kOrderIDCart=@"carts/mine";
 static NSString *kClearCartGuest=@"guest-carts";
 static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
+static NSString *kBillingAddressGuest=@"billing-address";
+static NSString *kBillingAddress=@"carts/mine/billing-address";
+static NSString *kPaymentMethodsForGuest=@"carts/mine/payment-methods";
 
 @implementation CartService
 
@@ -51,6 +54,18 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
     }
     else {
         [self post:kCartListing parameters:nil success:success failure:failure];
+    }
+}
+
+#pragma mark - Payment methods
+- (void)fetchPaymentMethodsOnService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+        //https://dev.gonatuur.com/en/rest/en/V1/carts/mine/payment-methods
+        //https://dev.gonatuur.com/en/rest/en/V1/guest-carts/407232b70a47317e7124695cf275f225/payment-methods
+        [self get:[NSString stringWithFormat:@"guest-carts/%@/payment-methods",[UserDefaultManager getValue:@"quoteId"]] parameters:nil onSuccess:success onFailure:failure];
+    }
+    else {
+        [self get:kPaymentMethodsForGuest parameters:nil onSuccess:success onFailure:failure];
     }
 }
 
@@ -175,6 +190,21 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
     else {
         [super postPayment:kCyberSourcePayment parameters:parameters isBoolean:true success:success failure:failure];
     }
+}
+#pragma mark - end
+
+#pragma mark - Set Billing addresses
+- (void)setUpdatedBillingAddressMethodsService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"cartId":[UserDefaultManager getValue:@"quoteId"],@"address":[self setAddressMethod:[cartData.billingAddressDict copy]]};
+  
+    DLog(@"%@",parameters);
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+        [super post:[NSString stringWithFormat:@"guest-carts/%@/%@",[UserDefaultManager getValue:@"quoteId"],kBillingAddressGuest] parameters:parameters success:success failure:failure];
+    }
+    else {
+        [super post:kBillingAddress parameters:parameters success:success failure:failure];
+    }
+    
 }
 #pragma mark - end
 
