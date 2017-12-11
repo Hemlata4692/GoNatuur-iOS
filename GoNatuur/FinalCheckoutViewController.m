@@ -964,12 +964,12 @@
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validMonth") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     }
-    else if (_yearField.text.length != 4) {
+    else if (_yearField.text.length < 2 && _yearField.text.length > 4) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validYear") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
     }
-    else if (_cvvField.text.length != 3) {
+    else if (_cvvField.text.length < 3 && _cvvField.text.length > 4) {
         SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
         [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"validCVV") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
         return NO;
