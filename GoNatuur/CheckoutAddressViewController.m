@@ -1052,6 +1052,9 @@
     userData.currentPage=@"1";
     [userData getImpactPoints:^(ProfileModel *userData) {
         cartModelData.totalImpactPoints=[NSNumber numberWithInt:[userData.totalPoints intValue]];
+        if (userData.creditLimit!=nil) {
+            cartModelData.creditLimit=[NSNumber numberWithInt:[userData.creditLimit intValue]];
+        }
         cartModelData.checkoutImpactPoint=[NSNumber numberWithInt:([userData.totalPoints intValue]-[cartModelData.impactPoints intValue])];
         _impactPointLabel.text=[NSString stringWithFormat:@"%@ %@ip",NSLocalizedText(@"checkoutAddressImpactPoint"),cartModelData.checkoutImpactPoint];
         [self getCheckoutPromos];
@@ -1131,8 +1134,10 @@
     if ([cartModelData.selectedShippingMethod isEqualToString:@""]) {
         CartDataModel *cartData = [CartDataModel sharedUser];
         cartData.shippingAddressDict=[[self setShippingAddressInCartModel] mutableCopy];
+         cartData.billingAddressDict=[[self setBillingAddressInCartModel] mutableCopy];
         [cartData getShippingMethodData:^(CartDataModel *userData)  {
             cartModelData.selectedShippingMethod=userData.selectedShippingMethod;
+            cartModelData.selectedCarrierCode=userData.selectedCarrierCode;
             [self setUpdatedAddressShippingMethods:serviceType];
         } onfailure:^(NSError *error) {
             
@@ -1459,6 +1464,13 @@
     }
     else {
     [finalCheckoutPriceDict setObject:[[cartModelData.checkoutFinalData objectForKey:@"totals"] objectForKey:@"base_tax_amount"] forKey:@"Tax"];
+    }
+    if (cartModelData.creditLimit!=nil && !([[UserDefaultManager getValue:@"groupId"] isEqualToString:@"1"])) {
+         [finalCheckoutPriceDict setObject:cartModelData.creditLimit forKey:@"Credit usage"];
+        obj.isCreditCustomer=true;
+    }
+    else {
+        obj.isCreditCustomer=false;
     }
     obj.finalCheckoutPriceDict=[finalCheckoutPriceDict mutableCopy];
     obj.cartListDataArray=[cartListDataArray mutableCopy];

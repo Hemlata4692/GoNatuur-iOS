@@ -59,6 +59,7 @@
 @property (strong, nonatomic) NSString *billingAddressID;
 @property (strong, nonatomic) NSString *shippingAddressID;
 @property (strong, nonatomic) UIImage *userImage;
+@property (strong, nonatomic) NSString *creditLimit;
 
 @property (strong, nonatomic) NSString *latitude;
 @property (strong, nonatomic) NSString *longitude;

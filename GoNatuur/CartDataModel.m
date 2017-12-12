@@ -44,6 +44,7 @@
 @synthesize selectedCarrierCode;
 @synthesize allProductsAreEvents;
 @synthesize paymentMethodArray;
+@synthesize creditLimit;
 
 - (id)copyWithZone:(NSZone *)zone {
     CartDataModel *another = [[CartDataModel alloc] init];
@@ -78,6 +79,7 @@
     another.selectedCarrierCode= [self.selectedCarrierCode copyWithZone: zone];
     another.allProductsAreEvents=[self.allProductsAreEvents copyWithZone: zone];
     another.paymentMethodArray=[self.paymentMethodArray copyWithZone:zone];
+    another.creditLimit=[self.creditLimit copyWithZone:zone];
     return another;
 }
 

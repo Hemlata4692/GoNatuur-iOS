@@ -53,6 +53,7 @@
 @synthesize impactPointTotalRecord;
 @synthesize latitude;
 @synthesize longitude;
+@synthesize creditLimit;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{

@@ -114,7 +114,7 @@
         DLog(@"gmail given name is %@", gmailResult.profile.givenName);
         DLog(@"gmail family name is %@", gmailResult.profile.familyName);
         DLog(@"gmail auth token is %@", gmailResult.authentication.idToken);
-      [_delegate socialLoginResponse:FacebookLogin result:@{@"email":(gmailResult.profile.email!=nil?gmailResult.profile.email:@""), @"id":gmailResult.userID,@"firstName":(gmailResult.profile.givenName!=nil?gmailResult.profile.givenName:@""),@"lastName":(gmailResult.profile.familyName!=nil?gmailResult.profile.familyName:@""),@"id":gmailResult.userID,@"imageUrl":[ImageURL absoluteString]}];
+      [_delegate socialLoginResponse:GoogleLogin result:@{@"email":(gmailResult.profile.email!=nil?gmailResult.profile.email:@""), @"id":gmailResult.userID,@"firstName":(gmailResult.profile.givenName!=nil?gmailResult.profile.givenName:@""),@"lastName":(gmailResult.profile.familyName!=nil?gmailResult.profile.familyName:@""),@"id":gmailResult.userID,@"imageUrl":[ImageURL absoluteString]}];
     }
 }
 #pragma mark - end

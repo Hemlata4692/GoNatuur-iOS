@@ -1194,6 +1194,7 @@
         profileData.recentEarnedPoints=response[@"recently_earned_points"];
         profileData.impactsPointDataArray=[response[@"impact_points_history"] mutableCopy];
         profileData.impactPointTotalRecord=response[@"total_records"];
+        profileData.creditLimit=response[@"credit_limit"];
         success(profileData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -1951,7 +1952,10 @@
     CartService *cartList=[[CartService alloc]init];
     [cartList getShippingMethod:cartData success:^(id response) {
         DLog(@"Get shipping method response %@",response);
-        cartData.selectedShippingMethod=[NSString stringWithFormat:@"%@_%@",[[response objectAtIndex:0] objectForKey:@"carrier_code"],[[response objectAtIndex:0] objectForKey:@"carrier_code"]];
+//        cartData.selectedShippingMethod=[response objectForKey:@"method_code"];
+//        cartData.selectedCarrierCode=[response objectForKey:@"carrier_code"];
+        cartData.selectedShippingMethod=[[response objectAtIndex:0] objectForKey:@"method_code"];
+         cartData.selectedCarrierCode=[[response objectAtIndex:0] objectForKey:@"carrier_code"];
         success(cartData);
     }
                       onfailure:^(NSError *error) {

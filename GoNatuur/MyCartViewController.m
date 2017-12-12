@@ -221,6 +221,9 @@
     userData.currentPage=@"1";
     [userData getImpactPoints:^(ProfileModel *userData) {
         cartModelData.totalImpactPoints=[NSNumber numberWithInt:[userData.totalPoints intValue]];
+        if (userData.creditLimit!=nil) {
+            cartModelData.creditLimit=[NSNumber numberWithInt:[userData.creditLimit intValue]];
+        }
         [myDelegate stopIndicator];
     } onfailure:^(NSError *error) {
         

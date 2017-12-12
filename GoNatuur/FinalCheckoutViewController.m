@@ -81,6 +81,7 @@
 @synthesize cartListDataArray;
 @synthesize finalCheckoutPriceDict;
 @synthesize selectedCardDataDict;
+@synthesize isCreditCustomer;
 
 #pragma mark - View life cycle
 - (void)viewDidLoad {
@@ -177,8 +178,8 @@
     [self setLocalizedText];
     totalDict=[NSMutableDictionary new];
     totalArray=@[];
+    isCreditUser=isCreditCustomer;
     [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Apply coupon code"];
-    [finalCheckoutPriceDict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Credit amount"];
     if (nil==[UserDefaultManager getValue:@"userId"]) {
         _selectCardButton.enabled=false;
         _selectCardLabel.alpha=0.3;
@@ -492,27 +493,36 @@
 - (void)setPriceForCreditUser {
     //Only for redeem products with apply coupon code
     if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]&&([finalCheckoutPriceDict[@"Shipping charges"] floatValue]-[finalCheckoutPriceDict[@"Discount"] floatValue])>0) {
-        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"credit usage",@"Tax", @"Apply coupon code", @"Grand Total"];
+        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Credit usage",@"Tax", @"Apply coupon code", @"Grand Total"];
         [self setRedeemProductsWithApplyCouponCode];
         
     }
     //Only for redeem products without apply coupon code
     else if (![cartModelData.isSimpleProductExist boolValue]&&[cartModelData.isRedeemProductExist boolValue]) {
         isApplyCouponExist=false;
-        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"credit usage",@"Tax", @"Grand Total"];
+        totalArray=@[@"Points subtotal", @"Shipping charges", @"Discount", @"Credit usage",@"Tax", @"Grand Total"];
         [self setRedeemProductsWithOutApplyCouponCode];
     }
     //Only for simple products
     else if ([cartModelData.isSimpleProductExist boolValue]&&![cartModelData.isRedeemProductExist boolValue]) {
-        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount", @"credit usage",@"Tax", @"Apply coupon code", @"Grand Total"];
+        totalArray=@[@"Cart subtotal", @"Shipping charges", @"Discount", @"Credit usage",@"Tax", @"Apply coupon code", @"Grand Total"];
         [self setOnlyForSimpleProducts];
     }
     //For both simple and redeem products
     else {
-        totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount", @"credit usage",@"Tax", @"Apply coupon code", @"Grand Total"];
+        totalArray=@[@"Cart subtotal", @"Points subtotal", @"Shipping charges", @"Discount", @"Credit usage",@"Tax", @"Apply coupon code", @"Grand Total"];
         [self setForBothSimpleAndRedeemProducts];
     }
-    [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"credit usage"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"credit usage"];
+    [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Credit usage"] floatValue]*[[UserDefaultManager getValue:@"ExchangeRates"] doubleValue])] forKey:@"Credit usage"];
+    
+    if ([[totalDict objectForKey:@"Credit usage"] floatValue] >= [[totalDict objectForKey:@"Grand Total"] floatValue]) {
+        [totalDict setObject:[totalDict objectForKey:@"Grand Total"] forKey:@"Credit usage"];
+        [totalDict setObject:[NSString stringWithFormat:@"%@%@",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],@"0.00"] forKey:@"Grand Total"];
+//        [totalDict setObject:[NSString stringWithFormat:@"%@%.2f",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Shipping charges"] floatValue]-[finalCheckoutPriceDict[@"Discount"] floatValue])] forKey:@"Credit usage"];
+    }
+    else {
+         [totalDict setObject:[NSString stringWithFormat:@"%@%.2f + %@ip",[UserDefaultManager getValue:@"DefaultCurrencySymbol"],([finalCheckoutPriceDict[@"Shipping charges"] floatValue]-[finalCheckoutPriceDict[@"Discount"] floatValue]-[[totalDict objectForKey:@"Credit usage"] floatValue]),finalCheckoutPriceDict[@"Points subtotal"]] forKey:@"Grand Total"];
+    }
 }
 #pragma mark - end
 
@@ -820,7 +830,7 @@
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     NewsLetterSubscriptionViewController *popView =
     [storyboard instantiateViewControllerWithIdentifier:@"NewsLetterSubscriptionViewController"];
-    popView.delegate=self;;
+    popView.delegate=self;
     popView.screeType=@"2";
     popView.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4f];
     [popView setModalPresentationStyle:UIModalPresentationOverCurrentContext];

@@ -15,5 +15,5 @@
 @property (nonatomic, strong) NSMutableArray *cartListDataArray;
 @property (nonatomic, strong) NSMutableDictionary *finalCheckoutPriceDict;
 @property (nonatomic, strong) PaymentModel *selectedCardDataDict;
-
+@property (nonatomic, assign) BOOL isCreditCustomer;
 @end
