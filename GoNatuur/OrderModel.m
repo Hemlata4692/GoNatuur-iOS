@@ -25,6 +25,7 @@
 @synthesize trackNumber;
 @synthesize isOrderDetailService;
 @synthesize orderShipmentDataArray;
+@synthesize orderReturnSuccess;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -40,6 +41,18 @@
 #pragma mark - Get order listing
 - (void)getOrderListing:(void (^)(OrderModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getOrderListing:self onSuccess:^(OrderModel *orderData) {
+        if (success) {
+            success (orderData);
+        }
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Get order retun status
+- (void)getOrderReturnStatusData:(void (^)(OrderModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] getOrderReturnStatus:self onSuccess:^(OrderModel *orderData) {
         if (success) {
             success (orderData);
         }

@@ -26,4 +26,6 @@
 - (void)getImpactsPointService:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 //User profile image service
 - (void)updateUserprofileImageService:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
+//Lat long
+- (void)shippingaddressLatLongService:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 @end

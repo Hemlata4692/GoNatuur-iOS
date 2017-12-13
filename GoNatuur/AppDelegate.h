@@ -29,6 +29,10 @@
 @property (nonatomic,strong) NSString *isShareUrlScreen;
 @property (nonatomic,strong) NSMutableDictionary *shareEventIdDataDict;
 @property (strong, nonatomic) NSMutableArray *recentlyViewedItemsArrayGuest;
+@property (nonatomic,strong) NSString *screenTargetId;
+@property (nonatomic,strong) NSString *isNotificationArrived;
+@property (nonatomic,assign) int notificationType;
+
 - (void)showIndicator;
 - (void)stopIndicator;
 

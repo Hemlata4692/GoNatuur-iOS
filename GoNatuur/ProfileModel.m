@@ -51,6 +51,8 @@
 @synthesize shippingAddressID;
 @synthesize impactsPointDataArray;
 @synthesize impactPointTotalRecord;
+@synthesize latitude;
+@synthesize longitude;
 
 #pragma mark - Shared instance
 + (instancetype)sharedUser{
@@ -155,6 +157,18 @@
 #pragma mark - Country code service
 - (void)getCountryCodeService:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] getCountryCodeService:self onSuccess:^(ProfileModel *profileData) {
+        if (success) {
+            success (profileData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - end
+
+#pragma mark - Lat long service
+- (void)setShippingLatLong:(void (^)(ProfileModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] setShippingLatLongService:self onSuccess:^(ProfileModel *profileData) {
         if (success) {
             success (profileData);
         }

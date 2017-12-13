@@ -21,8 +21,12 @@ static NSString *kCyberSourcePayment=@"carts/mine/payment-information";
 static NSString *kCyberSourceGuestPayment=@"payment-information";
 static NSString *kGetshippingMethod=@"carts/mine/estimate-shipping-methods";
 static NSString *kClearCart=@"carts/mine";
+static NSString *kOrderIDCart=@"carts/mine";
 static NSString *kClearCartGuest=@"guest-carts";
 static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
+static NSString *kBillingAddressGuest=@"billing-address";
+static NSString *kBillingAddress=@"carts/mine/billing-address";
+static NSString *kPaymentMethodsForGuest=@"carts/mine/payment-methods";
 
 @implementation CartService
 
@@ -50,6 +54,18 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
     }
     else {
         [self post:kCartListing parameters:nil success:success failure:failure];
+    }
+}
+
+#pragma mark - Payment methods
+- (void)fetchPaymentMethodsOnService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    if ((nil==[UserDefaultManager getValue:@"userId"])) {
+        //https://dev.gonatuur.com/en/rest/en/V1/carts/mine/payment-methods
+        //https://dev.gonatuur.com/en/rest/en/V1/guest-carts/407232b70a47317e7124695cf275f225/payment-methods
+        [self get:[NSString stringWithFormat:@"guest-carts/%@/payment-methods",[UserDefaultManager getValue:@"quoteId"]] parameters:nil onSuccess:success onFailure:failure];
+    }
+    else {
+        [self get:kPaymentMethodsForGuest parameters:nil onSuccess:success onFailure:failure];
     }
 }
 
@@ -177,16 +193,28 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
 }
 #pragma mark - end
 
+#pragma mark - Set Billing addresses
+- (void)setUpdatedBillingAddressMethodsService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"cartId":[UserDefaultManager getValue:@"quoteId"],@"address":[self setAddressMethod:[cartData.billingAddressDict copy]]};
+  
+    DLog(@"%@",parameters);
+    if ((nil==[UserDefaultManager getValue:@"userId"])){
+        [super post:[NSString stringWithFormat:@"guest-carts/%@/%@",[UserDefaultManager getValue:@"quoteId"],kBillingAddressGuest] parameters:parameters success:success failure:failure];
+    }
+    else {
+        [super post:kBillingAddress parameters:parameters success:success failure:failure];
+    }
+    
+}
+#pragma mark - end
+
 #pragma mark - Set addresses and shipping methods
 - (void)setUpdatedAddressShippingMethodsService:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    if ([cartData.selectedShippingMethod containsString:@"_"]) {
-        cartData.selectedShippingMethod=[[cartData.selectedShippingMethod componentsSeparatedByString:@"_"] objectAtIndex:0];
-    }
     NSDictionary *parameters = @{@"addressInformation" : @{
                                          @"shipping_address":[self setAddressMethod:[cartData.shippingAddressDict copy]],
                                          @"billing_address":[self setAddressMethod:[cartData.billingAddressDict copy]],
                                          @"shipping_method_code":cartData.selectedShippingMethod,
-                                         @"shipping_carrier_code":cartData.selectedShippingMethod
+                                         @"shipping_carrier_code":cartData.selectedCarrierCode
                                          }
                                  };
     DLog(@"%@",parameters);
@@ -200,6 +228,7 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
 }
 #pragma mark - end
 
+#pragma mark - Set address
 - (NSDictionary *)setAddressMethod:(NSDictionary *)tempDict {
     NSMutableArray *streetTempArray=[NSMutableArray new];
     for (NSString *street in tempDict[@"street"]) {
@@ -208,7 +237,6 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
     if (streetTempArray.count<1) {
         [streetTempArray addObject:@""];
     }
-    
     NSDictionary *parameters = @{@"region" : [UserDefaultManager checkStringNull:@"region" dictData:tempDict],
                                  @"region_id" : [UserDefaultManager getNumberValue:[tempDict objectForKey:@"region_id"] dictData:tempDict],
                                  @"region_code" : [UserDefaultManager checkStringNull:@"region_code" dictData:tempDict],
@@ -230,12 +258,20 @@ static NSString *kCartGuestListing=@"ranosys/get-cart-quote/guest?";
 
 #pragma mark - Remove coupon code
 - (void)clearCart:(CartDataModel *)cartData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
-    if ((nil==[UserDefaultManager getValue:@"userId"])){
-         [super postPayment:kClearCartGuest parameters:nil isBoolean:true success:success failure:success];
+    if ([cartData.clearCartEnabled isEqualToString:@"1"]) {
+        if ((nil==[UserDefaultManager getValue:@"userId"])){
+            [super postPayment:kClearCartGuest parameters:nil isBoolean:true success:success failure:success];
+        }
+        else {
+            [super postPayment:kClearCart parameters:nil isBoolean:true success:success failure:failure];
+        }
     }
     else {
-        [super postPayment:kClearCart parameters:nil isBoolean:true success:success failure:failure];
+        if ((nil==[UserDefaultManager getValue:@"userId"])){
+            [self get:[NSString stringWithFormat:@"%@/%@",kClearCartGuest,[UserDefaultManager getValue:@"quoteId"]] parameters:nil onSuccess:success onFailure:failure];
+        }
     }
+   
 }
 #pragma mark - end
 @end

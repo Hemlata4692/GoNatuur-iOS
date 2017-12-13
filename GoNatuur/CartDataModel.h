@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSMutableDictionary *extensionAttributeDict;
 @property (strong, nonatomic) NSMutableDictionary *shippingAddressDict;
 @property (strong, nonatomic) NSString *selectedShippingMethod;
+@property (strong, nonatomic) NSString *selectedCarrierCode;
 @property (strong, nonatomic) NSMutableDictionary *customerDict;
 @property (strong, nonatomic) NSMutableArray *customerSavedAddressArray;
 @property (strong, nonatomic) NSMutableArray *shippmentMethodsArray;
@@ -39,9 +40,11 @@
 @property (strong, nonatomic) NSNumber *isRedeemProductExist;
 @property (strong, nonatomic) NSNumber *isSimpleProductExist;
 @property (strong, nonatomic) NSString *couponCode;
+@property (strong, nonatomic) NSString *allProductsAreEvents;
 @property (strong, nonatomic) NSString *isCouponApplied;
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *expirationMonth;
+@property (strong, nonatomic) NSMutableArray *paymentMethodArray;
 
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *cyberSourceOrderId;
@@ -61,8 +64,8 @@
 @property (strong, nonatomic) NSString *saveCard;
 @property (strong, nonatomic) NSString *subscriptionID;
 @property (strong, nonatomic) NSString *method;
-
-
+@property (strong, nonatomic) NSString *clearCartEnabled;
+@property (strong, nonatomic) NSString *orderIncrementId;
 //Singleton instanse
 + (instancetype)sharedUser;
 
@@ -92,5 +95,8 @@
 - (void)getShippingMethodData:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 //Clear cart
 - (void)clearCart:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
-
+//Billing address
+- (void)setBillingAddress:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
+//Get payment methods for events
+- (void)getPaymentMethodsForEvents:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure;
 @end

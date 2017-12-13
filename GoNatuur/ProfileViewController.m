@@ -36,9 +36,6 @@
     menuItemsArray = @[@"profileImageCell", @"userEmailCell", @"impactPointCell", @"redeemPointCell", @"detailCell",@"customerSupportCell", @"changePasswordCell", @"recentlyViewedCell", @"notificationCell"];
     [self addCustomPickerView];
     isImagePicker=false;
-    
-    [myDelegate showIndicator];
-    [self performSelector:@selector(getUserImapctPoints) withObject:nil afterDelay:.1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,7 +51,10 @@
     myDelegate.selectedCategoryIndex=-1;
     customerSupportArray=@[NSLocalizedText(@"chat"), NSLocalizedText(@"raiseTicket")];
     [self showSelectedTab:4];
+  
     if (!isImagePicker) {
+        [myDelegate showIndicator];
+        [self performSelector:@selector(getUserImapctPoints) withObject:nil afterDelay:.1];
         [_profileTableView reloadData];
     }
 }
@@ -63,6 +63,10 @@
     [self.view bringSubviewToFront:customerSupportPicker.goNatuurPickerViewObj];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    myDelegate.isNotificationArrived=@"0";
+}
 //add picker view
 - (void)addCustomPickerView {
     selectedPickerIndex=-1;

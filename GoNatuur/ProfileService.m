@@ -14,6 +14,8 @@ static NSString *kCountryCode=@"directory/countries";
 static NSString *kUserProfile=@"customers/me";
 static NSString *kUserImpactsPoints=@"ranosys/myimpactpoints";
 static NSString *kEditProfilePicture=@"customerprofile/index";
+static NSString *kSetLatLongGuest=@"ranosys/set-shipping-latlng/guest";
+static NSString *kSetLatLong=@"ranosys/set-shipping-latlng/mine";
 
 @implementation ProfileService
 
@@ -29,6 +31,21 @@ static NSString *kEditProfilePicture=@"customerprofile/index";
 #pragma mark - Get country code service
 - (void)getCountryCodeService:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
     [super get:kCountryCode parameters:nil onSuccess:success onFailure:failure];
+}
+#pragma mark - end
+
+#pragma mark - Lat long service
+- (void)shippingaddressLatLongService:(ProfileModel *)profileData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure {
+    NSDictionary *parameters = @{@"shippingLat" : profileData.latitude,
+                                 @"shippingLng" : profileData.longitude,
+                                 @"quoteId":[UserDefaultManager getValue:@"quoteId"]
+                                 };
+    if (nil==[UserDefaultManager getValue:@"userId"]) {
+        [super post:kSetLatLongGuest parameters:parameters success:success failure:failure];
+    }
+    else {
+    [super post:kSetLatLong parameters:parameters success:success failure:failure];
+    }
 }
 #pragma mark - end
 

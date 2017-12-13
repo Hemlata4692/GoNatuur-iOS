@@ -52,6 +52,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    myDelegate.isNotificationArrived=@"0";
+}
 #pragma mark - end
 
 #pragma mark TableView DataSource and Delegate Methods
@@ -275,18 +280,40 @@
     orderData.isOrderDetailService=@"1";
     orderData.orderId=selectedOrderId;
     [orderData getOrderListing:^(OrderModel *userData) {
-        orderDataModel = [userData.orderListingArray objectAtIndex:0];
-        productListArray = [[[userData.orderListingArray objectAtIndex:0] productListingArray] mutableCopy];
-        if (productListArray.count==0) {
-            _noRecordLabel.hidden=NO;
-            _orderDetailTable.hidden = YES;
-            [_orderDetailTable reloadData];
+        if (userData.orderListingArray.count!=0) {
+            orderDataModel = [userData.orderListingArray objectAtIndex:0];
+            productListArray = [[[userData.orderListingArray objectAtIndex:0] productListingArray] mutableCopy];
+            if (productListArray.count==0) {
+                _noRecordLabel.hidden=NO;
+                _orderDetailTable.hidden = YES;
+                [_orderDetailTable reloadData];
+            }
+            else {
+                _noRecordLabel.hidden=YES;
+                _orderDetailTable.hidden = NO;
+                [self setTableFrames];
+                [self performSelector:@selector(getTicketOption) withObject:nil afterDelay:.1];
+            }
         }
         else {
-            _noRecordLabel.hidden=YES;
-            _orderDetailTable.hidden = NO;
-            [self setTableFrames];
-            [self performSelector:@selector(getTicketOption) withObject:nil afterDelay:.1];
+            _noRecordLabel.hidden=NO;
+            _orderDetailTable.hidden = YES;
+        }
+    } onfailure:^(NSError *error) {
+        _noRecordLabel.hidden=NO;
+        _orderDetailTable.hidden = YES;
+    }];
+}
+
+- (void)getOrderReturnStatus {
+    OrderModel * orderData = [OrderModel sharedUser];
+    orderData.pageSize=[NSNumber numberWithInt:0];
+    orderData.currentPage=[NSNumber numberWithInt:0];
+    orderData.orderId=selectedOrderId;
+    [orderData getOrderReturnStatusData:^(OrderModel *userData) {
+        if([userData.orderReturnSuccess intValue]==1) {
+        _cancelOrderButton.userInteractionEnabled=false;
+        _cancelOrderButton.alpha=0.3;
         }
     } onfailure:^(NSError *error) {
         _noRecordLabel.hidden=NO;
@@ -314,6 +341,9 @@
     OrderModel *orderData = [OrderModel sharedUser];
     orderData.orderId = orderDataModel.orderId;
     [orderData getTicketOption:^(OrderModel *userData) {
+          if ([[[UserDefaultManager getValue:@"orderStatuses"] objectForKey:@"complete"] containsString:[orderDataModel.orderState lowercaseString]]) {
+              [self getOrderReturnStatus];
+          }
         ticketArray = userData.ticketListingArray;
         [myDelegate stopIndicator];
         [_orderDetailTable reloadData];

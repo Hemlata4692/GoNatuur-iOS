@@ -18,6 +18,11 @@
 #import "ProductDetailViewController.h"
 #import "EventDetailViewController.h"
 #import "NewsCentreDetailViewController.h"
+#import "ProductDetailViewController.h"
+#import "ProfileViewController.h"
+#import "ProductListingViewController.h"
+#import "OrderDetailViewController.h"
+#import "NotificationDataModel.h"
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -45,6 +50,9 @@
 @synthesize shareEventIdDataDict;
 @synthesize isShareUrlScreen;
 @synthesize recentlyViewedItemsArrayGuest;
+@synthesize screenTargetId;
+@synthesize isNotificationArrived;
+@synthesize notificationType;
 
 #pragma mark - Global indicator
 //Show indicator
@@ -207,7 +215,16 @@
 #pragma mark - UNUserNotificationCenter Delegate // >= iOS 10
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSLog(@"User Info = %@",response.notification.request.content.userInfo);
+    [self notifcationResponseDict:response.notification.request.content.userInfo];
+}
 
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+       willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    NSLog( @"Handle push from foreground" );
+    // custom code to handle push while app is in the foreground
+    NSLog(@"%@", notification.request.content.userInfo);
+    completionHandler(UNNotificationPresentationOptionAlert);
 }
 #pragma mark - end
 
@@ -216,6 +233,7 @@
     NSString *tokenString = [[token description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     tokenString = [tokenString stringByReplacingOccurrencesOfString:@" " withString:@""];
     deviceToken = tokenString;
+    [UserDefaultManager setValue:deviceToken key:@"deviceToken"];
     NSLog(@"My device token is: %@", deviceToken);
 }
 
@@ -232,11 +250,27 @@
     [UIApplication sharedApplication].applicationIconBadgeNumber=0;
     NSDictionary *dict = [userInfo objectForKey:@"aps"] ;
     NSLog(@"notification response === %@",dict);
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-        //if app is in active state
-    } else {
-        //if app is not active
-    }
+    [self markNotificationAsRead:dict[@"notification_id"]];
+    self.screenTargetId=dict[@"targat_id"];
+    self.notificationType=[dict[@"type"] intValue];
+    isNotificationArrived=@"1";
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController * objReveal = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window setRootViewController:objReveal];
+    [self.window setBackgroundColor:[UIColor whiteColor]];
+    [self.window makeKeyAndVisible];
+}
+
+- (void)markNotificationAsRead:(NSString *)notificationId {
+    NotificationDataModel *notificationList = [NotificationDataModel sharedUser];
+    notificationList.notificationId=notificationId;
+    [notificationList markNotificationRead:^(NotificationDataModel *userData) {
+        userData.notificationStatus=@"1";
+        [myDelegate stopIndicator];
+    } onfailure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)showNotificationAlert:(NSString *)message {
@@ -334,6 +368,7 @@
 
 #pragma mark - Logout user
 - (void)logoutUser {
+    [myDelegate unregisterForRemoteNotifications];
     //Logout user
     [UserDefaultManager removeValue:@"quoteCount"];
     [UserDefaultManager removeValue:@"userId"];

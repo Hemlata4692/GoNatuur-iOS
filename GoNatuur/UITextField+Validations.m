@@ -60,22 +60,23 @@
                                                  }
      ];
 }
+
 - (BOOL)isValidAmericanExpress {
-    NSString *emailRegEx = @"(?:3[47][0-9]{13})";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
-    return [emailTest evaluateWithObject:self.text];
+    NSString *validCard = @"(?:3[47][0-9]{13})";
+    NSPredicate *cardTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validCard];
+    return [cardTest evaluateWithObject:self.text];
 }
 
 - (BOOL)isValidVisaCard {
-    NSString *emailRegEx = @"(?:4[0-9]{12}(?:[0-9]{3})?)";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
-    return [emailTest evaluateWithObject:self.text];
+    NSString *validCard = @"(?:4[0-9]{12}(?:[0-9]{3})?)";
+    NSPredicate *cardTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validCard];
+    return [cardTest evaluateWithObject:self.text];
 }
 
 - (BOOL)isValidMasterCard {
-    NSString *emailRegEx = @"(?:5[1-5][0-9]{14})";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
-    return [emailTest evaluateWithObject:self.text];
+    NSString *validCard = @"(?:5[1-5][0-9]{14})";
+    NSPredicate *cardTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", validCard];
+    return [cardTest evaluateWithObject:self.text];
 }
 
 - (BOOL)isValidDiscoverCard {

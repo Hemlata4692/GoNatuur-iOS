@@ -39,6 +39,11 @@
 @synthesize extensionAttributeDict;
 @synthesize couponCode;
 @synthesize isCouponApplied;
+@synthesize clearCartEnabled;
+@synthesize orderIncrementId;
+@synthesize selectedCarrierCode;
+@synthesize allProductsAreEvents;
+@synthesize paymentMethodArray;
 
 - (id)copyWithZone:(NSZone *)zone {
     CartDataModel *another = [[CartDataModel alloc] init];
@@ -70,6 +75,9 @@
     another.isSimpleProductExist= [self.isSimpleProductExist copyWithZone: zone];
     another.extensionAttributeDict= [self.extensionAttributeDict copyWithZone: zone];
     another.couponCode= [self.couponCode copyWithZone: zone];
+    another.selectedCarrierCode= [self.selectedCarrierCode copyWithZone: zone];
+    another.allProductsAreEvents=[self.allProductsAreEvents copyWithZone: zone];
+    another.paymentMethodArray=[self.paymentMethodArray copyWithZone:zone];
     return another;
 }
 
@@ -87,6 +95,18 @@
 #pragma mark - Cart listing data
 - (void)getCartListingData:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure{
     [[ConnectionManager sharedManager] getCartListing:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Payment methods for events
+- (void)getPaymentMethodsForEvents:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] fetchPaymentMethods:self onSuccess:^(CartDataModel *userData) {
         if (success) {
             success (userData);
         }
@@ -123,6 +143,18 @@
 #pragma mark - Fetch checkout promos
 - (void)fetchCheckoutPromosOnSuccess:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
     [[ConnectionManager sharedManager] fetchCheckoutPromos:self onSuccess:^(CartDataModel *userData) {
+        if (success) {
+            success (userData);
+        }
+    } onFailure:^(NSError *error) {
+        
+    }] ;
+}
+#pragma mark - end
+//setBillingAddress
+#pragma mark - Set billing address
+- (void)setBillingAddress:(void (^)(CartDataModel *))success onfailure:(void (^)(NSError *))failure {
+    [[ConnectionManager sharedManager] setUpdatedBillingAddressService:self onSuccess:^(CartDataModel *userData) {
         if (success) {
             success (userData);
         }
@@ -223,7 +255,7 @@
             success (userData);
         }
     } onFailure:^(NSError *error) {
-        
+        failure(error);
     }] ;
 }
 #pragma mark - end

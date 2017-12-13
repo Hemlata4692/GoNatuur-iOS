@@ -57,18 +57,14 @@
 
 #pragma mark - Webview delegates
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+
     if ([[request.URL absoluteString] isEqualToString:[NSString stringWithFormat:@"%@%@%s",BaseUrl,[UserDefaultManager getValue:@"Language"],"/checkout/onepage/success/"]]) {
+        UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ThankYouViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
+        nextView.cartListDataArray = cartListDataArray;
+        nextView.finalCheckoutPriceDict=finalCheckoutPriceDict;
+        [self.navigationController pushViewController:nextView animated:YES];
     }
-    
-   else if ([[request.URL absoluteString] containsString:[NSString stringWithFormat:@"%@%@%s",BaseUrl,[UserDefaultManager getValue:@"Language"],"/checkout/onepage/success/"]]) {
-       NSArray *items = [[request.URL absoluteString] componentsSeparatedByString:@"/"];
-           UIStoryboard *sb=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-           ThankYouViewController * nextView=[sb instantiateViewControllerWithIdentifier:@"ThankYouViewController"];
-           nextView.orderId = [items objectAtIndex:items.count - 2];
-           nextView.cartListDataArray = cartListDataArray;
-           nextView.finalCheckoutPriceDict=finalCheckoutPriceDict;
-           [self.navigationController pushViewController:nextView animated:YES];
-   }
     return YES;
 
 }
@@ -79,11 +75,6 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [myDelegate stopIndicator];
-//    SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
-//    [alert addButton:NSLocalizedText(@"alertOk") actionBlock:^(void) {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }];
-//    [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"somethingWrongMessage")  closeButtonTitle:nil duration:0.0f];
 }
 #pragma mark - end
 

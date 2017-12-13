@@ -19,4 +19,6 @@
 - (void)getTicketOption:(OrderModel *)orderData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 // Get order invoice
 - (void)getOrderInvoice:(OrderModel *)orderData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
+// Return order service
+- (void)getOrderStatusReturnData:(OrderModel *)orderData onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 @end

@@ -88,6 +88,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewDidDisappear:YES];
+    myDelegate.isNotificationArrived=@"0";
+}
 #pragma mark - end
 
 #pragma mark - Initialized view

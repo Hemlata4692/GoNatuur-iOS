@@ -112,6 +112,7 @@
 - (void)sendDevcieToken:(LoginModel *)userData onSuccess:(void (^)(LoginModel *userData))success onFailure:(void (^)(NSError *))failure {
     LoginService *loginService = [[LoginService alloc] init];
     [loginService saveDeviceTokenService:userData onSuccess:^(id response) {
+         NSLog(@"saveDeviceTokenServicee %@",response);
         success(userData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -1088,6 +1089,20 @@
     }] ;
 }
 #pragma mark - end
+//setShippingLatLongService
+
+#pragma mark - Shipping lat long service
+- (void)setShippingLatLongService:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
+    ProfileService *profileService = [[ProfileService alloc] init];
+    [profileService shippingaddressLatLongService:profileData onSuccess:^(id response) {
+        //Parse data from server response and store in data model
+        DLog(@"Shipping response %@",response);
+        success(profileData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
 
 #pragma mark - Country list service
 - (void)getCountryCodeService:(ProfileModel *)profileData onSuccess:(void (^)(ProfileModel *profileData))success onFailure:(void (^)(NSError *))failure {
@@ -1139,7 +1154,7 @@
     ProfileService *profileService = [[ProfileService alloc] init];
     [profileService getUserProfileServiceData:profileData onSuccess:^(id response) {
         //Parse data from server response and store in data model
-        DLog(@"user profile response %@",response);
+        NSLog(@"user profile response %@",response);
         profileData.firstName=response[@"firstname"];
         profileData.lastName=response[@"lastname"];
         profileData.email=response[@"email"];
@@ -1220,6 +1235,22 @@
     }] ;
 }
 #pragma mark - end
+//fetchPaymentMethods
+
+#pragma mark - Payment methods
+- (void)fetchPaymentMethods:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList fetchPaymentMethodsOnService:cartData success:^(id response) {
+        cartData.paymentMethodArray=[response mutableCopy];
+        cartData.checkoutFinalData = [[NSMutableDictionary alloc]init];
+        [cartData.checkoutFinalData setObject:cartData.paymentMethodArray forKey:@"payment_methods"];
+        DLog(@"Payment response %@",response);
+        success(cartData);
+    }
+                   onfailure:^(NSError *error) {
+                   }];
+}
+#pragma mark - end
 
 #pragma mark - Cart module services
 //Cart listing service
@@ -1234,17 +1265,6 @@
         cartData.customerDict=[NSMutableDictionary new];
         cartData.extensionAttributeDict=[NSMutableDictionary new];
         cartData.customerSavedAddressArray=[NSMutableArray new];
-        //        cartData.selectedShippingMethod=@"";
-        //        if ((nil==[UserDefaultManager getValue:@"userId"])){
-        //            int cartCount=0;
-        //            for (NSDictionary *tempDict in response) {
-        //                cartCount+=[tempDict[@"qty"] intValue];
-        //                [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
-        //            }
-        //            cartData.itemQty=[NSNumber numberWithInt:cartCount];
-        //            cartData.selectedShippingMethod=@"";
-        //        }
-        //        else {
         cartData.extensionAttributeDict=[response objectForKey:@"extension_attributes"];
         cartData.billingAddressDict=[response[@"billing_address"] mutableCopy];
         cartData.customerDict=[response[@"customer"] mutableCopy];
@@ -1256,7 +1276,6 @@
         for (NSDictionary *tempDict in response[@"items"]) {
             [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
         }
-        //        }
         success(cartData);
     }
                    onfailure:^(NSError *error) {
@@ -1365,6 +1384,19 @@
 }
 #pragma mark - end
 
+#pragma mark - Set billing addresses
+- (void)setUpdatedBillingAddressService:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
+    CartService *cartList=[[CartService alloc]init];
+    [cartList setUpdatedBillingAddressMethodsService:cartData success:^(id response) {
+        DLog(@"Set billing addresses response %@",response);
+//        cartData.checkoutFinalData=[response mutableCopy];
+        success(cartData);
+    }
+                                            onfailure:^(NSError *error) {
+                                            }];
+}
+#pragma mark - end
+
 #pragma mark - Search list by name data
 - (void)getProductListByNameService:(SearchDataModel *)searchData success:(void (^)(id))success onfailure:(void (^)(NSError *))failure {
     SearchService *serachSuggestions=[[SearchService alloc]init];
@@ -1440,6 +1472,19 @@
             //Use reusable code order detail handling
             [orderData.orderListingArray addObject:[self orderDetailHandling:orderDataDict orderDataModel:orderListData isOrderInvoice:false]];
         }
+        success(orderData);
+    } onFailure:^(NSError *error) {
+        failure(error);
+    }] ;
+}
+#pragma mark - end
+
+#pragma mark - Get order return status
+- (void)getOrderReturnStatus:(OrderModel *)orderData onSuccess:(void (^)(OrderModel *orderData))success onFailure:(void (^)(NSError *))failure {
+    OrderService *orderService = [[OrderService alloc] init];
+    [orderService getOrderStatusReturnData:orderData onSuccess:^(id response) {
+        DLog(@"order status response %@",response);
+        orderData.orderReturnSuccess=response[@"return_status"];
         success(orderData);
     } onFailure:^(NSError *error) {
         failure(error);
@@ -1918,12 +1963,18 @@
 - (void)clearCart:(CartDataModel *)cartData onSuccess:(void (^)(CartDataModel *userData))success onFailure:(void (^)(NSError *))failure {
     CartService *cartList=[[CartService alloc]init];
     [cartList clearCart:cartData success:^(id response) {
-        DLog(@"clearCart response %@",response);
-        NSString *quoteId = [(NSString *)response stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-        [UserDefaultManager setValue:quoteId forKey:@"quoteId"];
+        NSLog(@"clearCart response %@",response);
+        if ([cartData.clearCartEnabled isEqualToString:@"1"]) {
+            [UserDefaultManager setValue:[(NSString *)response stringByReplacingOccurrencesOfString:@"\"" withString:@""] key:@"quoteId"];
+
+        }
+        else {
+            cartData.orderIncrementId=response[@"reserved_order_id"];
+        }
         success(cartData);
     }
               onfailure:^(NSError *error) {
+                  failure(error);
               }];
 }
 #pragma mark - end
