@@ -1128,7 +1128,6 @@
     }];
 }
 
-
 //Set addresses and shipping methods
 - (void)setUpdatedAddressShippingMethods:(NSNumber *)serviceType {
     if ([cartModelData.selectedShippingMethod isEqualToString:@""]) {

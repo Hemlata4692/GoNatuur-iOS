@@ -1272,7 +1272,8 @@
         cartData.customerSavedAddressArray=[cartData.customerDict[@"addresses"] mutableCopy];
         if ([[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] count]>0) {
             cartData.shippingAddressDict=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"];
-            cartData.selectedShippingMethod=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"method"];
+            cartData.selectedShippingMethod=@"";
+//            cartData.selectedCarrierCode=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"method"];
         }
         for (NSDictionary *tempDict in response[@"items"]) {
             [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
@@ -1952,8 +1953,6 @@
     CartService *cartList=[[CartService alloc]init];
     [cartList getShippingMethod:cartData success:^(id response) {
         DLog(@"Get shipping method response %@",response);
-//        cartData.selectedShippingMethod=[response objectForKey:@"method_code"];
-//        cartData.selectedCarrierCode=[response objectForKey:@"carrier_code"];
         cartData.selectedShippingMethod=[[response objectAtIndex:0] objectForKey:@"method_code"];
          cartData.selectedCarrierCode=[[response objectAtIndex:0] objectForKey:@"carrier_code"];
         success(cartData);

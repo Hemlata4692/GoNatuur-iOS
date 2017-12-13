@@ -80,6 +80,7 @@
     another.allProductsAreEvents=[self.allProductsAreEvents copyWithZone: zone];
     another.paymentMethodArray=[self.paymentMethodArray copyWithZone:zone];
     another.creditLimit=[self.creditLimit copyWithZone:zone];
+     another.selectedCarrierCode= [self.selectedCarrierCode copyWithZone: zone];
     return another;
 }
 
