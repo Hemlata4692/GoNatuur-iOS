@@ -111,41 +111,14 @@
                 [self.navigationController pushViewController:obj animated:YES];
             }
                 break;
-            case 5 :{
-                // navigate to order details
-                OrderDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
-                obj.selectedOrderId=myDelegate.screenTargetId;
-                [self.navigationController pushViewController:obj animated:YES];
-            }
-            case 6 :{
-                // navigate to order details
-                OrderDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
-                obj.selectedOrderId=myDelegate.screenTargetId;
-                [self.navigationController pushViewController:obj animated:YES];
-            }
-            case 7 :{
-                // navigate to order details
-                OrderDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
-                obj.selectedOrderId=myDelegate.screenTargetId;
-                [self.navigationController pushViewController:obj animated:YES];
-            }
-            case 8 :{
-                // navigate to order details
-                OrderDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
-                obj.selectedOrderId=myDelegate.screenTargetId;
-                [self.navigationController pushViewController:obj animated:YES];
-            }
-            case 9 : {
-                // navigate to order details
-                OrderDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
-                obj.selectedOrderId=myDelegate.screenTargetId;
-                [self.navigationController pushViewController:obj animated:YES];
-            }
+            case 5 :
+            case 6 :
+            case 7 :
+            case 8 :
+            case 9 :
             case 11 :{
                 // navigate to order details
-                OrderDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
-                obj.selectedOrderId=myDelegate.screenTargetId;
-                [self.navigationController pushViewController:obj animated:YES];
+                [self navigateToOrderDetail];
             }
                 break;
             case 10 :{
@@ -177,6 +150,13 @@
         [self performSelector:@selector(getDashboardData) withObject:nil afterDelay:.1];
     }
     }
+}
+
+- (void)navigateToOrderDetail {
+    // navigate to order details
+    OrderDetailViewController *obj = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"OrderDetailViewController"];
+    obj.selectedOrderId=myDelegate.screenTargetId;
+    [self.navigationController pushViewController:obj animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
