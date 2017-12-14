@@ -10,8 +10,6 @@
 #import <UIKit/UIKit.h>
 #import <GoogleSignIn/GoogleSignIn.h>
 
-
-
 @interface GmailSignInConnect : NSObject<GIDSignInUIDelegate> {
 }
 

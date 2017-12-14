@@ -51,5 +51,7 @@
 - (BOOL)isStatusOK:(id)responseObject;
 //end
 
+//Weibo data
+- (void)getWeiboData:(NSString *)path parameters:(NSDictionary *)parameters onSuccess:(void (^)(id))success onFailure:(void (^)(NSError *))failure;
 
 @end

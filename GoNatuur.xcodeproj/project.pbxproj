@@ -78,6 +78,9 @@
 		1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875619C1F46AAC500F609AB /* dashboard_banner2.png */; };
 		1877FA9B1FC54F8A009B44D4 /* AccountSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1877FA9A1FC54F8A009B44D4 /* AccountSettingViewController.m */; };
 		187A89B91F6F93EB00E7431A /* ProductGuideSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */; };
+		188085221FE2753A00E4BAF8 /* WeiboAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 188085201FE25BF700E4BAF8 /* WeiboAccess.m */; };
+		188085231FE2755C00E4BAF8 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1880851D1FE25BBE00E4BAF8 /* libWeiboSDK.a */; };
+		188085241FE2756000E4BAF8 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 188085191FE25BBC00E4BAF8 /* WeiboSDK.bundle */; };
 		1881C8FD1FC43C23001B587F /* ImpactPointsHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881C8FC1FC43C23001B587F /* ImpactPointsHistoryViewController.m */; };
 		1881C9021FC43C58001B587F /* ImapctPointHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881C9011FC43C58001B587F /* ImapctPointHistoryTableViewCell.m */; };
 		188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1886058F1F39AF320005D1E2 /* UserNotifications.framework */; };
@@ -324,6 +327,19 @@
 		1877FA9A1FC54F8A009B44D4 /* AccountSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountSettingViewController.m; sourceTree = "<group>"; };
 		187A89B71F6F93EB00E7431A /* ProductGuideSearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGuideSearchListViewController.h; sourceTree = "<group>"; };
 		187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGuideSearchListViewController.m; sourceTree = "<group>"; };
+		188085151FE25BBA00E4BAF8 /* WBHttpRequest+WeiboUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboUser.h"; sourceTree = "<group>"; };
+		188085161FE25BBA00E4BAF8 /* WBSDKBasicButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBSDKBasicButton.h; sourceTree = "<group>"; };
+		188085171FE25BBA00E4BAF8 /* WeiboUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeiboUser.h; sourceTree = "<group>"; };
+		188085181FE25BBA00E4BAF8 /* WeiboSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
+		188085191FE25BBC00E4BAF8 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
+		1880851A1FE25BBC00E4BAF8 /* WBHttpRequest+WeiboToken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboToken.h"; sourceTree = "<group>"; };
+		1880851B1FE25BBC00E4BAF8 /* WBHttpRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
+		1880851C1FE25BBC00E4BAF8 /* WBSDKCommentButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBSDKCommentButton.h; sourceTree = "<group>"; };
+		1880851D1FE25BBE00E4BAF8 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
+		1880851E1FE25BBE00E4BAF8 /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
+		1880851F1FE25BBE00E4BAF8 /* WBSDKRelationshipButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBSDKRelationshipButton.h; sourceTree = "<group>"; };
+		188085201FE25BF700E4BAF8 /* WeiboAccess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeiboAccess.m; sourceTree = "<group>"; };
+		188085211FE25BF700E4BAF8 /* WeiboAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeiboAccess.h; sourceTree = "<group>"; };
 		1881C8FB1FC43C23001B587F /* ImpactPointsHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImpactPointsHistoryViewController.h; sourceTree = "<group>"; };
 		1881C8FC1FC43C23001B587F /* ImpactPointsHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImpactPointsHistoryViewController.m; sourceTree = "<group>"; };
 		1881C9001FC43C58001B587F /* ImapctPointHistoryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImapctPointHistoryTableViewCell.h; sourceTree = "<group>"; };
@@ -592,6 +608,7 @@
 				181FD2201F60194700C5373C /* SafariServices.framework in Frameworks */,
 				187129091F48DD2B00D16581 /* MediaPlayer.framework in Frameworks */,
 				1818444B1F70E0600077E48C /* ZDCChat.framework in Frameworks */,
+				188085231FE2755C00E4BAF8 /* libWeiboSDK.a in Frameworks */,
 				188605901F39AF320005D1E2 /* UserNotifications.framework in Frameworks */,
 				32A3D7111F1CE3BB00062B86 /* GoogleSymbolUtilities.framework in Frameworks */,
 				E4031224B023080678A22E66 /* libPods-GoNatuur.a in Frameworks */,
@@ -1072,6 +1089,26 @@
 				187A89B81F6F93EB00E7431A /* ProductGuideSearchListViewController.m */,
 			);
 			name = ProductGuideSearchListing;
+			sourceTree = "<group>";
+		};
+		188085141FE25B7F00E4BAF8 /* WeiboLogin */ = {
+			isa = PBXGroup;
+			children = (
+				188085211FE25BF700E4BAF8 /* WeiboAccess.h */,
+				188085201FE25BF700E4BAF8 /* WeiboAccess.m */,
+				1880851D1FE25BBE00E4BAF8 /* libWeiboSDK.a */,
+				1880851B1FE25BBC00E4BAF8 /* WBHttpRequest.h */,
+				1880851E1FE25BBE00E4BAF8 /* WBHttpRequest+WeiboShare.h */,
+				1880851A1FE25BBC00E4BAF8 /* WBHttpRequest+WeiboToken.h */,
+				188085151FE25BBA00E4BAF8 /* WBHttpRequest+WeiboUser.h */,
+				188085161FE25BBA00E4BAF8 /* WBSDKBasicButton.h */,
+				1880851C1FE25BBC00E4BAF8 /* WBSDKCommentButton.h */,
+				1880851F1FE25BBE00E4BAF8 /* WBSDKRelationshipButton.h */,
+				188085191FE25BBC00E4BAF8 /* WeiboSDK.bundle */,
+				188085181FE25BBA00E4BAF8 /* WeiboSDK.h */,
+				188085171FE25BBA00E4BAF8 /* WeiboUser.h */,
+			);
+			name = WeiboLogin;
 			sourceTree = "<group>";
 		};
 		1881C8FE1FC43C2B001B587F /* ImpactPointCell */ = {
@@ -1794,6 +1831,7 @@
 		32A3D6C01F1CBDE200062B86 /* SocialLogin */ = {
 			isa = PBXGroup;
 			children = (
+				188085141FE25B7F00E4BAF8 /* WeiboLogin */,
 				B77A8A791F346BE900233782 /* SocialLoginButttonView */,
 				32A3D7071F1CD4B500062B86 /* GoogleLogin */,
 				32A3D6C11F1CBDF500062B86 /* FacebookLogin */,
@@ -2650,6 +2688,7 @@
 				187561931F469E1000F609AB /* BottomTabViewController.xib in Resources */,
 				18FB17E41F4EA32200B5A4CD /* MONTSERRAT-LIGHTITALIC.TTF in Resources */,
 				32A3D7161F1CE4A500062B86 /* GoogleService-Info.plist in Resources */,
+				188085241FE2756000E4BAF8 /* WeiboSDK.bundle in Resources */,
 				1875619E1F46AAC500F609AB /* dashboard_banner2.png in Resources */,
 				B73A653B1F3DF07F0051E4C5 /* en.strings in Resources */,
 				188605AD1F39D7620005D1E2 /* Montserrat-Light.otf in Resources */,
@@ -2844,6 +2883,7 @@
 				320761831F163B3E001F1790 /* UIView+RoundedCorner.m in Sources */,
 				32A3D6B81F1CBADB00062B86 /* LoginViewController.m in Sources */,
 				188605A51F39C6890005D1E2 /* DynamicHeightWidth.m in Sources */,
+				188085221FE2753A00E4BAF8 /* WeiboAccess.m in Sources */,
 				18C1DF7E1F3CAE96000D9431 /* DasboardDataCollectionViewCell.m in Sources */,
 				B7AA39C51F47116700423121 /* ProductListCollectionViewCell.m in Sources */,
 				B71EFB4D1F712E730033DC52 /* PaymentModel.m in Sources */,

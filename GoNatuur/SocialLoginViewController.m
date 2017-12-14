@@ -9,6 +9,7 @@
 #import "SocialLoginViewController.h"
 #import "FacebookConnect.h"
 #import "GmailSignInConnect.h"
+#import "WeiboAccess.h"
 
 @interface SocialLoginViewController () <FacebookDelegate,GIDSignInDelegate,GIDSignInUIDelegate>
 
@@ -57,7 +58,25 @@
 }
 
 - (IBAction)loginWithWiebo:(id)sender {
-    [_delegate socialLoginResponse:WeiboLogin result:@{}];
+     myDelegate.selectedLoginType=WeiboLogin;
+    [[WeiboAccess defaultAccess] login:^(BOOL succeeded, id responseObject) {
+        if (succeeded) {
+            NSLog(@"login response %@",responseObject);
+            NSString *accessToken=[responseObject objectForKey:@"accessToken"];
+            [[Webservice sharedManager] getWeiboData:[NSString stringWithFormat:@"https://api.weibo.com/2/account/profile/basic.json?access_token=%@",accessToken] parameters:nil onSuccess:^(id response){
+                 NSLog(@"login response %@",response);
+                 [_delegate socialLoginResponse:WeiboLogin result:@{@"email":([response objectForKey:@"email"]!=nil?[response objectForKey:@"email"]:@""), @"id":[response objectForKey:@"id"],@"firstName":([response objectForKey:@"name"]!=nil?[response objectForKey:@"first_name"]:@""),@"lastName":([response objectForKey:@"last_name"]!=nil?[response objectForKey:@"last_name"]:@""),@"imageUrl":[response objectForKey:@"profile_image_url"]}];
+            } onFailure:^(NSError *error) {
+                 NSLog(@"login failure %@",error);
+              }];
+        }
+        else{
+            if (WeiboStatusCodeAuthDeny == [responseObject[WEIBO_STATUS_CODE] integerValue]) {
+                SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
+                [alert showWarning:nil title:NSLocalizedText(@"alertTitle") subTitle:NSLocalizedText(@"weiboError") closeButtonTitle:NSLocalizedText(@"alertOk") duration:0.0f];
+            }
+        }
+    }];
 }
 
 - (IBAction)loginWithGoogle:(id)sender {
@@ -74,7 +93,6 @@
 //Facebook delegate method to fetch user data
 - (void) facebookLoginWithReadPermissionResponse:(id)fbResult status:(int)status {
     if (status == 1) {
-        //        [myDelegate stopIndicator];
         //fetched data from facebook login
         DLog(@"facebookResult is %@", fbResult);
         DLog(@"facebookUserEmailId: %@",[fbResult objectForKey:@"email"]);
@@ -118,4 +136,22 @@
     }
 }
 #pragma mark - end
+
+//#pragma mark - Weibo delegate
+//- (void)request:(WBHttpRequest *)request didFinishLoadingWithResult:(NSString *)result {
+//    NSLog(@"%@",[NSString stringWithFormat:@"%@",result]);
+//}
+//
+//- (void)request:(WBHttpRequest *)request didFailWithError:(NSError *)error; {
+//    NSString *title = nil;
+//    UIAlertView *alert = nil;
+//    title = NSLocalizedString(@"请求异常", nil);
+//    alert = [[UIAlertView alloc] initWithTitle:title
+//                                       message:[NSString stringWithFormat:@"%@",error]
+//                                      delegate:nil
+//                             cancelButtonTitle:NSLocalizedString(@"确定", nil)
+//                             otherButtonTitles:nil];
+//    [alert show];
+//}
+//#pragma mark - end
 @end

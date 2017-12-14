@@ -375,3 +375,4 @@
 "validYear"="Please enter a valid year.";
 "validCVV"="Please enter a valid CVV.";
 "invalidCard"="Invalid card number.";
+"weiboError"="SSO package or sign in error";

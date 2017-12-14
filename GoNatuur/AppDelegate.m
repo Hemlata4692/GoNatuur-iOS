@@ -23,6 +23,7 @@
 #import "ProductListingViewController.h"
 #import "OrderDetailViewController.h"
 #import "NotificationDataModel.h"
+#import "WeiboAccess.h"
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -90,8 +91,7 @@
 #pragma mark - Application life cycle
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
- 
-   // Call crashlytics method
+    // Call crashlytics method
     [self performSelector:@selector(installUncaughtExceptionHandler) withObject:nil afterDelay:0];
     
     firstTime=true;
@@ -106,13 +106,19 @@
     }
     
     [NSThread sleepForTimeInterval:1.0];
-        //Set navigation bar color
-   [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont montserratMediumWithSize:20], NSFontAttributeName, nil]];
+    //Set navigation bar color
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont montserratMediumWithSize:20], NSFontAttributeName, nil]];
     //Values initialized
     [self initializedValues];
     //Connect appdelegate to facebook delegate
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
+    
+    //connect app to weibo
+    [WeiboAccess registerApp];
+#ifdef DEBUG
+    [WeiboAccess enableDebugMode:YES];
+#endif
     
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     navigationController = (UINavigationController *)[self.window rootViewController];
@@ -320,14 +326,27 @@
 }
 #pragma mark - end
 
-#pragma mark - Facebook open url connection
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    return [WeiboAccess handleOpenURL:url];
+}
+
+
+#pragma mark - Facebook/Weibo open url connection
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if (selectedLoginType==FacebookLogin) {
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url
                                                 sourceApplication:sourceApplication
                                                        annotation:annotation
             ];
+    }
+    else if (selectedLoginType==WeiboLogin) {
+        return [self application:application handleOpenURL:url];
+    }
+    else {
+        return nil;
+    }
 }
 #pragma mark - end
 

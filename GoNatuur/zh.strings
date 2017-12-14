@@ -395,3 +395,4 @@
 "validYear"="請輸入有效年份。";
 "validCVV"="請輸入有效的CVV。";
 "invalidCard"="無效卡號。";
+"weiboError"="SSO package or sign in error";

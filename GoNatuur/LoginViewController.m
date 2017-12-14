@@ -332,7 +332,7 @@
 - (void)socialLoginResponse:(ConstantType)option result:(NSDictionary *)result {
     [_scrollView setContentOffset:CGPointMake(0, 0) animated:false];
     [_keyboardControls.activeField resignFirstResponder];
-    if (option==FacebookLogin || option==GoogleLogin) {
+    if (option==FacebookLogin || option==GoogleLogin || option==WeiboLogin) {
         isSocialLogin=1;
         socialLoginID=[result objectForKey:@"id"];
         _emailTextField.text=[result objectForKey:@"email"];

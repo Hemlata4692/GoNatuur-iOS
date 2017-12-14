@@ -385,3 +385,4 @@
 "validYear"="请输入有效年份。";
 "validCVV"="请输入有效的CVV.";
 "invalidCard"="无效卡号.";
+"weiboError"="SSO package or sign in error";
