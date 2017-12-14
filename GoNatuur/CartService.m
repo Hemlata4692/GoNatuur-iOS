@@ -224,7 +224,6 @@ static NSString *kPaymentMethodsForGuest=@"carts/mine/payment-methods";
     else {
         [super post:kcheckoutShippingInformationManagementV1 parameters:parameters success:success failure:failure];
     }
-    
 }
 #pragma mark - end
 

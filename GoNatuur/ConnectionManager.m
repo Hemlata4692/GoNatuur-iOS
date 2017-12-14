@@ -1273,7 +1273,6 @@
         if ([[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] count]>0) {
             cartData.shippingAddressDict=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"address"];
             cartData.selectedShippingMethod=@"";
-//            cartData.selectedCarrierCode=[[[[[response objectForKey:@"extension_attributes"] objectForKey:@"shipping_assignments"] objectAtIndex:0] objectForKey:@"shipping"] objectForKey:@"method"];
         }
         for (NSDictionary *tempDict in response[@"items"]) {
             [cartData.itemList addObject:[self loadCartListData:[tempDict copy]]];
