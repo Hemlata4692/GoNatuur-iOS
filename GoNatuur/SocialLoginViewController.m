@@ -63,9 +63,12 @@
         if (succeeded) {
             NSLog(@"login response %@",responseObject);
             NSString *accessToken=[responseObject objectForKey:@"accessToken"];
-            [[Webservice sharedManager] getWeiboData:[NSString stringWithFormat:@"https://api.weibo.com/2/account/profile/basic.json?access_token=%@",accessToken] parameters:nil onSuccess:^(id response){
+             NSString *userID=[responseObject objectForKey:@"userID"];
+            //email fetch : https://api.weibo.com/2/account/profile/basic.json
+            //https://api.weibo.com/2/users/show.json?uid=6272175604&access_token=2.00e56TqGXA28ECd7e51aaac60BKixb
+            [[Webservice sharedManager] getWeiboData:[NSString stringWithFormat:@"https://api.weibo.com/2/users/show.json?uid=%@&access_token=%@",userID,accessToken] parameters:nil onSuccess:^(id response){
                  NSLog(@"login response %@",response);
-                 [_delegate socialLoginResponse:WeiboLogin result:@{@"email":([response objectForKey:@"email"]!=nil?[response objectForKey:@"email"]:@""), @"id":[response objectForKey:@"id"],@"firstName":([response objectForKey:@"name"]!=nil?[response objectForKey:@"first_name"]:@""),@"lastName":([response objectForKey:@"last_name"]!=nil?[response objectForKey:@"last_name"]:@""),@"imageUrl":[response objectForKey:@"profile_image_url"]}];
+                 [_delegate socialLoginResponse:WeiboLogin result:@{@"email":([response objectForKey:@"email"]!=nil?[response objectForKey:@"email"]:@""), @"id":[response objectForKey:@"id"],@"firstName":([response objectForKey:@"name"]!=nil?[response objectForKey:@"name"]:@""),@"lastName":([response objectForKey:@"last_name"]!=nil?[response objectForKey:@"last_name"]:@""),@"imageUrl":[response objectForKey:@"avatar_hd"]}];
             } onFailure:^(NSError *error) {
                  NSLog(@"login failure %@",error);
               }];
